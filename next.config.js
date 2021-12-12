@@ -1,3 +1,4 @@
+const path = require('path');
 const { locales } = require('./lingui.config');
 
 /** @type {import('next').NextConfig} */
@@ -7,6 +8,12 @@ module.exports = {
     defaultLocale: 'fr',
   },
   reactStrictMode: true,
+  sassOptions: {
+    includePaths: [
+      path.join(__dirname, 'styles'),
+      path.join(__dirname, 'node_modules'),
+    ],
+  },
   webpack: (config) => {
     config.module.rules.push(
       {
