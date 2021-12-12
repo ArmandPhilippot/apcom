@@ -6,3 +6,10 @@
  * Import each files separately to define vendors styles order.
  */
 @use "modern-normalize";
+
+/**
+ * 2.0. Base
+ *
+ * Define some standard styles and CSS variables (colors, fonts...).
+ */
+@use "base/fonts";
