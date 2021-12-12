@@ -22,18 +22,25 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "i18n:compile": "lingui compile",
+    "i18n:extract": "NODE_ENV=development lingui extract",
     "release": "standard-version -s"
   },
   "dependencies": {
+    "@lingui/react": "^3.13.0",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
+    "@lingui/cli": "^3.13.0",
+    "@lingui/macro": "^3.13.0",
     "@types/node": "16.11.12",
     "@types/react": "17.0.37",
+    "babel-plugin-macros": "^3.1.0",
     "eslint": "^8.4.1",
     "eslint-config-next": "^12.0.7",
     "eslint-config-prettier": "^8.3.0",
