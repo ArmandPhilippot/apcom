@@ -1,0 +1,159 @@
+@use "sass:map";
+@use "sass:math";
+@use "@styles/abstracts/functions" as fun;
+
+//===========================================================================
+// Ratios
+//===========================================================================
+
+/// Ratios map
+/// @prop {String} keys - Keys are identifiers mapped to a given ratio
+/// @prop {Map} value - Value is actual ratio
+$ratios: (
+  "minor-second": 1.067,
+  "major-second": 1.125,
+  "minor-third": 1.2,
+  "major-third": 1.25,
+  "perfect-fourth": 1.333,
+  "augmented-fourth": 1.414,
+  "perfect-fifth": 1.5,
+  "golden-number": 1.618,
+);
+
+// I cannot declare the following function with others functions due to module
+// loop. But, it will only be used in this file so it is not really a problem.
+
+/// Get ratio
+/// @param {String} $name - Ratio name.
+/// @return {Integer} The ratio value.
+@function get-ratio($name) {
+  @return map.get($ratios, $name);
+}
+
+//===========================================================================
+// Layout
+//===========================================================================
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  "xs": fun.convert-px(600, "em"),
+  "sm": fun.convert-px(800, "em"),
+  "md": fun.convert-px(1280, "em"),
+  "lg": fun.convert-px(1600, "em"),
+);
+
+//===========================================================================
+// Fonts
+//===========================================================================
+
+/* stylelint-disable -- Fonts name are not keywords, lowercase is not needed. */
+/// Regular font family
+/// @type List
+$font-family_primary: ("Inter", "Liberation Sans", Arial, sans-serif);
+
+/// Alternative regular font family
+/// @type List
+$font-family_secondary: ("Kanit", "Liberation Sans", Arial, sans-serif);
+
+/// Monospace font family
+/// @type List
+$font-family_mono: (
+  "Cousine",
+  "Liberation Mono",
+  "DejaVu Sans Mono",
+  "Courier New",
+  monospace
+);
+/* stylelint-enable */
+
+$line-height: get-ratio("golden-number");
+
+$font-size_base: 16px;
+$font-size_base-rem: fun.convert-px(16); // font-size_base without unit
+$font-size_ratio: get-ratio("minor-third");
+$font-size_levels: "sm", "md", "lg", "xl", "2xl", "3xl", "4xl";
+
+// We start with small font-size, so it needs to be less than $font-size_base.
+$font-size_current: math.div($font-size_base-rem, $font-size_ratio);
+
+/// Font-sizes map ('sm', 'md', 'lg'...)
+/// @prop {String} keys - Size as key is mapped to a given font-size
+/// @prop {Map} value - Value is actual font-size
+$font-sizes: ();
+
+// We fill our font-sizes map.
+/// Inspired by Stephanie Eckles.
+/// @link https://moderncss.dev/generating-font-size-css-rules-and-creating-a-fluid-type-scale/
+@each $level in $font-size_levels {
+  $font-size_current: $font-size_current * $font-size_ratio;
+  $font-sizes: map.merge(
+    $font-sizes,
+    (
+      $level: $font-size_current,
+    )
+  );
+}
+
+// We cannot declare this function with others functions due to module loop.
+
+/// Get font-size
+/// @param {String} $name - Font-size ('sm', 'md', 'lg'...).
+/// @return {Integer} The font-size value.
+@function font-size($key) {
+  @return map.get($font-sizes, $key);
+}
+
+//============================================================================
+// Spacings
+//============================================================================
+
+$spacing_ratio: get-ratio("golden-number");
+$spacing_base: $spacing_ratio * 1rem;
+
+$spacing_levels: "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl";
+
+// We start with 2xs spacing, so it needs to be less than the base.
+$spacing_current: math.div($spacing_base, $spacing_ratio * 3);
+
+/// Spacings map ('sm', 'md', 'lg'...)
+/// @prop {String} keys - Size as key is mapped to a given spacing
+/// @prop {Map} value - Value is actual spacing
+$spacings: ();
+
+/// We fill our spacings map.
+@each $level in $spacing_levels {
+  $spacing_current: $spacing_current * $spacing_ratio;
+  $spacings: map.merge(
+    $spacings,
+    (
+      $level: $spacing_current,
+    )
+  );
+}
+
+// We cannot declare this function with others functions due to module loop.
+
+/// Get spacing.
+/// @param {String} $name - Spacing size ('sm', 'md', 'lg'...).
+/// @return {Integer} The spacing value.
+@function spacing($key) {
+  @return map.get($spacings, $key);
+}
+
+//============================================================================
+// Colors
+//============================================================================
+
+$color_black: hsl(207, 47%, 11%);
+$color_blue: hsl(206, 75%, 31%);
+$color_blue-bright: hsl(206, 77%, 36%);
+$color_blue-brighter: hsl(200, 75%, 45%);
+$color_blue-dark: hsl(206, 76%, 25%);
+$color_grey: hsl(206, 15%, 80%);
+$color_grey-dark: hsla(206, 10%, 25%);
+$color_grey-dark-o70: hsla(206, 10%, 25%, 0.7);
+$color_orange: hsl(32, 100%, 55%);
+$color_white: hsl(206, 15%, 97%);
+$color_white-o90: hsl(206, 15%, 97%, 0.9);

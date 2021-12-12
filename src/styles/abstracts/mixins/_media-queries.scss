@@ -1,0 +1,82 @@
+@use "../variables" as var;
+@use "sass:map";
+
+/// Media query: media type
+/// @param {String} $type - Media type: all, screen, print, retina.
+/// @example scss - `@media only screen` equivalent is:
+/// @include media("screen");
+@mixin media($type) {
+  @if $type == "retina" {
+    $type: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
+  } @else if $type == "screen" or $type == "print" {
+    $type: "only #{$type}";
+  }
+
+  @media #{$type} {
+    @content;
+  }
+}
+
+/// Media query: min-width / max-width
+/// @param {String} $from - min-width breakpoint.
+/// @param {String} $until - max-width breakpoint.
+/// @example scss - `@media (min-width: "md")` equivalent is:
+/// @include dimensions("md");
+@mixin dimensions($from: null, $until: null) {
+  $query: "";
+
+  @if $from {
+    @if type-of($from) == "string" {
+      $size: map.get(var.$breakpoints, $from);
+      $query: "(min-width: #{$size})";
+    } @else {
+      @error "`$from` must be a string.";
+    }
+  }
+
+  @if $from and $until {
+    $query: $query + " and ";
+  }
+
+  @if $until {
+    @if type-of($until) == "string" {
+      $size: map.get(var.$breakpoints, $until);
+      $size: calc(#{$size} - 1px);
+      $query: $query + "(max-width: #{$size})";
+    } @else {
+      @error "`$until` must be a string.";
+    }
+  }
+
+  @media #{$query} {
+    @content;
+  }
+}
+
+/// Media query: prefers-reduced-motion
+/// @param {String} $value - Media query value: `no-preference` or `reduce`.
+/// @example scss - @media (prefers-reduced-motion: "reduce") equivalent is:
+/// @include motion("reduce");
+@mixin motion($value) {
+  @if $value == "no-preference" or $value == "reduce" {
+    @media (prefers-reduced-motion: #{$value}) {
+      @content;
+    }
+  } @else {
+    @error "Allowed values are `no-preference` and `reduce`.";
+  }
+}
+
+/// Media query: any-pointer
+/// @param {String} $value - Media query value: `fine`, `coarse` or `none`.
+/// @example scss - @media (any-pointer: "fine") equivalent is:
+/// @include pointer("fine");
+@mixin pointer($value) {
+  @if $value == "fine" or $value == "coarse" or $value == "none" {
+    @media (any-pointer: #{$value}) {
+      @content;
+    }
+  } @else {
+    @error "Allowed values are `fine`, `coarse` and `none`.";
+  }
+}

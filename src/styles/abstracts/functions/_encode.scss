@@ -1,0 +1,14 @@
+@use "str-replace" as fun;
+
+/// Encode a SVG.
+/// @param {String} $svg A complete svg (`<svg>...</svg>`).
+/// @return The encoded svg, ready to use for background-image.
+@function encode-svg($svg) {
+  $svg-encoding: (("<", "%3C"), (">", "%3E"), ("#", "%23"));
+
+  @each $char, $encoded in $svg-encoding {
+    $svg: fun.str-replace($svg, $char, $encoded);
+  }
+
+  @return "data:image/svg+xml;utf8," + $svg;
+}

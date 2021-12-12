@@ -1,0 +1,16 @@
+@use "sass:math";
+
+/// Convert px to rem or em.
+/// @param  {Number} $px Value in px
+/// @param  {String} $to Unit. Either "rem" or "em"
+/// @param  {Number} $standard 1rem (or 1em) = 16px
+/// @return {Number} Value in rem or em
+@function convert-px($px, $to: "rem", $standard: 16) {
+  @if $to == "rem" {
+    @return math.div($px, $standard) + 0rem; // stylelint-disable-line
+  } @else if $to == "em" {
+    @return math.div($px, $standard) + 0em; // stylelint-disable-line
+  } @else {
+    @error "`$to` must be either `rem` or `em`.";
+  }
+}
