@@ -1,0 +1,16 @@
+@use "@styles/abstracts/variables" as var;
+
+:root {
+  --color-bg: #{var.$color_white};
+  --color-bg-opacity: #{var.$color_white-o90};
+  --color-fg: #{var.$color_black};
+  --color-fg-inverted: #{var.$color_white};
+  --color-primary: #{var.$color_blue};
+  --color-primary-light: #{var.$color_blue-bright};
+  --color-primary-lighter: #{var.$color_blue-brighter};
+  --color-primary-dark: #{var.$color_blue-dark};
+  --color-border: #{var.$color_grey-dark};
+  --color-border-light: #{var.$color_grey};
+  --color-highlight: #{var.$color_blue-brighter};
+  --color-shadow: #{var.$color_grey-dark-o70};
+}

@@ -12,4 +12,6 @@
  *
  * Define some standard styles and CSS variables (colors, fonts...).
  */
+@use "base/colors";
 @use "base/fonts";
+@use "base/spacings";

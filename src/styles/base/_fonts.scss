@@ -132,3 +132,40 @@
   font-style: normal;
   font-display: swap;
 }
+
+:root {
+  --font-family-primary: #{var.$font-family_primary};
+  --font-family-secondary: #{var.$font-family_secondary};
+  --font-family-mono: #{var.$font-family_mono};
+  --font-size-sm: clamp(
+    #{math.div(var.font-size("sm"), 1.2)},
+    1ex + 1vw,
+    #{var.font-size("sm")}
+  );
+  --font-size-md: clamp(
+    #{var.font-size("sm")},
+    1ex + 2vw,
+    #{var.font-size("md")}
+  );
+  --font-size-lg: clamp(
+    #{var.font-size("md")},
+    1ex + 3vw,
+    #{var.font-size("lg")}
+  );
+  --font-size-xl: clamp(
+    #{var.font-size("lg")},
+    1ex + 4vw,
+    #{var.font-size("xl")}
+  );
+  --font-size-2xl: clamp(
+    #{var.font-size("xl")},
+    1ex + 5vw,
+    #{var.font-size("2xl")}
+  );
+  --font-size-3xl: clamp(
+    #{var.font-size("2xl")},
+    1ex + 6vw,
+    #{var.font-size("3xl")}
+  );
+  --line-height: #{var.$line-height};
+}

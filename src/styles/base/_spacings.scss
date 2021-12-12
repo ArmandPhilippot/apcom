@@ -1,0 +1,25 @@
+@use "@styles/abstracts/variables" as var;
+@use "sass:math";
+
+:root {
+  --spacing-2xs: clamp(
+    #{math.div(var.spacing("2xs"), 1.2)},
+    1ex + 1vw,
+    #{var.spacing("2xs")}
+  );
+  --spacing-xs: clamp(
+    #{math.div(var.spacing("xs"), 1.2)},
+    1ex + 1vw,
+    #{var.spacing("xs")}
+  );
+  --spacing-sm: clamp(
+    #{math.div(var.spacing("sm"), 1.2)},
+    1ex + 1vw,
+    #{var.spacing("sm")}
+  );
+  --spacing-md: clamp(#{var.spacing("sm")}, 1ex + 2vw, #{var.spacing("md")});
+  --spacing-lg: clamp(#{var.spacing("md")}, 1ex + 3vw, #{var.spacing("lg")});
+  --spacing-xl: clamp(#{var.spacing("lg")}, 1ex + 4vw, #{var.spacing("xl")});
+  --spacing-2xl: clamp(#{var.spacing("xl")}, 1ex + 5vw, #{var.spacing("2xl")});
+  --spacing-3xl: clamp(#{var.spacing("2xl")}, 1ex + 6vw, #{var.spacing("3xl")});
+}
