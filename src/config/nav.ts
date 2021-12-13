@@ -7,3 +7,7 @@ export const mainNav: NavItem[] = [
   { id: 'cv', name: t`Resume`, slug: '/cv' },
   { id: 'contact', name: t`Contact`, slug: '/contact' },
 ];
+
+export const footerNav: NavItem[] = [
+  { id: 'legal-notice', name: t`Legal notice`, slug: '/mentions-legales' },
+];
