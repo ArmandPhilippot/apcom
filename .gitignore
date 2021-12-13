@@ -38,3 +38,7 @@ yarn-error.log*
 
 # cache
 .eslintcache
+
+# dotenv
+.env*
+!.env.example
