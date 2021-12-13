@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2021-12-13 12:10+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: fr\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/config/website.ts:5
+msgid "Front-end developer"
+msgstr ""
+
+#. Branding logo.
+#: src/components/Branding/Branding.tsx:17
+msgid "{0} picture"
+msgstr ""

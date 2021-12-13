@@ -1,5 +1,7 @@
 import Layout from '@components/Layouts/Layout';
 import { NextPageWithLayout } from '@ts/types/app';
+import { loadTranslation } from '@utils/helpers/i18n';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
@@ -73,6 +75,19 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const translation = await loadTranslation(
+    ctx.locale!,
+    process.env.NODE_ENV === 'production'
+  );
+
+  return {
+    props: {
+      translation,
+    },
+  };
 };
 
 export default Home;

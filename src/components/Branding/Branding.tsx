@@ -12,7 +12,14 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
-        <Image src={photo} alt={t`${config.name} picture`} layout="intrinsic" />
+        <Image
+          src={photo}
+          alt={t({
+            message: `${config.name} picture`,
+            comment: 'Branding logo.',
+          })}
+          layout="intrinsic"
+        />
       </div>
       {isHome ? (
         <h1 className={styles.name}>

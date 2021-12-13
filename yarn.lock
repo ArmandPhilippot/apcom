@@ -1484,6 +1484,17 @@
     make-plural "^6.2.2"
     messageformat-parser "^4.1.3"
 
+"@lingui/loader@^3.13.0":
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@lingui/loader/-/loader-3.13.0.tgz#9d41cce476bbb782d0d4bde72c2133c28a47808b"
+  integrity sha512-MuLwM6vVMYH/ilCGunNGIPTvZU9gtjaohU54/bDCRbDJ5teN46UKqFTYqP6TwVWa+AF6hRMcgUprBcQJi7Iw8Q==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    "@lingui/cli" "^3.13.0"
+    "@lingui/conf" "^3.13.0"
+    loader-utils "^2.0.0"
+    ramda "^0.27.1"
+
 "@lingui/macro@^3.13.0":
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/@lingui/macro/-/macro-3.13.0.tgz#accb4a97ff7109d76647a1114f6527037cab5fef"
@@ -3457,6 +3468,11 @@ emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
   integrity sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
+
+emojis-list@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
+  integrity sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==
 
 encoding@0.1.13:
   version "0.1.13"
@@ -5477,6 +5493,15 @@ loader-utils@1.2.3:
     big.js "^5.2.2"
     emojis-list "^2.0.0"
     json5 "^1.0.1"
+
+loader-utils@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-2.0.2.tgz#d6e3b4fb81870721ae4e0868ab11dd638368c129"
+  integrity sha512-TM57VeHptv569d/GKh6TAYdzKblwDNiumOdkFnejjD0XwTH87K90w3O7AiJRqdQoXygvi1VQTJTLGhJl7WqA7A==
+  dependencies:
+    big.js "^5.2.2"
+    emojis-list "^3.0.0"
+    json5 "^2.1.2"
 
 locate-path@^2.0.0:
   version "2.0.0"
