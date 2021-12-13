@@ -1,0 +1,44 @@
+@use "@styles/abstracts/functions" as fun;
+
+audio,
+button,
+figure,
+form,
+img,
+input,
+optgroup,
+pre,
+select,
+table,
+textarea,
+video {
+  max-width: 100%;
+}
+
+audio,
+img,
+video {
+  height: auto;
+  vertical-align: middle;
+}
+
+button,
+label,
+summary {
+  cursor: pointer;
+}
+
+body {
+  background: var(--color-bg);
+  border-top: fun.convert-px(5) solid;
+  border-image: radial-gradient(
+      ellipse at top,
+      var(--color-highlight) 20%,
+      var(--color-primary) 100%
+    )
+    5;
+  color: var(--color-fg);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height);
+}
