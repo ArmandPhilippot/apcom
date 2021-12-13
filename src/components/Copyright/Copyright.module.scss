@@ -1,0 +1,15 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.icon {
+  height: fun.convert-px(20);
+}
