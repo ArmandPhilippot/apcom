@@ -1,0 +1,54 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  position: relative;
+
+  &,
+  &::before,
+  &::after {
+    background: var(--color-primary);
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-light) 0%,
+      var(--color-highlight) 100%
+    );
+    border: fun.convert-px(1) solid var(--color-border);
+    border-radius: fun.convert-px(3);
+    display: block;
+    width: var(--btn-size, fun.convert-px(50));
+    height: fun.convert-px(6);
+    margin: auto;
+    transition: all 0.25s ease-in-out 0s, transform 0.4s ease-in 0s;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+  }
+
+  &::before {
+    bottom: fun.convert-px(15);
+  }
+
+  &::after {
+    top: fun.convert-px(15);
+  }
+
+  &--active {
+    background: transparent;
+    border: transparent;
+
+    &::before {
+      transform-origin: 50% 50%;
+      transform: rotate(45deg);
+      bottom: 0;
+    }
+
+    &::after {
+      transform-origin: 50% 50%;
+      transform: rotate(-45deg);
+      top: 0;
+    }
+  }
+}

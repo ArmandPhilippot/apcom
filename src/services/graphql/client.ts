@@ -2,7 +2,6 @@ import { GraphQLClient } from 'graphql-request';
 
 export const getGraphQLClient = () => {
   const apiUrl: string = process.env.NEXT_PUBLIC_GRAPHQL_API || '';
-  console.log(apiUrl);
 
   if (!apiUrl) throw new Error('API URL not defined.');
 
