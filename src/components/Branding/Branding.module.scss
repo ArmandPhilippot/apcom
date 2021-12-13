@@ -1,0 +1,52 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  display: grid;
+  grid-template-columns:
+    clamp(#{fun.convert-px(55)}, 15vw, #{fun.convert-px(90)})
+    minmax(0, 1fr);
+  grid-template-rows: repeat(2, max-content);
+  align-items: center;
+  column-gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-fg-inverted);
+}
+
+.logo {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  display: flex;
+  place-content: center;
+  border: fun.convert-px(1) solid var(--color-border);
+  border-radius: 50%;
+  box-shadow: 0 0 0 fun.convert-px(4) var(--color-bg),
+    0 0 fun.convert-px(3) fun.convert-px(5) var(--color-shadow);
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.name {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("xs") {
+      font-size: var(--font-size-2xl);
+    }
+  }
+}
+
+.job {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+}
