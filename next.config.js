@@ -7,6 +7,7 @@ module.exports = {
     locales,
     defaultLocale: 'fr',
   },
+  poweredByHeader: false,
   reactStrictMode: true,
   sassOptions: {
     includePaths: [
