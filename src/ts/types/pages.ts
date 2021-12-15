@@ -22,7 +22,7 @@ export type PageResponse = {
 
 export type FetchPageByUriReturn = (uri: string) => Promise<RawPage>;
 
-export type GetCVPageReturn = () => Promise<Page>;
+export type GetPageReturn = () => Promise<Page>;
 
 export type PageProps = {
   page: Page;

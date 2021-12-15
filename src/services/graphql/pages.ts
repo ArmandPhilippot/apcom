@@ -1,6 +1,6 @@
 import {
   FetchPageByUriReturn,
-  GetCVPageReturn,
+  GetPageReturn,
   Page,
   PageResponse,
   RawPage,
@@ -35,14 +35,26 @@ const fetchPageByUri: FetchPageByUriReturn = async (uri: string) => {
   }
 };
 
-export const getCVPage: GetCVPageReturn = async () => {
-  const rawCV = await fetchPageByUri('/cv/');
-
-  const formattedCV: Page = {
-    ...rawCV,
-    content: rawCV.contentParts.afterMore,
-    intro: rawCV.contentParts.beforeMore,
+const getFormattedPage = (page: RawPage) => {
+  const formattedPage: Page = {
+    ...page,
+    content: page.contentParts.afterMore,
+    intro: page.contentParts.beforeMore,
   };
 
+  return formattedPage;
+};
+
+export const getCVPage: GetPageReturn = async () => {
+  const rawCV = await fetchPageByUri('/cv/');
+  const formattedCV = getFormattedPage(rawCV);
+
   return formattedCV;
+};
+
+export const getLegalNoticePage: GetPageReturn = async () => {
+  const rawLegalNotice = await fetchPageByUri('/mentions-legales');
+  const formattedLegalNotice = getFormattedPage(rawLegalNotice);
+
+  return formattedLegalNotice;
 };
