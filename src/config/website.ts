@@ -7,4 +7,5 @@ export const config = {
     startYear: '2012',
     endYear: new Date().getFullYear(),
   },
+  postsPerPage: 10,
 };
