@@ -23,11 +23,13 @@ export type fetchPostsListReturn = (
   after?: string
 ) => Promise<PostsListResponse>;
 
-export type getPostsListReturn = (
-  first?: number,
-  after?: string
-) => Promise<PostsList>;
+type PostsListProps = {
+  first?: number;
+  after?: string;
+};
+
+export type getPostsListReturn = (props: PostsListProps) => Promise<PostsList>;
 
 export type BlogPageProps = {
-  data: PostsList;
+  fallback: PostsList;
 };

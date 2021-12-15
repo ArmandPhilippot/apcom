@@ -10,10 +10,9 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { BlogPageProps } from '@ts/types/blog';
 import { loadTranslation } from '@utils/helpers/i18n';
 import PostsList from '@components/PostsList/PostsList';
+import { SWRConfig } from 'swr';
 
-const Blog: NextPageWithLayout<BlogPageProps> = ({ data }) => {
-  const { posts, pageInfo } = data;
-
+const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   return (
     <>
       <Head>
@@ -21,7 +20,9 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ data }) => {
         <meta name="description" content={seo.blog.description} />
       </Head>
       <h1>{t`Blog`}</h1>
-      <PostsList posts={posts} titleLevel={2} />
+      <SWRConfig value={{ fallback }}>
+        <PostsList titleLevel={2} />
+      </SWRConfig>
     </>
   );
 };
@@ -35,11 +36,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     context.locale!,
     process.env.NODE_ENV === 'production'
   );
-  const data = await getPublishedPosts(config.postsPerPage);
+  const data = await getPublishedPosts({ first: config.postsPerPage });
 
   return {
     props: {
-      data,
+      fallback: {
+        '/api/posts': data,
+      },
       translation,
     },
   };

@@ -85,10 +85,10 @@ export const fetchPublishedPosts: fetchPostsListReturn = async (
   }
 };
 
-export const getPublishedPosts: getPostsListReturn = async (
+export const getPublishedPosts: getPostsListReturn = async ({
   first = 10,
-  after = ''
-) => {
+  after = '',
+}) => {
   const rawPostsList = await fetchPublishedPosts(first, after);
   const postsList: ArticlePreview[] = rawPostsList.posts.edges.map((post) => {
     const {
