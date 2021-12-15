@@ -1,13 +1,15 @@
 import { ArticlePreview } from '@ts/types/articles';
 import {
-  fetchPostsListReturn,
-  getPostsListReturn,
+  AllPostsSlugReponse,
+  FetchAllPostsSlugReturn,
+  FetchPostsListReturn,
+  GetPostsListReturn,
   PostsListResponse,
 } from '@ts/types/blog';
 import { gql } from 'graphql-request';
 import { getGraphQLClient } from './client';
 
-export const fetchPublishedPosts: fetchPostsListReturn = async (
+export const fetchPublishedPosts: FetchPostsListReturn = async (
   first = 10,
   after = ''
 ) => {
@@ -85,7 +87,7 @@ export const fetchPublishedPosts: fetchPostsListReturn = async (
   }
 };
 
-export const getPublishedPosts: getPostsListReturn = async ({
+export const getPublishedPosts: GetPostsListReturn = async ({
   first = 10,
   after = '',
 }) => {
@@ -127,4 +129,27 @@ export const getPublishedPosts: getPostsListReturn = async ({
   });
 
   return { posts: postsList, pageInfo: rawPostsList.posts.pageInfo };
+};
+
+export const fetchAllPostsSlug: FetchAllPostsSlugReturn = async () => {
+  const client = getGraphQLClient();
+
+  // 10 000 is an arbitrary number for small websites.
+  const query = gql`
+    query AllPostsSlug {
+      posts(first: 10000) {
+        nodes {
+          slug
+        }
+      }
+    }
+  `;
+
+  try {
+    const response: AllPostsSlugReponse = await client.request(query);
+    return response.posts.nodes;
+  } catch (error) {
+    console.error(JSON.stringify(error, undefined, 2));
+    process.exit(1);
+  }
 };

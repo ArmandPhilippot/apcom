@@ -1,4 +1,6 @@
+import { Comment, CommentsResponse } from './comments';
 import { Cover, CoverResponse } from './cover';
+import { SEO } from './seo';
 import { SubjectPreview, ThematicPreview } from './taxonomies';
 
 export type ArticleDates = {
@@ -11,7 +13,7 @@ export type ArticlePreviewResponse = {
     postsInSubject: SubjectPreview[] | null;
     postsInThematics: ThematicPreview[] | null;
   };
-  commentCount: number;
+  commentCount: number | null;
   contentParts: {
     beforeMore: string;
   };
@@ -25,7 +27,7 @@ export type ArticlePreviewResponse = {
 };
 
 export type ArticlePreview = {
-  commentCount: number;
+  commentCount: number | null;
   content: string;
   databaseId: number;
   date: ArticleDates;
@@ -35,4 +37,34 @@ export type ArticlePreview = {
   subjects: SubjectPreview[] | [];
   thematics: ThematicPreview[] | [];
   title: string;
+};
+
+export type ArticleResponse = ArticlePreviewResponse & {
+  comments: CommentsResponse;
+  contentParts: {
+    afterMore: string;
+  };
+  seo: SEO;
+};
+
+export type Article = ArticlePreview & {
+  comments: Comment[];
+  intro: string;
+  seo: SEO;
+};
+
+export type PostByResponse = {
+  postBy: ArticleResponse;
+};
+
+export type FetchPostByReturn = (slug: string) => Promise<PostByResponse>;
+
+export type GetPostByReturn = (slug: string) => Promise<Article>;
+
+export type ArticleProps = {
+  post: Article;
+};
+
+export type ArticleSlug = {
+  slug: string;
 };

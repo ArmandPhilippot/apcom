@@ -1,4 +1,8 @@
-import { ArticlePreview, ArticlePreviewResponse } from './articles';
+import {
+  ArticlePreview,
+  ArticlePreviewResponse,
+  ArticleSlug,
+} from './articles';
 import { PageInfo } from './pagination';
 
 export type PostsListEdge = {
@@ -18,7 +22,7 @@ export type PostsList = {
   pageInfo: PageInfo;
 };
 
-export type fetchPostsListReturn = (
+export type FetchPostsListReturn = (
   first?: number,
   after?: string
 ) => Promise<PostsListResponse>;
@@ -28,8 +32,16 @@ type PostsListProps = {
   after?: string;
 };
 
-export type getPostsListReturn = (props: PostsListProps) => Promise<PostsList>;
+export type GetPostsListReturn = (props: PostsListProps) => Promise<PostsList>;
 
 export type BlogPageProps = {
   fallback: PostsList;
 };
+
+export type AllPostsSlugReponse = {
+  posts: {
+    nodes: ArticleSlug[];
+  };
+};
+
+export type FetchAllPostsSlugReturn = () => Promise<ArticleSlug[]>;
