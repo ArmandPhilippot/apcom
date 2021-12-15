@@ -21,7 +21,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({ data }) => {
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
+  return <Layout isHome={true}>{page}</Layout>;
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {

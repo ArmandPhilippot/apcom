@@ -1,12 +1,18 @@
-import { FunctionComponent } from 'react';
+import { ReactNode } from 'react';
 import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
 import Main from '@components/Main/Main';
 
-const Layout: FunctionComponent = ({ children }) => {
+const Layout = ({
+  children,
+  isHome = false,
+}: {
+  children: ReactNode;
+  isHome?: boolean;
+}) => {
   return (
     <>
-      <Header />
+      <Header isHome={isHome} />
       <Main>{children}</Main>
       <Footer />
     </>

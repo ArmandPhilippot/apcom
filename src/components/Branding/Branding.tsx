@@ -6,9 +6,11 @@ import photo from '@assets/images/armand-philippot.jpg';
 import { config } from '@config/website';
 import styles from './Branding.module.scss';
 
-type BrandingReturn = ({ isHome }: { isHome?: boolean }) => ReactElement;
+type BrandingReturn = ({ isHome }: { isHome: boolean }) => ReactElement;
 
 const Branding: BrandingReturn = ({ isHome = false }) => {
+  const TitleTag = isHome ? 'h1' : 'p';
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
@@ -21,19 +23,11 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
           layout="intrinsic"
         />
       </div>
-      {isHome ? (
-        <h1 className={styles.name}>
-          <Link href="/">
-            <a>{config.name}</a>
-          </Link>
-        </h1>
-      ) : (
-        <p className={styles.name}>
-          <Link href="/">
-            <a>{config.name}</a>
-          </Link>
-        </p>
-      )}
+      <TitleTag className={styles.name}>
+        <Link href="/">
+          <a>{config.name}</a>
+        </Link>
+      </TitleTag>
       <p className={styles.job}>{config.baseline}</p>
     </div>
   );
