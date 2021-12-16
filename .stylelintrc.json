@@ -23,6 +23,12 @@
         "ignorePattern": ["/https?://[0-9,a-z]*.*/"]
       }
     ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ],
     "selector-id-pattern": null,
     "selector-class-pattern": [
       "^([a-z][a-z0-9]*)((-|--|__)[a-z0-9]+)*$",
