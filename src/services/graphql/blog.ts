@@ -99,12 +99,14 @@ export const getPublishedPosts: GetPostsListReturn = async ({
       contentParts,
       databaseId,
       date,
+      featuredImage,
       id,
       modified,
       slug,
       title,
     } = post.node;
     const content = contentParts.beforeMore;
+    const cover = featuredImage ? featuredImage.node : null;
     const dates = { publication: date, update: modified };
     const subjects =
       acfPosts.postsInSubject && acfPosts.postsInSubject?.length > 0
@@ -120,6 +122,7 @@ export const getPublishedPosts: GetPostsListReturn = async ({
       content,
       databaseId,
       date: dates,
+      featuredImage: cover,
       id,
       slug,
       subjects,

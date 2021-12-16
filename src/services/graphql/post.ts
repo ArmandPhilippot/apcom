@@ -108,7 +108,7 @@ export const getPostBySlug: GetPostByReturn = async (slug: string) => {
   const content = rawPost.postBy.contentParts.afterMore;
   const featuredImage = rawPost.postBy.featuredImage
     ? rawPost.postBy.featuredImage.node
-    : {};
+    : null;
   const date = {
     publication: rawPost.postBy.date,
     update: rawPost.postBy.modified,
@@ -117,8 +117,8 @@ export const getPostBySlug: GetPostByReturn = async (slug: string) => {
   const subjects = rawPost.postBy.acfPosts.postsInSubject
     ? rawPost.postBy.acfPosts.postsInSubject
     : [];
-  const thematics = rawPost.postBy.acfPosts.postsInThematics
-    ? rawPost.postBy.acfPosts.postsInThematics
+  const thematics = rawPost.postBy.acfPosts.postsInThematic
+    ? rawPost.postBy.acfPosts.postsInThematic
     : [];
 
   const formattedPost: Article = {

@@ -1,11 +1,16 @@
 const path = require('path');
 const { locales } = require('./lingui.config');
 
+const backendDomain = process.env.BACKEND_URL.split('//')[1];
+
 /** @type {import('next').NextConfig} */
 module.exports = {
   i18n: {
     locales,
     defaultLocale: 'fr',
+  },
+  images: {
+    domains: [backendDomain, 'secure.gravatar.com'],
   },
   poweredByHeader: false,
   reactStrictMode: true,

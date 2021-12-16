@@ -2,4 +2,10 @@
 
 .wrapper {
   @extend %reset-ordered-list;
+
+  margin: var(--spacing-md) auto;
+}
+
+li.item {
+  margin: var(--spacing-md) 0;
 }
