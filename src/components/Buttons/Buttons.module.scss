@@ -2,13 +2,13 @@
 
 .btn {
   display: block;
-  padding: var(--spacing-2xs) var(--spacing-md);
+  margin: auto;
   border: none;
   font-size: var(--font-size-md);
 }
 
-.submit {
-  margin: auto;
+.primary {
+  padding: var(--spacing-xs) var(--spacing-md);
   background: var(--color-primary);
   border-radius: fun.convert-px(3);
   box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-dark);
@@ -30,5 +30,53 @@
     background: var(--color-primary-dark);
     box-shadow: 0 0 0 0 var(--color-primary-dark);
     transform: translateX(#{fun.convert-px(3)}) translateY(#{fun.convert-px(3)});
+  }
+}
+
+.secondary {
+  padding: var(--spacing-2xs) var(--spacing-md);
+  background: var(--color-bg);
+  border: fun.convert-px(5) solid var(--color-primary);
+  border-radius: fun.convert-px(25);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+      var(--color-shadow-light),
+    fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+      var(--color-shadow-light),
+    fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+      var(--color-shadow-light);
+  color: var(--color-primary);
+  font-weight: 500;
+  transition: all 0.35s ease-in-out 0s;
+
+  &:disabled {
+    color: var(--color-fg-light);
+    border-color: var(--color-border);
+    cursor: wait;
+  }
+
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      transform: translateX(#{fun.convert-px(-3)})
+        translateY(#{fun.convert-px(-6)});
+      box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+          var(--color-shadow-lighter),
+        fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+          var(--color-shadow-lighter),
+        fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+          var(--color-shadow-lighter),
+        fun.convert-px(7) fun.convert-px(10) fun.convert-px(12)
+          fun.convert-px(-3) var(--color-shadow-lighter);
+    }
+
+    &:focus {
+      text-decoration: underline var(--color-primary) fun.convert-px(3);
+    }
+
+    &:active {
+      text-decoration: none;
+      transform: translateY(#{fun.convert-px(2)});
+      box-shadow: 0 0 0 0 var(--color-shadow-light);
+    }
   }
 }
