@@ -7,12 +7,43 @@ import { seo } from '@config/seo';
 import { config } from '@config/website';
 import { getPublishedPosts } from '@services/graphql/blog';
 import { NextPageWithLayout } from '@ts/types/app';
-import { BlogPageProps } from '@ts/types/blog';
+import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
 import { loadTranslation } from '@utils/helpers/i18n';
 import PostsList from '@components/PostsList/PostsList';
-import { SWRConfig } from 'swr';
+import useSWRInfinite from 'swr/infinite';
+import { Button } from '@components/Buttons';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
+  const getKey = (pageIndex: number, previousData: PostsListData) => {
+    if (previousData && !previousData.posts) return null;
+
+    const args =
+      pageIndex === 0
+        ? { first: config.postsPerPage }
+        : {
+            first: config.postsPerPage,
+            after: previousData.pageInfo.endCursor,
+          };
+
+    return args;
+  };
+
+  const { data, error, size, setSize } = useSWRInfinite(
+    getKey,
+    getPublishedPosts,
+    { fallback }
+  );
+
+  const isLoadingInitialData = !data && !error;
+  const isLoadingMore: boolean =
+    isLoadingInitialData ||
+    (size > 0 && data !== undefined && typeof data[size - 1] === 'undefined');
+
+  if (error) return <div>{t`Failed to load.`}</div>;
+  if (!data) return <div>{t`Loading...`}</div>;
+
+  const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
+
   return (
     <>
       <Head>
@@ -20,9 +51,13 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         <meta name="description" content={seo.blog.description} />
       </Head>
       <h1>{t`Blog`}</h1>
-      <SWRConfig value={{ fallback }}>
-        <PostsList showYears={true} />
-      </SWRConfig>
+      <PostsList data={data} showYears={true} />
+      {hasNextPage && (
+        <Button
+          isDisabled={isLoadingMore}
+          clickHandler={() => setSize(size + 1)}
+        >{t`Load more?`}</Button>
+      )}
     </>
   );
 };
