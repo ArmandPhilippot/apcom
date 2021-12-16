@@ -13,6 +13,10 @@ export const seo = {
     title: t`CV Front-end developer | Armand Philippot`,
     description: t`Discover the curriculum of Armand Philippot, front-end developer located in France: skills, experiences and training.`,
   },
+  contact: {
+    title: t`Contact form | Armand Philippot`,
+    description: t`Contact Armand Philippot through its website. All you need to do it's to fill the contact form.`,
+  },
   legalNotice: {
     title: t`Legal notice | Armand Philippot`,
     description: t`Discover the ArmandPhilippot.com website legal notice.`,

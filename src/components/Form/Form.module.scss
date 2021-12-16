@@ -1,0 +1,31 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  width: 100%;
+}
+
+.item {
+  margin: var(--spacing-xs) 0;
+  max-width: 45ch;
+}
+
+.label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-variant: small-caps;
+  font-weight: 600;
+}
+
+.field {
+  border: fun.convert-px(1) solid var(--color-border);
+  width: 100%;
+  padding: var(--spacing-2xs) var(--spacing-xs);
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}
+
+.textarea {
+  min-height: fun.convert-px(200);
+}

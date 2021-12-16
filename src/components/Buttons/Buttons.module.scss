@@ -1,0 +1,34 @@
+@use "@styles/abstracts/functions" as fun;
+
+.btn {
+  display: block;
+  padding: var(--spacing-2xs) var(--spacing-md);
+  border: none;
+  font-size: var(--font-size-md);
+}
+
+.submit {
+  margin: auto;
+  background: var(--color-primary);
+  border-radius: fun.convert-px(3);
+  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-dark);
+  color: var(--color-fg-inverted);
+  font-weight: 600;
+  text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-shadow);
+  transition: all 0.3s ease-in-out 0s;
+
+  &:hover,
+  &:focus {
+    background: var(--color-primary-light);
+    box-shadow: fun.convert-px(7) fun.convert-px(7) 0 0
+      var(--color-primary-dark);
+    transform: translateX(#{fun.convert-px(-4)})
+      translateY(#{fun.convert-px(-4)});
+  }
+
+  &:active {
+    background: var(--color-primary-dark);
+    box-shadow: 0 0 0 0 var(--color-primary-dark);
+    transform: translateX(#{fun.convert-px(3)}) translateY(#{fun.convert-px(3)});
+  }
+}
