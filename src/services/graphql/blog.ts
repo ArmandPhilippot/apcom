@@ -1,6 +1,6 @@
 import { ArticlePreview } from '@ts/types/articles';
 import {
-  AllPostsSlugReponse,
+  AllPostsSlugResponse,
   FetchAllPostsSlugReturn,
   FetchPostsListReturn,
   GetPostsListReturn,
@@ -111,8 +111,8 @@ export const getPublishedPosts: GetPostsListReturn = async ({
         ? acfPosts.postsInSubject
         : [];
     const thematics =
-      acfPosts.postsInThematics && acfPosts.postsInThematics?.length > 0
-        ? acfPosts.postsInThematics
+      acfPosts.postsInThematic && acfPosts.postsInThematic?.length > 0
+        ? acfPosts.postsInThematic
         : [];
 
     return {
@@ -146,7 +146,7 @@ export const fetchAllPostsSlug: FetchAllPostsSlugReturn = async () => {
   `;
 
   try {
-    const response: AllPostsSlugReponse = await client.request(query);
+    const response: AllPostsSlugResponse = await client.request(query);
     return response.posts.nodes;
   } catch (error) {
     console.error(JSON.stringify(error, undefined, 2));

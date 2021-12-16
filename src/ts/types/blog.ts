@@ -38,7 +38,7 @@ export type BlogPageProps = {
   fallback: PostsList;
 };
 
-export type AllPostsSlugReponse = {
+export type AllPostsSlugResponse = {
   posts: {
     nodes: ArticleSlug[];
   };

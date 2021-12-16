@@ -11,7 +11,7 @@ export type ArticleDates = {
 export type ArticlePreviewResponse = {
   acfPosts: {
     postsInSubject: SubjectPreview[] | null;
-    postsInThematics: ThematicPreview[] | null;
+    postsInThematic: ThematicPreview[] | null;
   };
   commentCount: number | null;
   contentParts: {
