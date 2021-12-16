@@ -21,7 +21,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       </Head>
       <h1>{t`Blog`}</h1>
       <SWRConfig value={{ fallback }}>
-        <PostsList titleLevel={2} />
+        <PostsList showYears={true} />
       </SWRConfig>
     </>
   );

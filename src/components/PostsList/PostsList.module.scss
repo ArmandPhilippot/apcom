@@ -1,6 +1,6 @@
 @use "@styles/abstracts/placeholders";
 
-.wrapper {
+.list {
   @extend %reset-ordered-list;
 
   margin: var(--spacing-md) auto;

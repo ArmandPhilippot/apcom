@@ -6,13 +6,17 @@ import ArrowRightIcon from '@assets/images/icon-arrow-right.svg';
 import styles from './PostPreview.module.scss';
 import Image from 'next/image';
 
+type TitleLevel = 2 | 3 | 4 | 5 | 6;
+
 const PostPreview = ({
   post,
-  TitleTag,
+  titleLevel,
 }: {
   post: ArticlePreview;
-  TitleTag: keyof JSX.IntrinsicElements;
+  titleLevel: TitleLevel;
 }) => {
+  const TitleTag = `h${titleLevel}` as keyof JSX.IntrinsicElements;
+
   return (
     <article className={styles.wrapper}>
       {post.featuredImage && (

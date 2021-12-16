@@ -6,11 +6,11 @@ import { PostsList as PostsListData } from '@ts/types/blog';
 import styles from './PostsList.module.scss';
 import PostPreview from '@components/PostPreview/PostPreview';
 import { Button } from '@components/Buttons';
+import { Fragment } from 'react';
+import { sortPostsByYear } from '@utils/helpers/sort';
 
-type TitleLevel = 2 | 3 | 4 | 5 | 6;
-
-const PostsList = ({ titleLevel }: { titleLevel: TitleLevel }) => {
-  const TitleTag = `h${titleLevel}` as keyof JSX.IntrinsicElements;
+const PostsList = ({ showYears }: { showYears: boolean }) => {
+  const titleLevel = showYears ? 3 : 2;
 
   const getKey = (pageIndex: number, previousData: PostsListData) => {
     if (previousData && !previousData.posts) return null;
@@ -40,18 +40,24 @@ const PostsList = ({ titleLevel }: { titleLevel: TitleLevel }) => {
   if (!data) return <div>{t`Loading...`}</div>;
 
   const getPostsList = () => {
-    return data.map((page) => {
-      if (page.posts.length === 0) {
-        return t`No results found.`;
-      } else {
-        return page.posts.map((post) => {
-          return (
-            <li key={post.id} className={styles.item}>
-              <PostPreview post={post} TitleTag={TitleTag} />
-            </li>
-          );
-        });
-      }
+    const posts = sortPostsByYear(data);
+    const years = Object.keys(posts).reverse();
+
+    return years.map((year) => {
+      return (
+        <Fragment key={year}>
+          {showYears && <h2>{year}</h2>}
+          <ol className={styles.list}>
+            {posts[year].map((post) => {
+              return (
+                <li key={post.id} className={styles.item}>
+                  <PostPreview post={post} titleLevel={titleLevel} />
+                </li>
+              );
+            })}
+          </ol>
+        </Fragment>
+      );
     });
   };
 
@@ -59,7 +65,7 @@ const PostsList = ({ titleLevel }: { titleLevel: TitleLevel }) => {
 
   return (
     <>
-      <ol className={styles.wrapper}>{getPostsList()}</ol>
+      {getPostsList()}
       {hasNextPage && (
         <Button
           isDisabled={isLoadingMore}

@@ -19,7 +19,7 @@ export type ArticlePreviewResponse = {
   };
   databaseId: number;
   date: string;
-  featuredImage: CoverResponse | null;
+  featuredImage: CoverResponse;
   id: string;
   modified: string;
   slug: string;
@@ -31,7 +31,7 @@ export type ArticlePreview = {
   content: string;
   databaseId: number;
   date: ArticleDates;
-  featuredImage?: Cover | object;
+  featuredImage: Cover | null;
   id: string;
   slug: string;
   subjects: SubjectPreview[] | [];
