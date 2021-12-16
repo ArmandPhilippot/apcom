@@ -19,7 +19,7 @@ const PostPreview = ({
 
   return (
     <article className={styles.wrapper}>
-      {post.featuredImage && (
+      {post.featuredImage && Object.keys(post.featuredImage).length > 0 && (
         <div className={styles.cover}>
           <Image
             src={post.featuredImage.sourceUrl}
@@ -41,7 +41,7 @@ const PostPreview = ({
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></div>
       <footer className={styles.footer}>
-        <Link href={post.slug}>
+        <Link href={`/article/${post.slug}`}>
           <a className={styles['read-more']}>
             {t`Read more`}
             <span className="screen-reader-text">
