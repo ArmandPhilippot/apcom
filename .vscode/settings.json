@@ -1,4 +1,5 @@
 {
   "css.lint.validProperties": ["composes"],
-  "scss.lint.validProperties": ["composes"]
+  "scss.lint.validProperties": ["composes"],
+  "cSpell.words": ["sujet", "thematics", "thematique"]
 }
