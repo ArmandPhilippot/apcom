@@ -1,3 +1,4 @@
+import CommentForm from '@components/CommentForm/CommentForm';
 import CommentsList from '@components/CommentsList/CommentsList';
 import Layout from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
@@ -30,6 +31,8 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
       <section>
         <h2>{t`Comments`}</h2>
         <CommentsList comments={comments} />
+        <h2>{t`Leave a comment`}</h2>
+        <CommentForm />
       </section>
     </article>
   );

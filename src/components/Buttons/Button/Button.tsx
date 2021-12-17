@@ -9,7 +9,7 @@ const Button = ({
 }: {
   children: ReactNode;
   clickHandler: any;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   isPrimary?: boolean;
 }) => {
   const classes = `${styles.btn} ${
