@@ -1,0 +1,5 @@
+@use "@styles/abstracts/placeholders";
+
+.list {
+  @extend %flex-list;
+}

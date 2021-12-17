@@ -35,6 +35,13 @@ const fetchPostBySlug: FetchPostByReturn = async (slug: string) => {
             }
           }
         }
+        author {
+          node {
+            firstName
+            lastName
+            name
+          }
+        }
         commentCount
         comments {
           nodes {
@@ -104,6 +111,7 @@ const fetchPostBySlug: FetchPostByReturn = async (slug: string) => {
 export const getPostBySlug: GetPostByReturn = async (slug: string) => {
   const rawPost = await fetchPostBySlug(slug);
 
+  const author = rawPost.postBy.author.node;
   const comments = rawPost.postBy.comments.nodes.reverse().map((comment) => {
     const author = comment.author.node;
     return { ...comment, author: author, replies: [] };
@@ -126,6 +134,7 @@ export const getPostBySlug: GetPostByReturn = async (slug: string) => {
 
   const formattedPost: Article = {
     ...rawPost.postBy,
+    author,
     comments,
     content,
     featuredImage,

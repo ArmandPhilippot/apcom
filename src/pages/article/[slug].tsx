@@ -1,5 +1,7 @@
 import CommentsList from '@components/CommentsList/CommentsList';
 import Layout from '@components/Layouts/Layout';
+import PostFooter from '@components/PostFooter/PostFooter';
+import PostHeader from '@components/PostHeader/PostHeader';
 import { t } from '@lingui/macro';
 import { fetchAllPostsSlug } from '@services/graphql/blog';
 import { getPostBySlug } from '@services/graphql/post';
@@ -11,16 +13,23 @@ import { ParsedUrlQuery } from 'querystring';
 import { ReactElement } from 'react';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
+  const { author, comments, content, date, intro, subjects, thematics, title } =
+    post;
+
   return (
     <article>
-      <header>
-        <h1>{post.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: post.intro }}></div>
-      </header>
-      <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+      <PostHeader
+        author={author}
+        date={date}
+        intro={intro}
+        title={title}
+        thematics={thematics}
+      />
+      <div dangerouslySetInnerHTML={{ __html: content }}></div>
+      <PostFooter subjects={subjects} />
       <section>
         <h2>{t`Comments`}</h2>
-        <CommentsList comments={post.comments} />
+        <CommentsList comments={comments} />
       </section>
     </article>
   );

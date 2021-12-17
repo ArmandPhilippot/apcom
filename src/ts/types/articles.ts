@@ -8,6 +8,12 @@ export type ArticleDates = {
   update: string;
 };
 
+export type ArticleAuthor = {
+  firstName: string;
+  lastName: string;
+  name: string;
+};
+
 export type ArticlePreviewResponse = {
   acfPosts: {
     postsInSubject: SubjectPreview[] | null;
@@ -40,6 +46,9 @@ export type ArticlePreview = {
 };
 
 export type ArticleResponse = ArticlePreviewResponse & {
+  author: {
+    node: ArticleAuthor;
+  };
   comments: CommentsResponse;
   contentParts: {
     afterMore: string;
@@ -48,6 +57,7 @@ export type ArticleResponse = ArticlePreviewResponse & {
 };
 
 export type Article = ArticlePreview & {
+  author: ArticleAuthor;
   comments: Comment[];
   intro: string;
   seo: SEO;
