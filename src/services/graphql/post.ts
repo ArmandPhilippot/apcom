@@ -75,6 +75,7 @@ const fetchPostBySlug: FetchPostByReturn = async (slug: string) => {
         }
         modified
         seo {
+          title
           metaDesc
           opengraphAuthor
           opengraphDescription

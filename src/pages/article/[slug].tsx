@@ -10,31 +10,47 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleProps } from '@ts/types/articles';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import { ReactElement } from 'react';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
-  const { author, comments, content, date, intro, subjects, thematics, title } =
-    post;
+  const {
+    author,
+    comments,
+    content,
+    date,
+    intro,
+    seo,
+    subjects,
+    thematics,
+    title,
+  } = post;
 
   return (
-    <article>
-      <PostHeader
-        author={author}
-        date={date}
-        intro={intro}
-        title={title}
-        thematics={thematics}
-      />
-      <div dangerouslySetInnerHTML={{ __html: content }}></div>
-      <PostFooter subjects={subjects} />
-      <section>
-        <h2>{t`Comments`}</h2>
-        <CommentsList comments={comments} />
-        <h2>{t`Leave a comment`}</h2>
-        <CommentForm />
-      </section>
-    </article>
+    <>
+      <Head>
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.metaDesc} />
+      </Head>
+      <article>
+        <PostHeader
+          author={author}
+          date={date}
+          intro={intro}
+          title={title}
+          thematics={thematics}
+        />
+        <div dangerouslySetInnerHTML={{ __html: content }}></div>
+        <PostFooter subjects={subjects} />
+        <section>
+          <h2>{t`Comments`}</h2>
+          <CommentsList comments={comments} />
+          <h2>{t`Leave a comment`}</h2>
+          <CommentForm />
+        </section>
+      </article>
+    </>
   );
 };
 
