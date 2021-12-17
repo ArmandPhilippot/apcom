@@ -1,4 +1,6 @@
+import CommentsList from '@components/CommentsList/CommentsList';
 import Layout from '@components/Layouts/Layout';
+import { t } from '@lingui/macro';
 import { fetchAllPostsSlug } from '@services/graphql/blog';
 import { getPostBySlug } from '@services/graphql/post';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -16,6 +18,10 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
         <div dangerouslySetInnerHTML={{ __html: post.intro }}></div>
       </header>
       <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+      <section>
+        <h2>{t`Comments`}</h2>
+        <CommentsList comments={post.comments} />
+      </section>
     </article>
   );
 };

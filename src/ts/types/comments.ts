@@ -4,6 +4,10 @@ export type CommentAuthor = {
   url: string;
 };
 
+export type CommentAuthorResponse = {
+  node: CommentAuthor;
+};
+
 export type Comment = {
   approved: '';
   author: CommentAuthor;
@@ -11,8 +15,14 @@ export type Comment = {
   content: string;
   date: string;
   id: string;
+  parentDatabaseId: number;
+  replies: Comment[];
+};
+
+export type RawComment = Omit<Comment, 'author'> & {
+  author: CommentAuthorResponse;
 };
 
 export type CommentsResponse = {
-  nodes: Comment[];
+  nodes: RawComment[];
 };

@@ -104,7 +104,10 @@ const fetchPostBySlug: FetchPostByReturn = async (slug: string) => {
 export const getPostBySlug: GetPostByReturn = async (slug: string) => {
   const rawPost = await fetchPostBySlug(slug);
 
-  const comments = rawPost.postBy.comments.nodes;
+  const comments = rawPost.postBy.comments.nodes.reverse().map((comment) => {
+    const author = comment.author.node;
+    return { ...comment, author: author, replies: [] };
+  });
   const content = rawPost.postBy.contentParts.afterMore;
   const featuredImage = rawPost.postBy.featuredImage
     ? rawPost.postBy.featuredImage.node
