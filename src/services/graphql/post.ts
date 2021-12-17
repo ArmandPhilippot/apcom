@@ -65,6 +65,7 @@ const fetchPostBySlug: FetchPostByReturn = async (slug: string) => {
           afterMore
           beforeMore
         }
+        databaseId
         date
         featuredImage {
           node {

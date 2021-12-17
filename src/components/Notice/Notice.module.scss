@@ -1,0 +1,28 @@
+@use "@styles/abstracts/functions" as fun;
+
+.message {
+  border: fun.convert-px(2) solid;
+  font-weight: bold;
+  margin: var(--spacing-sm) auto;
+  padding: var(--spacing-2xs) var(--spacing-xs);
+
+  &--error {
+    border-color: var(--color-error);
+    color: var(--color-error);
+  }
+
+  &--info {
+    border-color: var(--color-info);
+    color: var(--color-info);
+  }
+
+  &--success {
+    border-color: var(--color-success);
+    color: var(--color-success);
+  }
+
+  &--warning {
+    border-color: var(--color-warning);
+    color: var(--color-warning);
+  }
+}

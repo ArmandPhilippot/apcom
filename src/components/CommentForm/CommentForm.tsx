@@ -1,16 +1,62 @@
 import { ButtonSubmit } from '@components/Buttons';
 import { Form, FormItem, Input, TextArea } from '@components/Form';
+import Notice from '@components/Notice/Notice';
 import { t } from '@lingui/macro';
+import { createComment } from '@services/graphql/comments';
 import { useState } from 'react';
 
-const CommentForm = () => {
+const CommentForm = ({
+  articleId,
+  parentId = 0,
+}: {
+  articleId: number;
+  parentId?: number;
+}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [website, setWebsite] = useState('');
   const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+
+  const resetForm = () => {
+    setName('');
+    setEmail('');
+    setWebsite('');
+    setMessage('');
+  };
+
+  const submitHandler = async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    if (name && email && message && articleId) {
+      const createdComment = await createComment(
+        name,
+        email,
+        website,
+        message,
+        parentId,
+        articleId,
+        'createComment'
+      );
+
+      if (createdComment.success) setIsSuccess(true);
+      if (isSuccess) {
+        resetForm();
+        if (createdComment.comment?.approved) setIsApproved(true);
+
+        setTimeout(() => {
+          setIsSuccess(false);
+          setIsApproved(false);
+        }, 8000);
+      }
+    } else {
+      setIsSuccess(false);
+    }
+  };
 
   return (
-    <Form>
+    <Form submitHandler={submitHandler}>
       <FormItem>
         <Input
           id="commenter-name"
@@ -51,6 +97,9 @@ const CommentForm = () => {
         />
       </FormItem>
       <ButtonSubmit>{t`Send`}</ButtonSubmit>
+      {isSuccess && !isApproved && (
+        <Notice type="success">{t`Thanks for your comment! It is now awaiting moderation.`}</Notice>
+      )}
     </Form>
   );
 };

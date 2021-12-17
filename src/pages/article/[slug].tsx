@@ -47,7 +47,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           <h2>{t`Comments`}</h2>
           <CommentsList comments={comments} />
           <h2>{t`Leave a comment`}</h2>
-          <CommentForm />
+          <CommentForm articleId={post.databaseId} />
         </section>
       </article>
     </>

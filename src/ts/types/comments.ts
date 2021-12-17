@@ -26,3 +26,25 @@ export type RawComment = Omit<Comment, 'author'> & {
 export type CommentsResponse = {
   nodes: RawComment[];
 };
+
+export type CreatedComment = {
+  clientMutationId: string;
+  success: boolean;
+  comment: null | {
+    approved: boolean;
+  };
+};
+
+export type CreatedCommentResponse = {
+  createComment: CreatedComment;
+};
+
+export type CreatedCommentReturn = (
+  author: string,
+  authorEmail: string,
+  authorUrl: string,
+  content: string,
+  parent: number,
+  commentOn: number,
+  mutationId: string
+) => Promise<CreatedComment>;
