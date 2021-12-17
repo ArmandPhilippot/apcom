@@ -1,13 +1,15 @@
-import { FormEvent } from 'react';
+import { ReactNode } from 'react';
 import styles from './Form.module.scss';
 
-const Form: React.FunctionComponent = ({ children }) => {
-  const submitForm = (e: FormEvent) => {
-    e.preventDefault();
-  };
-
+const Form = ({
+  children,
+  submitHandler,
+}: {
+  children: ReactNode;
+  submitHandler: any;
+}) => {
   return (
-    <form onSubmit={submitForm} className={styles.wrapper}>
+    <form onSubmit={submitHandler} className={styles.wrapper}>
       {children}
     </form>
   );

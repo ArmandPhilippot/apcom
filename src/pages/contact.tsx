@@ -3,23 +3,42 @@ import { Form, FormItem, Input, TextArea } from '@components/Form';
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { t } from '@lingui/macro';
+import { sendMail } from '@services/graphql/contact';
 import { NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import { ReactElement, useState } from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 
 const ContactPage: NextPageWithLayout = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('');
 
   const resetForm = () => {
     setName('');
     setEmail('');
     setSubject('');
     setMessage('');
+  };
+
+  const submitHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    const body = `Message received from ${name} <${email}> on ArmandPhilippot.com.\n\n${message}`;
+    const replyTo = `${name} <${email}>`;
+    const mail = await sendMail(subject, body, replyTo, 'contact');
+
+    if (mail.sent) {
+      setStatus(
+        t`Thanks. Your message was successfully sent. I will answer it as soon as possible.`
+      );
+      resetForm();
+    } else {
+      const error = `${t`An error occurred:`} ${mail.message}`;
+      setStatus(error);
+    }
   };
 
   return (
@@ -34,7 +53,8 @@ const ContactPage: NextPageWithLayout = () => {
         </header>
         <div>
           <p>{t`All fields marked with * are required.`}</p>
-          <Form>
+          {status && <p>{status}</p>}
+          <Form submitHandler={submitHandler}>
             <FormItem>
               <Input
                 id="contact-name"
