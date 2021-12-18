@@ -1,5 +1,5 @@
 import { ArticlePreview, ArticlePreviewResponse } from './articles';
-import { Cover } from './cover';
+import { Cover, CoverResponse } from './cover';
 
 type TaxonomyPreview = {
   databaseId: number;
@@ -17,7 +17,7 @@ export type Taxonomy = TaxonomyPreview & {
 };
 
 export type SubjectPreview = TaxonomyPreview & {
-  cover: Cover;
+  featuredImage: Cover;
 };
 
 export type ThematicPreview = TaxonomyPreview;
@@ -42,7 +42,7 @@ export type AllTaxonomiesSlug = {
   slug: string;
 };
 
-export type AllTaxonomiesSlugResponse = {
+export type AllThematicsSlugResponse = {
   thematics: {
     nodes: AllTaxonomiesSlug[];
   };
@@ -59,3 +59,38 @@ export type FetchThematicByReturn = (
 export type GetTaxonomyByReturn = (slug: string) => Promise<Taxonomy>;
 
 export type FetchAllTaxonomiesSlugReturn = () => Promise<AllTaxonomiesSlug[]>;
+
+export type Subject = Taxonomy & {
+  featuredImage: Cover;
+  officialWebsite: string;
+};
+
+export type SubjectResponse = SubjectPreview & {
+  acfSubjects: {
+    postsInSubject: ArticlePreviewResponse[];
+  };
+  contentParts: {
+    afterMore: string;
+    beforeMore: string;
+  };
+  date: string;
+  featuredImage: CoverResponse;
+  modified: string;
+  officialWebsite: string;
+};
+
+export type SubjectProps = {
+  subject: Subject;
+};
+
+export type SubjectByResponse = {
+  subjectBy: SubjectResponse;
+};
+
+export type FetchSubjectByReturn = (slug: string) => Promise<SubjectByResponse>;
+
+export type AllSubjectsSlugResponse = {
+  subjects: {
+    nodes: AllTaxonomiesSlug[];
+  };
+};
