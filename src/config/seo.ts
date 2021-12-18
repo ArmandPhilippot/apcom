@@ -21,4 +21,8 @@ export const seo = {
     title: t`Legal notice | Armand Philippot`,
     description: t`Discover the ArmandPhilippot.com website legal notice.`,
   },
+  error404: {
+    title: t`Error 404: Page not found | Armand Philippot`,
+    description: '',
+  },
 };
