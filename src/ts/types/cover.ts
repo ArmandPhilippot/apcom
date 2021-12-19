@@ -4,6 +4,6 @@ export type Cover = {
   title: string;
 } | null;
 
-export type CoverResponse = {
+export type RawCover = {
   node: Cover;
 } | null;

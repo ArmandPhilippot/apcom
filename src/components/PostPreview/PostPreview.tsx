@@ -38,7 +38,7 @@ const PostPreview = ({
       </header>
       <div
         className={styles.body}
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: post.intro }}
       ></div>
       <footer className={styles.footer}>
         <Link href={`/article/${post.slug}`}>
@@ -54,8 +54,8 @@ const PostPreview = ({
       </footer>
       <PostMeta
         commentCount={post.commentCount}
-        publicationDate={post.date.publication}
-        updateDate={post.date.update}
+        publicationDate={post.dates.publication}
+        updateDate={post.dates.update}
         thematics={post.thematics}
       />
     </article>

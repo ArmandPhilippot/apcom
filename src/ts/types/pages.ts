@@ -1,28 +1,22 @@
+import { ContentParts, Dates } from './app';
+
 export type Page = {
   content: string;
-  date: string;
+  dates: Dates;
   intro: string;
-  modified: string;
   title: string;
 };
 
 export type RawPage = {
-  contentParts: {
-    afterMore: string;
-    beforeMore: string;
-  };
+  contentParts: ContentParts;
   date: string;
   modified: string;
   title: string;
 };
 
-export type PageResponse = {
+export type PageBy = {
   pageBy: RawPage;
 };
-
-export type FetchPageByUriReturn = (uri: string) => Promise<RawPage>;
-
-export type GetPageReturn = () => Promise<Page>;
 
 export type PageProps = {
   page: Page;

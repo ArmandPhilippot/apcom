@@ -10,7 +10,9 @@ export const sortPostsByYear = (data: PostsList[]) => {
 
   data.forEach((page) => {
     page.posts.forEach((post) => {
-      const postYear = new Date(post.date.publication).getFullYear().toString();
+      const postYear = new Date(post.dates.publication)
+        .getFullYear()
+        .toString();
       yearCollection[postYear] = [...(yearCollection[postYear] || []), post];
     });
   });

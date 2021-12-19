@@ -1,12 +1,8 @@
-import { Comment, CommentsResponse } from './comments';
-import { Cover, CoverResponse } from './cover';
+import { ContentParts, Dates } from './app';
+import { Comment, CommentsNode } from './comments';
+import { Cover, RawCover } from './cover';
 import { SEO } from './seo';
 import { SubjectPreview, ThematicPreview } from './taxonomies';
-
-export type ArticleDates = {
-  publication: string;
-  update: string;
-};
 
 export type ArticleAuthor = {
   firstName: string;
@@ -14,67 +10,59 @@ export type ArticleAuthor = {
   name: string;
 };
 
-export type ArticlePreviewResponse = {
-  acfPosts: {
-    postsInSubject: SubjectPreview[] | null;
-    postsInThematic: ThematicPreview[] | null;
-  };
-  commentCount: number | null;
-  contentParts: {
-    beforeMore: string;
-  };
-  databaseId: number;
-  date: string;
-  featuredImage: CoverResponse;
-  id: string;
-  modified: string;
-  slug: string;
-  title: string;
+export type ACFPosts = {
+  postsInSubject: SubjectPreview[] | null;
+  postsInThematic: ThematicPreview[] | null;
 };
 
-export type ArticlePreview = {
+export type Article = {
+  author: ArticleAuthor;
   commentCount: number | null;
+  comments: Comment[];
   content: string;
   databaseId: number;
-  date: ArticleDates;
-  featuredImage: Cover | null;
+  dates: Dates;
   id: string;
-  slug: string;
+  intro: string;
+  seo: SEO;
   subjects: SubjectPreview[] | [];
   thematics: ThematicPreview[] | [];
   title: string;
 };
 
-export type ArticleResponse = ArticlePreviewResponse & {
-  author: {
-    node: ArticleAuthor;
-  };
-  comments: CommentsResponse;
-  contentParts: {
-    afterMore: string;
-  };
-  seo: SEO;
+export type RawArticle = Pick<
+  Article,
+  'commentCount' | 'databaseId' | 'id' | 'seo' | 'title'
+> & {
+  acfPosts: ACFPosts;
+  author: { node: ArticleAuthor };
+  comments: CommentsNode;
+  contentParts: ContentParts;
+  date: string;
+  modified: string;
 };
 
-export type Article = ArticlePreview & {
-  author: ArticleAuthor;
-  comments: Comment[];
-  intro: string;
-  seo: SEO;
+export type ArticlePreview = Pick<
+  Article,
+  'commentCount' | 'dates' | 'id' | 'intro' | 'thematics' | 'title'
+> & { featuredImage: Cover; slug: string };
+
+export type RawArticlePreview = Pick<
+  Article,
+  'commentCount' | 'id' | 'title'
+> & {
+  acfPosts: Pick<ACFPosts, 'postsInThematic'>;
+  contentParts: Pick<ContentParts, 'beforeMore'>;
+  date: string;
+  featuredImage: RawCover;
+  modified: string;
+  slug: string;
 };
 
-export type PostByResponse = {
-  postBy: ArticleResponse;
+export type PostBy = {
+  postBy: RawArticle;
 };
-
-export type FetchPostByReturn = (slug: string) => Promise<PostByResponse>;
-
-export type GetPostByReturn = (slug: string) => Promise<Article>;
 
 export type ArticleProps = {
   post: Article;
-};
-
-export type ArticleSlug = {
-  slug: string;
 };

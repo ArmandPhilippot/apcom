@@ -3,10 +3,10 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
-import { getHomePage } from '@services/graphql/homepage';
 import { NextPageWithLayout } from '@ts/types/app';
 import { HomePage, HomePageProps } from '@ts/types/homepage';
 import { loadTranslation } from '@utils/helpers/i18n';
+import { getHomePage } from '@services/graphql/queries';
 
 const Home: NextPageWithLayout<HomePageProps> = ({ data }) => {
   return (

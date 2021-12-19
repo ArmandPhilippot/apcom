@@ -3,7 +3,7 @@ import { Form, FormItem, Input, TextArea } from '@components/Form';
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { t } from '@lingui/macro';
-import { sendMail } from '@services/graphql/contact';
+import { sendMail } from '@services/graphql/mutations';
 import { NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
@@ -28,7 +28,13 @@ const ContactPage: NextPageWithLayout = () => {
     e.preventDefault();
     const body = `Message received from ${name} <${email}> on ArmandPhilippot.com.\n\n${message}`;
     const replyTo = `${name} <${email}>`;
-    const mail = await sendMail(subject, body, replyTo, 'contact');
+    const data = {
+      body,
+      mutationId: 'contact',
+      replyTo,
+      subject,
+    };
+    const mail = await sendMail(data);
 
     if (mail.sent) {
       setStatus(

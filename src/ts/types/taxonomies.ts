@@ -1,96 +1,90 @@
-import { ArticlePreview, ArticlePreviewResponse } from './articles';
-import { Cover, CoverResponse } from './cover';
+import { ContentParts, Dates, Slug } from './app';
+import { ArticlePreview, RawArticlePreview } from './articles';
+import { Cover, RawCover } from './cover';
 
-type TaxonomyPreview = {
+//==============================================================================
+// Taxonomies base
+//==============================================================================
+
+type Taxonomy = {
+  content: string;
   databaseId: number;
+  dates: Dates;
   id: string;
-  slug: string;
+  intro: string;
+  posts: ArticlePreview[];
   title: string;
 };
 
-export type Taxonomy = TaxonomyPreview & {
-  content: string;
-  date: string;
-  intro: string;
-  modified: string;
-  posts: ArticlePreview[];
-};
-
-export type SubjectPreview = TaxonomyPreview & {
-  featuredImage: Cover;
-};
-
-export type ThematicPreview = TaxonomyPreview;
-
-export type ThematicResponse = TaxonomyPreview & {
-  acfThematics: {
-    postsInThematic: ArticlePreviewResponse[];
-  };
-  contentParts: {
-    afterMore: string;
-    beforeMore: string;
-  };
-  date: string;
-  modified: string;
-};
-
-export type ThematicProps = {
-  thematic: Taxonomy;
-};
-
-export type AllTaxonomiesSlug = {
+type TaxonomyPreview = Pick<Taxonomy, 'databaseId' | 'id' | 'title'> & {
   slug: string;
 };
 
-export type AllThematicsSlugResponse = {
-  thematics: {
-    nodes: AllTaxonomiesSlug[];
-  };
-};
-
-export type ThematicByResponse = {
-  thematicBy: ThematicResponse;
-};
-
-export type FetchThematicByReturn = (
-  slug: string
-) => Promise<ThematicByResponse>;
-
-export type GetTaxonomyByReturn = (slug: string) => Promise<Taxonomy>;
-
-export type FetchAllTaxonomiesSlugReturn = () => Promise<AllTaxonomiesSlug[]>;
+//==============================================================================
+// Subjects
+//==============================================================================
 
 export type Subject = Taxonomy & {
   featuredImage: Cover;
   officialWebsite: string;
 };
 
-export type SubjectResponse = SubjectPreview & {
+export type SubjectPreview = TaxonomyPreview & {
+  featuredImage: Cover;
+};
+
+export type RawSubject = SubjectPreview & {
   acfSubjects: {
-    postsInSubject: ArticlePreviewResponse[];
+    officialWebsite: string;
+    postsInSubject: RawArticlePreview[];
   };
-  contentParts: {
-    afterMore: string;
-    beforeMore: string;
-  };
+  contentParts: ContentParts;
   date: string;
-  featuredImage: CoverResponse;
+  featuredImage: RawCover;
   modified: string;
-  officialWebsite: string;
+};
+
+export type SubjectBy = {
+  subjectBy: RawSubject;
+};
+
+export type AllSubjectsSlug = {
+  subjects: {
+    nodes: Slug[];
+  };
+};
+
+//==============================================================================
+// Thematics
+//==============================================================================
+
+export type Thematic = Taxonomy;
+
+export type ThematicPreview = TaxonomyPreview;
+
+export type RawThematic = TaxonomyPreview & {
+  acfThematics: {
+    postsInThematic: RawArticlePreview[];
+  };
+  contentParts: ContentParts;
+  date: string;
+  modified: string;
+};
+
+export type ThematicBy = {
+  thematicBy: RawThematic;
+};
+
+export type AllThematicsSlug = {
+  thematics: {
+    nodes: Slug[];
+  };
 };
 
 export type SubjectProps = {
   subject: Subject;
 };
 
-export type SubjectByResponse = {
-  subjectBy: SubjectResponse;
-};
-
-export type FetchSubjectByReturn = (slug: string) => Promise<SubjectByResponse>;
-
-export type AllSubjectsSlugResponse = {
-  subjects: {
-    nodes: AllTaxonomiesSlug[];
-  };
+export type ThematicProps = {
+  thematic: Thematic;
 };

@@ -1,10 +1,6 @@
 import Layout from '@components/Layouts/Layout';
 import PostPreview from '@components/PostPreview/PostPreview';
 import { t } from '@lingui/macro';
-import {
-  fetchAllThematicsSlug,
-  getThematicBySlug,
-} from '@services/graphql/taxonomies';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ThematicProps } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
@@ -12,6 +8,10 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { ReactElement } from 'react';
 import styles from '@styles/pages/Thematic.module.scss';
+import {
+  getAllThematicsSlug,
+  getThematicBySlug,
+} from '@services/graphql/queries';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const getPostsList = () => {
@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allSlugs = await fetchAllThematicsSlug();
+  const allSlugs = await getAllThematicsSlug();
 
   return {
     paths: allSlugs.map((post) => `/thematique/${post.slug}`),

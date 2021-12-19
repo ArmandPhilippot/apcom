@@ -1,47 +1,29 @@
-import {
-  ArticlePreview,
-  ArticlePreviewResponse,
-  ArticleSlug,
-} from './articles';
-import { PageInfo } from './pagination';
-
-export type PostsListEdge = {
-  cursor: string;
-  node: ArticlePreviewResponse;
-};
-
-export type PostsListResponse = {
-  posts: {
-    edges: PostsListEdge[];
-    pageInfo: PageInfo;
-  };
-};
+import { PageInfo, Slug } from './app';
+import { ArticlePreview, RawArticlePreview } from './articles';
 
 export type PostsList = {
   posts: ArticlePreview[];
   pageInfo: PageInfo;
 };
 
-export type FetchPostsListReturn = (
-  first?: number,
-  after?: string
-) => Promise<PostsListResponse>;
-
-type PostsListProps = {
-  first?: number;
-  after?: string;
+export type PostsListEdges = {
+  cursor: string;
+  node: RawArticlePreview;
 };
 
-export type GetPostsListReturn = (props: PostsListProps) => Promise<PostsList>;
+export type RawPostsList = {
+  posts: {
+    edges: PostsListEdges[];
+    pageInfo: PageInfo;
+  };
+};
+
+export type AllPostsSlug = {
+  posts: {
+    nodes: Slug[];
+  };
+};
 
 export type BlogPageProps = {
   fallback: PostsList;
 };
-
-export type AllPostsSlugResponse = {
-  posts: {
-    nodes: ArticleSlug[];
-  };
-};
-
-export type FetchAllPostsSlugReturn = () => Promise<ArticleSlug[]>;

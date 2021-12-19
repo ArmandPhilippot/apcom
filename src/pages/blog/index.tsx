@@ -5,13 +5,13 @@ import { t } from '@lingui/macro';
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { config } from '@config/website';
-import { getPublishedPosts } from '@services/graphql/blog';
 import { NextPageWithLayout } from '@ts/types/app';
 import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
 import { loadTranslation } from '@utils/helpers/i18n';
 import PostsList from '@components/PostsList/PostsList';
 import useSWRInfinite from 'swr/infinite';
 import { Button } from '@components/Buttons';
+import { getPublishedPosts } from '@services/graphql/queries';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const getKey = (pageIndex: number, previousData: PostsListData) => {

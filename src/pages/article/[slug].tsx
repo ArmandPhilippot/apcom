@@ -4,8 +4,7 @@ import Layout from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { t } from '@lingui/macro';
-import { fetchAllPostsSlug } from '@services/graphql/blog';
-import { getPostBySlug } from '@services/graphql/post';
+import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleProps } from '@ts/types/articles';
 import { loadTranslation } from '@utils/helpers/i18n';
@@ -19,7 +18,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     author,
     comments,
     content,
-    date,
+    dates,
     intro,
     seo,
     subjects,
@@ -36,7 +35,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
       <article>
         <PostHeader
           author={author}
-          date={date}
+          dates={dates}
           intro={intro}
           title={title}
           thematics={thematics}
@@ -81,7 +80,7 @@ export const getStaticProps: GetStaticProps = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allSlugs = await fetchAllPostsSlug();
+  const allSlugs = await getAllPostsSlug();
 
   return {
     paths: allSlugs.map((post) => `/article/${post.slug}`),

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
-import { ArticleAuthor, ArticleDates } from '@ts/types/articles';
+import { Dates } from '@ts/types/app';
+import { ArticleAuthor } from '@ts/types/articles';
 import { ThematicPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,13 +8,13 @@ import styles from './PostHeader.module.scss';
 
 const PostHeader = ({
   author,
-  date,
+  dates,
   intro,
   title,
   thematics,
 }: {
   author: ArticleAuthor;
-  date: ArticleDates;
+  dates: Dates;
   intro: string;
   title: string;
   thematics: ThematicPreview[];
@@ -52,9 +53,9 @@ const PostHeader = ({
       <h1>{title}</h1>
       <ul className={styles.meta}>
         <li>{t`Written by ${getAuthor()} on ${getLocaleDate(
-          date.publication
+          dates.publication
         )}.`}</li>
-        <li>{t`Last update on ${getLocaleDate(date.update)}.`}</li>
+        <li>{t`Last update on ${getLocaleDate(dates.update)}.`}</li>
         {thematics.length > 0 && (
           <li>
             <dl>

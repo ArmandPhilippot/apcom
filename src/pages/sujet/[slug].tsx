@@ -1,10 +1,6 @@
 import Layout from '@components/Layouts/Layout';
 import PostPreview from '@components/PostPreview/PostPreview';
 import { t } from '@lingui/macro';
-import {
-  fetchAllSubjectsSlug,
-  getSubjectBySlug,
-} from '@services/graphql/taxonomies';
 import { NextPageWithLayout } from '@ts/types/app';
 import { SubjectProps } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
@@ -13,6 +9,10 @@ import Image from 'next/image';
 import { ParsedUrlQuery } from 'querystring';
 import { ReactElement } from 'react';
 import styles from '@styles/pages/Subject.module.scss';
+import {
+  getAllSubjectsSlug,
+  getSubjectBySlug,
+} from '@services/graphql/queries';
 
 const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   const getPostsList = () => {
@@ -68,7 +68,6 @@ interface PostParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  console.log(context);
   const translation = await loadTranslation(
     context.locale!,
     process.env.NODE_ENV === 'production'
@@ -85,7 +84,7 @@ export const getStaticProps: GetStaticProps = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allSlugs = await fetchAllSubjectsSlug();
+  const allSlugs = await getAllSubjectsSlug();
 
   return {
     paths: allSlugs.map((post) => `/sujet/${post.slug}`),

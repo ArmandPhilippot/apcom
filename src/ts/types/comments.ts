@@ -1,10 +1,14 @@
+//==============================================================================
+// Comments query
+//==============================================================================
+
 export type CommentAuthor = {
   gravatarUrl: string;
   name: string;
   url: string;
 };
 
-export type CommentAuthorResponse = {
+export type RawCommentAuthor = {
   node: CommentAuthor;
 };
 
@@ -19,12 +23,26 @@ export type Comment = {
   replies: Comment[];
 };
 
-export type RawComment = Omit<Comment, 'author'> & {
-  author: CommentAuthorResponse;
+export type RawComment = Omit<Comment, 'author' | 'replies'> & {
+  author: RawCommentAuthor;
 };
 
-export type CommentsResponse = {
+export type CommentsNode = {
   nodes: RawComment[];
+};
+
+//==============================================================================
+// Comment mutations
+//==============================================================================
+
+export type CommentData = {
+  author: string;
+  authorEmail: string;
+  authorUrl: string;
+  content: string;
+  parent: number;
+  commentOn: number;
+  mutationId: string;
 };
 
 export type CreatedComment = {
@@ -35,16 +53,6 @@ export type CreatedComment = {
   };
 };
 
-export type CreatedCommentResponse = {
+export type CreateComment = {
   createComment: CreatedComment;
 };
-
-export type CreatedCommentReturn = (
-  author: string,
-  authorEmail: string,
-  authorUrl: string,
-  content: string,
-  parent: number,
-  commentOn: number,
-  mutationId: string
-) => Promise<CreatedComment>;

@@ -1,6 +1,6 @@
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
-import { getCVPage } from '@services/graphql/pages';
+import { getPageByUri } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
 import { PageProps } from '@ts/types/pages';
 import { loadTranslation } from '@utils/helpers/i18n';
@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async (
     context.locale!,
     process.env.NODE_ENV === 'production'
   );
-  const page = await getCVPage();
+  const page = await getPageByUri('/cv/');
 
   return {
     props: {

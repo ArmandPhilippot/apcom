@@ -2,7 +2,7 @@ import { ButtonSubmit } from '@components/Buttons';
 import { Form, FormItem, Input, TextArea } from '@components/Form';
 import Notice from '@components/Notice/Notice';
 import { t } from '@lingui/macro';
-import { createComment } from '@services/graphql/comments';
+import { createComment } from '@services/graphql/mutations';
 import { useState } from 'react';
 
 const CommentForm = ({
@@ -30,15 +30,16 @@ const CommentForm = ({
     e.preventDefault();
 
     if (name && email && message && articleId) {
-      const createdComment = await createComment(
-        name,
-        email,
-        website,
-        message,
-        parentId,
-        articleId,
-        'createComment'
-      );
+      const data = {
+        author: name,
+        authorEmail: email,
+        authorUrl: website,
+        content: message,
+        parent: parentId,
+        commentOn: articleId,
+        mutationId: 'createComment',
+      };
+      const createdComment = await createComment(data);
 
       if (createdComment.success) setIsSuccess(true);
       if (isSuccess) {

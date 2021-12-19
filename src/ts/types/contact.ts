@@ -1,3 +1,10 @@
+export type ContactData = {
+  body: string;
+  mutationId: string;
+  replyTo: string;
+  subject: string;
+};
+
 export type SentEmail = {
   clientMutationId: string;
   message: string;
@@ -7,13 +14,6 @@ export type SentEmail = {
   to: string;
 };
 
-export type SentEmailResponse = {
+export type SendEmail = {
   sendEmail: SentEmail;
 };
-
-export type SendMailReturn = (
-  subject: string,
-  body: string,
-  replyTo: string,
-  mutationId: string
-) => Promise<SentEmail>;
