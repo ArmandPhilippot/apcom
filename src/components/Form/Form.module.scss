@@ -2,6 +2,11 @@
 
 .wrapper {
   width: 100%;
+
+  &--search {
+    display: flex;
+    flex-flow: row nowrap;
+  }
 }
 
 .item {

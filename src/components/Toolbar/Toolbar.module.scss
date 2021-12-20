@@ -16,11 +16,12 @@
   left: 0;
   z-index: 5;
   background: var(--color-bg);
-  box-shadow: 0 fun.convert-px(-1) fun.convert-px(3) 0 var(--color-shadow);
+  box-shadow: 0 fun.convert-px(-2) fun.convert-px(3) fun.convert-px(-1)
+    var(--color-shadow);
 
   @include mix.media("screen") {
     @include mix.dimensions(null, "2xs", "height") {
-      --toolbar-size: #{fun.convert-px(50)};
+      --toolbar-size: #{fun.convert-px(52)};
       --btn-size: #{fun.convert-px(42)};
     }
 
@@ -34,6 +35,54 @@
       left: unset;
       margin-right: unset;
       transform: unset;
+    }
+  }
+}
+
+.search {
+  padding: var(--spacing-md);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-bg);
+  box-shadow: fun.convert-px(2) fun.convert-px(-2) fun.convert-px(3)
+    fun.convert-px(-1) var(--color-shadow);
+  transition: all 0.7s ease-in-out 0s;
+
+  &--closed {
+    transform: translateX(-100%);
+    visibility: hidden;
+  }
+
+  &--opened {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      width: fun.convert-px(500);
+      left: unset;
+      right: unset;
+      top: 200%;
+      bottom: unset;
+      background: var(--color-bg-opacity);
+      box-shadow: fun.convert-px(2) fun.convert-px(2) fun.convert-px(3)
+        fun.convert-px(1) var(--color-shadow);
+      transform-origin: 100% -200%;
+      transition: all 0.8s ease-in-out 0s;
+
+      &--closed {
+        opacity: 0;
+        transform: perspective(20rem) translate3d(0, 100%, -20rem);
+        visibility: hidden;
+      }
+
+      &--opened {
+        opacity: 1;
+        transform: none;
+      }
     }
   }
 }

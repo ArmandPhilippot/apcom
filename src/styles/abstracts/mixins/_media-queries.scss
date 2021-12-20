@@ -17,18 +17,26 @@
   }
 }
 
-/// Media query: min-width / max-width
-/// @param {String} $from - min-width breakpoint.
-/// @param {String} $until - max-width breakpoint.
+/// Media query: min-width / max-width or min-height / max-height
+/// @param {String} $from - min size breakpoint.
+/// @param {String} $until - max size breakpoint.
+/// @param {String} $kind - width or height. Default: width.
 /// @example scss - `@media (min-width: "md")` equivalent is:
 /// @include dimensions("md");
-@mixin dimensions($from: null, $until: null) {
+@mixin dimensions($from: null, $until: null, $kind: "width") {
   $query: "";
 
   @if $from {
     @if type-of($from) == "string" {
       $size: map.get(var.$breakpoints, $from);
-      $query: "(min-width: #{$size})";
+
+      @if $kind == "width" {
+        $query: "(min-width: #{$size})";
+      } @else if $kind == "height" {
+        $query: "(min-height: #{$size})";
+      } @else {
+        @error "`$kind` must be either width or height.";
+      }
     } @else {
       @error "`$from` must be a string.";
     }
@@ -42,7 +50,14 @@
     @if type-of($until) == "string" {
       $size: map.get(var.$breakpoints, $until);
       $size: calc(#{$size} - 1px);
-      $query: $query + "(max-width: #{$size})";
+
+      @if $kind == "width" {
+        $query: $query + "(max-width: #{$size})";
+      } @else if $kind == "height" {
+        $query: $query + "(max-height: #{$size})";
+      } @else {
+        @error "`$kind` must be either width or height.";
+      }
     } @else {
       @error "`$until` must be a string.";
     }

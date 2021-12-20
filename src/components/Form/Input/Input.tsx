@@ -1,25 +1,28 @@
-import { ChangeEvent, SetStateAction } from 'react';
+import { ChangeEvent, ForwardedRef, forwardRef, SetStateAction } from 'react';
 import styles from '../Form.module.scss';
 
-type InputType = 'text' | 'number';
+type InputType = 'text' | 'number' | 'search';
 
-const Input = ({
-  id,
-  name,
-  value,
-  setValue,
-  type = 'text',
-  required = false,
-  label,
-}: {
-  id: string;
-  name: string;
-  value: string;
-  setValue: (value: SetStateAction<string>) => void;
-  type?: InputType;
-  required?: boolean;
-  label?: string;
-}) => {
+const Input = (
+  {
+    id,
+    name,
+    value,
+    setValue,
+    type = 'text',
+    required = false,
+    label,
+  }: {
+    id: string;
+    name: string;
+    value: string;
+    setValue: (value: SetStateAction<string>) => void;
+    type?: InputType;
+    required?: boolean;
+    label?: string;
+  },
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   const updateValue = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -33,6 +36,7 @@ const Input = ({
         </label>
       )}
       <input
+        ref={ref}
         type={type}
         id={id}
         name={name}
@@ -44,4 +48,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default forwardRef(Input);

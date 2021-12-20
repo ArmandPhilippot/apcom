@@ -38,6 +38,7 @@ $ratios: (
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels
 $breakpoints: (
+  "2xs": fun.convert-px(400, "em"),
   "xs": fun.convert-px(600, "em"),
   "sm": fun.convert-px(800, "em"),
   "md": fun.convert-px(1280, "em"),
