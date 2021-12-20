@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SetStateAction } from 'react';
 import Link from 'next/link';
 import { t } from '@lingui/macro';
 import { HamburgerIcon } from '@components/Icons';
@@ -9,9 +9,13 @@ import CVIcon from '@assets/images/icon-cv.svg';
 import HomeIcon from '@assets/images/icon-home.svg';
 import styles from './MainNav.module.scss';
 
-const MainNav = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
+const MainNav = ({
+  isOpened,
+  setIsOpened,
+}: {
+  isOpened: boolean;
+  setIsOpened: (value: SetStateAction<boolean>) => void;
+}) => {
   const getIcon = (id: string) => {
     switch (id) {
       case 'home':
@@ -48,8 +52,8 @@ const MainNav = () => {
         id="main-nav__checkbox"
         aria-labelledby="main-nav-toggle"
         className={styles.checkbox}
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
+        checked={isOpened}
+        onChange={() => setIsOpened(!isOpened)}
         autoComplete="off"
       />
       <label
@@ -57,9 +61,9 @@ const MainNav = () => {
         id="main-nav-toggle"
         className={styles.label}
       >
-        <HamburgerIcon isActive={isChecked} />
+        <HamburgerIcon isActive={isOpened} />
         <span className="screen-reader-text">
-          {isChecked ? t`Close menu` : t`Open menu`}
+          {isOpened ? t`Close menu` : t`Open menu`}
         </span>
       </label>
       <nav className={styles.nav}>
