@@ -1,3 +1,5 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/variables" as var;
 @use "sass:math";
 
@@ -22,4 +24,13 @@
   --spacing-xl: clamp(#{var.spacing("lg")}, 1ex + 4vw, #{var.spacing("xl")});
   --spacing-2xl: clamp(#{var.spacing("xl")}, 1ex + 5vw, #{var.spacing("2xl")});
   --spacing-3xl: clamp(#{var.spacing("2xl")}, 1ex + 6vw, #{var.spacing("3xl")});
+  --toolbar-size: #{fun.convert-px(60)};
+}
+
+@include mix.media("screen") {
+  @include mix.dimensions("sm") {
+    :root {
+      --toolbar-size: 0;
+    }
+  }
 }

@@ -2,7 +2,6 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
-  --toolbar-size: #{fun.convert-px(60)};
   --btn-size: #{fun.convert-px(50)};
 
   display: flex;
@@ -26,6 +25,8 @@
     }
 
     @include mix.dimensions("sm") {
+      --toolbar-size: auto;
+
       justify-content: flex-end;
       gap: var(--spacing-md);
       width: auto;
@@ -65,7 +66,7 @@
       width: fun.convert-px(500);
       left: unset;
       right: unset;
-      top: 200%;
+      top: 150%;
       bottom: unset;
       background: var(--color-bg-opacity);
       box-shadow: fun.convert-px(2) fun.convert-px(2) fun.convert-px(3)

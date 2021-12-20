@@ -82,7 +82,8 @@
 }
 
 .search {
-  display: block;
+  display: flex;
+  place-content: center;
   width: var(--btn-size);
   height: var(--btn-size);
   background: none;

@@ -75,7 +75,7 @@
       bottom: auto;
       left: auto;
       right: auto;
-      top: var(--btn-size);
+      top: calc(var(--btn-size) + var(--spacing-sm));
       z-index: unset;
       border-bottom-width: fun.convert-px(5);
       transform-origin: 50% -100%;

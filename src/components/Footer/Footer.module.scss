@@ -4,5 +4,5 @@
   place-items: center;
   place-content: center;
   gap: var(--spacing-xs);
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-md) 0 calc(var(--toolbar-size) + var(--spacing-md));
 }
