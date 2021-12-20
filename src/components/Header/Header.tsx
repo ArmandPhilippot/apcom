@@ -1,5 +1,5 @@
 import Branding from '@components/Branding/Branding';
-import MainNav from '@components/MainNav/MainNav';
+import Toolbar from '@components/Toolbar/Toolbar';
 import styles from './Header.module.scss';
 
 const Header = ({ isHome }: { isHome: boolean }) => {
@@ -7,7 +7,7 @@ const Header = ({ isHome }: { isHome: boolean }) => {
     <header className={styles.wrapper}>
       <div className={styles.body}>
         <Branding isHome={isHome} />
-        <MainNav />
+        <Toolbar />
       </div>
     </header>
   );

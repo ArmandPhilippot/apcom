@@ -3,8 +3,6 @@
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
-  --btn-size: #{fun.convert-px(50)};
-
   display: flex;
   flex-flow: column nowrap;
   place-items: center;
@@ -12,7 +10,6 @@
   width: var(--btn-size);
   background: var(--color-bg);
   position: relative;
-  z-index: 5;
 
   @include mix.media("screen") {
     @include mix.dimensions("sm") {
@@ -41,6 +38,8 @@
 
 .checkbox {
   position: absolute;
+
+  // centered checkbox = btn-size - approximated checkbox size / 2
   top: calc((var(--btn-size) - #{fun.convert-px(14)}) / 2);
   left: calc((var(--btn-size) - #{fun.convert-px(14)}) / 2);
   opacity: 0;
@@ -55,14 +54,12 @@
 
 .nav {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   place-content: center;
   padding-bottom: var(--toolbar-size);
-  position: absolute;
-  bottom: auto;
-  left: auto;
-  right: auto;
-  top: var(--btn-size);
+  position: fixed;
+  bottom: 0;
+  z-index: -1;
   background: var(--color-bg-opacity);
   box-shadow: 0 0 3px 0 var(--color-shadow);
   text-align: center;
@@ -73,6 +70,13 @@
 
   @include mix.media("screen") {
     @include mix.dimensions("sm") {
+      padding-bottom: 0;
+      position: absolute;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      top: var(--btn-size);
+      z-index: unset;
       border-bottom-width: fun.convert-px(5);
       transform-origin: 50% -100%;
     }
@@ -109,6 +113,10 @@
   text-decoration: none;
 
   @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      padding: var(--spacing-2xs) var(--spacing-sm) 0;
+    }
+
     @include mix.dimensions("md") {
       background: inherit;
     }

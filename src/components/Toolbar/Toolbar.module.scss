@@ -1,0 +1,39 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  --toolbar-size: #{fun.convert-px(60)};
+  --btn-size: #{fun.convert-px(50)};
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: var(--toolbar-size);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  background: var(--color-bg);
+  box-shadow: 0 fun.convert-px(-1) fun.convert-px(3) 0 var(--color-shadow);
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      --toolbar-size: #{fun.convert-px(50)};
+      --btn-size: #{fun.convert-px(42)};
+    }
+
+    @include mix.dimensions("sm") {
+      justify-content: flex-end;
+      gap: var(--spacing-md);
+      width: auto;
+      background: inherit;
+      box-shadow: none;
+      position: relative;
+      left: unset;
+      margin-right: unset;
+      transform: unset;
+    }
+  }
+}

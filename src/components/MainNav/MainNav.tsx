@@ -50,6 +50,7 @@ const MainNav = () => {
         className={styles.checkbox}
         checked={isChecked}
         onChange={() => setIsChecked(!isChecked)}
+        autoComplete="off"
       />
       <label
         htmlFor="main-nav__checkbox"
