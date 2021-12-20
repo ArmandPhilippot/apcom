@@ -28,13 +28,22 @@ import { fetchApi } from './api';
 export const getPublishedPosts = async ({
   first = 10,
   after = '',
+  searchQuery = '',
+}: {
+  first: number;
+  after?: string;
+  searchQuery?: string;
 }): Promise<PostsList> => {
   const query = gql`
-    query AllPublishedPosts($first: Int, $after: String) {
+    query AllPublishedPosts($first: Int, $after: String, $searchQuery: String) {
       posts(
         after: $after
         first: $first
-        where: { status: PUBLISH, orderby: { field: DATE, order: DESC } }
+        where: {
+          status: PUBLISH
+          orderby: { field: DATE, order: DESC }
+          search: $searchQuery
+        }
       ) {
         edges {
           cursor
@@ -91,7 +100,7 @@ export const getPublishedPosts = async ({
     }
   `;
 
-  const variables = { first, after };
+  const variables = { first, after, searchQuery };
   const response = await fetchApi<RawPostsList>(query, variables);
   const formattedPosts = response.posts.edges.map((post) => {
     const formattedPost = getFormattedPostPreview(post.node);

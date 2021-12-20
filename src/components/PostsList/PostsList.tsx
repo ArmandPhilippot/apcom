@@ -39,7 +39,7 @@ const PostsList = ({
   const getPostsList = () => {
     return data.map((page) => {
       if (page.posts.length === 0) {
-        return <p>{t`No results found.`}</p>;
+        return <p key="no-result">{t`No results found.`}</p>;
       } else {
         return (
           <Fragment key={page.pageInfo.endCursor}>
