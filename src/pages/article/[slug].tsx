@@ -3,6 +3,7 @@ import CommentsList from '@components/CommentsList/CommentsList';
 import { getLayout } from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
+import Sharing from '@components/Sharing/Sharing';
 import ToC from '@components/ToC/ToC';
 import { t } from '@lingui/macro';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
@@ -43,6 +44,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
         <ToC />
         <div dangerouslySetInnerHTML={{ __html: content }}></div>
         <PostFooter subjects={subjects} />
+        <Sharing title={title} excerpt={intro} />
         <section>
           <h2>{t`Comments`}</h2>
           <CommentsList comments={comments} />
