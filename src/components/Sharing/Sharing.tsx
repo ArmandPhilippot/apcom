@@ -21,6 +21,7 @@ type Website = {
 const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
   const [pageExcerpt, setPageExcerpt] = useState('');
   const [pageUrl, setPageUrl] = useState('');
+  const [hostname, setHostname] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       router.asPath
     }`;
 
+    setHostname(hostname);
     setPageUrl(fullUrl);
   }, [router.asPath]);
 
@@ -59,8 +61,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
           }
           break;
         case 'title':
-          const prefix =
-            id === 'email' ? t`Seen on ${window.location.hostname}:` : '';
+          const prefix = id === 'email' ? t`Seen on ${hostname}:` : '';
           sharingUrl += encodeURI(`${prefix} ${title}`);
           break;
         case 'url':
