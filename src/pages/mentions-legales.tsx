@@ -1,4 +1,4 @@
-import Layout from '@components/Layouts/Layout';
+import { getLayout } from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { getPageByUri } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -6,7 +6,6 @@ import { PageProps } from '@ts/types/pages';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import { ReactElement } from 'react';
 
 const LegalNotice: NextPageWithLayout<PageProps> = ({ page }) => {
   return (
@@ -26,7 +25,7 @@ const LegalNotice: NextPageWithLayout<PageProps> = ({ page }) => {
   );
 };
 
-LegalNotice.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
+LegalNotice.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
@@ -36,9 +35,11 @@ export const getStaticProps: GetStaticProps = async (
     process.env.NODE_ENV === 'production'
   );
   const page = await getPageByUri('/mentions-legales/');
+  const breadcrumbTitle = page.title;
 
   return {
     props: {
+      breadcrumbTitle,
       page,
       translation,
     },

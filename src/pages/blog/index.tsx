@@ -1,8 +1,7 @@
-import { ReactElement } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { t } from '@lingui/macro';
-import Layout from '@components/Layouts/Layout';
+import { getLayout } from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { config } from '@config/website';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -62,9 +61,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   );
 };
 
-Blog.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+Blog.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const translation = await loadTranslation(
@@ -72,9 +69,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     process.env.NODE_ENV === 'production'
   );
   const data = await getPublishedPosts({ first: config.postsPerPage });
+  const breadcrumbTitle = t`Blog`;
 
   return {
     props: {
+      breadcrumbTitle,
       fallback: {
         '/api/posts': data,
       },

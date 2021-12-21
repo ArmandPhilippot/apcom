@@ -1,0 +1,21 @@
+@use "@styles/abstracts/placeholders";
+
+.list {
+  @extend %reset-ordered-list;
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: var(--font-size-sm);
+}
+
+.item {
+  &:not(:last-of-type) {
+    &::after {
+      content: ">";
+      margin-left: var(--spacing-2xs);
+    }
+  }
+}

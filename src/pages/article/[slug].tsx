@@ -1,6 +1,6 @@
 import CommentForm from '@components/CommentForm/CommentForm';
 import CommentsList from '@components/CommentsList/CommentsList';
-import Layout from '@components/Layouts/Layout';
+import { getLayout } from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { t } from '@lingui/macro';
@@ -11,7 +11,6 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
-import { ReactElement } from 'react';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const {
@@ -53,9 +52,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   );
 };
 
-SingleArticle.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+SingleArticle.getLayout = getLayout;
 
 interface PostParams extends ParsedUrlQuery {
   slug: string;
@@ -70,9 +67,11 @@ export const getStaticProps: GetStaticProps = async (
   );
   const { slug } = context.params as PostParams;
   const post = await getPostBySlug(slug);
+  const breadcrumbTitle = post.title;
 
   return {
     props: {
+      breadcrumbTitle,
       post,
       translation,
     },

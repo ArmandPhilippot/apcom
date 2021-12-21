@@ -1,4 +1,4 @@
-import Layout from '@components/Layouts/Layout';
+import { getLayout } from '@components/Layouts/Layout';
 import PostPreview from '@components/PostPreview/PostPreview';
 import { t } from '@lingui/macro';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -7,7 +7,6 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Image from 'next/image';
 import { ParsedUrlQuery } from 'querystring';
-import { ReactElement } from 'react';
 import styles from '@styles/pages/Subject.module.scss';
 import {
   getAllSubjectsSlug,
@@ -57,9 +56,7 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   );
 };
 
-Subject.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+Subject.getLayout = getLayout;
 
 interface PostParams extends ParsedUrlQuery {
   slug: string;
@@ -74,9 +71,11 @@ export const getStaticProps: GetStaticProps = async (
   );
   const { slug } = context.params as PostParams;
   const subject = await getSubjectBySlug(slug);
+  const breadcrumbTitle = subject.title;
 
   return {
     props: {
+      breadcrumbTitle,
       subject,
       translation,
     },

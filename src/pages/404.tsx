@@ -1,4 +1,4 @@
-import Layout from '@components/Layouts/Layout';
+import { getLayout } from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { t, Trans } from '@lingui/macro';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -6,7 +6,6 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ReactElement } from 'react';
 
 const error404: NextPageWithLayout = () => {
   return (
@@ -32,7 +31,7 @@ const error404: NextPageWithLayout = () => {
   );
 };
 
-error404.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
+error404.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
@@ -42,8 +41,11 @@ export const getStaticProps: GetStaticProps = async (
     process.env.NODE_ENV === 'production'
   );
 
+  const breadcrumbTitle = t`Error`;
+
   return {
     props: {
+      breadcrumbTitle,
       translation,
     },
   };

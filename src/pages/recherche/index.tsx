@@ -1,5 +1,5 @@
 import { Button } from '@components/Buttons';
-import Layout from '@components/Layouts/Layout';
+import { getLayout } from '@components/Layouts/Layout';
 import PostsList from '@components/PostsList/PostsList';
 import { config } from '@config/website';
 import { t } from '@lingui/macro';
@@ -10,7 +10,7 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 
 const Search: NextPageWithLayout = () => {
@@ -92,7 +92,7 @@ const Search: NextPageWithLayout = () => {
   );
 };
 
-Search.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
+Search.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const translation = await loadTranslation(
@@ -100,8 +100,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     process.env.NODE_ENV === 'production'
   );
 
+  const breadcrumbTitle = t`Search`;
+
   return {
     props: {
+      breadcrumbTitle,
       translation,
     },
   };

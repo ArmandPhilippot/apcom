@@ -1,6 +1,6 @@
 import { ButtonSubmit } from '@components/Buttons';
 import { Form, FormItem, Input, TextArea } from '@components/Form';
-import Layout from '@components/Layouts/Layout';
+import { getLayout } from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { t } from '@lingui/macro';
 import { sendMail } from '@services/graphql/mutations';
@@ -8,7 +8,7 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import { FormEvent, ReactElement, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 const ContactPage: NextPageWithLayout = () => {
   const [name, setName] = useState('');
@@ -110,7 +110,7 @@ const ContactPage: NextPageWithLayout = () => {
   );
 };
 
-ContactPage.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
+ContactPage.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
@@ -120,8 +120,11 @@ export const getStaticProps: GetStaticProps = async (
     process.env.NODE_ENV === 'production'
   );
 
+  const breadcrumbTitle = t`Contact`;
+
   return {
     props: {
+      breadcrumbTitle,
       translation,
     },
   };
