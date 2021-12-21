@@ -76,6 +76,13 @@ export type Dates = {
   update: string;
 };
 
+export type Heading = {
+  depth: number;
+  id: string;
+  children: Heading[];
+  title: string;
+};
+
 export type PageInfo = {
   endCursor: string;
   hasNextPage: boolean;

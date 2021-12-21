@@ -1,12 +1,6 @@
+import { Heading } from '@ts/types/app';
 import { slugify } from '@utils/helpers/slugify';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-
-type Heading = {
-  depth: number;
-  id: string;
-  children: Heading[];
-  title: string;
-};
 
 const useHeadingsTree = (wrapper: string) => {
   const [headingsTree, setHeadingsTree] = useState<Heading[]>([]);

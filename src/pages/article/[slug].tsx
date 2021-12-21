@@ -3,6 +3,7 @@ import CommentsList from '@components/CommentsList/CommentsList';
 import { getLayout } from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
+import ToC from '@components/ToC/ToC';
 import { t } from '@lingui/macro';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -39,6 +40,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           title={title}
           thematics={thematics}
         />
+        <ToC />
         <div dangerouslySetInnerHTML={{ __html: content }}></div>
         <PostFooter subjects={subjects} />
         <section>

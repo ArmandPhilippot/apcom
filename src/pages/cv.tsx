@@ -1,4 +1,5 @@
 import { getLayout } from '@components/Layouts/Layout';
+import ToC from '@components/ToC/ToC';
 import { seo } from '@config/seo';
 import { getPageByUri } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -17,9 +18,16 @@ const CV: NextPageWithLayout<PageProps> = ({ page }) => {
       <article>
         <header>
           <h1>{page.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: page.intro }}></div>
+          {page.content && (
+            <div dangerouslySetInnerHTML={{ __html: page.intro }}></div>
+          )}
         </header>
-        <div dangerouslySetInnerHTML={{ __html: page.content }}></div>
+        <ToC />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: page.content ? page.content : page.intro,
+          }}
+        ></div>
       </article>
     </>
   );
