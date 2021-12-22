@@ -3,6 +3,7 @@ import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
 import Main from '@components/Main/Main';
 import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
+import { t } from '@lingui/macro';
 
 const Layout = ({
   children,
@@ -13,6 +14,7 @@ const Layout = ({
 }) => {
   return (
     <>
+      <a href="#main" className="screen-reader-text">{t`Skip to content`}</a>
       <Header isHome={isHome} />
       <Main>{children}</Main>
       <Footer />

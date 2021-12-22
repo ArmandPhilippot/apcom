@@ -1,0 +1,49 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+/*=========================================================================
+>>> TABLE OF CONTENTS:
+===========================================================================
+	1.0 Accessibility
+	2.0. Alignments
+===========================================================================*/
+
+//=========================================================================
+// 1.0. Accessibility
+//=========================================================================
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+  width: fun.convert-px(1);
+  height: fun.convert-px(1);
+  padding: 0;
+  position: absolute !important;
+  overflow: hidden;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  word-break: normal;
+  word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+
+  &:focus {
+    display: block;
+    width: auto;
+    height: auto;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    left: var(--spacing-2xs);
+    top: var(--spacing-xs);
+    z-index: 100000;
+    background: var(--color-primary);
+    box-shadow: fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
+      var(--color-shadow);
+    clip: auto !important;
+    color: var(--color-fg-inverted);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+  }
+}
+
+@include mix.motion("reduce") {
+  * {
+    transition: none !important;
+  }
+}
