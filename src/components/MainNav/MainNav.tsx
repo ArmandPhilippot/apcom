@@ -1,12 +1,14 @@
 import { SetStateAction } from 'react';
 import Link from 'next/link';
 import { t } from '@lingui/macro';
-import { HamburgerIcon } from '@components/Icons';
+import {
+  BlogIcon,
+  ContactIcon,
+  CVIcon,
+  HamburgerIcon,
+  HomeIcon,
+} from '@components/Icons';
 import { mainNav } from '@config/nav';
-import ArticlesIcon from '@assets/images/icon-articles.svg';
-import ContactIcon from '@assets/images/icon-contact.svg';
-import CVIcon from '@assets/images/icon-cv.svg';
-import HomeIcon from '@assets/images/icon-home.svg';
 import styles from './MainNav.module.scss';
 
 const MainNav = ({
@@ -21,7 +23,7 @@ const MainNav = ({
       case 'home':
         return <HomeIcon />;
       case 'blog':
-        return <ArticlesIcon />;
+        return <BlogIcon />;
       case 'contact':
         return <ContactIcon />;
       case 'cv':
@@ -36,7 +38,7 @@ const MainNav = ({
       <li key={item.id} className={styles.item}>
         <Link href={item.slug}>
           <a className={styles.link}>
-            <span className={styles.icon}>{getIcon(item.id)}</span>
+            {getIcon(item.id)}
             <span>{item.name}</span>
           </a>
         </Link>

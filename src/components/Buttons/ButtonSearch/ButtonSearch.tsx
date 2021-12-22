@@ -1,5 +1,4 @@
-import CloseIcon from '@assets/images/icon-close.svg';
-import SearchIcon from '@assets/images/icon-search.svg';
+import { CloseIcon, SearchIcon } from '@components/Icons';
 import { t } from '@lingui/macro';
 import { SetStateAction } from 'react';
 import styles from '../Buttons.module.scss';

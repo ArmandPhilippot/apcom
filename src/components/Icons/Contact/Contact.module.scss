@@ -1,0 +1,29 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  display: block;
+  margin: auto;
+  width: var(--icon-size, #{fun.convert-px(40)});
+}
+
+.envelop {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}
+
+.lines {
+  fill: var(--color-border);
+}
+
+.background {
+  fill: var(--color-shadow-dark);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}
+
+.paper {
+  fill: var(--color-bg);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}

@@ -82,10 +82,10 @@
 }
 
 .search {
-  display: flex;
-  place-content: center;
+  display: block;
   width: var(--btn-size);
   height: var(--btn-size);
+  padding: 0;
   background: none;
   border: none;
   font-size: var(--font-size-md);
@@ -103,7 +103,10 @@
 
 .front,
 .back {
-  display: block;
+  display: flex;
+  place-content: center;
+  width: var(--btn-size);
+  height: var(--btn-size);
   position: absolute;
   top: 0;
   right: 0;

@@ -1,0 +1,42 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  display: block;
+  margin: auto;
+  width: var(--icon-size, #{fun.convert-px(40)});
+}
+
+.wall {
+  fill: var(--color-bg);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}
+
+.indoor {
+  fill: var(--color-shadow);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}
+
+.door {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}
+
+.roof {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}
+
+.chimney {
+  fill: var(--color-bg);
+  stroke: var(--color-border);
+  stroke-width: 4;
+}
+
+.lines {
+  fill: var(--color-border);
+  stroke-width: 4;
+}

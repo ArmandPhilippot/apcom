@@ -1,0 +1,31 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  display: block;
+  margin: auto;
+  width: var(--icon-size, #{fun.convert-px(40)});
+}
+
+.big-handle {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 3;
+}
+
+.glass {
+  fill: var(--color-bg-opacity);
+  stroke: var(--color-border);
+  stroke-width: 2;
+}
+
+.upright {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 3;
+}
+
+.small-handle {
+  fill: var(--color-primary);
+  stroke: var(--color-border);
+  stroke-width: 2;
+}

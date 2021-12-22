@@ -6,17 +6,17 @@
   &,
   &::before,
   &::after {
-    background: var(--color-primary);
+    background: var(--color-primary-lighter);
     background-image: linear-gradient(
       to right,
       var(--color-primary-light) 0%,
-      var(--color-highlight) 100%
+      var(--color-primary-lighter) 100%
     );
     border: fun.convert-px(1) solid var(--color-border);
     border-radius: fun.convert-px(3);
     display: block;
     width: var(--btn-size, fun.convert-px(50));
-    height: fun.convert-px(6);
+    height: fun.convert-px(7);
     margin: auto;
     transition: all 0.25s ease-in-out 0s, transform 0.4s ease-in 0s;
   }
@@ -25,6 +25,7 @@
   &::after {
     content: "";
     position: absolute;
+    left: fun.convert-px(-1);
   }
 
   &::before {
