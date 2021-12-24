@@ -4,18 +4,17 @@ import Head from 'next/head';
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { NextPageWithLayout } from '@ts/types/app';
-import { HomePage, HomePageProps } from '@ts/types/homepage';
 import { loadTranslation } from '@utils/helpers/i18n';
-import { getHomePage } from '@services/graphql/queries';
+import HomePageContent from '@content/pages/homepage.mdx';
 
-const Home: NextPageWithLayout<HomePageProps> = ({ data }) => {
+const Home: NextPageWithLayout = () => {
   return (
     <>
       <Head>
         <title>{seo.homepage.title}</title>
         <meta name="description" content={seo.homepage.description} />
       </Head>
-      <div dangerouslySetInnerHTML={{ __html: data.content }}></div>
+      <HomePageContent />
     </>
   );
 };
@@ -30,11 +29,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     process.env.NODE_ENV === 'production'
   );
 
-  const data: HomePage = await getHomePage();
-
   return {
     props: {
-      data,
       translation,
     },
   };

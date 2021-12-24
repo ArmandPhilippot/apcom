@@ -1,7 +1,6 @@
 import { Slug } from '@ts/types/app';
 import { Article, PostBy } from '@ts/types/articles';
 import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
-import { HomePage, HomePageBy } from '@ts/types/homepage';
 import { Page, PageBy } from '@ts/types/pages';
 import {
   AllSubjectsSlug,
@@ -237,24 +236,6 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
 //==============================================================================
 // Pages query
 //==============================================================================
-
-export const getHomePage = async (): Promise<HomePage> => {
-  const query = gql`
-    query HomePage {
-      nodeByUri(uri: "/") {
-        ... on Page {
-          id
-          content
-        }
-      }
-    }
-  `;
-
-  const response = await fetchApi<HomePageBy>(query, null);
-  const homepage = response.nodeByUri;
-
-  return homepage;
-};
 
 export const getPageByUri = async (slug: string): Promise<Page> => {
   const query = gql`

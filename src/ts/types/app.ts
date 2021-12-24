@@ -5,7 +5,6 @@ import { PostBy } from './articles';
 import { AllPostsSlug, RawPostsList } from './blog';
 import { CommentData, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
-import { HomePageBy } from './homepage';
 import { PageBy } from './pages';
 import {
   AllSubjectsSlug,
@@ -49,7 +48,6 @@ export type RequestType =
   | AllSubjectsSlug
   | AllThematicsSlug
   | CreateComment
-  | HomePageBy
   | PageBy
   | PostBy
   | SubjectBy
