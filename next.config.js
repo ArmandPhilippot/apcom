@@ -4,7 +4,7 @@ const { locales } = require('./lingui.config');
 const backendDomain = process.env.BACKEND_URL.split('//')[1];
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   i18n: {
     locales,
     defaultLocale: 'fr',
@@ -55,3 +55,13 @@ module.exports = {
     return config;
   },
 };
+
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+module.exports = withMDX(nextConfig);

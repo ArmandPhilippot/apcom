@@ -5,7 +5,6 @@ import {
   RawArticlePreview,
 } from '@ts/types/articles';
 import { Comment, RawComment } from '@ts/types/comments';
-import { Page, RawPage } from '@ts/types/pages';
 import {
   RawSubject,
   RawThematic,
@@ -201,26 +200,4 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
   };
 
   return formattedPost;
-};
-
-/**
- * Format a page from RawPage to Page type.
- * @param page - A page coming from WP GraphQL.
- * @returns A formatted page.
- */
-export const getFormattedPage = (rawPage: RawPage): Page => {
-  const { date, modified } = rawPage;
-  const dates = {
-    publication: date,
-    update: modified,
-  };
-
-  const formattedPage: Page = {
-    ...rawPage,
-    content: rawPage.contentParts.afterMore,
-    dates,
-    intro: rawPage.contentParts.beforeMore,
-  };
-
-  return formattedPage;
 };

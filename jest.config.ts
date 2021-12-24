@@ -93,6 +93,7 @@ const config = {
     '^@i18n/(.*)$': '<rootDir>/src/i18n/$1',
     '^@assets/(.*)$': '<rootDir>/src/assets/$1',
     '^@config/(.*)$': '<rootDir>/src/config/$1',
+    '^@content/(.*)$': '<rootDir>/src/content/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@pages/(.*)$': '<rootDir>/src/pages/$1',

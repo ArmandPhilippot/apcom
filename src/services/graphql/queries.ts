@@ -1,8 +1,6 @@
 import { Slug } from '@ts/types/app';
 import { Article, PostBy } from '@ts/types/articles';
 import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
-import { HomePage, HomePageBy } from '@ts/types/homepage';
-import { Page, PageBy } from '@ts/types/pages';
 import {
   AllSubjectsSlug,
   AllThematicsSlug,
@@ -12,7 +10,6 @@ import {
   ThematicBy,
 } from '@ts/types/taxonomies';
 import {
-  getFormattedPage,
   getFormattedPost,
   getFormattedPostPreview,
   getFormattedSubject,
@@ -232,50 +229,6 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
   const post = getFormattedPost(response.postBy);
 
   return post;
-};
-
-//==============================================================================
-// Pages query
-//==============================================================================
-
-export const getHomePage = async (): Promise<HomePage> => {
-  const query = gql`
-    query HomePage {
-      nodeByUri(uri: "/") {
-        ... on Page {
-          id
-          content
-        }
-      }
-    }
-  `;
-
-  const response = await fetchApi<HomePageBy>(query, null);
-  const homepage = response.nodeByUri;
-
-  return homepage;
-};
-
-export const getPageByUri = async (slug: string): Promise<Page> => {
-  const query = gql`
-    query PageByUri($slug: String!) {
-      pageBy(uri: $slug) {
-        contentParts {
-          afterMore
-          beforeMore
-        }
-        date
-        modified
-        title
-      }
-    }
-  `;
-
-  const variables = { slug };
-  const response = await fetchApi<PageBy>(query, variables);
-  const page = getFormattedPage(response.pageBy);
-
-  return page;
 };
 
 //==============================================================================

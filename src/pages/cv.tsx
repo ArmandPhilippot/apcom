@@ -1,14 +1,13 @@
 import { getLayout } from '@components/Layouts/Layout';
 import ToC from '@components/ToC/ToC';
 import { seo } from '@config/seo';
-import { getPageByUri } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
-import { PageProps } from '@ts/types/pages';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
+import CVContent, { intro, meta } from '@content/pages/cv.mdx';
 
-const CV: NextPageWithLayout<PageProps> = ({ page }) => {
+const CV: NextPageWithLayout = () => {
   return (
     <>
       <Head>
@@ -17,17 +16,11 @@ const CV: NextPageWithLayout<PageProps> = ({ page }) => {
       </Head>
       <article>
         <header>
-          <h1>{page.title}</h1>
-          {page.content && (
-            <div dangerouslySetInnerHTML={{ __html: page.intro }}></div>
-          )}
+          <h1>{meta.title}</h1>
+          <div dangerouslySetInnerHTML={{ __html: intro }}></div>
         </header>
         <ToC />
-        <div
-          dangerouslySetInnerHTML={{
-            __html: page.content ? page.content : page.intro,
-          }}
-        ></div>
+        <CVContent />
       </article>
     </>
   );
@@ -42,13 +35,11 @@ export const getStaticProps: GetStaticProps = async (
     context.locale!,
     process.env.NODE_ENV === 'production'
   );
-  const page = await getPageByUri('/cv/');
-  const breadcrumbTitle = page.title;
+  const breadcrumbTitle = meta.title;
 
   return {
     props: {
       breadcrumbTitle,
-      page,
       translation,
     },
   };
