@@ -83,6 +83,12 @@ export type Heading = {
   title: string;
 };
 
+export type Meta = {
+  title: string;
+  publishedOn: string;
+  updatedOn: string;
+};
+
 export type PageInfo = {
   endCursor: string;
   hasNextPage: boolean;
