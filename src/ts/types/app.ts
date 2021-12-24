@@ -5,7 +5,6 @@ import { PostBy } from './articles';
 import { AllPostsSlug, RawPostsList } from './blog';
 import { CommentData, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
-import { PageBy } from './pages';
 import {
   AllSubjectsSlug,
   AllThematicsSlug,
@@ -29,11 +28,7 @@ export type AppPropsWithLayout = AppProps & {
 // API
 //==============================================================================
 
-export type VariablesType<T> = T extends
-  | PageBy
-  | PostBy
-  | SubjectBy
-  | ThematicBy
+export type VariablesType<T> = T extends PostBy | SubjectBy | ThematicBy
   ? Slug
   : T extends RawPostsList
   ? CursorPagination
@@ -48,7 +43,6 @@ export type RequestType =
   | AllSubjectsSlug
   | AllThematicsSlug
   | CreateComment
-  | PageBy
   | PostBy
   | SubjectBy
   | ThematicBy

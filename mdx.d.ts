@@ -4,4 +4,5 @@ declare module '*.mdx' {
   let MDXComponent: (props: any) => JSX.Element;
   export default MDXComponent;
   export const meta: Meta;
+  export const intro: string;
 }
