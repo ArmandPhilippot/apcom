@@ -20,6 +20,7 @@ export type Comment = {
   date: string;
   id: string;
   parentDatabaseId: number;
+  parentId: string | null;
   replies: Comment[];
 };
 

@@ -168,7 +168,7 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
           }
         }
         commentCount
-        comments {
+        comments(where: { order: ASC, orderby: COMMENT_DATE }) {
           nodes {
             approved
             author {

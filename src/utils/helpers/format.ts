@@ -158,6 +158,34 @@ export const getFormattedComments = (rawComments: RawComment[]): Comment[] => {
 };
 
 /**
+ * Create a comments tree with replies.
+ * @param comments - A flatten comments list.
+ * @returns An array of comments with replies.
+ */
+export const buildCommentsTree = (comments: Comment[]) => {
+  type CommentsHashTable = {
+    [key: string]: Comment;
+  };
+
+  const hashTable: CommentsHashTable = Object.create(null);
+  const commentsTree: Comment[] = [];
+
+  comments.forEach(
+    (comment) => (hashTable[comment.id] = { ...comment, replies: [] })
+  );
+
+  comments.forEach((comment) => {
+    if (!comment.parentId) {
+      commentsTree.push(hashTable[comment.id]);
+    } else {
+      hashTable[comment.parentId].replies.push(hashTable[comment.id]);
+    }
+  });
+
+  return commentsTree;
+};
+
+/**
  * Format an article from RawArticle to Article type.
  * @param rawPost - An article coming from WP GraphQL.
  * @returns A formatted article.
@@ -183,11 +211,12 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
   };
 
   const formattedComments = getFormattedComments(comments.nodes);
+  const commentsTree = buildCommentsTree(formattedComments);
 
   const formattedPost: Article = {
     author: author.node,
     commentCount,
-    comments: formattedComments,
+    comments: commentsTree,
     content: contentParts.afterMore,
     databaseId,
     dates,

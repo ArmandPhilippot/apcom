@@ -6,16 +6,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from './Comment.module.scss';
 
-const Comment = ({ comment }: { comment: CommentData }) => {
+const Comment = ({
+  comment,
+  isNested = false,
+}: {
+  comment: CommentData;
+  isNested?: boolean;
+}) => {
   const router = useRouter();
 
   const getCommentAuthor = () => {
     return comment.author.url ? (
       <Link href={comment.author.url}>
-        <a>{comment.author.name}</a>
+        <a className={styles.author}>{comment.author.name}</a>
       </Link>
     ) : (
-      <span>{comment.author.name}</span>
+      <span className={styles.author}>{comment.author.name}</span>
     );
   };
 
@@ -59,14 +65,16 @@ const Comment = ({ comment }: { comment: CommentData }) => {
             className={styles.body}
             dangerouslySetInnerHTML={{ __html: comment.content }}
           ></div>
-          <footer className={styles.footer}>
-            <Button clickHandler={() => ''}>{t`Reply`}</Button>
-          </footer>
+          {!isNested && (
+            <footer className={styles.footer}>
+              <Button clickHandler={() => ''}>{t`Reply`}</Button>
+            </footer>
+          )}
         </article>
         {comment.replies.length > 0 && (
           <ol className={styles.list}>
             {comment.replies.map((reply) => {
-              return <Comment key={reply.id} comment={reply} />;
+              return <Comment key={reply.id} comment={reply} isNested={true} />;
             })}
           </ol>
         )}
