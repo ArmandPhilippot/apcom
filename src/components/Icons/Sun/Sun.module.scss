@@ -1,0 +1,8 @@
+@use "@styles/abstracts/functions" as fun;
+
+.sun {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 4;
+  width: var(--icon-size, #{fun.convert-px(25)});
+}

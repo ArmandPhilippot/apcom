@@ -1,20 +1,35 @@
 import { ButtonSearch } from '@components/Buttons';
 import MainNav from '@components/MainNav/MainNav';
 import SearchForm from '@components/SearchForm/SearchForm';
+import ThemeToggle from '@components/ThemeToggle/ThemeToggle';
 import { useEffect, useState } from 'react';
 import styles from './Toolbar.module.scss';
 
 const Toolbar = () => {
   const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
   const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);
+  const [isThemeOpened, setIsThemeOpened] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isNavOpened) setIsSearchOpened(false);
+    if (isNavOpened) {
+      setIsSearchOpened(false);
+      setIsThemeOpened(false);
+    }
   }, [isNavOpened]);
 
   useEffect(() => {
-    if (isSearchOpened) setIsNavOpened(false);
+    if (isSearchOpened) {
+      setIsNavOpened(false);
+      setIsThemeOpened(false);
+    }
   }, [isSearchOpened]);
+
+  useEffect(() => {
+    if (isThemeOpened) {
+      setIsNavOpened(false);
+      setIsSearchOpened(false);
+    }
+  }, [isThemeOpened]);
 
   const searchClasses = `${styles.search} ${
     isSearchOpened ? styles['search--opened'] : styles['search--closed']
@@ -29,6 +44,9 @@ const Toolbar = () => {
       />
       <div className={searchClasses}>
         <SearchForm isOpened={isSearchOpened} />
+      </div>
+      <div>
+        <ThemeToggle />
       </div>
     </div>
   );

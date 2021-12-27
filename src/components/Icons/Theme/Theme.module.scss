@@ -1,0 +1,43 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  display: block;
+  margin: auto;
+  width: var(--icon-size, #{fun.convert-px(40)});
+}
+
+.roller {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 3;
+}
+
+.guard {
+  fill: var(--color-primary);
+  stroke: var(--color-border);
+  stroke-width: 2;
+}
+
+.handle {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 3;
+}
+
+.bar {
+  fill: var(--color-bg);
+  stroke: var(--color-border);
+  stroke-width: 3;
+}
+
+.colors {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-border);
+  stroke-width: 2;
+}
+
+.palette {
+  fill: var(--color-bg);
+  stroke: var(--color-border);
+  stroke-width: 3;
+}

@@ -2,7 +2,6 @@
 
 .btn {
   display: block;
-  margin: auto;
   border: none;
   font-size: var(--font-size-md);
 }
@@ -81,7 +80,8 @@
   }
 }
 
-.search {
+.search,
+.theme {
   display: block;
   width: var(--btn-size);
   height: var(--btn-size);
@@ -125,7 +125,8 @@
   z-index: 10;
 }
 
-.search--opened {
+.search--opened,
+.theme--opened {
   .icon {
     transform: rotateY(180deg);
   }

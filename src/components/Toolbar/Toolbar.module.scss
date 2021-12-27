@@ -28,7 +28,7 @@
       --toolbar-size: auto;
 
       justify-content: flex-end;
-      gap: var(--spacing-md);
+      gap: var(--spacing-sm);
       width: auto;
       background: inherit;
       box-shadow: none;
@@ -66,12 +66,12 @@
       width: fun.convert-px(500);
       left: unset;
       right: unset;
-      top: 150%;
+      top: 120%;
       bottom: unset;
       background: var(--color-bg-opacity);
       box-shadow: fun.convert-px(2) fun.convert-px(2) fun.convert-px(3)
         fun.convert-px(1) var(--color-shadow);
-      transform-origin: 100% -200%;
+      transform-origin: 50% -200%;
       transition: all 0.8s ease-in-out 0s;
 
       &--closed {
