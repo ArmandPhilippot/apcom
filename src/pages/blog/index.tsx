@@ -55,6 +55,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         <Button
           isDisabled={isLoadingMore}
           clickHandler={() => setSize(size + 1)}
+          position="center"
         >{t`Load more?`}</Button>
       )}
     </>

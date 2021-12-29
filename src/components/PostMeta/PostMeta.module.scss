@@ -4,6 +4,7 @@
 .wrapper {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: var(--spacing-md);
   font-size: var(--font-size-sm);
 
   @include mix.media("screen") {

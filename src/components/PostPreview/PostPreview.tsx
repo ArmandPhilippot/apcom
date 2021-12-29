@@ -2,9 +2,10 @@ import PostMeta from '@components/PostMeta/PostMeta';
 import { t } from '@lingui/macro';
 import { ArticlePreview } from '@ts/types/articles';
 import Link from 'next/link';
-import ArrowRightIcon from '@assets/images/icon-arrow-right.svg';
 import styles from './PostPreview.module.scss';
 import Image from 'next/image';
+import { ButtonLink } from '@components/Buttons';
+import { ArrowIcon } from '@components/Icons';
 
 type TitleLevel = 2 | 3 | 4 | 5 | 6;
 
@@ -41,16 +42,18 @@ const PostPreview = ({
         dangerouslySetInnerHTML={{ __html: post.intro }}
       ></div>
       <footer className={styles.footer}>
-        <Link href={`/article/${post.slug}`}>
-          <a className={styles['read-more']}>
-            {t`Read more`}
-            <span className="screen-reader-text">
-              {' '}
-              {t({ message: `about ${post.title}`, comment: 'Post title' })}
-            </span>
-            <ArrowRightIcon className={styles.icon} />
-          </a>
-        </Link>
+        <ButtonLink
+          target={`/article/${post.slug}`}
+          position="left"
+          hasIcon={true}
+        >
+          {t`Read more`}
+          <span className="screen-reader-text">
+            {' '}
+            {t({ message: `about ${post.title}`, comment: 'Post title' })}
+          </span>
+          <ArrowIcon />
+        </ButtonLink>
       </footer>
       <PostMeta
         commentCount={post.commentCount}

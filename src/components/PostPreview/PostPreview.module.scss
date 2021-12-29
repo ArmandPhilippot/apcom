@@ -2,22 +2,24 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
+  --icon-size: #{fun.convert-px(20)};
+
   padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
   border: fun.convert-px(1) solid var(--color-border);
   border-radius: fun.convert-px(3);
-  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow),
-    fun.convert-px(1) fun.convert-px(1) fun.convert-px(3) 0 var(--color-shadow);
-  transition: all 0.2s ease-in-out 0s, border 0s;
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow-light),
+    fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
+      var(--color-shadow-light),
+    fun.convert-px(4) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-2)
+      var(--color-shadow-light);
+  transition: all 0.3s ease-in-out 0s, border 0s;
 
-  &:hover,
-  &:focus-within {
-    box-shadow: fun.convert-px(2) fun.convert-px(2) 0 0
-        var(--color-shadow-light),
-      fun.convert-px(3) fun.convert-px(3) fun.convert-px(3) 0
-        var(--color-shadow-light),
-      fun.convert-px(3) fun.convert-px(3) fun.convert-px(5) fun.convert-px(1)
-        var(--color-shadow-lighter);
-    transform: scale(1.01);
+  &:hover {
+    --icon-size: #{fun.convert-px(25)};
+  }
+
+  &:active {
+    --icon-size: 0;
   }
 }
 
@@ -27,54 +29,6 @@
   margin: 0 auto var(--spacing-sm);
   position: relative;
   border: fun.convert-px(1) solid var(--color-border);
-}
-
-.read-more {
-  display: block;
-  width: max-content;
-  margin: var(--spacing-md) auto var(--spacing-lg);
-  padding: var(--spacing-2xs) var(--spacing-sm);
-  background: var(--color-bg);
-  border: fun.convert-px(3) solid var(--color-primary);
-  border-radius: fun.convert-px(3);
-  box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
-      var(--color-shadow-light),
-    fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
-      var(--color-shadow-light),
-    fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
-      var(--color-shadow-light);
-  color: var(--color-primary);
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease-in-out 0s;
-
-  .icon {
-    width: fun.convert-px(20);
-    margin-left: var(--spacing-2xs);
-    fill: var(--color-primary);
-    transition: all 0.25s ease-in-out 0s;
-  }
-
-  &:hover,
-  &:focus {
-    text-decoration: underline var(--color-primary) fun.convert-px(2);
-
-    .icon {
-      margin-left: var(--spacing-xs);
-      transform: scaleX(1.3);
-    }
-  }
-
-  &:active {
-    color: var(--color-primary-dark);
-    text-decoration: none;
-
-    .icon {
-      margin-left: 0;
-      transform: scaleX(0);
-      width: 0;
-    }
-  }
 }
 
 @include mix.media("screen") {

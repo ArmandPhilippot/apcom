@@ -8,13 +8,17 @@ const ButtonLink = ({
   target,
   position = 'left',
   isExternal = false,
+  hasIcon = false,
 }: {
   children: ReactNode;
   target: string;
   position?: ButtonPosition;
   isExternal?: boolean;
+  hasIcon?: boolean;
 }) => {
-  const classes = `${styles.btn} ${styles.link} ${styles[`link--${position}`]}`;
+  const classes = `${styles.btn} ${styles.link} ${styles[`link--${position}`]}${
+    hasIcon ? ` ${styles['link--icon']}` : ''
+  }`;
 
   return isExternal ? (
     <a className={classes} href={target}>

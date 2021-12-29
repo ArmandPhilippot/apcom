@@ -1,3 +1,4 @@
+import ArrowIcon from './Arrow/Arrow';
 import BlogIcon from './Blog/Blog';
 import CloseIcon from './Close/Close';
 import ContactIcon from './Contact/Contact';
@@ -10,6 +11,7 @@ import SunIcon from './Sun/Sun';
 import ThemeIcon from './Theme/Theme';
 
 export {
+  ArrowIcon,
   BlogIcon,
   CloseIcon,
   ContactIcon,
