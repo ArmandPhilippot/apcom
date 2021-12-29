@@ -53,6 +53,8 @@ export type RequestType =
 // Globals
 //==============================================================================
 
+export type ButtonPosition = 'left' | 'right' | 'center';
+
 export type ContentParts = {
   afterMore: string;
   beforeMore: string;
