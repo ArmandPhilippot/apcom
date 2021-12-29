@@ -1,11 +1,32 @@
+@use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
 .list {
   @extend %reset-ordered-list;
 
-  margin: var(--spacing-md) auto;
+  margin: 0 auto var(--spacing-md);
 }
 
 li.item {
   margin: var(--spacing-md) 0;
+
+  &:first-of-type {
+    margin-top: var(--spacing-sm);
+  }
+}
+
+.section {
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      align-items: first baseline;
+      gap: var(--spacing-md);
+    }
+  }
+}
+
+.year {
+  position: sticky;
+  top: 0;
 }

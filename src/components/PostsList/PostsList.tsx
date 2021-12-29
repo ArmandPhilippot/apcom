@@ -20,8 +20,8 @@ const PostsList = ({
 
     return years.map((year) => {
       return (
-        <Fragment key={year}>
-          {showYears && <h2>{year}</h2>}
+        <section key={year} className={styles.section}>
+          {showYears && <h2 className={styles.year}>{year}</h2>}
           <ol className={styles.list}>
             {posts[year].map((post) => {
               return (
@@ -31,7 +31,7 @@ const PostsList = ({
               );
             })}
           </ol>
-        </Fragment>
+        </section>
       );
     });
   };
