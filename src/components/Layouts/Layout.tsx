@@ -1,9 +1,11 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
+import Prism from 'prismjs';
 import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
 import Main from '@components/Main/Main';
 import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
 import { t } from '@lingui/macro';
+import 'prism-themes/themes/prism-coldark-cold.min.css';
 
 const Layout = ({
   children,
@@ -12,6 +14,10 @@ const Layout = ({
   children: ReactNode;
   isHome?: boolean;
 }) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   return (
     <>
       <a href="#main" className="screen-reader-text">{t`Skip to content`}</a>
