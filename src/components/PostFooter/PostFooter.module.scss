@@ -1,5 +1,50 @@
+@use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/placeholders";
+
+.meta {
+  flex-flow: column wrap;
+}
 
 .list {
   @extend %flex-list;
+}
+
+.item {
+  &:not(:last-child) {
+    margin-right: var(--spacing-2xs);
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  padding: fun.convert-px(3) var(--spacing-xs);
+  position: relative;
+  background: linear-gradient(
+      to right,
+      var(--color-primary) 50%,
+      var(--color-bg) 50%
+    )
+    100% 0 / 210% 100%;
+  border: fun.convert-px(2) solid var(--color-primary);
+  border-radius: fun.convert-px(5);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(2) 0
+    var(--color-shadow-light);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.5s ease-in-out 0s, color 0.5s ease-in-out 0s;
+
+  &:hover,
+  &:focus {
+    background-position: 0 0;
+    color: var(--color-fg-inverted);
+    transition: all 0.4s ease-in-out 0s, color 0.3s ease-in-out 0.1s;
+  }
+
+  &:active {
+    background-position: 100% 0;
+    border-color: var(--color-primary-dark);
+    color: var(--color-primary-dark);
+  }
 }

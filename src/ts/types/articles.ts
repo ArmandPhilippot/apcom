@@ -2,12 +2,21 @@ import { ContentParts, Dates } from './app';
 import { Comment, CommentsNode } from './comments';
 import { Cover, RawCover } from './cover';
 import { SEO } from './seo';
-import { SubjectPreview, ThematicPreview } from './taxonomies';
+import {
+  RawSubjectPreview,
+  SubjectPreview,
+  ThematicPreview,
+} from './taxonomies';
 
 export type ArticleAuthor = {
   firstName: string;
   lastName: string;
   name: string;
+};
+
+export type RawACFPosts = {
+  postsInSubject: RawSubjectPreview[] | null;
+  postsInThematic: ThematicPreview[] | null;
 };
 
 export type ACFPosts = {
@@ -34,7 +43,7 @@ export type RawArticle = Pick<
   Article,
   'commentCount' | 'databaseId' | 'id' | 'seo' | 'title'
 > & {
-  acfPosts: ACFPosts;
+  acfPosts: RawACFPosts;
   author: { node: ArticleAuthor };
   comments: CommentsNode;
   contentParts: ContentParts;

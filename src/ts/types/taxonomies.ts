@@ -29,6 +29,10 @@ export type Subject = Taxonomy & {
   officialWebsite: string;
 };
 
+export type RawSubjectPreview = TaxonomyPreview & {
+  featuredImage: RawCover;
+};
+
 export type SubjectPreview = TaxonomyPreview & {
   featuredImage: Cover;
 };

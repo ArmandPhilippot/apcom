@@ -7,8 +7,10 @@ import {
 import { Comment, RawComment } from '@ts/types/comments';
 import {
   RawSubject,
+  RawSubjectPreview,
   RawThematic,
   Subject,
+  SubjectPreview,
   Thematic,
 } from '@ts/types/taxonomies';
 
@@ -185,6 +187,19 @@ export const buildCommentsTree = (comments: Comment[]) => {
   return commentsTree;
 };
 
+export const getFormattedSubjectsPreview = (
+  subjects: RawSubjectPreview[]
+): SubjectPreview[] => {
+  const formattedSubjects: SubjectPreview[] = subjects.map((subject) => {
+    return {
+      ...subject,
+      featuredImage: subject.featuredImage ? subject.featuredImage.node : null,
+    };
+  });
+
+  return formattedSubjects;
+};
+
 /**
  * Format an article from RawArticle to Article type.
  * @param rawPost - An article coming from WP GraphQL.
@@ -212,6 +227,9 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
 
   const formattedComments = getFormattedComments(comments.nodes);
   const commentsTree = buildCommentsTree(formattedComments);
+  const subjects = acfPosts.postsInSubject
+    ? getFormattedSubjectsPreview(acfPosts.postsInSubject)
+    : [];
 
   const formattedPost: Article = {
     author: author.node,
@@ -223,7 +241,7 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
     id,
     intro: contentParts.beforeMore,
     seo,
-    subjects: acfPosts.postsInSubject ? acfPosts.postsInSubject : [],
+    subjects,
     thematics: acfPosts.postsInThematic ? acfPosts.postsInThematic : [],
     title,
   };
