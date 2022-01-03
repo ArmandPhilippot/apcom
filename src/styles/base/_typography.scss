@@ -1,4 +1,6 @@
-.greetings,
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/variables" as var;
+
 h1 {
   font-size: var(--font-size-3xl);
 }
@@ -24,7 +26,6 @@ h6 {
   font-size: var(--font-size-md);
 }
 
-.greetings,
 h1,
 h2,
 h3,
@@ -34,15 +35,9 @@ h6 {
   color: var(--color-primary-dark);
   font-family: var(--font-family-secondary);
   font-weight: 500;
+  letter-spacing: 0.01ex;
   margin: 0 0 var(--spacing-sm);
-}
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
   * + {
     h2,
     h3,
@@ -94,6 +89,10 @@ ol {
       margin-bottom: 0;
     }
   }
+
+  ::marker {
+    color: var(--color-secondary);
+  }
 }
 
 ul {
@@ -103,7 +102,7 @@ ul {
 dl {
   display: flex;
   flex-flow: row wrap;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-2xs);
 }
 
 ul,
@@ -122,22 +121,80 @@ dt {
 }
 
 dd {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   margin: 0;
 }
 
 a {
+  background: linear-gradient(
+      to top,
+      var(--color-primary) 50%,
+      var(--color-bg) 50%
+    )
+    0 0 / 100% 200% no-repeat;
   color: var(--color-primary);
-  text-decoration-thickness: 15%;
+  text-decoration-thickness: 13%;
   text-underline-offset: 20%;
+  transition: all 0.3s linear 0s, text-decoration 0.18s ease-in-out 0s;
 
   &:hover {
     color: var(--color-primary-light);
+    text-decoration-thickness: 23%;
+  }
+
+  &:focus {
+    background-position: 0 100%;
+    color: var(--color-fg-inverted);
   }
 
   &:active {
+    background-position: 0 0;
     color: var(--color-primary-dark);
+    text-decoration-thickness: 18%;
   }
+
+  &[hreflang],
+  &.external {
+    grid-template-columns: minmax(0, 1fr) fun.convert-px(50);
+
+    &::after {
+      display: inline-flex;
+      flex-flow: row nowrap;
+      width: fun.convert-px(14);
+      margin-right: 0.5ex;
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  &.external {
+    &::after {
+      content: "\0000a0"url(fun.encode-svg('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
+    }
+  }
+
+  &[hreflang] {
+    &::after {
+      content: "\0000a0["attr(hreflang) "]";
+      text-decoration: none;
+    }
+
+    &.external {
+      &::after {
+        content: "\0000a0["attr(hreflang) "]\0000a0"url(fun.encode-svg(
+            '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
+          ));
+        margin-right: 4.5ex;
+      }
+    }
+  }
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  line-height: var(--line-height);
 }
 
 code,
@@ -145,6 +202,15 @@ kbd,
 pre,
 var {
   font-family: var(--font-family-mono);
+}
+
+:not(pre) > code {
+  background: var(--color-bg-secondary);
+  border: fun.convert-px(1) solid var(--color-border-lighter);
+  border-radius: fun.convert-px(3);
+  color: var(--color-primary-darker);
+  padding: fun.convert-px(2) fun.convert-px(5) fun.convert-px(1)
+    fun.convert-px(5);
 }
 
 pre {
@@ -155,4 +221,14 @@ pre {
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
+}
+
+figure {
+  margin: var(--spacing-md) 0;
+}
+
+figcaption {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  text-align: center;
 }

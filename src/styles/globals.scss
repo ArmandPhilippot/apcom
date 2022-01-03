@@ -18,3 +18,10 @@
 @use "base/helpers";
 @use "base/spacings";
 @use "base/typography";
+
+/**
+ * 3.0. Components
+ *
+ * Define styles for external components (like WordPress blocks).
+ */
+@use "components/wp-blocks";
