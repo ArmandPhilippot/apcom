@@ -6,6 +6,9 @@ import Main from '@components/Main/Main';
 import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
 import { t } from '@lingui/macro';
 import 'prism-themes/themes/prism-coldark-cold.min.css';
+import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
+import { useRouter } from 'next/router';
+import { config } from '@config/website';
 
 const Layout = ({
   children,
@@ -14,9 +17,17 @@ const Layout = ({
   children: ReactNode;
   isHome?: boolean;
 }) => {
+  const router = useRouter();
+  const locale = router.locale ? router.locale : config.defaultLocale;
+
   useEffect(() => {
+    addPrismClasses();
     Prism.highlightAll();
-  }, []);
+  });
+
+  useEffect(() => {
+    translateCopyButton(locale);
+  }, [locale]);
 
   return (
     <>
