@@ -5,7 +5,6 @@ import Header from '@components/Header/Header';
 import Main from '@components/Main/Main';
 import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
 import { t } from '@lingui/macro';
-import 'prism-themes/themes/prism-coldark-cold.min.css';
 import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
 import { useRouter } from 'next/router';
 import { config } from '@config/website';

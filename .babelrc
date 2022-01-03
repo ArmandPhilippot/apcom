@@ -45,8 +45,7 @@
           "match-braces",
           "show-language",
           "toolbar"
-        ],
-        "css": true
+        ]
       }
     ]
   ]

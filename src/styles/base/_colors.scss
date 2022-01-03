@@ -4,6 +4,7 @@
   --color-bg: #{var.$color_white};
   --color-bg-opacity: #{var.$color_white-o90};
   --color-bg-secondary: #{var.$color_grey-brighter};
+  --color-bg-tertiary: #{var.$color_grey-bright};
   --color-fg: #{var.$color_black};
   --color-fg-light: #{var.$color_grey-dark};
   --color-fg-inverted: #{var.$color_white};
@@ -20,4 +21,12 @@
   --color-shadow-light: #{var.$color_grey-dark-o40};
   --color-shadow-lighter: #{var.$color_grey-dark-o20};
   --color-shadow-dark: #{var.$color_grey-dark};
+  --color-token-red: #{var.$color_red};
+  --color-token-green: #{var.$color_green};
+  --color-token-purple: #{var.$color_purple};
+  --color-token-magenta: #{var.$color_magenta};
+  --color-token-cyan: #{var.$color_cyan};
+  --color-token-blue: #{var.$color_blue};
+  --color-token-yellow: #{var.$color_yellow};
+  --color-token-orange: #{var.$color_orange};
 }

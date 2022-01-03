@@ -6,6 +6,7 @@
  * Import each files separately to define vendors styles order.
  */
 @use "modern-normalize";
+@use "vendors/prism";
 
 /**
  * 2.0. Base
