@@ -36,6 +36,10 @@
         "message": "Selector should use lowercase and separate words with hyphens or use BEM (selector-class-pattern)"
       }
     ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      { "ignorePseudoClasses": ["global", "local"] }
+    ],
     "scss/dollar-variable-empty-line-before": null,
     "scss/dollar-variable-pattern": null,
     "scss/double-slash-comment-whitespace-inside": null,
