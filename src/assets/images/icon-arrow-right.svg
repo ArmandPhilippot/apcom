@@ -5,8 +5,8 @@
    viewBox="0 0 64.644997 23.476001"
    version="1.1"
    id="svg4"
-   sodipodi:docname="icon-arrow-top (copie 1).svg"
-   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+   sodipodi:docname="icon-arrow-right.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -22,9 +22,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="1.6088114"
-     inkscape:cx="-127.42326"
-     inkscape:cy="71.481343"
+     inkscape:zoom="7.3600763"
+     inkscape:cx="11.141189"
+     inkscape:cy="23.912796"
      inkscape:window-width="1920"
      inkscape:window-height="1019"
      inkscape:window-x="0"
@@ -36,6 +36,11 @@
      fit-margin-right="0"
      fit-margin-bottom="0" />
   <path
-     d="m 0,15.45 40.008,-0.018 v 8.044 L 64.645,11.715 39.845,0 V 8.044 L 0,8.186 Z"
-     id="path2" />
+     d="M -1.6784668e-6,15.441 40.007998,15.423 V 8.0349999 l -40.0079996784668,0.142 z"
+     id="path2-6"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     d="M 40.007998,23.476 64.644998,11.715 39.844998,-8.3923343e-8 Z"
+     id="path2-3"
+     sodipodi:nodetypes="cccc" />
 </svg>
