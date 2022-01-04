@@ -1,0 +1,8 @@
+@use "@styles/abstracts/placeholders";
+
+.links-list {
+  @extend %flex-list;
+
+  gap: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}

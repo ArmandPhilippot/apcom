@@ -1,0 +1,63 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/placeholders";
+
+.list {
+  @extend %flex-list;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.item {
+  width: 33%;
+}
+
+.link {
+  display: block;
+  height: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg);
+  color: inherit;
+  text-decoration: none;
+  border: fun.convert-px(3) solid var(--color-primary);
+  border-radius: fun.convert-px(5);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+      var(--color-shadow-light),
+    fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+      var(--color-shadow-light),
+    fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+      var(--color-shadow-light);
+  transition: all 0.3s ease-in-out 0s;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+        var(--color-shadow-lighter),
+      fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+        var(--color-shadow-lighter),
+      fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+        var(--color-shadow-lighter),
+      fun.convert-px(7) fun.convert-px(10) fun.convert-px(12) fun.convert-px(-3)
+        var(--color-shadow-lighter);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    box-shadow: 0 0 0 0 var(--color-shadow-light);
+    transform: scale(0.95);
+  }
+}
+
+.cover {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  margin-bottom: var(--spacing-sm);
+}
