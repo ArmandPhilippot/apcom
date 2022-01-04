@@ -10,8 +10,10 @@ const Notice = ({
   children: ReactNode;
   type: NoticeType;
 }) => {
+  const withModifier = `message--${type}`;
+
   return (
-    <div className={`${styles.message} ${styles[`message--${type}`]}`}>
+    <div className={`${styles.message} ${styles[withModifier]}`}>
       {children}
     </div>
   );

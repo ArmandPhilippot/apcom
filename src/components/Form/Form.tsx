@@ -10,10 +10,8 @@ const Form = ({
   submitHandler: any;
   modifier?: string;
 }) => {
-  const classes =
-    modifier !== ''
-      ? `${styles.wrapper} ${styles[`wrapper--${modifier}`]}`
-      : styles.wrapper;
+  const withModifier = modifier ? `wrapper--${modifier}` : '';
+  const classes = `${styles.wrapper} ${withModifier}`;
 
   return (
     <form onSubmit={submitHandler} className={classes}>

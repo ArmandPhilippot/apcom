@@ -16,9 +16,9 @@ const ButtonLink = ({
   isExternal?: boolean;
   hasIcon?: boolean;
 }) => {
-  const classes = `${styles.btn} ${styles.link} ${styles[`link--${position}`]}${
-    hasIcon ? ` ${styles['link--icon']}` : ''
-  }`;
+  const positionModifier = `link--${position}`;
+  const iconModifier = hasIcon ? ` ${styles['link--icon']}` : '';
+  const classes = `${styles.btn} ${styles.link} ${styles[positionModifier]}${iconModifier}`;
 
   return isExternal ? (
     <a className={classes} href={target}>

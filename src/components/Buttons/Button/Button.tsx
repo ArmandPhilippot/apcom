@@ -15,11 +15,12 @@ const Button = ({
   isDisabled?: boolean;
   isPrimary?: boolean;
 }) => {
-  const classes = `${styles.btn} ${
-    isPrimary
-      ? `${styles.primary} ${styles[`primary--${position}`]}`
-      : `${styles.secondary} ${styles[`secondary--${position}`]}`
-  }`;
+  const primaryPosition = `primary--${position}`;
+  const secondaryPosition = `secondary--${position}`;
+  const typeStyles = isPrimary
+    ? `${styles.primary} ${styles[primaryPosition]}`
+    : `${styles.secondary} ${styles[secondaryPosition]}`;
+  const classes = `${styles.btn} ${typeStyles}`;
 
   return (
     <button

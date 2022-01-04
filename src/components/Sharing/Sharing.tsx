@@ -21,7 +21,7 @@ type Website = {
 const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
   const [pageExcerpt, setPageExcerpt] = useState('');
   const [pageUrl, setPageUrl] = useState('');
-  const [hostname, setHostname] = useState('');
+  const [domainName, setDomainName] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -33,11 +33,10 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
 
   useEffect(() => {
     const { protocol, hostname, port } = window.location;
-    const fullUrl = `${protocol}//${hostname}${port ? `:${port}` : ''}${
-      router.asPath
-    }`;
+    const currentPort = port ? `:${port}` : '';
+    const fullUrl = `${protocol}//${hostname}${currentPort}${router.asPath}`;
 
-    setHostname(hostname);
+    setDomainName(hostname);
     setPageUrl(fullUrl);
   }, [router.asPath]);
 
@@ -54,18 +53,21 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       switch (key) {
         case 'content':
           if (id === 'email') {
-            const body = `${t`Introduction:`}\n\n"${pageExcerpt}"\n\n${t`Read more here:`} ${pageUrl}`;
+            const intro = t`Introduction:`;
+            const readMore = t`Read more here:`;
+            const body = `${intro}\n\n"${pageExcerpt}"\n\n${readMore} ${pageUrl}`;
             sharingUrl += encodeURI(body);
           } else {
             sharingUrl += encodeURI(pageExcerpt);
           }
           break;
         case 'title':
-          const prefix = id === 'email' ? t`Seen on ${hostname}:` : '';
+          const prefix = id === 'email' ? t`Seen on ${domainName}:` : '';
           sharingUrl += encodeURI(`${prefix} ${title}`);
           break;
         case 'url':
           sharingUrl += encodeURI(pageUrl);
+          break;
         default:
           break;
       }
@@ -82,12 +84,13 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
     return websites.map((website) => {
       const { id, name } = website;
       const sharingUrl = getSharingUrl(website);
+      const linkModifier = `link--${id}`;
 
       return (
         <li key={id}>
           <a
             href={sharingUrl}
-            className={`${styles.link} ${styles[`link--${id}`]}`}
+            className={`${styles.link} ${styles[linkModifier]}`}
           >
             {name}
           </a>

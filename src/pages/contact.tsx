@@ -42,7 +42,8 @@ const ContactPage: NextPageWithLayout = () => {
       );
       resetForm();
     } else {
-      const error = `${t`An error occurred:`} ${mail.message}`;
+      const errorPrefix = t`An error occurred:`;
+      const error = `${errorPrefix} ${mail.message}`;
       setStatus(error);
     }
   };
