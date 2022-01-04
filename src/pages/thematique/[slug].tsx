@@ -14,7 +14,7 @@ import {
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const getPostsList = () => {
-    return thematic.posts.reverse().map((post) => (
+    return [...thematic.posts].reverse().map((post) => (
       <li key={post.id} className={styles.item}>
         <PostPreview post={post} titleLevel={3} />
       </li>

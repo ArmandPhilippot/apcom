@@ -15,7 +15,7 @@ import {
 
 const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   const getPostsList = () => {
-    return subject.posts.reverse().map((post) => (
+    return [...subject.posts].reverse().map((post) => (
       <li key={post.id} className={styles.item}>
         <PostPreview post={post} titleLevel={3} />
       </li>
