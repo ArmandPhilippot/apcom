@@ -5,14 +5,19 @@ import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sharing from '@components/Sharing/Sharing';
 import ToC from '@components/ToC/ToC';
+import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleProps } from '@ts/types/articles';
 import { loadTranslation } from '@utils/helpers/i18n';
+import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import Prism from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
+import { useEffect } from 'react';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const {
@@ -26,6 +31,18 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     thematics,
     title,
   } = post;
+
+  const router = useRouter();
+  const locale = router.locale ? router.locale : config.defaultLocale;
+
+  useEffect(() => {
+    addPrismClasses();
+    Prism.highlightAll();
+  });
+
+  useEffect(() => {
+    translateCopyButton(locale);
+  }, [locale]);
 
   return (
     <>
