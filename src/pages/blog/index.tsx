@@ -16,15 +16,12 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const getKey = (pageIndex: number, previousData: PostsListData) => {
     if (previousData && !previousData.posts) return null;
 
-    const args =
-      pageIndex === 0
-        ? { first: config.postsPerPage }
-        : {
-            first: config.postsPerPage,
-            after: previousData.pageInfo.endCursor,
-          };
-
-    return args;
+    return pageIndex === 0
+      ? { first: config.postsPerPage }
+      : {
+          first: config.postsPerPage,
+          after: previousData.pageInfo.endCursor,
+        };
   };
 
   const { data, error, size, setSize } = useSWRInfinite(

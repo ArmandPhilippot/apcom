@@ -61,15 +61,11 @@ export const getFormattedPostPreview = (rawPost: RawArticlePreview) => {
 export const getFormattedPostsList = (
   rawPosts: RawArticlePreview[]
 ): ArticlePreview[] => {
-  const formattedPosts = rawPosts
+  return rawPosts
     .filter((post) => Object.getOwnPropertyNames(post).length > 0)
     .map((post) => {
-      const formattedPost = getFormattedPostPreview(post);
-
-      return formattedPost;
+      return getFormattedPostPreview(post);
     });
-
-  return formattedPosts;
 };
 
 /**

@@ -6,9 +6,7 @@ export const getGraphQLClient = (): GraphQLClient => {
 
   if (!apiUrl) throw new Error('API URL not defined.');
 
-  const graphQLClient = new GraphQLClient(apiUrl);
-
-  return graphQLClient;
+  return new GraphQLClient(apiUrl);
 };
 
 export const fetchApi = async <T extends RequestType>(
@@ -18,8 +16,7 @@ export const fetchApi = async <T extends RequestType>(
   const client = getGraphQLClient();
 
   try {
-    const response = await client.request(query, variables);
-    return response;
+    return await client.request(query, variables);
   } catch (error) {
     console.error(error, undefined, 2);
     process.exit(1);

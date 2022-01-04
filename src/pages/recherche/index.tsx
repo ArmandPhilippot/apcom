@@ -28,16 +28,13 @@ const Search: NextPageWithLayout = () => {
   const getKey = (pageIndex: number, previousData: PostsListData) => {
     if (previousData && !previousData.posts) return null;
 
-    const args =
-      pageIndex === 0
-        ? { first: config.postsPerPage, searchQuery: query }
-        : {
-            first: config.postsPerPage,
-            after: previousData.pageInfo.endCursor,
-            searchQuery: query,
-          };
-
-    return args;
+    return pageIndex === 0
+      ? { first: config.postsPerPage, searchQuery: query }
+      : {
+          first: config.postsPerPage,
+          after: previousData.pageInfo.endCursor,
+          searchQuery: query,
+        };
   };
 
   const { data, error, size, setSize } = useSWRInfinite(

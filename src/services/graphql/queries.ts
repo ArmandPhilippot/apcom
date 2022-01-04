@@ -100,17 +100,13 @@ export const getPublishedPosts = async ({
   const variables = { first, after, searchQuery };
   const response = await fetchApi<RawPostsList>(query, variables);
   const formattedPosts = response.posts.edges.map((post) => {
-    const formattedPost = getFormattedPostPreview(post.node);
-
-    return formattedPost;
+    return getFormattedPostPreview(post.node);
   });
 
-  const postsList = {
+  return {
     posts: formattedPosts,
     pageInfo: response.posts.pageInfo,
   };
-
-  return postsList;
 };
 
 export const getAllPostsSlug = async (): Promise<Slug[]> => {
@@ -226,9 +222,8 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
   `;
   const variables = { slug };
   const response = await fetchApi<PostBy>(query, variables);
-  const post = getFormattedPost(response.postBy);
 
-  return post;
+  return getFormattedPost(response.postBy);
 };
 
 //==============================================================================
@@ -328,9 +323,8 @@ export const getSubjectBySlug = async (slug: string): Promise<Subject> => {
   `;
   const variables = { slug };
   const response = await fetchApi<SubjectBy>(query, variables);
-  const subject = getFormattedSubject(response.subjectBy);
 
-  return subject;
+  return getFormattedSubject(response.subjectBy);
 };
 
 export const getAllSubjectsSlug = async (): Promise<Slug[]> => {
@@ -437,9 +431,8 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
   `;
   const variables = { slug };
   const response = await fetchApi<ThematicBy>(query, variables);
-  const thematic = getFormattedThematic(response.thematicBy);
 
-  return thematic;
+  return getFormattedThematic(response.thematicBy);
 };
 
 export const getAllThematicsSlug = async (): Promise<Slug[]> => {

@@ -8,9 +8,7 @@ const useHeadingsTree = (wrapper: string) => {
 
   const getElementDepth = useCallback(
     (el: HTMLHeadingElement) => {
-      const elDepth = depths.findIndex((depth) => depth === el.localName);
-
-      return elDepth;
+      return depths.findIndex((depth) => depth === el.localName);
     },
     [depths]
   );
@@ -73,9 +71,8 @@ const useHeadingsTree = (wrapper: string) => {
   const getHeadingsList = useCallback(
     (headings: NodeListOf<HTMLHeadingElement>): Heading[] => {
       const formattedHeadings = formatHeadings(headings);
-      const headingsList = buildTree(formattedHeadings);
 
-      return headingsList;
+      return buildTree(formattedHeadings);
     },
     [formatHeadings, buildTree]
   );
