@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 
 const Header = ({ isHome }: { isHome: boolean }) => {
   return (
-    <header className={styles.wrapper}>
+    <header id="top" className={styles.wrapper}>
       <div className={styles.body}>
         <Branding isHome={isHome} />
         <Toolbar />
