@@ -4,7 +4,7 @@
 /// Custom theme for Prism
 
 .code-toolbar {
-  --gutter-size: #{fun.convert-px(90)};
+  --gutter-size: clamp(#{fun.convert-px(75)}, 20vw, #{fun.convert-px(90)});
   --toolbar-height: #{fun.convert-px(40)};
 
   position: relative;
@@ -23,24 +23,6 @@
     right: 0;
     background: var(--color-bg-tertiary);
     border: fun.convert-px(1) solid var(--color-border-light);
-
-    @include mix.media("screen") {
-      @include mix.dimensions("sm") {
-        left: var(--gutter-size);
-
-        &::before {
-          content: "";
-          display: block;
-          width: var(--gutter-size);
-          height: calc(var(--toolbar-height) + #{fun.convert-px(1)});
-          position: absolute;
-          top: fun.convert-px(-1);
-          left: calc((var(--gutter-size) * -1) - #{fun.convert-px(1)});
-          background: var(--color-bg);
-          border-bottom: fun.convert-px(1) solid var(--color-border-light);
-        }
-      }
-    }
   }
 
   .toolbar-item {
@@ -72,7 +54,7 @@
 }
 
 pre[class*="language-"] {
-  max-height: 30vw;
+  max-height: max(30vw, fun.convert-px(300));
   margin: var(--spacing-md) 0;
   padding: 0;
   position: relative;
@@ -88,14 +70,14 @@ pre[class*="language-"] {
   .command-line-prompt {
     width: var(--gutter-size);
     min-height: calc(100% - var(--toolbar-height));
-    padding: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-2xs);
     position: absolute;
     top: var(--toolbar-height);
     left: 0;
     pointer-events: none;
     user-select: none;
     background: var(--color-bg);
-    border-right: fun.convert-px(1) solid var(--color-border-lighter);
+    border-right: fun.convert-px(1) solid var(--color-border-light);
   }
 
   .token {
@@ -222,10 +204,10 @@ pre.line-numbers {
 }
 
 pre.command-line {
-  --gutter-size: #{fun.convert-px(240)};
+  --gutter-size: clamp(#{fun.convert-px(195)}, 48vw, #{fun.convert-px(235)});
 
   ~ .toolbar {
-    --gutter-size: #{fun.convert-px(240)};
+    --gutter-size: clamp(#{fun.convert-px(195)}, 48vw, #{fun.convert-px(235)});
   }
 
   .command-line-prompt {
