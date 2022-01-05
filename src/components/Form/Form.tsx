@@ -10,7 +10,7 @@ const Form = ({
   submitHandler: any;
   modifier?: string;
 }) => {
-  const withModifier = modifier ? `wrapper--${modifier}` : '';
+  const withModifier = modifier ? styles[`wrapper--${modifier}`] : '';
   const classes = `${styles.wrapper} ${withModifier}`;
 
   return (

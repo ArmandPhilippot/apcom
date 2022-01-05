@@ -22,7 +22,7 @@ const ThemeToggle = () => {
         onChange={() => setIsDarkTheme(!isDarkTheme)}
       />
       <label htmlFor="dark-theme" className={styles.label}>
-        <span className="screen-reader-text">{t`Activate dark theme`}</span>
+        <span className={styles.title}>{t`Theme:`}</span>
         <SunIcon />
         <span className={styles.toggle}></span>
         <MoonIcon />

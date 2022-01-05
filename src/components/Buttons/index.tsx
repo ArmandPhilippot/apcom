@@ -1,7 +1,6 @@
 import Button from './Button/Button';
 import ButtonLink from './ButtonLink/ButtonLink';
-import ButtonSearch from './ButtonSearch/ButtonSearch';
+import ButtonToolbar from './ButtonToolbar/ButtonToolbar';
 import ButtonSubmit from './ButtonSubmit/ButtonSubmit';
-import ButtonTheme from './ButtonTheme/ButtonTheme';
 
-export { Button, ButtonLink, ButtonSearch, ButtonSubmit, ButtonTheme };
+export { Button, ButtonLink, ButtonToolbar, ButtonSubmit };

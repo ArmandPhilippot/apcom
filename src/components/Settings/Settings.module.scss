@@ -1,0 +1,17 @@
+@use "@styles/abstracts/functions" as fun;
+
+.title {
+  --icon-size: #{fun.convert-px(30)};
+
+  display: flex;
+  flex-flow: row nowrap;
+  gap: var(--spacing-2xs);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+
+  svg {
+    margin: 0;
+  }
+}

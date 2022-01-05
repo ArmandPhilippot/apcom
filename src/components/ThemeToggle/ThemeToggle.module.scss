@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.title {
+  margin-right: var(--spacing-xs);
+}
+
 .toggle {
   display: inline-flex;
   align-items: center;

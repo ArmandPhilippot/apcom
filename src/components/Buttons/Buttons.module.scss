@@ -167,7 +167,7 @@
   }
 }
 
-.search,
+.toolbar,
 .theme {
   display: block;
   width: var(--btn-size);
@@ -212,7 +212,7 @@
   z-index: 10;
 }
 
-.search--opened,
+.toolbar--activated,
 .theme--opened {
   .icon {
     transform: rotateY(180deg);

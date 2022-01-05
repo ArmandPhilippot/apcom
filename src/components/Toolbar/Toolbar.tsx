@@ -1,52 +1,62 @@
-import { ButtonSearch } from '@components/Buttons';
+import { ButtonToolbar } from '@components/Buttons';
 import MainNav from '@components/MainNav/MainNav';
 import SearchForm from '@components/SearchForm/SearchForm';
-import ThemeToggle from '@components/ThemeToggle/ThemeToggle';
+import Settings from '@components/Settings/Settings';
 import { useEffect, useState } from 'react';
 import styles from './Toolbar.module.scss';
 
 const Toolbar = () => {
   const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
   const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);
-  const [isThemeOpened, setIsThemeOpened] = useState<boolean>(false);
+  const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
 
   useEffect(() => {
     if (isNavOpened) {
       setIsSearchOpened(false);
-      setIsThemeOpened(false);
+      setIsSettingsOpened(false);
     }
   }, [isNavOpened]);
 
   useEffect(() => {
     if (isSearchOpened) {
       setIsNavOpened(false);
-      setIsThemeOpened(false);
+      setIsSettingsOpened(false);
     }
   }, [isSearchOpened]);
 
   useEffect(() => {
-    if (isThemeOpened) {
+    if (isSettingsOpened) {
       setIsNavOpened(false);
       setIsSearchOpened(false);
     }
-  }, [isThemeOpened]);
+  }, [isSettingsOpened]);
 
-  const searchClasses = `${styles.search} ${
-    isSearchOpened ? styles['search--opened'] : styles['search--closed']
+  const searchClasses = `${styles.menu} ${
+    isSearchOpened ? styles['menu--opened'] : styles['menu--closed']
+  }`;
+
+  const settingsClasses = `${styles.menu} ${
+    isSettingsOpened ? styles['menu--opened'] : styles['menu--closed']
   }`;
 
   return (
     <div className={styles.wrapper}>
       <MainNav isOpened={isNavOpened} setIsOpened={setIsNavOpened} />
-      <ButtonSearch
+      <ButtonToolbar
+        type="search"
         isActivated={isSearchOpened}
         setIsActivated={setIsSearchOpened}
       />
       <div className={searchClasses}>
         <SearchForm isOpened={isSearchOpened} />
       </div>
-      <div>
-        <ThemeToggle />
+      <ButtonToolbar
+        type="settings"
+        isActivated={isSettingsOpened}
+        setIsActivated={setIsSettingsOpened}
+      />
+      <div className={settingsClasses}>
+        <Settings />
       </div>
     </div>
   );

@@ -3,13 +3,10 @@
 .wrapper {
   width: 100%;
 
-  &--search {
+  &--search,
+  &--theme {
     display: flex;
     flex-flow: row nowrap;
-  }
-
-  &--theme {
-    line-height: 1;
   }
 }
 
