@@ -1,5 +1,20 @@
 {
   "css.lint.validProperties": ["composes"],
   "scss.lint.validProperties": ["composes"],
-  "cSpell.words": ["sujet", "thematics", "thematique"]
+  "cSpell.words": [
+    "aligncenter",
+    "developpement",
+    "hexcode",
+    "hreflang",
+    "legales",
+    "Noindex",
+    "opengraph",
+    "parens",
+    "prismjs",
+    "projets",
+    "rehype",
+    "sujet",
+    "thematics",
+    "thematique"
+  ]
 }
