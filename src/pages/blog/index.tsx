@@ -11,6 +11,7 @@ import PostsList from '@components/PostsList/PostsList';
 import useSWRInfinite from 'swr/infinite';
 import { Button } from '@components/Buttons';
 import { getPublishedPosts } from '@services/graphql/queries';
+import PostHeader from '@components/PostHeader/PostHeader';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const getKey = (pageIndex: number, previousData: PostsListData) => {
@@ -46,7 +47,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         <title>{seo.blog.title}</title>
         <meta name="description" content={seo.blog.description} />
       </Head>
-      <h1>{t`Blog`}</h1>
+      <PostHeader title={t`Blog`} />
       <PostsList data={data} showYears={true} />
       {hasNextPage && (
         <Button

@@ -1,4 +1,5 @@
 import { getLayout } from '@components/Layouts/Layout';
+import PostHeader from '@components/PostHeader/PostHeader';
 import { seo } from '@config/seo';
 import { t, Trans } from '@lingui/macro';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -15,7 +16,7 @@ const error404: NextPageWithLayout = () => {
         <meta name="description" content={seo.error404.description} />
       </Head>
       <div>
-        <h1>{t`Page not found`}</h1>
+        <PostHeader title={t`Page not found`} />
         <p>
           <Trans>
             Sorry, it seems that the page you are looking for does not exist.

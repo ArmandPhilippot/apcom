@@ -11,7 +11,7 @@ const PostHeader = ({
   meta,
 }: {
   cover?: Cover;
-  intro: string;
+  intro?: string;
   meta?: ArticleMeta;
   title: string;
 }) => {
@@ -27,10 +27,12 @@ const PostHeader = ({
           {title}
         </h1>
         {meta && <PostMeta mode="single" meta={meta} />}
-        <div
-          className={styles.intro}
-          dangerouslySetInnerHTML={{ __html: intro }}
-        ></div>
+        {intro && (
+          <div
+            className={styles.intro}
+            dangerouslySetInnerHTML={{ __html: intro }}
+          ></div>
+        )}
       </div>
     </header>
   );

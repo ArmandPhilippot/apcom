@@ -1,5 +1,6 @@
 import { Button } from '@components/Buttons';
 import { getLayout } from '@components/Layouts/Layout';
+import PostHeader from '@components/PostHeader/PostHeader';
 import PostsList from '@components/PostsList/PostsList';
 import { config } from '@config/website';
 import { t } from '@lingui/macro';
@@ -57,6 +58,14 @@ const Search: NextPageWithLayout = () => {
 
   const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
 
+  const title = query
+    ? t`Search results for: ${query}`
+    : t({
+        id: 'msg.search',
+        comment: 'Search page title',
+        message: 'Search',
+      });
+
   return (
     <>
       <Head>
@@ -64,17 +73,7 @@ const Search: NextPageWithLayout = () => {
         <meta name="description" content={head.description} />
       </Head>
       <article>
-        <header>
-          <h1>
-            {query
-              ? t`Search results for: ${query}`
-              : t({
-                  id: 'msg.search',
-                  comment: 'Search page title',
-                  message: 'Search',
-                })}
-          </h1>
-        </header>
+        <PostHeader title={title} />
         <div>
           <PostsList data={data} showYears={false} />
           {hasNextPage && (
