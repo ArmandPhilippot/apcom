@@ -1,13 +1,26 @@
+@use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/placeholders";
+
+.wrapper {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
+    minmax(0, 1fr);
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md)
+    var(--spacing-lg);
+  border-bottom: fun.convert-px(3) solid var(--color-border-lighter);
+}
 
 .list {
   @extend %reset-ordered-list;
 
+  grid-column: 2;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   gap: var(--spacing-2xs);
-  margin: 0 0 var(--spacing-md) 0;
+  margin: 0;
   font-size: var(--font-size-sm);
 }
 

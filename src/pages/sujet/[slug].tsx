@@ -6,7 +6,7 @@ import { SubjectProps } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import styles from '@styles/pages/Subject.module.scss';
+import styles from '@styles/pages/Listing.module.scss';
 import {
   getAllSubjectsSlug,
   getSubjectBySlug,
@@ -28,19 +28,22 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   };
 
   return (
-    <article>
+    <article className={styles.wrapper}>
       <PostHeader
         cover={subject.featuredImage}
         intro={subject.intro}
         meta={meta}
         title={subject.title}
       />
-      <div dangerouslySetInnerHTML={{ __html: subject.content }}></div>
+      <div
+        className={styles.body}
+        dangerouslySetInnerHTML={{ __html: subject.content }}
+      ></div>
       {subject.posts.length > 0 && (
-        <div>
+        <section className={styles.section}>
           <h2>{t`All posts in ${subject.title}`}</h2>
           <ol className={styles.list}>{getPostsList()}</ol>
-        </div>
+        </section>
       )}
     </article>
   );

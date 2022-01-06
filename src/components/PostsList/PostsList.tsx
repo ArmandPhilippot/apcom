@@ -21,7 +21,12 @@ const PostsList = ({
     return years.map((year) => {
       return (
         <section key={year} className={styles.section}>
-          {showYears && <h2 className={styles.year}>{year}</h2>}
+          {showYears && (
+            <h2 className={styles.year}>
+              <span className="screen-reader-text">{t`Published in`} </span>
+              {year}
+            </h2>
+          )}
           <ol className={styles.list}>
             {posts[year].map((post) => {
               return (

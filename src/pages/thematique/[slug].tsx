@@ -6,7 +6,7 @@ import { ThematicProps } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import styles from '@styles/pages/Thematic.module.scss';
+import styles from '@styles/pages/Listing.module.scss';
 import {
   getAllThematicsSlug,
   getThematicBySlug,
@@ -23,14 +23,17 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   };
 
   return (
-    <article>
+    <article className={styles.wrapper}>
       <PostHeader intro={thematic.intro} title={thematic.title} />
-      <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
+      <div
+        className={styles.body}
+        dangerouslySetInnerHTML={{ __html: thematic.content }}
+      ></div>
       {thematic.posts.length > 0 && (
-        <div>
+        <section className={styles.section}>
           <h2>{t`All posts in ${thematic.title}`}</h2>
           <ol className={styles.list}>{getPostsList()}</ol>
-        </div>
+        </section>
       )}
     </article>
   );

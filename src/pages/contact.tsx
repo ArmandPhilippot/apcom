@@ -10,6 +10,7 @@ import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { FormEvent, useState } from 'react';
 import PostHeader from '@components/PostHeader/PostHeader';
+import styles from '@styles/pages/Page.module.scss';
 
 const ContactPage: NextPageWithLayout = () => {
   const [name, setName] = useState('');
@@ -58,9 +59,11 @@ const ContactPage: NextPageWithLayout = () => {
         <title>{seo.contact.title}</title>
         <meta name="description" content={seo.contact.description} />
       </Head>
-      <article>
+      <article
+        className={`${styles.article} ${styles['article--no-comments']}`}
+      >
         <PostHeader title={title} intro={intro} />
-        <div>
+        <div className={styles.body}>
           <p>{t`All fields marked with * are required.`}</p>
           {status && <p>{status}</p>}
           <Form submitHandler={submitHandler}>

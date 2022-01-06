@@ -1,0 +1,11 @@
+.wrapper {
+  max-height: 100vh;
+  padding-bottom: var(--spacing-sm);
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+
+.list {
+  margin-bottom: 0;
+}

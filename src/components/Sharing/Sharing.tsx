@@ -90,9 +90,10 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
         <li key={id}>
           <a
             href={sharingUrl}
+            title={name}
             className={`${styles.link} ${styles[linkModifier]}`}
           >
-            {name}
+            <span className="screen-reader-text">{name}</span>
           </a>
         </li>
       );
@@ -100,7 +101,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <h2>{t`Share`}</h2>
       <ul className={styles.list}>{getItems()}</ul>
     </div>

@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { Heading } from '@ts/types/app';
 import { slugify } from '@utils/helpers/slugify';
 import useHeadingsTree from '@utils/hooks/useHeadingsTree';
+import styles from './ToC.module.scss';
 
 const ToC = () => {
   const headingsTree = useHeadingsTree('article');
@@ -21,10 +22,10 @@ const ToC = () => {
   };
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <h2>{title}</h2>
-      <ol>{getItems(headingsTree)}</ol>
-    </>
+      <ol className={styles.list}>{getItems(headingsTree)}</ol>
+    </div>
   );
 };
 

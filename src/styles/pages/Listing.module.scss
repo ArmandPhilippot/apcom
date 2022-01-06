@@ -1,12 +1,18 @@
 @use "@styles/abstracts/placeholders";
 
-.links-list {
-  @extend %flex-list;
-
-  gap: var(--spacing-md);
-  margin: var(--spacing-md) 0;
+.wrapper {
+  padding-bottom: var(--spacing-lg);
 }
 
+.list {
+  @extend %reset-ordered-list;
+}
+
+li.item {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.body,
 .section {
   display: grid;
   grid-template-columns:

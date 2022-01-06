@@ -1,9 +1,33 @@
 @use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
+.section {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
+    minmax(0, 1fr);
+  align-items: first baseline;
+}
+
+.year {
+  grid-column: 2;
+  margin-bottom: 0;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      grid-column: 1;
+      justify-self: end;
+      position: sticky;
+      top: 0;
+      margin-right: var(--spacing-lg);
+    }
+  }
+}
+
 .list {
   @extend %reset-ordered-list;
 
+  grid-column: 2;
   margin: 0 auto var(--spacing-md);
 }
 
@@ -13,20 +37,4 @@ li.item {
   &:first-of-type {
     margin-top: var(--spacing-sm);
   }
-}
-
-.section {
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      display: grid;
-      grid-template-columns: max-content minmax(0, 1fr);
-      align-items: first baseline;
-      gap: var(--spacing-md);
-    }
-  }
-}
-
-.year {
-  position: sticky;
-  top: 0;
 }

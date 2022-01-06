@@ -8,6 +8,7 @@ import Head from 'next/head';
 import CVContent, { intro, meta } from '@content/pages/cv.mdx';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { ArticleMeta } from '@ts/types/articles';
+import styles from '@styles/pages/Page.module.scss';
 
 const CV: NextPageWithLayout = () => {
   const dates = {
@@ -25,12 +26,14 @@ const CV: NextPageWithLayout = () => {
         <title>{seo.cv.title}</title>
         <meta name="description" content={seo.cv.description} />
       </Head>
-      <article>
+      <article
+        className={`${styles.article} ${styles['article--no-comments']}`}
+      >
         <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
-        <aside>
+        <aside className={styles.toc}>
           <ToC />
         </aside>
-        <div>
+        <div className={styles.body}>
           <CVContent />
         </div>
       </article>

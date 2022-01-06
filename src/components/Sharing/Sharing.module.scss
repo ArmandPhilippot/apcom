@@ -2,11 +2,18 @@
 @use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
+.wrapper {
+  max-height: 100vh;
+  padding-bottom: var(--spacing-sm);
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+
 .list {
   @extend %flex-list;
 
   gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
 }
 
 .link {
@@ -55,9 +62,8 @@
     filter: drop-shadow(
       #{fun.convert-px(1)} #{fun.convert-px(1)} #{fun.convert-px(1)} hsl(0, 0%, 0%)
     );
-    width: 2ex;
-    height: 2ex;
-    margin-right: var(--spacing-2xs);
+    width: fun.convert-px(30);
+    height: fun.convert-px(30);
   }
 
   &--diaspora {

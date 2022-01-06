@@ -1,0 +1,112 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.article {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
+    minmax(0, 1fr);
+  align-items: center;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      grid-template-columns:
+        minmax(0, var(--spacing-xl)) min(
+          calc(100vw - calc(var(--spacing-md) * 2)),
+          80ch
+        )
+        minmax(0, 1fr);
+    }
+
+    @include mix.dimensions("lg") {
+      grid-template-columns:
+        minmax(0, 1fr) clamp(50ch, 50vw, 80ch)
+        minmax(0, 1fr);
+      column-gap: var(--spacing-2xl);
+    }
+  }
+
+  > header {
+    grid-column: 1 / -1;
+  }
+
+  > footer,
+  .body {
+    grid-column: 2;
+  }
+
+  &--no-comments {
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.toc {
+  grid-column: 2;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("lg") {
+      grid-column: 1;
+      grid-row: 2 / 4;
+      align-self: stretch;
+      padding: 0 0 0 var(--spacing-lg);
+
+      ol:first-of-type {
+        font-size: var(--font-size-sm);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.aside {
+  grid-column: 2;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      grid-column: 3;
+      grid-row: 2 / 5;
+      align-self: stretch;
+      max-width: min-content;
+      margin-left: var(--spacing-2xl);
+    }
+
+    @include mix.dimensions("lg") {
+      grid-row: 2 / 4;
+      margin-left: 0;
+    }
+  }
+}
+
+.comments {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
+    minmax(0, 1fr);
+  align-items: center;
+  margin: var(--spacing-md) 0 0;
+  padding: var(--spacing-md) 0;
+  background: var(--color-bg-secondary);
+  border-top: fun.convert-px(3) solid var(--color-border-lighter);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      grid-template-columns:
+        minmax(0, var(--spacing-xl)) min(
+          calc(100vw - calc(var(--spacing-md) * 2)),
+          80ch
+        )
+        minmax(0, 1fr);
+    }
+
+    @include mix.dimensions("lg") {
+      grid-template-columns:
+        minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
+        minmax(0, 1fr);
+    }
+  }
+
+  > * {
+    grid-column: 2;
+  }
+}

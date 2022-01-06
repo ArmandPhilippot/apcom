@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import Prism from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
+import styles from '@styles/pages/Page.module.scss';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const {
@@ -57,17 +58,20 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
         <title>{seo.title}</title>
         <meta name="description" content={seo.metaDesc} />
       </Head>
-      <article>
+      <article className={styles.article}>
         <PostHeader intro={intro} meta={meta} title={title} />
-        <aside>
+        <aside className={styles.toc}>
           <ToC />
         </aside>
-        <div dangerouslySetInnerHTML={{ __html: content }}></div>
+        <div
+          className={styles.body}
+          dangerouslySetInnerHTML={{ __html: content }}
+        ></div>
         <PostFooter subjects={subjects} />
-        <aside>
+        <aside className={styles.aside}>
           <Sharing title={title} excerpt={intro} />
         </aside>
-        <section>
+        <section className={styles.comments}>
           <h2>{t`Comments`}</h2>
           <CommentsList comments={comments} />
           <h2>{t`Leave a comment`}</h2>
