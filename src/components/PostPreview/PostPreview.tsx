@@ -1,6 +1,6 @@
 import PostMeta from '@components/PostMeta/PostMeta';
 import { t } from '@lingui/macro';
-import { ArticlePreview } from '@ts/types/articles';
+import { ArticleMeta, ArticlePreview } from '@ts/types/articles';
 import Link from 'next/link';
 import styles from './PostPreview.module.scss';
 import Image from 'next/image';
@@ -17,6 +17,12 @@ const PostPreview = ({
   titleLevel: TitleLevel;
 }) => {
   const TitleTag = `h${titleLevel}` as keyof JSX.IntrinsicElements;
+
+  const meta: ArticleMeta = {
+    commentCount: post.commentCount ? post.commentCount : 0,
+    dates: post.dates,
+    thematics: post.thematics,
+  };
 
   return (
     <article className={styles.wrapper}>
@@ -55,12 +61,7 @@ const PostPreview = ({
           <ArrowIcon />
         </ButtonLink>
       </footer>
-      <PostMeta
-        commentCount={post.commentCount}
-        publicationDate={post.dates.publication}
-        updateDate={post.dates.update}
-        thematics={post.thematics}
-      />
+      <PostMeta meta={meta} />
     </article>
   );
 };

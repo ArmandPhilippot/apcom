@@ -9,7 +9,7 @@ import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
-import { ArticleProps } from '@ts/types/articles';
+import { ArticleMeta, ArticleProps } from '@ts/types/articles';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
@@ -32,6 +32,13 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     title,
   } = post;
 
+  const meta: ArticleMeta = {
+    author,
+    commentCount: comments.length,
+    dates,
+    thematics,
+  };
+
   const router = useRouter();
   const locale = router.locale ? router.locale : config.defaultLocale;
 
@@ -51,17 +58,15 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
         <meta name="description" content={seo.metaDesc} />
       </Head>
       <article>
-        <PostHeader
-          author={author}
-          dates={dates}
-          intro={intro}
-          title={title}
-          thematics={thematics}
-        />
-        <ToC />
+        <PostHeader intro={intro} meta={meta} title={title} />
+        <aside>
+          <ToC />
+        </aside>
         <div dangerouslySetInnerHTML={{ __html: content }}></div>
         <PostFooter subjects={subjects} />
-        <Sharing title={title} excerpt={intro} />
+        <aside>
+          <Sharing title={title} excerpt={intro} />
+        </aside>
         <section>
           <h2>{t`Comments`}</h2>
           <CommentsList comments={comments} />

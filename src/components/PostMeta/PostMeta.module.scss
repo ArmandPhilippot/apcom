@@ -2,17 +2,50 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: var(--spacing-md);
-  font-size: var(--font-size-sm);
+  &--list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-sm);
 
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
+    @include mix.media("screen") {
+      @include mix.dimensions("sm") {
+        display: flex;
+        flex-flow: column nowrap;
+        margin: 0;
+        composes: meta from "@components/PostPreview/PostPreview.module.scss";
+      }
+    }
+  }
+
+  &--single {
+    flex-flow: column wrap;
+    margin: 0;
+    padding: 0 var(--spacing-md);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("xs") {
+        font-size: var(--font-size-sm);
+      }
+    }
+
+    .item {
       display: flex;
-      flex-flow: column nowrap;
-      margin: 0;
-      composes: meta from "@components/PostPreview/PostPreview.module.scss";
+      flex-flow: row wrap;
+    }
+
+    .term {
+      margin-right: var(--spacing-2xs);
+      color: var(--color-primary-darker);
+    }
+
+    .description {
+      &:not(:first-of-type) {
+        &::before {
+          content: "/";
+          margin: 0 var(--spacing-2xs);
+        }
+      }
     }
   }
 }

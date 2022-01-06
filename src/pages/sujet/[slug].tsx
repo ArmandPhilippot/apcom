@@ -5,13 +5,14 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { SubjectProps } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import Image from 'next/image';
 import { ParsedUrlQuery } from 'querystring';
 import styles from '@styles/pages/Subject.module.scss';
 import {
   getAllSubjectsSlug,
   getSubjectBySlug,
 } from '@services/graphql/queries';
+import PostHeader from '@components/PostHeader/PostHeader';
+import { ArticleMeta } from '@ts/types/articles';
 
 const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   const getPostsList = () => {
@@ -22,29 +23,18 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     ));
   };
 
+  const meta: ArticleMeta = {
+    website: subject.officialWebsite,
+  };
+
   return (
     <article>
-      <header>
-        <h1 className={styles.title}>
-          {subject.featuredImage && (
-            <span className={styles.cover}>
-              <Image
-                src={subject.featuredImage.sourceUrl}
-                alt={subject.featuredImage.altText}
-                layout="fill"
-              />
-            </span>
-          )}
-          {subject.title}
-        </h1>
-        {subject.officialWebsite && (
-          <dl>
-            <dt>{t`Official website:`}</dt>
-            <dd>{subject.officialWebsite}</dd>
-          </dl>
-        )}
-        <div dangerouslySetInnerHTML={{ __html: subject.intro }}></div>
-      </header>
+      <PostHeader
+        cover={subject.featuredImage}
+        intro={subject.intro}
+        meta={meta}
+        title={subject.title}
+      />
       <div dangerouslySetInnerHTML={{ __html: subject.content }}></div>
       {subject.posts.length > 0 && (
         <div>

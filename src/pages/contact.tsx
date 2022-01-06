@@ -9,6 +9,7 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { FormEvent, useState } from 'react';
+import PostHeader from '@components/PostHeader/PostHeader';
 
 const ContactPage: NextPageWithLayout = () => {
   const [name, setName] = useState('');
@@ -48,6 +49,9 @@ const ContactPage: NextPageWithLayout = () => {
     }
   };
 
+  const title = t`Contact`;
+  const intro = t`Please fill the form to contact me.`;
+
   return (
     <>
       <Head>
@@ -55,9 +59,7 @@ const ContactPage: NextPageWithLayout = () => {
         <meta name="description" content={seo.contact.description} />
       </Head>
       <article>
-        <header>
-          <h1>{t`Contact`}</h1>
-        </header>
+        <PostHeader title={title} intro={intro} />
         <div>
           <p>{t`All fields marked with * are required.`}</p>
           {status && <p>{status}</p>}

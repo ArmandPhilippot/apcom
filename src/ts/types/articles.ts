@@ -24,6 +24,14 @@ export type ACFPosts = {
   postsInThematic: ThematicPreview[] | null;
 };
 
+export type ArticleMeta = {
+  author?: ArticleAuthor;
+  commentCount?: number;
+  dates?: Dates;
+  thematics?: ThematicPreview[];
+  website?: string;
+};
+
 export type Article = {
   author: ArticleAuthor;
   commentCount: number | null;

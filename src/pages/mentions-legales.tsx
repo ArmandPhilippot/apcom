@@ -5,9 +5,23 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import LegalNoticeContent, { meta } from '@content/pages/legal-notice.mdx';
+import LegalNoticeContent, {
+  intro,
+  meta,
+} from '@content/pages/legal-notice.mdx';
+import PostHeader from '@components/PostHeader/PostHeader';
+import { ArticleMeta } from '@ts/types/articles';
 
 const LegalNotice: NextPageWithLayout = () => {
+  const dates = {
+    publication: meta.publishedOn,
+    update: meta.updatedOn,
+  };
+
+  const pageMeta: ArticleMeta = {
+    dates,
+  };
+
   return (
     <>
       <Head>
@@ -15,11 +29,13 @@ const LegalNotice: NextPageWithLayout = () => {
         <meta name="description" content={seo.legalNotice.description} />
       </Head>
       <article>
-        <header>
-          <h1>{meta.title}</h1>
-        </header>
-        <ToC />
-        <LegalNoticeContent />
+        <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
+        <aside>
+          <ToC />
+        </aside>
+        <div>
+          <LegalNoticeContent />
+        </div>
       </article>
     </>
   );

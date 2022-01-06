@@ -11,6 +11,7 @@ import {
   getAllThematicsSlug,
   getThematicBySlug,
 } from '@services/graphql/queries';
+import PostHeader from '@components/PostHeader/PostHeader';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const getPostsList = () => {
@@ -23,10 +24,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
 
   return (
     <article>
-      <header>
-        <h1>{thematic.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: thematic.intro }}></div>
-      </header>
+      <PostHeader intro={thematic.intro} title={thematic.title} />
       <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
       {thematic.posts.length > 0 && (
         <div>

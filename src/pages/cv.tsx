@@ -6,8 +6,19 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import CVContent, { intro, meta } from '@content/pages/cv.mdx';
+import PostHeader from '@components/PostHeader/PostHeader';
+import { ArticleMeta } from '@ts/types/articles';
 
 const CV: NextPageWithLayout = () => {
+  const dates = {
+    publication: meta.publishedOn,
+    update: meta.updatedOn,
+  };
+
+  const pageMeta: ArticleMeta = {
+    dates,
+  };
+
   return (
     <>
       <Head>
@@ -15,12 +26,13 @@ const CV: NextPageWithLayout = () => {
         <meta name="description" content={seo.cv.description} />
       </Head>
       <article>
-        <header>
-          <h1>{meta.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: intro }}></div>
-        </header>
-        <ToC />
-        <CVContent />
+        <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
+        <aside>
+          <ToC />
+        </aside>
+        <div>
+          <CVContent />
+        </div>
       </article>
     </>
   );
