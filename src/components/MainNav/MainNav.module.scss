@@ -108,9 +108,12 @@
 }
 
 .link {
+  --draw-border-width: #{fun.convert-px(4)};
+
   display: block;
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-2xs);
   background: var(--color-bg);
+  background-repeat: no-repeat;
   font-size: var(--font-size-sm);
   font-variant: small-caps;
   font-weight: 600;
@@ -122,7 +125,135 @@
     }
 
     @include mix.dimensions("md") {
-      background: inherit;
+      margin: 0 var(--spacing-2xs);
+      background-color: inherit;
+      border-radius: 8%;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background-image: linear-gradient(
+        to right,
+        var(--color-primary-lighter),
+        var(--color-primary-light)
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-primary-light),
+        var(--color-primary-lighter)
+      ),
+      linear-gradient(
+        to left,
+        var(--color-primary-lighter),
+        var(--color-primary-light)
+      ),
+      linear-gradient(
+        to top,
+        var(--color-primary-light),
+        var(--color-primary-lighter)
+      );
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 100% var(--draw-border-width),
+      var(--draw-border-width) 100%, 100% var(--draw-border-width),
+      var(--draw-border-width) 100%;
+    color: var(--color-primary-light);
+
+    :global {
+      animation: draw-borders 0.8s linear 1 0s;
+    }
+  }
+
+  &:focus {
+    color: var(--color-primary-light);
+  }
+
+  &:active {
+    background-image: linear-gradient(
+        to right,
+        var(--color-primary-light),
+        var(--color-primary-dark)
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-primary-dark),
+        var(--color-primary-light)
+      ),
+      linear-gradient(
+        to left,
+        var(--color-primary-light),
+        var(--color-primary-dark)
+      ),
+      linear-gradient(
+        to top,
+        var(--color-primary-dark),
+        var(--color-primary-light)
+      );
+    background-position: top left, top right, bottom right, bottom left;
+  }
+
+  &.current {
+    background-image: linear-gradient(to right, transparent, transparent),
+      linear-gradient(to bottom, transparent, transparent),
+      linear-gradient(
+        to left,
+        var(--color-primary-lighter),
+        var(--color-primary-light)
+      ),
+      linear-gradient(to top, transparent, transparent);
+    background-position: top left, top right, bottom center, bottom left;
+    background-size: 0% var(--draw-border-width), var(--draw-border-width) 0%,
+      60% var(--draw-border-width), var(--draw-border-width) 0%;
+    transition: all 0.3s linear 0s;
+
+    &:hover,
+    &:focus {
+      background-image: linear-gradient(
+          to right,
+          var(--color-primary-lighter),
+          var(--color-primary-light)
+        ),
+        linear-gradient(
+          to bottom,
+          var(--color-primary-light),
+          var(--color-primary-lighter)
+        ),
+        linear-gradient(
+          to left,
+          var(--color-primary-lighter),
+          var(--color-primary-light)
+        ),
+        linear-gradient(
+          to top,
+          var(--color-primary-light),
+          var(--color-primary-lighter)
+        );
+      background-size: 100% var(--draw-border-width),
+        var(--draw-border-width) 100%, 100% var(--draw-border-width),
+        var(--draw-border-width) 100%;
+    }
+
+    &:active {
+      background-image: linear-gradient(
+          to right,
+          var(--color-primary-light),
+          var(--color-primary-dark)
+        ),
+        linear-gradient(
+          to bottom,
+          var(--color-primary-dark),
+          var(--color-primary-light)
+        ),
+        linear-gradient(
+          to left,
+          var(--color-primary-light),
+          var(--color-primary-dark)
+        ),
+        linear-gradient(
+          to top,
+          var(--color-primary-dark),
+          var(--color-primary-light)
+        );
     }
   }
 }

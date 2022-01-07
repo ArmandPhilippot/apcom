@@ -1,3 +1,5 @@
+@use "@styles/abstracts/functions" as fun;
+
 @keyframes pulse {
   from {
     transform: scale(1);
@@ -9,5 +11,47 @@
 
   to {
     transform: scale(1);
+  }
+}
+
+@keyframes draw-borders {
+  0% {
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 0% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 0%,
+      0% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 0%;
+  }
+
+  25% {
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 0% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 0%,
+      100% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 0%;
+  }
+
+  50% {
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 0% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 0%,
+      100% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 100%;
+  }
+
+  75% {
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 100% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 0%,
+      100% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 100%;
+  }
+
+  100% {
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 100% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 100%,
+      100% var(--draw-border-width, fun.convert-px(3)),
+      var(--draw-border-width, fun.convert-px(3)) 100%;
   }
 }

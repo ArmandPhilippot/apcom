@@ -10,6 +10,7 @@ import {
 } from '@components/Icons';
 import { mainNav } from '@config/nav';
 import styles from './MainNav.module.scss';
+import { useRouter } from 'next/router';
 
 const MainNav = ({
   isOpened,
@@ -18,6 +19,8 @@ const MainNav = ({
   isOpened: boolean;
   setIsOpened: (value: SetStateAction<boolean>) => void;
 }) => {
+  const router = useRouter();
+
   const getIcon = (id: string) => {
     switch (id) {
       case 'home':
@@ -34,10 +37,12 @@ const MainNav = ({
   };
 
   const navItems = mainNav.map((item) => {
+    const currentClass = router.asPath === item.slug ? styles.current : '';
+
     return (
-      <li key={item.id} className={styles.item}>
+      <li key={item.id}>
         <Link href={item.slug}>
-          <a className={styles.link}>
+          <a className={`${styles.link} ${currentClass}`}>
             {getIcon(item.id)}
             <span>{item.name}</span>
           </a>
