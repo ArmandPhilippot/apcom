@@ -1,8 +1,10 @@
 import { ButtonSubmit } from '@components/Buttons';
 import { Form, Input } from '@components/Form';
+import { SearchIcon } from '@components/Icons';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
+import styles from './SearchForm.module.scss';
 
 const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
   const [query, setQuery] = useState('');
@@ -24,17 +26,23 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
   };
 
   return (
-    <Form submitHandler={launchSearch} modifier="search">
-      <Input
-        ref={inputRef}
-        id="search-query"
-        name="search-query"
-        type="search"
-        value={query}
-        setValue={setQuery}
-      />
-      <ButtonSubmit>{t`Search`}</ButtonSubmit>
-    </Form>
+    <>
+      <div className={styles.title}>{t`Search`}</div>
+      <Form submitHandler={launchSearch} modifier="search">
+        <Input
+          ref={inputRef}
+          id="search-query"
+          name="search-query"
+          type="search"
+          value={query}
+          setValue={setQuery}
+        />
+        <ButtonSubmit modifier="search">
+          <SearchIcon />
+          <span className="screen-reader-text">{t`Search`}</span>
+        </ButtonSubmit>
+      </Form>
+    </>
   );
 };
 

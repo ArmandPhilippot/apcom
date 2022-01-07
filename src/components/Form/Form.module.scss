@@ -54,3 +54,17 @@
 .required {
   color: var(--color-secondary);
 }
+
+.wrapper--search {
+  > input {
+    padding-right: calc(var(--btn-size) + var(--spacing-2xs));
+
+    &:hover ~ button {
+      transform: translate(fun.convert-px(-3), fun.convert-px(-3));
+    }
+
+    &:focus ~ button {
+      transform: translate(fun.convert-px(3), fun.convert-px(3));
+    }
+  }
+}

@@ -1,8 +1,19 @@
+import { ReactNode } from 'react';
 import styles from '../Buttons.module.scss';
 
-const ButtonSubmit: React.FunctionComponent = ({ children }) => {
+type Modifier = 'search' | 'submit';
+
+const ButtonSubmit = ({
+  children,
+  modifier = 'submit',
+}: {
+  children: ReactNode;
+  modifier?: Modifier;
+}) => {
+  const withModifier = modifier === 'search' ? styles.search : styles.primary;
+
   return (
-    <button type="submit" className={`${styles.btn} ${styles.primary}`}>
+    <button type="submit" className={`${styles.btn} ${withModifier}`}>
       {children}
     </button>
   );

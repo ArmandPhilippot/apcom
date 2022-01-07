@@ -1,4 +1,5 @@
 @use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
 
 .btn {
   display: block;
@@ -176,8 +177,7 @@
   }
 }
 
-.toolbar,
-.theme {
+.toolbar {
   display: block;
   width: var(--btn-size);
   height: var(--btn-size);
@@ -185,6 +185,16 @@
   background: none;
   border: none;
   font-size: var(--font-size-md);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      &:hover,
+      &:focus {
+        transform: rotate(360deg);
+        transition: all 0.8s ease-in-out 0s;
+      }
+    }
+  }
 }
 
 .icon {
@@ -220,8 +230,7 @@
   z-index: 10;
 }
 
-.toolbar--activated,
-.theme--opened {
+.toolbar--activated {
   .icon {
     transform: rotateY(180deg);
   }
@@ -232,5 +241,30 @@
 
   .back {
     transform: scale(1) rotateY(180deg);
+  }
+}
+
+.search {
+  background: transparent;
+  margin-left: calc(var(--btn-size) * -1);
+  z-index: 5;
+  transition: all 0.3s ease-in-out 0s;
+
+  svg {
+    transform: scale(0.85);
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  &:hover,
+  &:focus {
+    svg {
+      transform: scale(0.85) rotate(20deg) translateY(3px);
+    }
+  }
+
+  &:active {
+    svg {
+      transform: scale(0.7);
+    }
   }
 }
