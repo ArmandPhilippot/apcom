@@ -6,6 +6,7 @@ import { AllPostsSlug, RawPostsList } from './blog';
 import { CommentData, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
 import {
+  AllSubjects,
   AllSubjectsSlug,
   AllThematics,
   AllThematicsSlug,
@@ -41,6 +42,7 @@ export type VariablesType<T> = T extends PostBy | SubjectBy | ThematicBy
 
 export type RequestType =
   | AllPostsSlug
+  | AllSubjects
   | AllSubjectsSlug
   | AllThematics
   | AllThematicsSlug

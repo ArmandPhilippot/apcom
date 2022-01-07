@@ -37,6 +37,12 @@ export type SubjectPreview = TaxonomyPreview & {
   featuredImage: Cover;
 };
 
+export type AllSubjects = {
+  subjects: {
+    nodes: SubjectPreview[];
+  };
+};
+
 export type RawSubject = SubjectPreview & {
   acfSubjects: {
     officialWebsite: string;
@@ -56,6 +62,10 @@ export type AllSubjectsSlug = {
   subjects: {
     nodes: Slug[];
   };
+};
+
+export type SubjectProps = {
+  subject: Subject;
 };
 
 //==============================================================================
@@ -89,10 +99,6 @@ export type AllThematicsSlug = {
   thematics: {
     nodes: Slug[];
   };
-};
-
-export type SubjectProps = {
-  subject: Subject;
 };
 
 export type ThematicProps = {

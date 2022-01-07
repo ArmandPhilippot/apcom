@@ -2,11 +2,13 @@ import { Slug } from '@ts/types/app';
 import { Article, PostBy } from '@ts/types/articles';
 import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
 import {
+  AllSubjects,
   AllSubjectsSlug,
   AllThematics,
   AllThematicsSlug,
   Subject,
   SubjectBy,
+  SubjectPreview,
   Thematic,
   ThematicBy,
   ThematicPreview,
@@ -341,6 +343,23 @@ export const getAllSubjectsSlug = async (): Promise<Slug[]> => {
     }
   `;
   const response = await fetchApi<AllSubjectsSlug>(query, null);
+  return response.subjects.nodes;
+};
+
+export const getAllSubjects = async (): Promise<SubjectPreview[]> => {
+  const query = gql`
+    query AllSubjects {
+      subjects {
+        nodes {
+          databaseId
+          slug
+          title
+        }
+      }
+    }
+  `;
+
+  const response = await fetchApi<AllSubjects>(query, null);
   return response.subjects.nodes;
 };
 
