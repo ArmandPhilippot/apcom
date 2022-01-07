@@ -1,0 +1,12 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  width: min(calc(100vw - (var(--spacing-md) * 2)), fun.convert-px(500));
+  margin: auto;
+}
+
+.title {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}

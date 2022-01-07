@@ -12,10 +12,11 @@ const CommentsList = ({ comments }: { comments: CommentData[] }) => {
 
   return (
     <>
+      <h2 className={styles.title}>{t`Comments`}</h2>
       {comments.length > 0 ? (
         <ol className={styles.list}>{getCommentsList()}</ol>
       ) : (
-        <p>{t`No comments yet.`}</p>
+        <p className={styles['no-comments']}>{t`No comments yet.`}</p>
       )}
     </>
   );

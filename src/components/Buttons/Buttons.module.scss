@@ -7,14 +7,19 @@
 }
 
 .primary {
-  padding: var(--spacing-xs) var(--spacing-md);
+  margin: auto;
+  padding: var(--spacing-2xs) var(--spacing-md);
   background: var(--color-primary);
-  border-radius: fun.convert-px(3);
-  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-dark);
+  border: fun.convert-px(2) solid var(--color-bg);
+  border-radius: fun.convert-px(5);
+  box-shadow: 0 0 0 fun.convert-px(2) var(--color-primary),
+    0 0 0 fun.convert-px(3) var(--color-primary-darker),
+    fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(3)
+      var(--color-primary-dark);
   color: var(--color-fg-inverted);
   font-weight: 600;
   text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-shadow);
-  transition: all 0.3s ease-in-out 0s;
+  transition: all 0.25s ease-in-out 0s;
 
   &--left {
     margin-right: auto;
@@ -32,16 +37,20 @@
   &:hover,
   &:focus {
     background: var(--color-primary-light);
-    box-shadow: fun.convert-px(7) fun.convert-px(7) 0 0
-      var(--color-primary-dark);
+    box-shadow: 0 0 0 fun.convert-px(2) var(--color-primary-light),
+      0 0 0 fun.convert-px(3) var(--color-primary-darker),
+      fun.convert-px(7) fun.convert-px(7) 0 fun.convert-px(2)
+        var(--color-primary-dark);
     transform: translateX(#{fun.convert-px(-4)})
       translateY(#{fun.convert-px(-4)});
   }
 
   &:active {
     background: var(--color-primary-dark);
-    box-shadow: 0 0 0 0 var(--color-primary-dark);
-    transform: translateX(#{fun.convert-px(3)}) translateY(#{fun.convert-px(3)});
+    box-shadow: 0 0 0 fun.convert-px(2) var(--color-primary),
+      0 0 0 fun.convert-px(3) var(--color-primary-darker),
+      0 0 0 0 var(--color-primary-dark);
+    transform: translateX(#{fun.convert-px(4)}) translateY(#{fun.convert-px(4)});
   }
 }
 
@@ -197,7 +206,6 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--color-bg);
   transition: all 0.6s ease-in 0s;
   backface-visibility: hidden;
 }

@@ -1,5 +1,14 @@
 @use "@styles/abstracts/placeholders";
 
+.title,
+.no-comments {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .list {
   @extend %reset-ordered-list;
+
+  margin-bottom: var(--spacing-lg);
 }

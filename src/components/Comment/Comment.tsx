@@ -44,7 +44,7 @@ const Comment = ({
   const getApprovedComment = () => {
     return (
       <>
-        <article className={styles.wrapper}>
+        <article className={styles.wrapper} id={`comment-${comment.commentId}`}>
           <header className={styles.header}>
             {comment.author.gravatarUrl && (
               <div className={styles.avatar}>
@@ -59,7 +59,11 @@ const Comment = ({
           </header>
           <dl className={styles.date}>
             <dt>{t`Published on:`}</dt>
-            <dd>{getLocaleDate()}</dd>
+            <dd>
+              <Link href={`#comment-${comment.commentId}`}>
+                <a>{getLocaleDate()}</a>
+              </Link>
+            </dd>
           </dl>
           <div
             className={styles.body}

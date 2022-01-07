@@ -6,8 +6,10 @@
 }
 
 .wrapper {
+  background: var(--color-bg);
   border: fun.convert-px(1) solid var(--color-border-light);
-  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light),
+  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0
+      var(--color-shadow-lighter),
     fun.convert-px(4) fun.convert-px(4) fun.convert-px(3) fun.convert-px(-2)
       var(--color-shadow-light);
   padding: var(--spacing-md);
@@ -38,24 +40,32 @@
 .avatar {
   width: fun.convert-px(85);
   height: fun.convert-px(85);
+  margin: 0 auto;
   border-radius: fun.convert-px(3);
-  box-shadow: 0 0 0 fun.convert-px(1) var(--color-shadow-light),
-    fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light);
+  box-shadow: 0 0 0 fun.convert-px(1) var(--color-shadow-lighter),
+    fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1)
+      var(--color-shadow-light);
   position: relative;
+
+  img {
+    border-radius: fun.convert-px(3);
+  }
 }
 
 .author {
+  color: var(--color-primary-darker);
+  font-weight: 600;
   text-align: center;
 }
 
 .date {
   color: var(--color-fg-secondary);
   font-size: var(--font-size-sm);
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
+  display: flex;
+  flex-flow: row wrap;
   column-gap: var(--spacing-2xs);
   justify-content: center;
-  margin: var(--spacing-sm) 0 var(--spacing-md);
+  margin: var(--spacing-md) 0;
 
   @include mix.media("screen") {
     @include mix.dimensions("sm") {

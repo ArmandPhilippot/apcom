@@ -4,6 +4,7 @@ import Notice from '@components/Notice/Notice';
 import { t } from '@lingui/macro';
 import { createComment } from '@services/graphql/mutations';
 import { useState } from 'react';
+import styles from './CommentForm.module.scss';
 
 const CommentForm = ({
   articleId,
@@ -57,51 +58,56 @@ const CommentForm = ({
   };
 
   return (
-    <Form submitHandler={submitHandler}>
-      <FormItem>
-        <Input
-          id="commenter-name"
-          name="commenter-name"
-          label={t`Name`}
-          required={true}
-          value={name}
-          setValue={setName}
-        />
-      </FormItem>
-      <FormItem>
-        <Input
-          id="commenter-email"
-          name="commenter-email"
-          label={t`Email`}
-          required={true}
-          value={email}
-          setValue={setEmail}
-        />
-      </FormItem>
-      <FormItem>
-        <Input
-          id="commenter-website"
-          name="commenter-website"
-          label={t`Website`}
-          value={website}
-          setValue={setWebsite}
-        />
-      </FormItem>
-      <FormItem>
-        <TextArea
-          id="commenter-message"
-          name="commenter-message"
-          label={t`Comment`}
-          value={message}
-          setValue={setMessage}
-          required={true}
-        />
-      </FormItem>
-      <ButtonSubmit>{t`Send`}</ButtonSubmit>
-      {isSuccess && !isApproved && (
-        <Notice type="success">{t`Thanks for your comment! It is now awaiting moderation.`}</Notice>
-      )}
-    </Form>
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>{t`Leave a comment`}</h2>
+      <Form submitHandler={submitHandler}>
+        <FormItem>
+          <Input
+            id="commenter-name"
+            name="commenter-name"
+            label={t`Name`}
+            required={true}
+            value={name}
+            setValue={setName}
+          />
+        </FormItem>
+        <FormItem>
+          <Input
+            id="commenter-email"
+            name="commenter-email"
+            label={t`Email`}
+            required={true}
+            value={email}
+            setValue={setEmail}
+          />
+        </FormItem>
+        <FormItem>
+          <Input
+            id="commenter-website"
+            name="commenter-website"
+            label={t`Website`}
+            value={website}
+            setValue={setWebsite}
+          />
+        </FormItem>
+        <FormItem>
+          <TextArea
+            id="commenter-message"
+            name="commenter-message"
+            label={t`Comment`}
+            value={message}
+            setValue={setMessage}
+            required={true}
+          />
+        </FormItem>
+        <FormItem>
+          <ButtonSubmit>{t`Send`}</ButtonSubmit>
+        </FormItem>
+        {isSuccess && !isApproved && (
+          <Notice type="success">{t`Thanks for your comment! It is now awaiting moderation.`}</Notice>
+        )}
+      </Form>
+    </div>
   );
 };
 

@@ -72,9 +72,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           <Sharing title={title} excerpt={intro} />
         </aside>
         <section className={styles.comments}>
-          <h2>{t`Comments`}</h2>
           <CommentsList comments={comments} />
-          <h2>{t`Leave a comment`}</h2>
           <CommentForm articleId={post.databaseId} />
         </section>
       </article>

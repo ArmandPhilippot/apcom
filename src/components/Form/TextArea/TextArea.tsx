@@ -25,7 +25,7 @@ const TextArea = ({
       {label && (
         <label htmlFor={id} className={styles.label}>
           {label}
-          {required && <span> *</span>}
+          {required && <span className={styles.required}> *</span>}
         </label>
       )}
       <textarea
