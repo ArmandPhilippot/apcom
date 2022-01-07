@@ -36,7 +36,7 @@
   }
 
   &--no-comments {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
   }
 }
 
@@ -48,11 +48,12 @@
       grid-column: 1;
       grid-row: 2 / 4;
       align-self: stretch;
+      justify-self: end;
       padding: 0 0 0 var(--spacing-lg);
 
       ol:first-of-type {
         font-size: var(--font-size-sm);
-        font-weight: 600;
+        font-weight: 500;
       }
     }
   }
@@ -85,7 +86,7 @@
     minmax(0, 1fr);
   align-items: center;
   margin: var(--spacing-md) 0 0;
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-md) 0 var(--spacing-lg);
   background: var(--color-bg-secondary);
   border-top: fun.convert-px(3) solid var(--color-border-lighter);
 
