@@ -35,16 +35,15 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
         meta={meta}
         title={subject.title}
       />
-      <div
-        className={styles.body}
-        dangerouslySetInnerHTML={{ __html: subject.content }}
-      ></div>
-      {subject.posts.length > 0 && (
-        <section className={styles.section}>
-          <h2>{t`All posts in ${subject.title}`}</h2>
-          <ol className={styles.list}>{getPostsList()}</ol>
-        </section>
-      )}
+      <div className={styles.body}>
+        <div dangerouslySetInnerHTML={{ __html: subject.content }}></div>
+        {subject.posts.length > 0 && (
+          <section className={styles.section}>
+            <h2>{t`All posts in ${subject.title}`}</h2>
+            <ol className={styles.list}>{getPostsList()}</ol>
+          </section>
+        )}
+      </div>
     </article>
   );
 };

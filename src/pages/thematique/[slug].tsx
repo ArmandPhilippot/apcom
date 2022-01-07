@@ -25,16 +25,15 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   return (
     <article className={styles.wrapper}>
       <PostHeader intro={thematic.intro} title={thematic.title} />
-      <div
-        className={styles.body}
-        dangerouslySetInnerHTML={{ __html: thematic.content }}
-      ></div>
-      {thematic.posts.length > 0 && (
-        <section className={styles.section}>
-          <h2>{t`All posts in ${thematic.title}`}</h2>
-          <ol className={styles.list}>{getPostsList()}</ol>
-        </section>
-      )}
+      <div className={styles.body}>
+        <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
+        {thematic.posts.length > 0 && (
+          <section className={styles.section}>
+            <h2>{t`All posts in ${thematic.title}`}</h2>
+            <ol className={styles.list}>{getPostsList()}</ol>
+          </section>
+        )}
+      </div>
     </article>
   );
 };

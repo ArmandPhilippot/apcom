@@ -1,7 +1,27 @@
+@use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
-  padding-bottom: var(--spacing-lg);
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
+    minmax(0, 1fr);
+  align-items: first baseline;
+  padding-bottom: var(--spacing-xl);
+
+  > header {
+    grid-column: 1 / -1;
+  }
+}
+
+.body {
+  grid-column: 2;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("lg") {
+      grid-row: 2;
+    }
+  }
 }
 
 .list {
@@ -12,14 +32,18 @@ li.item {
   margin: 0 0 var(--spacing-md) 0;
 }
 
-.body,
-.section {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
-    minmax(0, 1fr);
+.aside {
+  grid-column: 2;
+  margin-top: var(--spacing-lg);
 
-  > * {
-    grid-column: 2;
+  @include mix.media("screen") {
+    @include mix.dimensions("lg") {
+      grid-column: 3;
+      grid-row: 2;
+      margin-left: var(--spacing-lg);
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+    }
   }
 }

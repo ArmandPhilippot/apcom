@@ -13,6 +13,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
+import styles from '@styles/pages/Listing.module.scss';
 
 const Search: NextPageWithLayout = () => {
   const [query, setQuery] = useState('');
@@ -72,9 +73,9 @@ const Search: NextPageWithLayout = () => {
         <title>{head.title}</title>
         <meta name="description" content={head.description} />
       </Head>
-      <article>
+      <article className={styles.wrapper}>
         <PostHeader title={title} />
-        <div>
+        <div className={styles.body}>
           <PostsList data={data} showYears={false} />
           {hasNextPage && (
             <Button
