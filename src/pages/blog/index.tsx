@@ -13,6 +13,7 @@ import { Button } from '@components/Buttons';
 import { getPublishedPosts } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
 import styles from '@styles/pages/Listing.module.scss';
+import { ThematicsList } from '@components/Widget';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const getKey = (pageIndex: number, previousData: PostsListData) => {
@@ -48,17 +49,22 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         <title>{seo.blog.title}</title>
         <meta name="description" content={seo.blog.description} />
       </Head>
-      <div className={styles.wrapper}>
+      <article className={styles.wrapper}>
         <PostHeader title={t`Blog`} />
-        <PostsList data={data} showYears={true} />
-        {hasNextPage && (
-          <Button
-            isDisabled={isLoadingMore}
-            clickHandler={() => setSize(size + 1)}
-            position="center"
-          >{t`Load more?`}</Button>
-        )}
-      </div>
+        <div className={styles.body}>
+          <PostsList data={data} showYears={true} />
+          {hasNextPage && (
+            <Button
+              isDisabled={isLoadingMore}
+              clickHandler={() => setSize(size + 1)}
+              position="center"
+            >{t`Load more?`}</Button>
+          )}
+        </div>
+        <aside className={styles.aside}>
+          <ThematicsList />
+        </aside>
+      </article>
     </>
   );
 };

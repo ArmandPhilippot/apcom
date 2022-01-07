@@ -3,11 +3,13 @@ import { Article, PostBy } from '@ts/types/articles';
 import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
 import {
   AllSubjectsSlug,
+  AllThematics,
   AllThematicsSlug,
   Subject,
   SubjectBy,
   Thematic,
   ThematicBy,
+  ThematicPreview,
 } from '@ts/types/taxonomies';
 import {
   getFormattedPost,
@@ -447,5 +449,22 @@ export const getAllThematicsSlug = async (): Promise<Slug[]> => {
     }
   `;
   const response = await fetchApi<AllThematicsSlug>(query, null);
+  return response.thematics.nodes;
+};
+
+export const getAllThematics = async (): Promise<ThematicPreview[]> => {
+  const query = gql`
+    query AllThematics {
+      thematics {
+        nodes {
+          databaseId
+          slug
+          title
+        }
+      }
+    }
+  `;
+
+  const response = await fetchApi<AllThematics>(query, null);
   return response.thematics.nodes;
 };

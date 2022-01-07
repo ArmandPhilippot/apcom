@@ -7,6 +7,7 @@ import { CommentData, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
 import {
   AllSubjectsSlug,
+  AllThematics,
   AllThematicsSlug,
   SubjectBy,
   ThematicBy,
@@ -41,6 +42,7 @@ export type VariablesType<T> = T extends PostBy | SubjectBy | ThematicBy
 export type RequestType =
   | AllPostsSlug
   | AllSubjectsSlug
+  | AllThematics
   | AllThematicsSlug
   | CreateComment
   | PostBy

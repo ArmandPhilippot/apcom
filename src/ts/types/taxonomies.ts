@@ -66,6 +66,12 @@ export type Thematic = Taxonomy;
 
 export type ThematicPreview = TaxonomyPreview;
 
+export type AllThematics = {
+  thematics: {
+    nodes: ThematicPreview[];
+  };
+};
+
 export type RawThematic = TaxonomyPreview & {
   acfThematics: {
     postsInThematic: RawArticlePreview[];
