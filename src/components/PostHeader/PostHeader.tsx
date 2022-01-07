@@ -15,6 +15,16 @@ const PostHeader = ({
   meta?: ArticleMeta;
   title: string;
 }) => {
+  const hasMeta = () => {
+    return (
+      meta?.author ||
+      meta?.commentCount ||
+      meta?.dates ||
+      meta?.thematics ||
+      meta?.website
+    );
+  };
+
   return (
     <header className={styles.wrapper}>
       <div className={styles.body}>
@@ -26,7 +36,7 @@ const PostHeader = ({
           )}
           {title}
         </h1>
-        {meta && <PostMeta mode="single" meta={meta} />}
+        {meta && hasMeta() && <PostMeta mode="single" meta={meta} />}
         {intro && (
           <div
             className={styles.intro}
