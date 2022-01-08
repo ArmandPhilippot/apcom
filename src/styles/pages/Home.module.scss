@@ -1,10 +1,11 @@
+@use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/placeholders";
 
 .links-list {
   @extend %flex-list;
 
   gap: var(--spacing-md);
-  margin: var(--spacing-md) 0;
+  margin: 0 0 var(--spacing-md);
 }
 
 .section {
@@ -12,8 +13,24 @@
   grid-template-columns:
     minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
     minmax(0, 1fr);
+  padding: var(--spacing-md) 0;
+  background: var(--color-bg-secondary);
+
+  &:not(:last-child) {
+    border-bottom: fun.convert-px(1) solid var(--color-border-light);
+  }
+
+  &:nth-child(2n) {
+    background: var(--color-bg);
+  }
 
   > * {
     grid-column: 2;
+  }
+
+  :global {
+    .wp-block-columns {
+      margin: 0 0 var(--spacing-md);
+    }
   }
 }

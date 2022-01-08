@@ -155,6 +155,8 @@
 
   &:hover,
   &:focus {
+    border-color: var(--color-primary-light);
+    color: var(--color-primary-light);
     box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
         var(--color-shadow-lighter),
       fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
@@ -167,10 +169,12 @@
   }
 
   &:focus {
-    text-decoration: underline var(--color-primary) fun.convert-px(3);
+    text-decoration: underline var(--color-primary-light) fun.convert-px(3);
   }
 
   &:active {
+    border-color: var(--color-primary-dark);
+    color: var(--color-primary-dark);
     box-shadow: 0 0 0 0 var(--color-shadow-light);
     text-decoration: underline transparent 0;
     transform: scale(0.94);
