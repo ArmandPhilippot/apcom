@@ -8,17 +8,14 @@ const ButtonLink = ({
   target,
   position = 'left',
   isExternal = false,
-  hasIcon = false,
 }: {
   children: ReactNode;
   target: string;
   position?: ButtonPosition;
   isExternal?: boolean;
-  hasIcon?: boolean;
 }) => {
   const positionModifier = `link--${position}`;
-  const iconModifier = hasIcon ? ` ${styles['link--icon']}` : '';
-  const classes = `${styles.btn} ${styles.link} ${styles[positionModifier]}${iconModifier}`;
+  const classes = `${styles.btn} ${styles.link} ${styles[positionModifier]}`;
 
   return isExternal ? (
     <a className={classes} href={target}>

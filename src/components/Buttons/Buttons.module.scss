@@ -117,8 +117,13 @@
 }
 
 .link {
+  display: flex;
+  flex-flow: row wrap;
+  place-items: center;
+  gap: var(--spacing-2xs);
   width: max-content;
   padding: var(--spacing-2xs) var(--spacing-sm);
+  position: relative;
   background: var(--color-bg);
   border: fun.convert-px(3) solid var(--color-primary);
   border-radius: fun.convert-px(5);

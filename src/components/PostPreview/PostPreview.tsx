@@ -48,11 +48,7 @@ const PostPreview = ({
         dangerouslySetInnerHTML={{ __html: post.intro }}
       ></div>
       <footer className={styles.footer}>
-        <ButtonLink
-          target={`/article/${post.slug}`}
-          position="left"
-          hasIcon={true}
-        >
+        <ButtonLink target={`/article/${post.slug}`} position="left">
           {t`Read more`}
           <span className="screen-reader-text">
             {' '}

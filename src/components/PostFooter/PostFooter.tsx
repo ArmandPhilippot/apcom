@@ -1,3 +1,4 @@
+import { ButtonLink } from '@components/Buttons';
 import { t } from '@lingui/macro';
 import { SubjectPreview } from '@ts/types/taxonomies';
 import Image from 'next/image';
@@ -9,20 +10,18 @@ const PostFooter = ({ subjects }: { subjects: SubjectPreview[] }) => {
     return subjects.map((subject) => {
       return (
         <li className={styles.item} key={subject.id}>
-          <Link href={`/sujet/${subject.slug}`}>
-            <a className={styles.link}>
-              {subject.featuredImage && (
-                <Image
-                  src={subject.featuredImage.sourceUrl}
-                  alt={subject.featuredImage.altText}
-                  layout="intrinsic"
-                  width="20"
-                  height="20"
-                />
-              )}
-              {subject.title}
-            </a>
-          </Link>
+          <ButtonLink target={`/sujet/${subject.slug}`}>
+            {subject.featuredImage && (
+              <Image
+                src={subject.featuredImage.sourceUrl}
+                alt={subject.featuredImage.altText}
+                layout="intrinsic"
+                width="20"
+                height="20"
+              />
+            )}
+            {subject.title}
+          </ButtonLink>
         </li>
       );
     });
