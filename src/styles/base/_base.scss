@@ -1,4 +1,5 @@
 @use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
 
 audio,
 button,
@@ -29,16 +30,27 @@ summary {
 }
 
 body {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
   background: var(--color-bg);
-  border-top: fun.convert-px(5) solid;
+  border-top: max(0.4vw, fun.convert-px(6)) solid;
+  border-bottom: max(0.4vw, fun.convert-px(6)) solid;
   border-image: radial-gradient(
       ellipse at top,
-      var(--color-highlight) 20%,
+      var(--color-primary-lighter) 20%,
       var(--color-primary) 100%
     )
-    5;
+    1;
   color: var(--color-fg);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-md);
   line-height: var(--line-height);
+}
+
+#__next {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
 }

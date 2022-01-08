@@ -30,7 +30,7 @@
 @include mix.media("screen") {
   @include mix.dimensions("sm") {
     :root {
-      --toolbar-size: 0;
+      --toolbar-size: 0px;
     }
   }
 }
