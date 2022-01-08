@@ -16,6 +16,7 @@
         "indentInsideParens": "twice"
       }
     ],
+    "length-zero-no-unit": [true, { "ignore": ["custom-properties"] }],
     "max-line-length": [
       80,
       {
