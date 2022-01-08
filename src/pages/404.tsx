@@ -7,6 +7,7 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import styles from '@styles/pages/Page.module.scss';
 
 const error404: NextPageWithLayout = () => {
   return (
@@ -15,9 +16,9 @@ const error404: NextPageWithLayout = () => {
         <title>{seo.error404.title}</title>
         <meta name="description" content={seo.error404.description} />
       </Head>
-      <div>
+      <div className={`${styles.article} ${styles['article--no-comments']}`}>
         <PostHeader title={t`Page not found`} />
-        <p>
+        <div className={styles.body}>
           <Trans>
             Sorry, it seems that the page you are looking for does not exist.
           </Trans>{' '}
@@ -26,7 +27,7 @@ const error404: NextPageWithLayout = () => {
             <Link href="/contact/">contact me</Link> with the necessary
             information so that I can fix the problem.
           </Trans>
-        </p>
+        </div>
       </div>
     </>
   );
