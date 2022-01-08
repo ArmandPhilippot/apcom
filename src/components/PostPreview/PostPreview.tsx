@@ -37,7 +37,7 @@ const PostPreview = ({
         </div>
       )}
       <header className={styles.header}>
-        <TitleTag>
+        <TitleTag className={styles.title}>
           <Link href={`/article/${post.slug}`}>
             <a>{post.title}</a>
           </Link>

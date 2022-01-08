@@ -6,7 +6,15 @@ h1 {
 }
 
 h2 {
+  padding-bottom: fun.convert-px(3);
+  background: linear-gradient(
+      to top,
+      var(--color-primary-dark) 0.3rem,
+      transparent 0.3rem
+    )
+    0 0 / 3rem 100% no-repeat;
   font-size: var(--font-size-2xl);
+  text-shadow: fun.convert-px(1) fun.convert-px(1) 0 var(--color-shadow-lighter);
 }
 
 h3 {
@@ -126,11 +134,7 @@ dd {
 }
 
 a {
-  background: linear-gradient(
-      to top,
-      var(--color-primary) 50%,
-      var(--color-bg) 50%
-    )
+  background: linear-gradient(to top, var(--color-primary) 50%, transparent 50%)
     0 0 / 100% 200% no-repeat;
   color: var(--color-primary);
   text-decoration-thickness: 13%;
