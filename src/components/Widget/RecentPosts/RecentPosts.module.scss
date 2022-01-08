@@ -3,20 +3,34 @@
 
 .list {
   @extend %flex-list;
-  flex-flow: row nowrap;
   align-items: stretch;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-md);
 }
 
 .item {
-  width: 33%;
+  width: min(calc(100vw - var(--spacing-md)), 25ch);
+  text-align: center;
+}
+
+.article {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  padding: 0 0 var(--spacing-md);
+}
+
+.title {
+  flex: 1;
+  margin: var(--spacing-sm) 0;
+  padding: 0 var(--spacing-md);
+  text-decoration: underline solid transparent 0;
+  transition: all 0.3s linear 0s;
 }
 
 .link {
   display: block;
   height: 100%;
-  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
   background: var(--color-bg);
   color: inherit;
   text-decoration: none;
@@ -49,15 +63,32 @@
     transform: scale(1.05);
   }
 
+  &:focus {
+    .title {
+      text-decoration: underline solid var(--color-primary) 0.3ex;
+    }
+  }
+
   &:active {
     box-shadow: 0 0 0 0 var(--color-shadow-light);
     transform: scale(0.95);
+
+    .title {
+      text-decoration: none;
+    }
   }
 }
 
 .cover {
   width: 100%;
-  height: 100px;
+  height: clamp(fun.convert-px(100), 20vw, fun.convert-px(150));
   position: relative;
-  margin-bottom: var(--spacing-sm);
+  border: fun.convert-px(1) solid var(--color-border-light);
+}
+
+.meta {
+  display: block;
+  margin: 0;
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
 }
