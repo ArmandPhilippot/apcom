@@ -1,0 +1,27 @@
+@use "@styles/abstracts/mixins" as mix;
+
+.grid {
+  --grid-gap: var(--spacing-md);
+
+  display: grid;
+  align-items: center;
+  grid-template-columns:
+    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
+    var(--column-3, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      --grid-gap: var(--spacing-lg);
+      grid-template-columns:
+        minmax(0, 1fr) clamp(60ch, 60vw, 80ch)
+        var(--column-3, minmax(0, 3fr));
+    }
+
+    @include mix.dimensions("lg") {
+      grid-template-columns:
+        minmax(0, 1fr) clamp(50ch, 50vw, 80ch)
+        var(--column-3, minmax(0, 1fr));
+    }
+  }
+}

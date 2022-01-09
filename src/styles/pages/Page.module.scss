@@ -2,29 +2,7 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .article {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
-    minmax(0, 1fr);
-  align-items: center;
-
-  @include mix.media("screen") {
-    @include mix.dimensions("md") {
-      grid-template-columns:
-        minmax(0, var(--spacing-xl)) min(
-          calc(100vw - calc(var(--spacing-md) * 2)),
-          80ch
-        )
-        minmax(0, 1fr);
-    }
-
-    @include mix.dimensions("lg") {
-      grid-template-columns:
-        minmax(0, 1fr) clamp(50ch, 50vw, 80ch)
-        minmax(0, 1fr);
-      column-gap: var(--spacing-2xl);
-    }
-  }
+  composes: grid from "@styles/layout/_grid.scss";
 
   > header {
     grid-column: 1 / -1;
@@ -49,7 +27,7 @@
       grid-row: 2 / 4;
       align-self: stretch;
       justify-self: end;
-      padding: 0 0 0 var(--spacing-lg);
+      padding: 0 var(--spacing-sm);
 
       ol:first-of-type {
         font-size: var(--font-size-sm);
@@ -68,44 +46,22 @@
       grid-row: 2 / 5;
       align-self: stretch;
       max-width: min-content;
-      margin-left: var(--spacing-2xl);
+      padding: 0 var(--spacing-sm);
     }
 
     @include mix.dimensions("lg") {
       grid-row: 2 / 4;
-      margin-left: 0;
     }
   }
 }
 
 .comments {
   grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
-    minmax(0, 1fr);
-  align-items: center;
+  composes: grid from "@styles/layout/_grid.scss";
   margin: var(--spacing-md) 0 0;
   padding: var(--spacing-md) 0 var(--spacing-lg);
   background: var(--color-bg-secondary);
   border-top: fun.convert-px(3) solid var(--color-border-lighter);
-
-  @include mix.media("screen") {
-    @include mix.dimensions("md") {
-      grid-template-columns:
-        minmax(0, var(--spacing-xl)) min(
-          calc(100vw - calc(var(--spacing-md) * 2)),
-          80ch
-        )
-        minmax(0, 1fr);
-    }
-
-    @include mix.dimensions("lg") {
-      grid-template-columns:
-        minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
-        minmax(0, 1fr);
-    }
-  }
 
   > * {
     grid-column: 2;

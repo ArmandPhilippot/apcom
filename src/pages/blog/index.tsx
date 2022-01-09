@@ -51,16 +51,14 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       </Head>
       <article className={styles.wrapper}>
         <PostHeader title={t`Blog`} />
-        <div className={styles.body}>
-          <PostsList data={data} showYears={true} />
-          {hasNextPage && (
-            <Button
-              isDisabled={isLoadingMore}
-              clickHandler={() => setSize(size + 1)}
-              position="center"
-            >{t`Load more?`}</Button>
-          )}
-        </div>
+        <PostsList data={data} showYears={true} />
+        {hasNextPage && (
+          <Button
+            isDisabled={isLoadingMore}
+            clickHandler={() => setSize(size + 1)}
+            position="center"
+          >{t`Load more?`}</Button>
+        )}
         <aside className={styles.aside}>
           <ThematicsList />
           <TopicsList />

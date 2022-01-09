@@ -2,10 +2,10 @@
 @use "@styles/abstracts/placeholders";
 
 .section {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
-    minmax(0, 1fr);
+  --column-3: 0;
+  --grid-gap: 0;
+
+  composes: grid from "@styles/layout/_grid.scss";
   align-items: first baseline;
 }
 

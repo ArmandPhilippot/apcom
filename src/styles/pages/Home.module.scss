@@ -9,10 +9,7 @@
 }
 
 .section {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
-    minmax(0, 1fr);
+  composes: grid from "@styles/layout/_grid.scss";
   padding: var(--spacing-md) 0;
   background: var(--color-bg-secondary);
 

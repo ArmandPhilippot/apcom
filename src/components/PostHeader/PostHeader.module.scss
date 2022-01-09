@@ -2,11 +2,7 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 80ch)
-    minmax(0, 1fr);
-  align-items: center;
+  composes: grid from "@styles/layout/_grid.scss";
   max-width: 100%;
   margin-bottom: var(--spacing-md);
   background: var(--color-bg-secondary);
