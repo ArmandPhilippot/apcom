@@ -14,6 +14,7 @@ import { getPublishedPosts } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
 import styles from '@styles/pages/Listing.module.scss';
 import { ThematicsList, TopicsList } from '@components/Widget';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const getKey = (pageIndex: number, previousData: PostsListData) => {
@@ -59,10 +60,10 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
             position="center"
           >{t`Load more?`}</Button>
         )}
-        <aside className={styles.aside}>
+        <Sidebar>
           <ThematicsList />
           <TopicsList />
-        </aside>
+        </Sidebar>
       </article>
     </>
   );

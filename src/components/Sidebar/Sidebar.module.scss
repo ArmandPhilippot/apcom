@@ -1,0 +1,36 @@
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  grid-column: 2;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      grid-column: 3;
+      grid-row: 2;
+      align-self: stretch;
+      display: flex;
+      flex-flow: column nowrap;
+      position: relative;
+      visibility: hidden;
+
+      &:hover {
+        visibility: visible;
+      }
+
+      > * {
+        visibility: visible;
+      }
+    }
+  }
+}
+
+.body {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      align-self: flex-start;
+      width: 100%;
+      position: sticky;
+      top: 0;
+    }
+  }
+}

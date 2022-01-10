@@ -63,7 +63,7 @@ const PostsList = ({
     });
   };
 
-  return <>{showYears ? getPostsListByYear() : getPostsList()}</>;
+  return <div>{showYears ? getPostsListByYear() : getPostsList()}</div>;
 };
 
 export default PostsList;

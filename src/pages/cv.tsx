@@ -11,6 +11,7 @@ import { ArticleMeta } from '@ts/types/articles';
 import styles from '@styles/pages/Page.module.scss';
 import { CVPreview, SocialMedia } from '@components/Widget';
 import { t } from '@lingui/macro';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 const CV: NextPageWithLayout = () => {
   const dates = {
@@ -38,14 +39,14 @@ const CV: NextPageWithLayout = () => {
         <div className={styles.body}>
           <CVContent />
         </div>
-        <aside className={styles.aside}>
+        <Sidebar>
           <CVPreview title={t`Other formats`} imgSrc={image} pdf={pdf} />
           <SocialMedia
             title={t`Open-source projects`}
             github={true}
             gitlab={true}
           />
-        </aside>
+        </Sidebar>
       </article>
     </>
   );

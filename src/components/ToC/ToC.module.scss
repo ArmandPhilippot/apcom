@@ -1,9 +1,25 @@
+@use "@styles/abstracts/mixins" as mix;
+
 .wrapper {
-  max-height: 100vh;
   padding-bottom: var(--spacing-sm);
-  position: sticky;
-  top: 0;
-  overflow-y: auto;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("lg") {
+      max-height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow: auto;
+      visibility: hidden;
+
+      > * {
+        visibility: visible;
+      }
+
+      &:hover {
+        visibility: visible;
+      }
+    }
+  }
 }
 
 .list {

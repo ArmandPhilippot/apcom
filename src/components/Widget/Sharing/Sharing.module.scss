@@ -3,12 +3,13 @@
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
-  width: min-content;
-  max-height: 100vh;
   padding-bottom: var(--spacing-sm);
-  position: sticky;
-  top: 0;
-  overflow-y: auto;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      width: min-content;
+    }
+  }
 }
 
 .list {

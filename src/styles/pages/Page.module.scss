@@ -37,23 +37,6 @@
   }
 }
 
-.aside {
-  grid-column: 2;
-
-  @include mix.media("screen") {
-    @include mix.dimensions("md") {
-      grid-column: 3;
-      grid-row: 2 / 5;
-      align-self: stretch;
-      padding: 0 var(--spacing-sm);
-    }
-
-    @include mix.dimensions("lg") {
-      grid-row: 2 / 4;
-    }
-  }
-}
-
 .comments {
   grid-column: 1 / -1;
   composes: grid from "@styles/layout/_grid.scss";

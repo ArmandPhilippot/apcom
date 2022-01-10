@@ -18,6 +18,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
 import styles from '@styles/pages/Page.module.scss';
 import { Sharing } from '@components/Widget';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const {
@@ -67,9 +68,9 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
         <PostFooter subjects={subjects} />
-        <aside className={styles.aside}>
+        <Sidebar>
           <Sharing title={title} excerpt={intro} />
-        </aside>
+        </Sidebar>
         <section className={styles.comments}>
           <CommentsList comments={comments} />
           <CommentForm articleId={post.databaseId} />
