@@ -21,7 +21,6 @@
   &--single {
     flex-flow: column wrap;
     margin: var(--spacing-sm) 0 0;
-    padding: 0 var(--spacing-md) 0;
 
     @include mix.media("screen") {
       @include mix.dimensions("xs") {

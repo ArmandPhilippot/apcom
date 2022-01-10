@@ -5,19 +5,40 @@
   composes: grid from "@styles/layout/_grid.scss";
   max-width: 100%;
   margin-bottom: var(--spacing-md);
-  background: var(--color-bg-secondary);
-  border-top: fun.convert-px(3) solid var(--color-border-lighter);
-  border-bottom: fun.convert-px(3) solid var(--color-border-lighter);
+  position: relative;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("lg") {
+      --grid-gap: var(--spacing-lg);
+    }
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg-secondary);
+    border-top: fun.convert-px(3) solid var(--color-border-lighter);
+    border-bottom: fun.convert-px(3) solid var(--color-border-lighter);
+  }
+
+  &::before {
+    grid-column: 1;
+    justify-self: start;
+    border-right: fun.convert-px(3) solid var(--color-border-lighter);
+  }
+
+  &::after {
+    grid-column: 3;
+    justify-self: end;
+    border-left: fun.convert-px(3) solid var(--color-border-lighter);
+  }
 }
 
 .body {
   grid-column: 2;
-  display: flex;
-  flex-flow: row wrap;
-  margin: fun.convert-px(-3) calc(var(--spacing-md) * -1);
   background: var(--color-bg);
-  border-left: fun.convert-px(3) solid var(--color-border-lighter);
-  border-right: fun.convert-px(3) solid var(--color-border-lighter);
 }
 
 .title {
@@ -26,7 +47,6 @@
   flex-flow: row wrap;
   align-items: center;
   margin: 0;
-  padding: 0 var(--spacing-md) 0;
   position: relative;
   text-shadow: fun.convert-px(1) fun.convert-px(1) 0 var(--color-shadow-lighter);
 
@@ -34,8 +54,12 @@
   &::after {
     content: "";
     width: 100%;
-    height: fun.convert-px(3);
-    background: var(--color-primary-dark);
+    height: fun.convert-px(4);
+    background: radial-gradient(
+      ellipse at center,
+      var(--color-primary-light),
+      var(--color-primary-dark)
+    );
   }
 }
 
@@ -49,7 +73,6 @@
 
 .intro {
   margin: var(--spacing-sm) 0 0;
-  padding: 0 var(--spacing-md);
 
   > *:last-child {
     margin-bottom: 0;
