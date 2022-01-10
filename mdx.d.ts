@@ -5,4 +5,6 @@ declare module '*.mdx' {
   export default MDXComponent;
   export const meta: Meta;
   export const intro: string;
+  export const pdf: string;
+  export const image: string;
 }

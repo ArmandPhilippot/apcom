@@ -5,11 +5,11 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import CVContent, { intro, meta } from '@content/pages/cv.mdx';
+import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { ArticleMeta } from '@ts/types/articles';
 import styles from '@styles/pages/Page.module.scss';
-import { SocialMedia } from '@components/Widget';
+import { CVPreview, SocialMedia } from '@components/Widget';
 import { t } from '@lingui/macro';
 
 const CV: NextPageWithLayout = () => {
@@ -39,6 +39,7 @@ const CV: NextPageWithLayout = () => {
           <CVContent />
         </div>
         <aside className={styles.aside}>
+          <CVPreview title={t`Other formats`} imgSrc={image} pdf={pdf} />
           <SocialMedia
             title={t`Open-source projects`}
             github={true}
