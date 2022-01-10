@@ -11,6 +11,7 @@ import Head from 'next/head';
 import { FormEvent, useState } from 'react';
 import PostHeader from '@components/PostHeader/PostHeader';
 import styles from '@styles/pages/Page.module.scss';
+import { SocialMedia } from '@components/Widget';
 
 const ContactPage: NextPageWithLayout = () => {
   const [name, setName] = useState('');
@@ -111,6 +112,14 @@ const ContactPage: NextPageWithLayout = () => {
             </FormItem>
           </Form>
         </div>
+        <aside className={styles.aside}>
+          <SocialMedia
+            title={t`Find me elsewhere`}
+            github={true}
+            gitlab={true}
+            linkedin={true}
+          />
+        </aside>
       </article>
     </>
   );

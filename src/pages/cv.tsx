@@ -9,6 +9,8 @@ import CVContent, { intro, meta } from '@content/pages/cv.mdx';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { ArticleMeta } from '@ts/types/articles';
 import styles from '@styles/pages/Page.module.scss';
+import { SocialMedia } from '@components/Widget';
+import { t } from '@lingui/macro';
 
 const CV: NextPageWithLayout = () => {
   const dates = {
@@ -36,6 +38,13 @@ const CV: NextPageWithLayout = () => {
         <div className={styles.body}>
           <CVContent />
         </div>
+        <aside className={styles.aside}>
+          <SocialMedia
+            title={t`Open-source projects`}
+            github={true}
+            gitlab={true}
+          />
+        </aside>
       </article>
     </>
   );
