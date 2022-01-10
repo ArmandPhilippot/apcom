@@ -3,10 +3,8 @@ import CommentsList from '@components/CommentsList/CommentsList';
 import { getLayout } from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
-import Sharing from '@components/Sharing/Sharing';
 import ToC from '@components/ToC/ToC';
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta, ArticleProps } from '@ts/types/articles';
@@ -19,6 +17,7 @@ import Prism from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
 import styles from '@styles/pages/Page.module.scss';
+import { Sharing } from '@components/Widget';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const {
