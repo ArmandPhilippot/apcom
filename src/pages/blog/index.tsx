@@ -61,7 +61,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
           >{t`Load more?`}</Button>
         )}
         <Sidebar>
-          <ThematicsList />
+          <ThematicsList title={t`Thematics`} />
           <TopicsList />
         </Sidebar>
       </article>
