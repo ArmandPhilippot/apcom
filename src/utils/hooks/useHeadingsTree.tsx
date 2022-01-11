@@ -1,10 +1,24 @@
 import { Heading } from '@ts/types/app';
 import { slugify } from '@utils/helpers/slugify';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const useHeadingsTree = (wrapper: string) => {
-  const [headingsTree, setHeadingsTree] = useState<Heading[]>([]);
+  const router = useRouter();
   const depths = useMemo(() => ['h2', 'h3', 'h4', 'h5', 'h6'], []);
+  const [allHeadings, setAllHeadings] =
+    useState<NodeListOf<HTMLHeadingElement>>();
+
+  useEffect(() => {
+    const query = depths
+      .map((depth) => `${wrapper} > *:not(aside) ${depth}`)
+      .join(', ');
+    const result: NodeListOf<HTMLHeadingElement> =
+      document.querySelectorAll(query);
+    setAllHeadings(result);
+  }, [depths, wrapper, router.asPath]);
+
+  const [headingsTree, setHeadingsTree] = useState<Heading[]>([]);
 
   const getElementDepth = useCallback(
     (el: HTMLHeadingElement) => {
@@ -78,12 +92,11 @@ const useHeadingsTree = (wrapper: string) => {
   );
 
   useEffect(() => {
-    const query = depths.map((depth) => `${wrapper} ${depth}`).join(', ');
-    const headings: NodeListOf<HTMLHeadingElement> =
-      document.querySelectorAll(query);
-    const headingsList = getHeadingsList(headings);
-    setHeadingsTree(headingsList);
-  }, [depths, wrapper, getHeadingsList]);
+    if (allHeadings) {
+      const headingsList = getHeadingsList(allHeadings);
+      setHeadingsTree(headingsList);
+    }
+  }, [allHeadings, getHeadingsList]);
 
   return headingsTree;
 };
