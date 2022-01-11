@@ -37,20 +37,19 @@
     height: var(--button-size);
 
     svg {
-      padding: var(--spacing-2xs);
+      height: 85%;
     }
 
     :global {
       .arrow-head {
-        transform: translateY(#{fun.convert-px(18)});
+        transform: translateY(30%);
         transition: all 0.45s ease-in-out 0s;
       }
 
       .arrow-bar {
         opacity: 0;
-        transform: translateY(#{fun.convert-px(18)})
-          translateX(#{fun.convert-px(5)}) scale(0.5);
-        transition: transform 0.45s ease-in-out 0s, opacity 0.7s ease-in-out 0s;
+        transform: translateY(30%) translateX(25%) scale(0.5);
+        transition: transform 0.45s ease-in-out 0s, opacity 0.3s ease-in-out 0s;
       }
     }
 
@@ -69,7 +68,7 @@
 
       svg {
         :global {
-          animation: pulse 1.4s ease-in-out 0.45s infinite;
+          animation: pulse 1.2s ease-in-out 0.6s infinite;
         }
       }
     }
