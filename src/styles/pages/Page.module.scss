@@ -1,5 +1,6 @@
 @use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
 
 .article {
   composes: grid from "@styles/layout/_grid.scss";
@@ -37,6 +38,14 @@
   }
 }
 
+.list {
+  @extend %reset-ordered-list;
+}
+
+li.item {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .comments {
   grid-column: 1 / -1;
   composes: grid from "@styles/layout/_grid.scss";
@@ -47,5 +56,16 @@
 
   > * {
     grid-column: 2;
+  }
+}
+
+.aside {
+  align-self: start;
+  max-height: 100vh;
+  position: sticky;
+  top: 0;
+
+  &--overflow {
+    overflow: auto;
   }
 }

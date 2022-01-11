@@ -2,29 +2,57 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostPreview from '@components/PostPreview/PostPreview';
 import { t } from '@lingui/macro';
 import { NextPageWithLayout } from '@ts/types/app';
-import { ThematicProps } from '@ts/types/taxonomies';
+import { SubjectPreview, ThematicProps } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import styles from '@styles/pages/Listing.module.scss';
+import styles from '@styles/pages/Page.module.scss';
 import {
   getAllThematicsSlug,
   getThematicBySlug,
 } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
+import ToC from '@components/ToC/ToC';
+import { RelatedTopics, ThematicsList } from '@components/Widget';
+import { useRef } from 'react';
+import { ArticleMeta } from '@ts/types/articles';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
+  const relatedSubjects = useRef<SubjectPreview[]>([]);
+
+  const updateRelatedSubjects = (newSubjects: SubjectPreview[]) => {
+    newSubjects.forEach((subject) => {
+      const subjectIndex = relatedSubjects.current.findIndex(
+        (relatedSubject) => relatedSubject.id === subject.id
+      );
+      const hasSubject = subjectIndex === -1 ? false : true;
+
+      if (!hasSubject) relatedSubjects.current.push(subject);
+    });
+  };
+
   const getPostsList = () => {
-    return [...thematic.posts].reverse().map((post) => (
-      <li key={post.id} className={styles.item}>
-        <PostPreview post={post} titleLevel={3} />
-      </li>
-    ));
+    return [...thematic.posts].reverse().map((post) => {
+      updateRelatedSubjects(post.subjects);
+
+      return (
+        <li key={post.id} className={styles.item}>
+          <PostPreview post={post} titleLevel={3} />
+        </li>
+      );
+    });
+  };
+
+  const meta: ArticleMeta = {
+    dates: thematic.dates,
   };
 
   return (
-    <article className={styles.wrapper}>
-      <PostHeader intro={thematic.intro} title={thematic.title} />
+    <article className={`${styles.article} ${styles['article--no-comments']}`}>
+      <PostHeader intro={thematic.intro} meta={meta} title={thematic.title} />
+      <aside className={styles.toc}>
+        <ToC />
+      </aside>
       <div className={styles.body}>
         <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
         {thematic.posts.length > 0 && (
@@ -34,6 +62,10 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
           </section>
         )}
       </div>
+      <aside className={`${styles.aside} ${styles['aside--overflow']}`}>
+        <RelatedTopics topics={relatedSubjects.current} />
+        <ThematicsList title={t`Other thematics`} />
+      </aside>
     </article>
   );
 };
