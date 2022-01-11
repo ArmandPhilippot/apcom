@@ -16,6 +16,7 @@ import { ArticleMeta } from '@ts/types/articles';
 import ToC from '@components/ToC/ToC';
 import { RelatedThematics, TopicsList } from '@components/Widget';
 import { useRef } from 'react';
+import Head from 'next/head';
 
 const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   const relatedThematics = useRef<ThematicPreview[]>([]);
@@ -49,30 +50,38 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   };
 
   return (
-    <article className={`${styles.article} ${styles['article--no-comments']}`}>
-      <PostHeader
-        cover={subject.featuredImage}
-        intro={subject.intro}
-        meta={meta}
-        title={subject.title}
-      />
-      <aside className={styles.toc}>
-        <ToC />
-      </aside>
-      <div className={styles.body}>
-        <div dangerouslySetInnerHTML={{ __html: subject.content }}></div>
-        {subject.posts.length > 0 && (
-          <section className={styles.section}>
-            <h2>{t`All posts in ${subject.title}`}</h2>
-            <ol className={styles.list}>{getPostsList()}</ol>
-          </section>
-        )}
-      </div>
-      <aside className={`${styles.aside} ${styles['aside--overflow']}`}>
-        <RelatedThematics thematics={relatedThematics.current} />
-        <TopicsList title={t`Other topics`} />
-      </aside>
-    </article>
+    <>
+      <Head>
+        <title>{subject.seo.title}</title>
+        <meta name="description" content={subject.seo.metaDesc} />
+      </Head>
+      <article
+        className={`${styles.article} ${styles['article--no-comments']}`}
+      >
+        <PostHeader
+          cover={subject.featuredImage}
+          intro={subject.intro}
+          meta={meta}
+          title={subject.title}
+        />
+        <aside className={styles.toc}>
+          <ToC />
+        </aside>
+        <div className={styles.body}>
+          <div dangerouslySetInnerHTML={{ __html: subject.content }}></div>
+          {subject.posts.length > 0 && (
+            <section className={styles.section}>
+              <h2>{t`All posts in ${subject.title}`}</h2>
+              <ol className={styles.list}>{getPostsList()}</ol>
+            </section>
+          )}
+        </div>
+        <aside className={`${styles.aside} ${styles['aside--overflow']}`}>
+          <RelatedThematics thematics={relatedThematics.current} />
+          <TopicsList title={t`Other topics`} />
+        </aside>
+      </article>
+    </>
   );
 };
 

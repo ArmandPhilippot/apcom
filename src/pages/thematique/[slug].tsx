@@ -16,6 +16,7 @@ import ToC from '@components/ToC/ToC';
 import { RelatedTopics, ThematicsList } from '@components/Widget';
 import { useRef } from 'react';
 import { ArticleMeta } from '@ts/types/articles';
+import Head from 'next/head';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const relatedSubjects = useRef<SubjectPreview[]>([]);
@@ -48,25 +49,33 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   };
 
   return (
-    <article className={`${styles.article} ${styles['article--no-comments']}`}>
-      <PostHeader intro={thematic.intro} meta={meta} title={thematic.title} />
-      <aside className={styles.toc}>
-        <ToC />
-      </aside>
-      <div className={styles.body}>
-        <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
-        {thematic.posts.length > 0 && (
-          <section className={styles.section}>
-            <h2>{t`All posts in ${thematic.title}`}</h2>
-            <ol className={styles.list}>{getPostsList()}</ol>
-          </section>
-        )}
-      </div>
-      <aside className={`${styles.aside} ${styles['aside--overflow']}`}>
-        <RelatedTopics topics={relatedSubjects.current} />
-        <ThematicsList title={t`Other thematics`} />
-      </aside>
-    </article>
+    <>
+      <Head>
+        <title>{thematic.seo.title}</title>
+        <meta name="description" content={thematic.seo.metaDesc} />
+      </Head>
+      <article
+        className={`${styles.article} ${styles['article--no-comments']}`}
+      >
+        <PostHeader intro={thematic.intro} meta={meta} title={thematic.title} />
+        <aside className={styles.toc}>
+          <ToC />
+        </aside>
+        <div className={styles.body}>
+          <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
+          {thematic.posts.length > 0 && (
+            <section className={styles.section}>
+              <h2>{t`All posts in ${thematic.title}`}</h2>
+              <ol className={styles.list}>{getPostsList()}</ol>
+            </section>
+          )}
+        </div>
+        <aside className={`${styles.aside} ${styles['aside--overflow']}`}>
+          <RelatedTopics topics={relatedSubjects.current} />
+          <ThematicsList title={t`Other thematics`} />
+        </aside>
+      </article>
+    </>
   );
 };
 

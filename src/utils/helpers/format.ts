@@ -84,6 +84,7 @@ export const getFormattedSubject = (rawSubject: RawSubject): Subject => {
     featuredImage,
     id,
     modified,
+    seo,
     title,
   } = rawSubject;
 
@@ -103,6 +104,7 @@ export const getFormattedSubject = (rawSubject: RawSubject): Subject => {
     intro: contentParts.beforeMore,
     officialWebsite: acfSubjects.officialWebsite,
     posts,
+    seo,
     title,
   };
 
@@ -115,8 +117,16 @@ export const getFormattedSubject = (rawSubject: RawSubject): Subject => {
  * @returns A formatted thematic.
  */
 export const getFormattedThematic = (rawThematic: RawThematic): Thematic => {
-  const { acfThematics, contentParts, databaseId, date, id, modified, title } =
-    rawThematic;
+  const {
+    acfThematics,
+    contentParts,
+    databaseId,
+    date,
+    id,
+    modified,
+    seo,
+    title,
+  } = rawThematic;
 
   const dates = {
     publication: date,
@@ -132,6 +142,7 @@ export const getFormattedThematic = (rawThematic: RawThematic): Thematic => {
     id,
     intro: contentParts.beforeMore,
     posts,
+    seo,
     title,
   };
 
