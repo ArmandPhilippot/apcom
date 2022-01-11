@@ -28,6 +28,7 @@ export type ArticleMeta = {
   author?: ArticleAuthor;
   commentCount?: number;
   dates?: Dates;
+  subjects?: SubjectPreview[];
   thematics?: ThematicPreview[];
   website?: string;
 };
@@ -61,14 +62,14 @@ export type RawArticle = Pick<
 
 export type ArticlePreview = Pick<
   Article,
-  'commentCount' | 'dates' | 'id' | 'intro' | 'thematics' | 'title'
+  'commentCount' | 'dates' | 'id' | 'intro' | 'subjects' | 'thematics' | 'title'
 > & { featuredImage: Cover; slug: string };
 
 export type RawArticlePreview = Pick<
   Article,
   'commentCount' | 'id' | 'title'
 > & {
-  acfPosts: Pick<ACFPosts, 'postsInThematic'>;
+  acfPosts: ACFPosts;
   contentParts: Pick<ContentParts, 'beforeMore'>;
   date: string;
   featuredImage: RawCover;

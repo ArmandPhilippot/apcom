@@ -21,6 +21,7 @@ const PostPreview = ({
   const meta: ArticleMeta = {
     commentCount: post.commentCount ? post.commentCount : 0,
     dates: post.dates,
+    subjects: post.subjects,
     thematics: post.thematics,
   };
 

@@ -37,6 +37,7 @@ export const getFormattedPostPreview = (rawPost: RawArticlePreview) => {
     update: modified,
   };
 
+  const subjects = acfPosts.postsInSubject ? acfPosts.postsInSubject : [];
   const thematics = acfPosts.postsInThematic ? acfPosts.postsInThematic : [];
 
   const formattedPost: ArticlePreview = {
@@ -46,6 +47,7 @@ export const getFormattedPostPreview = (rawPost: RawArticlePreview) => {
     id,
     intro: contentParts.beforeMore,
     slug,
+    subjects,
     thematics,
     title,
   };

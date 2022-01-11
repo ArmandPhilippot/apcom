@@ -13,12 +13,29 @@ const PostMeta = ({
   meta: ArticleMeta;
   mode?: PostMetaMode;
 }) => {
-  const { author, commentCount, dates, thematics, website } = meta;
-  const { locale } = useRouter();
+  const { author, commentCount, dates, subjects, thematics, website } = meta;
+  const { asPath, locale } = useRouter();
+  const isThematic = () => asPath.includes('/thematique/');
+
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
+  };
+
+  const getSubjects = () => {
+    return (
+      subjects &&
+      subjects.map((subject) => {
+        return (
+          <dd key={subject.id} className={styles.description}>
+            <Link href={`/sujet/${subject.slug}`}>
+              <a>{subject.title}</a>
+            </Link>
+          </dd>
+        );
+      })
+    );
   };
 
   const getThematics = () => {
@@ -76,12 +93,20 @@ const PostMeta = ({
           </dd>
         </div>
       )}
-      {thematics && thematics.length > 0 && (
+      {!isThematic() && thematics && thematics.length > 0 && (
         <div className={styles.item}>
           <dt className={styles.term}>
             {thematics.length > 1 ? t`Thematics` : t`Thematic`}
           </dt>
           {getThematics()}
+        </div>
+      )}
+      {isThematic() && subjects && subjects.length > 0 && (
+        <div className={styles.item}>
+          <dt className={styles.term}>
+            {subjects.length > 1 ? t`Subjects` : t`Subject`}
+          </dt>
+          {getSubjects()}
         </div>
       )}
       {website && (
