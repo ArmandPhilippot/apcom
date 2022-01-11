@@ -3,7 +3,7 @@ import { getAllThematics } from '@services/graphql/queries';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import styles from './ThematicsList.module.scss';
+import styles from '../Widget.module.scss';
 
 const ThematicsList = ({ title }: { title: string }) => {
   const router = useRouter();

@@ -1,16 +1,10 @@
 import { t } from '@lingui/macro';
-import { getAllSubjects } from '@services/graphql/queries';
+import { SubjectPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
-import useSWR from 'swr';
 import styles from '../Widget.module.scss';
 
-const TopicsList = () => {
-  const { data, error } = useSWR('/api/subjects', getAllSubjects);
-
-  if (error) return <div>{t`Failed to load.`}</div>;
-  if (!data) return <div>{t`Loading...`}</div>;
-
-  const sortedSubjects = [...data].sort((a, b) =>
+const RelatedTopics = ({ topics }: { topics: SubjectPreview[] }) => {
+  const sortedSubjects = [...topics].sort((a, b) =>
     a.title.localeCompare(b.title)
   );
 
@@ -26,10 +20,10 @@ const TopicsList = () => {
 
   return (
     <div>
-      <h2 className={styles.title}>{t`Topics`}</h2>
+      <h2 className={styles.title}>{t`Related topics`}</h2>
       <ul className={styles.list}>{subjects}</ul>
     </div>
   );
 };
 
-export default TopicsList;
+export default RelatedTopics;
