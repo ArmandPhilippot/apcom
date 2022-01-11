@@ -17,11 +17,7 @@ const ThematicsList = ({ title }: { title: string }) => {
   if (error) return <div>{t`Failed to load.`}</div>;
   if (!data) return <div>{t`Loading...`}</div>;
 
-  const sortedThematics = [...data].sort((a, b) =>
-    a.title.localeCompare(b.title)
-  );
-
-  const thematics = sortedThematics.map((thematic) => {
+  const thematics = data.map((thematic) => {
     return currentThematicSlug !== thematic.slug ? (
       <li key={thematic.databaseId}>
         <Link href={`/thematique/${thematic.slug}`}>

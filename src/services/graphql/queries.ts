@@ -347,9 +347,10 @@ export const getAllSubjectsSlug = async (): Promise<Slug[]> => {
 };
 
 export const getAllSubjects = async (): Promise<SubjectPreview[]> => {
+  // 10 000 is an arbitrary number that I use for small websites.
   const query = gql`
     query AllSubjects {
-      subjects {
+      subjects(first: 10000, where: { orderby: { field: TITLE, order: ASC } }) {
         nodes {
           databaseId
           slug
@@ -472,9 +473,13 @@ export const getAllThematicsSlug = async (): Promise<Slug[]> => {
 };
 
 export const getAllThematics = async (): Promise<ThematicPreview[]> => {
+  // 10 000 is an arbitrary number that I use for small websites.
   const query = gql`
     query AllThematics {
-      thematics {
+      thematics(
+        first: 10000
+        where: { orderby: { field: TITLE, order: ASC } }
+      ) {
         nodes {
           databaseId
           slug

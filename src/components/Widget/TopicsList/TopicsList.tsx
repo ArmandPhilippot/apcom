@@ -17,11 +17,7 @@ const TopicsList = ({ title }: { title: string }) => {
   if (error) return <div>{t`Failed to load.`}</div>;
   if (!data) return <div>{t`Loading...`}</div>;
 
-  const sortedSubjects = [...data].sort((a, b) =>
-    a.title.localeCompare(b.title)
-  );
-
-  const subjects = sortedSubjects.map((subject) => {
+  const subjects = data.map((subject) => {
     return currentTopicSlug !== subject.slug ? (
       <li key={subject.databaseId}>
         <Link href={`/sujet/${subject.slug}`}>
