@@ -20,7 +20,9 @@ const RelatedTopics = ({ topics }: { topics: SubjectPreview[] }) => {
 
   return (
     <div>
-      <h2 className={styles.title}>{t`Related topics`}</h2>
+      <h2 className={styles.title}>
+        {topics.length > 1 ? t`Related topics` : t`Related topic`}
+      </h2>
       <ul className={styles.list}>{subjects}</ul>
     </div>
   );
