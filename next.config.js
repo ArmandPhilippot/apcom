@@ -14,6 +14,14 @@ const nextConfig = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: '/feed',
+        destination: '/feed.xml',
+      },
+    ];
+  },
   sassOptions: {
     includePaths: [
       path.join(__dirname, 'styles'),
