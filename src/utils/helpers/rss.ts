@@ -2,7 +2,6 @@ import { config } from '@config/website';
 import { getPublishedPosts } from '@services/graphql/queries';
 import { ArticlePreview } from '@ts/types/articles';
 import { Feed } from 'feed';
-import { writeFileSync } from 'fs';
 
 const getAllPosts = async (): Promise<ArticlePreview[]> => {
   const posts: ArticlePreview[] = [];
@@ -50,5 +49,5 @@ export const generateFeed = async () => {
     });
   });
 
-  writeFileSync('./public/feed.xml', feed.rss2(), 'utf8');
+  return feed;
 };
