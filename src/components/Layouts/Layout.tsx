@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
 import Main from '@components/Main/Main';
@@ -6,6 +6,7 @@ import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
 import { t } from '@lingui/macro';
 import Head from 'next/head';
 import { config } from '@config/website';
+import { useRouter } from 'next/router';
 
 const Layout = ({
   children,
@@ -14,6 +15,13 @@ const Layout = ({
   children: ReactNode;
   isHome?: boolean;
 }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const { asPath } = useRouter();
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, [asPath]);
+
   return (
     <>
       <Head>
@@ -36,6 +44,7 @@ const Layout = ({
           title={`${config.name}'s RSS feed`}
         />
       </Head>
+      <span ref={ref} tabIndex={-1} />
       <a href="#main" className="screen-reader-text">{t`Skip to content`}</a>
       <Header isHome={isHome} />
       <Main>{children}</Main>
