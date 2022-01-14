@@ -15,8 +15,11 @@ import PostHeader from '@components/PostHeader/PostHeader';
 import { ThematicsList, TopicsList } from '@components/Widget';
 import Sidebar from '@components/Sidebar/Sidebar';
 import styles from '@styles/pages/Page.module.scss';
+import { useRef } from 'react';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
+  const lastPostRef = useRef<HTMLSpanElement>(null);
+
   const getKey = (pageIndex: number, previousData: PostsListData) => {
     if (previousData && !previousData.posts) return null;
 
@@ -44,6 +47,13 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
 
   const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
 
+  const loadMorePosts = () => {
+    if (lastPostRef.current) {
+      lastPostRef.current.focus();
+    }
+    setSize(size + 1);
+  };
+
   return (
     <>
       <Head>
@@ -55,11 +65,11 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       >
         <PostHeader title={t`Blog`} />
         <div className={styles.body}>
-          <PostsList data={data} showYears={true} />
+          <PostsList ref={lastPostRef} data={data} showYears={true} />
           {hasNextPage && (
             <Button
               isDisabled={isLoadingMore}
-              clickHandler={() => setSize(size + 1)}
+              clickHandler={loadMorePosts}
               position="center"
             >{t`Load more?`}</Button>
           )}

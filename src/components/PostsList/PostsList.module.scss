@@ -33,8 +33,11 @@
 }
 
 li.item {
-  margin: 0 0 var(--spacing-md) 0;
   border-bottom: fun.convert-px(1) solid var(--color-border-light);
+
+  &:not(:last-of-type) {
+    margin: 0 0 var(--spacing-md) 0;
+  }
 
   &:first-of-type {
     margin-top: var(--spacing-sm);

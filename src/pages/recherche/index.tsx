@@ -11,7 +11,7 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { ThematicsList, TopicsList } from '@components/Widget';
@@ -20,6 +20,7 @@ import styles from '@styles/pages/Page.module.scss';
 const Search: NextPageWithLayout = () => {
   const [query, setQuery] = useState('');
   const router = useRouter();
+  const lastPostRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -69,6 +70,13 @@ const Search: NextPageWithLayout = () => {
         message: 'Search',
       });
 
+  const loadMorePosts = () => {
+    if (lastPostRef.current) {
+      lastPostRef.current.focus();
+    }
+    setSize(size + 1);
+  };
+
   return (
     <>
       <Head>
@@ -80,11 +88,12 @@ const Search: NextPageWithLayout = () => {
       >
         <PostHeader title={title} />
         <div className={styles.body}>
-          <PostsList data={data} showYears={false} />
+          <PostsList ref={lastPostRef} data={data} showYears={false} />
           {hasNextPage && (
             <Button
               isDisabled={isLoadingMore}
-              clickHandler={() => setSize(size + 1)}
+              clickHandler={loadMorePosts}
+              position="center"
             >{t`Load more?`}</Button>
           )}
         </div>
