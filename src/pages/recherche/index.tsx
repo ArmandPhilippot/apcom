@@ -13,7 +13,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
-import styles from '@styles/pages/Listing.module.scss';
+import Sidebar from '@components/Sidebar/Sidebar';
+import { ThematicsList, TopicsList } from '@components/Widget';
+import styles from '@styles/pages/Page.module.scss';
 
 const Search: NextPageWithLayout = () => {
   const [query, setQuery] = useState('');
@@ -73,7 +75,9 @@ const Search: NextPageWithLayout = () => {
         <title>{head.title}</title>
         <meta name="description" content={head.description} />
       </Head>
-      <article className={styles.wrapper}>
+      <article
+        className={`${styles.article} ${styles['article--no-comments']}`}
+      >
         <PostHeader title={title} />
         <div className={styles.body}>
           <PostsList data={data} showYears={false} />
@@ -84,6 +88,10 @@ const Search: NextPageWithLayout = () => {
             >{t`Load more?`}</Button>
           )}
         </div>
+        <Sidebar>
+          <ThematicsList title={t`Thematics`} />
+          <TopicsList title={t`Topics`} />
+        </Sidebar>
       </article>
     </>
   );

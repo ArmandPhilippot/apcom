@@ -1,3 +1,4 @@
+@use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
@@ -32,9 +33,16 @@
 }
 
 li.item {
-  margin: var(--spacing-md) 0;
+  margin: 0 0 var(--spacing-md) 0;
+  border-bottom: fun.convert-px(1) solid var(--color-border-light);
 
   &:first-of-type {
     margin-top: var(--spacing-sm);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("md") {
+        margin-top: 0;
+      }
+    }
   }
 }

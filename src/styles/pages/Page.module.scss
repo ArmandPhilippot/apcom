@@ -4,6 +4,7 @@
 
 .article {
   composes: grid from "@styles/layout/_grid.scss";
+  align-items: start;
 
   > header {
     grid-column: 1 / -1;
@@ -44,6 +45,7 @@
 
 li.item {
   margin: 0 0 var(--spacing-md) 0;
+  border-bottom: fun.convert-px(1) solid var(--color-border-light);
 }
 
 .comments {
@@ -60,7 +62,6 @@ li.item {
 }
 
 .aside {
-  align-self: start;
   max-height: 100vh;
   position: sticky;
   top: 0;
