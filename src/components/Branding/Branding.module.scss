@@ -2,13 +2,15 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
+  --logo-size: clamp(#{fun.convert-px(68)}, 18vw, #{fun.convert-px(100)});
+
   display: grid;
   grid-template-columns:
-    clamp(#{fun.convert-px(55)}, 15vw, #{fun.convert-px(90)})
+    var(--logo-size)
     minmax(0, 1fr);
   grid-template-rows: repeat(2, max-content);
   align-items: center;
-  column-gap: var(--spacing-md);
+  column-gap: var(--spacing-sm);
   padding: var(--spacing-sm) 0;
   text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-fg-inverted);
 }
@@ -16,15 +18,62 @@
 .logo {
   grid-column: 1;
   grid-row: 1 / -1;
+  justify-self: center;
   display: flex;
   place-content: center;
-  border: fun.convert-px(1) solid var(--color-border);
+  width: var(--logo-size);
+  height: var(--logo-size);
+  position: relative;
   border-radius: 50%;
-  box-shadow: 0 0 0 fun.convert-px(4) var(--color-bg),
-    0 0 fun.convert-px(3) fun.convert-px(5) var(--color-shadow);
+  transition: all 0.6s linear 0s;
+  transform-style: preserve-3d;
 
-  img {
+  &__front,
+  &__back {
+    width: 100%;
+    height: 100%;
+    padding: clamp(fun.convert-px(2), 0.8vw, fun.convert-px(5));
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    background: var(--color-bg);
+    border: fun.convert-px(1) solid var(--color-primary-dark);
     border-radius: 50%;
+    transition: all 0.6s linear 0s;
+  }
+
+  &__front {
+    box-shadow: fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
+        var(--color-shadow-light),
+      fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
+        var(--color-shadow-lighter);
+  }
+
+  &__back {
+    transform: rotateY(180deg);
+  }
+
+  img,
+  svg {
+    border-radius: 50%;
+  }
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+
+  &:hover & {
+    &__front {
+      box-shadow: none;
+    }
+
+    &__back {
+      box-shadow: fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
+          var(--color-shadow-light),
+        fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
+          var(--color-shadow-lighter);
+    }
   }
 }
 
@@ -33,14 +82,8 @@
   grid-row: 1;
   margin: 0;
   font-family: var(--font-family-secondary);
-  font-size: var(--font-size-xl);
+  font-size: clamp(var(--font-size-xl), 6vw, var(--font-size-2xl));
   font-weight: 500;
-
-  @include mix.media("screen") {
-    @include mix.dimensions("xs") {
-      font-size: var(--font-size-2xl);
-    }
-  }
 }
 
 .job {
@@ -49,4 +92,29 @@
   margin: 0;
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-lg);
+}
+
+.link {
+  background: linear-gradient(
+      to top,
+      var(--color-primary-light) fun.convert-px(5),
+      transparent fun.convert-px(5)
+    )
+    left / 0 100% no-repeat;
+  text-decoration: none;
+  transition: all 0.6s ease-out 0s;
+
+  &:hover,
+  &:focus {
+    background-size: 100% 100%;
+  }
+
+  &:focus {
+    color: var(--color-primary-light);
+  }
+
+  &:active {
+    background-size: 0 100%;
+    color: var(--color-primary-dark);
+  }
 }
