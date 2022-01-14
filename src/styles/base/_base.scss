@@ -29,6 +29,26 @@ summary {
   cursor: pointer;
 }
 
+* {
+  scrollbar-color: var(--color-shadow) var(--color-bg-tertiary);
+  scrollbar-width: auto;
+}
+
+*::-webkit-scrollbar {
+  width: fun.convert-px(12);
+  height: fun.convert-px(12);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-bg-tertiary);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-shadow);
+  border-radius: fun.convert-px(6);
+  border: fun.convert-px(3) solid var(--color-bg-tertiary);
+}
+
 body {
   display: flex;
   flex-flow: column nowrap;
