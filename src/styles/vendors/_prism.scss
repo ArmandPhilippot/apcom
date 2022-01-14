@@ -8,8 +8,6 @@
   --toolbar-height: #{fun.convert-px(40)};
 
   position: relative;
-  margin-left: calc(var(--spacing-md) * -1);
-  margin-right: calc(var(--spacing-md) * -1);
 
   .toolbar {
     display: flex;
