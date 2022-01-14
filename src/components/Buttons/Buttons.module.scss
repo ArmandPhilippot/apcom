@@ -58,17 +58,15 @@
 .secondary {
   padding: var(--spacing-2xs) var(--spacing-md);
   background: var(--color-bg);
-  border: fun.convert-px(5) solid var(--color-primary);
-  border-radius: fun.convert-px(30);
-  box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
-      var(--color-shadow-light),
-    fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
-      var(--color-shadow-light),
-    fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
-      var(--color-shadow-light);
+  border: fun.convert-px(3) solid var(--color-primary);
+  border-radius: fun.convert-px(5);
+  box-shadow: fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-bg),
+    fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-dark),
+    fun.convert-px(5) fun.convert-px(5) 0 0 var(--color-bg),
+    fun.convert-px(6) fun.convert-px(6) 0 0 var(--color-primary-dark);
   color: var(--color-primary);
   font-weight: 600;
-  transition: all 0.35s ease-in-out 0s;
+  transition: all 0.35s ease-out 0s;
 
   &--left {
     margin-right: auto;
@@ -93,15 +91,17 @@
     &:hover,
     &:focus {
       transform: translateX(#{fun.convert-px(-3)})
-        translateY(#{fun.convert-px(-6)});
-      box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+        translateY(#{fun.convert-px(-5)});
+      border-color: var(--color-primary-light);
+      box-shadow: fun.convert-px(2) fun.convert-px(3) 0 0 var(--color-bg),
+        fun.convert-px(4) fun.convert-px(5) 0 0 var(--color-primary),
+        fun.convert-px(6) fun.convert-px(8) 0 0 var(--color-bg),
+        fun.convert-px(8) fun.convert-px(10) 0 0 var(--color-primary),
+        fun.convert-px(10) fun.convert-px(12) fun.convert-px(1) 0
           var(--color-shadow-lighter),
-        fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
-          var(--color-shadow-lighter),
-        fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
-          var(--color-shadow-lighter),
-        fun.convert-px(7) fun.convert-px(10) fun.convert-px(12)
-          fun.convert-px(-3) var(--color-shadow-lighter);
+        fun.convert-px(10) fun.convert-px(12) fun.convert-px(5)
+          fun.convert-px(1) var(--color-shadow-lighter);
+      color: var(--color-primary-light);
     }
 
     &:focus {
@@ -110,7 +110,8 @@
 
     &:active {
       text-decoration: none;
-      transform: translateY(#{fun.convert-px(2)});
+      transform: translateX(#{fun.convert-px(5)})
+        translateY(#{fun.convert-px(6)});
       box-shadow: 0 0 0 0 var(--color-shadow-light);
     }
   }
