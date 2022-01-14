@@ -157,37 +157,35 @@ a {
     text-decoration-thickness: 18%;
   }
 
-  &[hreflang],
   &.external {
-    grid-template-columns: minmax(0, 1fr) fun.convert-px(50);
-
     &::after {
-      display: inline-flex;
-      flex-flow: row nowrap;
-      width: fun.convert-px(14);
-      margin-right: 0.5ex;
-      font-size: var(--font-size-sm);
+      display: inline-block;
+      content: "\0000a0"url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
     }
-  }
 
-  &.external {
-    &::after {
-      content: "\0000a0"url(fun.encode-svg('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
+    &:focus:not(:active)::after {
+      content: "\0000a0"url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_white}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_white}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
     }
   }
 
   &[hreflang] {
     &::after {
+      display: inline-block;
       content: "\0000a0["attr(hreflang) "]";
-      text-decoration: none;
+      font-size: var(--font-size-sm);
     }
 
     &.external {
       &::after {
         content: "\0000a0["attr(hreflang) "]\0000a0"url(fun.encode-svg(
-            '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
+            '<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
           ));
-        margin-right: 4.5ex;
+      }
+
+      &:focus:not(:active)::after {
+        content: "\0000a0["attr(hreflang) "]\0000a0"url(fun.encode-svg(
+            '<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$color_white}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$color_white}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
+          ));
       }
     }
   }
