@@ -13,10 +13,10 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (inputRef.current) {
+      if (isOpened && inputRef.current) {
         inputRef.current.focus();
       }
-    }, 800);
+    }, 400);
   }, [isOpened]);
 
   const launchSearch = (e: FormEvent) => {

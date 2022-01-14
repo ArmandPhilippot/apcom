@@ -1,19 +1,22 @@
 import { CloseIcon, CogIcon, SearchIcon } from '@components/Icons';
 import { t } from '@lingui/macro';
-import { SetStateAction } from 'react';
+import { ForwardedRef, forwardRef, SetStateAction } from 'react';
 import styles from '../Buttons.module.scss';
 
 type ButtonType = 'search' | 'settings';
 
-const ButtonToolbar = ({
-  type,
-  isActivated,
-  setIsActivated,
-}: {
-  type: ButtonType;
-  isActivated: boolean;
-  setIsActivated: (value: SetStateAction<boolean>) => void;
-}) => {
+const ButtonToolbar = (
+  {
+    type,
+    isActivated,
+    setIsActivated,
+  }: {
+    type: ButtonType;
+    isActivated: boolean;
+    setIsActivated: (value: SetStateAction<boolean>) => void;
+  },
+  ref: ForwardedRef<HTMLButtonElement>
+) => {
   const ButtonIcon = () => (type === 'search' ? <SearchIcon /> : <CogIcon />);
   const btnClasses = isActivated
     ? `${styles.toolbar} ${styles['toolbar--activated']}`
@@ -21,6 +24,7 @@ const ButtonToolbar = ({
 
   return (
     <button
+      ref={ref}
       className={btnClasses}
       type="button"
       onClick={() => setIsActivated(!isActivated)}
@@ -42,4 +46,4 @@ const ButtonToolbar = ({
   );
 };
 
-export default ButtonToolbar;
+export default forwardRef(ButtonToolbar);
