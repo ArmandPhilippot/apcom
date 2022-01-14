@@ -49,6 +49,12 @@ summary {
   border: fun.convert-px(3) solid var(--color-bg-tertiary);
 }
 
+*::selection {
+  background: var(--color-primary-opacity);
+  color: var(--color-fg);
+  text-shadow: none;
+}
+
 body {
   display: flex;
   flex-flow: column nowrap;
