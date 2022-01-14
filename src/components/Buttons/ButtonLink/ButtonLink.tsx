@@ -14,8 +14,7 @@ const ButtonLink = ({
   position?: ButtonPosition;
   isExternal?: boolean;
 }) => {
-  const positionModifier = `link--${position}`;
-  const classes = `${styles.btn} ${styles.link} ${styles[positionModifier]}`;
+  const classes = `${styles.btn} ${styles[position]} ${styles.tertiary}`;
 
   return isExternal ? (
     <a className={classes} href={target}>

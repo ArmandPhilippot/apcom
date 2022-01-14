@@ -7,6 +7,19 @@
   font-size: var(--font-size-md);
 }
 
+.left {
+  margin-right: auto;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .primary {
   margin: auto;
   padding: var(--spacing-2xs) var(--spacing-md);
@@ -21,19 +34,6 @@
   font-weight: 600;
   text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-shadow);
   transition: all 0.25s ease-in-out 0s;
-
-  &--left {
-    margin-right: auto;
-  }
-
-  &--right {
-    margin-left: auto;
-  }
-
-  &--center {
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   &:hover,
   &:focus {
@@ -67,19 +67,6 @@
   color: var(--color-primary);
   font-weight: 600;
   transition: all 0.35s ease-out 0s;
-
-  &--left {
-    margin-right: auto;
-  }
-
-  &--right {
-    margin-left: auto;
-  }
-
-  &--center {
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   &:disabled {
     color: var(--color-fg-light);
@@ -117,7 +104,7 @@
   }
 }
 
-.link {
+.tertiary {
   display: flex;
   flex-flow: row wrap;
   place-items: center;
@@ -138,19 +125,6 @@
   font-weight: 600;
   text-decoration: underline transparent 0;
   transition: all 0.3s ease-in-out 0s, text-decoration 0.35s ease-in-out 0s;
-
-  &--left {
-    margin-right: auto;
-  }
-
-  &--right {
-    margin-left: auto;
-  }
-
-  &--center {
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   &:hover,
   &:focus {

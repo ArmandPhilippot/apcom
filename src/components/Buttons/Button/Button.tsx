@@ -1,26 +1,21 @@
-import { ButtonPosition } from '@ts/types/app';
+import { ButtonKind, ButtonPosition } from '@ts/types/app';
 import { ReactNode } from 'react';
 import styles from '../Buttons.module.scss';
 
 const Button = ({
   children,
   clickHandler,
+  kind = 'secondary',
   position = 'left',
   isDisabled = false,
-  isPrimary = false,
 }: {
   children: ReactNode;
   clickHandler: any;
+  kind?: ButtonKind;
   position?: ButtonPosition;
   isDisabled?: boolean;
-  isPrimary?: boolean;
 }) => {
-  const primaryPosition = `primary--${position}`;
-  const secondaryPosition = `secondary--${position}`;
-  const typeStyles = isPrimary
-    ? `${styles.primary} ${styles[primaryPosition]}`
-    : `${styles.secondary} ${styles[secondaryPosition]}`;
-  const classes = `${styles.btn} ${typeStyles}`;
+  const classes = `${styles.btn} ${styles[position]} ${styles[kind]}`;
 
   return (
     <button
