@@ -22,7 +22,7 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
               message: `${config.name} picture`,
               comment: 'Branding logo.',
             })}
-            layout="intrinsic"
+            layout="responsive"
           />
         </div>
         <div className={styles.logo__back}>
