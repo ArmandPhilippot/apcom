@@ -1,5 +1,4 @@
 import { getLayout } from '@components/Layouts/Layout';
-import ToC from '@components/ToC/ToC';
 import { seo } from '@config/seo';
 import { NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
@@ -12,6 +11,8 @@ import LegalNoticeContent, {
 import PostHeader from '@components/PostHeader/PostHeader';
 import { ArticleMeta } from '@ts/types/articles';
 import styles from '@styles/pages/Page.module.scss';
+import { ToC } from '@components/Widgets';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 const LegalNotice: NextPageWithLayout = () => {
   const dates = {
@@ -33,9 +34,9 @@ const LegalNotice: NextPageWithLayout = () => {
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
-        <aside className={styles.toc}>
+        <Sidebar position="left">
           <ToC />
-        </aside>
+        </Sidebar>
         <div className={styles.body}>
           <LegalNoticeContent />
         </div>

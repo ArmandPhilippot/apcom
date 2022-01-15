@@ -2,37 +2,44 @@
 
 .wrapper {
   grid-column: 2;
-  margin-top: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
 
   @include mix.media("screen") {
     @include mix.dimensions("md") {
-      grid-column: 3;
-      grid-row: 2;
       align-self: stretch;
       display: flex;
-      flex-flow: column nowrap;
-      margin-top: 0;
-      position: relative;
-      visibility: hidden;
+      flex-flow: column;
+      justify-content: flex-start;
+      margin: var(--spacing-xs);
 
-      &:hover {
-        visibility: visible;
+      &--right {
+        grid-row: 2 / 4;
+        grid-column: 3;
       }
+    }
 
-      > * {
-        visibility: visible;
+    @include mix.dimensions("lg") {
+      &--left {
+        grid-row: 2 / 4;
+        grid-column: 1;
       }
     }
   }
 }
 
 .body {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  max-height: 100vh;
+
   @include mix.media("screen") {
     @include mix.dimensions("md") {
       align-self: flex-start;
       width: 100%;
+      max-height: calc(100vh - (var(--spacing-xs) * 2));
       position: sticky;
-      top: 0;
+      top: var(--spacing-xs);
     }
   }
 }

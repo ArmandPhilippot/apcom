@@ -1,3 +1,4 @@
+import { ExpandableWidget } from '@components/WidgetParts';
 import { Trans } from '@lingui/macro';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,8 +14,7 @@ const CVPreview = ({
   pdf: string;
 }) => {
   return (
-    <div>
-      <h2>{title}</h2>
+    <ExpandableWidget title={title} expand={true}>
       <div className={styles.preview}>
         <Image
           src={imgSrc}
@@ -29,7 +29,7 @@ const CVPreview = ({
           Download <Link href={pdf}>CV in PDF</Link>
         </Trans>
       </p>
-    </div>
+    </ExpandableWidget>
   );
 };
 

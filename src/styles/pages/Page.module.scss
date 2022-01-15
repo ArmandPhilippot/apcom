@@ -20,25 +20,6 @@
   }
 }
 
-.toc {
-  grid-column: 2;
-
-  @include mix.media("screen") {
-    @include mix.dimensions("lg") {
-      grid-column: 1;
-      grid-row: 2 / 4;
-      align-self: stretch;
-      justify-self: end;
-      padding: 0 var(--spacing-sm);
-
-      ol:first-of-type {
-        font-size: var(--font-size-sm);
-        font-weight: 500;
-      }
-    }
-  }
-}
-
 .list {
   @extend %reset-ordered-list;
 }
@@ -58,15 +39,5 @@ li.item {
 
   > * {
     grid-column: 2;
-  }
-}
-
-.aside {
-  max-height: 100vh;
-  position: sticky;
-  top: 0;
-
-  &--overflow {
-    overflow: auto;
   }
 }

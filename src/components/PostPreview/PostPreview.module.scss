@@ -48,7 +48,7 @@ h2.title {
     .wrapper {
       margin: 0;
       padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
-      border: fun.convert-px(1) solid var(--color-border-light);
+      border: fun.convert-px(1) solid var(--color-primary-dark);
       border-radius: fun.convert-px(3);
       box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
           var(--color-shadow-light),

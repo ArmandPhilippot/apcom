@@ -1,11 +1,18 @@
+import { ExpandableWidget, List } from '@components/WidgetParts';
 import { t } from '@lingui/macro';
 import { getAllThematics } from '@services/graphql/queries';
+import { TitleLevel } from '@ts/types/app';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import styles from '../Widget.module.scss';
 
-const ThematicsList = ({ title }: { title: string }) => {
+const ThematicsList = ({
+  title,
+  titleLevel,
+}: {
+  title: string;
+  titleLevel?: TitleLevel;
+}) => {
   const router = useRouter();
   const isThematic = () => router.asPath.includes('/thematique/');
   const currentThematicSlug = isThematic()
@@ -30,10 +37,9 @@ const ThematicsList = ({ title }: { title: string }) => {
   });
 
   return (
-    <div>
-      <h2 className={styles.title}>{title}</h2>
-      <ul className={styles.list}>{thematics}</ul>
-    </div>
+    <ExpandableWidget title={title} titleLevel={titleLevel} withBorders={true}>
+      <List items={thematics} />
+    </ExpandableWidget>
   );
 };
 

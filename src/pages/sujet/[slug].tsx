@@ -13,10 +13,10 @@ import {
 } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { ArticleMeta } from '@ts/types/articles';
-import ToC from '@components/ToC/ToC';
-import { RelatedThematics, TopicsList } from '@components/Widget';
+import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
 import { useRef } from 'react';
 import Head from 'next/head';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   const relatedThematics = useRef<ThematicPreview[]>([]);
@@ -64,9 +64,9 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
           meta={meta}
           title={subject.title}
         />
-        <aside className={styles.toc}>
+        <Sidebar position="left">
           <ToC />
-        </aside>
+        </Sidebar>
         <div className={styles.body}>
           <div dangerouslySetInnerHTML={{ __html: subject.content }}></div>
           {subject.posts.length > 0 && (
@@ -76,10 +76,10 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
             </section>
           )}
         </div>
-        <aside className={`${styles.aside} ${styles['aside--overflow']}`}>
+        <Sidebar position="right">
           <RelatedThematics thematics={relatedThematics.current} />
           <TopicsList title={t`Other topics`} />
-        </aside>
+        </Sidebar>
       </article>
     </>
   );

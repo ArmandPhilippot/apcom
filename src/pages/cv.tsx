@@ -1,5 +1,4 @@
 import { getLayout } from '@components/Layouts/Layout';
-import ToC from '@components/ToC/ToC';
 import { seo } from '@config/seo';
 import { NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
@@ -9,7 +8,7 @@ import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { ArticleMeta } from '@ts/types/articles';
 import styles from '@styles/pages/Page.module.scss';
-import { CVPreview, SocialMedia } from '@components/Widget';
+import { CVPreview, SocialMedia, ToC } from '@components/Widgets';
 import { t } from '@lingui/macro';
 import Sidebar from '@components/Sidebar/Sidebar';
 
@@ -33,13 +32,13 @@ const CV: NextPageWithLayout = () => {
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
-        <aside className={styles.toc}>
+        <Sidebar position="left">
           <ToC />
-        </aside>
+        </Sidebar>
         <div className={styles.body}>
           <CVContent />
         </div>
-        <Sidebar>
+        <Sidebar position="right">
           <CVPreview title={t`Other formats`} imgSrc={image} pdf={pdf} />
           <SocialMedia
             title={t`Open-source projects`}

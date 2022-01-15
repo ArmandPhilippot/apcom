@@ -1,7 +1,7 @@
+import { ExpandableWidget, List } from '@components/WidgetParts';
 import { t } from '@lingui/macro';
 import { ThematicPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
-import styles from '../Widget.module.scss';
 
 const RelatedThematics = ({ thematics }: { thematics: ThematicPreview[] }) => {
   const sortedThematics = [...thematics].sort((a, b) =>
@@ -19,12 +19,12 @@ const RelatedThematics = ({ thematics }: { thematics: ThematicPreview[] }) => {
   });
 
   return (
-    <div>
-      <h2 className={styles.title}>
-        {thematics.length > 1 ? t`Related thematics` : t`Related thematic`}
-      </h2>
-      <ul className={styles.list}>{thematicsList}</ul>
-    </div>
+    <ExpandableWidget
+      title={thematics.length > 1 ? t`Related thematics` : t`Related thematic`}
+      withBorders={true}
+    >
+      <List items={thematicsList} />
+    </ExpandableWidget>
   );
 };
 

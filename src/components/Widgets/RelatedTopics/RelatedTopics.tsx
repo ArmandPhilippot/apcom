@@ -1,7 +1,7 @@
+import { ExpandableWidget, List } from '@components/WidgetParts';
 import { t } from '@lingui/macro';
 import { SubjectPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
-import styles from '../Widget.module.scss';
 
 const RelatedTopics = ({ topics }: { topics: SubjectPreview[] }) => {
   const sortedSubjects = [...topics].sort((a, b) =>
@@ -19,12 +19,12 @@ const RelatedTopics = ({ topics }: { topics: SubjectPreview[] }) => {
   });
 
   return (
-    <div>
-      <h2 className={styles.title}>
-        {topics.length > 1 ? t`Related topics` : t`Related topic`}
-      </h2>
-      <ul className={styles.list}>{subjects}</ul>
-    </div>
+    <ExpandableWidget
+      title={topics.length > 1 ? t`Related topics` : t`Related topic`}
+      withBorders={true}
+    >
+      <List items={subjects} />
+    </ExpandableWidget>
   );
 };
 

@@ -12,7 +12,7 @@ import useSWRInfinite from 'swr/infinite';
 import { Button } from '@components/Buttons';
 import { getPublishedPosts } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
-import { ThematicsList, TopicsList } from '@components/Widget';
+import { ThematicsList, TopicsList } from '@components/Widgets';
 import Sidebar from '@components/Sidebar/Sidebar';
 import styles from '@styles/pages/Page.module.scss';
 import { useRef } from 'react';
@@ -74,7 +74,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
             >{t`Load more?`}</Button>
           )}
         </div>
-        <Sidebar>
+        <Sidebar position="right" title={t`Filter by`}>
           <ThematicsList title={t`Thematics`} />
           <TopicsList title={t`Topics`} />
         </Sidebar>

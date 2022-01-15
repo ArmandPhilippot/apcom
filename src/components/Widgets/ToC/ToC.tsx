@@ -1,7 +1,7 @@
+import { ExpandableWidget, OrderedList } from '@components/WidgetParts';
 import { t } from '@lingui/macro';
 import { Heading } from '@ts/types/app';
 import useHeadingsTree from '@utils/hooks/useHeadingsTree';
-import styles from './ToC.module.scss';
 
 const ToC = () => {
   const headingsTree = useHeadingsTree('article');
@@ -12,17 +12,18 @@ const ToC = () => {
       return (
         <li key={heading.id}>
           <a href={`#${heading.id}`}>{heading.title}</a>
-          {heading.children.length > 0 && <ol>{getItems(heading.children)}</ol>}
+          {heading.children.length > 0 && (
+            <OrderedList items={getItems(heading.children)} />
+          )}
         </li>
       );
     });
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h2>{title}</h2>
-      <ol className={styles.list}>{getItems(headingsTree)}</ol>
-    </div>
+    <ExpandableWidget title={title} expand={true} withBorders={true}>
+      <OrderedList items={getItems(headingsTree)} />
+    </ExpandableWidget>
   );
 };
 

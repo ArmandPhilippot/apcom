@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import Sidebar from '@components/Sidebar/Sidebar';
-import { ThematicsList, TopicsList } from '@components/Widget';
+import { ThematicsList, TopicsList } from '@components/Widgets';
 import styles from '@styles/pages/Page.module.scss';
 
 const Search: NextPageWithLayout = () => {
@@ -97,7 +97,7 @@ const Search: NextPageWithLayout = () => {
             >{t`Load more?`}</Button>
           )}
         </div>
-        <Sidebar>
+        <Sidebar position="right">
           <ThematicsList title={t`Thematics`} />
           <TopicsList title={t`Topics`} />
         </Sidebar>

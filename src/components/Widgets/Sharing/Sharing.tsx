@@ -1,3 +1,4 @@
+import { ExpandableWidget } from '@components/WidgetParts';
 import sharingMedia from '@config/sharing';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
@@ -101,10 +102,11 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h2>{t`Share`}</h2>
-      <ul className={styles.list}>{getItems()}</ul>
-    </div>
+    <ExpandableWidget title={t`Share`} expand={true}>
+      <ul className={`${styles.list} ${styles['list--sharing']}`}>
+        {getItems()}
+      </ul>
+    </ExpandableWidget>
   );
 };
 

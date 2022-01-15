@@ -6,8 +6,7 @@ import styles from './PostPreview.module.scss';
 import Image from 'next/image';
 import { ButtonLink } from '@components/Buttons';
 import { ArrowIcon } from '@components/Icons';
-
-type TitleLevel = 2 | 3 | 4 | 5 | 6;
+import { TitleLevel } from '@ts/types/app';
 
 const PostPreview = ({
   post,

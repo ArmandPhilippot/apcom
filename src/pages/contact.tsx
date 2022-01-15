@@ -11,7 +11,7 @@ import Head from 'next/head';
 import { FormEvent, useState } from 'react';
 import PostHeader from '@components/PostHeader/PostHeader';
 import styles from '@styles/pages/Page.module.scss';
-import { SocialMedia } from '@components/Widget';
+import { SocialMedia } from '@components/Widgets';
 import Sidebar from '@components/Sidebar/Sidebar';
 
 const ContactPage: NextPageWithLayout = () => {
@@ -113,7 +113,7 @@ const ContactPage: NextPageWithLayout = () => {
             </FormItem>
           </Form>
         </div>
-        <Sidebar>
+        <Sidebar position="right">
           <SocialMedia
             title={t`Find me elsewhere`}
             github={true}

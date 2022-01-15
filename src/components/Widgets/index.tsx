@@ -5,6 +5,7 @@ import RelatedTopics from './RelatedTopics/RelatedTopics';
 import Sharing from './Sharing/Sharing';
 import SocialMedia from './SocialMedia/SocialMedia';
 import ThematicsList from './ThematicsList/ThematicsList';
+import ToC from './ToC/ToC';
 import TopicsList from './TopicsList/TopicsList';
 
 export {
@@ -15,5 +16,6 @@ export {
   Sharing,
   SocialMedia,
   ThematicsList,
+  ToC,
   TopicsList,
 };

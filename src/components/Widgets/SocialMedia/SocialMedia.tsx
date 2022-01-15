@@ -4,6 +4,7 @@ import GitlabIcon from '@assets/images/social-media/gitlab.svg';
 import LinkedInIcon from '@assets/images/social-media/linkedin.svg';
 import TwitterIcon from '@assets/images/social-media/twitter.svg';
 import styles from './SocialMedia.module.scss';
+import { ExpandableWidget } from '@components/WidgetParts';
 
 const SocialMedia = ({
   title,
@@ -62,10 +63,9 @@ const SocialMedia = ({
   });
 
   return (
-    <div>
-      <h2>{title}</h2>
+    <ExpandableWidget title={title} expand={true}>
       <ul className={styles.list}>{items}</ul>
-    </div>
+    </ExpandableWidget>
   );
 };
 

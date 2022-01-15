@@ -57,6 +57,8 @@ export type RequestType =
 // Globals
 //==============================================================================
 
+export type ButtonKind = 'primary' | 'secondary' | 'tertiary';
+
 export type ButtonPosition = 'left' | 'right' | 'center';
 
 export type ContentParts = {
@@ -95,3 +97,5 @@ export type PageInfo = {
 export type Slug = {
   slug: string;
 };
+
+export type TitleLevel = 2 | 3 | 4 | 5 | 6;

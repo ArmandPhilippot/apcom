@@ -12,11 +12,11 @@ import {
   getThematicBySlug,
 } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
-import ToC from '@components/ToC/ToC';
-import { RelatedTopics, ThematicsList } from '@components/Widget';
+import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
 import { useRef } from 'react';
 import { ArticleMeta } from '@ts/types/articles';
 import Head from 'next/head';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const relatedSubjects = useRef<SubjectPreview[]>([]);
@@ -58,9 +58,9 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader intro={thematic.intro} meta={meta} title={thematic.title} />
-        <aside className={styles.toc}>
+        <Sidebar position="left">
           <ToC />
-        </aside>
+        </Sidebar>
         <div className={styles.body}>
           <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
           {thematic.posts.length > 0 && (
@@ -70,10 +70,10 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
             </section>
           )}
         </div>
-        <aside className={`${styles.aside} ${styles['aside--overflow']}`}>
+        <Sidebar position="right">
           <RelatedTopics topics={relatedSubjects.current} />
           <ThematicsList title={t`Other thematics`} />
-        </aside>
+        </Sidebar>
       </article>
     </>
   );
