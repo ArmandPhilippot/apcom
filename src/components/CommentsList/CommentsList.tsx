@@ -3,10 +3,18 @@ import Comment from '@components/Comment/Comment';
 import { t } from '@lingui/macro';
 import styles from './CommentsList.module.scss';
 
-const CommentsList = ({ comments }: { comments: CommentData[] }) => {
+const CommentsList = ({
+  articleId,
+  comments,
+}: {
+  articleId: number;
+  comments: CommentData[];
+}) => {
   const getCommentsList = () => {
     return comments.map((comment) => {
-      return <Comment key={comment.id} comment={comment} />;
+      return (
+        <Comment key={comment.id} articleId={articleId} comment={comment} />
+      );
     });
   };
 

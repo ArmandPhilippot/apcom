@@ -24,6 +24,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     author,
     comments,
     content,
+    databaseId,
     dates,
     intro,
     seo,
@@ -71,7 +72,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           <Sharing title={title} excerpt={intro} />
         </Sidebar>
         <section className={styles.comments}>
-          <CommentsList comments={comments} />
+          <CommentsList articleId={databaseId} comments={comments} />
           <CommentForm articleId={post.databaseId} />
         </section>
       </article>

@@ -3,16 +3,21 @@ import { Form, FormItem, Input, TextArea } from '@components/Form';
 import Notice from '@components/Notice/Notice';
 import { t } from '@lingui/macro';
 import { createComment } from '@services/graphql/mutations';
-import { useState } from 'react';
+import { ForwardedRef, forwardRef, useState } from 'react';
 import styles from './CommentForm.module.scss';
 
-const CommentForm = ({
-  articleId,
-  parentId = 0,
-}: {
-  articleId: number;
-  parentId?: number;
-}) => {
+const CommentForm = (
+  {
+    articleId,
+    parentId = 0,
+    isReply = false,
+  }: {
+    articleId: number;
+    parentId?: number;
+    isReply?: boolean;
+  },
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [website, setWebsite] = useState('');
@@ -57,10 +62,17 @@ const CommentForm = ({
     }
   };
 
+  const wrapperClasses = `${styles.wrapper} ${
+    isReply ? styles['wrapper--reply'] : ''
+  }`;
+
   return (
-    <div className={styles.wrapper}>
+    <div className={wrapperClasses}>
       <h2 className={styles.title}>{t`Leave a comment`}</h2>
-      <Form submitHandler={submitHandler}>
+      <Form
+        submitHandler={submitHandler}
+        modifier={isReply ? 'centered' : undefined}
+      >
         <FormItem>
           <Input
             id="commenter-name"
@@ -69,6 +81,7 @@ const CommentForm = ({
             required={true}
             value={name}
             setValue={setName}
+            ref={ref}
           />
         </FormItem>
         <FormItem>
@@ -111,4 +124,4 @@ const CommentForm = ({
   );
 };
 
-export default CommentForm;
+export default forwardRef(CommentForm);

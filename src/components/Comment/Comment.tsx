@@ -1,19 +1,29 @@
 import { Button } from '@components/Buttons';
+import CommentForm from '@components/CommentForm/CommentForm';
 import { t } from '@lingui/macro';
 import { Comment as CommentData } from '@ts/types/comments';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Comment.module.scss';
 
 const Comment = ({
+  articleId,
   comment,
   isNested = false,
 }: {
+  articleId: number;
   comment: CommentData;
   isNested?: boolean;
 }) => {
   const router = useRouter();
+  const [isReply, setIsReply] = useState<boolean>(false);
+  const firstFieldRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    firstFieldRef.current && firstFieldRef.current.focus();
+  });
 
   const getCommentAuthor = () => {
     return comment.author.url ? (
@@ -71,14 +81,31 @@ const Comment = ({
           ></div>
           {!isNested && (
             <footer className={styles.footer}>
-              <Button clickHandler={() => ''}>{t`Reply`}</Button>
+              <Button
+                clickHandler={() => setIsReply((prev) => !prev)}
+              >{t`Reply`}</Button>
             </footer>
           )}
         </article>
+        {isReply && (
+          <CommentForm
+            ref={firstFieldRef}
+            articleId={articleId}
+            parentId={comment.commentId}
+            isReply={isReply}
+          />
+        )}
         {comment.replies.length > 0 && (
           <ol className={styles.list}>
             {comment.replies.map((reply) => {
-              return <Comment key={reply.id} comment={reply} isNested={true} />;
+              return (
+                <Comment
+                  articleId={articleId}
+                  key={reply.id}
+                  comment={reply}
+                  isNested={true}
+                />
+              );
             })}
           </ol>
         )}

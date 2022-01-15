@@ -8,6 +8,12 @@
     display: flex;
     flex-flow: row nowrap;
   }
+
+  &--centered {
+    max-width: 45ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .item {
