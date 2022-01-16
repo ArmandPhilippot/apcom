@@ -16,6 +16,7 @@ const PostMeta = ({
   const { author, commentCount, dates, subjects, thematics, website } = meta;
   const { asPath, locale } = useRouter();
   const isThematic = () => asPath.includes('/thematique/');
+  const isArticle = () => asPath.includes('/article/');
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: 'numeric',
@@ -120,7 +121,13 @@ const PostMeta = ({
       {commentCount !== undefined && (
         <div className={styles.item}>
           <dt className={styles.term}>{t`Comments`}</dt>
-          {getCommentsCount()}
+          <dd className={styles.description}>
+            {isArticle() ? (
+              <a href="#comments">{getCommentsCount()}</a>
+            ) : (
+              getCommentsCount()
+            )}
+          </dd>
         </div>
       )}
     </dl>
