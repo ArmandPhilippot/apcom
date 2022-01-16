@@ -7,11 +7,10 @@
 
 .wrapper {
   background: var(--color-bg);
-  border: fun.convert-px(1) solid var(--color-border-light);
-  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0
-      var(--color-shadow-lighter),
+  border: fun.convert-px(1) solid var(--color-border);
+  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light),
     fun.convert-px(4) fun.convert-px(4) fun.convert-px(3) fun.convert-px(-2)
-      var(--color-shadow-light);
+      var(--color-shadow);
   padding: var(--spacing-md);
   position: relative;
 
@@ -42,9 +41,8 @@
   height: fun.convert-px(85);
   margin: 0 auto;
   border-radius: fun.convert-px(3);
-  box-shadow: 0 0 0 fun.convert-px(1) var(--color-shadow-lighter),
-    fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1)
-      var(--color-shadow-light);
+  box-shadow: 0 0 0 fun.convert-px(1) var(--color-shadow-light),
+    fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1) var(--color-shadow);
   position: relative;
 
   img {

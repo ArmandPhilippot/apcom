@@ -8,7 +8,7 @@
 
 .lock {
   fill: var(--color-bg);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 3;
 }
 
@@ -18,36 +18,36 @@
 
 .seal-top {
   fill: var(--color-primary-lighter);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 2;
 }
 
 .seal-bottom {
   fill: var(--color-primary-lighter);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 2;
 }
 
 .diploma {
   fill: var(--color-bg);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 4;
 }
 
 .top {
   fill: var(--color-primary-lighter);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 4;
 }
 
 .handle {
   fill: var(--color-primary-lighter);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 3;
 }
 
 .bottom {
   fill: var(--color-primary);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 4;
 }

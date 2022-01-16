@@ -35,7 +35,7 @@
   height: fun.convert-px(100);
   margin: 0 auto var(--spacing-sm);
   position: relative;
-  border: fun.convert-px(1) solid var(--color-border-light);
+  border: fun.convert-px(1) solid var(--color-border);
 }
 
 h2.title {
@@ -51,11 +51,11 @@ h2.title {
       border: fun.convert-px(1) solid var(--color-primary-dark);
       border-radius: fun.convert-px(3);
       box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
-          var(--color-shadow-light),
+          var(--color-shadow),
         fun.convert-px(3) fun.convert-px(3) fun.convert-px(3) fun.convert-px(-1)
-          var(--color-shadow-lighter),
+          var(--color-shadow-light),
         fun.convert-px(5) fun.convert-px(5) fun.convert-px(7) fun.convert-px(-1)
-          var(--color-shadow-lighter);
+          var(--color-shadow-light);
     }
 
     .read-more {

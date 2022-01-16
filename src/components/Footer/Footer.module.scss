@@ -7,7 +7,7 @@
   place-content: center;
   gap: var(--spacing-xs);
   padding: var(--spacing-md) 0 calc(var(--toolbar-size) + var(--spacing-md));
-  border-top: fun.convert-px(3) solid var(--color-border-lighter);
+  border-top: fun.convert-px(3) solid var(--color-border-light);
 }
 
 .back-to-top {

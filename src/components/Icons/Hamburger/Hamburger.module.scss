@@ -12,7 +12,7 @@
       var(--color-primary-light) 0%,
       var(--color-primary-lighter) 100%
     );
-    border: fun.convert-px(1) solid var(--color-border);
+    border: fun.convert-px(1) solid var(--color-border-dark);
     border-radius: fun.convert-px(3);
     display: block;
     width: var(--btn-size, fun.convert-px(50));

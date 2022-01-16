@@ -65,7 +65,7 @@
   bottom: 0;
   z-index: -1;
   background: var(--color-bg-opacity);
-  box-shadow: 0 0 3px 0 var(--color-shadow);
+  box-shadow: 0 0 fun.convert-px(3) 0 var(--color-shadow-dark);
   text-align: center;
   opacity: 1;
   visibility: visible;

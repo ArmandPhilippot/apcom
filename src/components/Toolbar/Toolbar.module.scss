@@ -23,7 +23,7 @@
     )
     1;
   box-shadow: 0 fun.convert-px(-2) fun.convert-px(3) fun.convert-px(-1)
-    var(--color-shadow);
+    var(--color-shadow-dark);
 
   @include mix.media("screen") {
     @include mix.dimensions(null, "2xs", "height") {
@@ -64,7 +64,7 @@
     )
     1;
   box-shadow: fun.convert-px(2) fun.convert-px(-2) fun.convert-px(3)
-    fun.convert-px(-1) var(--color-shadow);
+    fun.convert-px(-1) var(--color-shadow-dark);
   transition: all 0.7s ease-in-out 0s;
 
   &--closed {
@@ -92,7 +92,7 @@
         )
         1;
       box-shadow: fun.convert-px(2) fun.convert-px(2) fun.convert-px(3)
-        fun.convert-px(1) var(--color-shadow);
+        fun.convert-px(1) var(--color-shadow-dark);
       transform-origin: 50% -200%;
       transition: all 0.8s ease-in-out 0s;
 

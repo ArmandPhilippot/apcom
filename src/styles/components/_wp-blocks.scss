@@ -8,11 +8,11 @@
   position: relative;
   border: fun.convert-px(1) solid var(--color-primary-lighter);
   border-left: fun.convert-px(5) solid var(--color-primary-lighter);
-  box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow-light),
+  box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
     fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-      var(--color-shadow-lighter),
+      var(--color-shadow-light),
     fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
-      var(--color-shadow-lighter);
+      var(--color-shadow-light);
   font-style: italic;
 
   > *:last-child {
@@ -31,7 +31,7 @@
   margin: 0 auto var(--spacing-md);
   padding: var(--spacing-xs) var(--spacing-sm);
   background: var(--color-bg-secondary);
-  border: fun.convert-px(1) solid var(--color-border-lighter);
+  border: fun.convert-px(1) solid var(--color-border-light);
   color: var(--color-primary-darker);
 }
 
@@ -78,20 +78,20 @@
 
     a {
       display: block;
-      box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow-light),
+      box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
         fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-          var(--color-shadow-lighter),
+          var(--color-shadow-light),
         fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
-          var(--color-shadow-lighter);
+          var(--color-shadow-light);
 
       &:hover,
       &:focus {
         transform: scale(1.05);
-        box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow-light),
+        box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
           fun.convert-px(3) fun.convert-px(3) fun.convert-px(2) 0
-            var(--color-shadow-lighter),
+            var(--color-shadow-light),
           fun.convert-px(5) fun.convert-px(5) fun.convert-px(8) 0
-            var(--color-shadow-lighter);
+            var(--color-shadow-light);
       }
 
       &:focus {
@@ -100,10 +100,10 @@
 
       &:active {
         transform: scale(0.95);
-        box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow-light),
+        box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
           fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-            var(--color-shadow-lighter),
-          0 0 0 0 var(--color-shadow-lighter);
+            var(--color-shadow-light),
+          0 0 0 0 var(--color-shadow-light);
         outline: none;
       }
     }
@@ -136,19 +136,19 @@
   img {
     display: block;
     margin: auto;
-    box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow-light),
+    box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
       fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-        var(--color-shadow-lighter),
+        var(--color-shadow-light),
       fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
-        var(--color-shadow-lighter);
+        var(--color-shadow-light);
     text-align: center;
   }
 }
 
 .wp-block-video {
-  box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow-light),
+  box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
     fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-      var(--color-shadow-lighter),
+      var(--color-shadow-light),
     fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
-      var(--color-shadow-lighter);
+      var(--color-shadow-light);
 }

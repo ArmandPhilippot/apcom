@@ -14,7 +14,7 @@ h2 {
     )
     0 0 / 3rem 100% no-repeat;
   font-size: var(--font-size-2xl);
-  text-shadow: fun.convert-px(1) fun.convert-px(1) 0 var(--color-shadow-lighter);
+  text-shadow: fun.convert-px(1) fun.convert-px(1) 0 var(--color-shadow-light);
 }
 
 h3 {
@@ -208,7 +208,7 @@ var {
 
 :not(pre) > code {
   background: var(--color-bg-secondary);
-  border: fun.convert-px(1) solid var(--color-border-lighter);
+  border: fun.convert-px(1) solid var(--color-border-light);
   border-radius: fun.convert-px(3);
   color: var(--color-primary-darker);
   padding: fun.convert-px(2) fun.convert-px(5) fun.convert-px(1)

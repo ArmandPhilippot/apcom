@@ -8,22 +8,22 @@
 
 .envelop {
   fill: var(--color-primary-lighter);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 4;
 }
 
 .lines {
-  fill: var(--color-border);
+  fill: var(--color-border-dark);
 }
 
 .background {
   fill: var(--color-shadow-dark);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 4;
 }
 
 .paper {
   fill: var(--color-bg);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 4;
 }

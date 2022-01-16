@@ -22,28 +22,15 @@
   align-items: center;
   padding: var(--spacing-2xs) var(--spacing-xs);
   border-radius: fun.convert-px(3);
-  color: var(--color-fg-inverted);
   font-weight: 600;
   text-decoration: none;
-  text-shadow: fun.convert-px(2) fun.convert-px(1) fun.convert-px(1)
-    var(--color-shadow-dark);
   transition: all 0.3s ease-in-out 0s;
-
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      font-size: var(--font-size-sm);
-    }
-  }
 
   &:hover,
   &:focus {
     color: hsl(0, 0%, 100%);
     transform: translateX(#{fun.convert-px(-3)})
       translateY(#{fun.convert-px(-3)});
-
-    @include mix.motion("reduce") {
-      text-decoration: underline;
-    }
   }
 
   &:active {

@@ -30,7 +30,7 @@ summary {
 }
 
 * {
-  scrollbar-color: var(--color-shadow) var(--color-bg-tertiary);
+  scrollbar-color: var(--color-shadow-dark) var(--color-bg-tertiary);
   scrollbar-width: auto;
 }
 
@@ -44,7 +44,7 @@ summary {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--color-shadow);
+  background-color: var(--color-shadow-dark);
   border-radius: fun.convert-px(6);
   border: fun.convert-px(3) solid var(--color-bg-tertiary);
 }

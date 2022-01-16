@@ -33,13 +33,13 @@
   width: 100%;
   padding: var(--spacing-2xs) var(--spacing-xs);
   background: var(--color-bg-tertiary);
-  border: fun.convert-px(2) solid var(--color-border-light);
-  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light);
+  border: fun.convert-px(2) solid var(--color-border);
+  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow);
   transition: all 0.25s linear 0s;
 
   &:hover {
     box-shadow: fun.convert-px(5) fun.convert-px(5) 0 fun.convert-px(1)
-      var(--color-shadow-light);
+      var(--color-shadow);
     transform: translate(#{fun.convert-px(-3)}, #{fun.convert-px(-3)});
   }
 

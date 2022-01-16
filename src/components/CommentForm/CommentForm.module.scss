@@ -10,11 +10,11 @@
     padding: var(--spacing-md);
     position: relative;
     background: var(--color-bg);
-    border: fun.convert-px(1) solid var(--color-border-light);
+    border: fun.convert-px(1) solid var(--color-border);
     box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0
-        var(--color-shadow-lighter),
+        var(--color-shadow-light),
       fun.convert-px(4) fun.convert-px(4) fun.convert-px(3) fun.convert-px(-2)
-        var(--color-shadow-light);
+        var(--color-shadow);
   }
 }
 

@@ -33,7 +33,7 @@
 }
 
 li.item {
-  border-bottom: fun.convert-px(1) solid var(--color-border-light);
+  border-bottom: fun.convert-px(1) solid var(--color-border);
 
   &:not(:last-of-type) {
     margin: 0 0 var(--spacing-md) 0;

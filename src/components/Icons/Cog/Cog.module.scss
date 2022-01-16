@@ -5,6 +5,6 @@
   width: var(--icon-size, #{fun.convert-px(40)});
   margin: auto;
   fill: var(--color-primary-lighter);
-  stroke: var(--color-border);
+  stroke: var(--color-border-dark);
   stroke-width: 4;
 }

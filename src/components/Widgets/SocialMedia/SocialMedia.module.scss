@@ -15,24 +15,24 @@
   height: 3em;
   background: none;
   box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
-      var(--color-shadow-light),
+      var(--color-shadow),
     fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-1)
-      var(--color-shadow-light),
+      var(--color-shadow),
     fun.convert-px(3) fun.convert-px(4) fun.convert-px(4) fun.convert-px(-3)
-      var(--color-shadow-light),
+      var(--color-shadow),
     0 0 0 0 var(--color-shadow);
   transition: all 0.3s linear 0s;
 
   &:hover,
   &:focus {
     box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
-        var(--color-shadow-light),
+        var(--color-shadow),
       fun.convert-px(1) fun.convert-px(1) fun.convert-px(2) fun.convert-px(-1)
-        var(--color-shadow-lighter),
+        var(--color-shadow-light),
       fun.convert-px(3) fun.convert-px(3) fun.convert-px(4) fun.convert-px(-4)
-        var(--color-shadow-lighter),
+        var(--color-shadow-light),
       fun.convert-px(6) fun.convert-px(6) fun.convert-px(10) fun.convert-px(-3)
-        var(--color-shadow-light);
+        var(--color-shadow);
     transform: scale(1.15);
   }
 
@@ -41,7 +41,7 @@
   }
 
   &:active {
-    box-shadow: 0 0 0 0 var(--color-shadow-light);
+    box-shadow: 0 0 0 0 var(--color-shadow);
     outline: none;
     transform: scale(0.9);
   }

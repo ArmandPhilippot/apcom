@@ -45,9 +45,9 @@
 
   &__front {
     box-shadow: fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
-        var(--color-shadow-light),
+        var(--color-shadow),
       fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
-        var(--color-shadow-lighter);
+        var(--color-shadow-light);
   }
 
   &__back {
@@ -70,9 +70,9 @@
 
     &__back {
       box-shadow: fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
-          var(--color-shadow-light),
+          var(--color-shadow),
         fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
-          var(--color-shadow-lighter);
+          var(--color-shadow-light);
     }
   }
 }

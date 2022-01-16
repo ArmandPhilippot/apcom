@@ -14,7 +14,7 @@
   background: var(--color-bg-secondary);
 
   &:not(:last-child) {
-    border-bottom: fun.convert-px(1) solid var(--color-border-light);
+    border-bottom: fun.convert-px(1) solid var(--color-border);
   }
 
   &:nth-child(2n) {

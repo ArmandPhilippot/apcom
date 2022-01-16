@@ -20,7 +20,7 @@
     left: 0;
     right: 0;
     background: var(--color-bg-tertiary);
-    border: fun.convert-px(1) solid var(--color-border-light);
+    border: fun.convert-px(1) solid var(--color-border);
   }
 
   .toolbar-item {
@@ -37,7 +37,7 @@
     margin-right: auto;
     padding: 0 var(--spacing-xs);
     background: var(--color-bg-secondary);
-    border-right: fun.convert-px(1) solid var(--color-border-light);
+    border-right: fun.convert-px(1) solid var(--color-border);
     color: var(--color-primary-darker);
     font-size: var(--font-size-sm);
     font-weight: 600;
@@ -56,7 +56,7 @@ pre[class*="language-"] {
   margin: var(--spacing-md) 0;
   padding: 0;
   position: relative;
-  border: fun.convert-px(1) solid var(--color-border-light);
+  border: fun.convert-px(1) solid var(--color-border);
 
   > code {
     display: block;
@@ -75,7 +75,7 @@ pre[class*="language-"] {
     pointer-events: none;
     user-select: none;
     background: var(--color-bg);
-    border-right: fun.convert-px(1) solid var(--color-border-light);
+    border-right: fun.convert-px(1) solid var(--color-border);
   }
 
   .token {
@@ -169,7 +169,7 @@ pre[class*="language-"] {
     width: 1.1ch;
     margin: 0 0.5ch 0 0;
     border: fun.convert-px(1) solid var(--color-bg);
-    outline: fun.convert-px(1) solid var(--color-border);
+    outline: fun.convert-px(1) solid var(--color-border-dark);
     overflow: hidden;
   }
 
@@ -237,11 +237,11 @@ pre.command-line {
   border: 0.4ex solid var(--color-primary);
   border-radius: fun.convert-px(30);
   box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
-      var(--color-shadow-light),
+      var(--color-shadow),
     fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
-      var(--color-shadow-light),
+      var(--color-shadow),
     fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
-      var(--color-shadow-light);
+      var(--color-shadow);
   color: var(--color-primary);
   font-size: var(--font-size-sm);
   font-weight: 600;
@@ -252,13 +252,13 @@ pre.command-line {
     transform: translateX(#{fun.convert-px(-2)})
       translateY(#{fun.convert-px(-2)});
     box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
-        var(--color-shadow-lighter),
+        var(--color-shadow-light),
       fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
-        var(--color-shadow-lighter),
+        var(--color-shadow-light),
       fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
-        var(--color-shadow-lighter),
+        var(--color-shadow-light),
       fun.convert-px(4) fun.convert-px(7) fun.convert-px(8) fun.convert-px(-3)
-        var(--color-shadow-lighter);
+        var(--color-shadow-light);
   }
 
   &:focus {
@@ -268,6 +268,6 @@ pre.command-line {
   &:active {
     text-decoration: none;
     transform: translateY(#{fun.convert-px(2)});
-    box-shadow: 0 0 0 0 var(--color-shadow-light);
+    box-shadow: 0 0 0 0 var(--color-shadow);
   }
 }
