@@ -1,0 +1,47 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.ball {
+  width: fun.convert-px(8);
+  height: fun.convert-px(8);
+  background: linear-gradient(
+    to right,
+    var(--color-primary-light) 0%,
+    var(--color-primary-lighter) 100%
+  );
+  border-radius: 50%;
+  animation: spinner 1.4s infinite ease-in-out both;
+
+  &:first-child {
+    animation-delay: -0.32s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: -0.16s;
+  }
+}
+
+.text {
+  margin-left: var(--spacing-xs);
+  text-align: center;
+}
+
+@keyframes spinner {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}

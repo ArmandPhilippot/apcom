@@ -94,7 +94,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
             title={name}
             className={`${styles.link} ${styles[linkModifier]}`}
           >
-            <span className="screen-reader-text">{name}</span>
+            <span className="screen-reader-text">{t`Share on ${name}`}</span>
           </a>
         </li>
       );

@@ -1,3 +1,4 @@
+import Spinner from '@components/Spinner/Spinner';
 import { ExpandableWidget, List } from '@components/WidgetParts';
 import { t } from '@lingui/macro';
 import { getAllSubjects } from '@services/graphql/queries';
@@ -21,24 +22,33 @@ const TopicsList = ({
 
   const { data, error } = useSWR('/api/subjects', getAllSubjects);
 
-  if (error) return <div>{t`Failed to load.`}</div>;
-  if (!data) return <div>{t`Loading...`}</div>;
+  const getList = () => {
+    if (error) return <ul>{t`Failed to load.`}</ul>;
+    if (!data)
+      return (
+        <ul>
+          <Spinner />
+        </ul>
+      );
 
-  const subjects = data.map((subject) => {
-    return currentTopicSlug !== subject.slug ? (
-      <li key={subject.databaseId}>
-        <Link href={`/sujet/${subject.slug}`}>
-          <a>{subject.title}</a>
-        </Link>
-      </li>
-    ) : (
-      ''
-    );
-  });
+    const subjects = data.map((subject) => {
+      return currentTopicSlug !== subject.slug ? (
+        <li key={subject.databaseId}>
+          <Link href={`/sujet/${subject.slug}`}>
+            <a>{subject.title}</a>
+          </Link>
+        </li>
+      ) : (
+        ''
+      );
+    });
+
+    return <List items={subjects} />;
+  };
 
   return (
     <ExpandableWidget title={title} titleLevel={titleLevel} withBorders={true}>
-      <List items={subjects} />
+      {getList()}
     </ExpandableWidget>
   );
 };

@@ -1,3 +1,4 @@
+import Spinner from '@components/Spinner/Spinner';
 import { t } from '@lingui/macro';
 import { getPublishedPosts } from '@services/graphql/queries';
 import { ArticlePreview } from '@ts/types/articles';
@@ -52,12 +53,14 @@ const RecentPosts = () => {
     );
   };
 
-  if (error) return <div>{t`Failed to load.`}</div>;
-  if (!data) return <div>{t`Loading...`}</div>;
+  const getPostsItems = () => {
+    if (error) return t`Failed to load.`;
+    if (!data) return <Spinner />;
 
-  return (
-    <ul className={styles.list}>{data.posts.map((post) => getPost(post))}</ul>
-  );
+    return data.posts.map((post) => getPost(post));
+  };
+
+  return <ul className={styles.list}>{getPostsItems()}</ul>;
 };
 
 export default RecentPosts;

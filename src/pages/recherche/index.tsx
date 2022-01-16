@@ -16,6 +16,7 @@ import useSWRInfinite from 'swr/infinite';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { ThematicsList, TopicsList } from '@components/Widgets';
 import styles from '@styles/pages/Page.module.scss';
+import Spinner from '@components/Spinner/Spinner';
 
 const Search: NextPageWithLayout = () => {
   const [query, setQuery] = useState('');
@@ -47,18 +48,10 @@ const Search: NextPageWithLayout = () => {
     getPublishedPosts
   );
 
-  const head = {
-    title: t`Search results for ${query}] | Armand Philippot`,
-    description: t`Discover search results for ${query}].`,
-  };
-
   const isLoadingInitialData = !data && !error;
   const isLoadingMore: boolean =
     isLoadingInitialData ||
     (size > 0 && data !== undefined && typeof data[size - 1] === 'undefined');
-
-  if (error) return <div>{t`Failed to load.`}</div>;
-  if (!data) return <div>{t`Loading...`}</div>;
 
   const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
 
@@ -70,11 +63,27 @@ const Search: NextPageWithLayout = () => {
         message: 'Search',
       });
 
+  const description = query
+    ? t`Discover search results for: ${query}`
+    : t`Search for a post on ${config.name}.`;
+
+  const head = {
+    title: `${title} | ${config.name}`,
+    description,
+  };
+
   const loadMorePosts = () => {
     if (lastPostRef.current) {
       lastPostRef.current.focus();
     }
     setSize(size + 1);
+  };
+
+  const getPostsList = () => {
+    if (error) return t`Failed to load.`;
+    if (!data) return <Spinner />;
+
+    return <PostsList ref={lastPostRef} data={data} showYears={false} />;
   };
 
   return (
@@ -88,7 +97,7 @@ const Search: NextPageWithLayout = () => {
       >
         <PostHeader title={title} />
         <div className={styles.body}>
-          <PostsList ref={lastPostRef} data={data} showYears={false} />
+          {getPostsList()}
           {hasNextPage && (
             <Button
               isDisabled={isLoadingMore}

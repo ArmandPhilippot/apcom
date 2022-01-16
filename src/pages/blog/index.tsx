@@ -16,6 +16,7 @@ import { ThematicsList, TopicsList } from '@components/Widgets';
 import Sidebar from '@components/Sidebar/Sidebar';
 import styles from '@styles/pages/Page.module.scss';
 import { useRef } from 'react';
+import Spinner from '@components/Spinner/Spinner';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const lastPostRef = useRef<HTMLSpanElement>(null);
@@ -42,9 +43,6 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     isLoadingInitialData ||
     (size > 0 && data !== undefined && typeof data[size - 1] === 'undefined');
 
-  if (error) return <div>{t`Failed to load.`}</div>;
-  if (!data) return <div>{t`Loading...`}</div>;
-
   const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
 
   const loadMorePosts = () => {
@@ -52,6 +50,13 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       lastPostRef.current.focus();
     }
     setSize(size + 1);
+  };
+
+  const getPostsList = () => {
+    if (error) return t`Failed to load.`;
+    if (!data) return <Spinner />;
+
+    return <PostsList ref={lastPostRef} data={data} showYears={true} />;
   };
 
   return (
@@ -65,7 +70,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       >
         <PostHeader title={t`Blog`} />
         <div className={styles.body}>
-          <PostsList ref={lastPostRef} data={data} showYears={true} />
+          {getPostsList()}
           {hasNextPage && (
             <Button
               isDisabled={isLoadingMore}
