@@ -1,4 +1,4 @@
-import CopyrightIcon from '@assets/images/cc-by-sa.svg';
+import { CopyrightIcon } from '@components/Icons';
 import { config } from '@config/website';
 import styles from './Copyright.module.scss';
 
@@ -6,7 +6,7 @@ const Copyright = () => {
   return (
     <p className={styles.wrapper}>
       <span>{config.name}</span>
-      <CopyrightIcon className={styles.icon} />
+      <CopyrightIcon />
       <span>
         {config.copyright.startYear} - {config.copyright.endYear}
       </span>

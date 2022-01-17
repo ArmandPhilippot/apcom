@@ -1,0 +1,8 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  display: block;
+  margin: auto;
+  width: var(--icon-size, #{fun.convert-px(40)});
+  fill: var(--color-fg);
+}
