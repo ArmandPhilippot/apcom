@@ -44,6 +44,14 @@
 
 @include mix.motion("reduce") {
   * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+[data-reduced-motion="true"] {
+  * {
+    animation: none !important;
     transition: none !important;
   }
 }
