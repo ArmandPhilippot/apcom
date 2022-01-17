@@ -181,3 +181,13 @@
     }
   }
 }
+
+:global {
+  [data-theme="dark"] {
+    :local {
+      .link {
+        filter: brightness(0.85) contrast(1.1);
+      }
+    }
+  }
+}

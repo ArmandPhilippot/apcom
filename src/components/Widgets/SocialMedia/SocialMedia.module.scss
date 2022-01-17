@@ -46,3 +46,13 @@
     transform: scale(0.9);
   }
 }
+
+:global {
+  [data-theme="dark"] {
+    :local {
+      .icon {
+        filter: brightness(0.85) contrast(1.1);
+      }
+    }
+  }
+}

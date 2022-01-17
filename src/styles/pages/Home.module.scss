@@ -8,7 +8,23 @@
   margin: 0 0 var(--spacing-md);
 }
 
+.icon--feed {
+  width: fun.convert-px(20);
+}
+
+:global {
+  [data-theme="dark"] {
+    :local {
+      .icon--feed {
+        filter: brightness(0.8) contrast(1.1);
+      }
+    }
+  }
+}
+
 .section {
+  --icon-size: #{fun.convert-px(20)};
+
   composes: grid from "@styles/layout/_grid.scss";
   padding: var(--spacing-md) 0;
   background: var(--color-bg-secondary);
@@ -30,8 +46,4 @@
       margin: 0 0 var(--spacing-md);
     }
   }
-}
-
-.icon {
-  width: fun.convert-px(20);
 }

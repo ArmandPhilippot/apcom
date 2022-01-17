@@ -30,7 +30,7 @@ summary {
 }
 
 * {
-  scrollbar-color: var(--color-shadow-dark) var(--color-bg-tertiary);
+  scrollbar-color: var(--color-primary) var(--color-bg-tertiary);
   scrollbar-width: auto;
 }
 
@@ -44,7 +44,7 @@ summary {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--color-shadow-dark);
+  background-color: var(--color-primary);
   border-radius: fun.convert-px(6);
   border: fun.convert-px(3) solid var(--color-bg-tertiary);
 }
@@ -63,7 +63,7 @@ body {
   border-top: max(0.4vw, fun.convert-px(6)) solid;
   border-bottom: max(0.4vw, fun.convert-px(6)) solid;
   border-image: radial-gradient(
-      ellipse at top,
+      ellipse at center,
       var(--color-primary-lighter) 20%,
       var(--color-primary) 100%
     )

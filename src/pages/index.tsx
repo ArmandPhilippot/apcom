@@ -9,8 +9,8 @@ import HomePageContent from '@content/pages/homepage.mdx';
 import { ButtonLink } from '@components/Buttons';
 import styles from '@styles/pages/Home.module.scss';
 import { t } from '@lingui/macro';
-import ContactIcon from '@assets/images/icon-contact.svg';
 import FeedIcon from '@assets/images/icon-feed.svg';
+import { ContactIcon } from '@components/Icons';
 
 const Home: NextPageWithLayout = () => {
   const CodingLinks = () => {
@@ -69,13 +69,13 @@ const Home: NextPageWithLayout = () => {
       <ul className={styles['links-list']}>
         <li>
           <ButtonLink target="/contact">
-            <ContactIcon className={styles.icon} />
+            <ContactIcon />
             {t`Contact me`}
           </ButtonLink>
         </li>
         <li>
           <ButtonLink target="/feed">
-            <FeedIcon className={styles.icon} />
+            <FeedIcon className={styles['icon--feed']} />
             {t`Subscribe`}
           </ButtonLink>
         </li>

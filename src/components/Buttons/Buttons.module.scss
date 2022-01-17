@@ -71,6 +71,10 @@
   &:disabled {
     color: var(--color-fg-light);
     border-color: var(--color-border-dark);
+    box-shadow: fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-bg),
+      fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-darker),
+      fun.convert-px(5) fun.convert-px(5) 0 0 var(--color-bg),
+      fun.convert-px(6) fun.convert-px(6) 0 0 var(--color-primary-darker);
     cursor: wait;
   }
 
@@ -138,7 +142,7 @@
         var(--color-shadow-light),
       fun.convert-px(7) fun.convert-px(10) fun.convert-px(12) fun.convert-px(-3)
         var(--color-shadow-light);
-    transform: scale(1.07);
+    transform: scale(1.1);
   }
 
   &:focus {
@@ -151,6 +155,18 @@
     box-shadow: 0 0 0 0 var(--color-shadow);
     text-decoration: underline transparent 0;
     transform: scale(0.94);
+  }
+}
+
+:global {
+  [data-theme="dark"] {
+    :local {
+      .tertiary {
+        img[src*="png"] {
+          background: none;
+        }
+      }
+    }
   }
 }
 

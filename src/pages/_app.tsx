@@ -5,6 +5,7 @@ import { I18nProvider } from '@lingui/react';
 import { AppPropsWithLayout } from '@ts/types/app';
 import { initTranslation } from '@utils/helpers/i18n';
 import '../styles/globals.scss';
+import { ThemeProvider } from 'next-themes';
 
 initTranslation(i18n);
 
@@ -29,7 +30,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <I18nProvider i18n={i18n}>
-      {getLayout(<Component {...pageProps} />)}
+      <ThemeProvider
+        defaultTheme="system"
+        enableColorScheme={true}
+        enableSystem={true}
+      >
+        {getLayout(<Component {...pageProps} />)}
+      </ThemeProvider>
     </I18nProvider>
   );
 }

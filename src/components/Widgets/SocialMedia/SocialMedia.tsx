@@ -22,13 +22,13 @@ const SocialMedia = ({
   const getIcon = (id: string) => {
     switch (id) {
       case 'github':
-        return <GithubIcon />;
+        return <GithubIcon className={styles.icon} />;
       case 'gitlab':
-        return <GitlabIcon />;
+        return <GitlabIcon className={styles.icon} />;
       case 'linkedin':
-        return <LinkedInIcon />;
+        return <LinkedInIcon className={styles.icon} />;
       case 'twitter':
-        return <TwitterIcon />;
+        return <TwitterIcon className={styles.icon} />;
       default:
         break;
     }

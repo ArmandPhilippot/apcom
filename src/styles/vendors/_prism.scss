@@ -79,8 +79,13 @@ pre[class*="language-"] {
   }
 
   .token {
+    &.comment,
+    &.doc-comment {
+      color: var(--color-fg-light);
+    }
+
     &.punctuation {
-      color: var(--color-primary-darker);
+      color: var(--color-fg);
     }
 
     &.attr-name,

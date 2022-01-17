@@ -27,3 +27,10 @@
  * Define styles for external components (like WordPress blocks).
  */
 @use "components/wp-blocks";
+
+/**
+ * 4.0. Themes
+ *
+ * Define themes specific styles.
+ */
+@use "themes/dark";
