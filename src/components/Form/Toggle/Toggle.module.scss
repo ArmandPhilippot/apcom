@@ -45,9 +45,11 @@
 .checkbox {
   position: absolute;
   opacity: 0;
+  cursor: pointer;
 
   &:checked ~ .label {
     .toggle::after {
+      position: absolute;
       left: calc(100% - (var(--toggle-width) / 2) + #{fun.convert-px(2)});
     }
   }

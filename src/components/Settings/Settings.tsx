@@ -1,5 +1,5 @@
 import { CogIcon } from '@components/Icons';
-import ThemeToggle from '@components/ThemeToggle/ThemeToggle';
+import ThemeToggle from '@components/Settings/ThemeToggle/ThemeToggle';
 import { t } from '@lingui/macro';
 import styles from './Settings.module.scss';
 

@@ -4,9 +4,15 @@
   width: 100%;
 
   &--search,
-  &--theme {
+  &--toggle {
     display: flex;
     flex-flow: row nowrap;
+    align-items: center;
+  }
+
+  &--toggle {
+    position: relative;
+    margin: var(--spacing-sm) 0;
   }
 
   &--centered {
