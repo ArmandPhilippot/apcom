@@ -5,6 +5,9 @@ const backendDomain = process.env.BACKEND_URL.split('//')[1];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    scrollRestoration: true,
+  },
   i18n: {
     locales,
     defaultLocale: 'fr',
