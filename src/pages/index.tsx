@@ -117,6 +117,10 @@ const Home: NextPageWithLayout = () => {
       <Head>
         <title>{seo.homepage.title}</title>
         <meta name="description" content={seo.homepage.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${config.url}`} />
+        <meta property="og:title" content={seo.homepage.title} />
+        <meta property="og:description" content={seo.homepage.description} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

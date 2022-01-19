@@ -51,9 +51,10 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const meta: ArticleMeta = {
     dates: thematic.dates,
   };
+  const thematicUrl = `${config.url}${router.asPath}`;
 
   const webpageSchema: WebPage = {
-    '@id': `${config.url}${router.asPath}`,
+    '@id': `${thematicUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: thematic.seo.title,
@@ -81,7 +82,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
     inLanguage: config.locales.defaultLocale,
     isPartOf: { '@id': `${config.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    mainEntityOfPage: { '@id': `${thematicUrl}` },
     subjectOf: { '@id': `${config.url}/blog` },
   };
 
@@ -95,6 +96,10 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
       <Head>
         <title>{thematic.seo.title}</title>
         <meta name="description" content={thematic.seo.metaDesc} />
+        <meta property="og:url" content={`${thematic}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={thematic.title} />
+        <meta property="og:description" content={thematic.intro} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

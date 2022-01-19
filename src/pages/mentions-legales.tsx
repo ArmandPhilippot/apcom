@@ -28,12 +28,13 @@ const LegalNotice: NextPageWithLayout = () => {
   const pageMeta: ArticleMeta = {
     dates,
   };
+  const pageUrl = `${config.url}${router.asPath}`;
 
   const publicationDate = new Date(dates.publication);
   const updateDate = new Date(dates.update);
 
   const webpageSchema: WebPage = {
-    '@id': `${config.url}${router.asPath}`,
+    '@id': `${pageUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: seo.legalNotice.title,
@@ -41,7 +42,7 @@ const LegalNotice: NextPageWithLayout = () => {
     inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}${router.asPath}`,
+    url: `${pageUrl}`,
     isPartOf: {
       '@id': `${config.url}`,
     },
@@ -61,7 +62,7 @@ const LegalNotice: NextPageWithLayout = () => {
     editor: { '@id': `${config.url}/#branding` },
     inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    mainEntityOfPage: { '@id': `${pageUrl}` },
   };
 
   const schemaJsonLd: Graph = {
@@ -74,6 +75,10 @@ const LegalNotice: NextPageWithLayout = () => {
       <Head>
         <title>{seo.legalNotice.title}</title>
         <meta name="description" content={seo.legalNotice.description} />
+        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={t`Legal notice`} />
+        <meta property="og:description" content={intro} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

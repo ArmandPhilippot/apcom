@@ -52,9 +52,10 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     dates: subject.dates,
     website: subject.officialWebsite,
   };
+  const subjectUrl = `${config.url}${router.asPath}`;
 
   const webpageSchema: WebPage = {
-    '@id': `${config.url}${router.asPath}`,
+    '@id': `${subjectUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: subject.seo.title,
@@ -87,7 +88,7 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     inLanguage: config.locales.defaultLocale,
     isPartOf: { '@id': `${config.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    mainEntityOfPage: { '@id': `${subjectUrl}` },
     subjectOf: { '@id': `${config.url}/blog` },
   };
 
@@ -101,6 +102,15 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
       <Head>
         <title>{subject.seo.title}</title>
         <meta name="description" content={subject.seo.metaDesc} />
+        <meta property="og:url" content={`${subjectUrl}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={subject.title} />
+        <meta property="og:description" content={subject.intro} />
+        <meta property="og:image" content={subject.featuredImage?.sourceUrl} />
+        <meta
+          property="og:image:alt"
+          content={subject.featuredImage?.altText}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

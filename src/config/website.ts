@@ -12,5 +12,6 @@ export const config = {
     defaultCountry: 'FR',
   },
   postsPerPage: 10,
+  twitterId: '@ArmandPhilippot',
   url: process.env.NEXT_PUBLIC_FRONTEND_URL,
 };

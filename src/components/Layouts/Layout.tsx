@@ -45,6 +45,14 @@ const Layout = ({
   return (
     <>
       <Head>
+        <meta property="og:site_name" content={config.name} />
+        <meta
+          property="og:locale"
+          content={`${config.locales.defaultLocale}_${config.locales.defaultCountry}`}
+        />
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:site" content={config.twitterId} />
+        <meta property="twitter:creator" content={config.twitterId} />
         <link
           rel="alternate"
           href="/feed.xml"

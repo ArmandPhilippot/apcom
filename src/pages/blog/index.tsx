@@ -62,8 +62,11 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     return <PostsList ref={lastPostRef} data={data} showYears={true} />;
   };
 
+  const title = t`Blog`;
+  const pageUrl = `${config.url}${router.asPath}`;
+
   const webpageSchema: WebPage = {
-    '@id': `${config.url}${router.asPath}`,
+    '@id': `${pageUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: seo.blog.title,
@@ -84,7 +87,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     editor: { '@id': `${config.url}/#branding` },
     inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    mainEntityOfPage: { '@id': `${pageUrl}` },
   };
 
   const schemaJsonLd: Graph = {
@@ -97,6 +100,10 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       <Head>
         <title>{seo.blog.title}</title>
         <meta name="description" content={seo.blog.description} />
+        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={seo.blog.description} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
@@ -106,7 +113,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         id="blog"
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
-        <PostHeader title={t`Blog`} />
+        <PostHeader title={title} />
         <div className={styles.body}>
           {getPostsList()}
           {hasNextPage && (

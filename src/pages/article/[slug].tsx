@@ -44,6 +44,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
 
   const router = useRouter();
   const locale = router.locale ? router.locale : config.locales.defaultLocale;
+  const articleUrl = `${config.url}${router.asPath}`;
 
   useEffect(() => {
     addPrismClasses();
@@ -55,14 +56,14 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   }, [locale]);
 
   const webpageSchema: WebPage = {
-    '@id': `${config.url}${router.asPath}`,
+    '@id': `${articleUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     lastReviewed: dates.update,
     name: seo.title,
     description: seo.metaDesc,
     reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}${router.asPath}`,
+    url: `${articleUrl}`,
     isPartOf: {
       '@id': `${config.url}`,
     },
@@ -73,7 +74,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     '@type': 'Blog',
     blogPost: { '@id': `${config.url}/#article` },
     isPartOf: {
-      '@id': `${config.url}${router.asPath}`,
+      '@id': `${articleUrl}`,
     },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
   };
@@ -94,7 +95,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    discussionUrl: `${config.url}${router.asPath}/#comments`,
+    discussionUrl: `${articleUrl}/#comments`,
     editor: { '@id': `${config.url}/#branding` },
     image: featuredImage?.sourceUrl,
     inLanguage: config.locales.defaultLocale,
@@ -102,7 +103,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
       '@id': `${config.url}/blog`,
     },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    mainEntityOfPage: { '@id': `${articleUrl}` },
     thumbnailUrl: featuredImage?.sourceUrl,
   };
 
@@ -116,6 +117,12 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
       <Head>
         <title>{seo.title}</title>
         <meta name="description" content={seo.metaDesc} />
+        <meta property="og:url" content={`${articleUrl}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={intro} />
+        <meta property="og:image" content={featuredImage?.sourceUrl} />
+        <meta property="og:image:alt" content={featuredImage?.altText} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

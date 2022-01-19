@@ -25,15 +25,16 @@ const CV: NextPageWithLayout = () => {
   const pageMeta: ArticleMeta = {
     dates,
   };
+  const pageUrl = `${config.url}${router.asPath}`;
 
   const webpageSchema: WebPage = {
-    '@id': `${config.url}${router.asPath}`,
+    '@id': `${pageUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: seo.cv.title,
     description: seo.cv.description,
     reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}${router.asPath}`,
+    url: `${pageUrl}`,
     isPartOf: {
       '@id': `${config.url}`,
     },
@@ -57,7 +58,7 @@ const CV: NextPageWithLayout = () => {
     inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     thumbnailUrl: image,
-    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    mainEntityOfPage: { '@id': `${pageUrl}` },
   };
 
   const schemaJsonLd: Graph = {
@@ -70,6 +71,12 @@ const CV: NextPageWithLayout = () => {
       <Head>
         <title>{seo.cv.title}</title>
         <meta name="description" content={seo.cv.description} />
+        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={`${config.name} CV`} />
+        <meta property="og:description" content={intro} />
+        <meta property="og:image" content={image} />
+        <meta property="og:image:alt" content={`${config.name} CV`} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
