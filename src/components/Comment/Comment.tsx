@@ -1,11 +1,14 @@
 import { Button } from '@components/Buttons';
 import CommentForm from '@components/CommentForm/CommentForm';
+import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { Comment as CommentData } from '@ts/types/comments';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { Comment as CommentSchema, WithContext } from 'schema-dts';
 import styles from './Comment.module.scss';
 
 const Comment = ({
@@ -117,10 +120,43 @@ const Comment = ({
     return <p>{t`This comment is awaiting moderation.`}</p>;
   };
 
+  const schemaJsonLd: WithContext<CommentSchema> = {
+    '@context': 'https://schema.org',
+    '@id': `${config.url}/#comment-${comment.commentId}`,
+    '@type': 'Comment',
+    parentItem: isNested
+      ? { '@id': `${config.url}/#comment-${comment.parentDatabaseId}` }
+      : undefined,
+    about: { '@type': 'Article', '@id': `${config.url}/#article` },
+    author: {
+      '@type': 'Person',
+      name: comment.author.name,
+      image: comment.author.gravatarUrl,
+      url: comment.author.url,
+    },
+    creator: {
+      '@type': 'Person',
+      name: comment.author.name,
+      image: comment.author.gravatarUrl,
+      url: comment.author.url,
+    },
+    dateCreated: comment.date,
+    datePublished: comment.date,
+    text: comment.content,
+  };
+
   return (
-    <li className={styles.item}>
-      {comment.approved ? getApprovedComment() : getCommentStatus()}
-    </li>
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
+      </Head>
+      <li className={styles.item}>
+        {comment.approved ? getApprovedComment() : getCommentStatus()}
+      </li>
+    </>
   );
 };
 

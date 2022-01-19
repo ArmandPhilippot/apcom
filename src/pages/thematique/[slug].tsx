@@ -17,9 +17,13 @@ import { useRef } from 'react';
 import { ArticleMeta } from '@ts/types/articles';
 import Head from 'next/head';
 import Sidebar from '@components/Sidebar/Sidebar';
+import { Article, Blog, Graph, WebPage } from 'schema-dts';
+import { config } from '@config/website';
+import { useRouter } from 'next/router';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const relatedSubjects = useRef<SubjectPreview[]>([]);
+  const router = useRouter();
 
   const updateRelatedSubjects = (newSubjects: SubjectPreview[]) => {
     newSubjects.forEach((subject) => {
@@ -48,13 +52,56 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
     dates: thematic.dates,
   };
 
+  const webpageSchema: WebPage = {
+    '@id': `${config.url}${router.asPath}`,
+    '@type': 'WebPage',
+    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    name: thematic.seo.title,
+    description: thematic.seo.metaDesc,
+    inLanguage: config.defaultLocale,
+    reviewedBy: { '@id': `${config.url}/#branding` },
+    url: `${config.url}`,
+  };
+
+  const publicationDate = new Date(thematic.dates.publication);
+  const updateDate = new Date(thematic.dates.update);
+
+  const articleSchema: Article = {
+    '@id': `${config.url}/thematic`,
+    '@type': 'Article',
+    name: thematic.title,
+    description: thematic.intro,
+    author: { '@id': `${config.url}/#branding` },
+    copyrightYear: publicationDate.getFullYear(),
+    creator: { '@id': `${config.url}/#branding` },
+    dateCreated: publicationDate.toISOString(),
+    dateModified: updateDate.toISOString(),
+    datePublished: publicationDate.toISOString(),
+    editor: { '@id': `${config.url}/#branding` },
+    inLanguage: config.defaultLocale,
+    isPartOf: { '@id': `${config.url}/blog` },
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
+    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    subjectOf: { '@id': `${config.url}/blog` },
+  };
+
+  const schemaJsonLd: Graph = {
+    '@context': 'https://schema.org',
+    '@graph': [webpageSchema, articleSchema],
+  };
+
   return (
     <>
       <Head>
         <title>{thematic.seo.title}</title>
         <meta name="description" content={thematic.seo.metaDesc} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
       </Head>
       <article
+        id="thematic"
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader intro={thematic.intro} meta={meta} title={thematic.title} />

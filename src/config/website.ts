@@ -9,4 +9,5 @@ export const config = {
   },
   defaultLocale: 'fr',
   postsPerPage: 10,
+  url: process.env.NEXT_PUBLIC_FRONTEND_URL,
 };

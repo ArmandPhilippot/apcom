@@ -17,9 +17,12 @@ import Sidebar from '@components/Sidebar/Sidebar';
 import styles from '@styles/pages/Page.module.scss';
 import { useRef } from 'react';
 import Spinner from '@components/Spinner/Spinner';
+import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
+import { useRouter } from 'next/router';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const lastPostRef = useRef<HTMLSpanElement>(null);
+  const router = useRouter();
 
   const getKey = (pageIndex: number, previousData: PostsListData) => {
     if (previousData && !previousData.posts) return null;
@@ -59,13 +62,48 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     return <PostsList ref={lastPostRef} data={data} showYears={true} />;
   };
 
+  const webpageSchema: WebPage = {
+    '@id': `${config.url}${router.asPath}`,
+    '@type': 'WebPage',
+    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    name: seo.blog.title,
+    description: seo.blog.description,
+    inLanguage: config.defaultLocale,
+    reviewedBy: { '@id': `${config.url}/#branding` },
+    url: `${config.url}`,
+    isPartOf: {
+      '@id': `${config.url}`,
+    },
+  };
+
+  const blogSchema: BlogSchema = {
+    '@id': `${config.url}/#blog`,
+    '@type': 'Blog',
+    author: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${config.url}/#branding` },
+    inLanguage: config.defaultLocale,
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
+    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+  };
+
+  const schemaJsonLd: Graph = {
+    '@context': 'https://schema.org',
+    '@graph': [webpageSchema, blogSchema],
+  };
+
   return (
     <>
       <Head>
         <title>{seo.blog.title}</title>
         <meta name="description" content={seo.blog.description} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
       </Head>
       <article
+        id="blog"
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader title={t`Blog`} />

@@ -17,9 +17,13 @@ import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
 import { useRef } from 'react';
 import Head from 'next/head';
 import Sidebar from '@components/Sidebar/Sidebar';
+import { Article as Article, Blog, Graph, WebPage } from 'schema-dts';
+import { config } from '@config/website';
+import { useRouter } from 'next/router';
 
 const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   const relatedThematics = useRef<ThematicPreview[]>([]);
+  const router = useRouter();
 
   const updateRelatedThematics = (newThematics: ThematicPreview[]) => {
     newThematics.forEach((thematic) => {
@@ -49,13 +53,61 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     website: subject.officialWebsite,
   };
 
+  const webpageSchema: WebPage = {
+    '@id': `${config.url}${router.asPath}`,
+    '@type': 'WebPage',
+    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    name: subject.seo.title,
+    description: subject.seo.metaDesc,
+    inLanguage: config.defaultLocale,
+    reviewedBy: { '@id': `${config.url}/#branding` },
+    url: `${config.url}`,
+    isPartOf: {
+      '@id': `${config.url}`,
+    },
+  };
+
+  const publicationDate = new Date(subject.dates.publication);
+  const updateDate = new Date(subject.dates.update);
+
+  const articleSchema: Article = {
+    '@id': `${config.url}/subject`,
+    '@type': 'Article',
+    name: subject.title,
+    description: subject.intro,
+    author: { '@id': `${config.url}/#branding` },
+    copyrightYear: publicationDate.getFullYear(),
+    creator: { '@id': `${config.url}/#branding` },
+    dateCreated: publicationDate.toISOString(),
+    dateModified: updateDate.toISOString(),
+    datePublished: publicationDate.toISOString(),
+    editor: { '@id': `${config.url}/#branding` },
+    thumbnailUrl: subject.featuredImage?.sourceUrl,
+    image: subject.featuredImage?.sourceUrl,
+    inLanguage: config.defaultLocale,
+    isPartOf: { '@id': `${config.url}/blog` },
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
+    mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
+    subjectOf: { '@id': `${config.url}/blog` },
+  };
+
+  const schemaJsonLd: Graph = {
+    '@context': 'https://schema.org',
+    '@graph': [webpageSchema, articleSchema],
+  };
+
   return (
     <>
       <Head>
         <title>{subject.seo.title}</title>
         <meta name="description" content={subject.seo.metaDesc} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
       </Head>
       <article
+        id="subject"
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader

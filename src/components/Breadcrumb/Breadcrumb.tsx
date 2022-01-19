@@ -1,7 +1,9 @@
+import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { BreadcrumbList, WithContext } from 'schema-dts';
 import styles from './Breadcrumb.module.scss';
 
 const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
@@ -15,9 +17,6 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
   const getItems = () => {
     return (
       <>
-        <Head>
-          <script type="application/ld+json">{}</script>
-        </Head>
         <li className={styles.item}>
           <Link href="/">
             <a>{t`Home`}</a>
@@ -32,14 +31,62 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
             </li>
           </>
         )}
+        <li className="screen-reader-text">{pageTitle}</li>
       </>
     );
   };
 
+  const getElementsSchema = () => {
+    const items = [];
+    const homepage: BreadcrumbList['itemListElement'] = {
+      '@type': 'ListItem',
+      position: 1,
+      name: t`Home`,
+      item: config.url,
+    };
+
+    items.push(homepage);
+
+    if (isArticle || isThematic || isSubject) {
+      const blog: BreadcrumbList['itemListElement'] = {
+        '@type': 'ListItem',
+        position: 2,
+        name: t`Blog`,
+        item: `${config.url}/blog`,
+      };
+
+      items.push(blog);
+    }
+
+    const currentPage: BreadcrumbList['itemListElement'] = {
+      '@type': 'ListItem',
+      position: items.length + 1,
+      name: pageTitle,
+      item: `${config.url}${router.asPath}`,
+    };
+
+    items.push(currentPage);
+
+    return items;
+  };
+
+  const schemaJsonLd: WithContext<BreadcrumbList> = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': `${config.url}/#breadcrumb`,
+    itemListElement: getElementsSchema(),
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
+      </Head>
       {!isHome && (
-        <nav className={styles.wrapper}>
+        <nav id="breadcrumb" className={styles.wrapper}>
           <span className="screen-reader-text">{t`You are here:`}</span>
           <ol className={styles.list}>{getItems()}</ol>
         </nav>

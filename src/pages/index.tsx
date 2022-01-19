@@ -11,6 +11,8 @@ import styles from '@styles/pages/Home.module.scss';
 import { t } from '@lingui/macro';
 import FeedIcon from '@assets/images/icon-feed.svg';
 import { ContactIcon } from '@components/Icons';
+import { Graph, WebPage } from 'schema-dts';
+import { config } from '@config/website';
 
 const Home: NextPageWithLayout = () => {
   const CodingLinks = () => {
@@ -90,13 +92,39 @@ const Home: NextPageWithLayout = () => {
     MoreLinks: MoreLinks,
   };
 
+  const webpageSchema: WebPage = {
+    '@id': `${config.url}/#home`,
+    '@type': 'WebPage',
+    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    name: seo.legalNotice.title,
+    description: seo.legalNotice.description,
+    author: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${config.url}/#branding` },
+    inLanguage: config.defaultLocale,
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
+    reviewedBy: { '@id': `${config.url}/#branding` },
+    url: `${config.url}`,
+  };
+
+  const schemaJsonLd: Graph = {
+    '@context': 'https://schema.org',
+    '@graph': [webpageSchema],
+  };
+
   return (
     <>
       <Head>
         <title>{seo.homepage.title}</title>
         <meta name="description" content={seo.homepage.description} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
       </Head>
-      <HomePageContent components={components} />
+      <div id="home">
+        <HomePageContent components={components} />
+      </div>
     </>
   );
 };

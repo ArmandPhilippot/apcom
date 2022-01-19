@@ -7,6 +7,7 @@ import { t } from '@lingui/macro';
 import Head from 'next/head';
 import { config } from '@config/website';
 import { useRouter } from 'next/router';
+import { WebSite, WithContext } from 'schema-dts';
 
 const Layout = ({
   children,
@@ -21,6 +22,25 @@ const Layout = ({
   useEffect(() => {
     ref.current?.focus();
   }, [asPath]);
+
+  const schemaJsonLd: WithContext<WebSite> = {
+    '@context': 'https://schema.org',
+    '@id': `${config.url}`,
+    '@type': 'WebSite',
+    name: config.name,
+    description: config.baseline,
+    url: config.url,
+    author: { '@id': `${config.url}/#branding` },
+    copyrightYear: Number(config.copyright.startYear),
+    creator: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${config.url}/#branding` },
+    inLanguage: config.defaultLocale,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${config.url}/recherche?s={query}`,
+      query: 'required',
+    },
+  };
 
   return (
     <>
@@ -43,6 +63,10 @@ const Layout = ({
           type="application/feed+json"
           title={`${config.name}'s RSS feed`}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
       </Head>
       <span ref={ref} tabIndex={-1} />
       <a href="#main" className="screen-reader-text">{t`Skip to content`}</a>

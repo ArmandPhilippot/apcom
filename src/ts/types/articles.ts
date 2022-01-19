@@ -40,6 +40,7 @@ export type Article = {
   content: string;
   databaseId: number;
   dates: Dates;
+  featuredImage: Cover;
   id: string;
   intro: string;
   seo: SEO;
@@ -57,6 +58,7 @@ export type RawArticle = Pick<
   comments: CommentsNode;
   contentParts: ContentParts;
   date: string;
+  featuredImage: RawCover;
   modified: string;
 };
 
