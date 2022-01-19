@@ -2,6 +2,7 @@ import PostMeta from '@components/PostMeta/PostMeta';
 import { ArticleMeta } from '@ts/types/articles';
 import { Cover } from '@ts/types/cover';
 import Image from 'next/image';
+import React, { ReactElement } from 'react';
 import styles from './PostHeader.module.scss';
 
 const PostHeader = ({
@@ -11,7 +12,7 @@ const PostHeader = ({
   meta,
 }: {
   cover?: Cover;
-  intro?: string;
+  intro?: string | ReactElement;
   meta?: ArticleMeta;
   title: string;
 }) => {
@@ -22,6 +23,25 @@ const PostHeader = ({
       meta?.dates ||
       meta?.thematics ||
       meta?.website
+    );
+  };
+
+  const getIntro = () => {
+    if (React.isValidElement(intro)) {
+      const Intro = () => intro;
+      return (
+        <div className={styles.intro}>
+          <Intro />
+        </div>
+      );
+    }
+    return (
+      intro && (
+        <div
+          className={styles.intro}
+          dangerouslySetInnerHTML={{ __html: intro }}
+        ></div>
+      )
     );
   };
 
@@ -37,12 +57,7 @@ const PostHeader = ({
           {title}
         </h1>
         {meta && hasMeta() && <PostMeta mode="single" meta={meta} />}
-        {intro && (
-          <div
-            className={styles.intro}
-            dangerouslySetInnerHTML={{ __html: intro }}
-          ></div>
-        )}
+        {getIntro()}
       </div>
     </header>
   );
