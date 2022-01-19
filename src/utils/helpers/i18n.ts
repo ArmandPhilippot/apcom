@@ -1,3 +1,4 @@
+import { config } from '@config/website';
 import type { I18n } from '@lingui/core';
 import { en, fr } from 'make-plural/plurals';
 
@@ -11,7 +12,7 @@ export const locales = {
   fr: 'Français',
 };
 
-export const defaultLocale = 'fr';
+export const defaultLocale = config.locales.defaultLocale;
 
 export function initTranslation(i18n: I18n): void {
   i18n.loadLocaleData({

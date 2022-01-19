@@ -34,7 +34,7 @@ const Layout = ({
     copyrightYear: Number(config.copyright.startYear),
     creator: { '@id': `${config.url}/#branding` },
     editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     potentialAction: {
       '@type': 'SearchAction',
       target: `${config.url}/recherche?s={query}`,

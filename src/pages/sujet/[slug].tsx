@@ -59,7 +59,7 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: subject.seo.title,
     description: subject.seo.metaDesc,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     reviewedBy: { '@id': `${config.url}/#branding` },
     url: `${config.url}`,
     isPartOf: {
@@ -84,7 +84,7 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     editor: { '@id': `${config.url}/#branding` },
     thumbnailUrl: subject.featuredImage?.sourceUrl,
     image: subject.featuredImage?.sourceUrl,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     isPartOf: { '@id': `${config.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },

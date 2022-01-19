@@ -68,7 +68,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: seo.blog.title,
     description: seo.blog.description,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     reviewedBy: { '@id': `${config.url}/#branding` },
     url: `${config.url}`,
     isPartOf: {
@@ -82,7 +82,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     author: { '@id': `${config.url}/#branding` },
     creator: { '@id': `${config.url}/#branding` },
     editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
   };

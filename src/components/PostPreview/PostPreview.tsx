@@ -45,7 +45,7 @@ const PostPreview = ({
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${config.url}/#branding` },
     image: post.featuredImage?.sourceUrl,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     isBasedOn: `${config.url}/article/${post.slug}`,
     isPartOf: { '@id': `${config.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',

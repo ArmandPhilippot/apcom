@@ -80,7 +80,7 @@ const ContactPage: NextPageWithLayout = () => {
     author: { '@id': `${config.url}/#branding` },
     creator: { '@id': `${config.url}/#branding` },
     editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
   };

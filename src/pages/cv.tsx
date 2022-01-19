@@ -54,7 +54,7 @@ const CV: NextPageWithLayout = () => {
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${config.url}/#branding` },
     image,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     thumbnailUrl: image,
     mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },

@@ -38,7 +38,7 @@ const LegalNotice: NextPageWithLayout = () => {
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: seo.legalNotice.title,
     description: seo.legalNotice.description,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     reviewedBy: { '@id': `${config.url}/#branding` },
     url: `${config.url}${router.asPath}`,
@@ -59,7 +59,7 @@ const LegalNotice: NextPageWithLayout = () => {
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },
   };

@@ -58,7 +58,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
     name: thematic.seo.title,
     description: thematic.seo.metaDesc,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     reviewedBy: { '@id': `${config.url}/#branding` },
     url: `${config.url}`,
   };
@@ -78,7 +78,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     isPartOf: { '@id': `${config.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${config.url}${router.asPath}` },

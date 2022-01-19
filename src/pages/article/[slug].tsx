@@ -43,7 +43,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   };
 
   const router = useRouter();
-  const locale = router.locale ? router.locale : config.defaultLocale;
+  const locale = router.locale ? router.locale : config.locales.defaultLocale;
 
   useEffect(() => {
     addPrismClasses();
@@ -97,7 +97,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     discussionUrl: `${config.url}${router.asPath}/#comments`,
     editor: { '@id': `${config.url}/#branding` },
     image: featuredImage?.sourceUrl,
-    inLanguage: config.defaultLocale,
+    inLanguage: config.locales.defaultLocale,
     isPartOf: {
       '@id': `${config.url}/blog`,
     },

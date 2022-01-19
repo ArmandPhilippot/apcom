@@ -7,7 +7,10 @@ export const config = {
     startYear: '2012',
     endYear: new Date().getFullYear(),
   },
-  defaultLocale: 'fr',
+  locales: {
+    defaultLocale: 'fr',
+    defaultCountry: 'FR',
+  },
   postsPerPage: 10,
   url: process.env.NEXT_PUBLIC_FRONTEND_URL,
 };

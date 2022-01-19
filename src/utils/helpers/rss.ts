@@ -39,7 +39,7 @@ export const generateFeed = async () => {
     },
     generator: 'Feed & NextJS',
     id: websiteUrl,
-    language: config.defaultLocale,
+    language: config.locales.defaultLocale,
     link: websiteUrl,
     title,
   });
