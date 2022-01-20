@@ -1,5 +1,6 @@
 import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
+import ProjectSummary from '@components/ProjectSummary/ProjectSummary';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { ToC } from '@components/Widgets';
 import { config } from '@config/website';
@@ -102,6 +103,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           <ToC />
         </Sidebar>
         <div className={styles.body}>
+          <ProjectSummary slug={id} title={title} cover={cover} meta={meta} />
           <ProjectContent />
         </div>
       </article>
