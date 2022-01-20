@@ -26,11 +26,6 @@
     var(--color-shadow-dark);
 
   @include mix.media("screen") {
-    @include mix.dimensions(null, "2xs", "height") {
-      --toolbar-size: #{fun.convert-px(52)};
-      --btn-size: #{fun.convert-px(42)};
-    }
-
     @include mix.dimensions("sm") {
       --toolbar-size: auto;
 

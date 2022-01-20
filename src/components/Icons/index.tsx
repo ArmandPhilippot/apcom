@@ -8,6 +8,7 @@ import CVIcon from './CV/CV';
 import HamburgerIcon from './Hamburger/Hamburger';
 import HomeIcon from './Home/Home';
 import MoonIcon from './Moon/Moon';
+import ProjectsIcon from './Projects/Projects';
 import SearchIcon from './Search/Search';
 import SunIcon from './Sun/Sun';
 
@@ -22,6 +23,7 @@ export {
   HamburgerIcon,
   HomeIcon,
   MoonIcon,
+  ProjectsIcon,
   SearchIcon,
   SunIcon,
 };

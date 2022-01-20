@@ -99,10 +99,17 @@
   @extend %reset-list;
 
   @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      display: grid;
+      grid-template-columns: min-content min-content;
+      max-height: calc(100vh - var(--toolbar-size));
+    }
+
     @include mix.dimensions("md") {
       display: flex;
       flex-flow: row wrap;
       align-items: center;
+      gap: var(--spacing-2xs);
     }
   }
 }
@@ -111,6 +118,7 @@
   --draw-border-width: #{fun.convert-px(4)};
 
   display: block;
+  min-width: fun.convert-px(85);
   padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-2xs);
   background: var(--color-bg);
   background-repeat: no-repeat;
@@ -120,12 +128,8 @@
   text-decoration: none;
 
   @include mix.media("screen") {
-    @include mix.dimensions(null, "2xs", "height") {
-      padding: var(--spacing-2xs) var(--spacing-sm) 0;
-    }
-
     @include mix.dimensions("md") {
-      margin: 0 var(--spacing-2xs);
+      margin: 0;
       background-color: inherit;
       border-radius: 8%;
     }

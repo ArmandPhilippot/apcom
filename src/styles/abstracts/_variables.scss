@@ -38,7 +38,7 @@ $ratios: (
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels
 $breakpoints: (
-  "2xs": fun.convert-px(400, "em"),
+  "2xs": fun.convert-px(500, "em"),
   "xs": fun.convert-px(600, "em"),
   "sm": fun.convert-px(800, "em"),
   "md": fun.convert-px(1280, "em"),
@@ -151,7 +151,7 @@ $light-theme_black: hsl(207, 47%, 11%);
 $light-theme_blue: hsl(206, 75%, 31%);
 $light-theme_blue-o30: hsla(206, 75%, 31%, 0.3);
 $light-theme_blue-bright: hsl(206, 77%, 36%);
-$light-theme_blue-brighter: hsl(206, 70%, 49%);
+$light-theme_blue-brighter: hsl(206, 77%, 48%);
 $light-theme_blue-dark: hsl(206, 76%, 28%);
 $light-theme_blue-darker: hsl(206, 60%, 20%);
 $light-theme_grey: hsl(206, 15%, 80%);

@@ -7,6 +7,7 @@ import {
   CVIcon,
   HamburgerIcon,
   HomeIcon,
+  ProjectsIcon,
 } from '@components/Icons';
 import { mainNav } from '@config/nav';
 import styles from './MainNav.module.scss';
@@ -31,6 +32,8 @@ const MainNav = ({
         return <ContactIcon />;
       case 'cv':
         return <CVIcon />;
+      case 'projects':
+        return <ProjectsIcon />;
       default:
         break;
     }
