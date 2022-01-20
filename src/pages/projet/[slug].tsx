@@ -2,7 +2,7 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import ProjectSummary from '@components/ProjectSummary/ProjectSummary';
 import Sidebar from '@components/Sidebar/Sidebar';
-import { ToC } from '@components/Widgets';
+import { Sharing, ToC } from '@components/Widgets';
 import { config } from '@config/website';
 import styles from '@styles/pages/Page.module.scss';
 import {
@@ -106,6 +106,9 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           <ProjectSummary slug={id} title={title} cover={cover} meta={meta} />
           <ProjectContent />
         </div>
+        <Sidebar position="right">
+          <Sharing title={title} excerpt={intro} />
+        </Sidebar>
       </article>
     </>
   );
