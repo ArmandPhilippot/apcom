@@ -3,46 +3,50 @@ import { readdirSync } from 'fs';
 import path from 'path';
 
 /**
+ * Retrieve project's data by id.
+ * @param {string} id - The filename without extension.
+ * @returns {Promise<Project>} - The project data.
+ */
+export const getProjectData = async (id: string): Promise<Project> => {
+  try {
+    const {
+      image,
+      intro,
+      meta,
+      seo,
+    }: {
+      image: string;
+      intro: string;
+      meta: ProjectMeta & { title: string };
+      seo: { title: string; description: string };
+    } = await import(`../../content/projects/${id}.mdx`);
+
+    const { title, ...onlyMeta } = meta;
+
+    return {
+      id,
+      cover: image || '',
+      intro: intro || '',
+      meta: onlyMeta || {},
+      slug: id,
+      title,
+      seo: seo || {},
+    };
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+/**
  * Retrieve the projects data from filenames.
  * @param {string[]} filenames - An array of filenames.
- * @returns {Promise<Project[]>} An array of projects.
+ * @returns {Promise<Project[]>} An array of projects with meta.
  */
 const getProjectsWithMeta = async (filenames: string[]): Promise<Project[]> => {
   return Promise.all(
     filenames.map(async (filename) => {
-      const id = filename.replace(/\.mdx$/, '');
-
-      try {
-        const {
-          image,
-          intro,
-          meta,
-        }: { image: string; intro: string; meta: ProjectMeta } = await import(
-          `../../content/projects/${filename}`
-        );
-
-        const projectMeta: ProjectMeta = meta
-          ? meta
-          : {
-              title: '',
-              publishedOn: '',
-              updatedOn: '',
-              license: '',
-            };
-        const projectIntro = intro ? intro : '';
-        const projectCover = image ? image : '';
-
-        return {
-          id,
-          cover: projectCover,
-          intro: projectIntro,
-          meta: projectMeta,
-          slug: id,
-        };
-      } catch (err) {
-        console.error(err);
-        throw err;
-      }
+      return getProjectData(filename);
     })
   );
 };
@@ -60,12 +64,22 @@ const sortProjectByPublicationDate = (a: Project, b: Project) => {
 };
 
 /**
+ * Retrieve all the projects filename.
+ * @returns {string[]} An array of filenames.
+ */
+export const getAllProjectsFilename = (): string[] => {
+  const projectsDirectory = path.join(process.cwd(), 'src/content/projects');
+  const filenames = readdirSync(projectsDirectory);
+
+  return filenames.map((filename) => filename.replace(/\.mdx$/, ''));
+};
+
+/**
  * Retrieve all projects in content folder sorted by publication date.
  * @returns {Promise<Project[]>} An array of projects.
  */
 export const getSortedProjects = async (): Promise<Project[]> => {
-  const projectsDirectory = path.join(process.cwd(), 'src/content/projects');
-  const filenames = readdirSync(projectsDirectory);
+  const filenames = getAllProjectsFilename();
   const projects = await getProjectsWithMeta(filenames);
 
   return [...projects].sort(sortProjectByPublicationDate);

@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
-import { ReactElement, ReactNode } from 'react';
+import { ComponentType, ReactElement, ReactNode } from 'react';
 import { PostBy } from './articles';
 import { AllPostsSlug, RawPostsList } from './blog';
 import { CommentData, CreateComment } from './comments';
@@ -89,7 +89,7 @@ export type Meta = {
   updatedOn: string;
 };
 
-export type ProjectMeta = Meta & {
+export type ProjectMeta = Omit<Meta, 'title'> & {
   license: string;
   repos?: {
     github?: string;
@@ -109,6 +109,15 @@ export type Project = {
   intro: string;
   meta: ProjectMeta;
   slug: string;
+  title: string;
+  seo: {
+    title: string;
+    description: string;
+  };
+};
+
+export type ProjectProps = {
+  project: Project;
 };
 
 export type Slug = {

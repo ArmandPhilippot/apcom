@@ -18,11 +18,11 @@ const ProjectPreview = ({ project }: { project: Project }) => {
                   layout="fill"
                   objectFit="contain"
                   objectPosition="center"
-                  alt={`${project.meta.title} picture`}
+                  alt={t`${project.title} picture`}
                 />
               </div>
             )}
-            <h2 className={styles.title}>{project.meta.title}</h2>
+            <h2 className={styles.title}>{project.title}</h2>
           </header>
           <div
             className={styles.body}
