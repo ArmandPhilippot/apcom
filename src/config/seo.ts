@@ -25,4 +25,8 @@ export const seo = {
     title: t`Error 404: Page not found | Armand Philippot`,
     description: '',
   },
+  projects: {
+    title: t`Projects | Armand Philippot`,
+    description: t`Discover Armand Philippot projects. Mostly related to web development and open source.`,
+  },
 };

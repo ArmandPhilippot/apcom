@@ -1,0 +1,13 @@
+.article {
+  composes: grid from "@styles/layout/_grid.scss";
+  align-items: start;
+
+  > header {
+    grid-column: 1 / -1;
+  }
+}
+
+.body {
+  grid-column: 1 / -1;
+  margin-bottom: var(--spacing-xl);
+}

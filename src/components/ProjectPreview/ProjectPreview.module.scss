@@ -1,0 +1,87 @@
+@use "@styles/abstracts/functions" as fun;
+
+.article {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-lg);
+}
+
+.cover {
+  height: fun.convert-px(150);
+  position: relative;
+}
+
+.title {
+  flex: 1;
+  margin: var(--spacing-xs) 0;
+  background: none;
+  text-decoration: underline solid transparent 0;
+  text-shadow: none;
+  transition: all 0.3s linear 0s;
+}
+
+.body {
+  margin: 0 0 var(--spacing-xs);
+}
+
+.meta {
+  display: block;
+
+  &__item {
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--spacing-2xs);
+  }
+}
+
+.link {
+  display: block;
+  height: 100%;
+  background: var(--color-bg);
+  color: inherit;
+  text-decoration: none;
+  border: fun.convert-px(3) solid var(--color-primary);
+  border-radius: fun.convert-px(5);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+      var(--color-shadow),
+    fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+      var(--color-shadow),
+    fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+      var(--color-shadow);
+  transition: all 0.3s ease-in-out 0s;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+        var(--color-shadow-light),
+      fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+        var(--color-shadow-light),
+      fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+        var(--color-shadow-light),
+      fun.convert-px(7) fun.convert-px(10) fun.convert-px(12) fun.convert-px(-3)
+        var(--color-shadow-light);
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    .title {
+      text-decoration: underline solid var(--color-primary) 0.3ex;
+    }
+  }
+
+  &:active {
+    box-shadow: 0 0 0 0 var(--color-shadow);
+    transform: scale(0.95);
+
+    .title {
+      text-decoration: none;
+    }
+  }
+}

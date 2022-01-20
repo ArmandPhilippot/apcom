@@ -89,9 +89,26 @@ export type Meta = {
   updatedOn: string;
 };
 
+export type ProjectMeta = Meta & {
+  license: string;
+  repos?: {
+    github?: string;
+    gitlab?: string;
+  };
+  technologies?: string[];
+};
+
 export type PageInfo = {
   endCursor: string;
   hasNextPage: boolean;
+};
+
+export type Project = {
+  cover: string;
+  id: string;
+  intro: string;
+  meta: ProjectMeta;
+  slug: string;
 };
 
 export type Slug = {

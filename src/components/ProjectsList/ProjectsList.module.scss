@@ -1,0 +1,25 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/placeholders";
+
+.list {
+  --items: 4;
+  --items-size: 35ch;
+
+  @extend %reset-list;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    min(calc(100vw - (var(--spacing-md) * 2)), var(--items-size))
+  );
+  gap: var(--spacing-sm);
+  place-content: center;
+  width: min(
+    calc(100vw - (var(--spacing-md) * 2)),
+    calc(
+      (var(--items-size) * var(--items)) +
+        (var(--spacing-sm) * (var(--items) - 1))
+    )
+  );
+  margin: var(--spacing-sm) auto 0;
+}
