@@ -11,8 +11,9 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
 
   const isHome = router.pathname === '/';
   const isArticle = router.pathname.includes('/article/');
-  const isThematic = router.pathname.includes('/thematique/');
+  const isProject = router.pathname.includes('/projet/');
   const isSubject = router.pathname.includes('/sujet/');
+  const isThematic = router.pathname.includes('/thematique/');
 
   const getItems = () => {
     return (
@@ -27,6 +28,15 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
             <li className={styles.item}>
               <Link href="/blog">
                 <a>{t`Blog`}</a>
+              </Link>
+            </li>
+          </>
+        )}
+        {isProject && (
+          <>
+            <li className={styles.item}>
+              <Link href="/projets">
+                <a>{t`Projects`}</a>
               </Link>
             </li>
           </>
@@ -53,6 +63,17 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
         position: 2,
         name: t`Blog`,
         item: `${config.url}/blog`,
+      };
+
+      items.push(blog);
+    }
+
+    if (isProject) {
+      const blog: BreadcrumbList['itemListElement'] = {
+        '@type': 'ListItem',
+        position: 2,
+        name: t`Projects`,
+        item: `${config.url}/projets`,
       };
 
       items.push(blog);
