@@ -6,11 +6,11 @@ import {
 } from '@ts/types/articles';
 import { Comment, RawComment } from '@ts/types/comments';
 import {
-  RawSubject,
-  RawSubjectPreview,
+  RawTopic,
+  RawTopicPreview,
   RawThematic,
-  Subject,
-  SubjectPreview,
+  Topic,
+  TopicPreview,
   Thematic,
 } from '@ts/types/taxonomies';
 
@@ -37,7 +37,7 @@ export const getFormattedPostPreview = (rawPost: RawArticlePreview) => {
     update: modified,
   };
 
-  const subjects = acfPosts.postsInSubject ? acfPosts.postsInSubject : [];
+  const topics = acfPosts.postsInTopic ? acfPosts.postsInTopic : [];
   const thematics = acfPosts.postsInThematic ? acfPosts.postsInThematic : [];
 
   const formattedPost: ArticlePreview = {
@@ -47,7 +47,7 @@ export const getFormattedPostPreview = (rawPost: RawArticlePreview) => {
     id,
     intro: contentParts.beforeMore,
     slug,
-    subjects,
+    topics,
     thematics,
     title,
   };
@@ -71,13 +71,13 @@ export const getFormattedPostsList = (
 };
 
 /**
- * Format a subject from RawSubject to Subject type.
- * @param rawSubject - A subject coming from WP GraphQL.
- * @returns A formatted subject.
+ * Format a topic from RawTopic to Topic type.
+ * @param rawTopic - A topic coming from WP GraphQL.
+ * @returns A formatted topic.
  */
-export const getFormattedSubject = (rawSubject: RawSubject): Subject => {
+export const getFormattedTopic = (rawTopic: RawTopic): Topic => {
   const {
-    acfSubjects,
+    acfTopics,
     contentParts,
     databaseId,
     date,
@@ -86,29 +86,29 @@ export const getFormattedSubject = (rawSubject: RawSubject): Subject => {
     modified,
     seo,
     title,
-  } = rawSubject;
+  } = rawTopic;
 
   const dates = {
     publication: date,
     update: modified,
   };
 
-  const posts = getFormattedPostsList(acfSubjects.postsInSubject);
+  const posts = getFormattedPostsList(acfTopics.postsInTopic);
 
-  const formattedSubject: Subject = {
+  const formattedTopic: Topic = {
     content: contentParts.afterMore,
     databaseId,
     dates,
     featuredImage: featuredImage ? featuredImage.node : null,
     id,
     intro: contentParts.beforeMore,
-    officialWebsite: acfSubjects.officialWebsite,
+    officialWebsite: acfTopics.officialWebsite,
     posts,
     seo,
     title,
   };
 
-  return formattedSubject;
+  return formattedTopic;
 };
 
 /**
@@ -196,17 +196,17 @@ export const buildCommentsTree = (comments: Comment[]) => {
   return commentsTree;
 };
 
-export const getFormattedSubjectsPreview = (
-  subjects: RawSubjectPreview[]
-): SubjectPreview[] => {
-  const formattedSubjects: SubjectPreview[] = subjects.map((subject) => {
+export const getFormattedTopicsPreview = (
+  topics: RawTopicPreview[]
+): TopicPreview[] => {
+  const formattedTopics: TopicPreview[] = topics.map((topic) => {
     return {
-      ...subject,
-      featuredImage: subject.featuredImage ? subject.featuredImage.node : null,
+      ...topic,
+      featuredImage: topic.featuredImage ? topic.featuredImage.node : null,
     };
   });
 
-  return formattedSubjects;
+  return formattedTopics;
 };
 
 /**
@@ -237,8 +237,8 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
 
   const formattedComments = getFormattedComments(comments.nodes);
   const commentsTree = buildCommentsTree(formattedComments);
-  const subjects = acfPosts.postsInSubject
-    ? getFormattedSubjectsPreview(acfPosts.postsInSubject)
+  const topics = acfPosts.postsInTopic
+    ? getFormattedTopicsPreview(acfPosts.postsInTopic)
     : [];
 
   const formattedPost: Article = {
@@ -252,7 +252,7 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
     id,
     intro: contentParts.beforeMore,
     seo,
-    subjects,
+    topics,
     thematics: acfPosts.postsInThematic ? acfPosts.postsInThematic : [],
     title,
   };

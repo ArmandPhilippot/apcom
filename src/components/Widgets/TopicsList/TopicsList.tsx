@@ -1,7 +1,7 @@
 import Spinner from '@components/Spinner/Spinner';
 import { ExpandableWidget, List } from '@components/WidgetParts';
 import { t } from '@lingui/macro';
-import { getAllSubjects } from '@services/graphql/queries';
+import { getAllTopics } from '@services/graphql/queries';
 import { TitleLevel } from '@ts/types/app';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -20,7 +20,7 @@ const TopicsList = ({
     ? router.asPath.replace('/sujet/', '')
     : '';
 
-  const { data, error } = useSWR('/api/subjects', getAllSubjects);
+  const { data, error } = useSWR('/api/topics', getAllTopics);
 
   const getList = () => {
     if (error) return <ul>{t`Failed to load.`}</ul>;
@@ -31,11 +31,11 @@ const TopicsList = ({
         </ul>
       );
 
-    const subjects = data.map((subject) => {
-      return currentTopicSlug !== subject.slug ? (
-        <li key={subject.databaseId}>
-          <Link href={`/sujet/${subject.slug}`}>
-            <a>{subject.title}</a>
+    const topics = data.map((topic) => {
+      return currentTopicSlug !== topic.slug ? (
+        <li key={topic.databaseId}>
+          <Link href={`/sujet/${topic.slug}`}>
+            <a>{topic.title}</a>
           </Link>
         </li>
       ) : (
@@ -43,7 +43,7 @@ const TopicsList = ({
       );
     });
 
-    return <List items={subjects} />;
+    return <List items={topics} />;
   };
 
   return (

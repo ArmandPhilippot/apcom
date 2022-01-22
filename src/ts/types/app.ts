@@ -1,16 +1,16 @@
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
-import { ComponentType, ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { PostBy } from './articles';
 import { AllPostsSlug, RawPostsList } from './blog';
 import { CommentData, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
 import {
-  AllSubjects,
-  AllSubjectsSlug,
+  AllTopics,
+  AllTopicsSlug,
   AllThematics,
   AllThematicsSlug,
-  SubjectBy,
+  TopicBy,
   ThematicBy,
 } from './taxonomies';
 
@@ -30,7 +30,7 @@ export type AppPropsWithLayout = AppProps & {
 // API
 //==============================================================================
 
-export type VariablesType<T> = T extends PostBy | SubjectBy | ThematicBy
+export type VariablesType<T> = T extends PostBy | TopicBy | ThematicBy
   ? Slug
   : T extends RawPostsList
   ? CursorPagination
@@ -42,13 +42,13 @@ export type VariablesType<T> = T extends PostBy | SubjectBy | ThematicBy
 
 export type RequestType =
   | AllPostsSlug
-  | AllSubjects
-  | AllSubjectsSlug
+  | AllTopics
+  | AllTopicsSlug
   | AllThematics
   | AllThematicsSlug
   | CreateComment
   | PostBy
-  | SubjectBy
+  | TopicBy
   | ThematicBy
   | RawPostsList
   | SendEmail;

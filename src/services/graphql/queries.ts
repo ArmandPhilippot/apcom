@@ -2,13 +2,13 @@ import { Slug } from '@ts/types/app';
 import { Article, PostBy } from '@ts/types/articles';
 import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
 import {
-  AllSubjects,
-  AllSubjectsSlug,
+  AllTopics,
+  AllTopicsSlug,
   AllThematics,
   AllThematicsSlug,
-  Subject,
-  SubjectBy,
-  SubjectPreview,
+  Topic,
+  TopicBy,
+  TopicPreview,
   Thematic,
   ThematicBy,
   ThematicPreview,
@@ -16,7 +16,7 @@ import {
 import {
   getFormattedPost,
   getFormattedPostPreview,
-  getFormattedSubject,
+  getFormattedTopic,
   getFormattedThematic,
 } from '@utils/helpers/format';
 import { gql } from 'graphql-request';
@@ -50,8 +50,8 @@ export const getPublishedPosts = async ({
           cursor
           node {
             acfPosts {
-              postsInSubject {
-                ... on Subject {
+              postsInTopic {
+                ... on Topic {
                   databaseId
                   featuredImage {
                     node {
@@ -138,8 +138,8 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
     query PostBySlug($slug: String!) {
       postBy(slug: $slug) {
         acfPosts {
-          postsInSubject {
-            ... on Subject {
+          postsInTopic {
+            ... on Topic {
               id
               featuredImage {
                 node {
@@ -231,20 +231,20 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
 };
 
 //==============================================================================
-// Subject query
+// Topic query
 //==============================================================================
 
-export const getSubjectBySlug = async (slug: string): Promise<Subject> => {
+export const getTopicBySlug = async (slug: string): Promise<Topic> => {
   const query = gql`
-    query SubjectBySlug($slug: String!) {
-      subjectBy(slug: $slug) {
-        acfSubjects {
+    query TopicBySlug($slug: String!) {
+      topicBy(slug: $slug) {
+        acfTopics {
           officialWebsite
-          postsInSubject {
+          postsInTopic {
             ... on Post {
               acfPosts {
-                postsInSubject {
-                  ... on Subject {
+                postsInTopic {
+                  ... on Topic {
                     databaseId
                     featuredImage {
                       node {
@@ -326,31 +326,31 @@ export const getSubjectBySlug = async (slug: string): Promise<Subject> => {
     }
   `;
   const variables = { slug };
-  const response = await fetchApi<SubjectBy>(query, variables);
+  const response = await fetchApi<TopicBy>(query, variables);
 
-  return getFormattedSubject(response.subjectBy);
+  return getFormattedTopic(response.topicBy);
 };
 
-export const getAllSubjectsSlug = async (): Promise<Slug[]> => {
+export const getAllTopicsSlug = async (): Promise<Slug[]> => {
   // 10 000 is an arbitrary number that I use for small websites.
   const query = gql`
-    query AllSubjectsSlug {
-      subjects(first: 10000) {
+    query AllTopicsSlug {
+      topics(first: 10000) {
         nodes {
           slug
         }
       }
     }
   `;
-  const response = await fetchApi<AllSubjectsSlug>(query, null);
-  return response.subjects.nodes;
+  const response = await fetchApi<AllTopicsSlug>(query, null);
+  return response.topics.nodes;
 };
 
-export const getAllSubjects = async (): Promise<SubjectPreview[]> => {
+export const getAllTopics = async (): Promise<TopicPreview[]> => {
   // 10 000 is an arbitrary number that I use for small websites.
   const query = gql`
-    query AllSubjects {
-      subjects(first: 10000, where: { orderby: { field: TITLE, order: ASC } }) {
+    query AllTopics {
+      topics(first: 10000, where: { orderby: { field: TITLE, order: ASC } }) {
         nodes {
           databaseId
           slug
@@ -360,8 +360,8 @@ export const getAllSubjects = async (): Promise<SubjectPreview[]> => {
     }
   `;
 
-  const response = await fetchApi<AllSubjects>(query, null);
-  return response.subjects.nodes;
+  const response = await fetchApi<AllTopics>(query, null);
+  return response.topics.nodes;
 };
 
 //==============================================================================
@@ -376,8 +376,8 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
           postsInThematic {
             ... on Post {
               acfPosts {
-                postsInSubject {
-                  ... on Subject {
+                postsInTopic {
+                  ... on Topic {
                     databaseId
                     featuredImage {
                       node {

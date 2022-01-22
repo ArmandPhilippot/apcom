@@ -2,26 +2,23 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostPreview from '@components/PostPreview/PostPreview';
 import { t } from '@lingui/macro';
 import { NextPageWithLayout } from '@ts/types/app';
-import { SubjectProps, ThematicPreview } from '@ts/types/taxonomies';
+import { TopicProps, ThematicPreview } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import styles from '@styles/pages/Page.module.scss';
-import {
-  getAllSubjectsSlug,
-  getSubjectBySlug,
-} from '@services/graphql/queries';
+import { getAllTopicsSlug, getTopicBySlug } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { ArticleMeta } from '@ts/types/articles';
 import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
 import { useRef } from 'react';
 import Head from 'next/head';
 import Sidebar from '@components/Sidebar/Sidebar';
-import { Article as Article, Blog, Graph, WebPage } from 'schema-dts';
+import { Article as Article, Graph, WebPage } from 'schema-dts';
 import { config } from '@config/website';
 import { useRouter } from 'next/router';
 
-const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
+const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
   const relatedThematics = useRef<ThematicPreview[]>([]);
   const router = useRouter();
 
@@ -37,7 +34,7 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   };
 
   const getPostsList = () => {
-    return [...subject.posts].reverse().map((post) => {
+    return [...topic.posts].reverse().map((post) => {
       updateRelatedThematics(post.thematics);
 
       return (
@@ -49,17 +46,17 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   };
 
   const meta: ArticleMeta = {
-    dates: subject.dates,
-    website: subject.officialWebsite,
+    dates: topic.dates,
+    website: topic.officialWebsite,
   };
-  const subjectUrl = `${config.url}${router.asPath}`;
+  const topicUrl = `${config.url}${router.asPath}`;
 
   const webpageSchema: WebPage = {
-    '@id': `${subjectUrl}`,
+    '@id': `${topicUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
-    name: subject.seo.title,
-    description: subject.seo.metaDesc,
+    name: topic.seo.title,
+    description: topic.seo.metaDesc,
     inLanguage: config.locales.defaultLocale,
     reviewedBy: { '@id': `${config.url}/#branding` },
     url: `${config.url}`,
@@ -68,14 +65,14 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     },
   };
 
-  const publicationDate = new Date(subject.dates.publication);
-  const updateDate = new Date(subject.dates.update);
+  const publicationDate = new Date(topic.dates.publication);
+  const updateDate = new Date(topic.dates.update);
 
   const articleSchema: Article = {
-    '@id': `${config.url}/subject`,
+    '@id': `${config.url}/topic`,
     '@type': 'Article',
-    name: subject.title,
-    description: subject.intro,
+    name: topic.title,
+    description: topic.intro,
     author: { '@id': `${config.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
     creator: { '@id': `${config.url}/#branding` },
@@ -83,12 +80,12 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${config.url}/#branding` },
-    thumbnailUrl: subject.featuredImage?.sourceUrl,
-    image: subject.featuredImage?.sourceUrl,
+    thumbnailUrl: topic.featuredImage?.sourceUrl,
+    image: topic.featuredImage?.sourceUrl,
     inLanguage: config.locales.defaultLocale,
     isPartOf: { '@id': `${config.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${subjectUrl}` },
+    mainEntityOfPage: { '@id': `${topicUrl}` },
     subjectOf: { '@id': `${config.url}/blog` },
   };
 
@@ -100,40 +97,37 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   return (
     <>
       <Head>
-        <title>{subject.seo.title}</title>
-        <meta name="description" content={subject.seo.metaDesc} />
-        <meta property="og:url" content={`${subjectUrl}`} />
+        <title>{topic.seo.title}</title>
+        <meta name="description" content={topic.seo.metaDesc} />
+        <meta property="og:url" content={`${topicUrl}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={subject.title} />
-        <meta property="og:description" content={subject.intro} />
-        <meta property="og:image" content={subject.featuredImage?.sourceUrl} />
-        <meta
-          property="og:image:alt"
-          content={subject.featuredImage?.altText}
-        />
+        <meta property="og:title" content={topic.title} />
+        <meta property="og:description" content={topic.intro} />
+        <meta property="og:image" content={topic.featuredImage?.sourceUrl} />
+        <meta property="og:image:alt" content={topic.featuredImage?.altText} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
         ></script>
       </Head>
       <article
-        id="subject"
+        id="topic"
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader
-          cover={subject.featuredImage}
-          intro={subject.intro}
+          cover={topic.featuredImage}
+          intro={topic.intro}
           meta={meta}
-          title={subject.title}
+          title={topic.title}
         />
         <Sidebar position="left">
           <ToC />
         </Sidebar>
         <div className={styles.body}>
-          <div dangerouslySetInnerHTML={{ __html: subject.content }}></div>
-          {subject.posts.length > 0 && (
+          <div dangerouslySetInnerHTML={{ __html: topic.content }}></div>
+          {topic.posts.length > 0 && (
             <section className={styles.section}>
-              <h2>{t`All posts in ${subject.title}`}</h2>
+              <h2>{t`All posts in ${topic.title}`}</h2>
               <ol className={styles.list}>{getPostsList()}</ol>
             </section>
           )}
@@ -147,7 +141,7 @@ const Subject: NextPageWithLayout<SubjectProps> = ({ subject }) => {
   );
 };
 
-Subject.getLayout = getLayout;
+Topic.getLayout = getLayout;
 
 interface PostParams extends ParsedUrlQuery {
   slug: string;
@@ -161,20 +155,20 @@ export const getStaticProps: GetStaticProps = async (
     process.env.NODE_ENV === 'production'
   );
   const { slug } = context.params as PostParams;
-  const subject = await getSubjectBySlug(slug);
-  const breadcrumbTitle = subject.title;
+  const topic = await getTopicBySlug(slug);
+  const breadcrumbTitle = topic.title;
 
   return {
     props: {
       breadcrumbTitle,
-      subject,
+      topic,
       translation,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allSlugs = await getAllSubjectsSlug();
+  const allSlugs = await getAllTopicsSlug();
 
   return {
     paths: allSlugs.map((post) => `/sujet/${post.slug}`),
@@ -182,4 +176,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export default Subject;
+export default Topic;

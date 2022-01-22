@@ -13,7 +13,7 @@ const PostMeta = ({
   meta: ArticleMeta;
   mode?: PostMetaMode;
 }) => {
-  const { author, commentCount, dates, subjects, thematics, website } = meta;
+  const { author, commentCount, dates, topics, thematics, website } = meta;
   const { asPath, locale } = useRouter();
   const isThematic = () => asPath.includes('/thematique/');
   const isArticle = () => asPath.includes('/article/');
@@ -24,14 +24,14 @@ const PostMeta = ({
     year: 'numeric',
   };
 
-  const getSubjects = () => {
+  const getTopics = () => {
     return (
-      subjects &&
-      subjects.map((subject) => {
+      topics &&
+      topics.map((topic) => {
         return (
-          <dd key={subject.id} className={styles.description}>
-            <Link href={`/sujet/${subject.slug}`}>
-              <a>{subject.title}</a>
+          <dd key={topic.id} className={styles.description}>
+            <Link href={`/sujet/${topic.slug}`}>
+              <a>{topic.title}</a>
             </Link>
           </dd>
         );
@@ -102,12 +102,12 @@ const PostMeta = ({
           {getThematics()}
         </div>
       )}
-      {isThematic() && subjects && subjects.length > 0 && (
+      {isThematic() && topics && topics.length > 0 && (
         <div className={styles.item}>
           <dt className={styles.term}>
-            {subjects.length > 1 ? t`Subjects` : t`Subject`}
+            {topics.length > 1 ? t`Topics` : t`Topic`}
           </dt>
-          {getSubjects()}
+          {getTopics()}
         </div>
       )}
       {website && (

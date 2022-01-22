@@ -23,32 +23,32 @@ type TaxonomyPreview = Pick<Taxonomy, 'databaseId' | 'id' | 'seo' | 'title'> & {
 };
 
 //==============================================================================
-// Subjects
+// Topics
 //==============================================================================
 
-export type Subject = Taxonomy & {
+export type Topic = Taxonomy & {
   featuredImage: Cover;
   officialWebsite: string;
 };
 
-export type RawSubjectPreview = TaxonomyPreview & {
+export type RawTopicPreview = TaxonomyPreview & {
   featuredImage: RawCover;
 };
 
-export type SubjectPreview = TaxonomyPreview & {
+export type TopicPreview = TaxonomyPreview & {
   featuredImage: Cover;
 };
 
-export type AllSubjects = {
-  subjects: {
-    nodes: SubjectPreview[];
+export type AllTopics = {
+  topics: {
+    nodes: TopicPreview[];
   };
 };
 
-export type RawSubject = SubjectPreview & {
-  acfSubjects: {
+export type RawTopic = TopicPreview & {
+  acfTopics: {
     officialWebsite: string;
-    postsInSubject: RawArticlePreview[];
+    postsInTopic: RawArticlePreview[];
   };
   contentParts: ContentParts;
   date: string;
@@ -56,18 +56,18 @@ export type RawSubject = SubjectPreview & {
   modified: string;
 };
 
-export type SubjectBy = {
-  subjectBy: RawSubject;
+export type TopicBy = {
+  topicBy: RawTopic;
 };
 
-export type AllSubjectsSlug = {
-  subjects: {
+export type AllTopicsSlug = {
+  topics: {
     nodes: Slug[];
   };
 };
 
-export type SubjectProps = {
-  subject: Subject;
+export type TopicProps = {
+  topic: Topic;
 };
 
 //==============================================================================

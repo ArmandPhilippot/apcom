@@ -57,7 +57,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
   const updateDate = new Date(dates.update);
 
   const articleSchema: Article = {
-    '@id': `${config.url}/subject`,
+    '@id': `${config.url}/project`,
     '@type': 'Article',
     name: title,
     description: intro,

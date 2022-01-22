@@ -2,7 +2,7 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostPreview from '@components/PostPreview/PostPreview';
 import { t } from '@lingui/macro';
 import { NextPageWithLayout } from '@ts/types/app';
-import { SubjectPreview, ThematicProps } from '@ts/types/taxonomies';
+import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -17,28 +17,28 @@ import { useRef } from 'react';
 import { ArticleMeta } from '@ts/types/articles';
 import Head from 'next/head';
 import Sidebar from '@components/Sidebar/Sidebar';
-import { Article, Blog, Graph, WebPage } from 'schema-dts';
+import { Article, Graph, WebPage } from 'schema-dts';
 import { config } from '@config/website';
 import { useRouter } from 'next/router';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
-  const relatedSubjects = useRef<SubjectPreview[]>([]);
+  const relatedTopics = useRef<TopicPreview[]>([]);
   const router = useRouter();
 
-  const updateRelatedSubjects = (newSubjects: SubjectPreview[]) => {
-    newSubjects.forEach((subject) => {
-      const subjectIndex = relatedSubjects.current.findIndex(
-        (relatedSubject) => relatedSubject.id === subject.id
+  const updateRelatedTopics = (newTopics: TopicPreview[]) => {
+    newTopics.forEach((topic) => {
+      const topicIndex = relatedTopics.current.findIndex(
+        (relatedTopic) => relatedTopic.id === topic.id
       );
-      const hasSubject = subjectIndex === -1 ? false : true;
+      const hasTopic = topicIndex === -1 ? false : true;
 
-      if (!hasSubject) relatedSubjects.current.push(subject);
+      if (!hasTopic) relatedTopics.current.push(topic);
     });
   };
 
   const getPostsList = () => {
     return [...thematic.posts].reverse().map((post) => {
-      updateRelatedSubjects(post.subjects);
+      updateRelatedTopics(post.topics);
 
       return (
         <li key={post.id} className={styles.item}>
@@ -123,7 +123,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
           )}
         </div>
         <Sidebar position="right">
-          <RelatedTopics topics={relatedSubjects.current} />
+          <RelatedTopics topics={relatedTopics.current} />
           <ThematicsList title={t`Other thematics`} />
         </Sidebar>
       </article>

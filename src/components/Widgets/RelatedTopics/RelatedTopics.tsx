@@ -1,18 +1,18 @@
 import { ExpandableWidget, List } from '@components/WidgetParts';
 import { t } from '@lingui/macro';
-import { SubjectPreview } from '@ts/types/taxonomies';
+import { TopicPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
 
-const RelatedTopics = ({ topics }: { topics: SubjectPreview[] }) => {
-  const sortedSubjects = [...topics].sort((a, b) =>
+const RelatedTopics = ({ topics }: { topics: TopicPreview[] }) => {
+  const sortedTopics = [...topics].sort((a, b) =>
     a.title.localeCompare(b.title)
   );
 
-  const subjects = sortedSubjects.map((subject) => {
+  const topicsList = sortedTopics.map((topic) => {
     return (
-      <li key={subject.databaseId}>
-        <Link href={`/sujet/${subject.slug}`}>
-          <a>{subject.title}</a>
+      <li key={topic.databaseId}>
+        <Link href={`/sujet/${topic.slug}`}>
+          <a>{topic.title}</a>
         </Link>
       </li>
     );
@@ -20,10 +20,10 @@ const RelatedTopics = ({ topics }: { topics: SubjectPreview[] }) => {
 
   return (
     <ExpandableWidget
-      title={topics.length > 1 ? t`Related topics` : t`Related topic`}
+      title={topicsList.length > 1 ? t`Related topics` : t`Related topic`}
       withBorders={true}
     >
-      <List items={subjects} />
+      <List items={topicsList} />
     </ExpandableWidget>
   );
 };

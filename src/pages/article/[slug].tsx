@@ -30,7 +30,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     featuredImage,
     intro,
     seo,
-    subjects,
+    topics,
     thematics,
     title,
   } = post;
@@ -137,7 +137,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           className={styles.body}
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
-        <PostFooter subjects={subjects} />
+        <PostFooter topics={topics} />
         <Sidebar position="right">
           <Sharing title={title} excerpt={intro} />
         </Sidebar>

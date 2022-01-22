@@ -2,11 +2,7 @@ import { ContentParts, Dates } from './app';
 import { Comment, CommentsNode } from './comments';
 import { Cover, RawCover } from './cover';
 import { SEO } from './seo';
-import {
-  RawSubjectPreview,
-  SubjectPreview,
-  ThematicPreview,
-} from './taxonomies';
+import { RawTopicPreview, TopicPreview, ThematicPreview } from './taxonomies';
 
 export type ArticleAuthor = {
   firstName: string;
@@ -15,12 +11,12 @@ export type ArticleAuthor = {
 };
 
 export type RawACFPosts = {
-  postsInSubject: RawSubjectPreview[] | null;
+  postsInTopic: RawTopicPreview[] | null;
   postsInThematic: ThematicPreview[] | null;
 };
 
 export type ACFPosts = {
-  postsInSubject: SubjectPreview[] | null;
+  postsInTopic: TopicPreview[] | null;
   postsInThematic: ThematicPreview[] | null;
 };
 
@@ -28,7 +24,7 @@ export type ArticleMeta = {
   author?: ArticleAuthor;
   commentCount?: number;
   dates?: Dates;
-  subjects?: SubjectPreview[];
+  topics?: TopicPreview[];
   thematics?: ThematicPreview[];
   website?: string;
 };
@@ -44,7 +40,7 @@ export type Article = {
   id: string;
   intro: string;
   seo: SEO;
-  subjects: SubjectPreview[] | [];
+  topics: TopicPreview[] | [];
   thematics: ThematicPreview[] | [];
   title: string;
 };
@@ -64,7 +60,7 @@ export type RawArticle = Pick<
 
 export type ArticlePreview = Pick<
   Article,
-  'commentCount' | 'dates' | 'id' | 'intro' | 'subjects' | 'thematics' | 'title'
+  'commentCount' | 'dates' | 'id' | 'intro' | 'topics' | 'thematics' | 'title'
 > & { featuredImage: Cover; slug: string };
 
 export type RawArticlePreview = Pick<

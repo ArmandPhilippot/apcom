@@ -1,26 +1,25 @@
 import { ButtonLink } from '@components/Buttons';
 import { t } from '@lingui/macro';
-import { SubjectPreview } from '@ts/types/taxonomies';
+import { TopicPreview } from '@ts/types/taxonomies';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from './PostFooter.module.scss';
 
-const PostFooter = ({ subjects }: { subjects: SubjectPreview[] }) => {
-  const getSubjects = () => {
-    return subjects.map((subject) => {
+const PostFooter = ({ topics }: { topics: TopicPreview[] }) => {
+  const getTopics = () => {
+    return topics.map((topic) => {
       return (
-        <li className={styles.item} key={subject.id}>
-          <ButtonLink target={`/sujet/${subject.slug}`}>
-            {subject.featuredImage && (
+        <li className={styles.item} key={topic.id}>
+          <ButtonLink target={`/sujet/${topic.slug}`}>
+            {topic.featuredImage && (
               <Image
-                src={subject.featuredImage.sourceUrl}
-                alt={subject.featuredImage.altText}
+                src={topic.featuredImage.sourceUrl}
+                alt={topic.featuredImage.altText}
                 layout="intrinsic"
                 width="20"
                 height="20"
               />
             )}
-            {subject.title}
+            {topic.title}
           </ButtonLink>
         </li>
       );
@@ -29,12 +28,12 @@ const PostFooter = ({ subjects }: { subjects: SubjectPreview[] }) => {
 
   return (
     <footer>
-      {subjects.length > 0 && (
+      {topics.length > 0 && (
         <>
           <dl className={styles.meta}>
             <dt>{t`Read more articles about:`}</dt>
             <dd>
-              <ul className={styles.list}>{getSubjects()}</ul>
+              <ul className={styles.list}>{getTopics()}</ul>
             </dd>
           </dl>
         </>
