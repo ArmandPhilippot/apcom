@@ -3,3 +3,5 @@ export type RepoData = {
   updated_at: string;
   stargazers_count: number;
 };
+
+export type RepoAPI = 'github';

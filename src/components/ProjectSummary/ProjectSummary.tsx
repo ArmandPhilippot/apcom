@@ -1,36 +1,25 @@
 import GithubIcon from '@assets/images/social-media/github.svg';
 import GitlabIcon from '@assets/images/social-media/gitlab.svg';
 import { t } from '@lingui/macro';
-import { getRepoData } from '@services/repos/github';
 import { ProjectMeta } from '@ts/types/app';
-import { RepoData } from '@ts/types/github';
 import { slugify } from '@utils/helpers/slugify';
+import useGithubApi from '@utils/hooks/useGithubApi';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import styles from './ProjectSummary.module.scss';
 
 const ProjectSummary = ({
-  slug,
   title,
   cover,
   meta,
 }: {
-  slug: string;
   title: string;
   cover: string;
   meta: ProjectMeta;
 }) => {
   const { license, repos, technologies } = meta;
-  const [data, setData] = useState<RepoData>();
   const { locale } = useRouter();
-  const githubUser = process.env.NEXT_PUBLIC_GITHUB_USER;
-
-  useEffect(() => {
-    getRepoData(slug)
-      .then((repoData) => setData(repoData))
-      .catch((e) => console.error(e));
-  }, [slug]);
+  const { data } = useGithubApi(repos?.github ? repos.github : '');
 
   const getFormattedDate = (date: string) => {
     const dateOptions: Intl.DateTimeFormatOptions = {
@@ -87,7 +76,10 @@ const ProjectSummary = ({
             <dt>{t`Repositories`}</dt>
             {repos.github && (
               <dd className={styles['inline-data']}>
-                <a href={repos.github} className={styles.repo}>
+                <a
+                  href={`https://github.com/${repos.github}`}
+                  className={styles.repo}
+                >
                   <GithubIcon />
                   <span className="screen-reader-text">Github</span>
                 </a>
@@ -95,7 +87,10 @@ const ProjectSummary = ({
             )}
             {repos.gitlab && (
               <dd className={styles['inline-data']}>
-                <a href={repos.gitlab} className={styles.repo}>
+                <a
+                  href={`https://gitlab.com/${repos.gitlab}`}
+                  className={styles.repo}
+                >
                   <GitlabIcon />
                   <span className="screen-reader-text">Gitlab</span>
                 </a>
@@ -103,15 +98,17 @@ const ProjectSummary = ({
             )}
           </div>
         )}
-        {data && (
+        {data && repos && (
           <div>
             <dt>{t`Popularity`}</dt>
-            <dd>
-              ⭐&nbsp;
-              <a href={`https://github.com/${githubUser}/${slug}/stargazers`}>
-                {t`${data.stargazers_count} stars on Github`}
-              </a>
-            </dd>
+            {repos.github && (
+              <dd>
+                ⭐&nbsp;
+                <a href={`https://github.com/${repos.github}/stargazers`}>
+                  {t`${data.stargazers_count} stars on Github`}
+                </a>
+              </dd>
+            )}
           </div>
         )}
       </dl>

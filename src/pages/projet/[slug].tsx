@@ -103,7 +103,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           <ToC />
         </Sidebar>
         <div className={styles.body}>
-          <ProjectSummary slug={id} title={title} cover={cover} meta={meta} />
+          <ProjectSummary title={title} cover={cover} meta={meta} />
           <ProjectContent />
         </div>
         <Sidebar position="right">
