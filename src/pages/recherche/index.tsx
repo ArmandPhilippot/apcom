@@ -47,6 +47,11 @@ const Search: NextPageWithLayout = () => {
     getKey,
     getPublishedPosts
   );
+  const [totalPostsCount, setTotalPostsCount] = useState<number>(0);
+
+  useEffect(() => {
+    if (data) setTotalPostsCount(data[0].pageInfo.total);
+  }, [data]);
 
   const isLoadingInitialData = !data && !error;
   const isLoadingMore: boolean =
@@ -95,7 +100,7 @@ const Search: NextPageWithLayout = () => {
       <article
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
-        <PostHeader title={title} />
+        <PostHeader title={title} meta={{ results: totalPostsCount }} />
         <div className={styles.body}>
           {getPostsList()}
           {hasNextPage && (

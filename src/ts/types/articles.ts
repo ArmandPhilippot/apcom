@@ -24,6 +24,7 @@ export type ArticleMeta = {
   author?: ArticleAuthor;
   commentCount?: number;
   dates?: Dates;
+  results?: number;
   topics?: TopicPreview[];
   thematics?: ThematicPreview[];
   website?: string;

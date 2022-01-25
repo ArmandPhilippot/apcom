@@ -21,6 +21,7 @@ const PostHeader = ({
       meta?.author ||
       meta?.commentCount ||
       meta?.dates ||
+      meta?.results ||
       meta?.thematics ||
       meta?.website
     );

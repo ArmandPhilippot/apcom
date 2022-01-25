@@ -96,6 +96,7 @@ export const getPublishedPosts = async ({
         pageInfo {
           endCursor
           hasNextPage
+          total
         }
       }
     }

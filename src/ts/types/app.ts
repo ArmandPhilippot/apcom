@@ -101,6 +101,7 @@ export type ProjectMeta = Omit<Meta, 'title'> & {
 export type PageInfo = {
   endCursor: string;
   hasNextPage: boolean;
+  total: number;
 };
 
 export type Project = {

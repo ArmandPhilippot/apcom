@@ -15,7 +15,7 @@ import PostHeader from '@components/PostHeader/PostHeader';
 import { ThematicsList, TopicsList } from '@components/Widgets';
 import Sidebar from '@components/Sidebar/Sidebar';
 import styles from '@styles/pages/Page.module.scss';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Spinner from '@components/Spinner/Spinner';
 import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
 import { useRouter } from 'next/router';
@@ -40,6 +40,11 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     getPublishedPosts,
     { fallback }
   );
+  const [totalPostsCount, setTotalPostsCount] = useState<number>(0);
+
+  useEffect(() => {
+    if (data) setTotalPostsCount(data[0].pageInfo.total);
+  }, [data]);
 
   const isLoadingInitialData = !data && !error;
   const isLoadingMore: boolean =
@@ -113,7 +118,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         id="blog"
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
-        <PostHeader title={title} />
+        <PostHeader title={title} meta={{ results: totalPostsCount }} />
         <div className={styles.body}>
           {getPostsList()}
           {hasNextPage && (

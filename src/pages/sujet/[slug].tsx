@@ -47,6 +47,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
 
   const meta: ArticleMeta = {
     dates: topic.dates,
+    results: topic.posts.length,
     website: topic.officialWebsite,
   };
   const topicUrl = `${config.url}${router.asPath}`;

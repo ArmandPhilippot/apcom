@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { ArticleMeta } from '@ts/types/articles';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,7 +13,8 @@ const PostMeta = ({
   meta: ArticleMeta;
   mode?: PostMetaMode;
 }) => {
-  const { author, commentCount, dates, topics, thematics, website } = meta;
+  const { author, commentCount, dates, results, thematics, topics, website } =
+    meta;
   const { asPath, locale } = useRouter();
   const isThematic = () => asPath.includes('/thematique/');
   const isArticle = () => asPath.includes('/article/');
@@ -71,13 +72,13 @@ const PostMeta = ({
     <dl className={wrapperClass}>
       {author && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Written by`}</dt>
+          <dt className={styles.term}>{t`Written by:`}</dt>
           <dd className={styles.description}>{author.name}</dd>
         </div>
       )}
       {dates && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Published on`}</dt>
+          <dt className={styles.term}>{t`Published on:`}</dt>
           <dd className={styles.description}>
             {new Date(dates.publication).toLocaleDateString(
               locale,
@@ -88,16 +89,28 @@ const PostMeta = ({
       )}
       {dates && dates.publication !== dates.update && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Updated on`}</dt>
+          <dt className={styles.term}>{t`Updated on:`}</dt>
           <dd className={styles.description}>
             {new Date(dates.update).toLocaleDateString(locale, dateOptions)}
+          </dd>
+        </div>
+      )}
+      {results && (
+        <div className={styles.item}>
+          <dt className={styles.term}>{t`Total: `}</dt>
+          <dd className={styles.description}>
+            {plural(results, {
+              zero: '# articles',
+              one: '# article',
+              other: '# articles',
+            })}
           </dd>
         </div>
       )}
       {!isThematic() && thematics && thematics.length > 0 && (
         <div className={styles.item}>
           <dt className={styles.term}>
-            {thematics.length > 1 ? t`Thematics` : t`Thematic`}
+            {thematics.length > 1 ? t`Thematics:` : t`Thematic:`}
           </dt>
           {getThematics()}
         </div>
@@ -105,14 +118,14 @@ const PostMeta = ({
       {isThematic() && topics && topics.length > 0 && (
         <div className={styles.item}>
           <dt className={styles.term}>
-            {topics.length > 1 ? t`Topics` : t`Topic`}
+            {topics.length > 1 ? t`Topics:` : t`Topic:`}
           </dt>
           {getTopics()}
         </div>
       )}
       {website && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Website`}</dt>
+          <dt className={styles.term}>{t`Website:`}</dt>
           <dd className={styles.description}>
             <a href={website}>{website}</a>
           </dd>
@@ -120,7 +133,7 @@ const PostMeta = ({
       )}
       {commentCount !== undefined && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Comments`}</dt>
+          <dt className={styles.term}>{t`Comments:`}</dt>
           <dd className={styles.description}>
             {isArticle() ? (
               <a href="#comments">{getCommentsCount()}</a>

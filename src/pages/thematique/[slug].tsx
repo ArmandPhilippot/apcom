@@ -50,6 +50,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
 
   const meta: ArticleMeta = {
     dates: thematic.dates,
+    results: thematic.posts.length,
   };
   const thematicUrl = `${config.url}${router.asPath}`;
 
