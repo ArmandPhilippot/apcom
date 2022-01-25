@@ -13,8 +13,17 @@ const PostMeta = ({
   meta: ArticleMeta;
   mode?: PostMetaMode;
 }) => {
-  const { author, commentCount, dates, results, thematics, topics, website } =
-    meta;
+  const {
+    author,
+    commentCount,
+    dates,
+    readingTime,
+    results,
+    thematics,
+    topics,
+    website,
+    wordsCount,
+  } = meta;
   const { asPath, locale } = useRouter();
   const isThematic = () => asPath.includes('/thematique/');
   const isArticle = () => asPath.includes('/article/');
@@ -66,6 +75,16 @@ const PostMeta = ({
     }
   };
 
+  const getReadingTime = () => {
+    if (!readingTime) return;
+    if (readingTime < 0) return t`less than 1 minute`;
+    return plural(readingTime, {
+      zero: '# minutes',
+      one: '# minute',
+      other: '# minutes',
+    });
+  };
+
   const wrapperClass = styles[`wrapper--${mode}`];
 
   return (
@@ -92,6 +111,17 @@ const PostMeta = ({
           <dt className={styles.term}>{t`Updated on:`}</dt>
           <dd className={styles.description}>
             {new Date(dates.update).toLocaleDateString(locale, dateOptions)}
+          </dd>
+        </div>
+      )}
+      {readingTime !== undefined && wordsCount !== undefined && (
+        <div className={styles.item}>
+          <dt className={styles.term}>{t`Reading time:`}</dt>
+          <dd
+            className={styles.description}
+            title={`Approximately ${wordsCount.toLocaleString(locale)} words`}
+          >
+            {getReadingTime()}
           </dd>
         </div>
       )}

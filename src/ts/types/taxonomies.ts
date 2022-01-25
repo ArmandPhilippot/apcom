@@ -1,4 +1,4 @@
-import { ContentParts, Dates, Slug } from './app';
+import { ContentInfo, ContentParts, Dates, Slug } from './app';
 import { ArticlePreview, RawArticlePreview } from './articles';
 import { Cover, RawCover } from './cover';
 import { SEO } from './seo';
@@ -12,13 +12,17 @@ type Taxonomy = {
   databaseId: number;
   dates: Dates;
   id: string;
+  info: ContentInfo;
   intro: string;
   posts: ArticlePreview[];
   seo: SEO;
   title: string;
 };
 
-type TaxonomyPreview = Pick<Taxonomy, 'databaseId' | 'id' | 'seo' | 'title'> & {
+type TaxonomyPreview = Pick<
+  Taxonomy,
+  'databaseId' | 'id' | 'info' | 'seo' | 'title'
+> & {
   slug: string;
 };
 

@@ -61,6 +61,11 @@ export type ButtonKind = 'primary' | 'secondary' | 'tertiary';
 
 export type ButtonPosition = 'left' | 'right' | 'center';
 
+export type ContentInfo = {
+  readingTime: number;
+  wordsCount: number;
+};
+
 export type ContentParts = {
   afterMore: string;
   beforeMore: string;
@@ -110,6 +115,7 @@ export type Project = {
   intro: string;
   meta: ProjectMeta;
   slug: string;
+  tagline?: string;
   title: string;
   seo: {
     title: string;

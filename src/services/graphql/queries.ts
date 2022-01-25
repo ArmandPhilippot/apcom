@@ -87,6 +87,10 @@ export const getPublishedPosts = async ({
               }
             }
             id
+            info {
+              readingTime
+              wordsCount
+            }
             databaseId
             modified
             slug
@@ -201,6 +205,10 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
           }
         }
         id
+        info {
+          readingTime
+          wordsCount
+        }
         modified
         seo {
           title
@@ -269,6 +277,10 @@ export const getTopicBySlug = async (slug: string): Promise<Topic> => {
                 }
               }
               id
+              info {
+                readingTime
+                wordsCount
+              }
               commentCount
               contentParts {
                 beforeMore
@@ -302,6 +314,10 @@ export const getTopicBySlug = async (slug: string): Promise<Topic> => {
           }
         }
         id
+        info {
+          readingTime
+          wordsCount
+        }
         modified
         seo {
           metaDesc
@@ -402,6 +418,10 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
                 }
               }
               id
+              info {
+                readingTime
+                wordsCount
+              }
               commentCount
               contentParts {
                 beforeMore
@@ -428,6 +448,10 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
         databaseId
         date
         id
+        info {
+          readingTime
+          wordsCount
+        }
         modified
         seo {
           metaDesc

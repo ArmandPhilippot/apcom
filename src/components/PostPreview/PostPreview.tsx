@@ -19,37 +19,50 @@ const PostPreview = ({
   titleLevel: TitleLevel;
 }) => {
   const TitleTag = `h${titleLevel}` as keyof JSX.IntrinsicElements;
+  const {
+    commentCount,
+    dates,
+    featuredImage,
+    info,
+    intro,
+    slug,
+    thematics,
+    title,
+    topics,
+  } = post;
 
   const meta: ArticleMeta = {
-    commentCount: post.commentCount ? post.commentCount : 0,
-    dates: post.dates,
-    topics: post.topics,
-    thematics: post.thematics,
+    commentCount: commentCount ? commentCount : 0,
+    dates: dates,
+    readingTime: info.readingTime,
+    thematics: thematics,
+    topics: topics,
+    wordsCount: info.wordsCount,
   };
 
-  const publicationDate = new Date(post.dates.publication);
-  const updateDate = new Date(post.dates.update);
+  const publicationDate = new Date(dates.publication);
+  const updateDate = new Date(dates.update);
 
   const schemaJsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    name: post.title,
-    description: post.intro,
-    articleBody: post.intro,
+    name: title,
+    description: intro,
+    articleBody: intro,
     author: { '@id': `${config.url}/#branding` },
-    commentCount: post.commentCount ? post.commentCount : 0,
+    commentCount: commentCount ? commentCount : 0,
     copyrightYear: publicationDate.getFullYear(),
     creator: { '@id': `${config.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${config.url}/#branding` },
-    image: post.featuredImage?.sourceUrl,
+    image: featuredImage?.sourceUrl,
     inLanguage: config.locales.defaultLocale,
-    isBasedOn: `${config.url}/article/${post.slug}`,
+    isBasedOn: `${config.url}/article/${slug}`,
     isPartOf: { '@id': `${config.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    thumbnailUrl: post.featuredImage?.sourceUrl,
+    thumbnailUrl: featuredImage?.sourceUrl,
   };
 
   return (
@@ -61,11 +74,11 @@ const PostPreview = ({
         ></script>
       </Head>
       <article className={styles.wrapper}>
-        {post.featuredImage && Object.keys(post.featuredImage).length > 0 && (
+        {featuredImage && Object.keys(featuredImage).length > 0 && (
           <div className={styles.cover}>
             <Image
-              src={post.featuredImage.sourceUrl}
-              alt={post.featuredImage.altText}
+              src={featuredImage.sourceUrl}
+              alt={featuredImage.altText}
               layout="fill"
               objectFit="contain"
             />
@@ -73,21 +86,21 @@ const PostPreview = ({
         )}
         <header className={styles.header}>
           <TitleTag className={styles.title}>
-            <Link href={`/article/${post.slug}`}>
-              <a>{post.title}</a>
+            <Link href={`/article/${slug}`}>
+              <a>{title}</a>
             </Link>
           </TitleTag>
         </header>
         <div
           className={styles.body}
-          dangerouslySetInnerHTML={{ __html: post.intro }}
+          dangerouslySetInnerHTML={{ __html: intro }}
         ></div>
         <footer className={styles.footer}>
-          <ButtonLink target={`/article/${post.slug}`} position="left">
+          <ButtonLink target={`/article/${slug}`} position="left">
             {t`Read more`}
             <span className="screen-reader-text">
               {' '}
-              {t({ message: `about ${post.title}`, comment: 'Post title' })}
+              {t({ message: `about ${title}`, comment: 'Post title' })}
             </span>
             <ArrowIcon />
           </ButtonLink>

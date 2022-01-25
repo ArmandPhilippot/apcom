@@ -21,9 +21,11 @@ const PostHeader = ({
       meta?.author ||
       meta?.commentCount ||
       meta?.dates ||
+      meta?.readingTime ||
       meta?.results ||
       meta?.thematics ||
-      meta?.website
+      meta?.website ||
+      meta?.wordsCount
     );
   };
 

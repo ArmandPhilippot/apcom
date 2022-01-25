@@ -28,6 +28,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     databaseId,
     dates,
     featuredImage,
+    info,
     intro,
     seo,
     topics,
@@ -39,7 +40,9 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     author,
     commentCount: comments.length,
     dates,
+    readingTime: info.readingTime,
     thematics,
+    wordsCount: info.wordsCount,
   };
 
   const router = useRouter();

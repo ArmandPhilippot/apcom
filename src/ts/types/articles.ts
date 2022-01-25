@@ -1,4 +1,4 @@
-import { ContentParts, Dates } from './app';
+import { ContentInfo, ContentParts, Dates } from './app';
 import { Comment, CommentsNode } from './comments';
 import { Cover, RawCover } from './cover';
 import { SEO } from './seo';
@@ -24,10 +24,12 @@ export type ArticleMeta = {
   author?: ArticleAuthor;
   commentCount?: number;
   dates?: Dates;
+  readingTime?: number;
   results?: number;
   topics?: TopicPreview[];
   thematics?: ThematicPreview[];
   website?: string;
+  wordsCount?: number;
 };
 
 export type Article = {
@@ -39,6 +41,7 @@ export type Article = {
   dates: Dates;
   featuredImage: Cover;
   id: string;
+  info: ContentInfo;
   intro: string;
   seo: SEO;
   topics: TopicPreview[] | [];
@@ -48,7 +51,7 @@ export type Article = {
 
 export type RawArticle = Pick<
   Article,
-  'commentCount' | 'databaseId' | 'id' | 'seo' | 'title'
+  'commentCount' | 'databaseId' | 'id' | 'info' | 'seo' | 'title'
 > & {
   acfPosts: RawACFPosts;
   author: { node: ArticleAuthor };
@@ -61,12 +64,19 @@ export type RawArticle = Pick<
 
 export type ArticlePreview = Pick<
   Article,
-  'commentCount' | 'dates' | 'id' | 'intro' | 'topics' | 'thematics' | 'title'
+  | 'commentCount'
+  | 'dates'
+  | 'id'
+  | 'info'
+  | 'intro'
+  | 'topics'
+  | 'thematics'
+  | 'title'
 > & { featuredImage: Cover; slug: string };
 
 export type RawArticlePreview = Pick<
   Article,
-  'commentCount' | 'id' | 'title'
+  'commentCount' | 'id' | 'info' | 'title'
 > & {
   acfPosts: ACFPosts;
   contentParts: Pick<ContentParts, 'beforeMore'>;
