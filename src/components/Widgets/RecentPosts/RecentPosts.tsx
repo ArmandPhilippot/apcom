@@ -1,7 +1,9 @@
 import Spinner from '@components/Spinner/Spinner';
+import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { getPublishedPosts } from '@services/graphql/queries';
 import { ArticlePreview } from '@ts/types/articles';
+import { getFormattedDate } from '@utils/helpers/format';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -12,12 +14,8 @@ const RecentPosts = () => {
   const { data, error } = useSWR('/recent-posts', () =>
     getPublishedPosts({ first: 3 })
   );
-  const { locale } = useRouter();
-  const dateOptions: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  };
+  const router = useRouter();
+  const locale = router.locale ? router.locale : config.locales.defaultLocale;
 
   const getPost = (post: ArticlePreview) => {
     return (
@@ -40,10 +38,9 @@ const RecentPosts = () => {
               <dl className={styles.meta}>
                 <dt>{t`Published on:`}</dt>
                 <dd>
-                  {new Date(post.dates.publication).toLocaleDateString(
-                    locale,
-                    dateOptions
-                  )}
+                  <time dateTime={post.dates.publication}>
+                    {getFormattedDate(post.dates.publication, locale)}
+                  </time>
                 </dd>
               </dl>
             </article>

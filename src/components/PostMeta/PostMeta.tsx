@@ -1,5 +1,7 @@
+import { config } from '@config/website';
 import { plural, t } from '@lingui/macro';
 import { ArticleMeta } from '@ts/types/articles';
+import { getFormattedDate } from '@utils/helpers/format';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from './PostMeta.module.scss';
@@ -24,15 +26,10 @@ const PostMeta = ({
     website,
     wordsCount,
   } = meta;
-  const { asPath, locale } = useRouter();
-  const isThematic = () => asPath.includes('/thematique/');
-  const isArticle = () => asPath.includes('/article/');
-
-  const dateOptions: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  };
+  const router = useRouter();
+  const locale = router.locale ? router.locale : config.locales.defaultLocale;
+  const isThematic = () => router.asPath.includes('/thematique/');
+  const isArticle = () => router.asPath.includes('/article/');
 
   const getTopics = () => {
     return (
@@ -85,6 +82,32 @@ const PostMeta = ({
     });
   };
 
+  const getDates = () => {
+    if (!dates) return <></>;
+
+    const publicationDate = getFormattedDate(dates.publication, locale);
+    const updateDate = getFormattedDate(dates.update, locale);
+
+    return (
+      <>
+        <div className={styles.item}>
+          <dt className={styles.term}>{t`Published on:`}</dt>
+          <dd className={styles.description}>
+            <time dateTime={dates.publication}>{publicationDate}</time>
+          </dd>
+        </div>
+        {publicationDate !== updateDate && (
+          <div className={styles.item}>
+            <dt className={styles.term}>{t`Updated on:`}</dt>
+            <dd className={styles.description}>
+              <time dateTime={dates.update}>{updateDate}</time>
+            </dd>
+          </div>
+        )}
+      </>
+    );
+  };
+
   const wrapperClass = styles[`wrapper--${mode}`];
 
   return (
@@ -95,25 +118,7 @@ const PostMeta = ({
           <dd className={styles.description}>{author.name}</dd>
         </div>
       )}
-      {dates && (
-        <div className={styles.item}>
-          <dt className={styles.term}>{t`Published on:`}</dt>
-          <dd className={styles.description}>
-            {new Date(dates.publication).toLocaleDateString(
-              locale,
-              dateOptions
-            )}
-          </dd>
-        </div>
-      )}
-      {dates && dates.publication !== dates.update && (
-        <div className={styles.item}>
-          <dt className={styles.term}>{t`Updated on:`}</dt>
-          <dd className={styles.description}>
-            {new Date(dates.update).toLocaleDateString(locale, dateOptions)}
-          </dd>
-        </div>
-      )}
+      {getDates()}
       {readingTime !== undefined && wordsCount !== undefined && (
         <div className={styles.item}>
           <dt className={styles.term}>{t`Reading time:`}</dt>

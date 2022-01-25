@@ -267,3 +267,19 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
 
   return formattedPost;
 };
+
+/**
+ * Converts a date to a string by using the specified locale.
+ * @param {string} date The date.
+ * @param {string} locale A locale.
+ * @returns {string} The formatted date to locale date string.
+ */
+export const getFormattedDate = (date: string, locale: string) => {
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  };
+
+  return new Date(date).toLocaleDateString(locale, dateOptions);
+};

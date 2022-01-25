@@ -3,6 +3,7 @@ import CommentForm from '@components/CommentForm/CommentForm';
 import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { Comment as CommentData } from '@ts/types/comments';
+import { getFormattedDate } from '@utils/helpers/format';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,6 +22,7 @@ const Comment = ({
   isNested?: boolean;
 }) => {
   const router = useRouter();
+  const locale = router.locale ? router.locale : config.locales.defaultLocale;
   const [isReply, setIsReply] = useState<boolean>(false);
   const firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -39,14 +41,9 @@ const Comment = ({
   };
 
   const getLocaleDate = () => {
-    const commentDate = new Date(comment.date);
-    const date = commentDate.toLocaleDateString(router.locale, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-    const time = commentDate
-      .toLocaleTimeString(router.locale, {
+    const date = getFormattedDate(comment.date, locale);
+    const time = new Date(comment.date)
+      .toLocaleTimeString(locale, {
         hour: 'numeric',
         minute: 'numeric',
       })
@@ -73,9 +70,11 @@ const Comment = ({
           <dl className={styles.date}>
             <dt>{t`Published on:`}</dt>
             <dd>
-              <Link href={`#comment-${comment.commentId}`}>
-                <a>{getLocaleDate()}</a>
-              </Link>
+              <time dateTime={comment.date}>
+                <Link href={`#comment-${comment.commentId}`}>
+                  <a>{getLocaleDate()}</a>
+                </Link>
+              </time>
             </dd>
           </dl>
           <div

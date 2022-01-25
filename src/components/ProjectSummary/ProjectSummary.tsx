@@ -1,7 +1,9 @@
 import GithubIcon from '@assets/images/social-media/github.svg';
 import GitlabIcon from '@assets/images/social-media/gitlab.svg';
+import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { ProjectMeta } from '@ts/types/app';
+import { getFormattedDate } from '@utils/helpers/format';
 import { slugify } from '@utils/helpers/slugify';
 import useGithubApi from '@utils/hooks/useGithubApi';
 import Image from 'next/image';
@@ -18,40 +20,41 @@ const ProjectSummary = ({
   meta: ProjectMeta;
 }) => {
   const { license, repos, technologies } = meta;
-  const { locale } = useRouter();
+  const router = useRouter();
+  const locale = router.locale ? router.locale : config.locales.defaultLocale;
   const { data } = useGithubApi(repos?.github ? repos.github : '');
-
-  const getFormattedDate = (date: string) => {
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    };
-
-    return new Date(date).toLocaleDateString(locale, dateOptions);
-  };
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.cover}>
-        <Image
-          src={cover}
-          alt={t`${title} preview`}
-          layout="fill"
-          objectFit="contain"
-        />
-      </div>
+      {cover && (
+        <div className={styles.cover}>
+          <Image
+            src={cover}
+            alt={t`${title} preview`}
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
+      )}
       <dl className={styles.info}>
         {data && (
           <div className={styles.info__item}>
             <dt>{t`Created on`}</dt>
-            <dd>{t`${getFormattedDate(data.created_at)}`}</dd>
+            <dd>
+              <time dateTime={data.created_at}>
+                {getFormattedDate(data.created_at, locale)}
+              </time>
+            </dd>
           </div>
         )}
         {data && (
           <div className={styles.info__item}>
             <dt>{t`Last updated on`}</dt>
-            <dd>{t`${getFormattedDate(data.updated_at)}`}</dd>
+            <dd>
+              <time dateTime={data.updated_at}>
+                {getFormattedDate(data.updated_at, locale)}
+              </time>
+            </dd>
           </div>
         )}
         <div className={styles.info__item}>
