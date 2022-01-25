@@ -99,7 +99,7 @@ ol {
   }
 
   ::marker {
-    color: var(--color-secondary);
+    color: var(--color-primary-dark);
   }
 }
 
@@ -206,13 +206,21 @@ var {
   font-family: var(--font-family-mono);
 }
 
-:not(pre) > code {
-  background: var(--color-bg-secondary);
-  border: fun.convert-px(1) solid var(--color-border-light);
+:not(pre) > code,
+kbd,
+var {
+  background: var(--color-bg-code);
+  border: fun.convert-px(1) solid var(--color-border);
   border-radius: fun.convert-px(3);
   color: var(--color-primary-darker);
+  font-style: normal;
   padding: fun.convert-px(2) fun.convert-px(5) fun.convert-px(1)
     fun.convert-px(5);
+}
+
+kbd {
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 fun.convert-px(1)
+    var(--color-shadow);
 }
 
 pre {

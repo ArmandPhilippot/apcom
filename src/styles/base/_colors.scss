@@ -3,8 +3,9 @@
 :root {
   --color-bg: #{var.$light-theme_white};
   --color-bg-opacity: #{var.$light-theme_white-o90};
-  --color-bg-secondary: #{var.$light-theme_grey-brighter};
+  --color-bg-secondary: #{var.$light-theme_white-dark};
   --color-bg-tertiary: #{var.$light-theme_grey-bright};
+  --color-bg-code: #{var.$light-theme_grey-brighter};
   --color-fg: #{var.$light-theme_black};
   --color-fg-light: #{var.$light-theme_grey-dark};
   --color-fg-inverted: #{var.$light-theme_white};
@@ -36,7 +37,8 @@
   --color-bg-opacity: #{var.$dark-theme_black-o90};
   --color-bg-light: #{var.$dark-theme_grey};
   --color-bg-secondary: #{var.$dark-theme_black-bright};
-  --color-bg-tertiary: #{var.$dark-theme_black-brighter};
+  --color-bg-tertiary: #{var.$dark-theme_grey-darker};
+  --color-bg-code: #{var.$dark-theme_black-brighter};
   --color-fg: #{var.$dark-theme_white};
   --color-fg-light: #{var.$dark-theme_grey};
   --color-fg-inverted: #{var.$dark-theme_black};

@@ -37,34 +37,3 @@
     text-decoration-thickness: 0;
   }
 }
-
-.list {
-  width: 100%;
-  margin: 0;
-  counter-reset: link;
-
-  @include mix.media("screen") {
-    @include mix.dimensions("lg") {
-      font-size: var(--font-size-sm);
-      font-weight: 500;
-    }
-  }
-
-  > .item .link {
-    counter-increment: link;
-
-    &::before {
-      content: counters(link, ".") ". ";
-      color: var(--color-secondary);
-      padding-right: var(--spacing-2xs);
-    }
-  }
-
-  .item .item .link::before {
-    padding-left: var(--spacing-sm);
-  }
-
-  .item .item .item .link::before {
-    padding-left: var(--spacing-lg);
-  }
-}

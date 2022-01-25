@@ -12,7 +12,7 @@
 
   @include mix.media("screen") {
     @include mix.dimensions("md") {
-      --grid-gap: var(--spacing-lg);
+      --grid-gap: var(--spacing-xl);
       grid-template-columns:
         minmax(0, 1fr) clamp(60ch, 60vw, 80ch)
         var(--column-3, minmax(0, 3fr));
@@ -20,7 +20,7 @@
 
     @include mix.dimensions("lg") {
       grid-template-columns:
-        minmax(0, 1fr) clamp(50ch, 50vw, 80ch)
+        minmax(0, 1fr) clamp(47ch, 47vw, 80ch)
         var(--column-3, minmax(0, 1fr));
     }
   }
