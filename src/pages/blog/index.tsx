@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from 'react';
 import Spinner from '@components/Spinner/Spinner';
 import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
 import { useRouter } from 'next/router';
+import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const lastPostRef = useRef<HTMLSpanElement>(null);
@@ -44,6 +45,20 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
 
   useEffect(() => {
     if (data) setTotalPostsCount(data[0].pageInfo.total);
+  }, [data]);
+
+  const [loadedPostsCount, setLoadedPostsCount] = useState<number>(
+    config.postsPerPage
+  );
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const newCount =
+        config.postsPerPage +
+        data[0].pageInfo.total -
+        data[data.length - 1].pageInfo.total;
+      setLoadedPostsCount(newCount);
+    }
   }, [data]);
 
   const isLoadingInitialData = !data && !error;
@@ -122,11 +137,17 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         <div className={styles.body}>
           {getPostsList()}
           {hasNextPage && (
-            <Button
-              isDisabled={isLoadingMore}
-              clickHandler={loadMorePosts}
-              position="center"
-            >{t`Load more?`}</Button>
+            <>
+              <PaginationCursor
+                current={loadedPostsCount}
+                total={totalPostsCount}
+              />
+              <Button
+                isDisabled={isLoadingMore}
+                clickHandler={loadMorePosts}
+                position="center"
+              >{t`Load more?`}</Button>
+            </>
           )}
         </div>
         <Sidebar position="right" title={t`Filter by`}>

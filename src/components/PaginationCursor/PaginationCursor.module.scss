@@ -1,0 +1,28 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  margin: var(--spacing-sm) auto var(--spacing-md);
+  width: max-content;
+
+  .bar[value] {
+    display: block;
+    width: 30ch;
+    height: fun.convert-px(13);
+    appearance: none;
+    background: var(--color-bg-tertiary);
+    border: fun.convert-px(1) solid var(--color-primary-darker);
+    border-radius: 1em;
+    box-shadow: inset 0 0 fun.convert-px(4) fun.convert-px(1)
+      var(--color-shadow-light);
+
+    &::-webkit-progress-value {
+      background-color: var(--color-primary-dark);
+      border-radius: 1em;
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--color-primary-dark);
+      border-radius: 1em;
+    }
+  }
+}

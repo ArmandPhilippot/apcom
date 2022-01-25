@@ -17,6 +17,7 @@ import Sidebar from '@components/Sidebar/Sidebar';
 import { ThematicsList, TopicsList } from '@components/Widgets';
 import styles from '@styles/pages/Page.module.scss';
 import Spinner from '@components/Spinner/Spinner';
+import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
 
 const Search: NextPageWithLayout = () => {
   const [query, setQuery] = useState('');
@@ -51,6 +52,20 @@ const Search: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (data) setTotalPostsCount(data[0].pageInfo.total);
+  }, [data]);
+
+  const [loadedPostsCount, setLoadedPostsCount] = useState<number>(
+    config.postsPerPage
+  );
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const newCount =
+        config.postsPerPage +
+        data[0].pageInfo.total -
+        data[data.length - 1].pageInfo.total;
+      setLoadedPostsCount(newCount);
+    }
   }, [data]);
 
   const isLoadingInitialData = !data && !error;
@@ -104,11 +119,17 @@ const Search: NextPageWithLayout = () => {
         <div className={styles.body}>
           {getPostsList()}
           {hasNextPage && (
-            <Button
-              isDisabled={isLoadingMore}
-              clickHandler={loadMorePosts}
-              position="center"
-            >{t`Load more?`}</Button>
+            <>
+              <PaginationCursor
+                current={loadedPostsCount}
+                total={totalPostsCount}
+              />
+              <Button
+                isDisabled={isLoadingMore}
+                clickHandler={loadMorePosts}
+                position="center"
+              >{t`Load more?`}</Button>
+            </>
           )}
         </div>
         <Sidebar position="right">
