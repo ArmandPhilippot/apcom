@@ -1,4 +1,5 @@
 import { getLayout } from '@components/Layouts/Layout';
+import { CodeBlock, Gallery, Link, ResponsiveImage } from '@components/MDX';
 import PostHeader from '@components/PostHeader/PostHeader';
 import ProjectSummary from '@components/ProjectSummary/ProjectSummary';
 import Sidebar from '@components/Sidebar/Sidebar';
@@ -15,7 +16,7 @@ import {
   getAllProjectsFilename,
   getProjectData,
 } from '@utils/helpers/projects';
-import { MDXComponents } from 'mdx/types';
+import { MDXComponents, NestedMDXComponents } from 'mdx/types';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -34,6 +35,13 @@ const Project: NextPageWithLayout<ProjectProps> = ({
   const dates = {
     publication: meta.publishedOn,
     update: meta.updatedOn,
+  };
+
+  const components: NestedMDXComponents = {
+    Gallery: (props) => Gallery(props),
+    Image: (props) => ResponsiveImage({ caption: props.caption, ...props }),
+    Link: (props) => Link(props),
+    pre: ({ children }) => CodeBlock(children.props),
   };
 
   const ProjectContent: ComponentType<MDXComponents> =
@@ -104,7 +112,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
         </Sidebar>
         <div className={styles.body}>
           <ProjectSummary title={title} cover={cover} meta={meta} />
-          <ProjectContent />
+          <ProjectContent components={components} />
         </div>
         <Sidebar position="right">
           <Sharing title={title} excerpt={intro} />
