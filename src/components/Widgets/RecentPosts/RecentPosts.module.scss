@@ -2,14 +2,28 @@
 @use "@styles/abstracts/placeholders";
 
 .list {
-  @extend %flex-list;
-  align-items: stretch;
-  gap: var(--spacing-xs);
+  --items: 3;
+  --items-size: 25ch;
+
+  @extend %reset-list;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    min(calc(100vw - (var(--spacing-md) * 2)), var(--items-size))
+  );
+  gap: var(--spacing-sm);
+  width: min(
+    calc(100vw - (var(--spacing-md) * 2)),
+    calc(
+      (var(--items-size) * var(--items)) +
+        (var(--spacing-sm) * (var(--items) - 1))
+    )
+  );
   margin-bottom: var(--spacing-md);
 }
 
 .item {
-  width: min(calc(100vw - var(--spacing-md)), 25ch);
   text-align: center;
 }
 
