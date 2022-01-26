@@ -15,11 +15,12 @@ import {
   getAllProjectsFilename,
   getProjectData,
 } from '@utils/helpers/projects';
+import { MDXComponents } from 'mdx/types';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
+import { ComponentType } from 'react';
 import { Article, Graph, WebPage } from 'schema-dts';
 
 const Project: NextPageWithLayout<ProjectProps> = ({
@@ -35,9 +36,8 @@ const Project: NextPageWithLayout<ProjectProps> = ({
     update: meta.updatedOn,
   };
 
-  const ProjectContent = dynamic(
-    () => import(`../../content/projects/${id}.mdx`)
-  );
+  const ProjectContent: ComponentType<MDXComponents> =
+    require(`../../content/projects/${id}.mdx`).default;
 
   const webpageSchema: WebPage = {
     '@id': `${projectUrl}`,
