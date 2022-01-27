@@ -43,6 +43,7 @@
           "line-highlight",
           "line-numbers",
           "match-braces",
+          "normalize-whitespace",
           "show-language",
           "toolbar"
         ]
