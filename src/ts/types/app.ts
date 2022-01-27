@@ -94,15 +94,6 @@ export type Meta = {
   updatedOn: string;
 };
 
-export type ProjectMeta = Omit<Meta, 'title'> & {
-  license: string;
-  repos?: {
-    github?: string;
-    gitlab?: string;
-  };
-  technologies?: string[];
-};
-
 export type PageInfo = {
   endCursor: string;
   hasNextPage: boolean;
@@ -110,7 +101,7 @@ export type PageInfo = {
 };
 
 export type Project = {
-  cover: string;
+  cover?: string;
   id: string;
   intro: string;
   meta: ProjectMeta;
@@ -121,6 +112,16 @@ export type Project = {
     title: string;
     description: string;
   };
+};
+
+export type ProjectMeta = Omit<Meta, 'title'> & {
+  hasCover: boolean;
+  license: string;
+  repos?: {
+    github?: string;
+    gitlab?: string;
+  };
+  technologies?: string[];
 };
 
 export type ProjectProps = {

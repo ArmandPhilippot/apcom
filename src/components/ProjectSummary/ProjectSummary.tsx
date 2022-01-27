@@ -11,25 +11,25 @@ import { useRouter } from 'next/router';
 import styles from './ProjectSummary.module.scss';
 
 const ProjectSummary = ({
+  id,
   title,
-  cover,
   meta,
 }: {
+  id: string;
   title: string;
-  cover: string;
   meta: ProjectMeta;
 }) => {
-  const { license, repos, technologies } = meta;
+  const { hasCover, license, repos, technologies } = meta;
   const router = useRouter();
   const locale = router.locale ? router.locale : config.locales.defaultLocale;
   const { data } = useGithubApi(repos?.github ? repos.github : '');
 
   return (
     <div className={styles.wrapper}>
-      {cover && (
+      {hasCover && (
         <div className={styles.cover}>
           <Image
-            src={cover}
+            src={`/projects/${id}.jpg`}
             alt={t`${title} preview`}
             layout="fill"
             objectFit="contain"

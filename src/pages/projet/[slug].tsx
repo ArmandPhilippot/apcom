@@ -31,7 +31,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
 }) => {
   const router = useRouter();
   const projectUrl = `${config.url}${router.asPath}`;
-  const { cover, id, intro, meta, title, seo } = project;
+  const { id, intro, meta, title, seo } = project;
   const dates = {
     publication: meta.publishedOn,
     update: meta.updatedOn,
@@ -76,8 +76,8 @@ const Project: NextPageWithLayout<ProjectProps> = ({
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${config.url}/#branding` },
-    thumbnailUrl: cover,
-    image: cover,
+    thumbnailUrl: meta.hasCover ? `/projects/${id}.jpg` : '',
+    image: meta.hasCover ? `/projects/${id}.jpg` : '',
     inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${projectUrl}` },
@@ -111,7 +111,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           <ToC />
         </Sidebar>
         <div className={styles.body}>
-          <ProjectSummary title={title} cover={cover} meta={meta} />
+          <ProjectSummary id={id} title={title} meta={meta} />
           <ProjectContent components={components} />
         </div>
         <Sidebar position="right">
