@@ -53,6 +53,16 @@ const Layout = ({
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:site" content={config.twitterId} />
         <meta property="twitter:creator" content={config.twitterId} />
+        <meta
+          name="theme-color"
+          content="#14578a"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#85bbd6"
+          media="(prefers-color-scheme: dark)"
+        />
         <link
           rel="alternate"
           href="/feed.xml"
@@ -63,14 +73,18 @@ const Layout = ({
           rel="alternate"
           href="/atom.xml"
           type="application/atom+xml"
-          title={`${config.name}'s RSS feed`}
+          title={`${config.name}'s Atom feed`}
         />
         <link
           rel="alternate"
           href="/feed.json"
           type="application/feed+json"
-          title={`${config.name}'s RSS feed`}
+          title={`${config.name}'s Json feed`}
         />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
