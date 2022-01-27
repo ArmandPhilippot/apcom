@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { ReactElement } from 'react';
 import { t } from '@lingui/macro';
 import photo from '@assets/images/armand-philippot.jpg';
-import Logo from '@assets/images/armand-philippot-logo.svg';
 import { config } from '@config/website';
 import styles from './Branding.module.scss';
 import Head from 'next/head';
 import { Person, WithContext } from 'schema-dts';
+import Logo from './Logo/Logo';
 
 type BrandingReturn = ({ isHome }: { isHome: boolean }) => ReactElement;
 

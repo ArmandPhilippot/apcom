@@ -19,9 +19,10 @@
   --color-border: #{var.$light-theme_grey};
   --color-border-dark: #{var.$light-theme_grey-dark};
   --color-border-light: #{var.$light-theme_grey-bright};
-  --color-shadow: #{var.$light-theme_grey-dark-o40};
-  --color-shadow-dark: #{var.$light-theme_grey-dark-o70};
-  --color-shadow-light: #{var.$light-theme_grey-dark-o20};
+  --color-shadow: #{var.$light-theme_grey-darker-o40};
+  --color-shadow-dark: #{var.$light-theme_grey-darker-o70};
+  --color-shadow-darker: #{var.$light-theme_grey-darker};
+  --color-shadow-light: #{var.$light-theme_grey-darker-o20};
   --color-token-red: #{var.$light-theme_red};
   --color-token-green: #{var.$light-theme_green};
   --color-token-purple: #{var.$light-theme_purple};
@@ -54,6 +55,7 @@
   --color-border-light: #{var.$dark-theme_black-brighter};
   --color-shadow: #{var.$dark-theme_grey-dark-o40};
   --color-shadow-dark: #{var.$dark-theme_grey-dark-o70};
+  --color-shadow-darker: #{var.$dark-theme_grey-dark};
   --color-shadow-light: #{var.$dark-theme_grey-dark-o20};
   --color-token-red: #{var.$dark-theme_red};
   --color-token-green: #{var.$dark-theme_green};

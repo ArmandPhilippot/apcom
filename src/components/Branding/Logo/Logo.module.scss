@@ -1,0 +1,23 @@
+.wrapper {
+  position: relative;
+}
+
+.bg-left {
+  fill: var(--color-primary-light);
+}
+
+.bg-right {
+  fill: var(--color-primary-dark);
+}
+
+.letter {
+  fill: var(--color-fg-inverted);
+  stroke: var(--color-primary-darker);
+  stroke-width: 5;
+}
+
+.letter-shadow {
+  fill: var(--color-shadow-darker);
+  stroke: var(--color-shadow-darker);
+  stroke-width: 5;
+}
