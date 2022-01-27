@@ -4,7 +4,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: @lingui/cli\n"
+"X-Generator: Poedit 3.0\n"
 "Language: fr\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
@@ -13,11 +13,557 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/PostMeta/PostMeta.tsx:69
+msgid "1 comment"
+msgstr "1 commentaire"
+
+#: src/pages/contact.tsx:114
+msgid "All fields marked with * are required."
+msgstr "Tous les champs marqués avec une * sont requis."
+
+#: src/pages/sujet/[slug].tsx:131 src/pages/thematique/[slug].tsx:121
+msgid "All posts in {0}"
+msgstr "Tous les articles dans {0}"
+
+#: src/pages/contact.tsx:53
+msgid "An error occurred:"
+msgstr "Une erreur est survenue :"
+
+#: src/components/Settings/ReduceMotion/ReduceMotion.tsx:26
+msgid "Animations:"
+msgstr "Animations :"
+
+#: src/components/Footer/Footer.tsx:39
+msgid "Back to top"
+msgstr "Retour en haut"
+
+#: src/components/Breadcrumb/Breadcrumb.tsx:30
+#: src/components/Breadcrumb/Breadcrumb.tsx:64 src/config/nav.ts:6
+#: src/pages/blog/index.tsx:85 src/pages/blog/index.tsx:170
+msgid "Blog"
+msgstr "Blog"
+
+#: src/config/seo.ts:10
+msgid "Blog: development, open source - {0}"
+msgstr "Blog : développement web, libre et open-source - {0}"
+
+#: src/components/Icons/Copyright/Copyright.tsx:11
+msgid "CC BY SA"
+msgstr "CC BY SA"
+
+#: src/config/seo.ts:14
+msgid "CV Front-end developer - {0}"
+msgstr "CV Intégrateur web / Développeur front-end - {0}"
+
+#: src/components/MainNav/MainNav.tsx:76
+msgid "Close menu"
+msgstr "Fermer le menu"
+
+#: src/components/Buttons/ButtonToolbar/ButtonToolbar.tsx:41
+msgid "Close {type}"
+msgstr "Fermer {type}"
+
+#: src/components/WidgetParts/ExpandableWidget/ExpandableWidget.tsx:37
+msgid "Collapse"
+msgstr "Replier"
+
+#: src/components/CommentForm/CommentForm.tsx:110
+msgid "Comment"
+msgstr "Commentaire"
+
+#: src/components/CommentsList/CommentsList.tsx:23
+msgid "Comments"
+msgstr "Commentaires"
+
+#: src/components/PostMeta/PostMeta.tsx:171
+msgid "Comments:"
+msgstr "Commentaires :"
+
+#: src/config/nav.ts:9 src/pages/contact.tsx:59 src/pages/contact.tsx:184
+msgid "Contact"
+msgstr "Contact"
+
+#: src/config/seo.ts:18
+msgid "Contact form - {0}"
+msgstr "Formulaire de contact - {0}"
+
+#: src/pages/index.tsx:75
+msgid "Contact me"
+msgstr "Contactez-moi"
+
+#: src/config/seo.ts:19
+msgid "Contact {0} through its website. All you need to do it's to fill the contact form."
+msgstr "Contacter {0} à travers son site web. Il vous suffit de remplir le formulaire de contact."
+
+#: src/utils/helpers/prism.ts:48
+msgid "Copied!"
+msgstr "Copié !"
+
+#: src/utils/helpers/prism.ts:47
+msgid "Copy"
+msgstr "Copier"
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:42
+msgid "Created on"
+msgstr "Créé le"
+
+#: src/components/Icons/Moon/Moon.tsx:11
+msgid "Dark theme"
+msgstr "Thème sombre"
+
+#: src/pages/recherche/index.tsx:87
+msgid "Discover search results for: {query}"
+msgstr "Découvrez les résultats de la recherche pour : {query}"
+
+#: src/config/seo.ts:15
+msgid "Discover the curriculum of {0}, front-end developer located in France: skills, experiences and training."
+msgstr "Découvrez le CV d'{0}, intégrateur web / développeur front-end en France: compétences, expériences et formations."
+
+#: src/config/seo.ts:23
+msgid "Discover the legal notice of {0}'s website."
+msgstr "Découvrez les mentions légales du site d'{0}"
+
+#: src/config/seo.ts:31
+msgid "Discover {0} projects. Mostly related to web development and open source."
+msgstr "Découvrez les projets d'{0}. Ils sont essentiellement en lien avec le développement web, le libre et l'open-source."
+
+#: src/config/seo.ts:11
+msgid "Discover {0}'s writings. He talks about web development, Linux and open source mostly."
+msgstr "Découvrez les articles d'{0}. Il parle de développement web, de Linux et de libre essentiellement."
+
+#: src/components/Widgets/CVPreview/CVPreview.tsx:28
+msgid "Download <0>CV in PDF</0>"
+msgstr "Télécharger le <0>CV en PDF</0>"
+
+#: src/components/CommentForm/CommentForm.tsx:91 src/config/sharing.ts:61
+#: src/pages/contact.tsx:133
+msgid "Email"
+msgstr "Email"
+
+#: src/pages/404.tsx:46
+msgid "Error"
+msgstr "Erreur"
+
+#: src/config/seo.ts:26
+msgid "Error 404: Page not found - {0}"
+msgstr "Erreur 404 : Page non trouvée - {0}"
+
+#: src/components/WidgetParts/ExpandableWidget/ExpandableWidget.tsx:37
+msgid "Expand"
+msgstr "Déplier"
+
+#: src/components/Widgets/RecentPosts/RecentPosts.tsx:54
+#: src/components/Widgets/ThematicsList/ThematicsList.tsx:26
+#: src/components/Widgets/TopicsList/TopicsList.tsx:26
+#: src/pages/blog/index.tsx:79 src/pages/recherche/index.tsx:103
+msgid "Failed to load."
+msgstr "Échec du chargement."
+
+#: src/pages/blog/index.tsx:153
+msgid "Filter by"
+msgstr "Filtrer par"
+
+#: src/pages/contact.tsx:163
+msgid "Find me elsewhere"
+msgstr "Retrouvez-moi ailleurs"
+
+#: src/pages/index.tsx:60
+msgid "Free"
+msgstr "Libre"
+
 #: src/config/website.ts:5
 msgid "Front-end developer"
-msgstr ""
+msgstr "Intégrateur web"
+
+#: src/components/Breadcrumb/Breadcrumb.tsx:23
+#: src/components/Breadcrumb/Breadcrumb.tsx:54 src/config/nav.ts:5
+msgid "Home"
+msgstr "Accueil"
+
+#: src/pages/404.tsx:25
+msgid "If you think this path should work, feel free to <0>contact me</0> with the necessary information so that I can fix the problem."
+msgstr "Si vous pensez que le chemin devrez fonctionner, n'hésitez pas à <0>me contacter<0> avec les informations nécessaires pour que je puisse corriger le problème."
+
+#: src/components/Widgets/Sharing/Sharing.tsx:57
+msgid "Introduction:"
+msgstr "Présentation :"
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:52
+msgid "Last updated on"
+msgstr "Dernière mise à jour le"
+
+#: src/components/CommentForm/CommentForm.tsx:71
+msgid "Leave a comment"
+msgstr "Laisser un commentaire"
+
+#: src/config/nav.ts:13 src/pages/mentions-legales.tsx:54
+#: src/pages/mentions-legales.tsx:80
+msgid "Legal notice"
+msgstr "Mentions légales"
+
+#: src/config/seo.ts:22
+msgid "Legal notice - {0}"
+msgstr "Mentions légales - {0}"
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:61
+msgid "License"
+msgstr "Licence"
+
+#: src/components/Icons/Sun/Sun.tsx:11
+msgid "Light theme"
+msgstr "Thème clair"
+
+#: src/pages/index.tsx:63
+msgid "Linux"
+msgstr "Linux"
+
+#: src/pages/blog/index.tsx:149 src/pages/recherche/index.tsx:131
+msgid "Load more?"
+msgstr "En charger plus ?"
+
+#: src/components/Spinner/Spinner.tsx:10
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: src/pages/contact.tsx:152
+msgid "Message"
+msgstr "Message"
+
+#: src/components/CommentForm/CommentForm.tsx:80 src/pages/contact.tsx:123
+msgid "Name"
+msgstr "Nom"
+
+#: src/components/PostMeta/PostMeta.tsx:67
+msgid "No comments"
+msgstr "Aucun commentaire"
+
+#: src/components/CommentsList/CommentsList.tsx:27
+msgid "No comments yet."
+msgstr "Aucun commentaire pour le moment."
+
+#: src/components/PostsList/PostsList.tsx:65
+msgid "No results found."
+msgstr "Aucun résultat trouvé."
+
+#: src/components/PaginationCursor/PaginationCursor.tsx:19
+msgid "Number of articles loaded out of the total available."
+msgstr "Nombre d'articles chargés par rapport au total disponible."
+
+#: src/components/Settings/ReduceMotion/ReduceMotion.tsx:28
+msgid "Off"
+msgstr "Désactiver"
+
+#: src/components/Settings/ReduceMotion/ReduceMotion.tsx:27
+msgid "On"
+msgstr "Activer"
+
+#: src/components/MainNav/MainNav.tsx:76
+msgid "Open menu"
+msgstr "Ouvrir le menu"
+
+#: src/components/Buttons/ButtonToolbar/ButtonToolbar.tsx:43
+msgid "Open {type}"
+msgstr "Ouvrir {type}"
+
+#: src/pages/cv.tsx:99
+msgid "Open-source projects"
+msgstr "Projets open-source"
+
+#: src/pages/cv.tsx:97
+msgid "Other formats"
+msgstr "Autres formats"
+
+#: src/pages/thematique/[slug].tsx:128
+msgid "Other thematics"
+msgstr "Autres thématiques"
+
+#: src/pages/sujet/[slug].tsx:138
+msgid "Other topics"
+msgstr "Autres sujets"
+
+#: src/pages/404.tsx:20
+msgid "Page not found"
+msgstr "Page non trouvée"
+
+#: src/pages/contact.tsx:60
+msgid "Please fill the form to contact me."
+msgstr "Veuillez remplir le formulaire pour me contacter."
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:106
+msgid "Popularity"
+msgstr "Popularité"
+
+#: src/components/Breadcrumb/Breadcrumb.tsx:39
+#: src/components/Breadcrumb/Breadcrumb.tsx:75 src/config/nav.ts:7
+#: src/pages/index.tsx:27
+msgid "Projects"
+msgstr "Projets"
+
+#: src/config/seo.ts:30
+msgid "Projects: open-source makings - {0}"
+msgstr "Projets : réalisations open-source - {0}"
+
+#: src/components/PostsList/PostsList.tsx:35
+msgid "Published in"
+msgstr "Publié dans"
+
+#: src/components/Comment/Comment.tsx:71
+#: src/components/PostMeta/PostMeta.tsx:94
+#: src/components/Widgets/RecentPosts/RecentPosts.tsx:39
+msgid "Published on:"
+msgstr "Publié le :"
+
+#: src/components/PostPreview/PostPreview.tsx:100
+msgid "Read more"
+msgstr "Lire la suite"
+
+#: src/components/PostFooter/PostFooter.tsx:34
+msgid "Read more articles about:"
+msgstr "Lire d'avantages d'articles à propos :"
+
+#: src/components/Widgets/Sharing/Sharing.tsx:58
+msgid "Read more here:"
+msgstr "Lire la suite ici :"
+
+#: src/components/PostMeta/PostMeta.tsx:124
+msgid "Reading time:"
+msgstr "Temps de lecture :"
+
+#: src/components/Widgets/RelatedThematics/RelatedThematics.tsx:23
+msgid "Related thematic"
+msgstr "Thématique liée"
+
+#: src/components/Widgets/RelatedThematics/RelatedThematics.tsx:23
+msgid "Related thematics"
+msgstr "Thématiques liées"
+
+#: src/components/Widgets/RelatedTopics/RelatedTopics.tsx:23
+msgid "Related topic"
+msgstr "Sujet lié"
+
+#: src/components/Widgets/RelatedTopics/RelatedTopics.tsx:23
+msgid "Related topics"
+msgstr "Sujets liés"
+
+#: src/components/Comment/Comment.tsx:88
+msgid "Reply"
+msgstr "Répondre"
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:79
+msgid "Repositories"
+msgstr "Dépôts"
+
+#: src/config/nav.ts:8
+msgid "Resume"
+msgstr "CV"
+
+#: src/components/SearchForm/SearchForm.tsx:30
+#: src/components/SearchForm/SearchForm.tsx:42
+#: src/pages/recherche/index.tsx:152
+msgid "Search"
+msgstr "Rechercher"
+
+#: src/pages/recherche/index.tsx:88
+msgid "Search for a post on {0}."
+msgstr "Rechercher un article sur {0}."
+
+#: src/pages/recherche/index.tsx:79
+msgid "Search results for: {query}"
+msgstr "Résultats de la recherche pour : {query}"
+
+#: src/components/Widgets/Sharing/Sharing.tsx:66
+msgid "Seen on {domainName}:"
+msgstr "Vu sur {domainName} :"
+
+#: src/components/CommentForm/CommentForm.tsx:117 src/pages/contact.tsx:157
+msgid "Send"
+msgstr "Envoyer"
+
+#: src/components/Settings/Settings.tsx:11
+msgid "Settings"
+msgstr "Réglages"
+
+#: src/components/Widgets/Sharing/Sharing.tsx:105
+msgid "Share"
+msgstr "Partager"
+
+#: src/components/Widgets/Sharing/Sharing.tsx:97
+msgid "Share on {name}"
+msgstr "Partager sur {name}"
+
+#: src/components/Layouts/Layout.tsx:94
+msgid "Skip to content"
+msgstr "Aller au contenu"
+
+#: src/pages/404.tsx:22
+msgid "Sorry, it seems that the page you are looking for does not exist."
+msgstr "Désolé, il semble que la page demandée n'existe pas."
+
+#: src/pages/contact.tsx:143
+msgid "Subject"
+msgstr "Sujet"
+
+#: src/pages/index.tsx:81
+msgid "Subscribe"
+msgstr "S'abonner"
+
+#: src/components/Widgets/ToC/ToC.tsx:8
+msgid "Table of contents"
+msgstr "Table des matières"
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:66
+msgid "Technologies"
+msgstr "Technologies"
+
+#: src/components/ProjectPreview/ProjectPreview.tsx:39
+msgid "Technologies:"
+msgstr "Technologies :"
+
+#: src/components/CommentForm/CommentForm.tsx:120
+msgid "Thanks for your comment! It is now awaiting moderation."
+msgstr "Merci pour votre commentaire ! Il est maintenant en attente de modération."
+
+#: src/pages/contact.tsx:49
+msgid "Thanks. Your message was successfully sent. I will answer it as soon as possible."
+msgstr "Merci. Votre message a bien été envoyé. Je vous répondrai dès que possible."
+
+#: src/components/PostMeta/PostMeta.tsx:148
+msgid "Thematic:"
+msgstr "Thématique :"
+
+#: src/pages/blog/index.tsx:154 src/pages/recherche/index.tsx:136
+msgid "Thematics"
+msgstr "Thématiques"
+
+#: src/components/PostMeta/PostMeta.tsx:148
+msgid "Thematics:"
+msgstr "Thématiques :"
+
+#: src/components/Settings/ThemeToggle/ThemeToggle.tsx:27
+msgid "Theme:"
+msgstr "Thème :"
+
+#: src/components/Comment/Comment.tsx:119
+msgid "This comment is awaiting moderation."
+msgstr "Ce commentaire est en attente de modération."
+
+#: src/components/PostMeta/PostMeta.tsx:156
+msgid "Topic:"
+msgstr "Sujet :"
+
+#: src/pages/blog/index.tsx:155 src/pages/recherche/index.tsx:137
+msgid "Topics"
+msgstr "Sujets"
+
+#: src/components/PostMeta/PostMeta.tsx:156
+msgid "Topics:"
+msgstr "Sujets :"
+
+#: src/components/PostMeta/PostMeta.tsx:135
+msgid "Total:"
+msgstr "Total :"
+
+#: src/components/PostMeta/PostMeta.tsx:101
+msgid "Updated on:"
+msgstr "Mis à jour le :"
+
+#: src/utils/helpers/prism.ts:49
+msgid "Use Ctrl+c to copy"
+msgstr "Utilisez Ctrl+c pour copier"
+
+#: src/pages/index.tsx:23
+msgid "Web development"
+msgstr "Développement web"
+
+#: src/components/CommentForm/CommentForm.tsx:101
+msgid "Website"
+msgstr "Site web"
+
+#: src/components/PostMeta/PostMeta.tsx:163
+msgid "Website:"
+msgstr "Site web :"
+
+#: src/components/PostMeta/PostMeta.tsx:117
+msgid "Written by:"
+msgstr "Écrit par :"
+
+#: src/components/Breadcrumb/Breadcrumb.tsx:111
+msgid "You are here:"
+msgstr "Vous êtes ici :"
+
+#. Post title
+#: src/components/PostPreview/PostPreview.tsx:103
+msgid "about {title}"
+msgstr "à propos de {title}"
+
+#: src/components/PostMeta/PostMeta.tsx:77
+msgid "less than 1 minute"
+msgstr "moins d'1 minute"
+
+#. Search page title
+#: src/pages/recherche/index.tsx:80
+msgid "msg.search"
+msgstr "Recherche"
+
+#: src/config/seo.ts:7
+msgid "{0} is a front-end developer located in France. He codes and he writes mostly about web development and open-source."
+msgstr "{0} est un intégrateur web / développeur front-end vivant en France. Il code et écrit essentiellement à propos de développement web et de libre."
 
 #. Branding logo.
-#: src/components/Branding/Branding.tsx:17
+#: src/components/Branding/Branding.tsx:41
 msgid "{0} picture"
-msgstr ""
+msgstr "Image de {0}"
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:111
+msgid "{0} stars on Github"
+msgstr "{0} étoiles sur Github"
+
+#: src/config/seo.ts:6
+msgid "{0} | Front-end developer: WordPress/React"
+msgstr "{0} | Intégrateur web - Développeur WordPress / React"
+
+#: src/components/PostMeta/PostMeta.tsx:71
+msgid "{commentCount} comments"
+msgstr "{commentCount} commentaires"
+
+#: src/components/PaginationCursor/PaginationCursor.tsx:20
+msgid "{current, plural, zero {# articles out of a total of {total}} one {# article out of a total of {total}} other {# articles out of a total of {total}}}"
+msgstr "{current, plural, zero {# article sur un total de {total}} one {# article sur un total de {total}} other {# articles sur un total de {total}}}"
+
+#: src/components/Comment/Comment.tsx:51
+msgid "{date} at {time}"
+msgstr "{date} à {time}"
+
+#: src/components/PostMeta/PostMeta.tsx:78
+msgid "{readingTime, plural, zero {# minutes} one {# minute} other {# minutes}}"
+msgstr "{readingTime, plural, zero {# minute} one {# minute} other {# minutes}}"
+
+#: src/components/PostMeta/PostMeta.tsx:137
+msgid "{results, plural, zero {# articles} one {# article} other {# articles}}"
+msgstr "{results, plural, zero {# article} one {# article} other {# articles}}"
+
+#: src/components/ProjectPreview/ProjectPreview.tsx:23
+msgid "{title} picture"
+msgstr "Image de {title}"
+
+#: src/components/ProjectSummary/ProjectSummary.tsx:33
+msgid "{title} preview"
+msgstr "Aperçu de {title}"
+
+#~ msgid "Armand Philippot is a front-end developer located in France. He codes and he writes mostly about web development and open-source."
+#~ msgstr "Armand Philippot est un intégrateur web et développeur WordPress/React vivant en France. Il code et écrit surtout à propos de développement web et de libre."
+
+#~ msgid "Armand Philippot | Front-end developer: WordPress/React"
+#~ msgstr "Armand Philippot | Intégrateur web - Développeur WordPress / React"
+
+#~ msgid "Blog: development, open source - Armand Philippot"
+#~ msgstr "Blog : développement web, libre et open-source - Armand Philippot"
+
+#~ msgid "CV Front-end developer - Armand Philippot"
+#~ msgstr "CV Intégrateur web / Développeur front-end - Armand Philippot"
+
+#~ msgid "Contact Armand Philippot through its website. All you need to do it's to fill the contact form."
+#~ msgstr "Contacter Armand Philippot à travers son site web. Il vous suffit de remplir le formulaire de contact."
+
+#~ msgid "Contact form - Armand Philippot"
+#~ msgstr "Formulaire de contact - Armand Philippot"
