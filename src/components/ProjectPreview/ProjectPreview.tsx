@@ -6,41 +6,41 @@ import Link from 'next/link';
 import styles from './ProjectPreview.module.scss';
 
 const ProjectPreview = ({ project }: { project: Project }) => {
+  const { id, meta, tagline, title } = project;
+
   return (
     <Link href={`/projet/${project.slug}`}>
       <a className={styles.link}>
         <article className={styles.article}>
           <header>
-            {project.cover && (
+            {meta.hasCover && (
               <div className={styles.cover}>
                 <Image
-                  src={project.cover}
+                  src={`/projects/${id}.jpg`}
                   layout="fill"
                   objectFit="contain"
                   objectPosition="center"
-                  alt={t`${project.title} picture`}
+                  alt={t`${title} picture`}
                 />
               </div>
             )}
-            <h2 className={styles.title}>{project.title}</h2>
+            <h2 className={styles.title}>{title}</h2>
           </header>
-          <div
-            className={styles.body}
-            dangerouslySetInnerHTML={{ __html: project.intro }}
-          ></div>
-          <footer>
+          {tagline && (
+            <div
+              className={styles.body}
+              dangerouslySetInnerHTML={{ __html: tagline }}
+            ></div>
+          )}
+          <footer className={styles.footer}>
             <dl className={styles.meta}>
-              {project.meta.license && (
+              {meta.technologies && (
                 <div className={styles.meta__item}>
-                  <dt>{t`License:`}</dt>
-                  <dd>{project.meta.license}</dd>
-                </div>
-              )}
-              {project.meta.technologies && (
-                <div className={styles.meta__item}>
-                  <dt>{t`Technologies:`}</dt>
-                  {project.meta.technologies.map((techno) => (
-                    <dd key={slugify(techno)}>{techno}</dd>
+                  <dt className="screen-reader-text">{t`Technologies:`}</dt>
+                  {meta.technologies.map((techno) => (
+                    <dd key={slugify(techno)} className={styles.techno}>
+                      {techno}
+                    </dd>
                   ))}
                 </div>
               )}

@@ -10,27 +10,27 @@ import path from 'path';
 export const getProjectData = async (id: string): Promise<Project> => {
   try {
     const {
-      image,
       intro,
       meta,
       seo,
+      tagline,
     }: {
-      image: string;
       intro: string;
       meta: ProjectMeta & { title: string };
       seo: { title: string; description: string };
+      tagline?: string;
     } = await import(`../../content/projects/${id}.mdx`);
 
     const { title, ...onlyMeta } = meta;
 
     return {
       id,
-      cover: image || '',
       intro: intro || '',
       meta: onlyMeta || {},
       slug: id,
       title,
       seo: seo || {},
+      tagline: tagline || '',
     };
   } catch (err) {
     console.error(err);

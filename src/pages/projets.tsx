@@ -3,7 +3,7 @@ import PostHeader from '@components/PostHeader/PostHeader';
 import ProjectsList from '@components/ProjectsList/ProjectsList';
 import { seo } from '@config/seo';
 import { config } from '@config/website';
-import PageContent, { intro, meta } from '@content/pages/projects.mdx';
+import PageContent, { meta } from '@content/pages/projects.mdx';
 import styles from '@styles/pages/Projects.module.scss';
 import { Project } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
@@ -42,7 +42,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
     '@id': `${config.url}/#projects`,
     '@type': 'Article',
     name: meta.title,
-    description: intro,
+    description: seo.projects.description,
     author: { '@id': `${config.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
     creator: { '@id': `${config.url}/#branding` },
@@ -68,7 +68,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
         <meta property="og:url" content={`${pageUrl}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={meta.title} />
-        <meta property="og:description" content={intro} />
+        <meta property="og:description" content={seo.projects.description} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

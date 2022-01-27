@@ -208,7 +208,8 @@ var {
 
 :not(pre) > code,
 kbd,
-var {
+var,
+samp {
   background: var(--color-bg-code);
   border: fun.convert-px(1) solid var(--color-border);
   border-radius: fun.convert-px(3);
