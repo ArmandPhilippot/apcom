@@ -1,18 +1,18 @@
-import type { ReactElement } from 'react';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
+import FeedIcon from '@assets/images/icon-feed.svg';
+import { ButtonLink } from '@components/Buttons';
+import { ContactIcon } from '@components/Icons';
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
-import { NextPageWithLayout } from '@ts/types/app';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
-import HomePageContent from '@content/pages/homepage.mdx';
-import { ButtonLink } from '@components/Buttons';
-import styles from '@styles/pages/Home.module.scss';
-import { t } from '@lingui/macro';
-import FeedIcon from '@assets/images/icon-feed.svg';
-import { ContactIcon } from '@components/Icons';
-import { Graph, WebPage } from 'schema-dts';
 import { config } from '@config/website';
+import HomePageContent from '@content/pages/homepage.mdx';
+import { t } from '@lingui/macro';
+import styles from '@styles/pages/Home.module.scss';
+import { NextPageWithLayout } from '@ts/types/app';
+import { loadTranslation } from '@utils/helpers/i18n';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
+import type { ReactElement } from 'react';
+import { Graph, WebPage } from 'schema-dts';
 
 const Home: NextPageWithLayout = () => {
   const CodingLinks = () => {
@@ -141,11 +141,10 @@ export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {
-      locale,
       translation,
     },
   };

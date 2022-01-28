@@ -1,19 +1,19 @@
 import { getLayout } from '@components/Layouts/Layout';
+import PostHeader from '@components/PostHeader/PostHeader';
+import Sidebar from '@components/Sidebar/Sidebar';
+import { CVPreview, SocialMedia, ToC } from '@components/Widgets';
 import { seo } from '@config/seo';
+import { config } from '@config/website';
+import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
+import { t } from '@lingui/macro';
+import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
+import { ArticleMeta } from '@ts/types/articles';
+import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
-import PostHeader from '@components/PostHeader/PostHeader';
-import { ArticleMeta } from '@ts/types/articles';
-import styles from '@styles/pages/Page.module.scss';
-import { CVPreview, SocialMedia, ToC } from '@components/Widgets';
-import { t } from '@lingui/macro';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { AboutPage, Graph, WebPage } from 'schema-dts';
-import { config } from '@config/website';
 import { useRouter } from 'next/router';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
+import { AboutPage, Graph, WebPage } from 'schema-dts';
 
 const CV: NextPageWithLayout = () => {
   const router = useRouter();
@@ -113,7 +113,7 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const breadcrumbTitle = meta.title;
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {

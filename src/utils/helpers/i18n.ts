@@ -1,86 +1,28 @@
-import { messages as messagesEn } from '@i18n/en/messages.js';
-import { messages as messagesFr } from '@i18n/fr/messages.js';
-import { i18n, Messages } from '@lingui/core';
-import { en, fr } from 'make-plural/plurals';
+import { config } from '@config/website';
+import { readFile } from 'fs/promises';
+import path from 'path';
 
-type Catalog = {
-  messages: Messages;
-};
-
-export const locales = {
-  en: 'English',
-  fr: 'Français',
-};
-
-export const defaultLocale = 'fr';
+type Messages = { [key: string]: string };
 
 /**
- * Load the translation with the correct method depending on environment.
- *
- * @param {string} locale - The current locale.
- * @returns {Promise<Messages>} The translated messages.
+ * Load the translation for the provided locale.
+ * @param currentLocale - The current locale.
+ * @returns {Promise<Messages>} The translated strings.
  */
-export async function loadTranslation(locale: string): Promise<Messages> {
-  let catalog: Catalog;
+export async function loadTranslation(
+  currentLocale: string | undefined
+): Promise<Messages> {
+  const locale: string = currentLocale || config.locales.defaultLocale;
+
+  const languagePath = path.join(process.cwd(), `lang/${locale}.json`);
 
   try {
-    if (process.env.NODE_ENV === 'production') {
-      catalog = await import(`src/i18n/${locale}/messages`);
-    } else {
-      catalog = await import(`@lingui/loader!src/i18n/${locale}/messages.po`);
-    }
-
-    return catalog.messages;
+    const contents = await readFile(languagePath, 'utf8');
+    return JSON.parse(contents);
   } catch (error) {
-    console.error('Error while loading translation.');
-    throw error;
-  }
-}
-
-/**
- * Init lingui.
- *
- * @param {string} locale - The locale to activate.
- * @param {Messages} [messages] - The compiled translation.
- */
-export function initLingui(locale: string, messages?: Messages) {
-  try {
-    i18n.loadLocaleData({
-      en: { plurals: en },
-      fr: { plurals: fr },
-    });
-
-    if (messages) {
-      i18n.load(locale, messages);
-    } else {
-      i18n.load({
-        en: messagesEn,
-        fr: messagesFr,
-      });
-    }
-
-    i18n.activate(locale, Object.keys(locales));
-  } catch (error) {
-    console.error('Error while Lingui init.');
-    throw error;
-  }
-}
-
-/**
- * Activate the given locale.
- *
- * @param {string} locale - The locale to activate.
- * @param {Messages} messages - The compiled translation.
- */
-export function activateLocale(currentLocale: string, messages: Messages) {
-  const locale: string = Object.keys(locales).includes(currentLocale)
-    ? currentLocale
-    : defaultLocale;
-
-  try {
-    initLingui(locale, messages);
-  } catch (error) {
-    console.error(`Error while activating ${currentLocale}`);
+    console.error(
+      'Error: Could not load compiled language files. Please run `yarn run i18n:compile` first."'
+    );
     throw error;
   }
 }

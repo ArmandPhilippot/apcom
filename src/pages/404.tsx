@@ -2,12 +2,12 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import { seo } from '@config/seo';
 import { t, Trans } from '@lingui/macro';
+import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
+import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '@styles/pages/Page.module.scss';
 
 const error404: NextPageWithLayout = () => {
   return (
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const breadcrumbTitle = t`Error`;
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {

@@ -1,25 +1,25 @@
 import { getLayout } from '@components/Layouts/Layout';
+import PostHeader from '@components/PostHeader/PostHeader';
 import PostPreview from '@components/PostPreview/PostPreview';
+import Sidebar from '@components/Sidebar/Sidebar';
+import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
+import { config } from '@config/website';
 import { t } from '@lingui/macro';
-import { NextPageWithLayout } from '@ts/types/app';
-import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
-import styles from '@styles/pages/Page.module.scss';
 import {
   getAllThematicsSlug,
   getThematicBySlug,
 } from '@services/graphql/queries';
-import PostHeader from '@components/PostHeader/PostHeader';
-import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
-import { useRef } from 'react';
+import styles from '@styles/pages/Page.module.scss';
+import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
+import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
+import { loadTranslation } from '@utils/helpers/i18n';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { Article, Graph, WebPage } from 'schema-dts';
-import { config } from '@config/website';
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
+import { useRef } from 'react';
+import { Article, Graph, WebPage } from 'schema-dts';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const relatedTopics = useRef<TopicPreview[]>([]);
@@ -142,7 +142,7 @@ export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
   const { slug } = context.params as PostParams;
   const thematic = await getThematicBySlug(slug);
   const breadcrumbTitle = thematic.title;

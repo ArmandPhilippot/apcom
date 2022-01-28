@@ -1,22 +1,22 @@
 import { getLayout } from '@components/Layouts/Layout';
+import PostHeader from '@components/PostHeader/PostHeader';
+import Sidebar from '@components/Sidebar/Sidebar';
+import { ToC } from '@components/Widgets';
 import { seo } from '@config/seo';
-import { NextPageWithLayout } from '@ts/types/app';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
+import { config } from '@config/website';
 import LegalNoticeContent, {
   intro,
   meta,
 } from '@content/pages/legal-notice.mdx';
-import PostHeader from '@components/PostHeader/PostHeader';
-import { ArticleMeta } from '@ts/types/articles';
-import styles from '@styles/pages/Page.module.scss';
-import { ToC } from '@components/Widgets';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { Article, Graph, WebPage } from 'schema-dts';
-import { config } from '@config/website';
-import { useRouter } from 'next/router';
 import { t } from '@lingui/macro';
+import styles from '@styles/pages/Page.module.scss';
+import { NextPageWithLayout } from '@ts/types/app';
+import { ArticleMeta } from '@ts/types/articles';
+import { loadTranslation } from '@utils/helpers/i18n';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { Article, Graph, WebPage } from 'schema-dts';
 
 const LegalNotice: NextPageWithLayout = () => {
   const router = useRouter();
@@ -107,7 +107,7 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const breadcrumbTitle = meta.title;
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {

@@ -1,23 +1,23 @@
 import { Button } from '@components/Buttons';
 import { getLayout } from '@components/Layouts/Layout';
+import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
 import PostHeader from '@components/PostHeader/PostHeader';
 import PostsList from '@components/PostsList/PostsList';
+import Sidebar from '@components/Sidebar/Sidebar';
+import Spinner from '@components/Spinner/Spinner';
+import { ThematicsList, TopicsList } from '@components/Widgets';
 import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { getPublishedPosts } from '@services/graphql/queries';
+import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { PostsList as PostsListData } from '@ts/types/blog';
+import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { ThematicsList, TopicsList } from '@components/Widgets';
-import styles from '@styles/pages/Page.module.scss';
-import Spinner from '@components/Spinner/Spinner';
-import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 
 const Search: NextPageWithLayout = () => {
   const [query, setQuery] = useState('');
@@ -147,7 +147,7 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const breadcrumbTitle = t`Search`;
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {

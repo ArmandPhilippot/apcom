@@ -1,25 +1,25 @@
-import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
-import { t } from '@lingui/macro';
+import { Button } from '@components/Buttons';
 import { getLayout } from '@components/Layouts/Layout';
+import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
+import PostHeader from '@components/PostHeader/PostHeader';
+import PostsList from '@components/PostsList/PostsList';
+import Sidebar from '@components/Sidebar/Sidebar';
+import Spinner from '@components/Spinner/Spinner';
+import { ThematicsList, TopicsList } from '@components/Widgets';
 import { seo } from '@config/seo';
 import { config } from '@config/website';
+import { t } from '@lingui/macro';
+import { getPublishedPosts } from '@services/graphql/queries';
+import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
-import PostsList from '@components/PostsList/PostsList';
-import useSWRInfinite from 'swr/infinite';
-import { Button } from '@components/Buttons';
-import { getPublishedPosts } from '@services/graphql/queries';
-import PostHeader from '@components/PostHeader/PostHeader';
-import { ThematicsList, TopicsList } from '@components/Widgets';
-import Sidebar from '@components/Sidebar/Sidebar';
-import styles from '@styles/pages/Page.module.scss';
-import { useEffect, useRef, useState } from 'react';
-import Spinner from '@components/Spinner/Spinner';
-import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
+import { loadTranslation } from '@utils/helpers/i18n';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
+import { useEffect, useRef, useState } from 'react';
+import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
+import useSWRInfinite from 'swr/infinite';
 
 const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const lastPostRef = useRef<HTMLSpanElement>(null);
@@ -167,7 +167,7 @@ export const getStaticProps: GetStaticProps = async (
   const breadcrumbTitle = t`Blog`;
   const data = await getPublishedPosts({ first: config.postsPerPage });
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {

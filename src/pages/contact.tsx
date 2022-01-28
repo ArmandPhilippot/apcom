@@ -1,21 +1,21 @@
 import { ButtonSubmit } from '@components/Buttons';
 import { Form, FormItem, Input, TextArea } from '@components/Form';
 import { getLayout } from '@components/Layouts/Layout';
+import PostHeader from '@components/PostHeader/PostHeader';
+import Sidebar from '@components/Sidebar/Sidebar';
+import { SocialMedia } from '@components/Widgets';
 import { seo } from '@config/seo';
+import { config } from '@config/website';
 import { t } from '@lingui/macro';
 import { sendMail } from '@services/graphql/mutations';
+import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
+import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import { FormEvent, useState } from 'react';
-import PostHeader from '@components/PostHeader/PostHeader';
-import styles from '@styles/pages/Page.module.scss';
-import { SocialMedia } from '@components/Widgets';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
-import { config } from '@config/website';
 import { useRouter } from 'next/router';
+import { FormEvent, useState } from 'react';
+import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
 
 const ContactPage: NextPageWithLayout = () => {
   const [name, setName] = useState('');
@@ -178,7 +178,7 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const breadcrumbTitle = t`Contact`;
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {

@@ -1,23 +1,21 @@
-import { useEffect } from 'react';
-import { i18n } from '@lingui/core';
-import { I18nProvider } from '@lingui/react';
+import { config } from '@config/website';
 import { AppPropsWithLayout } from '@ts/types/app';
-import { activateLocale, defaultLocale, initLingui } from '@utils/helpers/i18n';
-import '../styles/globals.scss';
 import { ThemeProvider } from 'next-themes';
-
-initLingui(defaultLocale);
+import { useRouter } from 'next/router';
+import { IntlProvider } from 'react-intl';
+import '../styles/globals.scss';
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const locale: string = pageProps.locale || defaultLocale;
-
-  useEffect(() => {
-    activateLocale(locale, pageProps.translation);
-  });
+  const { locale, defaultLocale } = useRouter();
+  const appLocale: string = locale || config.locales.defaultLocale;
 
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <I18nProvider i18n={i18n}>
+    <IntlProvider
+      locale={appLocale}
+      defaultLocale={defaultLocale}
+      messages={pageProps.translation}
+    >
       <ThemeProvider
         defaultTheme="system"
         enableColorScheme={true}
@@ -25,7 +23,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
       >
         {getLayout(<Component {...pageProps} />)}
       </ThemeProvider>
-    </I18nProvider>
+    </IntlProvider>
   );
 };
 

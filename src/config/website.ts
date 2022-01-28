@@ -10,6 +10,7 @@ export const config = {
   locales: {
     defaultLocale: 'fr',
     defaultCountry: 'FR',
+    supported: ['en', 'fr'],
   },
   postsPerPage: 10,
   twitterId: '@ArmandPhilippot',
