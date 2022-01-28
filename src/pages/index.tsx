@@ -1,10 +1,10 @@
 import type { ReactElement } from 'react';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Layout from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import HomePageContent from '@content/pages/homepage.mdx';
 import { ButtonLink } from '@components/Buttons';
 import styles from '@styles/pages/Home.module.scss';
@@ -137,14 +137,15 @@ Home.getLayout = function getLayout(page: ReactElement) {
   return <Layout isHome={true}>{page}</Layout>;
 };
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const translation = await loadTranslation(
-    ctx.locale!,
-    process.env.NODE_ENV === 'production'
-  );
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
 
   return {
     props: {
+      locale,
       translation,
     },
   };

@@ -6,7 +6,7 @@ import { config } from '@config/website';
 import PageContent, { meta } from '@content/pages/projects.mdx';
 import styles from '@styles/pages/Projects.module.scss';
 import { Project } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import { getSortedProjects } from '@utils/helpers/projects';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -89,16 +89,15 @@ Projects.getLayout = getLayout;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
   const breadcrumbTitle = meta.title;
+  const { locale } = context;
   const projects: Project[] = await getSortedProjects();
+  const translation = await loadTranslation(locale || defaultLocale);
 
   return {
     props: {
       breadcrumbTitle,
+      locale,
       projects,
       translation,
     },

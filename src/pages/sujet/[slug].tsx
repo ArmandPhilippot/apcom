@@ -3,7 +3,7 @@ import PostPreview from '@components/PostPreview/PostPreview';
 import { t } from '@lingui/macro';
 import { NextPageWithLayout } from '@ts/types/app';
 import { TopicProps, ThematicPreview } from '@ts/types/taxonomies';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import styles from '@styles/pages/Page.module.scss';
@@ -151,10 +151,8 @@ interface PostParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
   const { slug } = context.params as PostParams;
   const topic = await getTopicBySlug(slug);
   const breadcrumbTitle = topic.title;
@@ -162,6 +160,7 @@ export const getStaticProps: GetStaticProps = async (
   return {
     props: {
       breadcrumbTitle,
+      locale,
       topic,
       translation,
     },

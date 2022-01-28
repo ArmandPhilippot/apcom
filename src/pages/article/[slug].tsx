@@ -7,7 +7,7 @@ import { config } from '@config/website';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta, ArticleProps } from '@ts/types/articles';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -162,10 +162,8 @@ interface PostParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
   const { slug } = context.params as PostParams;
   const post = await getPostBySlug(slug);
   const breadcrumbTitle = post.title;
@@ -173,6 +171,7 @@ export const getStaticProps: GetStaticProps = async (
   return {
     props: {
       breadcrumbTitle,
+      locale,
       post,
       translation,
     },

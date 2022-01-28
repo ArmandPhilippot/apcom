@@ -5,7 +5,7 @@ import { seo } from '@config/seo';
 import { t } from '@lingui/macro';
 import { sendMail } from '@services/graphql/mutations';
 import { NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { FormEvent, useState } from 'react';
@@ -176,16 +176,14 @@ ContactPage.getLayout = getLayout;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
-
   const breadcrumbTitle = t`Contact`;
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
 
   return {
     props: {
       breadcrumbTitle,
+      locale,
       translation,
     },
   };

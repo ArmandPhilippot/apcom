@@ -11,7 +11,7 @@ import {
   Project as ProjectData,
   ProjectProps,
 } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import {
   getAllProjectsFilename,
   getProjectData,
@@ -131,17 +131,16 @@ interface ProjectParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
   const breadcrumbTitle = '';
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
   const { slug } = context.params as ProjectParams;
   const project = await getProjectData(slug);
 
   return {
     props: {
       breadcrumbTitle,
+      locale,
       project,
       translation,
     },

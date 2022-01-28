@@ -1,5 +1,4 @@
 const path = require('path');
-const { locales } = require('./lingui.config');
 
 const backendDomain = process.env.BACKEND_URL.split('//')[1];
 
@@ -9,7 +8,7 @@ const nextConfig = {
     scrollRestoration: true,
   },
   i18n: {
-    locales,
+    locales: ['fr'],
     defaultLocale: 'fr',
   },
   images: {

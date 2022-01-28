@@ -7,8 +7,7 @@ import { t } from '@lingui/macro';
 import { getPublishedPosts } from '@services/graphql/queries';
 import { NextPageWithLayout } from '@ts/types/app';
 import { PostsList as PostsListData } from '@ts/types/blog';
-import { loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -18,6 +17,7 @@ import { ThematicsList, TopicsList } from '@components/Widgets';
 import styles from '@styles/pages/Page.module.scss';
 import Spinner from '@components/Spinner/Spinner';
 import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 
 const Search: NextPageWithLayout = () => {
   const [query, setQuery] = useState('');
@@ -78,7 +78,6 @@ const Search: NextPageWithLayout = () => {
   const title = query
     ? t`Search results for: ${query}`
     : t({
-        id: 'msg.search',
         comment: 'Search page title',
         message: 'Search',
       });
@@ -143,17 +142,17 @@ const Search: NextPageWithLayout = () => {
 
 Search.getLayout = getLayout;
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
-
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   const breadcrumbTitle = t`Search`;
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
 
   return {
     props: {
       breadcrumbTitle,
+      locale,
       translation,
     },
   };

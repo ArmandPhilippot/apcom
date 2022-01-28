@@ -1,7 +1,7 @@
 import { getLayout } from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import LegalNoticeContent, {
@@ -105,15 +105,14 @@ LegalNotice.getLayout = getLayout;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
   const breadcrumbTitle = meta.title;
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
 
   return {
     props: {
       breadcrumbTitle,
+      locale,
       translation,
     },
   };

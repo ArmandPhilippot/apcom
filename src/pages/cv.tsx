@@ -1,7 +1,6 @@
 import { getLayout } from '@components/Layouts/Layout';
 import { seo } from '@config/seo';
 import { NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
@@ -14,6 +13,7 @@ import Sidebar from '@components/Sidebar/Sidebar';
 import { AboutPage, Graph, WebPage } from 'schema-dts';
 import { config } from '@config/website';
 import { useRouter } from 'next/router';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 
 const CV: NextPageWithLayout = () => {
   const router = useRouter();
@@ -111,15 +111,14 @@ CV.getLayout = getLayout;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
   const breadcrumbTitle = meta.title;
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
 
   return {
     props: {
       breadcrumbTitle,
+      locale,
       translation,
     },
   };

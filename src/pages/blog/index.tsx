@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { t } from '@lingui/macro';
 import { getLayout } from '@components/Layouts/Layout';
@@ -6,7 +6,7 @@ import { seo } from '@config/seo';
 import { config } from '@config/website';
 import { NextPageWithLayout } from '@ts/types/app';
 import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
 import PostsList from '@components/PostsList/PostsList';
 import useSWRInfinite from 'swr/infinite';
 import { Button } from '@components/Buttons';
@@ -161,13 +161,13 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
 
 Blog.getLayout = getLayout;
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const translation = await loadTranslation(
-    context.locale!,
-    process.env.NODE_ENV === 'production'
-  );
-  const data = await getPublishedPosts({ first: config.postsPerPage });
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
   const breadcrumbTitle = t`Blog`;
+  const data = await getPublishedPosts({ first: config.postsPerPage });
+  const { locale } = context;
+  const translation = await loadTranslation(locale || defaultLocale);
 
   return {
     props: {
@@ -175,6 +175,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       fallback: {
         '/api/posts': data,
       },
+      locale,
       translation,
     },
   };

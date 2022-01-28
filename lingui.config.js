@@ -1,6 +1,9 @@
 module.exports = {
-  locales: ['fr'],
+  locales: ['en', 'fr'],
   sourceLocale: 'en',
+  fallbackLocales: {
+    default: 'en',
+  },
   catalogs: [
     {
       path: '<rootDir>/src/i18n/{locale}/messages',
