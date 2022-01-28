@@ -42,3 +42,6 @@ yarn-error.log*
 # dotenv
 .env*
 !.env.example
+
+# i18n
+lang
