@@ -41,7 +41,7 @@
     "graphql": "^16.1.0",
     "graphql-request": "^3.7.0",
     "modern-normalize": "^1.1.0",
-    "next": "12.0.7",
+    "next": "12.0.9",
     "next-themes": "^0.0.15",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.25.0",
