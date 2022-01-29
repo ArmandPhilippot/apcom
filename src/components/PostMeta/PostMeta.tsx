@@ -1,5 +1,5 @@
-import { config } from '@config/website';
 import { ArticleMeta } from '@ts/types/articles';
+import { settings } from '@utils/config';
 import { getFormattedDate } from '@utils/helpers/format';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -28,7 +28,7 @@ const PostMeta = ({
   } = meta;
   const intl = useIntl();
   const router = useRouter();
-  const locale = router.locale ? router.locale : config.locales.defaultLocale;
+  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
   const isThematic = () => router.asPath.includes('/thematique/');
   const isArticle = () => router.asPath.includes('/article/');
 

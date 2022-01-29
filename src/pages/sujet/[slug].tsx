@@ -3,12 +3,12 @@ import PostHeader from '@components/PostHeader/PostHeader';
 import PostPreview from '@components/PostPreview/PostPreview';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
-import { config } from '@config/website';
 import { getAllTopicsSlug, getTopicBySlug } from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
 import { TopicProps, ThematicPreview } from '@ts/types/taxonomies';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -51,19 +51,19 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
     results: topic.posts.length,
     website: topic.officialWebsite,
   };
-  const topicUrl = `${config.url}${router.asPath}`;
+  const topicUrl = `${settings.url}${router.asPath}`;
 
   const webpageSchema: WebPage = {
     '@id': `${topicUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: topic.seo.title,
     description: topic.seo.metaDesc,
-    inLanguage: config.locales.defaultLocale,
-    reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}`,
+    inLanguage: settings.locales.defaultLocale,
+    reviewedBy: { '@id': `${settings.url}/#branding` },
+    url: `${settings.url}`,
     isPartOf: {
-      '@id': `${config.url}`,
+      '@id': `${settings.url}`,
     },
   };
 
@@ -71,24 +71,24 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
   const updateDate = new Date(topic.dates.update);
 
   const articleSchema: Article = {
-    '@id': `${config.url}/topic`,
+    '@id': `${settings.url}/topic`,
     '@type': 'Article',
     name: topic.title,
     description: topic.intro,
-    author: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${settings.url}/#branding` },
     thumbnailUrl: topic.featuredImage?.sourceUrl,
     image: topic.featuredImage?.sourceUrl,
-    inLanguage: config.locales.defaultLocale,
-    isPartOf: { '@id': `${config.url}/blog` },
+    inLanguage: settings.locales.defaultLocale,
+    isPartOf: { '@id': `${settings.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${topicUrl}` },
-    subjectOf: { '@id': `${config.url}/blog` },
+    subjectOf: { '@id': `${settings.url}/blog` },
   };
 
   const schemaJsonLd: Graph = {

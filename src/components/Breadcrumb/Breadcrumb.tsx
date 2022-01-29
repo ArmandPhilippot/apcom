@@ -1,4 +1,4 @@
-import { config } from '@config/website';
+import { settings } from '@utils/config';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -71,7 +71,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
         defaultMessage: 'Home',
         description: 'Breadcrumb: Home item',
       }),
-      item: config.url,
+      item: settings.url,
     };
 
     items.push(homepage);
@@ -84,7 +84,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
           defaultMessage: 'Blog',
           description: 'Breadcrumb: Blog item',
         }),
-        item: `${config.url}/blog`,
+        item: `${settings.url}/blog`,
       };
 
       items.push(blog);
@@ -98,7 +98,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
           defaultMessage: 'Projects',
           description: 'Breadcrumb: Projects item',
         }),
-        item: `${config.url}/projets`,
+        item: `${settings.url}/projets`,
       };
 
       items.push(blog);
@@ -108,7 +108,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
       '@type': 'ListItem',
       position: items.length + 1,
       name: pageTitle,
-      item: `${config.url}${router.asPath}`,
+      item: `${settings.url}${router.asPath}`,
     };
 
     items.push(currentPage);
@@ -119,7 +119,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
   const schemaJsonLd: WithContext<BreadcrumbList> = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    '@id': `${config.url}/#breadcrumb`,
+    '@id': `${settings.url}/#breadcrumb`,
     itemListElement: getElementsSchema(),
   };
 

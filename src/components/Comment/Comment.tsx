@@ -1,7 +1,7 @@
 import { Button } from '@components/Buttons';
 import CommentForm from '@components/CommentForm/CommentForm';
-import { config } from '@config/website';
 import { Comment as CommentData } from '@ts/types/comments';
+import { settings } from '@utils/config';
 import { getFormattedDate } from '@utils/helpers/format';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -23,7 +23,7 @@ const Comment = ({
 }) => {
   const intl = useIntl();
   const router = useRouter();
-  const locale = router.locale ? router.locale : config.locales.defaultLocale;
+  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
   const [isReply, setIsReply] = useState<boolean>(false);
   const firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -146,12 +146,12 @@ const Comment = ({
 
   const schemaJsonLd: WithContext<CommentSchema> = {
     '@context': 'https://schema.org',
-    '@id': `${config.url}/#comment-${comment.commentId}`,
+    '@id': `${settings.url}/#comment-${comment.commentId}`,
     '@type': 'Comment',
     parentItem: isNested
-      ? { '@id': `${config.url}/#comment-${comment.parentDatabaseId}` }
+      ? { '@id': `${settings.url}/#comment-${comment.parentDatabaseId}` }
       : undefined,
-    about: { '@type': 'Article', '@id': `${config.url}/#article` },
+    about: { '@type': 'Article', '@id': `${settings.url}/#article` },
     author: {
       '@type': 'Person',
       name: comment.author.name,

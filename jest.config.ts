@@ -92,15 +92,13 @@ const config = {
     /** Module Path Aliases */
     '^@i18n/(.*)$': '<rootDir>/src/i18n/$1',
     '^@assets/(.*)$': '<rootDir>/src/assets/$1',
-    '^@config/(.*)$': '<rootDir>/src/config/$1',
     '^@content/(.*)$': '<rootDir>/src/content/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
-    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@styles/(.*)$': '<rootDir>/src/styles/$1',
-    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@ts/(.*)$': '<rootDir>/src/ts/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

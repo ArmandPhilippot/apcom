@@ -6,11 +6,11 @@ import PostsList from '@components/PostsList/PostsList';
 import Sidebar from '@components/Sidebar/Sidebar';
 import Spinner from '@components/Spinner/Spinner';
 import { ThematicsList, TopicsList } from '@components/Widgets';
-import { config } from '@config/website';
 import { getPublishedPosts } from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { PostsList as PostsListData } from '@ts/types/blog';
+import { settings } from '@utils/config';
 import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -37,9 +37,9 @@ const Search: NextPageWithLayout = () => {
     if (previousData && !previousData.posts) return null;
 
     return pageIndex === 0
-      ? { first: config.postsPerPage, searchQuery: query }
+      ? { first: settings.postsPerPage, searchQuery: query }
       : {
-          first: config.postsPerPage,
+          first: settings.postsPerPage,
           after: previousData.pageInfo.endCursor,
           searchQuery: query,
         };
@@ -56,13 +56,13 @@ const Search: NextPageWithLayout = () => {
   }, [data]);
 
   const [loadedPostsCount, setLoadedPostsCount] = useState<number>(
-    config.postsPerPage
+    settings.postsPerPage
   );
 
   useEffect(() => {
     if (data && data.length > 0) {
       const newCount =
-        config.postsPerPage +
+        settings.postsPerPage +
         data[0].pageInfo.total -
         data[data.length - 1].pageInfo.total;
       setLoadedPostsCount(newCount);
@@ -102,11 +102,11 @@ const Search: NextPageWithLayout = () => {
           defaultMessage: 'Search for a post on {websiteName}',
           description: 'SearchPage: meta description without query',
         },
-        { websiteName: config.name }
+        { websiteName: settings.name }
       );
 
   const head = {
-    title: `${title} | ${config.name}`,
+    title: `${title} | ${settings.name}`,
     description,
   };
 

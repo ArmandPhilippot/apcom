@@ -1,11 +1,10 @@
 import GithubIcon from '@assets/images/social-media/github.svg';
 import GitlabIcon from '@assets/images/social-media/gitlab.svg';
-import { config } from '@config/website';
 import { ProjectMeta } from '@ts/types/app';
+import { settings } from '@utils/config';
 import { getFormattedDate } from '@utils/helpers/format';
 import { slugify } from '@utils/helpers/slugify';
 import useGithubApi from '@utils/hooks/useGithubApi';
-import IntlMessageFormat from 'intl-messageformat';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
@@ -13,7 +12,6 @@ import styles from './ProjectSummary.module.scss';
 
 const ProjectSummary = ({
   id,
-  title,
   meta,
 }: {
   id: string;
@@ -23,7 +21,7 @@ const ProjectSummary = ({
   const { hasCover, license, repos, technologies } = meta;
   const intl = useIntl();
   const router = useRouter();
-  const locale = router.locale ? router.locale : config.locales.defaultLocale;
+  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
   const { data } = useGithubApi(repos?.github ? repos.github : '');
 
   return (

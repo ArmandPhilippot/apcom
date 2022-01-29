@@ -1,14 +1,14 @@
 import { CopyrightIcon } from '@components/Icons';
-import { config } from '@config/website';
+import { settings } from '@utils/config';
 import styles from './Copyright.module.scss';
 
 const Copyright = () => {
   return (
     <p className={styles.wrapper}>
-      <span>{config.name}</span>
+      <span>{settings.name}</span>
       <CopyrightIcon />
       <span>
-        {config.copyright.startYear} - {config.copyright.endYear}
+        {settings.copyright.startYear} - {settings.copyright.endYear}
       </span>
     </p>
   );

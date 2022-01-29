@@ -2,11 +2,11 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { CVPreview, SocialMedia, ToC } from '@components/Widgets';
-import { config } from '@config/website';
 import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -25,13 +25,13 @@ const CV: NextPageWithLayout = () => {
   const pageMeta: ArticleMeta = {
     dates,
   };
-  const pageUrl = `${config.url}${router.asPath}`;
+  const pageUrl = `${settings.url}${router.asPath}`;
   const pageTitle = intl.formatMessage(
     {
       defaultMessage: 'CV Front-end developer - {websiteName}',
       description: 'CVPage: SEO - Page title',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage(
     {
@@ -39,19 +39,19 @@ const CV: NextPageWithLayout = () => {
         'Discover the curriculum of {websiteName}, front-end developer located in France: skills, experiences and training.',
       description: 'CVPage: SEO - Meta description',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: pageTitle,
     description: pageDescription,
-    reviewedBy: { '@id': `${config.url}/#branding` },
+    reviewedBy: { '@id': `${settings.url}/#branding` },
     url: `${pageUrl}`,
     isPartOf: {
-      '@id': `${config.url}`,
+      '@id': `${settings.url}`,
     },
   };
 
@@ -59,18 +59,18 @@ const CV: NextPageWithLayout = () => {
   const updateDate = new Date(dates.update);
 
   const cvSchema: AboutPage = {
-    '@id': `${config.url}/#cv`,
+    '@id': `${settings.url}/#cv`,
     '@type': 'AboutPage',
     name: pageTitle,
     description: intro,
-    author: { '@id': `${config.url}/#branding` },
-    creator: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${settings.url}/#branding` },
     image,
-    inLanguage: config.locales.defaultLocale,
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     thumbnailUrl: image,
     mainEntityOfPage: { '@id': `${pageUrl}` },
@@ -86,7 +86,7 @@ const CV: NextPageWithLayout = () => {
       defaultMessage: "{name}'s CV",
       description: 'CVPage: page title',
     },
-    { name: config.name }
+    { name: settings.name }
   );
 
   return (

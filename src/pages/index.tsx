@@ -2,10 +2,10 @@ import FeedIcon from '@assets/images/icon-feed.svg';
 import { ButtonLink } from '@components/Buttons';
 import { ContactIcon } from '@components/Icons';
 import Layout from '@components/Layouts/Layout';
-import { config } from '@config/website';
 import HomePageContent from '@content/pages/homepage.mdx';
 import styles from '@styles/pages/Home.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -122,7 +122,7 @@ const Home: NextPageWithLayout = () => {
       defaultMessage: '{websiteName} | Front-end developer: WordPress/React',
       description: 'HomePage: SEO - Page title',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage(
     {
@@ -130,22 +130,22 @@ const Home: NextPageWithLayout = () => {
         '{websiteName} is a front-end developer located in France. He codes and he writes mostly about web development and open-source.',
       description: 'HomePage: SEO - Meta description',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
 
   const webpageSchema: WebPage = {
-    '@id': `${config.url}/#home`,
+    '@id': `${settings.url}/#home`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: pageTitle,
     description: pageDescription,
-    author: { '@id': `${config.url}/#branding` },
-    creator: { '@id': `${config.url}/#branding` },
-    editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.locales.defaultLocale,
+    author: { '@id': `${settings.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
+    editor: { '@id': `${settings.url}/#branding` },
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}`,
+    reviewedBy: { '@id': `${settings.url}/#branding` },
+    url: `${settings.url}`,
   };
 
   const schemaJsonLd: Graph = {
@@ -159,7 +159,7 @@ const Home: NextPageWithLayout = () => {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${config.url}`} />
+        <meta property="og:url" content={`${settings.url}`} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <script

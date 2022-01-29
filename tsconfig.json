@@ -18,7 +18,6 @@
     "paths": {
       "@i18n/*": ["src/i18n/*"],
       "@assets/*": ["src/assets/*"],
-      "@config/*": ["src/config/*"],
       "@content/*": ["src/content/*"],
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],

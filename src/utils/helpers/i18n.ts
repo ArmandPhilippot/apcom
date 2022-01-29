@@ -1,11 +1,11 @@
-import { config } from '@config/website';
 import { createIntl, createIntlCache, IntlShape } from '@formatjs/intl';
+import { settings } from '@utils/config';
 import { readFile } from 'fs/promises';
 import path from 'path';
 
 type Messages = { [key: string]: string };
 
-export const defaultLocale = config.locales.defaultLocale;
+export const defaultLocale = settings.locales.defaultLocale;
 
 /**
  * Load the translation for the provided locale.

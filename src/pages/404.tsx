@@ -1,8 +1,8 @@
 import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
-import { config } from '@config/website';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
+import { settings } from '@utils/config';
 import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -17,7 +17,7 @@ const Error404: NextPageWithLayout = () => {
       defaultMessage: 'Error 404: Page not found - {websiteName}',
       description: '404Page: SEO - Page title',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage({
     defaultMessage: 'Page not found.',

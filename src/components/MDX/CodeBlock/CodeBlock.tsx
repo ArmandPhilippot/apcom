@@ -1,4 +1,4 @@
-import { config } from '@config/website';
+import { settings } from '@utils/config';
 import { translateCopyButton } from '@utils/helpers/prism';
 import { useRouter } from 'next/router';
 import Prism from 'prismjs';
@@ -18,7 +18,7 @@ const CodeBlock = ({
   );
   const intl = useIntl();
   const router = useRouter();
-  const locale = router.locale ? router.locale : config.locales.defaultLocale;
+  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
 
   useEffect(() => {
     Prism.highlightAll();

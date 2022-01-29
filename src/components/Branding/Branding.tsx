@@ -1,5 +1,5 @@
 import photo from '@assets/images/armand-philippot.jpg';
-import { config } from '@config/website';
+import { settings } from '@utils/config';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,12 +18,12 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
   const schemaJsonLd: WithContext<Person> = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': `${config.url}/#branding`,
-    name: config.name,
-    url: config.url,
-    jobTitle: config.baseline,
+    '@id': `${settings.url}/#branding`,
+    name: settings.name,
+    url: settings.url,
+    jobTitle: settings.baseline,
     image: photo.src,
-    subjectOf: { '@id': `${config.url}` },
+    subjectOf: { '@id': `${settings.url}` },
   };
 
   return (
@@ -45,7 +45,7 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
                   description: 'Branding: branding name picture.',
                 },
                 {
-                  brandingName: config.name,
+                  brandingName: settings.name,
                 }
               )}
               layout="responsive"
@@ -57,10 +57,10 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
         </div>
         <TitleTag className={styles.name}>
           <Link href="/">
-            <a className={styles.link}>{config.name}</a>
+            <a className={styles.link}>{settings.name}</a>
           </Link>
         </TitleTag>
-        <p className={styles.job}>{config.baseline}</p>
+        <p className={styles.job}>{settings.baseline}</p>
       </div>
     </>
   );

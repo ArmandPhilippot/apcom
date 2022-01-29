@@ -5,11 +5,11 @@ import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { Sharing, ToC } from '@components/Widgets';
-import { config } from '@config/website';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta, ArticleProps } from '@ts/types/articles';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
@@ -48,8 +48,8 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
 
   const intl = useIntl();
   const router = useRouter();
-  const locale = router.locale ? router.locale : config.locales.defaultLocale;
-  const articleUrl = `${config.url}${router.asPath}`;
+  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
+  const articleUrl = `${settings.url}${router.asPath}`;
 
   useEffect(() => {
     addPrismClasses();
@@ -63,21 +63,21 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const webpageSchema: WebPage = {
     '@id': `${articleUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     lastReviewed: dates.update,
     name: seo.title,
     description: seo.metaDesc,
-    reviewedBy: { '@id': `${config.url}/#branding` },
+    reviewedBy: { '@id': `${settings.url}/#branding` },
     url: `${articleUrl}`,
     isPartOf: {
-      '@id': `${config.url}`,
+      '@id': `${settings.url}`,
     },
   };
 
   const blogSchema: Blog = {
-    '@id': `${config.url}/#blog`,
+    '@id': `${settings.url}/#blog`,
     '@type': 'Blog',
-    blogPost: { '@id': `${config.url}/#article` },
+    blogPost: { '@id': `${settings.url}/#article` },
     isPartOf: {
       '@id': `${articleUrl}`,
     },
@@ -88,24 +88,24 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const updateDate = new Date(dates.update);
 
   const blogPostSchema: BlogPosting = {
-    '@id': `${config.url}/#article`,
+    '@id': `${settings.url}/#article`,
     '@type': 'BlogPosting',
     name: title,
     description: intro,
     articleBody: content,
-    author: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
     commentCount: comments.length,
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     discussionUrl: `${articleUrl}/#comments`,
-    editor: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${settings.url}/#branding` },
     image: featuredImage?.sourceUrl,
-    inLanguage: config.locales.defaultLocale,
+    inLanguage: settings.locales.defaultLocale,
     isPartOf: {
-      '@id': `${config.url}/blog`,
+      '@id': `${settings.url}/blog`,
     },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${articleUrl}` },

@@ -1,7 +1,7 @@
 import Spinner from '@components/Spinner/Spinner';
-import { config } from '@config/website';
 import { getPublishedPosts } from '@services/graphql/queries';
 import { ArticlePreview } from '@ts/types/articles';
+import { settings } from '@utils/config';
 import { getFormattedDate } from '@utils/helpers/format';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ const RecentPosts = () => {
     getPublishedPosts({ first: 3 })
   );
   const router = useRouter();
-  const locale = router.locale ? router.locale : config.locales.defaultLocale;
+  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
 
   const getPost = (post: ArticlePreview) => {
     return (

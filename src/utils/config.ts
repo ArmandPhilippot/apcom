@@ -1,4 +1,4 @@
-export const config = {
+export const settings = {
   name: 'Armand Philippot',
   baseline: 'Front-end developer',
   copyright: {

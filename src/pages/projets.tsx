@@ -1,10 +1,10 @@
 import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import ProjectsList from '@components/ProjectsList/ProjectsList';
-import { config } from '@config/website';
 import PageContent, { meta } from '@content/pages/projects.mdx';
 import styles from '@styles/pages/Projects.module.scss';
 import { Project } from '@ts/types/app';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { getSortedProjects } from '@utils/helpers/projects';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
@@ -22,13 +22,13 @@ const Projects = ({ projects }: { projects: Project[] }) => {
   const publicationDate = new Date(dates.publication);
   const updateDate = new Date(dates.update);
   const router = useRouter();
-  const pageUrl = `${config.url}${router.asPath}`;
+  const pageUrl = `${settings.url}${router.asPath}`;
   const pageTitle = intl.formatMessage(
     {
       defaultMessage: 'Projects: open-source makings - {websiteName}',
       description: 'ProjectsPage: SEO - Page title',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage(
     {
@@ -36,37 +36,37 @@ const Projects = ({ projects }: { projects: Project[] }) => {
         'Discover {websiteName} projects. Mostly related to web development and open source.',
       description: 'ProjectsPage: SEO - Meta description',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: pageTitle,
     description: pageDescription,
-    inLanguage: config.locales.defaultLocale,
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    reviewedBy: { '@id': `${config.url}/#branding` },
+    reviewedBy: { '@id': `${settings.url}/#branding` },
     url: `${pageUrl}`,
     isPartOf: {
-      '@id': `${config.url}`,
+      '@id': `${settings.url}`,
     },
   };
 
   const articleSchema: Article = {
-    '@id': `${config.url}/#projects`,
+    '@id': `${settings.url}/#projects`,
     '@type': 'Article',
     name: meta.title,
     description: pageDescription,
-    author: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.locales.defaultLocale,
+    editor: { '@id': `${settings.url}/#branding` },
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${pageUrl}` },
   };

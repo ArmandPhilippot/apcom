@@ -4,13 +4,13 @@ import PostHeader from '@components/PostHeader/PostHeader';
 import ProjectSummary from '@components/ProjectSummary/ProjectSummary';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { Sharing, ToC } from '@components/Widgets';
-import { config } from '@config/website';
 import styles from '@styles/pages/Page.module.scss';
 import {
   NextPageWithLayout,
   Project as ProjectData,
   ProjectProps,
 } from '@ts/types/app';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import {
   getAllProjectsFilename,
@@ -30,7 +30,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
   project: ProjectData;
 }) => {
   const router = useRouter();
-  const projectUrl = `${config.url}${router.asPath}`;
+  const projectUrl = `${settings.url}${router.asPath}`;
   const { id, intro, meta, title, seo } = project;
   const dates = {
     publication: meta.publishedOn,
@@ -50,14 +50,14 @@ const Project: NextPageWithLayout<ProjectProps> = ({
   const webpageSchema: WebPage = {
     '@id': `${projectUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: seo.title,
     description: seo.description,
-    inLanguage: config.locales.defaultLocale,
-    reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}`,
+    inLanguage: settings.locales.defaultLocale,
+    reviewedBy: { '@id': `${settings.url}/#branding` },
+    url: `${settings.url}`,
     isPartOf: {
-      '@id': `${config.url}`,
+      '@id': `${settings.url}`,
     },
   };
 
@@ -65,20 +65,20 @@ const Project: NextPageWithLayout<ProjectProps> = ({
   const updateDate = new Date(dates.update);
 
   const articleSchema: Article = {
-    '@id': `${config.url}/project`,
+    '@id': `${settings.url}/project`,
     '@type': 'Article',
     name: title,
     description: intro,
-    author: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${settings.url}/#branding` },
     thumbnailUrl: meta.hasCover ? `/projects/${id}.jpg` : '',
     image: meta.hasCover ? `/projects/${id}.jpg` : '',
-    inLanguage: config.locales.defaultLocale,
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${projectUrl}` },
   };

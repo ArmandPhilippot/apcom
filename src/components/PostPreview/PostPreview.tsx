@@ -1,9 +1,9 @@
 import { ButtonLink } from '@components/Buttons';
 import { ArrowIcon } from '@components/Icons';
 import PostMeta from '@components/PostMeta/PostMeta';
-import { config } from '@config/website';
 import { TitleLevel } from '@ts/types/app';
 import { ArticleMeta, ArticlePreview } from '@ts/types/articles';
+import { settings } from '@utils/config';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -49,18 +49,18 @@ const PostPreview = ({
     name: title,
     description: intro,
     articleBody: intro,
-    author: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
     commentCount: commentCount ? commentCount : 0,
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${config.url}/#branding` },
+    editor: { '@id': `${settings.url}/#branding` },
     image: featuredImage?.sourceUrl,
-    inLanguage: config.locales.defaultLocale,
-    isBasedOn: `${config.url}/article/${slug}`,
-    isPartOf: { '@id': `${config.url}/blog` },
+    inLanguage: settings.locales.defaultLocale,
+    isBasedOn: `${settings.url}/article/${slug}`,
+    isPartOf: { '@id': `${settings.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     thumbnailUrl: featuredImage?.sourceUrl,
   };

@@ -6,11 +6,11 @@ import PostsList from '@components/PostsList/PostsList';
 import Sidebar from '@components/Sidebar/Sidebar';
 import Spinner from '@components/Spinner/Spinner';
 import { ThematicsList, TopicsList } from '@components/Widgets';
-import { config } from '@config/website';
 import { getPublishedPosts } from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
+import { settings } from '@utils/config';
 import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -29,9 +29,9 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
     if (previousData && !previousData.posts) return null;
 
     return pageIndex === 0
-      ? { first: config.postsPerPage }
+      ? { first: settings.postsPerPage }
       : {
-          first: config.postsPerPage,
+          first: settings.postsPerPage,
           after: previousData.pageInfo.endCursor,
         };
   };
@@ -48,13 +48,13 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   }, [data]);
 
   const [loadedPostsCount, setLoadedPostsCount] = useState<number>(
-    config.postsPerPage
+    settings.postsPerPage
   );
 
   useEffect(() => {
     if (data && data.length > 0) {
       const newCount =
-        config.postsPerPage +
+        settings.postsPerPage +
         data[0].pageInfo.total -
         data[data.length - 1].pageInfo.total;
       setLoadedPostsCount(newCount);
@@ -91,7 +91,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       defaultMessage: 'Blog: development, open source - {websiteName}',
       description: 'BlogPage: SEO - Page title',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage(
     {
@@ -99,31 +99,31 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
         "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
       description: 'BlogPage: SEO - Meta description',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
-  const pageUrl = `${config.url}${router.asPath}`;
+  const pageUrl = `${settings.url}${router.asPath}`;
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: pageTitle,
     description: pageDescription,
-    inLanguage: config.locales.defaultLocale,
-    reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}`,
+    inLanguage: settings.locales.defaultLocale,
+    reviewedBy: { '@id': `${settings.url}/#branding` },
+    url: `${settings.url}`,
     isPartOf: {
-      '@id': `${config.url}`,
+      '@id': `${settings.url}`,
     },
   };
 
   const blogSchema: BlogSchema = {
-    '@id': `${config.url}/#blog`,
+    '@id': `${settings.url}/#blog`,
     '@type': 'Blog',
-    author: { '@id': `${config.url}/#branding` },
-    creator: { '@id': `${config.url}/#branding` },
-    editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.locales.defaultLocale,
+    author: { '@id': `${settings.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
+    editor: { '@id': `${settings.url}/#branding` },
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${pageUrl}` },
   };
@@ -213,7 +213,7 @@ export const getStaticProps: GetStaticProps = async (
     defaultMessage: 'Blog',
     description: 'BlogPage: breadcrumb item',
   });
-  const data = await getPublishedPosts({ first: config.postsPerPage });
+  const data = await getPublishedPosts({ first: settings.postsPerPage });
   const { locale } = context;
   const translation = await loadTranslation(locale);
 

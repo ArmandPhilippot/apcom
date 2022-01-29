@@ -2,7 +2,6 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { ToC } from '@components/Widgets';
-import { config } from '@config/website';
 import LegalNoticeContent, {
   intro,
   meta,
@@ -10,6 +9,7 @@ import LegalNoticeContent, {
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -33,16 +33,16 @@ const LegalNotice: NextPageWithLayout = () => {
       defaultMessage: 'Legal notice - {websiteName}',
       description: 'LegalNoticePage: SEO - Page title',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage(
     {
       defaultMessage: "Discover the legal notice of {websiteName}'s website.",
       description: 'LegalNoticePage: SEO - Meta description',
     },
-    { websiteName: config.name }
+    { websiteName: settings.name }
   );
-  const pageUrl = `${config.url}${router.asPath}`;
+  const pageUrl = `${settings.url}${router.asPath}`;
   const title = intl.formatMessage({
     defaultMessage: 'Legal notice',
     description: 'LegalNoticePage: page title',
@@ -53,31 +53,31 @@ const LegalNotice: NextPageWithLayout = () => {
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: pageTitle,
     description: pageDescription,
-    inLanguage: config.locales.defaultLocale,
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    reviewedBy: { '@id': `${config.url}/#branding` },
+    reviewedBy: { '@id': `${settings.url}/#branding` },
     url: `${pageUrl}`,
     isPartOf: {
-      '@id': `${config.url}`,
+      '@id': `${settings.url}`,
     },
   };
 
   const articleSchema: Article = {
-    '@id': `${config.url}/#legal-notice`,
+    '@id': `${settings.url}/#legal-notice`,
     '@type': 'Article',
     name: title,
     description: intro,
-    author: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.locales.defaultLocale,
+    editor: { '@id': `${settings.url}/#branding` },
+    inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${pageUrl}` },
   };

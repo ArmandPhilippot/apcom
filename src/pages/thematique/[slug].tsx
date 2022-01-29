@@ -3,7 +3,6 @@ import PostHeader from '@components/PostHeader/PostHeader';
 import PostPreview from '@components/PostPreview/PostPreview';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
-import { config } from '@config/website';
 import {
   getAllThematicsSlug,
   getThematicBySlug,
@@ -12,6 +11,7 @@ import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
 import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
+import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -53,39 +53,39 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
     dates: thematic.dates,
     results: thematic.posts.length,
   };
-  const thematicUrl = `${config.url}${router.asPath}`;
+  const thematicUrl = `${settings.url}${router.asPath}`;
 
   const webpageSchema: WebPage = {
     '@id': `${thematicUrl}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${config.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: thematic.seo.title,
     description: thematic.seo.metaDesc,
-    inLanguage: config.locales.defaultLocale,
-    reviewedBy: { '@id': `${config.url}/#branding` },
-    url: `${config.url}`,
+    inLanguage: settings.locales.defaultLocale,
+    reviewedBy: { '@id': `${settings.url}/#branding` },
+    url: `${settings.url}`,
   };
 
   const publicationDate = new Date(thematic.dates.publication);
   const updateDate = new Date(thematic.dates.update);
 
   const articleSchema: Article = {
-    '@id': `${config.url}/thematic`,
+    '@id': `${settings.url}/thematic`,
     '@type': 'Article',
     name: thematic.title,
     description: thematic.intro,
-    author: { '@id': `${config.url}/#branding` },
+    author: { '@id': `${settings.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${config.url}/#branding` },
+    creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${config.url}/#branding` },
-    inLanguage: config.locales.defaultLocale,
-    isPartOf: { '@id': `${config.url}/blog` },
+    editor: { '@id': `${settings.url}/#branding` },
+    inLanguage: settings.locales.defaultLocale,
+    isPartOf: { '@id': `${settings.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${thematicUrl}` },
-    subjectOf: { '@id': `${config.url}/blog` },
+    subjectOf: { '@id': `${settings.url}/blog` },
   };
 
   const schemaJsonLd: Graph = {
