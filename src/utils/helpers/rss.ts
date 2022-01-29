@@ -27,7 +27,7 @@ export const generateFeed = async () => {
     link: websiteUrl,
   };
   const copyright = `${settings.name} CC BY SA ${settings.copyright.startYear} - ${settings.copyright.endYear}`;
-  const title = `${settings.name} | ${settings.baseline}`;
+  const title = `${settings.name} | ${settings.baseline.fr}`;
 
   const feed = new Feed({
     author,

@@ -1,6 +1,9 @@
 export const settings = {
   name: 'Armand Philippot',
-  baseline: 'Front-end developer',
+  baseline: {
+    en: 'Front-end developer',
+    fr: 'Intégrateur web',
+  },
   copyright: {
     startYear: '2012',
     endYear: new Date().getFullYear(),

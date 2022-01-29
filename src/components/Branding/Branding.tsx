@@ -3,6 +3,7 @@ import { settings } from '@utils/config';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 import { useIntl } from 'react-intl';
 import { Person, WithContext } from 'schema-dts';
@@ -13,6 +14,7 @@ type BrandingReturn = ({ isHome }: { isHome: boolean }) => ReactElement;
 
 const Branding: BrandingReturn = ({ isHome = false }) => {
   const intl = useIntl();
+  const { locale } = useRouter();
   const TitleTag = isHome ? 'h1' : 'p';
 
   const schemaJsonLd: WithContext<Person> = {
@@ -21,7 +23,9 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
     '@id': `${settings.url}/#branding`,
     name: settings.name,
     url: settings.url,
-    jobTitle: settings.baseline,
+    jobTitle: locale?.startsWith('en')
+      ? settings.baseline.en
+      : settings.baseline.fr,
     image: photo.src,
     subjectOf: { '@id': `${settings.url}` },
   };
@@ -60,7 +64,11 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
             <a className={styles.link}>{settings.name}</a>
           </Link>
         </TitleTag>
-        <p className={styles.job}>{settings.baseline}</p>
+        <p className={styles.job}>
+          {locale?.startsWith('en')
+            ? settings.baseline.en
+            : settings.baseline.fr}
+        </p>
       </div>
     </>
   );

@@ -17,6 +17,7 @@ const Layout = ({
   isHome?: boolean;
 }) => {
   const intl = useIntl();
+  const { locale } = useRouter();
   const ref = useRef<HTMLSpanElement>(null);
   const { asPath } = useRouter();
 
@@ -29,7 +30,9 @@ const Layout = ({
     '@id': `${settings.url}`,
     '@type': 'WebSite',
     name: settings.name,
-    description: settings.baseline,
+    description: locale?.startsWith('en')
+      ? settings.baseline.en
+      : settings.baseline.fr,
     url: settings.url,
     author: { '@id': `${settings.url}/#branding` },
     copyrightYear: Number(settings.copyright.startYear),
