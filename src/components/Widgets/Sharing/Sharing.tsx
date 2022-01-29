@@ -1,5 +1,5 @@
 import { ExpandableWidget } from '@components/WidgetParts';
-import sharingMedia from '@config/sharing';
+import { getIntlInstance } from '@utils/helpers/i18n';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -95,9 +95,94 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
     return sharingUrl;
   };
 
-  const getItems = () => {
-    const websites: Website[] = sharingMedia;
+  const websites = [
+    {
+      id: 'diaspora',
+      name: intl.formatMessage({
+        defaultMessage: 'Diaspora',
+        description: 'Sharing: Diaspora',
+      }),
+      parameters: {
+        content: '',
+        image: '',
+        title: 'title',
+        url: 'url',
+      },
+      url: 'https://share.diasporafoundation.org/',
+    },
+    {
+      id: 'facebook',
+      name: intl.formatMessage({
+        defaultMessage: 'Facebook',
+        description: 'Sharing: Facebook',
+      }),
+      parameters: {
+        content: '',
+        image: '',
+        title: '',
+        url: 'u',
+      },
+      url: 'https://www.facebook.com/sharer/sharer.php',
+    },
+    {
+      id: 'linkedin',
+      name: intl.formatMessage({
+        defaultMessage: 'LinkedIn',
+        description: 'Sharing: LinkedIn',
+      }),
+      parameters: {
+        content: '',
+        image: '',
+        title: '',
+        url: 'url',
+      },
+      url: 'https://www.linkedin.com/sharing/share-offsite/',
+    },
+    {
+      id: 'twitter',
+      name: intl.formatMessage({
+        defaultMessage: 'Twitter',
+        description: 'Sharing: Twitter',
+      }),
+      parameters: {
+        content: '',
+        image: '',
+        title: 'text',
+        url: 'url',
+      },
+      url: 'https://twitter.com/intent/tweet',
+    },
+    {
+      id: 'journal-du-hacker',
+      name: intl.formatMessage({
+        defaultMessage: 'Journal du hacker',
+        description: 'Sharing: Journal du hacker',
+      }),
+      parameters: {
+        content: '',
+        image: '',
+        title: 'title',
+        url: 'url',
+      },
+      url: 'https://www.journalduhacker.net/stories/new',
+    },
+    {
+      id: 'email',
+      name: intl.formatMessage({
+        defaultMessage: 'Email',
+        description: 'Sharing: Email',
+      }),
+      parameters: {
+        content: 'body',
+        image: '',
+        title: 'subject',
+        url: '',
+      },
+      url: 'mailto:',
+    },
+  ];
 
+  const getItems = () => {
     return websites.map((website) => {
       const { id, name } = website;
       const sharingUrl = getSharingUrl(website);

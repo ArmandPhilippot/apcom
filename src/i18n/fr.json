@@ -67,6 +67,10 @@
     "defaultMessage": "Blog",
     "description": "BlogPage: page title"
   },
+  "7iiaRx": {
+    "defaultMessage": "Facebook",
+    "description": "Sharing: Facebook"
+  },
   "8Ls2mD": {
     "defaultMessage": "Veuillez remplir le formulaire pour me contacter.",
     "description": "ContactPage: page introduction"
@@ -106,6 +110,10 @@
   "CzTbM4": {
     "defaultMessage": "Contact",
     "description": "ContactPage: breadcrumb item"
+  },
+  "Dhow1m": {
+    "defaultMessage": "Diaspora",
+    "description": "Sharing: Diaspora"
   },
   "Dq6+WH": {
     "defaultMessage": "Thématiques",
@@ -227,6 +235,10 @@
     "defaultMessage": "{commentCount, plural, =0 {Aucun commentaire} one {# commentaire} other {# commentaires}}",
     "description": "PostMeta: comment count value"
   },
+  "P0I+Xm": {
+    "defaultMessage": "Journal du hacker",
+    "description": "Sharing: Journal du hacker"
+  },
   "P7fxX2": {
     "defaultMessage": "Tous les articles dans {name}",
     "description": "ThematicPage: posts list title"
@@ -295,6 +307,10 @@
     "defaultMessage": "Replier",
     "description": "ExpandableWidget: collapse text"
   },
+  "WjVBnY": {
+    "defaultMessage": "Twitter",
+    "description": "Sharing: Twitter"
+  },
   "X3PDXO": {
     "defaultMessage": "Animations :",
     "description": "ReduceMotion: toggle label"
@@ -362,6 +378,10 @@
   "cr2fA4": {
     "defaultMessage": "Sujet",
     "description": "ContactPage: subject field label"
+  },
+  "csCQQk": {
+    "defaultMessage": "LinkedIn",
+    "description": "Sharing: LinkedIn"
   },
   "dE8xxV": {
     "defaultMessage": "Fermer le menu",
@@ -438,6 +458,10 @@
   "l0+ROl": {
     "defaultMessage": "{thematicsCount, plural, =0 {Thématiques :} one {Thématique :} other {Thématiques :}}",
     "description": "PostMeta: thematics list label"
+  },
+  "lKZm9t": {
+    "defaultMessage": "Email",
+    "description": "Sharing: Email"
   },
   "mC21ht": {
     "defaultMessage": "Nombre d'articles chargés sur le total disponible.",
