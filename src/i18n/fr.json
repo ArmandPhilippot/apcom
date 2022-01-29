@@ -163,6 +163,10 @@
     "defaultMessage": "Image de {brandingName}",
     "description": "Branding: branding name picture."
   },
+  "IPs/Ck": {
+    "defaultMessage": "Twitter",
+    "description": "SocialMedia: Twitter"
+  },
   "Igx3qp": {
     "defaultMessage": "Projets",
     "description": "Breadcrumb: Projects item"
@@ -263,6 +267,10 @@
     "defaultMessage": "Blog",
     "description": "BlogPage: breadcrumb item"
   },
+  "SWjj4l": {
+    "defaultMessage": "Github",
+    "description": "SocialMedia: Github"
+  },
   "SWq8a4": {
     "defaultMessage": "Fermer {type}",
     "description": "ButtonToolbar: Close button"
@@ -294,6 +302,10 @@
   "VSGuGE": {
     "defaultMessage": "Résultats de recherche pour {query}",
     "description": "SearchPage: search results text"
+  },
+  "VbcHZ4": {
+    "defaultMessage": "LinkedIn",
+    "description": "SocialMedia: LinkedIn"
   },
   "W2G95o": {
     "defaultMessage": "Commentaires :",
@@ -478,6 +490,10 @@
   "norrGp": {
     "defaultMessage": "Autres thématiques",
     "description": "ThematicPage: thematics list widget title"
+  },
+  "obmlFh": {
+    "defaultMessage": "Gitlab",
+    "description": "SocialMedia: Gitlab"
   },
   "ode0YK": {
     "defaultMessage": "Thème sombre",

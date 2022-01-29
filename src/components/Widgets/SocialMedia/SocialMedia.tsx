@@ -1,10 +1,10 @@
-import { socialWebsites } from '@config/social-media';
 import GithubIcon from '@assets/images/social-media/github.svg';
 import GitlabIcon from '@assets/images/social-media/gitlab.svg';
 import LinkedInIcon from '@assets/images/social-media/linkedin.svg';
 import TwitterIcon from '@assets/images/social-media/twitter.svg';
 import styles from './SocialMedia.module.scss';
 import { ExpandableWidget } from '@components/WidgetParts';
+import { useIntl } from 'react-intl';
 
 const SocialMedia = ({
   title,
@@ -19,6 +19,43 @@ const SocialMedia = ({
   linkedin?: boolean;
   twitter?: boolean;
 }) => {
+  const intl = useIntl();
+
+  const websites = [
+    {
+      id: 'github',
+      name: intl.formatMessage({
+        defaultMessage: 'Github',
+        description: 'SocialMedia: Github',
+      }),
+      url: 'https://github.com/ArmandPhilippot',
+    },
+    {
+      id: 'gitlab',
+      name: intl.formatMessage({
+        defaultMessage: 'Gitlab',
+        description: 'SocialMedia: Gitlab',
+      }),
+      url: 'https://gitlab.com/ArmandPhilippot',
+    },
+    {
+      id: 'linkedin',
+      name: intl.formatMessage({
+        defaultMessage: 'LinkedIn',
+        description: 'SocialMedia: LinkedIn',
+      }),
+      url: 'https://www.linkedin.com/in/armandphilippot',
+    },
+    {
+      id: 'twitter',
+      name: intl.formatMessage({
+        defaultMessage: 'Twitter',
+        description: 'SocialMedia: Twitter',
+      }),
+      url: 'https://twitter.com/ArmandPhilippot',
+    },
+  ];
+
   const getIcon = (id: string) => {
     switch (id) {
       case 'github':
@@ -49,7 +86,7 @@ const SocialMedia = ({
     }
   };
 
-  const items = socialWebsites.map((website) => {
+  const items = websites.map((website) => {
     return shouldDisplayLink(website.id) ? (
       <li key={website.id}>
         <a href={website.url} className={styles.link}>
