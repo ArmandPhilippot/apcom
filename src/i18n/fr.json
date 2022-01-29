@@ -1,0 +1,586 @@
+{
+  "+4tiVb": {
+    "defaultMessage": "Others topics",
+    "description": "TopicPage: topics list widget title"
+  },
+  "+COyEW": {
+    "defaultMessage": "{topicsCount, plural, =0 {Topics:} one {Topic:} other {Topics:}}",
+    "description": "PostMeta: topics list label"
+  },
+  "+Dre5J": {
+    "defaultMessage": "Open-source projects",
+    "description": "CVPage: social media widget title"
+  },
+  "+Y+tLK": {
+    "defaultMessage": "Blog: development, open source - {websiteName}",
+    "description": "BlogPage: SEO - Page title"
+  },
+  "/IirIt": {
+    "defaultMessage": "Legal notice",
+    "description": "LegalNoticePage: page title"
+  },
+  "/ly3AC": {
+    "defaultMessage": "Copy",
+    "description": "Prism: copy button text (no clicked)"
+  },
+  "00Pf5p": {
+    "defaultMessage": "Failed to load.",
+    "description": "TopicsList: failed to load text"
+  },
+  "16zl9Z": {
+    "defaultMessage": "You are here:",
+    "description": "Breadcrumb: You are here prefix"
+  },
+  "18h/t0": {
+    "defaultMessage": "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
+    "description": "BlogPage: SEO - Meta description"
+  },
+  "1h+N2z": {
+    "defaultMessage": "Published on:",
+    "description": "RecentPosts: publication date label"
+  },
+  "2D9tB5": {
+    "defaultMessage": "Topics",
+    "description": "BlogPage: topics list widget title"
+  },
+  "2pykor": {
+    "defaultMessage": "{title} picture",
+    "description": "ProjectPreview: cover alt text"
+  },
+  "310o3F": {
+    "defaultMessage": "Error 404: Page not found - {websiteName}",
+    "description": "404Page: SEO - Page title"
+  },
+  "43OmTY": {
+    "defaultMessage": "Thanks. Your message was successfully sent. I will answer it as soon as possible.",
+    "description": "ContactPage: success message"
+  },
+  "48Ww//": {
+    "defaultMessage": "Page not found.",
+    "description": "404Page: SEO - Meta description"
+  },
+  "4zAUSu": {
+    "defaultMessage": "Legal notice - {websiteName}",
+    "description": "LegalNoticePage: SEO - Page title"
+  },
+  "7TbbIk": {
+    "defaultMessage": "Blog",
+    "description": "BlogPage: page title"
+  },
+  "8Ls2mD": {
+    "defaultMessage": "Please fill the form to contact me.",
+    "description": "ContactPage: page introduction"
+  },
+  "A4LTGq": {
+    "defaultMessage": "Discover search results for {query}",
+    "description": "SearchPage: meta description with query"
+  },
+  "AN9iy7": {
+    "defaultMessage": "Contact",
+    "description": "ContactPage: page title"
+  },
+  "AnaPbu": {
+    "defaultMessage": "Search",
+    "description": "SearchForm: search button text"
+  },
+  "B9OCyV": {
+    "defaultMessage": "Others formats",
+    "description": "CVPage: cv preview widget title"
+  },
+  "C/XGkH": {
+    "defaultMessage": "Failed to load.",
+    "description": "BlogPage: failed to load text"
+  },
+  "CSimmh": {
+    "defaultMessage": "{articlesCount, plural, =0 {# articles} one {# article} other {# articles}} out of a total of {total}",
+    "description": "PaginationCursor: loaded articles count message"
+  },
+  "CT3ydM": {
+    "defaultMessage": "{date} at {time}",
+    "description": "Comment: publication date"
+  },
+  "CWi0go": {
+    "defaultMessage": "Created on:",
+    "description": "ProjectSummary: creation date label"
+  },
+  "CzTbM4": {
+    "defaultMessage": "Contact",
+    "description": "ContactPage: breadcrumb item"
+  },
+  "Dq6+WH": {
+    "defaultMessage": "Thematics",
+    "description": "SearchPage: thematics list widget title"
+  },
+  "Enij19": {
+    "defaultMessage": "Home",
+    "description": "Breadcrumb: Home item"
+  },
+  "EvODgw": {
+    "defaultMessage": "Published on",
+    "description": "PostsList: published on year label"
+  },
+  "F7QxJH": {
+    "defaultMessage": "Name",
+    "description": "CommentForm: Name field label"
+  },
+  "FLkF2R": {
+    "defaultMessage": "All posts in {name}",
+    "description": "TopicPage: posts list title"
+  },
+  "Fj8WFC": {
+    "defaultMessage": "{results, plural, =0 {No articles} one {# article} other {# articles}}",
+    "description": "PostMeta: total found articles"
+  },
+  "FtokGF": {
+    "defaultMessage": "Updated on:",
+    "description": "PostMeta: update date label"
+  },
+  "G/SLvC": {
+    "defaultMessage": "Thanks for your comment! It is now awaiting moderation.",
+    "description": "CommentForm: Comment sent success message"
+  },
+  "GUfnQ4": {
+    "defaultMessage": "Reading time:",
+    "description": "Article meta"
+  },
+  "HriY57": {
+    "defaultMessage": "Thematics",
+    "description": "BlogPage: thematics list widget title"
+  },
+  "Hs+q2V": {
+    "defaultMessage": "Email",
+    "description": "ContactPage: email field label"
+  },
+  "ILRLTq": {
+    "defaultMessage": "{brandingName} picture",
+    "description": "Branding: branding name picture."
+  },
+  "Igx3qp": {
+    "defaultMessage": "Projects",
+    "description": "Breadcrumb: Projects item"
+  },
+  "J4nhm4": {
+    "defaultMessage": "Comment",
+    "description": "CommentForm: Comment field label"
+  },
+  "Ji6xwo": {
+    "defaultMessage": "An error occurred:",
+    "description": "ContactPage: error message"
+  },
+  "KERk7L": {
+    "defaultMessage": "Filter by:",
+    "description": "BlogPage: sidebar title"
+  },
+  "KeRtm/": {
+    "defaultMessage": "Light theme",
+    "description": "Icons: Sun icon (light theme)"
+  },
+  "Kqq2cm": {
+    "defaultMessage": "Load more?",
+    "description": "BlogPage: load more text"
+  },
+  "Mj2BQf": {
+    "defaultMessage": "{name}'s CV",
+    "description": "CVPage: page title"
+  },
+  "N44SOc": {
+    "defaultMessage": "Projects",
+    "description": "HomePage: link to projects"
+  },
+  "N7I4lC": {
+    "defaultMessage": "less than 1 minute",
+    "description": "PostMeta: Reading time value"
+  },
+  "N804XO": {
+    "defaultMessage": "Topics",
+    "description": "SearchPage: topics list widget title"
+  },
+  "Ns8CFb": {
+    "defaultMessage": "Comments",
+    "description": "CommentsList: Comments section title"
+  },
+  "O9XLDc": {
+    "defaultMessage": "Theme:",
+    "description": "ThemeToggle: toggle label"
+  },
+  "OIffB4": {
+    "defaultMessage": "Contact {websiteName} through its website. All you need to do it's to fill the contact form.",
+    "description": "ContactPage: SEO - Meta description"
+  },
+  "OTTv+m": {
+    "defaultMessage": "{count, plural, =0 {Repositories:} one {Repository:} other {Repositories:}}",
+    "description": "ProjectSummary: repositories list label"
+  },
+  "OV9r1K": {
+    "defaultMessage": "Copied!",
+    "description": "Prism: copy button text (clicked)"
+  },
+  "OccTWi": {
+    "defaultMessage": "Page not found",
+    "description": "404Page: page title"
+  },
+  "Oim3rQ": {
+    "defaultMessage": "Email",
+    "description": "CommentForm: Email field label"
+  },
+  "Ox/daH": {
+    "defaultMessage": "{commentCount, plural, =0 {No comments} one {# comment} other {# comments}}",
+    "description": "PostMeta: comment count value"
+  },
+  "P7fxX2": {
+    "defaultMessage": "All posts in {name}",
+    "description": "ThematicPage: posts list title"
+  },
+  "PXp2hv": {
+    "defaultMessage": "{websiteName} | Front-end developer: WordPress/React",
+    "description": "HomePage: SEO - Page title"
+  },
+  "PrIz5o": {
+    "defaultMessage": "Search for a post on {websiteName}",
+    "description": "SearchPage: meta description without query"
+  },
+  "PxMDzL": {
+    "defaultMessage": "Failed to load.",
+    "description": "ThematicsList: failed to load text"
+  },
+  "Qh2CwH": {
+    "defaultMessage": "Find me elsewhere",
+    "description": "ContactPage: social media widget title"
+  },
+  "R0eDmw": {
+    "defaultMessage": "Blog",
+    "description": "BlogPage: breadcrumb item"
+  },
+  "SWq8a4": {
+    "defaultMessage": "Close {type}",
+    "description": "ButtonToolbar: Close button"
+  },
+  "SX1z3t": {
+    "defaultMessage": "Projects: open-source makings - {websiteName}",
+    "description": "ProjectsPage: SEO - Page title"
+  },
+  "T4YA64": {
+    "defaultMessage": "Subscribe",
+    "description": "HomePage: RSS feed subscription text"
+  },
+  "TfU6Qm": {
+    "defaultMessage": "Search",
+    "description": "SearchPage: breadcrumb item"
+  },
+  "U++A+B": {
+    "defaultMessage": "{readingTime, plural, =0 {# minutes} one {# minute} other {# minutes}}",
+    "description": "PostMeta: reading time value"
+  },
+  "U+35YD": {
+    "defaultMessage": "Search",
+    "description": "SearchPage: page title"
+  },
+  "UsQske": {
+    "defaultMessage": "Read more here:",
+    "description": "Sharing: content link prefix"
+  },
+  "VSGuGE": {
+    "defaultMessage": "Search results for {query}",
+    "description": "SearchPage: search results text"
+  },
+  "W2G95o": {
+    "defaultMessage": "Comments:",
+    "description": "PostMeta: comment count label"
+  },
+  "WGFOmA": {
+    "defaultMessage": "Send",
+    "description": "CommentForm: Send button"
+  },
+  "WRkY1/": {
+    "defaultMessage": "Collapse",
+    "description": "ExpandableWidget: collapse text"
+  },
+  "X3PDXO": {
+    "defaultMessage": "Animations:",
+    "description": "ReduceMotion: toggle label"
+  },
+  "Y1ZdJ6": {
+    "defaultMessage": "CV Front-end developer - {websiteName}",
+    "description": "CVPage: SEO - Page title"
+  },
+  "Y3qRib": {
+    "defaultMessage": "Contact form - {websiteName}",
+    "description": "ContactPage: SEO - Page title"
+  },
+  "YEudoh": {
+    "defaultMessage": "Read more articles about:",
+    "description": "PostFooter: read more posts about given subjects"
+  },
+  "Z1eSIz": {
+    "defaultMessage": "Open {type}",
+    "description": "ButtonToolbar: Open button"
+  },
+  "ZJMNRW": {
+    "defaultMessage": "Home",
+    "description": "MainNav: home link"
+  },
+  "ZWh78Y": {
+    "defaultMessage": "Sorry, it seems that the page your are looking for does not exist. If you think this path should work, feel free to <link>contact me</link> with the necessary information so that I can fix the problem.",
+    "description": "404Page: page body"
+  },
+  "Zg4L7U": {
+    "defaultMessage": "Table of contents",
+    "description": "ToC: widget title"
+  },
+  "aQLBE3": {
+    "defaultMessage": "{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}",
+    "description": "ProjectPreview: technologies list label"
+  },
+  "agLf5v": {
+    "defaultMessage": "Website:",
+    "description": "PostMeta: website label"
+  },
+  "akSutM": {
+    "defaultMessage": "Projects",
+    "description": "MainNav: projects link"
+  },
+  "azc1GT": {
+    "defaultMessage": "Open menu",
+    "description": "MainNav: open button"
+  },
+  "bBdMGm": {
+    "defaultMessage": "Discover the curriculum of {websiteName}, front-end developer located in France: skills, experiences and training.",
+    "description": "CVPage: SEO - Meta description"
+  },
+  "bHEmkY": {
+    "defaultMessage": "Settings",
+    "description": "Settings: modal title"
+  },
+  "bkbrN7": {
+    "defaultMessage": "Read more<a11y> about {title}</a11y>",
+    "description": "PostPreview: read more link"
+  },
+  "c2NtPj": {
+    "defaultMessage": "Contact",
+    "description": "MainNav: contact link"
+  },
+  "cr2fA4": {
+    "defaultMessage": "Subject",
+    "description": "ContactPage: subject field label"
+  },
+  "dE8xxV": {
+    "defaultMessage": "Close menu",
+    "description": "MainNav: close button"
+  },
+  "dqrd6I": {
+    "defaultMessage": "Back to top",
+    "description": "Footer: Back to top button"
+  },
+  "e9L59q": {
+    "defaultMessage": "No comments yet.",
+    "description": "CommentsList: No comment message"
+  },
+  "eFMu2E": {
+    "defaultMessage": "Search",
+    "description": "SearchForm : form title"
+  },
+  "eUXMG4": {
+    "defaultMessage": "Seen on {domainName}:",
+    "description": "Sharing: seen on text"
+  },
+  "ec3m6p": {
+    "defaultMessage": "Leave a comment",
+    "description": "CommentForm: form title"
+  },
+  "enwhNm": {
+    "defaultMessage": "{count, plural, =0 {Technologies:} one {Technology:} other {Technologies:}}",
+    "description": "ProjectSummary: technologies list label"
+  },
+  "fGnfqp": {
+    "defaultMessage": "Published on:",
+    "description": "PostMeta: publication date label"
+  },
+  "fOe8rH": {
+    "defaultMessage": "Failed to load.",
+    "description": "SearchPage: failed to load text"
+  },
+  "hKagVG": {
+    "defaultMessage": "License:",
+    "description": "ProjectSummary: license label"
+  },
+  "hV0qHp": {
+    "defaultMessage": "Expand",
+    "description": "ExpandableWidget: expand text"
+  },
+  "hzHuCc": {
+    "defaultMessage": "Reply",
+    "description": "Comment: reply button"
+  },
+  "iqAbyn": {
+    "defaultMessage": "Skip to content",
+    "description": "Layout: Skip to content button"
+  },
+  "iyEh0R": {
+    "defaultMessage": "Failed to load.",
+    "description": "RecentPosts: failed to load text"
+  },
+  "jASD7k": {
+    "defaultMessage": "Linux",
+    "description": "HomePage: link to Linux thematic"
+  },
+  "jGqV2+": {
+    "defaultMessage": "Written by:",
+    "description": "Article meta"
+  },
+  "jN+dY5": {
+    "defaultMessage": "Website",
+    "description": "CommentForm: Website field label"
+  },
+  "jpv+Nz": {
+    "defaultMessage": "Resume",
+    "description": "MainNav: resume link"
+  },
+  "l0+ROl": {
+    "defaultMessage": "{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}",
+    "description": "PostMeta: thematics list label"
+  },
+  "mC21ht": {
+    "defaultMessage": "Number of articles loaded out of the total available.",
+    "description": "PaginationCursor: loaded articles count aria-label"
+  },
+  "mJLflX": {
+    "defaultMessage": "Send",
+    "description": "ContactPage: send button text"
+  },
+  "mh7tGg": {
+    "defaultMessage": "{title} preview",
+    "description": "ProjectSummary: cover alt text"
+  },
+  "norrGp": {
+    "defaultMessage": "Others thematics",
+    "description": "ThematicPage: thematics list widget title"
+  },
+  "ode0YK": {
+    "defaultMessage": "Dark theme",
+    "description": "Icons: Moon icon (dark theme)"
+  },
+  "okFrAO": {
+    "defaultMessage": "{count, plural, =0 {Technologies:} one {Technology:} other {Technologies:}}",
+    "description": "ProjectPreview: technologies list label"
+  },
+  "pEtJik": {
+    "defaultMessage": "Load more?",
+    "description": "SearchPage: load more text"
+  },
+  "q3U6uI": {
+    "defaultMessage": "Share",
+    "description": "Sharing: widget title"
+  },
+  "q9cJQe": {
+    "defaultMessage": "Loading...",
+    "description": "Spinner: loading text"
+  },
+  "qPU/Qn": {
+    "defaultMessage": "On",
+    "description": "ReduceMotion: toggle on label"
+  },
+  "qXQETZ": {
+    "defaultMessage": "{thematicsCount, plural, =0 {Related thematics} one {Related thematic} other {Related thematics}}",
+    "description": "RelatedThematics: widget title"
+  },
+  "rXeTkM": {
+    "defaultMessage": "This comment is awaiting moderation.",
+    "description": "Comment: awaiting moderation message"
+  },
+  "s6U1Xt": {
+    "defaultMessage": "Discover {websiteName} projects. Mostly related to web development and open source.",
+    "description": "ProjectsPage: SEO - Meta description"
+  },
+  "sO/Iwj": {
+    "defaultMessage": "Contact me",
+    "description": "HomePage: contact button text"
+  },
+  "soj7do": {
+    "defaultMessage": "Published on:",
+    "description": "Comment: publication date label"
+  },
+  "tMuNTy": {
+    "defaultMessage": "{websiteName} is a front-end developer located in France. He codes and he writes mostly about web development and open-source.",
+    "description": "HomePage: SEO - Meta description"
+  },
+  "txusHd": {
+    "defaultMessage": "All fields marked with * are required.",
+    "description": "ContactPage: required fields text"
+  },
+  "uHp568": {
+    "defaultMessage": "Name",
+    "description": "ContactPage: name field label"
+  },
+  "ureXFw": {
+    "defaultMessage": "Share on {name}",
+    "description": "Sharing: share on social network text"
+  },
+  "uvB+32": {
+    "defaultMessage": "Discover the legal notice of {websiteName}'s website.",
+    "description": "LegalNoticePage: SEO - Meta description"
+  },
+  "vJ+QDV": {
+    "defaultMessage": "Last updated on:",
+    "description": "ProjectSummary: update date label"
+  },
+  "vK7Sxv": {
+    "defaultMessage": "No results found.",
+    "description": "PostsList: no results"
+  },
+  "vgMk0q": {
+    "defaultMessage": "Popularity:",
+    "description": "ProjectSummary: popularity label"
+  },
+  "vhIggb": {
+    "defaultMessage": "Total:",
+    "description": "Article meta"
+  },
+  "vkF/RP": {
+    "defaultMessage": "Web development",
+    "description": "HomePage: link to web development thematic"
+  },
+  "w/lPUh": {
+    "defaultMessage": "{topicsCount, plural, =0 {Related topics} one {Related topic} other {Related topics}}",
+    "description": "RelatedTopics: widget title"
+  },
+  "w1nIrj": {
+    "defaultMessage": "Off",
+    "description": "ReduceMotion: toggle off label"
+  },
+  "w8GrOf": {
+    "defaultMessage": "Free",
+    "description": "HomePage: link to free thematic"
+  },
+  "x6PPlk": {
+    "defaultMessage": "Message",
+    "description": "ContactPage: message field label"
+  },
+  "xC3Khf": {
+    "defaultMessage": "Download <link>CV in PDF</link>",
+    "description": "CVPreview: download as PDF link"
+  },
+  "yWjXRx": {
+    "defaultMessage": "Legal notice",
+    "description": "FooterNav: legal notice link"
+  },
+  "yfgMcl": {
+    "defaultMessage": "Introduction:",
+    "description": "Sharing: email content prefix"
+  },
+  "ywkCsK": {
+    "defaultMessage": "Error 404",
+    "description": "404Page: breadcrumb item"
+  },
+  "z0ic9c": {
+    "defaultMessage": "Blog",
+    "description": "Breadcrumb: Blog item"
+  },
+  "z9qkcQ": {
+    "defaultMessage": "Use Ctrl+c to copy",
+    "description": "Prism: error text"
+  },
+  "zPJifH": {
+    "defaultMessage": "Blog",
+    "description": "MainNav: blog link"
+  }
+}

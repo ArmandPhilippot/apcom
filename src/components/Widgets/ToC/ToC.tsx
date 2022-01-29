@@ -1,11 +1,15 @@
 import { ExpandableWidget, OrderedList } from '@components/WidgetParts';
-import { t } from '@lingui/macro';
 import { Heading } from '@ts/types/app';
 import useHeadingsTree from '@utils/hooks/useHeadingsTree';
+import { useIntl } from 'react-intl';
 
 const ToC = () => {
+  const intl = useIntl();
   const headingsTree = useHeadingsTree('article');
-  const title = t`Table of contents`;
+  const title = intl.formatMessage({
+    defaultMessage: 'Table of contents',
+    description: 'ToC: widget title',
+  });
 
   const getItems = (headings: Heading[]) => {
     return headings.map((heading) => {

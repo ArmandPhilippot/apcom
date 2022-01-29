@@ -3,11 +3,14 @@ import CommentsList from '@components/CommentsList/CommentsList';
 import { getLayout } from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
+import Sidebar from '@components/Sidebar/Sidebar';
+import { Sharing, ToC } from '@components/Widgets';
 import { config } from '@config/website';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
+import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta, ArticleProps } from '@ts/types/articles';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
+import { loadTranslation } from '@utils/helpers/i18n';
 import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -15,9 +18,7 @@ import { useRouter } from 'next/router';
 import Prism from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
-import styles from '@styles/pages/Page.module.scss';
-import { Sharing, ToC } from '@components/Widgets';
-import Sidebar from '@components/Sidebar/Sidebar';
+import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
@@ -45,6 +46,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     wordsCount: info.wordsCount,
   };
 
+  const intl = useIntl();
   const router = useRouter();
   const locale = router.locale ? router.locale : config.locales.defaultLocale;
   const articleUrl = `${config.url}${router.asPath}`;
@@ -55,8 +57,8 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   });
 
   useEffect(() => {
-    translateCopyButton(locale);
-  }, [locale]);
+    translateCopyButton(locale, intl);
+  }, [intl, locale]);
 
   const webpageSchema: WebPage = {
     '@id': `${articleUrl}`,
@@ -163,7 +165,7 @@ export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
   const { slug } = context.params as PostParams;
   const post = await getPostBySlug(slug);
   const breadcrumbTitle = post.title;
@@ -171,7 +173,6 @@ export const getStaticProps: GetStaticProps = async (
   return {
     props: {
       breadcrumbTitle,
-      locale,
       post,
       translation,
     },

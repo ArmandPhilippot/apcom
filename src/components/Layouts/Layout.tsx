@@ -1,12 +1,12 @@
-import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
 import Main from '@components/Main/Main';
 import Breadcrumb from '@components/Breadcrumb/Breadcrumb';
-import { t } from '@lingui/macro';
-import Head from 'next/head';
 import { config } from '@config/website';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { ReactElement, ReactNode, useEffect, useRef } from 'react';
+import { useIntl } from 'react-intl';
 import { WebSite, WithContext } from 'schema-dts';
 
 const Layout = ({
@@ -16,6 +16,7 @@ const Layout = ({
   children: ReactNode;
   isHome?: boolean;
 }) => {
+  const intl = useIntl();
   const ref = useRef<HTMLSpanElement>(null);
   const { asPath } = useRouter();
 
@@ -91,7 +92,12 @@ const Layout = ({
         ></script>
       </Head>
       <span ref={ref} tabIndex={-1} />
-      <a href="#main" className="screen-reader-text">{t`Skip to content`}</a>
+      <a href="#main" className="screen-reader-text">
+        {intl.formatMessage({
+          defaultMessage: 'Skip to content',
+          description: 'Layout: Skip to content button',
+        })}
+      </a>
       <Header isHome={isHome} />
       <Main>{children}</Main>
       <Footer />

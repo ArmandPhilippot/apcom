@@ -1,8 +1,8 @@
 import { ExpandableWidget } from '@components/WidgetParts';
 import sharingMedia from '@config/sharing';
-import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 import styles from './Sharing.module.scss';
 
 type Parameters = {
@@ -20,6 +20,7 @@ type Website = {
 };
 
 const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
+  const intl = useIntl();
   const [pageExcerpt, setPageExcerpt] = useState('');
   const [pageUrl, setPageUrl] = useState('');
   const [domainName, setDomainName] = useState('');
@@ -54,8 +55,14 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       switch (key) {
         case 'content':
           if (id === 'email') {
-            const intro = t`Introduction:`;
-            const readMore = t`Read more here:`;
+            const intro = intl.formatMessage({
+              defaultMessage: 'Introduction:',
+              description: 'Sharing: email content prefix',
+            });
+            const readMore = intl.formatMessage({
+              defaultMessage: 'Read more here:',
+              description: 'Sharing: content link prefix',
+            });
             const body = `${intro}\n\n"${pageExcerpt}"\n\n${readMore} ${pageUrl}`;
             sharingUrl += encodeURI(body);
           } else {
@@ -63,7 +70,16 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
           }
           break;
         case 'title':
-          const prefix = id === 'email' ? t`Seen on ${domainName}:` : '';
+          const prefix =
+            id === 'email'
+              ? intl.formatMessage(
+                  {
+                    defaultMessage: 'Seen on {domainName}:',
+                    description: 'Sharing: seen on text',
+                  },
+                  { domainName }
+                )
+              : '';
           sharingUrl += encodeURI(`${prefix} ${title}`);
           break;
         case 'url':
@@ -94,7 +110,15 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
             title={name}
             className={`${styles.link} ${styles[linkModifier]}`}
           >
-            <span className="screen-reader-text">{t`Share on ${name}`}</span>
+            <span className="screen-reader-text">
+              {intl.formatMessage(
+                {
+                  defaultMessage: 'Share on {name}',
+                  description: 'Sharing: share on social network text',
+                },
+                { name }
+              )}
+            </span>
           </a>
         </li>
       );
@@ -102,7 +126,13 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
   };
 
   return (
-    <ExpandableWidget title={t`Share`} expand={true}>
+    <ExpandableWidget
+      title={intl.formatMessage({
+        defaultMessage: 'Share',
+        description: 'Sharing: widget title',
+      })}
+      expand={true}
+    >
       <ul className={`${styles.list} ${styles['list--sharing']}`}>
         {getItems()}
       </ul>

@@ -1,17 +1,18 @@
+import photo from '@assets/images/armand-philippot.jpg';
+import { config } from '@config/website';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement } from 'react';
-import { t } from '@lingui/macro';
-import photo from '@assets/images/armand-philippot.jpg';
-import { config } from '@config/website';
-import styles from './Branding.module.scss';
-import Head from 'next/head';
+import { useIntl } from 'react-intl';
 import { Person, WithContext } from 'schema-dts';
+import styles from './Branding.module.scss';
 import Logo from './Logo/Logo';
 
 type BrandingReturn = ({ isHome }: { isHome: boolean }) => ReactElement;
 
 const Branding: BrandingReturn = ({ isHome = false }) => {
+  const intl = useIntl();
   const TitleTag = isHome ? 'h1' : 'p';
 
   const schemaJsonLd: WithContext<Person> = {
@@ -38,10 +39,15 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
           <div className={styles.logo__front}>
             <Image
               src={photo}
-              alt={t({
-                message: `${config.name} picture`,
-                comment: 'Branding logo.',
-              })}
+              alt={intl.formatMessage(
+                {
+                  defaultMessage: '{brandingName} picture',
+                  description: 'Branding: branding name picture.',
+                },
+                {
+                  brandingName: config.name,
+                }
+              )}
               layout="responsive"
             />
           </div>

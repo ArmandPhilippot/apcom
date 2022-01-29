@@ -11,7 +11,7 @@ import {
   Project as ProjectData,
   ProjectProps,
 } from '@ts/types/app';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
+import { loadTranslation } from '@utils/helpers/i18n';
 import {
   getAllProjectsFilename,
   getProjectData,
@@ -133,7 +133,7 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const breadcrumbTitle = '';
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
   const { slug } = context.params as ProjectParams;
   const project = await getProjectData(slug);
 

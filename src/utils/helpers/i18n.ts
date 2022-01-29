@@ -1,86 +1,49 @@
-import { messages as messagesEn } from '@i18n/en/messages.js';
-import { messages as messagesFr } from '@i18n/fr/messages.js';
-import { i18n, Messages } from '@lingui/core';
-import { en, fr } from 'make-plural/plurals';
+import { config } from '@config/website';
+import { createIntl, createIntlCache, IntlShape } from '@formatjs/intl';
+import { readFile } from 'fs/promises';
+import path from 'path';
 
-type Catalog = {
-  messages: Messages;
-};
+type Messages = { [key: string]: string };
 
-export const locales = {
-  en: 'English',
-  fr: 'Français',
-};
-
-export const defaultLocale = 'fr';
+export const defaultLocale = config.locales.defaultLocale;
 
 /**
- * Load the translation with the correct method depending on environment.
+ * Load the translation for the provided locale.
  *
- * @param {string} locale - The current locale.
- * @returns {Promise<Messages>} The translated messages.
+ * @param currentLocale - The current locale.
+ * @returns {Promise<Messages>} The translated strings.
  */
-export async function loadTranslation(locale: string): Promise<Messages> {
-  let catalog: Catalog;
+export async function loadTranslation(
+  currentLocale: string | undefined
+): Promise<Messages> {
+  const locale: string = currentLocale || defaultLocale;
+
+  const languagePath = path.join(process.cwd(), `lang/${locale}.json`);
 
   try {
-    if (process.env.NODE_ENV === 'production') {
-      catalog = await import(`src/i18n/${locale}/messages`);
-    } else {
-      catalog = await import(`@lingui/loader!src/i18n/${locale}/messages.po`);
-    }
-
-    return catalog.messages;
+    const contents = await readFile(languagePath, 'utf8');
+    return JSON.parse(contents);
   } catch (error) {
-    console.error('Error while loading translation.');
+    console.error(
+      'Error: Could not load compiled language files. Please run `yarn run i18n:compile` first."'
+    );
     throw error;
   }
 }
 
 /**
- * Init lingui.
+ * Create an Intl object to be used outside components.
  *
- * @param {string} locale - The locale to activate.
- * @param {Messages} [messages] - The compiled translation.
+ * @returns {<Promise<IntlShape<string>>} The Intl object.
  */
-export function initLingui(locale: string, messages?: Messages) {
+export async function getIntlInstance(): Promise<IntlShape<string>> {
   try {
-    i18n.loadLocaleData({
-      en: { plurals: en },
-      fr: { plurals: fr },
-    });
+    const cache = createIntlCache();
+    const messages = await loadTranslation(defaultLocale);
 
-    if (messages) {
-      i18n.load(locale, messages);
-    } else {
-      i18n.load({
-        en: messagesEn,
-        fr: messagesFr,
-      });
-    }
-
-    i18n.activate(locale, Object.keys(locales));
+    return createIntl({ locale: defaultLocale, messages }, cache);
   } catch (error) {
-    console.error('Error while Lingui init.');
-    throw error;
-  }
-}
-
-/**
- * Activate the given locale.
- *
- * @param {string} locale - The locale to activate.
- * @param {Messages} messages - The compiled translation.
- */
-export function activateLocale(currentLocale: string, messages: Messages) {
-  const locale: string = Object.keys(locales).includes(currentLocale)
-    ? currentLocale
-    : defaultLocale;
-
-  try {
-    initLingui(locale, messages);
-  } catch (error) {
-    console.error(`Error while activating ${currentLocale}`);
+    console.error('Error: Could not create an Intl instance.');
     throw error;
   }
 }

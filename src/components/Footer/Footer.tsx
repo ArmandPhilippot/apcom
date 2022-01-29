@@ -2,11 +2,12 @@ import { ButtonLink } from '@components/Buttons';
 import Copyright from '@components/Copyright/Copyright';
 import FooterNav from '@components/FooterNav/FooterNav';
 import { ArrowIcon } from '@components/Icons';
-import { t } from '@lingui/macro';
 import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
+  const intl = useIntl();
   const [backToTopClasses, setBackToTopClasses] = useState(
     `${styles['back-to-top']} ${styles['back-to-top--hidden']}`
   );
@@ -36,7 +37,12 @@ const Footer = () => {
       <FooterNav />
       <div className={backToTopClasses}>
         <ButtonLink target="#top" position="center">
-          <span className="screen-reader-text">{t`Back to top`}</span>
+          <span className="screen-reader-text">
+            {intl.formatMessage({
+              defaultMessage: 'Back to top',
+              description: 'Footer: Back to top button',
+            })}
+          </span>
           <ArrowIcon direction="top" />
         </ButtonLink>
       </div>

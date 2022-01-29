@@ -1,24 +1,25 @@
 import { getLayout } from '@components/Layouts/Layout';
-import PostPreview from '@components/PostPreview/PostPreview';
-import { t } from '@lingui/macro';
-import { NextPageWithLayout } from '@ts/types/app';
-import { TopicProps, ThematicPreview } from '@ts/types/taxonomies';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
-import styles from '@styles/pages/Page.module.scss';
-import { getAllTopicsSlug, getTopicBySlug } from '@services/graphql/queries';
 import PostHeader from '@components/PostHeader/PostHeader';
-import { ArticleMeta } from '@ts/types/articles';
-import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
-import { useRef } from 'react';
-import Head from 'next/head';
+import PostPreview from '@components/PostPreview/PostPreview';
 import Sidebar from '@components/Sidebar/Sidebar';
-import { Article as Article, Graph, WebPage } from 'schema-dts';
+import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
 import { config } from '@config/website';
+import { getAllTopicsSlug, getTopicBySlug } from '@services/graphql/queries';
+import styles from '@styles/pages/Page.module.scss';
+import { NextPageWithLayout } from '@ts/types/app';
+import { ArticleMeta } from '@ts/types/articles';
+import { TopicProps, ThematicPreview } from '@ts/types/taxonomies';
+import { loadTranslation } from '@utils/helpers/i18n';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
+import { useRef } from 'react';
+import { useIntl } from 'react-intl';
+import { Article as Article, Graph, WebPage } from 'schema-dts';
 
 const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
+  const intl = useIntl();
   const relatedThematics = useRef<ThematicPreview[]>([]);
   const router = useRouter();
 
@@ -128,14 +129,27 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
           <div dangerouslySetInnerHTML={{ __html: topic.content }}></div>
           {topic.posts.length > 0 && (
             <section className={styles.section}>
-              <h2>{t`All posts in ${topic.title}`}</h2>
+              <h2>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: 'All posts in {name}',
+                    description: 'TopicPage: posts list title',
+                  },
+                  { name: topic.title }
+                )}
+              </h2>
               <ol className={styles.list}>{getPostsList()}</ol>
             </section>
           )}
         </div>
         <Sidebar position="right">
           <RelatedThematics thematics={relatedThematics.current} />
-          <TopicsList title={t`Other topics`} />
+          <TopicsList
+            title={intl.formatMessage({
+              defaultMessage: 'Others topics',
+              description: 'TopicPage: topics list widget title',
+            })}
+          />
         </Sidebar>
       </article>
     </>
@@ -152,7 +166,7 @@ export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
   const { slug } = context.params as PostParams;
   const topic = await getTopicBySlug(slug);
   const breadcrumbTitle = topic.title;

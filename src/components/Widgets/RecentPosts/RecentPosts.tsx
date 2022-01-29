@@ -1,16 +1,17 @@
 import Spinner from '@components/Spinner/Spinner';
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import { getPublishedPosts } from '@services/graphql/queries';
 import { ArticlePreview } from '@ts/types/articles';
 import { getFormattedDate } from '@utils/helpers/format';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import styles from './RecentPosts.module.scss';
 
 const RecentPosts = () => {
+  const intl = useIntl();
   const { data, error } = useSWR('/recent-posts', () =>
     getPublishedPosts({ first: 3 })
   );
@@ -36,7 +37,12 @@ const RecentPosts = () => {
                 )}
               <h3 className={styles.title}>{post.title}</h3>
               <dl className={styles.meta}>
-                <dt>{t`Published on:`}</dt>
+                <dt>
+                  {intl.formatMessage({
+                    defaultMessage: 'Published on:',
+                    description: 'RecentPosts: publication date label',
+                  })}
+                </dt>
                 <dd>
                   <time dateTime={post.dates.publication}>
                     {getFormattedDate(post.dates.publication, locale)}
@@ -51,7 +57,11 @@ const RecentPosts = () => {
   };
 
   const getPostsItems = () => {
-    if (error) return t`Failed to load.`;
+    if (error)
+      return intl.formatMessage({
+        defaultMessage: 'Failed to load.',
+        description: 'RecentPosts: failed to load text',
+      });
     if (!data) return <Spinner />;
 
     return data.posts.map((post) => getPost(post));

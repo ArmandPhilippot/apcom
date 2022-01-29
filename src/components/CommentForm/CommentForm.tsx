@@ -1,9 +1,9 @@
 import { ButtonSubmit } from '@components/Buttons';
 import { Form, FormItem, Input, TextArea } from '@components/Form';
 import Notice from '@components/Notice/Notice';
-import { t } from '@lingui/macro';
 import { createComment } from '@services/graphql/mutations';
 import { ForwardedRef, forwardRef, useState } from 'react';
+import { useIntl } from 'react-intl';
 import styles from './CommentForm.module.scss';
 
 const CommentForm = (
@@ -18,6 +18,7 @@ const CommentForm = (
   },
   ref: ForwardedRef<HTMLInputElement>
 ) => {
+  const intl = useIntl();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [website, setWebsite] = useState('');
@@ -68,7 +69,12 @@ const CommentForm = (
 
   return (
     <div className={wrapperClasses}>
-      <h2 className={styles.title}>{t`Leave a comment`}</h2>
+      <h2 className={styles.title}>
+        {intl.formatMessage({
+          defaultMessage: 'Leave a comment',
+          description: 'CommentForm: form title',
+        })}
+      </h2>
       <Form
         submitHandler={submitHandler}
         modifier={isReply ? 'centered' : undefined}
@@ -77,7 +83,10 @@ const CommentForm = (
           <Input
             id="commenter-name"
             name="commenter-name"
-            label={t`Name`}
+            label={intl.formatMessage({
+              defaultMessage: 'Name',
+              description: 'CommentForm: Name field label',
+            })}
             required={true}
             value={name}
             setValue={setName}
@@ -88,7 +97,10 @@ const CommentForm = (
           <Input
             id="commenter-email"
             name="commenter-email"
-            label={t`Email`}
+            label={intl.formatMessage({
+              defaultMessage: 'Email',
+              description: 'CommentForm: Email field label',
+            })}
             required={true}
             value={email}
             setValue={setEmail}
@@ -98,7 +110,10 @@ const CommentForm = (
           <Input
             id="commenter-website"
             name="commenter-website"
-            label={t`Website`}
+            label={intl.formatMessage({
+              defaultMessage: 'Website',
+              description: 'CommentForm: Website field label',
+            })}
             value={website}
             setValue={setWebsite}
           />
@@ -107,17 +122,31 @@ const CommentForm = (
           <TextArea
             id="commenter-message"
             name="commenter-message"
-            label={t`Comment`}
+            label={intl.formatMessage({
+              defaultMessage: 'Comment',
+              description: 'CommentForm: Comment field label',
+            })}
             value={message}
             setValue={setMessage}
             required={true}
           />
         </FormItem>
         <FormItem>
-          <ButtonSubmit>{t`Send`}</ButtonSubmit>
+          <ButtonSubmit>
+            {intl.formatMessage({
+              defaultMessage: 'Send',
+              description: 'CommentForm: Send button',
+            })}
+          </ButtonSubmit>
         </FormItem>
         {isSuccess && !isApproved && (
-          <Notice type="success">{t`Thanks for your comment! It is now awaiting moderation.`}</Notice>
+          <Notice type="success">
+            {intl.formatMessage({
+              defaultMessage:
+                'Thanks for your comment! It is now awaiting moderation.',
+              description: 'CommentForm: Comment sent success message',
+            })}
+          </Notice>
         )}
       </Form>
     </div>

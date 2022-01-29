@@ -1,10 +1,10 @@
 import Spinner from '@components/Spinner/Spinner';
 import { ExpandableWidget, List } from '@components/WidgetParts';
-import { t } from '@lingui/macro';
 import { getAllTopics } from '@services/graphql/queries';
 import { TitleLevel } from '@ts/types/app';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 
 const TopicsList = ({
@@ -14,6 +14,7 @@ const TopicsList = ({
   title: string;
   titleLevel?: TitleLevel;
 }) => {
+  const intl = useIntl();
   const router = useRouter();
   const isTopic = () => router.asPath.includes('/sujet/');
   const currentTopicSlug = isTopic()
@@ -23,7 +24,15 @@ const TopicsList = ({
   const { data, error } = useSWR('/api/topics', getAllTopics);
 
   const getList = () => {
-    if (error) return <ul>{t`Failed to load.`}</ul>;
+    if (error)
+      return (
+        <ul>
+          {intl.formatMessage({
+            defaultMessage: 'Failed to load.',
+            description: 'TopicsList: failed to load text',
+          })}
+        </ul>
+      );
     if (!data)
       return (
         <ul>

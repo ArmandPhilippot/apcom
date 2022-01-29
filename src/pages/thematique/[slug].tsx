@@ -1,27 +1,28 @@
 import { getLayout } from '@components/Layouts/Layout';
+import PostHeader from '@components/PostHeader/PostHeader';
 import PostPreview from '@components/PostPreview/PostPreview';
-import { t } from '@lingui/macro';
-import { NextPageWithLayout } from '@ts/types/app';
-import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
-import styles from '@styles/pages/Page.module.scss';
+import Sidebar from '@components/Sidebar/Sidebar';
+import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
+import { config } from '@config/website';
 import {
   getAllThematicsSlug,
   getThematicBySlug,
 } from '@services/graphql/queries';
-import PostHeader from '@components/PostHeader/PostHeader';
-import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
-import { useRef } from 'react';
+import styles from '@styles/pages/Page.module.scss';
+import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
+import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
+import { loadTranslation } from '@utils/helpers/i18n';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { Article, Graph, WebPage } from 'schema-dts';
-import { config } from '@config/website';
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
+import { useRef } from 'react';
+import { useIntl } from 'react-intl';
+import { Article, Graph, WebPage } from 'schema-dts';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
+  const intl = useIntl();
   const relatedTopics = useRef<TopicPreview[]>([]);
   const router = useRouter();
 
@@ -118,14 +119,27 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
           <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
           {thematic.posts.length > 0 && (
             <section className={styles.section}>
-              <h2>{t`All posts in ${thematic.title}`}</h2>
+              <h2>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: 'All posts in {name}',
+                    description: 'ThematicPage: posts list title',
+                  },
+                  { name: thematic.title }
+                )}
+              </h2>
               <ol className={styles.list}>{getPostsList()}</ol>
             </section>
           )}
         </div>
         <Sidebar position="right">
           <RelatedTopics topics={relatedTopics.current} />
-          <ThematicsList title={t`Other thematics`} />
+          <ThematicsList
+            title={intl.formatMessage({
+              defaultMessage: 'Others thematics',
+              description: 'ThematicPage: thematics list widget title',
+            })}
+          />
         </Sidebar>
       </article>
     </>
@@ -142,7 +156,7 @@ export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
   const { slug } = context.params as PostParams;
   const thematic = await getThematicBySlug(slug);
   const breadcrumbTitle = thematic.title;

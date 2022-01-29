@@ -1,46 +1,72 @@
 import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
-import { seo } from '@config/seo';
-import { t, Trans } from '@lingui/macro';
+import { config } from '@config/website';
+import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
+import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '@styles/pages/Page.module.scss';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-const error404: NextPageWithLayout = () => {
+const Error404: NextPageWithLayout = () => {
+  const intl = useIntl();
+
+  const pageTitle = intl.formatMessage(
+    {
+      defaultMessage: 'Error 404: Page not found - {websiteName}',
+      description: '404Page: SEO - Page title',
+    },
+    { websiteName: config.name }
+  );
+  const pageDescription = intl.formatMessage({
+    defaultMessage: 'Page not found.',
+    description: '404Page: SEO - Meta description',
+  });
+
   return (
     <>
       <Head>
-        <title>{seo.error404.title}</title>
-        <meta name="description" content={seo.error404.description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
       </Head>
       <div className={`${styles.article} ${styles['article--no-comments']}`}>
-        <PostHeader title={t`Page not found`} />
+        <PostHeader
+          title={intl.formatMessage({
+            defaultMessage: 'Page not found',
+            description: '404Page: page title',
+          })}
+        />
         <div className={styles.body}>
-          <Trans>
-            Sorry, it seems that the page you are looking for does not exist.
-          </Trans>{' '}
-          <Trans>
-            If you think this path should work, feel free to{' '}
-            <Link href="/contact/">contact me</Link> with the necessary
-            information so that I can fix the problem.
-          </Trans>
+          <FormattedMessage
+            defaultMessage="Sorry, it seems that the page your are looking for does not exist. If you think this path should work, feel free to <link>contact me</link> with the necessary information so that I can fix the problem."
+            description="404Page: page body"
+            values={{
+              link: (chunks: string) => (
+                <Link href="/contact/">
+                  <a>{chunks}</a>
+                </Link>
+              ),
+            }}
+          />
         </div>
       </div>
     </>
   );
 };
 
-error404.getLayout = getLayout;
+Error404.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const breadcrumbTitle = t`Error`;
+  const intl = await getIntlInstance();
+  const breadcrumbTitle = intl.formatMessage({
+    defaultMessage: 'Error 404',
+    description: '404Page: breadcrumb item',
+  });
   const { locale } = context;
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {
@@ -51,4 +77,4 @@ export const getStaticProps: GetStaticProps = async (
   };
 };
 
-export default error404;
+export default Error404;

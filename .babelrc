@@ -2,6 +2,7 @@
   "presets": ["next/babel"],
   "plugins": [
     "macros",
+    ["formatjs", { "ast": true }],
     [
       "prismjs",
       {

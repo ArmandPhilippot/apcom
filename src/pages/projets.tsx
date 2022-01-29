@@ -1,19 +1,20 @@
 import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import ProjectsList from '@components/ProjectsList/ProjectsList';
-import { seo } from '@config/seo';
 import { config } from '@config/website';
 import PageContent, { meta } from '@content/pages/projects.mdx';
 import styles from '@styles/pages/Projects.module.scss';
 import { Project } from '@ts/types/app';
-import { defaultLocale, loadTranslation } from '@utils/helpers/i18n';
+import { loadTranslation } from '@utils/helpers/i18n';
 import { getSortedProjects } from '@utils/helpers/projects';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
 const Projects = ({ projects }: { projects: Project[] }) => {
+  const intl = useIntl();
   const dates = {
     publication: meta.publishedOn,
     update: meta.updatedOn,
@@ -22,13 +23,28 @@ const Projects = ({ projects }: { projects: Project[] }) => {
   const updateDate = new Date(dates.update);
   const router = useRouter();
   const pageUrl = `${config.url}${router.asPath}`;
+  const pageTitle = intl.formatMessage(
+    {
+      defaultMessage: 'Projects: open-source makings - {websiteName}',
+      description: 'ProjectsPage: SEO - Page title',
+    },
+    { websiteName: config.name }
+  );
+  const pageDescription = intl.formatMessage(
+    {
+      defaultMessage:
+        'Discover {websiteName} projects. Mostly related to web development and open source.',
+      description: 'ProjectsPage: SEO - Meta description',
+    },
+    { websiteName: config.name }
+  );
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
-    name: seo.legalNotice.title,
-    description: seo.legalNotice.description,
+    name: pageTitle,
+    description: pageDescription,
     inLanguage: config.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     reviewedBy: { '@id': `${config.url}/#branding` },
@@ -42,7 +58,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
     '@id': `${config.url}/#projects`,
     '@type': 'Article',
     name: meta.title,
-    description: seo.projects.description,
+    description: pageDescription,
     author: { '@id': `${config.url}/#branding` },
     copyrightYear: publicationDate.getFullYear(),
     creator: { '@id': `${config.url}/#branding` },
@@ -63,12 +79,12 @@ const Projects = ({ projects }: { projects: Project[] }) => {
   return (
     <>
       <Head>
-        <title>{seo.projects.title}</title>
-        <meta name="description" content={seo.projects.description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
         <meta property="og:url" content={`${pageUrl}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={meta.title} />
-        <meta property="og:description" content={seo.projects.description} />
+        <meta property="og:description" content={pageDescription} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
@@ -92,7 +108,7 @@ export const getStaticProps: GetStaticProps = async (
   const breadcrumbTitle = meta.title;
   const { locale } = context;
   const projects: Project[] = await getSortedProjects();
-  const translation = await loadTranslation(locale || defaultLocale);
+  const translation = await loadTranslation(locale);
 
   return {
     props: {

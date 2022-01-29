@@ -1,11 +1,12 @@
 import { Toggle } from '@components/Form';
 import { MoonIcon, SunIcon } from '@components/Icons';
 import Spinner from '@components/Spinner/Spinner';
-import { t } from '@lingui/macro';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 const ThemeToggle = () => {
+  const intl = useIntl();
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -24,7 +25,10 @@ const ThemeToggle = () => {
   return (
     <Toggle
       id="dark-theme"
-      label={t`Theme:`}
+      label={intl.formatMessage({
+        defaultMessage: 'Theme:',
+        description: 'ThemeToggle: toggle label',
+      })}
       leftChoice={<SunIcon />}
       rightChoice={<MoonIcon />}
       value={isDarkTheme}
