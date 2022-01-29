@@ -1,15 +1,15 @@
-import PostMeta from '@components/PostMeta/PostMeta';
-import { t } from '@lingui/macro';
-import { ArticleMeta, ArticlePreview } from '@ts/types/articles';
-import Link from 'next/link';
-import styles from './PostPreview.module.scss';
-import Image from 'next/image';
 import { ButtonLink } from '@components/Buttons';
 import { ArrowIcon } from '@components/Icons';
-import { TitleLevel } from '@ts/types/app';
-import { BlogPosting, WithContext } from 'schema-dts';
-import Head from 'next/head';
+import PostMeta from '@components/PostMeta/PostMeta';
 import { config } from '@config/website';
+import { TitleLevel } from '@ts/types/app';
+import { ArticleMeta, ArticlePreview } from '@ts/types/articles';
+import Image from 'next/image';
+import Head from 'next/head';
+import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
+import { BlogPosting, WithContext } from 'schema-dts';
+import styles from './PostPreview.module.scss';
 
 const PostPreview = ({
   post,
@@ -97,11 +97,16 @@ const PostPreview = ({
         ></div>
         <footer className={styles.footer}>
           <ButtonLink target={`/article/${slug}`} position="left">
-            {t`Read more`}
-            <span className="screen-reader-text">
-              {' '}
-              {t({ message: `about ${title}`, comment: 'Post title' })}
-            </span>
+            <FormattedMessage
+              defaultMessage="Read more<a11y> about {title}</a11y>"
+              description="PostPreview: read more link"
+              values={{
+                title,
+                a11y: (chunks: string) => (
+                  <span className="screen-reader-text">{chunks}</span>
+                ),
+              }}
+            />
             <ArrowIcon />
           </ButtonLink>
         </footer>

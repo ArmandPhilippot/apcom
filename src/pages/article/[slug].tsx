@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import Prism from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
@@ -45,6 +46,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     wordsCount: info.wordsCount,
   };
 
+  const intl = useIntl();
   const router = useRouter();
   const locale = router.locale ? router.locale : config.locales.defaultLocale;
   const articleUrl = `${config.url}${router.asPath}`;
@@ -55,8 +57,8 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   });
 
   useEffect(() => {
-    translateCopyButton(locale);
-  }, [locale]);
+    translateCopyButton(locale, intl);
+  }, [intl, locale]);
 
   const webpageSchema: WebPage = {
     '@id': `${articleUrl}`,

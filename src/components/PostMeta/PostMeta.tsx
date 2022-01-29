@@ -1,9 +1,9 @@
 import { config } from '@config/website';
-import { plural, t } from '@lingui/macro';
 import { ArticleMeta } from '@ts/types/articles';
 import { getFormattedDate } from '@utils/helpers/format';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import styles from './PostMeta.module.scss';
 
 type PostMetaMode = 'list' | 'single';
@@ -26,6 +26,7 @@ const PostMeta = ({
     website,
     wordsCount,
   } = meta;
+  const intl = useIntl();
   const router = useRouter();
   const locale = router.locale ? router.locale : config.locales.defaultLocale;
   const isThematic = () => router.asPath.includes('/thematique/');
@@ -62,24 +63,31 @@ const PostMeta = ({
   };
 
   const getCommentsCount = () => {
-    switch (commentCount) {
-      case 0:
-        return t`No comments`;
-      case 1:
-        return t`1 comment`;
-      default:
-        return t`${commentCount} comments`;
-    }
+    return intl.formatMessage(
+      {
+        defaultMessage:
+          '{commentCount, plural, =0 {No comments} one {# comment} other {# comments}}',
+        description: 'PostMeta: comment count value',
+      },
+      { commentCount }
+    );
   };
 
   const getReadingTime = () => {
     if (!readingTime) return;
-    if (readingTime < 0) return t`less than 1 minute`;
-    return plural(readingTime, {
-      zero: '# minutes',
-      one: '# minute',
-      other: '# minutes',
-    });
+    if (readingTime < 0)
+      return intl.formatMessage({
+        defaultMessage: 'less than 1 minute',
+        description: 'PostMeta: Reading time value',
+      });
+    return intl.formatMessage(
+      {
+        defaultMessage:
+          '{readingTime, plural, =0 {# minutes} one {# minute} other {# minutes}}',
+        description: 'PostMeta: reading time value',
+      },
+      { readingTime }
+    );
   };
 
   const getDates = () => {
@@ -91,14 +99,24 @@ const PostMeta = ({
     return (
       <>
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Published on:`}</dt>
+          <dt className={styles.term}>
+            {intl.formatMessage({
+              defaultMessage: 'Published on:',
+              description: 'PostMeta: publication date label',
+            })}
+          </dt>
           <dd className={styles.description}>
             <time dateTime={dates.publication}>{publicationDate}</time>
           </dd>
         </div>
         {publicationDate !== updateDate && (
           <div className={styles.item}>
-            <dt className={styles.term}>{t`Updated on:`}</dt>
+            <dt className={styles.term}>
+              {intl.formatMessage({
+                defaultMessage: 'Updated on:',
+                description: 'PostMeta: update date label',
+              })}
+            </dt>
             <dd className={styles.description}>
               <time dateTime={dates.update}>{updateDate}</time>
             </dd>
@@ -114,14 +132,24 @@ const PostMeta = ({
     <dl className={wrapperClass}>
       {author && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Written by:`}</dt>
+          <dt className={styles.term}>
+            {intl.formatMessage({
+              defaultMessage: 'Written by:',
+              description: 'Article meta',
+            })}
+          </dt>
           <dd className={styles.description}>{author.name}</dd>
         </div>
       )}
       {getDates()}
       {readingTime !== undefined && wordsCount !== undefined && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Reading time:`}</dt>
+          <dt className={styles.term}>
+            {intl.formatMessage({
+              defaultMessage: 'Reading time:',
+              description: 'Article meta',
+            })}
+          </dt>
           <dd
             className={styles.description}
             title={`Approximately ${wordsCount.toLocaleString(locale)} words`}
@@ -132,20 +160,35 @@ const PostMeta = ({
       )}
       {results && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Total: `}</dt>
-          <dd className={styles.description}>
-            {plural(results, {
-              zero: '# articles',
-              one: '# article',
-              other: '# articles',
+          <dt className={styles.term}>
+            {intl.formatMessage({
+              defaultMessage: 'Total:',
+              description: 'Article meta',
             })}
+          </dt>
+          <dd className={styles.description}>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  '{results, plural, =0 {No articles} one {# article} other {# articles}}',
+                description: 'PostMeta: total found articles',
+              },
+              { results }
+            )}
           </dd>
         </div>
       )}
       {!isThematic() && thematics && thematics.length > 0 && (
         <div className={styles.item}>
           <dt className={styles.term}>
-            {thematics.length > 1 ? t`Thematics:` : t`Thematic:`}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  '{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}',
+                description: 'PostMeta: thematics list label',
+              },
+              { thematicsCount: thematics.length }
+            )}
           </dt>
           {getThematics()}
         </div>
@@ -153,14 +196,26 @@ const PostMeta = ({
       {isThematic() && topics && topics.length > 0 && (
         <div className={styles.item}>
           <dt className={styles.term}>
-            {topics.length > 1 ? t`Topics:` : t`Topic:`}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  '{topicsCount, plural, =0 {Topics:} one {Topic:} other {Topics:}}',
+                description: 'PostMeta: topics list label',
+              },
+              { topicsCount: topics.length }
+            )}
           </dt>
           {getTopics()}
         </div>
       )}
       {website && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Website:`}</dt>
+          <dt className={styles.term}>
+            {intl.formatMessage({
+              defaultMessage: 'Website:',
+              description: 'PostMeta: website label',
+            })}
+          </dt>
           <dd className={styles.description}>
             <a href={website}>{website}</a>
           </dd>
@@ -168,7 +223,12 @@ const PostMeta = ({
       )}
       {commentCount !== undefined && (
         <div className={styles.item}>
-          <dt className={styles.term}>{t`Comments:`}</dt>
+          <dt className={styles.term}>
+            {intl.formatMessage({
+              defaultMessage: 'Comments:',
+              description: 'PostMeta: comment count label',
+            })}
+          </dt>
           <dd className={styles.description}>
             {isArticle() ? (
               <a href="#comments">{getCommentsCount()}</a>

@@ -1,9 +1,9 @@
-import { t } from '@lingui/macro';
-import { PostsList as PostsListData } from '@ts/types/blog';
-import styles from './PostsList.module.scss';
 import PostPreview from '@components/PostPreview/PostPreview';
-import { ForwardedRef, forwardRef, Fragment } from 'react';
+import { PostsList as PostsListData } from '@ts/types/blog';
 import { sortPostsByYear } from '@utils/helpers/sort';
+import { ForwardedRef, forwardRef, Fragment } from 'react';
+import { useIntl } from 'react-intl';
+import styles from './PostsList.module.scss';
 
 const PostsList = (
   {
@@ -15,6 +15,7 @@ const PostsList = (
   },
   ref: ForwardedRef<HTMLSpanElement>
 ) => {
+  const intl = useIntl();
   const titleLevel = showYears ? 3 : 2;
 
   const getPostsListByYear = () => {
@@ -32,7 +33,12 @@ const PostsList = (
         <section key={year} className={styles.section}>
           {showYears && (
             <h2 className={styles.year}>
-              <span className="screen-reader-text">{t`Published in`} </span>
+              <span className="screen-reader-text">
+                {intl.formatMessage({
+                  defaultMessage: 'Published on',
+                  description: 'PostsList: published on year label',
+                })}{' '}
+              </span>
               {year}
             </h2>
           )}
@@ -62,7 +68,14 @@ const PostsList = (
       };
 
       if (page.posts.length === 0) {
-        return <p key="no-result">{t`No results found.`}</p>;
+        return (
+          <p key="no-result">
+            {intl.formatMessage({
+              defaultMessage: 'No results found.',
+              description: 'PostsList: no results',
+            })}
+          </p>
+        );
       } else {
         return (
           <Fragment key={page.pageInfo.endCursor}>

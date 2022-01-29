@@ -1,9 +1,23 @@
 import Link from 'next/link';
 import styles from './FooterNav.module.scss';
-import { footerNav } from '@config/nav';
+import { NavItem } from '@ts/types/nav';
+import { useIntl } from 'react-intl';
 
 const FooterNav = () => {
-  const navItems = footerNav.map((item) => {
+  const intl = useIntl();
+
+  const footerNavConfig: NavItem[] = [
+    {
+      id: 'legal-notice',
+      name: intl.formatMessage({
+        defaultMessage: 'Legal notice',
+        description: 'FooterNav: legal notice link',
+      }),
+      slug: '/mentions-legales',
+    },
+  ];
+
+  const navItems = footerNavConfig.map((item) => {
     return (
       <li key={item.id} className={styles.item}>
         <Link href={item.slug}>

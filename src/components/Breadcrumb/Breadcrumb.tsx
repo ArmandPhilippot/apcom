@@ -1,12 +1,13 @@
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import { BreadcrumbList, WithContext } from 'schema-dts';
 import styles from './Breadcrumb.module.scss';
 
 const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
+  const intl = useIntl();
   const router = useRouter();
 
   const isHome = router.pathname === '/';
@@ -20,14 +21,24 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
       <>
         <li className={styles.item}>
           <Link href="/">
-            <a>{t`Home`}</a>
+            <a>
+              {intl.formatMessage({
+                defaultMessage: 'Home',
+                description: 'Breadcrumb: Home item',
+              })}
+            </a>
           </Link>
         </li>
         {(isArticle || isThematic || isSubject) && (
           <>
             <li className={styles.item}>
               <Link href="/blog">
-                <a>{t`Blog`}</a>
+                <a>
+                  {intl.formatMessage({
+                    defaultMessage: 'Blog',
+                    description: 'Breadcrumb: Blog item',
+                  })}
+                </a>
               </Link>
             </li>
           </>
@@ -36,7 +47,12 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
           <>
             <li className={styles.item}>
               <Link href="/projets">
-                <a>{t`Projects`}</a>
+                <a>
+                  {intl.formatMessage({
+                    defaultMessage: 'Projects',
+                    description: 'Breadcrumb: Projects item',
+                  })}
+                </a>
               </Link>
             </li>
           </>
@@ -51,7 +67,10 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
     const homepage: BreadcrumbList['itemListElement'] = {
       '@type': 'ListItem',
       position: 1,
-      name: t`Home`,
+      name: intl.formatMessage({
+        defaultMessage: 'Home',
+        description: 'Breadcrumb: Home item',
+      }),
       item: config.url,
     };
 
@@ -61,7 +80,10 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
       const blog: BreadcrumbList['itemListElement'] = {
         '@type': 'ListItem',
         position: 2,
-        name: t`Blog`,
+        name: intl.formatMessage({
+          defaultMessage: 'Blog',
+          description: 'Breadcrumb: Blog item',
+        }),
         item: `${config.url}/blog`,
       };
 
@@ -72,7 +94,10 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
       const blog: BreadcrumbList['itemListElement'] = {
         '@type': 'ListItem',
         position: 2,
-        name: t`Projects`,
+        name: intl.formatMessage({
+          defaultMessage: 'Projects',
+          description: 'Breadcrumb: Projects item',
+        }),
         item: `${config.url}/projets`,
       };
 
@@ -108,7 +133,12 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
       </Head>
       {!isHome && (
         <nav id="breadcrumb" className={styles.wrapper}>
-          <span className="screen-reader-text">{t`You are here:`}</span>
+          <span className="screen-reader-text">
+            {intl.formatMessage({
+              defaultMessage: 'You are here:',
+              description: 'Breadcrumb: You are here prefix',
+            })}
+          </span>
           <ol className={styles.list}>{getItems()}</ol>
         </nav>
       )}

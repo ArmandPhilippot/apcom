@@ -3,6 +3,7 @@ import { translateCopyButton } from '@utils/helpers/prism';
 import { useRouter } from 'next/router';
 import Prism from 'prismjs';
 import { ReactChildren, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 
 const CodeBlock = ({
   className,
@@ -15,6 +16,7 @@ const CodeBlock = ({
   const languageClass = classNames.find((name: string) =>
     name.startsWith('language-')
   );
+  const intl = useIntl();
   const router = useRouter();
   const locale = router.locale ? router.locale : config.locales.defaultLocale;
 
@@ -23,8 +25,8 @@ const CodeBlock = ({
   });
 
   useEffect(() => {
-    translateCopyButton(locale);
-  }, [locale]);
+    translateCopyButton(locale, intl);
+  }, [intl, locale]);
 
   return (
     <div>

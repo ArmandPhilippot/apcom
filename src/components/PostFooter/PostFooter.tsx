@@ -1,10 +1,12 @@
 import { ButtonLink } from '@components/Buttons';
-import { t } from '@lingui/macro';
 import { TopicPreview } from '@ts/types/taxonomies';
 import Image from 'next/image';
+import { useIntl } from 'react-intl';
 import styles from './PostFooter.module.scss';
 
 const PostFooter = ({ topics }: { topics: TopicPreview[] }) => {
+  const intl = useIntl();
+
   const getTopics = () => {
     return topics.map((topic) => {
       return (
@@ -31,7 +33,12 @@ const PostFooter = ({ topics }: { topics: TopicPreview[] }) => {
       {topics.length > 0 && (
         <>
           <dl className={styles.meta}>
-            <dt>{t`Read more articles about:`}</dt>
+            <dt>
+              {intl.formatMessage({
+                defaultMessage: 'Read more articles about:',
+                description: 'PostFooter: read more posts about given subjects',
+              })}
+            </dt>
             <dd>
               <ul className={styles.list}>{getTopics()}</ul>
             </dd>

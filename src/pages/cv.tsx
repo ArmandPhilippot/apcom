@@ -2,10 +2,8 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { CVPreview, SocialMedia, ToC } from '@components/Widgets';
-import { seo } from '@config/seo';
 import { config } from '@config/website';
 import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
-import { t } from '@lingui/macro';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
@@ -13,9 +11,11 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import { AboutPage, Graph, WebPage } from 'schema-dts';
 
 const CV: NextPageWithLayout = () => {
+  const intl = useIntl();
   const router = useRouter();
   const dates = {
     publication: meta.publishedOn,
@@ -26,13 +26,28 @@ const CV: NextPageWithLayout = () => {
     dates,
   };
   const pageUrl = `${config.url}${router.asPath}`;
+  const pageTitle = intl.formatMessage(
+    {
+      defaultMessage: 'CV Front-end developer - {websiteName}',
+      description: 'CVPage: SEO - Page title',
+    },
+    { websiteName: config.name }
+  );
+  const pageDescription = intl.formatMessage(
+    {
+      defaultMessage:
+        'Discover the curriculum of {websiteName}, front-end developer located in France: skills, experiences and training.',
+      description: 'CVPage: SEO - Meta description',
+    },
+    { websiteName: config.name }
+  );
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
-    name: seo.cv.title,
-    description: seo.cv.description,
+    name: pageTitle,
+    description: pageDescription,
     reviewedBy: { '@id': `${config.url}/#branding` },
     url: `${pageUrl}`,
     isPartOf: {
@@ -46,7 +61,7 @@ const CV: NextPageWithLayout = () => {
   const cvSchema: AboutPage = {
     '@id': `${config.url}/#cv`,
     '@type': 'AboutPage',
-    name: `${config.name} CV`,
+    name: pageTitle,
     description: intro,
     author: { '@id': `${config.url}/#branding` },
     creator: { '@id': `${config.url}/#branding` },
@@ -66,17 +81,25 @@ const CV: NextPageWithLayout = () => {
     '@graph': [webpageSchema, cvSchema],
   };
 
+  const title = intl.formatMessage(
+    {
+      defaultMessage: "{name}'s CV",
+      description: 'CVPage: page title',
+    },
+    { name: config.name }
+  );
+
   return (
     <>
       <Head>
-        <title>{seo.cv.title}</title>
-        <meta name="description" content={seo.cv.description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
         <meta property="og:url" content={`${pageUrl}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={`${config.name} CV`} />
+        <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
         <meta property="og:image" content={image} />
-        <meta property="og:image:alt" content={`${config.name} CV`} />
+        <meta property="og:image:alt" content={title} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
@@ -94,9 +117,19 @@ const CV: NextPageWithLayout = () => {
           <CVContent />
         </div>
         <Sidebar position="right">
-          <CVPreview title={t`Other formats`} imgSrc={image} pdf={pdf} />
+          <CVPreview
+            title={intl.formatMessage({
+              defaultMessage: 'Others formats',
+              description: 'CVPage: cv preview widget title',
+            })}
+            imgSrc={image}
+            pdf={pdf}
+          />
           <SocialMedia
-            title={t`Open-source projects`}
+            title={intl.formatMessage({
+              defaultMessage: 'Open-source projects',
+              description: 'CVPage: social media widget title',
+            })}
             github={true}
             gitlab={true}
           />

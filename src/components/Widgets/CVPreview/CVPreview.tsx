@@ -1,7 +1,7 @@
 import { ExpandableWidget } from '@components/WidgetParts';
-import { Trans } from '@lingui/macro';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
 import styles from './CVPreview.module.scss';
 
 const CVPreview = ({
@@ -25,9 +25,17 @@ const CVPreview = ({
         />
       </div>
       <p>
-        <Trans>
-          Download <Link href={pdf}>CV in PDF</Link>
-        </Trans>
+        <FormattedMessage
+          defaultMessage="Download <link>CV in PDF</link>"
+          description="CVPreview: download as PDF link"
+          values={{
+            link: (chunks: string) => (
+              <Link href={pdf}>
+                <a>{chunks}</a>
+              </Link>
+            ),
+          }}
+        />
       </p>
     </ExpandableWidget>
   );

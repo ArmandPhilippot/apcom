@@ -1,7 +1,6 @@
 import { Button } from '@components/Buttons';
 import CommentForm from '@components/CommentForm/CommentForm';
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import { Comment as CommentData } from '@ts/types/comments';
 import { getFormattedDate } from '@utils/helpers/format';
 import Head from 'next/head';
@@ -9,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { Comment as CommentSchema, WithContext } from 'schema-dts';
 import styles from './Comment.module.scss';
 
@@ -21,6 +21,7 @@ const Comment = ({
   comment: CommentData;
   isNested?: boolean;
 }) => {
+  const intl = useIntl();
   const router = useRouter();
   const locale = router.locale ? router.locale : config.locales.defaultLocale;
   const [isReply, setIsReply] = useState<boolean>(false);
@@ -48,7 +49,16 @@ const Comment = ({
         minute: 'numeric',
       })
       .replace(':', 'h');
-    return t`${date} at ${time}`;
+    return intl.formatMessage(
+      {
+        defaultMessage: '{date} at {time}',
+        description: 'Comment: publication date',
+      },
+      {
+        date,
+        time,
+      }
+    );
   };
 
   const getApprovedComment = () => {
@@ -68,7 +78,12 @@ const Comment = ({
             {getCommentAuthor()}
           </header>
           <dl className={styles.date}>
-            <dt>{t`Published on:`}</dt>
+            <dt>
+              {intl.formatMessage({
+                defaultMessage: 'Published on:',
+                description: 'Comment: publication date label',
+              })}
+            </dt>
             <dd>
               <time dateTime={comment.date}>
                 <Link href={`#comment-${comment.commentId}`}>
@@ -83,9 +98,12 @@ const Comment = ({
           ></div>
           {!isNested && (
             <footer className={styles.footer}>
-              <Button
-                clickHandler={() => setIsReply((prev) => !prev)}
-              >{t`Reply`}</Button>
+              <Button clickHandler={() => setIsReply((prev) => !prev)}>
+                {intl.formatMessage({
+                  defaultMessage: 'Reply',
+                  description: 'Comment: reply button',
+                })}
+              </Button>
             </footer>
           )}
         </article>
@@ -116,7 +134,14 @@ const Comment = ({
   };
 
   const getCommentStatus = () => {
-    return <p>{t`This comment is awaiting moderation.`}</p>;
+    return (
+      <p>
+        {intl.formatMessage({
+          defaultMessage: 'This comment is awaiting moderation.',
+          description: 'Comment: awaiting moderation message',
+        })}
+      </p>
+    );
   };
 
   const schemaJsonLd: WithContext<CommentSchema> = {

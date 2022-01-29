@@ -1,5 +1,3 @@
-import { t } from '@lingui/macro';
-
 const sharingMedia = [
   {
     id: 'diaspora',
@@ -58,7 +56,7 @@ const sharingMedia = [
   },
   {
     id: 'email',
-    name: t`Email`,
+    name: 'Email',
     parameters: {
       content: 'body',
       image: '',

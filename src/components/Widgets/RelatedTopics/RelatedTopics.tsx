@@ -1,9 +1,10 @@
 import { ExpandableWidget, List } from '@components/WidgetParts';
-import { t } from '@lingui/macro';
 import { TopicPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 
 const RelatedTopics = ({ topics }: { topics: TopicPreview[] }) => {
+  const intl = useIntl();
   const sortedTopics = [...topics].sort((a, b) =>
     a.title.localeCompare(b.title)
   );
@@ -20,7 +21,14 @@ const RelatedTopics = ({ topics }: { topics: TopicPreview[] }) => {
 
   return (
     <ExpandableWidget
-      title={topicsList.length > 1 ? t`Related topics` : t`Related topic`}
+      title={intl.formatMessage(
+        {
+          defaultMessage:
+            '{topicsCount, plural, =0 {Related topics} one {Related topic} other {Related topics}}',
+          description: 'RelatedTopics: widget title',
+        },
+        { topicsCount: topicsList.length }
+      )}
       withBorders={true}
     >
       <List items={topicsList} />

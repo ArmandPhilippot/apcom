@@ -1,9 +1,10 @@
 import { ExpandableWidget, List } from '@components/WidgetParts';
-import { t } from '@lingui/macro';
 import { ThematicPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 
 const RelatedThematics = ({ thematics }: { thematics: ThematicPreview[] }) => {
+  const intl = useIntl();
   const sortedThematics = [...thematics].sort((a, b) =>
     a.title.localeCompare(b.title)
   );
@@ -20,7 +21,14 @@ const RelatedThematics = ({ thematics }: { thematics: ThematicPreview[] }) => {
 
   return (
     <ExpandableWidget
-      title={thematics.length > 1 ? t`Related thematics` : t`Related thematic`}
+      title={intl.formatMessage(
+        {
+          defaultMessage:
+            '{thematicsCount, plural, =0 {Related thematics} one {Related thematic} other {Related thematics}}',
+          description: 'RelatedThematics: widget title',
+        },
+        { thematicsCount: thematics.length }
+      )}
       withBorders={true}
     >
       <List items={thematicsList} />

@@ -1,9 +1,10 @@
 import { Toggle } from '@components/Form';
-import { t } from '@lingui/macro';
 import { LocalStorage } from '@services/local-storage';
 import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 const ReduceMotion = () => {
+  const intl = useIntl();
   const [isDeactivated, setIsDeactivated] = useState<boolean>(false);
 
   useEffect(() => {
@@ -23,9 +24,18 @@ const ReduceMotion = () => {
   return (
     <Toggle
       id="reduced-motion"
-      label={t`Animations:`}
-      leftChoice={t`On`}
-      rightChoice={t`Off`}
+      label={intl.formatMessage({
+        defaultMessage: 'Animations:',
+        description: 'ReduceMotion: toggle label',
+      })}
+      leftChoice={intl.formatMessage({
+        defaultMessage: 'On',
+        description: 'ReduceMotion: toggle on label',
+      })}
+      rightChoice={intl.formatMessage({
+        defaultMessage: 'Off',
+        description: 'ReduceMotion: toggle off label',
+      })}
       value={isDeactivated}
       changeHandler={updateState}
     />

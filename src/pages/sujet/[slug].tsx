@@ -4,7 +4,6 @@ import PostPreview from '@components/PostPreview/PostPreview';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import { getAllTopicsSlug, getTopicBySlug } from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
@@ -16,9 +15,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useRef } from 'react';
+import { useIntl } from 'react-intl';
 import { Article as Article, Graph, WebPage } from 'schema-dts';
 
 const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
+  const intl = useIntl();
   const relatedThematics = useRef<ThematicPreview[]>([]);
   const router = useRouter();
 
@@ -128,14 +129,27 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
           <div dangerouslySetInnerHTML={{ __html: topic.content }}></div>
           {topic.posts.length > 0 && (
             <section className={styles.section}>
-              <h2>{t`All posts in ${topic.title}`}</h2>
+              <h2>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: 'All posts in {name}',
+                    description: 'TopicPage: posts list title',
+                  },
+                  { name: topic.title }
+                )}
+              </h2>
               <ol className={styles.list}>{getPostsList()}</ol>
             </section>
           )}
         </div>
         <Sidebar position="right">
           <RelatedThematics thematics={relatedThematics.current} />
-          <TopicsList title={t`Other topics`} />
+          <TopicsList
+            title={intl.formatMessage({
+              defaultMessage: 'Others topics',
+              description: 'TopicPage: topics list widget title',
+            })}
+          />
         </Sidebar>
       </article>
     </>

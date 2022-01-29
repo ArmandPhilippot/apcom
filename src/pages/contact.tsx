@@ -4,20 +4,20 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { SocialMedia } from '@components/Widgets';
-import { seo } from '@config/seo';
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import { sendMail } from '@services/graphql/mutations';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
 
 const ContactPage: NextPageWithLayout = () => {
+  const intl = useIntl();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
@@ -46,26 +46,54 @@ const ContactPage: NextPageWithLayout = () => {
 
     if (mail.sent) {
       setStatus(
-        t`Thanks. Your message was successfully sent. I will answer it as soon as possible.`
+        intl.formatMessage({
+          defaultMessage:
+            'Thanks. Your message was successfully sent. I will answer it as soon as possible.',
+          description: 'ContactPage: success message',
+        })
       );
       resetForm();
     } else {
-      const errorPrefix = t`An error occurred:`;
+      const errorPrefix = intl.formatMessage({
+        defaultMessage: 'An error occurred:',
+        description: 'ContactPage: error message',
+      });
       const error = `${errorPrefix} ${mail.message}`;
       setStatus(error);
     }
   };
 
-  const title = t`Contact`;
-  const intro = t`Please fill the form to contact me.`;
+  const pageTitle = intl.formatMessage(
+    {
+      defaultMessage: 'Contact form - {websiteName}',
+      description: 'ContactPage: SEO - Page title',
+    },
+    { websiteName: config.name }
+  );
+  const pageDescription = intl.formatMessage(
+    {
+      defaultMessage:
+        "Contact {websiteName} through its website. All you need to do it's to fill the contact form.",
+      description: 'ContactPage: SEO - Meta description',
+    },
+    { websiteName: config.name }
+  );
   const pageUrl = `${config.url}${router.asPath}`;
+  const title = intl.formatMessage({
+    defaultMessage: 'Contact',
+    description: 'ContactPage: page title',
+  });
+  const intro = intl.formatMessage({
+    defaultMessage: 'Please fill the form to contact me.',
+    description: 'ContactPage: page introduction',
+  });
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${config.url}/#breadcrumb` },
-    name: seo.contact.title,
-    description: seo.contact.description,
+    name: pageTitle,
+    description: pageDescription,
     reviewedBy: { '@id': `${config.url}/#branding` },
     url: `${pageUrl}`,
     isPartOf: {
@@ -94,8 +122,8 @@ const ContactPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{seo.contact.title}</title>
-        <meta name="description" content={seo.contact.description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
         <meta property="og:url" content={`${pageUrl}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
@@ -111,7 +139,12 @@ const ContactPage: NextPageWithLayout = () => {
       >
         <PostHeader title={title} intro={intro} />
         <div className={styles.body}>
-          <p>{t`All fields marked with * are required.`}</p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: 'All fields marked with * are required.',
+              description: 'ContactPage: required fields text',
+            })}
+          </p>
           {status && <p>{status}</p>}
           <Form submitHandler={submitHandler}>
             <FormItem>
@@ -120,7 +153,10 @@ const ContactPage: NextPageWithLayout = () => {
                 name="name"
                 value={name}
                 setValue={setName}
-                label={t`Name`}
+                label={intl.formatMessage({
+                  defaultMessage: 'Name',
+                  description: 'ContactPage: name field label',
+                })}
                 required={true}
               />
             </FormItem>
@@ -130,7 +166,10 @@ const ContactPage: NextPageWithLayout = () => {
                 name="email"
                 value={email}
                 setValue={setEmail}
-                label={t`Email`}
+                label={intl.formatMessage({
+                  defaultMessage: 'Email',
+                  description: 'ContactPage: email field label',
+                })}
                 required={true}
               />
             </FormItem>
@@ -140,7 +179,10 @@ const ContactPage: NextPageWithLayout = () => {
                 name="subject"
                 value={subject}
                 setValue={setSubject}
-                label={t`Subject`}
+                label={intl.formatMessage({
+                  defaultMessage: 'Subject',
+                  description: 'ContactPage: subject field label',
+                })}
               />
             </FormItem>
             <FormItem>
@@ -149,18 +191,29 @@ const ContactPage: NextPageWithLayout = () => {
                 name="message"
                 value={message}
                 setValue={setMessage}
-                label={t`Message`}
+                label={intl.formatMessage({
+                  defaultMessage: 'Message',
+                  description: 'ContactPage: message field label',
+                })}
                 required={true}
               />
             </FormItem>
             <FormItem>
-              <ButtonSubmit>{t`Send`}</ButtonSubmit>
+              <ButtonSubmit>
+                {intl.formatMessage({
+                  defaultMessage: 'Send',
+                  description: 'ContactPage: send button text',
+                })}
+              </ButtonSubmit>
             </FormItem>
           </Form>
         </div>
         <Sidebar position="right">
           <SocialMedia
-            title={t`Find me elsewhere`}
+            title={intl.formatMessage({
+              defaultMessage: 'Find me elsewhere',
+              description: 'ContactPage: social media widget title',
+            })}
             github={true}
             gitlab={true}
             linkedin={true}
@@ -176,7 +229,11 @@ ContactPage.getLayout = getLayout;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const breadcrumbTitle = t`Contact`;
+  const intl = await getIntlInstance();
+  const breadcrumbTitle = intl.formatMessage({
+    defaultMessage: 'Contact',
+    description: 'ContactPage: breadcrumb item',
+  });
   const { locale } = context;
   const translation = await loadTranslation(locale);
 

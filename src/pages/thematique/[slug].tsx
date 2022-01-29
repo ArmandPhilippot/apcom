@@ -4,7 +4,6 @@ import PostPreview from '@components/PostPreview/PostPreview';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import {
   getAllThematicsSlug,
   getThematicBySlug,
@@ -19,9 +18,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useRef } from 'react';
+import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
 const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
+  const intl = useIntl();
   const relatedTopics = useRef<TopicPreview[]>([]);
   const router = useRouter();
 
@@ -118,14 +119,27 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
           <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
           {thematic.posts.length > 0 && (
             <section className={styles.section}>
-              <h2>{t`All posts in ${thematic.title}`}</h2>
+              <h2>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: 'All posts in {name}',
+                    description: 'ThematicPage: posts list title',
+                  },
+                  { name: thematic.title }
+                )}
+              </h2>
               <ol className={styles.list}>{getPostsList()}</ol>
             </section>
           )}
         </div>
         <Sidebar position="right">
           <RelatedTopics topics={relatedTopics.current} />
-          <ThematicsList title={t`Other thematics`} />
+          <ThematicsList
+            title={intl.formatMessage({
+              defaultMessage: 'Others thematics',
+              description: 'ThematicPage: thematics list widget title',
+            })}
+          />
         </Sidebar>
       </article>
     </>

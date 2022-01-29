@@ -7,19 +7,20 @@ import Sidebar from '@components/Sidebar/Sidebar';
 import Spinner from '@components/Spinner/Spinner';
 import { ThematicsList, TopicsList } from '@components/Widgets';
 import { config } from '@config/website';
-import { t } from '@lingui/macro';
 import { getPublishedPosts } from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { PostsList as PostsListData } from '@ts/types/blog';
-import { loadTranslation } from '@utils/helpers/i18n';
+import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { useIntl } from 'react-intl';
 import useSWRInfinite from 'swr/infinite';
 
 const Search: NextPageWithLayout = () => {
+  const intl = useIntl();
   const [query, setQuery] = useState('');
   const router = useRouter();
   const lastPostRef = useRef<HTMLSpanElement>(null);
@@ -76,15 +77,33 @@ const Search: NextPageWithLayout = () => {
   const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
 
   const title = query
-    ? t`Search results for: ${query}`
-    : t({
-        comment: 'Search page title',
-        message: 'Search',
+    ? intl.formatMessage(
+        {
+          defaultMessage: 'Search results for {query}',
+          description: 'SearchPage: search results text',
+        },
+        { query }
+      )
+    : intl.formatMessage({
+        defaultMessage: 'Search',
+        description: 'SearchPage: page title',
       });
 
   const description = query
-    ? t`Discover search results for: ${query}`
-    : t`Search for a post on ${config.name}.`;
+    ? intl.formatMessage(
+        {
+          defaultMessage: 'Discover search results for {query}',
+          description: 'SearchPage: meta description with query',
+        },
+        { query }
+      )
+    : intl.formatMessage(
+        {
+          defaultMessage: 'Search for a post on {websiteName}',
+          description: 'SearchPage: meta description without query',
+        },
+        { websiteName: config.name }
+      );
 
   const head = {
     title: `${title} | ${config.name}`,
@@ -99,7 +118,11 @@ const Search: NextPageWithLayout = () => {
   };
 
   const getPostsList = () => {
-    if (error) return t`Failed to load.`;
+    if (error)
+      return intl.formatMessage({
+        defaultMessage: 'Failed to load.',
+        description: 'SearchPage: failed to load text',
+      });
     if (!data) return <Spinner />;
 
     return <PostsList ref={lastPostRef} data={data} showYears={false} />;
@@ -127,13 +150,28 @@ const Search: NextPageWithLayout = () => {
                 isDisabled={isLoadingMore}
                 clickHandler={loadMorePosts}
                 position="center"
-              >{t`Load more?`}</Button>
+              >
+                {intl.formatMessage({
+                  defaultMessage: 'Load more?',
+                  description: 'SearchPage: load more text',
+                })}
+              </Button>
             </>
           )}
         </div>
         <Sidebar position="right">
-          <ThematicsList title={t`Thematics`} />
-          <TopicsList title={t`Topics`} />
+          <ThematicsList
+            title={intl.formatMessage({
+              defaultMessage: 'Thematics',
+              description: 'SearchPage: thematics list widget title',
+            })}
+          />
+          <TopicsList
+            title={intl.formatMessage({
+              defaultMessage: 'Topics',
+              description: 'SearchPage: topics list widget title',
+            })}
+          />
         </Sidebar>
       </article>
     </>
@@ -145,7 +183,11 @@ Search.getLayout = getLayout;
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const breadcrumbTitle = t`Search`;
+  const intl = await getIntlInstance();
+  const breadcrumbTitle = intl.formatMessage({
+    defaultMessage: 'Search',
+    description: 'SearchPage: breadcrumb item',
+  });
   const { locale } = context;
   const translation = await loadTranslation(locale);
 

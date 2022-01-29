@@ -1,6 +1,3 @@
-import { SetStateAction } from 'react';
-import Link from 'next/link';
-import { t } from '@lingui/macro';
 import {
   BlogIcon,
   ContactIcon,
@@ -9,9 +6,12 @@ import {
   HomeIcon,
   ProjectsIcon,
 } from '@components/Icons';
-import { mainNav } from '@config/nav';
-import styles from './MainNav.module.scss';
+import { NavItem } from '@ts/types/nav';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { SetStateAction } from 'react';
+import { useIntl } from 'react-intl';
+import styles from './MainNav.module.scss';
 
 const MainNav = ({
   isOpened,
@@ -20,7 +20,51 @@ const MainNav = ({
   isOpened: boolean;
   setIsOpened: (value: SetStateAction<boolean>) => void;
 }) => {
+  const intl = useIntl();
   const router = useRouter();
+
+  const mainNavConfig: NavItem[] = [
+    {
+      id: 'home',
+      name: intl.formatMessage({
+        defaultMessage: 'Home',
+        description: 'MainNav: home link',
+      }),
+      slug: '/',
+    },
+    {
+      id: 'blog',
+      name: intl.formatMessage({
+        defaultMessage: 'Blog',
+        description: 'MainNav: blog link',
+      }),
+      slug: '/blog',
+    },
+    {
+      id: 'projects',
+      name: intl.formatMessage({
+        defaultMessage: 'Projects',
+        description: 'MainNav: projects link',
+      }),
+      slug: '/projets',
+    },
+    {
+      id: 'cv',
+      name: intl.formatMessage({
+        defaultMessage: 'Resume',
+        description: 'MainNav: resume link',
+      }),
+      slug: '/cv',
+    },
+    {
+      id: 'contact',
+      name: intl.formatMessage({
+        defaultMessage: 'Contact',
+        description: 'MainNav: contact link',
+      }),
+      slug: '/contact',
+    },
+  ];
 
   const getIcon = (id: string) => {
     switch (id) {
@@ -39,7 +83,7 @@ const MainNav = ({
     }
   };
 
-  const navItems = mainNav.map((item) => {
+  const navItems = mainNavConfig.map((item) => {
     const currentClass = router.asPath === item.slug ? styles.current : '';
 
     return (
@@ -73,7 +117,15 @@ const MainNav = ({
       >
         <HamburgerIcon isActive={isOpened} />
         <span className="screen-reader-text">
-          {isOpened ? t`Close menu` : t`Open menu`}
+          {isOpened
+            ? intl.formatMessage({
+                defaultMessage: 'Close menu',
+                description: 'MainNav: close button',
+              })
+            : intl.formatMessage({
+                defaultMessage: 'Open menu',
+                description: 'MainNav: open button',
+              })}
         </span>
       </label>
       <nav className={styles.nav}>
