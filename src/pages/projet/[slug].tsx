@@ -131,11 +131,11 @@ interface ProjectParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const breadcrumbTitle = '';
   const { locale } = context;
   const translation = await loadTranslation(locale);
   const { slug } = context.params as ProjectParams;
   const project = await getProjectData(slug);
+  const breadcrumbTitle = project.title;
 
   return {
     props: {
