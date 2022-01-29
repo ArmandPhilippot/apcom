@@ -42,10 +42,6 @@ const nextConfig = {
         type: 'asset',
       },
       {
-        test: /\.po/,
-        use: ['@lingui/loader'],
-      },
-      {
         test: /\.svg$/,
         use: [
           {
