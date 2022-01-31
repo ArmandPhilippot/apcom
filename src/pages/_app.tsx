@@ -1,5 +1,7 @@
+import { MatomoProvider } from '@datapunt/matomo-tracker-react';
 import { AppPropsWithLayout } from '@ts/types/app';
 import { settings } from '@utils/config';
+import { instance } from '@utils/helpers/matomo';
 import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
 import { IntlProvider } from 'react-intl';
@@ -11,19 +13,21 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <IntlProvider
-      locale={appLocale}
-      defaultLocale={defaultLocale}
-      messages={pageProps.translation}
-    >
-      <ThemeProvider
-        defaultTheme="system"
-        enableColorScheme={true}
-        enableSystem={true}
+    <MatomoProvider value={instance}>
+      <IntlProvider
+        locale={appLocale}
+        defaultLocale={defaultLocale}
+        messages={pageProps.translation}
       >
-        {getLayout(<Component {...pageProps} />)}
-      </ThemeProvider>
-    </IntlProvider>
+        <ThemeProvider
+          defaultTheme="system"
+          enableColorScheme={true}
+          enableSystem={true}
+        >
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
+      </IntlProvider>
+    </MatomoProvider>
   );
 };
 
