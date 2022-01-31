@@ -66,3 +66,43 @@
   --color-token-yellow: #{var.$dark-theme_yellow};
   --color-token-orange: #{var.$dark-theme_orange};
 }
+
+pre[data-prismjs-color-scheme="light"] {
+  --color-bg: #{var.$light-theme_white};
+  --color-bg-secondary: #{var.$light-theme_white-dark};
+  --color-bg-tertiary: #{var.$light-theme_grey-bright};
+  --color-fg: #{var.$light-theme_black};
+  --color-fg-light: #{var.$light-theme_grey-dark};
+  --color-primary: #{var.$light-theme_blue};
+  --color-primary-darker: #{var.$light-theme_blue-darker};
+  --color-border: #{var.$light-theme_grey};
+  --color-border-dark: #{var.$light-theme_grey-dark};
+  --color-token-red: #{var.$light-theme_red};
+  --color-token-green: #{var.$light-theme_green};
+  --color-token-purple: #{var.$light-theme_purple};
+  --color-token-magenta: #{var.$light-theme_magenta};
+  --color-token-cyan: #{var.$light-theme_cyan};
+  --color-token-blue: #{var.$light-theme_blue};
+  --color-token-yellow: #{var.$light-theme_yellow};
+  --color-token-orange: #{var.$light-theme_orange};
+}
+
+pre[data-prismjs-color-scheme="dark"] {
+  --color-bg: #{var.$dark-theme_black};
+  --color-bg-secondary: #{var.$dark-theme_black-bright};
+  --color-bg-tertiary: #{var.$dark-theme_grey-darker};
+  --color-fg: #{var.$dark-theme_white};
+  --color-fg-light: #{var.$dark-theme_grey};
+  --color-primary: #{var.$dark-theme_blue};
+  --color-primary-darker: #{var.$dark-theme_blue-darker};
+  --color-border: #{var.$dark-theme_grey-dark};
+  --color-border-dark: #{var.$dark-theme_grey};
+  --color-token-red: #{var.$dark-theme_red};
+  --color-token-green: #{var.$dark-theme_green};
+  --color-token-purple: #{var.$dark-theme_purple};
+  --color-token-magenta: #{var.$dark-theme_magenta};
+  --color-token-cyan: #{var.$dark-theme_cyan};
+  --color-token-blue: #{var.$dark-theme_blue};
+  --color-token-yellow: #{var.$dark-theme_yellow};
+  --color-token-orange: #{var.$dark-theme_orange};
+}

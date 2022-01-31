@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Prism from 'prismjs';
 import { ReactChildren, useEffect } from 'react';
 import { useIntl } from 'react-intl';
+import '@utils/plugins/prism-color-scheme';
 
 const CodeBlock = ({
   className,

@@ -20,6 +20,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
+import '@utils/plugins/prism-color-scheme';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const {

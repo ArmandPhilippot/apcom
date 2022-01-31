@@ -27,6 +27,11 @@
       "@ts/*": ["src/ts/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/utils/plugins/prism-color-scheme.js"
+  ],
   "exclude": ["node_modules"]
 }

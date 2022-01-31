@@ -49,6 +49,11 @@
       }
     }
   }
+
+  .toolbar-item:nth-child(3) {
+    order: 3;
+    margin-left: var(--spacing-2xs);
+  }
 }
 
 pre[class*="language-"] {
@@ -56,6 +61,8 @@ pre[class*="language-"] {
   margin: var(--spacing-md) 0;
   padding: 0;
   position: relative;
+  background: var(--color-bg-secondary);
+  color: var(--color-fg);
   border: fun.convert-px(1) solid var(--color-border);
 
   > code {
@@ -235,7 +242,8 @@ pre.command-line {
   }
 }
 
-.copy-to-clipboard-button {
+.copy-to-clipboard-button,
+.prism-color-scheme-button {
   display: block;
   padding: 0 var(--spacing-xs);
   background: var(--color-bg);
