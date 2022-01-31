@@ -1,34 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# APcom
 
-## Getting Started
+The source code of [my personal website](https://www.armandphilippot.com/).
 
-First, run the development server:
+## Introduction
+
+The website is built with [Next.js](https://nextjs.org/), [WordPress](https://wordpress.org/) as headless CMS and [MDX](https://mdxjs.com/). To translate the website in French, I use [Formatjs](https://formatjs.io/). For syntax highlighting, I use [Prism](https://prismjs.com/). Others dependencies are used, feel free to take a look at `package.json`.
+
+In addition to WordPress, the backend use:
+
+- [ACF](http://advancedcustomfields.com/)
+- [acf-post2post](https://github.com/Hube2/acf-post2post)
+- [apcom-cpt](https://github.com/ArmandPhilippot/apcom-cpt) (the custom post types used)
+- [wp-graphql](https://www.wpgraphql.com/)
+- [wp-graphql-content-stats](https://github.com/ArmandPhilippot/wp-graphql-content-stats)
+- [wp-graphql-get-extended](https://github.com/ArmandPhilippot/wp-graphql-get-extended)
+- [wp-graphql-gravatar](https://github.com/ArmandPhilippot/wp-graphql-gravatar)
+- [wp-graphql-send-mail](https://github.com/ashhitch/wp-graphql-send-mail)
+
+## Private dependencies
+
+Even if the source code and the contents are under free licenses, I don't want to see pure clones of my website. So I use a private repo as submodule to handle MDX content. Its structure looks like:
+
+```
+/
+|--assets/
+   |-- image.jpg
+   |-- image2.jpg
+|--pages/
+   |-- page1.mdx
+   |-- page2.mdx
+|--projects/
+   |-- project1.mdx
+```
+
+Other contents come from WordPress as headless CMS.
+
+## Development
+
+### First step
+
+Clone this repo, then:
 
 ```bash
-npm run dev
-# or
+cp .env.example .env
+```
+
+And edit the different values.
+
+### Second step
+
+Run the development server:
+
+```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Then, you can make your changes.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### i18n
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+When editing strings that require translation, run:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+yarn run i18n:extract
+```
 
-## Learn More
+Then copy/edit the corresponding strings inside `src/i18n/fr.json`.
 
-To learn more about Next.js, take a look at the following resources:
+If you need another language:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cp src/i18n/en.json src/i18n/[locale].json
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Replace `[locale]` with your desired locale. Then edit this file to translate all the strings.
 
-## Deploy on Vercel
+Once ready, run to update the website translation:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+yarn run i18n:compile
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Licenses
+
+The source code is licensed under the [MIT license](./LICENSE).  
+The contents are licensed under the [CC BY SA license](https://creativecommons.org/licenses/by-sa/4.0/deed.fr).
