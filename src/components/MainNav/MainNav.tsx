@@ -9,7 +9,7 @@ import {
 import { NavItem } from '@ts/types/nav';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SetStateAction } from 'react';
+import { SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './MainNav.module.scss';
 
@@ -22,6 +22,29 @@ const MainNav = ({
 }) => {
   const intl = useIntl();
   const router = useRouter();
+  const mainNavRef = useRef<HTMLDivElement>(null);
+
+  const handleVisibility = useCallback(
+    (e: MouseEvent | FocusEvent) => {
+      if (
+        mainNavRef.current &&
+        !mainNavRef.current.contains(e.target as Node)
+      ) {
+        setIsOpened(false);
+      }
+    },
+    [setIsOpened]
+  );
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleVisibility);
+    document.addEventListener('focusin', handleVisibility);
+
+    return () => {
+      document.removeEventListener('mousedown', handleVisibility);
+      document.removeEventListener('focusin', handleVisibility);
+    };
+  }, [handleVisibility]);
 
   const mainNavConfig: NavItem[] = [
     {
@@ -99,7 +122,7 @@ const MainNav = ({
   });
 
   return (
-    <div className={styles.wrapper}>
+    <div ref={mainNavRef} className={styles.wrapper}>
       <input
         type="checkbox"
         name="main-nav__checkbox"
