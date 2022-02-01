@@ -55,3 +55,23 @@
       var(--draw-border-width, fun.convert-px(3)) 100%;
   }
 }
+
+@keyframes slide-in-from-bottom {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-top {
+  0% {
+    transform: translateY(-200%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

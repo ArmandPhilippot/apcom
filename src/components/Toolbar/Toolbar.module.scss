@@ -25,6 +25,10 @@
   box-shadow: 0 fun.convert-px(-2) fun.convert-px(3) fun.convert-px(-1)
     var(--color-shadow-dark);
 
+  :global {
+    animation: slide-in-from-bottom 0.8s ease-in-out 0s 1;
+  }
+
   @include mix.media("screen") {
     @include mix.dimensions("sm") {
       --toolbar-size: auto;
@@ -39,6 +43,10 @@
       left: unset;
       margin-right: unset;
       transform: unset;
+
+      :global {
+        animation: slide-in-from-top 1s ease-in-out 0s 1;
+      }
     }
   }
 }
