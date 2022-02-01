@@ -150,6 +150,7 @@ const Search: NextPageWithLayout = () => {
                 isDisabled={isLoadingMore}
                 clickHandler={loadMorePosts}
                 position="center"
+                spacing={true}
               >
                 {intl.formatMessage({
                   defaultMessage: 'Load more?',

@@ -169,6 +169,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
                 isDisabled={isLoadingMore}
                 clickHandler={loadMorePosts}
                 position="center"
+                spacing={true}
               >
                 {intl.formatMessage({
                   defaultMessage: 'Load more?',

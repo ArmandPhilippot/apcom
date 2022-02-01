@@ -1,12 +1,14 @@
 @use "@styles/abstracts/functions" as fun;
 
 .wrapper {
-  margin: var(--spacing-sm) auto var(--spacing-md);
   width: max-content;
+  margin: var(--spacing-sm) auto var(--spacing-md);
+  text-align: center;
 
   .bar[value] {
     display: block;
-    width: 30ch;
+    width: clamp(25ch, 20vw, 30ch);
+    max-width: 100%;
     height: fun.convert-px(13);
     appearance: none;
     background: var(--color-bg-tertiary);
@@ -33,4 +35,9 @@
         var(--color-shadow-light);
     }
   }
+}
+
+.info {
+  margin-bottom: var(--spacing-2xs);
+  font-size: var(--font-size-sm);
 }

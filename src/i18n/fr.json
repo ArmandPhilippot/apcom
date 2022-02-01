@@ -95,10 +95,6 @@
     "defaultMessage": "Échec du chargement.",
     "description": "BlogPage: failed to load text"
   },
-  "CSimmh": {
-    "defaultMessage": "{articlesCount, plural, =0 {# article} one {# article} other {# articles}} sur un total de {total}",
-    "description": "PaginationCursor: loaded articles count message"
-  },
   "CT3ydM": {
     "defaultMessage": "{date} à {time}",
     "description": "Comment: publication date"
@@ -188,7 +184,7 @@
     "description": "Icons: Sun icon (light theme)"
   },
   "Kqq2cm": {
-    "defaultMessage": "En charger plus ?",
+    "defaultMessage": "En afficher plus ?",
     "description": "BlogPage: load more text"
   },
   "Mj2BQf": {
@@ -402,6 +398,10 @@
   "dqrd6I": {
     "defaultMessage": "Retour en haut",
     "description": "Footer: Back to top button"
+  },
+  "du4MLN": {
+    "defaultMessage": "{articlesCount, plural, =0 {# article chargé} one {# article chargé} other {# articles chargés}} sur un total de {total}",
+    "description": "PaginationCursor: loaded articles count message"
   },
   "e9L59q": {
     "defaultMessage": "Aucun commentaire.",

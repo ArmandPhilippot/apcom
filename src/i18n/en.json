@@ -95,10 +95,6 @@
     "defaultMessage": "Failed to load.",
     "description": "BlogPage: failed to load text"
   },
-  "CSimmh": {
-    "defaultMessage": "{articlesCount, plural, =0 {# articles} one {# article} other {# articles}} out of a total of {total}",
-    "description": "PaginationCursor: loaded articles count message"
-  },
   "CT3ydM": {
     "defaultMessage": "{date} at {time}",
     "description": "Comment: publication date"
@@ -402,6 +398,10 @@
   "dqrd6I": {
     "defaultMessage": "Back to top",
     "description": "Footer: Back to top button"
+  },
+  "du4MLN": {
+    "defaultMessage": "{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}",
+    "description": "PaginationCursor: loaded articles count message"
   },
   "e9L59q": {
     "defaultMessage": "No comments yet.",

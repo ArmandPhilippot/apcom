@@ -7,15 +7,18 @@ const Button = ({
   clickHandler,
   kind = 'secondary',
   position = 'left',
+  spacing = false,
   isDisabled = false,
 }: {
   children: ReactNode;
   clickHandler: any;
   kind?: ButtonKind;
   position?: ButtonPosition;
+  spacing?: boolean;
   isDisabled?: boolean;
 }) => {
-  const classes = `${styles.btn} ${styles[position]} ${styles[kind]}`;
+  const spacingClass = spacing ? styles.spacing : '';
+  const classes = `${styles.btn} ${styles[position]} ${styles[kind]} ${spacingClass}`;
 
   return (
     <button

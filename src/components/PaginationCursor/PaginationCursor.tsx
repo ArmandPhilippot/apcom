@@ -12,6 +12,16 @@ const PaginationCursor = ({
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.info}>
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              '{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}',
+            description: 'PaginationCursor: loaded articles count message',
+          },
+          { articlesCount: current, total }
+        )}
+      </div>
       <progress
         className={styles.bar}
         max={total}
@@ -23,14 +33,6 @@ const PaginationCursor = ({
             'Number of articles loaded out of the total available.',
           description: 'PaginationCursor: loaded articles count aria-label',
         })}
-        title={intl.formatMessage(
-          {
-            defaultMessage:
-              '{articlesCount, plural, =0 {# articles} one {# article} other {# articles}} out of a total of {total}',
-            description: 'PaginationCursor: loaded articles count message',
-          },
-          { articlesCount: current, total }
-        )}
       ></progress>
     </div>
   );
