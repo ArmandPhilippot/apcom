@@ -33,6 +33,15 @@
   width: 100%;
   height: 100%;
 
+  &:hover {
+    span,
+    span::before,
+    span::after {
+      background: var(--color-primary-lighter);
+      box-shadow: 2px 2px 0 0 var(--color-shadow);
+    }
+  }
+
   @include mix.media("screen") {
     @include mix.dimensions("md") {
       display: none;
@@ -48,6 +57,23 @@
   left: calc((var(--btn-size) - #{fun.convert-px(14)}) / 2);
   opacity: 0;
   cursor: pointer;
+
+  &:hover {
+    ~ .label {
+      span,
+      span::before,
+      span::after {
+        background: var(--color-primary-lighter);
+        box-shadow: 2px 2px 0 0 var(--color-shadow);
+      }
+    }
+  }
+
+  &:focus {
+    ~ .label {
+      outline: var(--color-primary-light) solid fun.convert-px(3);
+    }
+  }
 
   @include mix.media("screen") {
     @include mix.dimensions("md") {
@@ -277,6 +303,24 @@
         opacity: 1;
         visibility: visible;
         transform: none;
+      }
+    }
+  }
+}
+
+.checkbox:checked {
+  ~ .label:hover {
+    span {
+      background: none;
+      box-shadow: none;
+    }
+  }
+
+  &:hover {
+    ~ .label {
+      span {
+        background: none;
+        box-shadow: none;
       }
     }
   }
