@@ -29,6 +29,16 @@ summary {
   cursor: pointer;
 }
 
+iframe {
+  width: 100%;
+  max-width: 100%;
+  margin: var(--spacing-sm) 0;
+}
+
+p + iframe {
+  margin-top: 0;
+}
+
 * {
   scrollbar-color: var(--color-primary) var(--color-bg-tertiary);
   scrollbar-width: auto;
