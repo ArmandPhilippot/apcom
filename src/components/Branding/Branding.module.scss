@@ -16,6 +16,8 @@
 }
 
 .logo {
+  --branding-logo-animation: none;
+
   grid-column: 1;
   grid-row: 1 / -1;
   justify-self: center;
@@ -27,6 +29,7 @@
   border-radius: 50%;
   transition: all 0.6s linear 0s;
   transform-style: preserve-3d;
+  animation: var(--branding-logo-animation);
 
   &__front,
   &__back {
@@ -78,22 +81,60 @@
 }
 
 .name {
+  --branding-name-animation: none;
+
   grid-column: 2;
   grid-row: 1;
   margin: 0;
   font-family: var(--font-family-secondary);
   font-size: clamp(var(--font-size-xl), 6vw, var(--font-size-2xl));
   font-weight: 500;
+  letter-spacing: 0.01ex;
+  position: relative;
+
+  &::after {
+    content: "|";
+    display: block;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--color-bg);
+    color: var(--color-primary-darker);
+    font-weight: 400;
+    visibility: hidden;
+    animation: var(--branding-name-animation);
+  }
 }
 
 .job {
+  --branding-job-animation: none;
+
   grid-column: 2;
   grid-row: 2;
+  width: max-content;
   margin: 0;
   color: var(--color-fg-light);
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-lg);
   font-weight: 500;
+  position: relative;
+
+  &::after {
+    content: "|";
+    display: block;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--color-bg);
+    color: var(--color-primary-darker);
+    font-weight: 400;
+    visibility: hidden;
+    animation: var(--branding-job-animation);
+  }
 }
 
 .link {
