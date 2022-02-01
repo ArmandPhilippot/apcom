@@ -583,6 +583,10 @@
     "defaultMessage": "{topicsCount, plural, =0 {Sujets liés} one {Sujet lié} other {Sujets liés}}",
     "description": "RelatedTopics: widget title"
   },
+  "w0UfY0": {
+    "defaultMessage": "Blocs de code :",
+    "description": "PrismThemeToggle: toggle label"
+  },
   "w1nIrj": {
     "defaultMessage": "Arrêt",
     "description": "ReduceMotion: toggle off label"

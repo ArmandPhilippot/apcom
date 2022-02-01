@@ -2,6 +2,7 @@ import { MatomoProvider } from '@datapunt/matomo-tracker-react';
 import { AppPropsWithLayout } from '@ts/types/app';
 import { settings } from '@utils/config';
 import { instance } from '@utils/helpers/matomo';
+import { PrismThemeProvider } from '@utils/providers/prism';
 import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
 import { IntlProvider } from 'react-intl';
@@ -24,7 +25,9 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
           enableColorScheme={true}
           enableSystem={true}
         >
-          {getLayout(<Component {...pageProps} />)}
+          <PrismThemeProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </PrismThemeProvider>
         </ThemeProvider>
       </IntlProvider>
     </MatomoProvider>

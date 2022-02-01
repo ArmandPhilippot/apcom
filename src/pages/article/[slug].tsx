@@ -21,6 +21,7 @@ import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 import '@utils/plugins/prism-color-scheme';
+import { usePrismTheme } from '@utils/providers/prism';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const {
@@ -60,6 +61,15 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   useEffect(() => {
     translateCopyButton(locale, intl);
   }, [intl, locale]);
+
+  const { setCodeBlocks } = usePrismTheme();
+
+  useEffect(() => {
+    const allPre: NodeListOf<HTMLPreElement> = document.querySelectorAll(
+      'pre[data-prismjs-color-scheme'
+    );
+    setCodeBlocks(allPre);
+  }, [setCodeBlocks, router.asPath]);
 
   const webpageSchema: WebPage = {
     '@id': `${articleUrl}`,

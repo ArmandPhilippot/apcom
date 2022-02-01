@@ -1,6 +1,7 @@
 import { CogIcon } from '@components/Icons';
 import ThemeToggle from '@components/Settings/ThemeToggle/ThemeToggle';
 import { useIntl } from 'react-intl';
+import PrismThemeToggle from './PrismThemeToggle/PrismThemeToggle';
 import ReduceMotion from './ReduceMotion/ReduceMotion';
 import styles from './Settings.module.scss';
 
@@ -18,6 +19,7 @@ const Settings = () => {
       </div>
       <ThemeToggle />
       <ReduceMotion />
+      <PrismThemeToggle />
     </>
   );
 };

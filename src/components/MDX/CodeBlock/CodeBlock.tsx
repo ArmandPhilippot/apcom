@@ -5,6 +5,7 @@ import Prism from 'prismjs';
 import { ReactChildren, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import '@utils/plugins/prism-color-scheme';
+import { usePrismTheme } from '@utils/providers/prism';
 
 const CodeBlock = ({
   className,
@@ -28,6 +29,15 @@ const CodeBlock = ({
   useEffect(() => {
     translateCopyButton(locale, intl);
   }, [intl, locale]);
+
+  const { setCodeBlocks } = usePrismTheme();
+
+  useEffect(() => {
+    const allPre: NodeListOf<HTMLPreElement> = document.querySelectorAll(
+      'pre[data-prismjs-color-scheme'
+    );
+    setCodeBlocks(allPre);
+  }, [setCodeBlocks, router.asPath]);
 
   return (
     <div>
