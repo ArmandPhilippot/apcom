@@ -1,3 +1,4 @@
+import { ParamsSlug, Slug } from '@ts/types/app';
 import {
   Article,
   ArticlePreview,
@@ -282,4 +283,15 @@ export const getFormattedDate = (date: string, locale: string) => {
   };
 
   return new Date(date).toLocaleDateString(locale, dateOptions);
+};
+
+/**
+ * Convert an array of slugs to an array of params with slug.
+ * @param {Slug} array - An array of object with slug.
+ * @returns {ParamsSlug} An array of params with slug.
+ */
+export const getFormattedPaths = (array: Slug[]): ParamsSlug[] => {
+  return array.map((object) => {
+    return { params: { slug: object.slug } };
+  });
 };

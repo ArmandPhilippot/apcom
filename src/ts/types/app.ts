@@ -100,6 +100,10 @@ export type PageInfo = {
   total: number;
 };
 
+export type ParamsSlug = {
+  params: { slug: string };
+};
+
 export type Project = {
   cover?: string;
   id: string;

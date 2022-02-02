@@ -2,6 +2,7 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import PostPreview from '@components/PostPreview/PostPreview';
 import Sidebar from '@components/Sidebar/Sidebar';
+import Spinner from '@components/Spinner/Spinner';
 import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
 import {
   getAllThematicsSlug,
@@ -12,6 +13,7 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
 import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
 import { settings } from '@utils/config';
+import { getFormattedPaths } from '@utils/helpers/format';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -25,6 +27,8 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
   const intl = useIntl();
   const relatedTopics = useRef<TopicPreview[]>([]);
   const router = useRouter();
+
+  if (router.isFallback) return <Spinner />;
 
   const updateRelatedTopics = (newTopics: TopicPreview[]) => {
     newTopics.forEach((topic) => {
@@ -173,9 +177,10 @@ export const getStaticProps: GetStaticProps = async (
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allSlugs = await getAllThematicsSlug();
+  const paths = getFormattedPaths(allSlugs);
 
   return {
-    paths: allSlugs.map((post) => `/thematique/${post.slug}`),
+    paths,
     fallback: true,
   };
 };

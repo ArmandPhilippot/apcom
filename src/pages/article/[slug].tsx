@@ -4,14 +4,17 @@ import { getLayout } from '@components/Layouts/Layout';
 import PostFooter from '@components/PostFooter/PostFooter';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
+import Spinner from '@components/Spinner/Spinner';
 import { Sharing, ToC } from '@components/Widgets';
 import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta, ArticleProps } from '@ts/types/articles';
 import { settings } from '@utils/config';
+import { getFormattedPaths } from '@utils/helpers/format';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
+import { usePrismTheme } from '@utils/providers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -21,9 +24,32 @@ import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 import '@utils/plugins/prism-color-scheme';
-import { usePrismTheme } from '@utils/providers/prism';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
+  const intl = useIntl();
+  const router = useRouter();
+  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
+
+  useEffect(() => {
+    addPrismClasses();
+    Prism.highlightAll();
+  });
+
+  useEffect(() => {
+    translateCopyButton(locale, intl);
+  }, [intl, locale]);
+
+  const { setCodeBlocks } = usePrismTheme();
+
+  useEffect(() => {
+    const allPre: NodeListOf<HTMLPreElement> = document.querySelectorAll(
+      'pre[data-prismjs-color-scheme'
+    );
+    setCodeBlocks(allPre);
+  }, [setCodeBlocks, router.asPath]);
+
+  if (router.isFallback) return <Spinner />;
+
   const {
     author,
     comments,
@@ -48,28 +74,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     wordsCount: info.wordsCount,
   };
 
-  const intl = useIntl();
-  const router = useRouter();
-  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
   const articleUrl = `${settings.url}${router.asPath}`;
-
-  useEffect(() => {
-    addPrismClasses();
-    Prism.highlightAll();
-  });
-
-  useEffect(() => {
-    translateCopyButton(locale, intl);
-  }, [intl, locale]);
-
-  const { setCodeBlocks } = usePrismTheme();
-
-  useEffect(() => {
-    const allPre: NodeListOf<HTMLPreElement> = document.querySelectorAll(
-      'pre[data-prismjs-color-scheme'
-    );
-    setCodeBlocks(allPre);
-  }, [setCodeBlocks, router.asPath]);
 
   const webpageSchema: WebPage = {
     '@id': `${articleUrl}`,
@@ -192,9 +197,10 @@ export const getStaticProps: GetStaticProps = async (
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allSlugs = await getAllPostsSlug();
+  const paths = getFormattedPaths(allSlugs);
 
   return {
-    paths: allSlugs.map((post) => `/article/${post.slug}`),
+    paths,
     fallback: true,
   };
 };
