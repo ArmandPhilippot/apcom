@@ -1,5 +1,5 @@
 {
-  "name": "armandphilippot.com",
+  "name": "apcom",
   "description": "The frontend of ArmandPhilippot.com built with Next JS.",
   "version": "0.1.0",
   "license": "MIT",
@@ -8,13 +8,13 @@
     "email": "contact@armandphilippot.com",
     "url": "https://www.armandphilippot.com/"
   },
-  "homepage": "https://github.com/ArmandPhilippot/armandphilippot.com#readme",
+  "homepage": "https://github.com/ArmandPhilippot/apcom#readme",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:ArmandPhilippot/armandphilippot.com.git"
+    "url": "git+ssh://git@github.com:ArmandPhilippot/apcom.git"
   },
   "bugs": {
-    "url": "https://github.com/ArmandPhilippot/armandphilippot.com/issues"
+    "url": "https://github.com/ArmandPhilippot/apcom/issues"
   },
   "private": true,
   "scripts": {
