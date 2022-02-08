@@ -12,7 +12,7 @@
   /**
    *
    * @typedef {"dark" | "light" | "system"} Theme
-   * @typedef {Record<"color-scheme", Theme> & Record<"button-prefix" | "dark" | "light", string>} Settings
+   * @typedef {Record<"current", Theme> & Record<"dark" | "light", string>} Settings
    */
 
   var storage = {
@@ -90,12 +90,11 @@
   function getSettings(startElement) {
     /** @type Settings */
     var settings = {
-      'color-scheme': setDefaultTheme(),
-      dark: 'Dark Theme',
-      light: 'Light Theme',
-      'button-prefix': 'Toggle',
+      current: setDefaultTheme(),
+      dark: 'Toggle Dark Theme',
+      light: 'Toggle Light Theme',
     };
-    var prefix = 'data-prismjs-';
+    var prefix = 'data-prismjs-color-scheme-';
 
     for (var key in settings) {
       var attr = prefix + key;
@@ -134,17 +133,12 @@
   /**
    * Get the button content depending on current theme.
    *
-   * @param {string} prefix - The text prefix.
    * @param {Theme} theme - The current theme.
    * @param {Settings} settings - The plugin settings.
    * @returns {string} The button text.
    */
-  function getButtonContent(prefix, theme, settings) {
-    if (theme === 'dark') {
-      return `${prefix}${settings['light']}`;
-    }
-
-    return `${prefix}${settings['dark']}`;
+  function getButtonContent(theme, settings) {
+    return theme === 'dark' ? settings['light'] : settings['dark'];
   }
 
   /**
@@ -154,16 +148,12 @@
    * @param {Settings} settings - The plugin settings.
    */
   function updateButtonText(button, settings) {
-    var prefix = settings['button-prefix']
-      ? `${settings['button-prefix']} `
-      : '';
-    var theme = settings['color-scheme'];
+    var theme =
+      settings['current'] === 'system'
+        ? getThemeFromSystem()
+        : settings['current'];
 
-    if (theme === 'system') {
-      theme = getThemeFromSystem();
-    }
-
-    button.textContent = getButtonContent(prefix, theme, settings);
+    button.textContent = getButtonContent(theme, settings);
   }
 
   /**
@@ -173,7 +163,7 @@
    * @param {Theme} theme - The current theme.
    */
   function updatePreAttribute(pre, theme) {
-    pre.setAttribute('data-prismjs-color-scheme', theme);
+    pre.setAttribute('data-prismjs-color-scheme-current', theme);
   }
 
   /**
@@ -182,7 +172,9 @@
    * @param {Theme} theme - The new theme.
    */
   function switchTheme(theme) {
-    var allPre = document.querySelectorAll('pre[data-prismjs-color-scheme]');
+    var allPre = document.querySelectorAll(
+      'pre[data-prismjs-color-scheme-current]'
+    );
     allPre.forEach((pre) => {
       updatePreAttribute(pre, theme);
     });
@@ -201,14 +193,16 @@
         var button = mutatedPre.parentElement.querySelector(
           '.prism-color-scheme-button'
         );
-        var newTheme = mutatedPre.getAttribute('data-prismjs-color-scheme');
-        settings['color-scheme'] = newTheme;
+        var newTheme = mutatedPre.getAttribute(
+          'data-prismjs-color-scheme-current'
+        );
+        settings['current'] = newTheme;
         updateButtonText(button, settings);
       });
     });
     observer.observe(pre, {
       attributes: true,
-      attributeFilter: ['data-prismjs-color-scheme'],
+      attributeFilter: ['data-prismjs-color-scheme-current'],
     });
   }
 
@@ -226,18 +220,18 @@
     themeButton.className = 'prism-color-scheme-button';
     themeButton.setAttribute('type', 'button');
     updateButtonText(themeButton, settings);
-    updatePreAttribute(pre, settings['color-scheme']);
+    updatePreAttribute(pre, settings['current']);
     listenAttributeChange(pre, settings);
 
     themeButton.addEventListener('click', () => {
-      var newTheme = getNewTheme(settings['color-scheme']);
+      var newTheme = getNewTheme(settings['current']);
       switchTheme(newTheme);
       storage.set('prismjs-color-scheme', newTheme);
     });
 
     window.addEventListener('storage', (e) => {
       if (e.key === 'prismjs-color-scheme') {
-        const newTheme = JSON.parse(e.newValue);
+        var newTheme = JSON.parse(e.newValue);
         if (isValidTheme(newTheme)) updatePreAttribute(pre, newTheme);
       }
     });

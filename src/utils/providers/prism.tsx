@@ -57,7 +57,7 @@ const getTheme = (key: string): PrismTheme | undefined => {
 };
 
 export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
-  attribute = 'data-prismjs-color-scheme',
+  attribute = 'data-prismjs-color-scheme-current',
   storageKey = 'prismjs-color-scheme',
   themes = ['dark', 'light', 'system'],
   children,
@@ -125,7 +125,6 @@ export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
         mutations.forEach((record) => {
           var mutatedPre = record.target as HTMLPreElement;
           var newTheme = mutatedPre.getAttribute(attribute) as PrismTheme;
-          console.log('here');
           setPrismTheme(newTheme);
         });
       });

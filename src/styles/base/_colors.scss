@@ -67,7 +67,7 @@
   --color-token-orange: #{var.$dark-theme_orange};
 }
 
-pre[data-prismjs-color-scheme="light"] {
+pre[data-prismjs-color-scheme-current="light"] {
   --color-bg: #{var.$light-theme_white};
   --color-bg-secondary: #{var.$light-theme_white-dark};
   --color-bg-tertiary: #{var.$light-theme_grey-bright};
@@ -87,7 +87,7 @@ pre[data-prismjs-color-scheme="light"] {
   --color-token-orange: #{var.$light-theme_orange};
 }
 
-pre[data-prismjs-color-scheme="dark"] {
+pre[data-prismjs-color-scheme-current="dark"] {
   --color-bg: #{var.$dark-theme_black};
   --color-bg-secondary: #{var.$dark-theme_black-bright};
   --color-bg-tertiary: #{var.$dark-theme_grey-darker};
