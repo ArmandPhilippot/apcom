@@ -15,6 +15,10 @@
     "defaultMessage": "Blog: development, open source - {websiteName}",
     "description": "BlogPage: SEO - Page title"
   },
+  "/5es0M": {
+    "defaultMessage": "Toggle Dark Theme",
+    "description": "Prism: toggle dark theme button text"
+  },
   "/IirIt": {
     "defaultMessage": "Legal notice",
     "description": "LegalNoticePage: page title"
@@ -282,6 +286,10 @@
   "TfU6Qm": {
     "defaultMessage": "Search",
     "description": "SearchPage: breadcrumb item"
+  },
+  "Tzpiwn": {
+    "defaultMessage": "Toggle Light Theme",
+    "description": "Prism: toggle light theme button text"
   },
   "U++A+B": {
     "defaultMessage": "{readingTime, plural, =0 {# minutes} one {# minute} other {# minutes}}",

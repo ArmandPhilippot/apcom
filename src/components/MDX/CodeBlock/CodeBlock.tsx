@@ -1,5 +1,8 @@
 import { settings } from '@utils/config';
-import { translateCopyButton } from '@utils/helpers/prism';
+import {
+  translateCopyButton,
+  translateToggleButton,
+} from '@utils/helpers/prism';
 import { useRouter } from 'next/router';
 import Prism from 'prismjs';
 import { ReactChildren, useEffect } from 'react';
@@ -28,6 +31,7 @@ const CodeBlock = ({
 
   useEffect(() => {
     translateCopyButton(locale, intl);
+    translateToggleButton(locale, intl);
   }, [intl, locale]);
 
   const { setCodeBlocks } = usePrismTheme();

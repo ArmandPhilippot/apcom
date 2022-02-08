@@ -13,7 +13,11 @@ import { ArticleMeta, ArticleProps } from '@ts/types/articles';
 import { settings } from '@utils/config';
 import { getFormattedPaths } from '@utils/helpers/format';
 import { loadTranslation } from '@utils/helpers/i18n';
-import { addPrismClasses, translateCopyButton } from '@utils/helpers/prism';
+import {
+  addPrismClasses,
+  translateCopyButton,
+  translateToggleButton,
+} from '@utils/helpers/prism';
 import { usePrismTheme } from '@utils/providers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -37,6 +41,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
 
   useEffect(() => {
     translateCopyButton(locale, intl);
+    translateToggleButton(locale, intl);
   }, [intl, locale]);
 
   const { setCodeBlocks } = usePrismTheme();

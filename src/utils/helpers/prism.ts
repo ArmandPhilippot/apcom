@@ -61,3 +61,24 @@ export const translateCopyButton = (locale: string, intl: IntlShape) => {
     article.setAttribute('data-prismjs-copy-error', errorText);
   });
 };
+
+/**
+ * Translate the PrismJS color-scheme button.
+ */
+export const translateToggleButton = (locale: string, intl: IntlShape) => {
+  const articles = document.getElementsByTagName('article');
+  const darkTheme = intl.formatMessage({
+    defaultMessage: 'Toggle Dark Theme',
+    description: 'Prism: toggle dark theme button text',
+  });
+  const lightTheme = intl.formatMessage({
+    defaultMessage: 'Toggle Light Theme',
+    description: 'Prism: toggle light theme button text',
+  });
+
+  Array.from(articles).forEach((article) => {
+    article.setAttribute('lang', locale);
+    article.setAttribute('data-prismjs-color-scheme-dark', darkTheme);
+    article.setAttribute('data-prismjs-color-scheme-light', lightTheme);
+  });
+};

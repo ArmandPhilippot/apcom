@@ -15,6 +15,10 @@
     "defaultMessage": "Blog : développement, libre et open-source - {websiteName}",
     "description": "BlogPage: SEO - Page title"
   },
+  "/5es0M": {
+    "defaultMessage": "Utiliser le thème sombre",
+    "description": "Prism: toggle dark theme button text"
+  },
   "/IirIt": {
     "defaultMessage": "Mentions légales",
     "description": "LegalNoticePage: page title"
@@ -282,6 +286,10 @@
   "TfU6Qm": {
     "defaultMessage": "Recherche",
     "description": "SearchPage: breadcrumb item"
+  },
+  "Tzpiwn": {
+    "defaultMessage": "Utiliser le thème clair",
+    "description": "Prism: toggle light theme button text"
   },
   "U++A+B": {
     "defaultMessage": "{readingTime, plural, =0 {# minute} one {# minute} other {# minutes}}",
