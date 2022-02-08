@@ -1,8 +1,3 @@
-import { settings } from '@utils/config';
-import {
-  translateCopyButton,
-  translateToggleButton,
-} from '@utils/helpers/prism';
 import { useRouter } from 'next/router';
 import Prism from 'prismjs';
 import { ReactChildren, useEffect } from 'react';
@@ -23,16 +18,10 @@ const CodeBlock = ({
   );
   const intl = useIntl();
   const router = useRouter();
-  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
 
   useEffect(() => {
     Prism.highlightAll();
-  });
-
-  useEffect(() => {
-    translateCopyButton(locale, intl);
-    translateToggleButton(locale, intl);
-  }, [intl, locale]);
+  }, []);
 
   const { setCodeBlocks } = usePrismTheme();
 
@@ -43,8 +32,35 @@ const CodeBlock = ({
     setCodeBlocks(allPre);
   }, [setCodeBlocks, router.asPath]);
 
+  const copyText = intl.formatMessage({
+    defaultMessage: 'Copy',
+    description: 'Prism: copy button text (no clicked)',
+  });
+  const copiedText = intl.formatMessage({
+    defaultMessage: 'Copied!',
+    description: 'Prism: copy button text (clicked)',
+  });
+  const errorText = intl.formatMessage({
+    defaultMessage: 'Use Ctrl+c to copy',
+    description: 'Prism: error text',
+  });
+  const darkTheme = intl.formatMessage({
+    defaultMessage: 'Toggle Dark Theme',
+    description: 'Prism: toggle dark theme button text',
+  });
+  const lightTheme = intl.formatMessage({
+    defaultMessage: 'Toggle Light Theme',
+    description: 'Prism: toggle light theme button text',
+  });
+
   return (
-    <div>
+    <div
+      data-prismjs-copy={copyText}
+      data-prismjs-copy-success={copiedText}
+      data-prismjs-copy-error={errorText}
+      data-prismjs-color-scheme-dark={darkTheme}
+      data-prismjs-color-scheme-light={lightTheme}
+    >
       <pre className={classNames.join(' ')}>
         <code className={languageClass}>{children}</code>
       </pre>
