@@ -1,7 +1,7 @@
 import { ChangeEvent, ForwardedRef, forwardRef, SetStateAction } from 'react';
 import styles from '../Form.module.scss';
 
-type InputType = 'text' | 'number' | 'search';
+type InputType = 'text' | 'email' | 'number' | 'search';
 
 const Input = (
   {

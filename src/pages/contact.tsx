@@ -16,13 +16,16 @@ import { FormEvent, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
 
+type Status = 'success' | 'error' | 'warning';
+
 const ContactPage: NextPageWithLayout = () => {
   const intl = useIntl();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState<Status>();
+  const [statusMessage, setStatusMessage] = useState<string>('');
   const router = useRouter();
 
   const resetForm = () => {
@@ -34,7 +37,21 @@ const ContactPage: NextPageWithLayout = () => {
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    const body = `Message received from ${name} <${email}> on ArmandPhilippot.com.\n\n${message}`;
+
+    if (!name || !email || !message) {
+      setStatus('warning');
+      setStatusMessage(
+        intl.formatMessage({
+          defaultMessage:
+            'Warning: mail not sent. Some required fields are empty.',
+          description: 'ContactPage: missing fields message.',
+        })
+      );
+      return;
+    }
+
+    const messageHTML = message.replace(/\r?\n/g, '<br />');
+    const body = `Message received from ${name} <${email}> on ${settings.url}.<br /><br />${messageHTML}`;
     const replyTo = `${name} <${email}>`;
     const data = {
       body,
@@ -45,7 +62,8 @@ const ContactPage: NextPageWithLayout = () => {
     const mail = await sendMail(data);
 
     if (mail.sent) {
-      setStatus(
+      setStatus('success');
+      setStatusMessage(
         intl.formatMessage({
           defaultMessage:
             'Thanks. Your message was successfully sent. I will answer it as soon as possible.',
@@ -59,8 +77,21 @@ const ContactPage: NextPageWithLayout = () => {
         description: 'ContactPage: error message',
       });
       const error = `${errorPrefix} ${mail.message}`;
-      setStatus(error);
+      setStatus('error');
+      setStatusMessage(error);
     }
+  };
+
+  const getStatus = () => {
+    if (!status) return <></>;
+
+    const statusModifier = `status--${status}`;
+
+    return (
+      <p className={`${styles.status} ${styles[statusModifier]}`}>
+        {statusMessage}
+      </p>
+    );
   };
 
   const pageTitle = intl.formatMessage(
@@ -145,7 +176,6 @@ const ContactPage: NextPageWithLayout = () => {
               description: 'ContactPage: required fields text',
             })}
           </p>
-          {status && <p>{status}</p>}
           <Form submitHandler={submitHandler}>
             <FormItem>
               <Input
@@ -163,6 +193,7 @@ const ContactPage: NextPageWithLayout = () => {
             <FormItem>
               <Input
                 id="contact-email"
+                type="email"
                 name="email"
                 value={email}
                 setValue={setEmail}
@@ -207,6 +238,7 @@ const ContactPage: NextPageWithLayout = () => {
               </ButtonSubmit>
             </FormItem>
           </Form>
+          {getStatus()}
         </div>
         <Sidebar position="right">
           <SocialMedia

@@ -159,6 +159,10 @@
     "defaultMessage": "Email",
     "description": "ContactPage: email field label"
   },
+  "HvUpaq": {
+    "defaultMessage": "Warning: mail not sent. Some required fields are empty.",
+    "description": "ContactPage: missing fields message."
+  },
   "ILRLTq": {
     "defaultMessage": "{brandingName} picture",
     "description": "Branding: branding name picture."
