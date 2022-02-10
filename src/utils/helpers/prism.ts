@@ -1,5 +1,3 @@
-import { IntlShape } from 'react-intl';
-
 /**
  * Check if the current block has a defined language.
  * @param classList - A list of class.
@@ -33,52 +31,5 @@ export const addPrismClasses = () => {
     ) {
       preTag.setAttribute('data-filter-output', '#output#');
     }
-  });
-};
-
-/**
- * Translate the PrismJS Copy to clipboard button.
- */
-export const translateCopyButton = (locale: string, intl: IntlShape) => {
-  const articles = document.getElementsByTagName('article');
-  const copyText = intl.formatMessage({
-    defaultMessage: 'Copy',
-    description: 'Prism: copy button text (no clicked)',
-  });
-  const copiedText = intl.formatMessage({
-    defaultMessage: 'Copied!',
-    description: 'Prism: copy button text (clicked)',
-  });
-  const errorText = intl.formatMessage({
-    defaultMessage: 'Use Ctrl+c to copy',
-    description: 'Prism: error text',
-  });
-
-  Array.from(articles).forEach((article) => {
-    article.setAttribute('lang', locale);
-    article.setAttribute('data-prismjs-copy', copyText);
-    article.setAttribute('data-prismjs-copy-success', copiedText);
-    article.setAttribute('data-prismjs-copy-error', errorText);
-  });
-};
-
-/**
- * Translate the PrismJS color-scheme button.
- */
-export const translateToggleButton = (locale: string, intl: IntlShape) => {
-  const articles = document.getElementsByTagName('article');
-  const darkTheme = intl.formatMessage({
-    defaultMessage: 'Toggle Dark Theme',
-    description: 'Prism: toggle dark theme button text',
-  });
-  const lightTheme = intl.formatMessage({
-    defaultMessage: 'Toggle Light Theme',
-    description: 'Prism: toggle light theme button text',
-  });
-
-  Array.from(articles).forEach((article) => {
-    article.setAttribute('lang', locale);
-    article.setAttribute('data-prismjs-color-scheme-dark', darkTheme);
-    article.setAttribute('data-prismjs-color-scheme-light', lightTheme);
   });
 };

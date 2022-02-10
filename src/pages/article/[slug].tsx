@@ -13,11 +13,7 @@ import { ArticleMeta, ArticleProps } from '@ts/types/articles';
 import { settings } from '@utils/config';
 import { getFormattedPaths } from '@utils/helpers/format';
 import { loadTranslation } from '@utils/helpers/i18n';
-import {
-  addPrismClasses,
-  translateCopyButton,
-  translateToggleButton,
-} from '@utils/helpers/prism';
+import { addPrismClasses } from '@utils/helpers/prism';
 import { usePrismTheme } from '@utils/providers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -32,17 +28,11 @@ import '@utils/plugins/prism-color-scheme';
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
   const intl = useIntl();
   const router = useRouter();
-  const locale = router.locale ? router.locale : settings.locales.defaultLocale;
 
   useEffect(() => {
     addPrismClasses();
     Prism.highlightAll();
   });
-
-  useEffect(() => {
-    translateCopyButton(locale, intl);
-    translateToggleButton(locale, intl);
-  }, [intl, locale]);
 
   const { setCodeBlocks } = usePrismTheme();
 
@@ -138,6 +128,27 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     '@graph': [webpageSchema, blogSchema, blogPostSchema],
   };
 
+  const copyText = intl.formatMessage({
+    defaultMessage: 'Copy',
+    description: 'Prism: copy button text (no clicked)',
+  });
+  const copiedText = intl.formatMessage({
+    defaultMessage: 'Copied!',
+    description: 'Prism: copy button text (clicked)',
+  });
+  const errorText = intl.formatMessage({
+    defaultMessage: 'Use Ctrl+c to copy',
+    description: 'Prism: error text',
+  });
+  const darkTheme = intl.formatMessage({
+    defaultMessage: 'Toggle Dark Theme',
+    description: 'Prism: toggle dark theme button text',
+  });
+  const lightTheme = intl.formatMessage({
+    defaultMessage: 'Toggle Light Theme',
+    description: 'Prism: toggle light theme button text',
+  });
+
   return (
     <>
       <Head>
@@ -154,7 +165,15 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
         ></script>
       </Head>
-      <article id="article" className={styles.article}>
+      <article
+        id="article"
+        className={styles.article}
+        data-prismjs-copy={copyText}
+        data-prismjs-copy-success={copiedText}
+        data-prismjs-copy-error={errorText}
+        data-prismjs-color-scheme-dark={darkTheme}
+        data-prismjs-color-scheme-light={lightTheme}
+      >
         <PostHeader intro={intro} meta={meta} title={title} />
         <Sidebar position="left">
           <ToC />
