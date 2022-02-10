@@ -42,7 +42,7 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
     if (jobRef.current) {
       jobRef.current.style.setProperty(
         '--branding-job-animation',
-        'branding-job-typing 7s linear 0s 1, Blink 0.8s ease-in-out 5s 3'
+        'branding-job-typing 7s linear 0s 1, blink 0.8s ease-in-out 5s 3'
       );
     }
   }, []);
