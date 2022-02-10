@@ -1,0 +1,21 @@
+@use "@styles/abstracts/functions" as fun;
+
+.status {
+  max-width: max-content;
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-sm);
+  border: fun.convert-px(3) solid var(--color-border-light);
+  border-radius: fun.convert-px(5);
+
+  &--error {
+    border-color: var(--color-token-red);
+  }
+
+  &--success {
+    border-color: var(--color-token-green);
+  }
+
+  &--warning {
+    border-color: var(--color-token-orange);
+  }
+}

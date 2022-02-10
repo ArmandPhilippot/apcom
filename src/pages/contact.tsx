@@ -1,10 +1,8 @@
-import { ButtonSubmit } from '@components/Buttons';
-import { Form, FormItem, Input, TextArea } from '@components/Form';
+import ContactForm from '@components/ContactForm/ContactForm';
 import { getLayout } from '@components/Layouts/Layout';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { SocialMedia } from '@components/Widgets';
-import { sendMail } from '@services/graphql/mutations';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { settings } from '@utils/config';
@@ -12,87 +10,12 @@ import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
 
-type Status = 'success' | 'error' | 'warning';
-
 const ContactPage: NextPageWithLayout = () => {
   const intl = useIntl();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<Status>();
-  const [statusMessage, setStatusMessage] = useState<string>('');
   const router = useRouter();
-
-  const resetForm = () => {
-    setName('');
-    setEmail('');
-    setSubject('');
-    setMessage('');
-  };
-
-  const submitHandler = async (e: FormEvent) => {
-    e.preventDefault();
-
-    if (!name || !email || !message) {
-      setStatus('warning');
-      setStatusMessage(
-        intl.formatMessage({
-          defaultMessage:
-            'Warning: mail not sent. Some required fields are empty.',
-          description: 'ContactPage: missing fields message.',
-        })
-      );
-      return;
-    }
-
-    const messageHTML = message.replace(/\r?\n/g, '<br />');
-    const body = `Message received from ${name} <${email}> on ${settings.url}.<br /><br />${messageHTML}`;
-    const replyTo = `${name} <${email}>`;
-    const data = {
-      body,
-      mutationId: 'contact',
-      replyTo,
-      subject,
-    };
-    const mail = await sendMail(data);
-
-    if (mail.sent) {
-      setStatus('success');
-      setStatusMessage(
-        intl.formatMessage({
-          defaultMessage:
-            'Thanks. Your message was successfully sent. I will answer it as soon as possible.',
-          description: 'ContactPage: success message',
-        })
-      );
-      resetForm();
-    } else {
-      const errorPrefix = intl.formatMessage({
-        defaultMessage: 'An error occurred:',
-        description: 'ContactPage: error message',
-      });
-      const error = `${errorPrefix} ${mail.message}`;
-      setStatus('error');
-      setStatusMessage(error);
-    }
-  };
-
-  const getStatus = () => {
-    if (!status) return <></>;
-
-    const statusModifier = `status--${status}`;
-
-    return (
-      <p className={`${styles.status} ${styles[statusModifier]}`}>
-        {statusMessage}
-      </p>
-    );
-  };
 
   const pageTitle = intl.formatMessage(
     {
@@ -176,69 +99,7 @@ const ContactPage: NextPageWithLayout = () => {
               description: 'ContactPage: required fields text',
             })}
           </p>
-          <Form submitHandler={submitHandler}>
-            <FormItem>
-              <Input
-                id="contact-name"
-                name="name"
-                value={name}
-                setValue={setName}
-                label={intl.formatMessage({
-                  defaultMessage: 'Name',
-                  description: 'ContactPage: name field label',
-                })}
-                required={true}
-              />
-            </FormItem>
-            <FormItem>
-              <Input
-                id="contact-email"
-                type="email"
-                name="email"
-                value={email}
-                setValue={setEmail}
-                label={intl.formatMessage({
-                  defaultMessage: 'Email',
-                  description: 'ContactPage: email field label',
-                })}
-                required={true}
-              />
-            </FormItem>
-            <FormItem>
-              <Input
-                id="contact-subject"
-                name="subject"
-                value={subject}
-                setValue={setSubject}
-                label={intl.formatMessage({
-                  defaultMessage: 'Subject',
-                  description: 'ContactPage: subject field label',
-                })}
-              />
-            </FormItem>
-            <FormItem>
-              <TextArea
-                id="contact-message"
-                name="message"
-                value={message}
-                setValue={setMessage}
-                label={intl.formatMessage({
-                  defaultMessage: 'Message',
-                  description: 'ContactPage: message field label',
-                })}
-                required={true}
-              />
-            </FormItem>
-            <FormItem>
-              <ButtonSubmit>
-                {intl.formatMessage({
-                  defaultMessage: 'Send',
-                  description: 'ContactPage: send button text',
-                })}
-              </ButtonSubmit>
-            </FormItem>
-          </Form>
-          {getStatus()}
+          <ContactForm />
         </div>
         <Sidebar position="right">
           <SocialMedia

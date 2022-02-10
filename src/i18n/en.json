@@ -31,6 +31,10 @@
     "defaultMessage": "Failed to load.",
     "description": "TopicsList: failed to load text"
   },
+  "0zBQpa": {
+    "defaultMessage": "Message",
+    "description": "ContactForm: message field label"
+  },
   "16zl9Z": {
     "defaultMessage": "You are here:",
     "description": "Breadcrumb: You are here prefix"
@@ -55,10 +59,6 @@
     "defaultMessage": "Error 404: Page not found - {websiteName}",
     "description": "404Page: SEO - Page title"
   },
-  "43OmTY": {
-    "defaultMessage": "Thanks. Your message was successfully sent. I will answer it as soon as possible.",
-    "description": "ContactPage: success message"
-  },
   "48Ww//": {
     "defaultMessage": "Page not found.",
     "description": "404Page: SEO - Meta description"
@@ -66,6 +66,10 @@
   "4zAUSu": {
     "defaultMessage": "Legal notice - {websiteName}",
     "description": "LegalNoticePage: SEO - Page title"
+  },
+  "6ibqFS": {
+    "defaultMessage": "Name",
+    "description": "ContactForm: name field label"
   },
   "7TbbIk": {
     "defaultMessage": "Blog",
@@ -155,14 +159,6 @@
     "defaultMessage": "Thematics",
     "description": "BlogPage: thematics list widget title"
   },
-  "Hs+q2V": {
-    "defaultMessage": "Email",
-    "description": "ContactPage: email field label"
-  },
-  "HvUpaq": {
-    "defaultMessage": "Warning: mail not sent. Some required fields are empty.",
-    "description": "ContactPage: missing fields message."
-  },
   "ILRLTq": {
     "defaultMessage": "{brandingName} picture",
     "description": "Branding: branding name picture."
@@ -178,10 +174,6 @@
   "J4nhm4": {
     "defaultMessage": "Comment",
     "description": "CommentForm: Comment field label"
-  },
-  "Ji6xwo": {
-    "defaultMessage": "An error occurred:",
-    "description": "ContactPage: error message"
   },
   "KERk7L": {
     "defaultMessage": "Filter by:",
@@ -315,6 +307,10 @@
     "defaultMessage": "LinkedIn",
     "description": "SocialMedia: LinkedIn"
   },
+  "Vuryko": {
+    "defaultMessage": "Email",
+    "description": "ContactForm: email field label"
+  },
   "W2G95o": {
     "defaultMessage": "Comments:",
     "description": "PostMeta: comment count label"
@@ -331,9 +327,17 @@
     "defaultMessage": "Twitter",
     "description": "Sharing: Twitter"
   },
+  "WpycgB": {
+    "defaultMessage": "Warning: mail not sent. Some required fields are empty.",
+    "description": "ContactForm: missing fields message."
+  },
   "X3PDXO": {
     "defaultMessage": "Animations:",
     "description": "ReduceMotion: toggle label"
+  },
+  "X7n7N2": {
+    "defaultMessage": "Send",
+    "description": "ContactForm: send button text"
   },
   "Y1ZdJ6": {
     "defaultMessage": "CV Front-end developer - {websiteName}",
@@ -395,10 +399,6 @@
     "defaultMessage": "Contact",
     "description": "MainNav: contact link"
   },
-  "cr2fA4": {
-    "defaultMessage": "Subject",
-    "description": "ContactPage: subject field label"
-  },
   "csCQQk": {
     "defaultMessage": "LinkedIn",
     "description": "Sharing: LinkedIn"
@@ -442,6 +442,10 @@
   "fOe8rH": {
     "defaultMessage": "Failed to load.",
     "description": "SearchPage: failed to load text"
+  },
+  "gQKeF+": {
+    "defaultMessage": "Thanks. Your message was successfully sent. I will answer it as soon as possible.",
+    "description": "ContactForm: success message"
   },
   "hKagVG": {
     "defaultMessage": "License:",
@@ -491,10 +495,6 @@
     "defaultMessage": "Number of articles loaded out of the total available.",
     "description": "PaginationCursor: loaded articles count aria-label"
   },
-  "mJLflX": {
-    "defaultMessage": "Send",
-    "description": "ContactPage: send button text"
-  },
   "mh7tGg": {
     "defaultMessage": "{title} preview",
     "description": "ProjectSummary: cover alt text"
@@ -518,6 +518,10 @@
   "pEtJik": {
     "defaultMessage": "Load more?",
     "description": "SearchPage: load more text"
+  },
+  "pTxT7N": {
+    "defaultMessage": "An error occurred:",
+    "description": "ContactForm: error message"
   },
   "q3U6uI": {
     "defaultMessage": "Share",
@@ -559,9 +563,9 @@
     "defaultMessage": "All fields marked with * are required.",
     "description": "ContactPage: required fields text"
   },
-  "uHp568": {
-    "defaultMessage": "Name",
-    "description": "ContactPage: name field label"
+  "uMURuJ": {
+    "defaultMessage": "Subject",
+    "description": "ContactForm: subject field label"
   },
   "ureXFw": {
     "defaultMessage": "Share on {name}",
@@ -606,10 +610,6 @@
   "w8GrOf": {
     "defaultMessage": "Free",
     "description": "HomePage: link to free thematic"
-  },
-  "x6PPlk": {
-    "defaultMessage": "Message",
-    "description": "ContactPage: message field label"
   },
   "xC3Khf": {
     "defaultMessage": "Download <link>CV in PDF</link>",
