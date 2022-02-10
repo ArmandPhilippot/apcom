@@ -31,13 +31,11 @@
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
-  max-height: 100vh;
 
   @include mix.media("screen") {
     @include mix.dimensions("md") {
       align-self: flex-start;
       width: 100%;
-      max-height: calc(100vh - (var(--spacing-xs) * 2));
       position: sticky;
       top: var(--spacing-xs);
     }

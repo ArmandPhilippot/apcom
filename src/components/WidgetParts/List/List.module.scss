@@ -25,11 +25,13 @@
     padding: var(--spacing-2xs) var(--spacing-xs);
     background: none;
     text-decoration: underline solid transparent 0;
-    transition: all 0.16s ease-in-out 0s, text-decoration-color 0s;
+    transition: all 0.2s ease-in-out 0s, font-weight 0s,
+      text-decoration-color 0s;
 
     &:hover,
     &:focus {
       background: var(--color-bg-secondary);
+      font-weight: 600;
     }
 
     &:focus {

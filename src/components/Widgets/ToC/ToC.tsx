@@ -25,7 +25,7 @@ const ToC = () => {
   };
 
   return (
-    <ExpandableWidget title={title} expand={true} withBorders={true}>
+    <ExpandableWidget title={title} kind="toc" expand={true} withBorders={true}>
       <OrderedList items={getItems(headingsTree)} />
     </ExpandableWidget>
   );

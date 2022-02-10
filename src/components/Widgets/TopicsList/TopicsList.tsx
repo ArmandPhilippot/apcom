@@ -56,7 +56,12 @@ const TopicsList = ({
   };
 
   return (
-    <ExpandableWidget title={title} titleLevel={titleLevel} withBorders={true}>
+    <ExpandableWidget
+      title={title}
+      titleLevel={titleLevel}
+      withBorders={true}
+      expand={true}
+    >
       {getList()}
     </ExpandableWidget>
   );
