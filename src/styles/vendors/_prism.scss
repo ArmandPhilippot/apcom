@@ -5,22 +5,36 @@
 
 .code-toolbar {
   --gutter-size: clamp(#{fun.convert-px(75)}, 20vw, #{fun.convert-px(90)});
-  --toolbar-height: #{fun.convert-px(40)};
+  --toolbar-height: #{fun.convert-px(90)};
 
   position: relative;
+  margin-top: calc(var(--toolbar-height) + var(--spacing-md));
+
+  @include mix.media("screen") {
+    @include mix.dimensions("2xs") {
+      --toolbar-height: #{fun.convert-px(60)};
+    }
+  }
 
   .toolbar {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    justify-items: end;
+    width: 100%;
     height: var(--toolbar-height);
-    padding-right: var(--spacing-2xs);
     position: absolute;
-    top: 0;
+    top: calc(var(--toolbar-height) * -1);
     left: 0;
     right: 0;
     background: var(--color-bg-tertiary);
     border: fun.convert-px(1) solid var(--color-border);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("2xs") {
+        display: flex;
+        flex-flow: row wrap;
+      }
+    }
   }
 
   .toolbar-item {
@@ -29,30 +43,45 @@
   }
 
   .toolbar-item:nth-child(1) {
-    order: 2;
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0 var(--spacing-2xs);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("2xs") {
+        order: 2;
+      }
+    }
   }
 
   .toolbar-item:nth-child(2) {
-    order: 1;
+    grid-column: 1;
+    grid-row: 1 / 3;
     margin-right: auto;
-    padding: 0 var(--spacing-xs);
+    padding: 0 var(--spacing-sm);
     background: var(--color-bg-code);
     border-right: fun.convert-px(1) solid var(--color-border);
     color: var(--color-primary-darker);
     font-size: var(--font-size-sm);
     font-weight: 600;
-    min-width: var(--gutter-size);
 
     @include mix.media("screen") {
-      @include mix.dimensions("sm") {
-        min-width: unset;
+      @include mix.dimensions("2xs") {
+        order: 1;
       }
     }
   }
 
   .toolbar-item:nth-child(3) {
-    order: 3;
-    margin-left: var(--spacing-2xs);
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0 var(--spacing-2xs);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("2xs") {
+        order: 3;
+      }
+    }
   }
 }
 
@@ -67,17 +96,17 @@ pre[class*="language-"] {
 
   > code {
     display: block;
-    padding: calc(var(--toolbar-height) + var(--spacing-xs)) 0 var(--spacing-xs)
+    padding: var(--spacing-xs) 0 var(--spacing-xs)
       calc(var(--gutter-size) + var(--spacing-xs));
   }
 
   .line-numbers-rows,
   .command-line-prompt {
     width: var(--gutter-size);
-    min-height: calc(100% - var(--toolbar-height));
+    min-height: 100%;
     padding: var(--spacing-xs) var(--spacing-2xs);
     position: absolute;
-    top: var(--toolbar-height);
+    top: 0;
     left: 0;
     pointer-events: none;
     user-select: none;
@@ -245,7 +274,7 @@ pre.command-line {
 .copy-to-clipboard-button,
 .prism-color-scheme-button {
   display: block;
-  padding: 0 var(--spacing-xs);
+  padding: fun.convert-px(3) var(--spacing-xs);
   background: var(--color-bg);
   border: 0.4ex solid var(--color-primary);
   border-radius: fun.convert-px(30);
