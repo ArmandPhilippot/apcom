@@ -12,7 +12,7 @@
 
 .year {
   grid-column: 2;
-  margin-bottom: 0;
+  margin: var(--spacing-md) 0 0;
 
   @include mix.media("screen") {
     @include mix.dimensions("md") {

@@ -2,7 +2,14 @@
 
 .wrapper {
   grid-column: 2;
-  margin: var(--spacing-md) 0;
+
+  &--left {
+    margin: var(--spacing-md) 0;
+  }
+
+  &--right {
+    margin: var(--spacing-md) 0 0;
+  }
 
   @include mix.media("screen") {
     @include mix.dimensions("md") {
