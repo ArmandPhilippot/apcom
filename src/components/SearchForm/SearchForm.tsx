@@ -35,6 +35,12 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
         })}
       </div>
       <Form submitHandler={launchSearch} modifier="search">
+        <label htmlFor="search-query" className="screen-reader-text">
+          {intl.formatMessage({
+            defaultMessage: 'Keywords:',
+            description: 'SearchForm: search field label',
+          })}
+        </label>
         <Input
           ref={inputRef}
           id="search-query"

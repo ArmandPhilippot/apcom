@@ -175,7 +175,13 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
         data-prismjs-color-scheme-light={lightTheme}
       >
         <PostHeader intro={intro} meta={meta} title={title} />
-        <Sidebar position="left">
+        <Sidebar
+          position="left"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Table of Contents',
+            description: 'ArticlePage: ToC sidebar aria-label',
+          })}
+        >
           <ToC />
         </Sidebar>
         <div
@@ -183,7 +189,13 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
         <PostFooter topics={topics} />
-        <Sidebar position="right">
+        <Sidebar
+          position="right"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Sidebar',
+            description: 'ArticlePage: right sidebar aria-label',
+          })}
+        >
           <Sharing title={title} excerpt={intro} />
         </Sidebar>
         <section id="comments" className={styles.comments}>

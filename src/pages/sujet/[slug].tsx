@@ -126,7 +126,13 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
           meta={meta}
           title={topic.title}
         />
-        <Sidebar position="left">
+        <Sidebar
+          position="left"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Table of Contents',
+            description: 'TopicPage: ToC sidebar aria-label',
+          })}
+        >
           <ToC />
         </Sidebar>
         <div className={styles.body}>
@@ -146,7 +152,13 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
             </section>
           )}
         </div>
-        <Sidebar position="right">
+        <Sidebar
+          position="right"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Sidebar',
+            description: 'TopicPage: right sidebar aria-label',
+          })}
+        >
           <RelatedThematics thematics={relatedThematics.current} />
           <TopicsList
             title={intl.formatMessage({

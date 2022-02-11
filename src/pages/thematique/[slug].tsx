@@ -116,7 +116,13 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader intro={thematic.intro} meta={meta} title={thematic.title} />
-        <Sidebar position="left">
+        <Sidebar
+          position="left"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Table of Contents',
+            description: 'ThematicPage: ToC sidebar aria-label',
+          })}
+        >
           <ToC />
         </Sidebar>
         <div className={styles.body}>
@@ -136,7 +142,13 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
             </section>
           )}
         </div>
-        <Sidebar position="right">
+        <Sidebar
+          position="right"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Sidebar',
+            description: 'ThematicPage: right sidebar aria-label',
+          })}
+        >
           <RelatedTopics topics={relatedTopics.current} />
           <ThematicsList
             title={intl.formatMessage({

@@ -151,7 +151,13 @@ const MainNav = ({
               })}
         </span>
       </label>
-      <nav className={styles.nav}>
+      <nav
+        className={styles.nav}
+        aria-label={intl.formatMessage({
+          defaultMessage: 'Primary',
+          description: 'MainNav: aria-label',
+        })}
+      >
         <ul className={styles.list}>{navItems}</ul>
       </nav>
     </div>

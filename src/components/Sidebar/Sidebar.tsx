@@ -6,10 +6,12 @@ type SidebarPosition = 'left' | 'right';
 const Sidebar = ({
   children,
   position,
+  ariaLabel,
   title,
 }: {
   children: ReactNode;
   position: SidebarPosition;
+  ariaLabel?: string;
   title?: string;
 }) => {
   const childrenWithProps = Children.map(children, (child) => {
@@ -22,9 +24,13 @@ const Sidebar = ({
   const positionClass = `wrapper--${position}`;
 
   return (
-    <aside className={`${styles.wrapper} ${styles[positionClass]}`}>
+    <aside
+      className={`${styles.wrapper} ${styles[positionClass]}`}
+      aria-label={ariaLabel}
+      aria-labelledby={title ? `${position}-sidebar-title` : undefined}
+    >
       <div className={styles.body}>
-        {title && <h2>{title}</h2>}
+        {title && <h2 id={`${position}-sidebar-title`}>{title}</h2>}
         {childrenWithProps}
       </div>
     </aside>

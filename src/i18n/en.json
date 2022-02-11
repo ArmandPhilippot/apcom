@@ -67,6 +67,10 @@
     "defaultMessage": "Legal notice - {websiteName}",
     "description": "LegalNoticePage: SEO - Page title"
   },
+  "6dXfvr": {
+    "defaultMessage": "Table of Contents",
+    "description": "ProjectPage: ToC sidebar aria-label"
+  },
   "6ibqFS": {
     "defaultMessage": "Name",
     "description": "ContactForm: name field label"
@@ -82,6 +86,10 @@
   "8Ls2mD": {
     "defaultMessage": "Please fill the form to contact me.",
     "description": "ContactPage: page introduction"
+  },
+  "9nhYRA": {
+    "defaultMessage": "Table of Contents",
+    "description": "ArticlePage: ToC sidebar aria-label"
   },
   "A4LTGq": {
     "defaultMessage": "Discover search results for {query}",
@@ -155,6 +163,18 @@
     "defaultMessage": "Reading time:",
     "description": "Article meta"
   },
+  "GgIWnN": {
+    "defaultMessage": "<a11y>Jump to </a11y>{title}",
+    "description": "ToC: link"
+  },
+  "H7C5Bk": {
+    "defaultMessage": "Primary",
+    "description": "MainNav: aria-label"
+  },
+  "HTdaZj": {
+    "defaultMessage": "Footer",
+    "description": "FooterNav: aria-label"
+  },
   "HriY57": {
     "defaultMessage": "Thematics",
     "description": "BlogPage: thematics list widget title"
@@ -174,6 +194,10 @@
   "J4nhm4": {
     "defaultMessage": "Comment",
     "description": "CommentForm: Comment field label"
+  },
+  "JeYOeA": {
+    "defaultMessage": "Sidebar",
+    "description": "ArticlePage: right sidebar aria-label"
   },
   "KERk7L": {
     "defaultMessage": "Filter by:",
@@ -254,6 +278,10 @@
   "PxMDzL": {
     "defaultMessage": "Failed to load.",
     "description": "ThematicsList: failed to load text"
+  },
+  "QHOm5t": {
+    "defaultMessage": "Sidebar",
+    "description": "CVPage: right sidebar aria-label"
   },
   "Qh2CwH": {
     "defaultMessage": "Find me elsewhere",
@@ -351,6 +379,14 @@
     "defaultMessage": "Read more articles about:",
     "description": "PostFooter: read more posts about given subjects"
   },
+  "YvMPuD": {
+    "defaultMessage": "Keywords:",
+    "description": "SearchForm: search field label"
+  },
+  "YwvYfw": {
+    "defaultMessage": "Table of Contents",
+    "description": "ThematicPage: ToC sidebar aria-label"
+  },
   "Z1eSIz": {
     "defaultMessage": "Open {type}",
     "description": "ButtonToolbar: Open button"
@@ -435,6 +471,10 @@
     "defaultMessage": "{count, plural, =0 {Technologies:} one {Technology:} other {Technologies:}}",
     "description": "ProjectSummary: technologies list label"
   },
+  "eu3beS": {
+    "defaultMessage": "Sidebar",
+    "description": "TopicPage: right sidebar aria-label"
+  },
   "fGnfqp": {
     "defaultMessage": "Published on:",
     "description": "PostMeta: publication date label"
@@ -443,9 +483,17 @@
     "defaultMessage": "Failed to load.",
     "description": "SearchPage: failed to load text"
   },
+  "g4DckL": {
+    "defaultMessage": "Table of Contents",
+    "description": "CVPage: ToC sidebar aria-label"
+  },
   "gQKeF+": {
     "defaultMessage": "Thanks. Your message was successfully sent. I will answer it as soon as possible.",
     "description": "ContactForm: success message"
+  },
+  "hHrNd0": {
+    "defaultMessage": "Sidebar",
+    "description": "ProjectPage: right sidebar aria-label"
   },
   "hKagVG": {
     "defaultMessage": "License:",
@@ -490,6 +538,10 @@
   "lKZm9t": {
     "defaultMessage": "Email",
     "description": "Sharing: Email"
+  },
+  "lsDB5G": {
+    "defaultMessage": "Table of Contents",
+    "description": "TopicPage: ToC sidebar aria-label"
   },
   "mC21ht": {
     "defaultMessage": "Number of articles loaded out of the total available.",
@@ -554,6 +606,10 @@
   "soj7do": {
     "defaultMessage": "Published on:",
     "description": "Comment: publication date label"
+  },
+  "syLgY9": {
+    "defaultMessage": "Sidebar",
+    "description": "ThematicPage: right sidebar aria-label"
   },
   "tMuNTy": {
     "defaultMessage": "{websiteName} is a front-end developer located in France. He codes and he writes mostly about web development and open-source.",

@@ -67,6 +67,10 @@
     "defaultMessage": "Mentions légales - {websiteName}",
     "description": "LegalNoticePage: SEO - Page title"
   },
+  "6dXfvr": {
+    "defaultMessage": "Table des matières",
+    "description": "ProjectPage: ToC sidebar aria-label"
+  },
   "6ibqFS": {
     "defaultMessage": "Nom",
     "description": "ContactForm: name field label"
@@ -82,6 +86,10 @@
   "8Ls2mD": {
     "defaultMessage": "Veuillez remplir le formulaire pour me contacter.",
     "description": "ContactPage: page introduction"
+  },
+  "9nhYRA": {
+    "defaultMessage": "Table des matières",
+    "description": "ArticlePage: ToC sidebar aria-label"
   },
   "A4LTGq": {
     "defaultMessage": "Découvrez les résultats de recherche pour {query}",
@@ -155,6 +163,18 @@
     "defaultMessage": "Temps de lecture :",
     "description": "Article meta"
   },
+  "GgIWnN": {
+    "defaultMessage": "<a11y>Atteindre </a11y>{title}",
+    "description": "ToC: link"
+  },
+  "H7C5Bk": {
+    "defaultMessage": "Principal",
+    "description": "MainNav: aria-label"
+  },
+  "HTdaZj": {
+    "defaultMessage": "Pied de page",
+    "description": "FooterNav: aria-label"
+  },
   "HriY57": {
     "defaultMessage": "Thématiques",
     "description": "BlogPage: thematics list widget title"
@@ -174,6 +194,10 @@
   "J4nhm4": {
     "defaultMessage": "Commentaire",
     "description": "CommentForm: Comment field label"
+  },
+  "JeYOeA": {
+    "defaultMessage": "Barre latérale",
+    "description": "ArticlePage: right sidebar aria-label"
   },
   "KERk7L": {
     "defaultMessage": "Filtrer par :",
@@ -254,6 +278,10 @@
   "PxMDzL": {
     "defaultMessage": "Échec du chargement.",
     "description": "ThematicsList: failed to load text"
+  },
+  "QHOm5t": {
+    "defaultMessage": "Barre latérale",
+    "description": "CVPage: right sidebar aria-label"
   },
   "Qh2CwH": {
     "defaultMessage": "Retrouvez-moi ailleurs",
@@ -351,6 +379,14 @@
     "defaultMessage": "Lire plus d'articles à propos de :",
     "description": "PostFooter: read more posts about given subjects"
   },
+  "YvMPuD": {
+    "defaultMessage": "Mots-clés :",
+    "description": "SearchForm: search field label"
+  },
+  "YwvYfw": {
+    "defaultMessage": "Table des matières",
+    "description": "ThematicPage: ToC sidebar aria-label"
+  },
   "Z1eSIz": {
     "defaultMessage": "Ouvrez {type}",
     "description": "ButtonToolbar: Open button"
@@ -435,6 +471,10 @@
     "defaultMessage": "{count, plural, =0 {Technologies :} one {Technologie :} other {Technologies :}}",
     "description": "ProjectSummary: technologies list label"
   },
+  "eu3beS": {
+    "defaultMessage": "Barre latérale",
+    "description": "TopicPage: right sidebar aria-label"
+  },
   "fGnfqp": {
     "defaultMessage": "Publié le :",
     "description": "PostMeta: publication date label"
@@ -443,9 +483,17 @@
     "defaultMessage": "Échec du chargement.",
     "description": "SearchPage: failed to load text"
   },
+  "g4DckL": {
+    "defaultMessage": "Table des matières",
+    "description": "CVPage: ToC sidebar aria-label"
+  },
   "gQKeF+": {
     "defaultMessage": "Merci. Votre message a bien été envoyé. J'y répondrai dès que possible.",
     "description": "ContactForm: success message"
+  },
+  "hHrNd0": {
+    "defaultMessage": "Barre latérale",
+    "description": "ProjectPage: right sidebar aria-label"
   },
   "hKagVG": {
     "defaultMessage": "Licence :",
@@ -490,6 +538,10 @@
   "lKZm9t": {
     "defaultMessage": "Email",
     "description": "Sharing: Email"
+  },
+  "lsDB5G": {
+    "defaultMessage": "Table des matières",
+    "description": "TopicPage: ToC sidebar aria-label"
   },
   "mC21ht": {
     "defaultMessage": "Nombre d'articles chargés sur le total disponible.",
@@ -554,6 +606,10 @@
   "soj7do": {
     "defaultMessage": "Publié le :",
     "description": "Comment: publication date label"
+  },
+  "syLgY9": {
+    "defaultMessage": "Barre latérale",
+    "description": "ThematicPage: right sidebar aria-label"
   },
   "tMuNTy": {
     "defaultMessage": "{websiteName} est intégrateur web / développeur front-end en France. Il code et il écrit essentiellement à propos de développement web et du libre.",

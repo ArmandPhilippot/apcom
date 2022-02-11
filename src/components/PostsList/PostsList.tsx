@@ -50,7 +50,11 @@ const PostsList = (
                   <li className={styles.item}>
                     <PostPreview post={post} titleLevel={titleLevel} />
                   </li>
-                  {isLastPost && <span ref={ref} tabIndex={-1} />}
+                  {isLastPost && (
+                    <li className={styles.item}>
+                      <span ref={ref} tabIndex={-1} />
+                    </li>
+                  )}
                 </Fragment>
               );
             })}

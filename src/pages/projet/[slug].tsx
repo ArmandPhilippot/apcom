@@ -22,6 +22,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { ComponentType } from 'react';
+import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
 const Project: NextPageWithLayout<ProjectProps> = ({
@@ -29,6 +30,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
 }: {
   project: ProjectData;
 }) => {
+  const intl = useIntl();
   const router = useRouter();
   const projectUrl = `${settings.url}${router.asPath}`;
   const { id, intro, meta, title, seo } = project;
@@ -107,14 +109,26 @@ const Project: NextPageWithLayout<ProjectProps> = ({
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader title={title} intro={intro} meta={{ dates }} />
-        <Sidebar position="left">
+        <Sidebar
+          position="left"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Table of Contents',
+            description: 'ProjectPage: ToC sidebar aria-label',
+          })}
+        >
           <ToC />
         </Sidebar>
         <div className={styles.body}>
           <ProjectSummary id={id} title={title} meta={meta} />
           <ProjectContent components={components} />
         </div>
-        <Sidebar position="right">
+        <Sidebar
+          position="right"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Sidebar',
+            description: 'ProjectPage: right sidebar aria-label',
+          })}
+        >
           <Sharing title={title} excerpt={intro} />
         </Sidebar>
       </article>

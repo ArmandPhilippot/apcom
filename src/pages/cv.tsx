@@ -110,13 +110,25 @@ const CV: NextPageWithLayout = () => {
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
         <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
-        <Sidebar position="left">
+        <Sidebar
+          position="left"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Table of Contents',
+            description: 'CVPage: ToC sidebar aria-label',
+          })}
+        >
           <ToC />
         </Sidebar>
         <div className={styles.body}>
           <CVContent />
         </div>
-        <Sidebar position="right">
+        <Sidebar
+          position="right"
+          ariaLabel={intl.formatMessage({
+            defaultMessage: 'Sidebar',
+            description: 'CVPage: right sidebar aria-label',
+          })}
+        >
           <CVPreview
             title={intl.formatMessage({
               defaultMessage: 'Others formats',
