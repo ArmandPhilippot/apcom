@@ -11,7 +11,7 @@ const useHeadingsTree = (wrapper: string) => {
 
   useEffect(() => {
     const query = depths
-      .map((depth) => `${wrapper} > *:not(aside) ${depth}`)
+      .map((depth) => `${wrapper} > *:not(aside, #comments) ${depth}`)
       .join(', ');
     const result: NodeListOf<HTMLHeadingElement> =
       document.querySelectorAll(query);
