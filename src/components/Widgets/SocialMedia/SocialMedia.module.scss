@@ -4,6 +4,7 @@
 .list {
   @extend %flex-list;
 
+  flex: 0 0 100%;
   gap: var(--spacing-xs);
   align-items: center;
   padding: var(--spacing-2xs) 0 0 var(--spacing-2xs);

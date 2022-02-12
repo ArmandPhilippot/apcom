@@ -51,11 +51,11 @@
   margin: 0 0 fun.convert-px(-6); // collapse borders
   overflow: hidden;
   visibility: hidden;
-  transition: max-height 0.5s linear 0s, margin 0.3s ease-in-out 0.3s,
-    visibility 0.1s linear 0.6s;
+  transition: all 0.6s cubic-bezier(0, 1, 0, 1) 0s, margin 0.2s ease-in-out 0s,
+    border 0.1s ease-in-out 0.3s, visibility 0.1s linear 0.6s;
 
   &--borders {
-    border: fun.convert-px(2) solid var(--color-primary-dark);
+    border: 0 solid transparent;
   }
 
   > *:last-child {
@@ -75,8 +75,6 @@
 
   display: flex;
   flex-flow: column;
-  height: max-content;
-  max-height: 100%;
 
   &--expanded {
     .icon::before {
@@ -84,12 +82,16 @@
     }
 
     .body {
-      max-height: 100%;
+      max-height: 10000px; // needs a fixed value for transition.
       margin: var(--spacing-sm) 0;
-      overflow-y: visible;
+      overflow: visible;
       visibility: visible;
       transition: visibility 0.1s linear 0s, max-height 0.6s linear 0s,
         margin 0.2s ease-in-out 0s;
+
+      &--borders {
+        border: fun.convert-px(2) solid var(--color-primary-dark);
+      }
     }
   }
 }
@@ -107,7 +109,6 @@
 }
 
 .header {
-  flex: 0 0 auto;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -123,7 +124,6 @@
   border-top: fun.convert-px(2) solid var(--color-primary-dark);
   border-bottom: fun.convert-px(2) solid var(--color-primary-dark);
   cursor: pointer;
-  transition: background 0.2s ease-in-out 0s;
 
   &:hover,
   &:focus {
