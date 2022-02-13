@@ -45,11 +45,11 @@ const CodeBlock = ({
     description: 'Prism: error text',
   });
   const darkTheme = intl.formatMessage({
-    defaultMessage: 'Toggle Dark Theme',
+    defaultMessage: 'Dark Theme 🌙',
     description: 'Prism: toggle dark theme button text',
   });
   const lightTheme = intl.formatMessage({
-    defaultMessage: 'Toggle Light Theme',
+    defaultMessage: 'Light Theme 🌞',
     description: 'Prism: toggle light theme button text',
   });
 

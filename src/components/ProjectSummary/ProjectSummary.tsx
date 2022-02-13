@@ -152,8 +152,8 @@ const ProjectSummary = ({
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        '{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}',
-                      description: 'ProjectPreview: technologies list label',
+                        '{starsCount, plural, =0 {0 stars on Github} one {# star on Github} other {# stars on Github}}',
+                      description: 'ProjectSummary: technologies list label',
                     },
                     { starsCount: data.stargazers_count }
                   )}

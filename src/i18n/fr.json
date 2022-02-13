@@ -15,10 +15,6 @@
     "defaultMessage": "Blog : développement, libre et open-source - {websiteName}",
     "description": "BlogPage: SEO - Page title"
   },
-  "/5es0M": {
-    "defaultMessage": "Utiliser le thème sombre",
-    "description": "Prism: toggle dark theme button text"
-  },
   "/IirIt": {
     "defaultMessage": "Mentions légales",
     "description": "LegalNoticePage: page title"
@@ -311,10 +307,6 @@
     "defaultMessage": "Recherche",
     "description": "SearchPage: breadcrumb item"
   },
-  "Tzpiwn": {
-    "defaultMessage": "Utiliser le thème clair",
-    "description": "Prism: toggle light theme button text"
-  },
   "U++A+B": {
     "defaultMessage": "{readingTime, plural, =0 {# minute} one {# minute} other {# minutes}}",
     "description": "PostMeta: reading time value"
@@ -322,6 +314,10 @@
   "U+35YD": {
     "defaultMessage": "Recherche",
     "description": "SearchPage: page title"
+  },
+  "Ua2g2p": {
+    "defaultMessage": "Thème clair 🌞",
+    "description": "Prism: toggle light theme button text"
   },
   "UsQske": {
     "defaultMessage": "En lire plus ici :",
@@ -403,9 +399,9 @@
     "defaultMessage": "Table des matières",
     "description": "ToC: widget title"
   },
-  "aQLBE3": {
-    "defaultMessage": "{starsCount, plural, =0 {Aucune étoile sur Github} one {# étoile sur Github} other {# étoiles sur Github}}",
-    "description": "ProjectPreview: technologies list label"
+  "aA3hOT": {
+    "defaultMessage": "{starsCount, plural, =0 {0 étoile sur Github} one {# étoile sur Github} other {# étoiles sur Github}}",
+    "description": "ProjectSummary: technologies list label"
   },
   "agLf5v": {
     "defaultMessage": "Site web :",
@@ -550,6 +546,10 @@
   "mh7tGg": {
     "defaultMessage": "Aperçu de {title}",
     "description": "ProjectSummary: cover alt text"
+  },
+  "nFMdWI": {
+    "defaultMessage": "Thème sombre 🌙",
+    "description": "Prism: toggle dark theme button text"
   },
   "norrGp": {
     "defaultMessage": "Autres thématiques",
