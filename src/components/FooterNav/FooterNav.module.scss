@@ -1,17 +1,20 @@
+@use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
-
-.wrapper {
-  font-size: var(--font-size-sm);
-}
 
 .list {
   @extend %flex-list;
+
   gap: var(--spacing-xs);
+  place-content: center;
 }
 
 .item {
-  &::before {
-    content: "\2022";
-    margin-right: var(--spacing-xs);
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      &::before {
+        content: "\2022";
+        margin-right: var(--spacing-xs);
+      }
+    }
   }
 }

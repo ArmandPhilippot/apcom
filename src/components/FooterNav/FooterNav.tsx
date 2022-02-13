@@ -28,17 +28,15 @@ const FooterNav = () => {
   });
 
   return (
-    <div className={styles.wrapper}>
-      <nav
-        className={styles.nav}
-        aria-label={intl.formatMessage({
-          defaultMessage: 'Footer',
-          description: 'FooterNav: aria-label',
-        })}
-      >
-        <ul className={styles.list}>{navItems}</ul>
-      </nav>
-    </div>
+    <nav
+      className={styles.nav}
+      aria-label={intl.formatMessage({
+        defaultMessage: 'Footer',
+        description: 'FooterNav: aria-label',
+      })}
+    >
+      <ul className={styles.list}>{navItems}</ul>
+    </nav>
   );
 };
 

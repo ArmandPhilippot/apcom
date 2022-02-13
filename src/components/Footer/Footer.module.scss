@@ -1,13 +1,21 @@
 @use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
+  gap: var(--spacing-xs);
   place-items: center;
   place-content: center;
-  gap: var(--spacing-xs);
   padding: var(--spacing-md) 0 calc(var(--toolbar-size) + var(--spacing-md));
   border-top: fun.convert-px(3) solid var(--color-border-light);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      flex-flow: row wrap;
+      font-size: var(--font-size-sm);
+    }
+  }
 }
 
 .back-to-top {
