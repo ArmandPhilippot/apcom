@@ -1,0 +1,33 @@
+/// Draw borders around an element.
+%draw-borders {
+  background-image: linear-gradient(
+      to right,
+      var(--draw-border-color2),
+      var(--draw-border-color1)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--draw-border-color1),
+      var(--draw-border-color2)
+    ),
+    linear-gradient(
+      to left,
+      var(--draw-border-color2),
+      var(--draw-border-color1)
+    ),
+    linear-gradient(
+      to top,
+      var(--draw-border-color1),
+      var(--draw-border-color2)
+    );
+  background-position: top left, top right, bottom right, bottom left;
+  background-repeat: no-repeat;
+  background-size: 100% var(--draw-border-thickness),
+    var(--draw-border-thickness) 100%, 100% var(--draw-border-thickness),
+    var(--draw-border-thickness) 100%;
+  color: var(--draw-border-color1);
+
+  :global {
+    animation: draw-borders 0.8s linear 1 0s;
+  }
+}

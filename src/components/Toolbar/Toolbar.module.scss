@@ -2,7 +2,7 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
-  --btn-size: #{fun.convert-px(50)};
+  --btn-size: #{fun.convert-px(60)};
 
   display: flex;
   flex-flow: row wrap;

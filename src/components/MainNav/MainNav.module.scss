@@ -3,13 +3,13 @@
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
-  --icon-size: #{fun.convert-px(25)};
+  --icon-size: #{fun.convert-px(30)};
 
   display: flex;
   flex-flow: column nowrap;
-  place-items: center;
+  align-items: center;
   height: var(--btn-size);
-  width: var(--btn-size);
+  width: calc(var(--btn-size) * 1.2);
   background: var(--color-bg);
   position: relative;
 
@@ -19,8 +19,6 @@
     }
 
     @include mix.dimensions("md") {
-      --icon-size: #{fun.convert-px(30)};
-
       width: unset;
       height: unset;
     }
@@ -28,17 +26,22 @@
 }
 
 .label {
+  --draw-border-thickness: #{fun.convert-px(5)};
+  --draw-border-color1: var(--color-primary-light);
+  --draw-border-color2: var(--color-primary-lighter);
+
+  flex: 1;
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-  height: 100%;
+  padding: var(--spacing-2xs);
 
   &:hover {
     span,
     span::before,
     span::after {
       background: var(--color-primary-lighter);
-      box-shadow: 2px 2px 0 0 var(--color-shadow);
+      box-shadow: fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-shadow);
     }
   }
 
@@ -54,7 +57,7 @@
 
   // centered checkbox = btn-size - approximated checkbox size / 2
   top: calc((var(--btn-size) - #{fun.convert-px(14)}) / 2);
-  left: calc((var(--btn-size) - #{fun.convert-px(14)}) / 2);
+  left: calc(((var(--btn-size) * 1.2) - #{fun.convert-px(14)}) / 2);
   opacity: 0;
   cursor: pointer;
 
@@ -64,14 +67,14 @@
       span::before,
       span::after {
         background: var(--color-primary-lighter);
-        box-shadow: 2px 2px 0 0 var(--color-shadow);
+        box-shadow: fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-shadow);
       }
     }
   }
 
   &:focus {
     ~ .label {
-      outline: var(--color-primary-light) solid fun.convert-px(3);
+      @extend %draw-borders;
     }
   }
 
@@ -141,7 +144,9 @@
 }
 
 .link {
-  --draw-border-width: #{fun.convert-px(4)};
+  --draw-border-thickness: #{fun.convert-px(4)};
+  --draw-border-color1: var(--color-primary-light);
+  --draw-border-color2: var(--color-primary-lighter);
 
   display: block;
   min-width: fun.convert-px(85);
@@ -163,35 +168,7 @@
 
   &:hover,
   &:focus {
-    background-image: linear-gradient(
-        to right,
-        var(--color-primary-lighter),
-        var(--color-primary-light)
-      ),
-      linear-gradient(
-        to bottom,
-        var(--color-primary-light),
-        var(--color-primary-lighter)
-      ),
-      linear-gradient(
-        to left,
-        var(--color-primary-lighter),
-        var(--color-primary-light)
-      ),
-      linear-gradient(
-        to top,
-        var(--color-primary-light),
-        var(--color-primary-lighter)
-      );
-    background-position: top left, top right, bottom right, bottom left;
-    background-size: 100% var(--draw-border-width),
-      var(--draw-border-width) 100%, 100% var(--draw-border-width),
-      var(--draw-border-width) 100%;
-    color: var(--color-primary-light);
-
-    :global {
-      animation: draw-borders 0.8s linear 1 0s;
-    }
+    @extend %draw-borders;
   }
 
   &:focus {
@@ -199,27 +176,10 @@
   }
 
   &:active {
-    background-image: linear-gradient(
-        to right,
-        var(--color-primary-light),
-        var(--color-primary-dark)
-      ),
-      linear-gradient(
-        to bottom,
-        var(--color-primary-dark),
-        var(--color-primary-light)
-      ),
-      linear-gradient(
-        to left,
-        var(--color-primary-light),
-        var(--color-primary-dark)
-      ),
-      linear-gradient(
-        to top,
-        var(--color-primary-dark),
-        var(--color-primary-light)
-      );
-    background-position: top left, top right, bottom right, bottom left;
+    --draw-border-color1: var(--color-primary-dark);
+    --draw-border-color2: var(--color-primary-light);
+
+    @extend %draw-borders;
   }
 
   &.current {
@@ -232,58 +192,23 @@
       ),
       linear-gradient(to top, transparent, transparent);
     background-position: top left, top right, bottom center, bottom left;
-    background-size: 0% var(--draw-border-width), var(--draw-border-width) 0%,
-      60% var(--draw-border-width), var(--draw-border-width) 0%;
-    transition: all 0.3s linear 0s;
+    background-size: 0% var(--draw-border-thickness),
+      var(--draw-border-thickness) 0%, 60% var(--draw-border-thickness),
+      var(--draw-border-thickness) 0%;
 
     &:hover,
     &:focus {
-      background-image: linear-gradient(
-          to right,
-          var(--color-primary-lighter),
-          var(--color-primary-light)
-        ),
-        linear-gradient(
-          to bottom,
-          var(--color-primary-light),
-          var(--color-primary-lighter)
-        ),
-        linear-gradient(
-          to left,
-          var(--color-primary-lighter),
-          var(--color-primary-light)
-        ),
-        linear-gradient(
-          to top,
-          var(--color-primary-light),
-          var(--color-primary-lighter)
-        );
-      background-size: 100% var(--draw-border-width),
-        var(--draw-border-width) 100%, 100% var(--draw-border-width),
-        var(--draw-border-width) 100%;
+      --draw-border-color1: var(--color-primary-light);
+      --draw-border-color2: var(--color-primary-lighter);
+
+      @extend %draw-borders;
     }
 
     &:active {
-      background-image: linear-gradient(
-          to right,
-          var(--color-primary-light),
-          var(--color-primary-dark)
-        ),
-        linear-gradient(
-          to bottom,
-          var(--color-primary-dark),
-          var(--color-primary-light)
-        ),
-        linear-gradient(
-          to left,
-          var(--color-primary-light),
-          var(--color-primary-dark)
-        ),
-        linear-gradient(
-          to top,
-          var(--color-primary-dark),
-          var(--color-primary-light)
-        );
+      --draw-border-color1: var(--color-primary-dark);
+      --draw-border-color2: var(--color-primary-light);
+
+      @extend %draw-borders;
     }
   }
 }

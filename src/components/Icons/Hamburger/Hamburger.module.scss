@@ -2,6 +2,7 @@
 
 .icon {
   position: relative;
+  width: 100%;
 
   &,
   &::before,
@@ -15,7 +16,6 @@
     border: fun.convert-px(1) solid var(--color-primary-darker);
     border-radius: fun.convert-px(3);
     display: block;
-    width: var(--btn-size, fun.convert-px(50));
     height: fun.convert-px(7);
     margin: auto;
     transition: all 0.25s ease-in-out 0s, transform 0.4s ease-in 0s;
@@ -26,6 +26,7 @@
     content: "";
     position: absolute;
     left: fun.convert-px(-1);
+    right: fun.convert-px(-1);
   }
 
   &::before {

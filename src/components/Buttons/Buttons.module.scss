@@ -1,5 +1,6 @@
 @use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
 
 .btn {
   display: block;
@@ -176,19 +177,28 @@
 }
 
 .toolbar {
-  display: block;
-  width: var(--btn-size);
-  height: var(--btn-size);
-  padding: 0;
+  --draw-border-thickness: #{fun.convert-px(5)};
+  --icon-size: 100%;
+
+  display: flex;
+  flex-flow: row nowrap;
+  place-items: center;
+  width: var(--btn-size, 100%);
+  height: var(--btn-size, 100%);
+  padding: var(--spacing-2xs);
   background: none;
   border: none;
   font-size: var(--font-size-md);
 
+  &:hover,
   &:focus {
-    outline: var(--color-primary-light) solid fun.convert-px(3);
+    --draw-border-color1: var(--color-primary-light);
+    --draw-border-color2: var(--color-primary-lighter);
+
+    @extend %draw-borders;
   }
 
-  @include mix.media("screen") {
+  /*   @include mix.media("screen") {
     @include mix.dimensions("md") {
       &:hover,
       &:focus {
@@ -196,7 +206,7 @@
         transition: all 0.8s ease-in-out 0s;
       }
     }
-  }
+  } */
 }
 
 .icon {
@@ -213,8 +223,8 @@
 .back {
   display: flex;
   place-content: center;
-  width: var(--btn-size);
-  height: var(--btn-size);
+  width: var(--icon-size);
+  height: var(--icon-size);
   position: absolute;
   top: 0;
   right: 0;
