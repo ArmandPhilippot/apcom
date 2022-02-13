@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
-import { PostBy } from './articles';
+import { PostBy, TotalArticles } from './articles';
 import { AllPostsSlug, RawPostsList } from './blog';
 import { CommentData, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
@@ -48,10 +48,11 @@ export type RequestType =
   | AllThematicsSlug
   | CreateComment
   | PostBy
-  | TopicBy
-  | ThematicBy
   | RawPostsList
-  | SendEmail;
+  | SendEmail
+  | ThematicBy
+  | TopicBy
+  | TotalArticles;
 
 //==============================================================================
 // Globals

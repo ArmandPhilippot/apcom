@@ -93,3 +93,11 @@ export type PostBy = {
 export type ArticleProps = {
   post: Article;
 };
+
+export type TotalArticles = {
+  posts: {
+    pageInfo: {
+      total: number;
+    };
+  };
+};

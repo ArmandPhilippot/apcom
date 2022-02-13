@@ -1,5 +1,5 @@
 import { Slug } from '@ts/types/app';
-import { Article, PostBy } from '@ts/types/articles';
+import { Article, PostBy, TotalArticles } from '@ts/types/articles';
 import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
 import {
   AllTopics,
@@ -25,6 +25,21 @@ import { fetchApi } from './api';
 //==============================================================================
 // Posts list queries
 //==============================================================================
+
+export const getPostsTotal = async (): Promise<number> => {
+  const query = gql`
+    query PostsTotal {
+      posts {
+        pageInfo {
+          total
+        }
+      }
+    }
+  `;
+
+  const response = await fetchApi<TotalArticles>(query, null);
+  return response.posts.pageInfo.total;
+};
 
 export const getPublishedPosts = async ({
   first = 10,

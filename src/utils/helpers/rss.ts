@@ -1,20 +1,15 @@
-import { getPublishedPosts } from '@services/graphql/queries';
+import { getPostsTotal, getPublishedPosts } from '@services/graphql/queries';
 import { ArticlePreview } from '@ts/types/articles';
 import { PostsList } from '@ts/types/blog';
 import { settings } from '@utils/config';
 import { Feed } from 'feed';
 
 const getAllPosts = async (): Promise<ArticlePreview[]> => {
+  const totalPosts = await getPostsTotal();
   const posts: ArticlePreview[] = [];
-  let hasNextPage = true;
-  let after = undefined;
 
-  do {
-    const postsList: PostsList = await getPublishedPosts({ first: 10, after });
-    posts.push(...postsList.posts);
-    hasNextPage = postsList.pageInfo.hasNextPage;
-    after = postsList.pageInfo.endCursor;
-  } while (hasNextPage);
+  const postsList: PostsList = await getPublishedPosts({ first: totalPosts });
+  posts.push(...postsList.posts);
 
   return posts;
 };
