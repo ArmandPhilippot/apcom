@@ -38,7 +38,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
 
   useEffect(() => {
     const allPre: NodeListOf<HTMLPreElement> = document.querySelectorAll(
-      'pre[data-prismjs-color-scheme'
+      'pre[data-prismjs-color-scheme-current]'
     );
     setCodeBlocks(allPre);
   }, [setCodeBlocks, router.asPath]);
