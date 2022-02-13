@@ -37,6 +37,13 @@ const ToC = () => {
 
   return (
     <ExpandableWidget title={title} kind="toc" expand={true} withBorders={true}>
+      <noscript>
+        {intl.formatMessage({
+          defaultMessage:
+            'Javascript is required to use the table of contents.',
+          description: 'ToC: noscript tag',
+        })}
+      </noscript>
       <OrderedList items={getItems(headingsTree)} />
     </ExpandableWidget>
   );

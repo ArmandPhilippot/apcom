@@ -31,6 +31,12 @@ const RelatedTopics = ({ topics }: { topics: TopicPreview[] }) => {
       )}
       withBorders={true}
     >
+      <noscript>
+        {intl.formatMessage({
+          defaultMessage: 'Javascript is required to load the topics.',
+          description: 'RelatedTopics: noscript tag',
+        })}
+      </noscript>
       <List items={topicsList} />
     </ExpandableWidget>
   );

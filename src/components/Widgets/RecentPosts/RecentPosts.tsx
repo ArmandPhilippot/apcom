@@ -67,7 +67,17 @@ const RecentPosts = () => {
     return data.posts.map((post) => getPost(post));
   };
 
-  return <ul className={styles.list}>{getPostsItems()}</ul>;
+  return (
+    <ul className={styles.list}>
+      <noscript>
+        {intl.formatMessage({
+          defaultMessage: 'Javascript is required to load the latest posts.',
+          description: 'RecentPosts: noscript tag',
+        })}
+      </noscript>
+      {getPostsItems()}
+    </ul>
+  );
 };
 
 export default RecentPosts;

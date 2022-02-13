@@ -158,6 +158,12 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       >
         <PostHeader title={title} meta={{ results: totalPostsCount }} />
         <div className={styles.body}>
+          <noscript>
+            {intl.formatMessage({
+              defaultMessage: 'Javascript is required to load the posts.',
+              description: 'BlogPage: noscript tag',
+            })}
+          </noscript>
           {getPostsList()}
           {hasNextPage && (
             <>

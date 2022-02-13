@@ -119,6 +119,10 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: breadcrumb item"
   },
+  "DXxn3X": {
+    "defaultMessage": "Javascript is required to load the posts.",
+    "description": "BlogPage: noscript tag"
+  },
   "Dhow1m": {
     "defaultMessage": "Diaspora",
     "description": "Sharing: Diaspora"
@@ -207,6 +211,10 @@
     "defaultMessage": "Load more?",
     "description": "BlogPage: load more text"
   },
+  "Mg1owa": {
+    "defaultMessage": "Javascript is required to load the latest posts.",
+    "description": "RecentPosts: noscript tag"
+  },
   "Mj2BQf": {
     "defaultMessage": "{name}'s CV",
     "description": "CVPage: page title"
@@ -279,6 +287,10 @@
     "defaultMessage": "Sidebar",
     "description": "CVPage: right sidebar aria-label"
   },
+  "QYxJrm": {
+    "defaultMessage": "Javascript is required to load the thematics.",
+    "description": "RelatedThematics: noscript tag"
+  },
   "Qh2CwH": {
     "defaultMessage": "Find me elsewhere",
     "description": "ContactPage: social media widget title"
@@ -286,6 +298,10 @@
   "R0eDmw": {
     "defaultMessage": "Blog",
     "description": "BlogPage: breadcrumb item"
+  },
+  "RZzx/4": {
+    "defaultMessage": "Javascript is required to use the table of contents.",
+    "description": "ToC: noscript tag"
   },
   "SWjj4l": {
     "defaultMessage": "Github",
@@ -342,6 +358,10 @@
   "WGFOmA": {
     "defaultMessage": "Send",
     "description": "CommentForm: Send button"
+  },
+  "WJHwIR": {
+    "defaultMessage": "Javascript is required to load the topics.",
+    "description": "RelatedTopics: noscript tag"
   },
   "WRkY1/": {
     "defaultMessage": "Collapse",
@@ -482,6 +502,10 @@
   "g4DckL": {
     "defaultMessage": "Table of Contents",
     "description": "CVPage: ToC sidebar aria-label"
+  },
+  "g5aEea": {
+    "defaultMessage": "Javascript is required to load the topics.",
+    "description": "TopicsList: noscript tag"
   },
   "gQKeF+": {
     "defaultMessage": "Thanks. Your message was successfully sent. I will answer it as soon as possible.",
@@ -650,6 +674,10 @@
   "vkF/RP": {
     "defaultMessage": "Web development",
     "description": "HomePage: link to web development thematic"
+  },
+  "w+LN1W": {
+    "defaultMessage": "Javascript is required to load the thematics.",
+    "description": "ThematicsList: noscript tag"
   },
   "w/lPUh": {
     "defaultMessage": "{topicsCount, plural, =0 {Related topics} one {Related topic} other {Related topics}}",

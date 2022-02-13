@@ -62,6 +62,12 @@ const ThematicsList = ({
       withBorders={true}
       expand={true}
     >
+      <noscript>
+        {intl.formatMessage({
+          defaultMessage: 'Javascript is required to load the thematics.',
+          description: 'ThematicsList: noscript tag',
+        })}
+      </noscript>
       {getList()}
     </ExpandableWidget>
   );

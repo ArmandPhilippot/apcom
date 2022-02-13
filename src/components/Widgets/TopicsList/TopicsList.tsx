@@ -62,6 +62,12 @@ const TopicsList = ({
       withBorders={true}
       expand={true}
     >
+      <noscript>
+        {intl.formatMessage({
+          defaultMessage: 'Javascript is required to load the topics.',
+          description: 'TopicsList: noscript tag',
+        })}
+      </noscript>
       {getList()}
     </ExpandableWidget>
   );
