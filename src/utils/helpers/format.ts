@@ -189,14 +189,16 @@ export const buildCommentsTree = (comments: Comment[]) => {
   const commentsTree: Comment[] = [];
 
   comments.forEach(
-    (comment) => (hashTable[comment.id] = { ...comment, replies: [] })
+    (comment) => (hashTable[comment.commentId] = { ...comment, replies: [] })
   );
 
   comments.forEach((comment) => {
-    if (!comment.parentId) {
-      commentsTree.push(hashTable[comment.id]);
+    if (!comment.parentDatabaseId) {
+      commentsTree.push(hashTable[comment.commentId]);
     } else {
-      hashTable[comment.parentId].replies.push(hashTable[comment.id]);
+      hashTable[comment.parentDatabaseId].replies.push(
+        hashTable[comment.commentId]
+      );
     }
   });
 
@@ -226,7 +228,6 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
     acfPosts,
     author,
     commentCount,
-    comments,
     contentParts,
     databaseId,
     date,
@@ -243,8 +244,6 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
     update: modified,
   };
 
-  const formattedComments = getFormattedComments(comments.nodes);
-  const commentsTree = buildCommentsTree(formattedComments);
   const topics = acfPosts.postsInTopic
     ? getFormattedTopicsPreview(acfPosts.postsInTopic)
     : [];
@@ -252,7 +251,6 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
   const formattedPost: Article = {
     author: author.node,
     commentCount,
-    comments: commentsTree,
     content: contentParts.afterMore,
     databaseId,
     dates,

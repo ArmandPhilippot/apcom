@@ -35,7 +35,6 @@ export type ArticleMeta = {
 export type Article = {
   author: ArticleAuthor;
   commentCount: number | null;
-  comments: Comment[];
   content: string;
   databaseId: number;
   dates: Dates;
@@ -55,7 +54,6 @@ export type RawArticle = Pick<
 > & {
   acfPosts: RawACFPosts;
   author: { node: ArticleAuthor };
-  comments: CommentsNode;
   contentParts: ContentParts;
   date: string;
   featuredImage: RawCover;
@@ -91,6 +89,7 @@ export type PostBy = {
 };
 
 export type ArticleProps = {
+  comments: Comment[];
   post: Article;
 };
 

@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
 import { PostBy, TotalArticles } from './articles';
 import { AllPostsSlug, RawPostsList } from './blog';
-import { CommentData, CreateComment } from './comments';
+import { CommentData, CommentsByPostId, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
 import {
   AllTopics,
@@ -34,6 +34,8 @@ export type VariablesType<T> = T extends PostBy | TopicBy | ThematicBy
   ? Slug
   : T extends RawPostsList
   ? CursorPagination
+  : T extends CommentsByPostId
+  ? { id: number }
   : T extends CreateComment
   ? CommentData
   : T extends SendEmail
@@ -46,6 +48,7 @@ export type RequestType =
   | AllTopicsSlug
   | AllThematics
   | AllThematicsSlug
+  | CommentsByPostId
   | CreateComment
   | PostBy
   | RawPostsList

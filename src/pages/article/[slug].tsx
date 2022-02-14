@@ -6,7 +6,11 @@ import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import Spinner from '@components/Spinner/Spinner';
 import { Sharing, ToC } from '@components/Widgets';
-import { getAllPostsSlug, getPostBySlug } from '@services/graphql/queries';
+import {
+  getAllPostsSlug,
+  getCommentsByPostId,
+  getPostBySlug,
+} from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta, ArticleProps } from '@ts/types/articles';
@@ -25,7 +29,10 @@ import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 import '@utils/plugins/prism-color-scheme';
 
-const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
+const SingleArticle: NextPageWithLayout<ArticleProps> = ({
+  comments,
+  post,
+}) => {
   const intl = useIntl();
   const router = useRouter();
 
@@ -47,7 +54,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
 
   const {
     author,
-    comments,
+    commentCount,
     content,
     databaseId,
     dates,
@@ -62,7 +69,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
 
   const meta: ArticleMeta = {
     author,
-    commentCount: comments.length,
+    commentCount: commentCount || undefined,
     dates,
     readingTime: info.readingTime,
     thematics,
@@ -105,7 +112,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({ post }) => {
     description: intro,
     articleBody: content,
     author: { '@id': `${settings.url}/#branding` },
-    commentCount: comments.length,
+    commentCount: commentCount || undefined,
     copyrightYear: publicationDate.getFullYear(),
     creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
@@ -220,11 +227,13 @@ export const getStaticProps: GetStaticProps = async (
   const translation = await loadTranslation(locale);
   const { slug } = context.params as PostParams;
   const post = await getPostBySlug(slug);
+  const comments = await getCommentsByPostId(post.databaseId);
   const breadcrumbTitle = post.title;
 
   return {
     props: {
       breadcrumbTitle,
+      comments,
       post,
       translation,
     },

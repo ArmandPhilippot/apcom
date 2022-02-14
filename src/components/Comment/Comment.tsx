@@ -121,7 +121,7 @@ const Comment = ({
               return (
                 <Comment
                   articleId={articleId}
-                  key={reply.id}
+                  key={reply.commentId}
                   comment={reply}
                   isNested={true}
                 />

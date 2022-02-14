@@ -1,6 +1,9 @@
 import Comment from '@components/Comment/Comment';
+import Spinner from '@components/Spinner/Spinner';
+import { getCommentsByPostId } from '@services/graphql/queries';
 import { Comment as CommentData } from '@ts/types/comments';
 import { useIntl } from 'react-intl';
+import useSWR from 'swr';
 import styles from './CommentsList.module.scss';
 
 const CommentsList = ({
@@ -11,11 +14,29 @@ const CommentsList = ({
   comments: CommentData[];
 }) => {
   const intl = useIntl();
+  const { data, error } = useSWR<CommentData[]>(
+    '/api/comments',
+    () => getCommentsByPostId(articleId),
+    { fallbackData: comments }
+  );
 
   const getCommentsList = () => {
-    return comments.map((comment) => {
+    if (error) {
+      return intl.formatMessage({
+        defaultMessage: 'Failed to load.',
+        description: 'CommentsList: failed to load',
+      });
+    }
+
+    if (!data) return <Spinner />;
+
+    return data.map((comment) => {
       return (
-        <Comment key={comment.id} articleId={articleId} comment={comment} />
+        <Comment
+          key={comment.commentId}
+          articleId={articleId}
+          comment={comment}
+        />
       );
     });
   };
@@ -28,7 +49,7 @@ const CommentsList = ({
           description: 'CommentsList: Comments section title',
         })}
       </h2>
-      {comments.length > 0 ? (
+      {data && data.length > 0 ? (
         <ol className={styles.list}>{getCommentsList()}</ol>
       ) : (
         <p className={styles['no-comments']}>

@@ -1,6 +1,7 @@
 import { Slug } from '@ts/types/app';
 import { Article, PostBy, TotalArticles } from '@ts/types/articles';
 import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
+import { Comment, CommentsByPostId } from '@ts/types/comments';
 import {
   AllTopics,
   AllTopicsSlug,
@@ -18,6 +19,8 @@ import {
   getFormattedPostPreview,
   getFormattedTopic,
   getFormattedThematic,
+  getFormattedComments,
+  buildCommentsTree,
 } from '@utils/helpers/format';
 import { gql } from 'graphql-request';
 import { fetchApi } from './api';
@@ -188,24 +191,6 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
           }
         }
         commentCount
-        comments(where: { order: ASC, orderby: COMMENT_DATE }) {
-          nodes {
-            approved
-            author {
-              node {
-                gravatarUrl
-                name
-                url
-              }
-            }
-            commentId
-            content
-            date
-            id
-            parentDatabaseId
-            parentId
-          }
-        }
         contentParts {
           afterMore
           beforeMore
@@ -242,7 +227,6 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
           opengraphTitle
           opengraphType
           opengraphUrl
-          readingTime
         }
         title
       }
@@ -252,6 +236,44 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
   const response = await fetchApi<PostBy>(query, variables);
 
   return getFormattedPost(response.postBy);
+};
+
+//==============================================================================
+// Comments query
+//==============================================================================
+
+export const getCommentsByPostId = async (id: number): Promise<Comment[]> => {
+  const query = gql`
+    query MyQuery($id: Int) {
+      postBy(postId: $id) {
+        comments(where: { order: ASC, orderby: COMMENT_DATE }) {
+          nodes {
+            approved
+            author {
+              node {
+                gravatarUrl
+                id
+                name
+                url
+              }
+            }
+            commentId
+            content
+            date
+            parentDatabaseId
+          }
+        }
+      }
+    }
+  `;
+
+  const variables = { id };
+  const response = await fetchApi<CommentsByPostId>(query, variables);
+  const formattedComments = getFormattedComments(
+    response.postBy.comments.nodes
+  );
+
+  return buildCommentsTree(formattedComments);
 };
 
 //==============================================================================

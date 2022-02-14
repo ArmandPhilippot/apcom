@@ -2,6 +2,14 @@
 // Comments query
 //==============================================================================
 
+export type CommentsByPostId = {
+  postBy: {
+    comments: {
+      nodes: RawComment[];
+    };
+  };
+};
+
 export type CommentAuthor = {
   gravatarUrl: string;
   name: string;
