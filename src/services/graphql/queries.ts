@@ -211,22 +211,8 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
         }
         modified
         seo {
-          title
           metaDesc
-          opengraphAuthor
-          opengraphDescription
-          opengraphImage {
-            altText
-            sourceUrl
-            srcSet
-          }
-          opengraphModifiedTime
-          opengraphPublishedTime
-          opengraphPublisher
-          opengraphSiteName
-          opengraphTitle
-          opengraphType
-          opengraphUrl
+          title
         }
         title
       }
@@ -358,21 +344,6 @@ export const getTopicBySlug = async (slug: string): Promise<Topic> => {
         modified
         seo {
           metaDesc
-          opengraphAuthor
-          opengraphDescription
-          opengraphImage {
-            altText
-            sourceUrl
-            srcSet
-          }
-          opengraphModifiedTime
-          opengraphPublishedTime
-          opengraphPublisher
-          opengraphSiteName
-          opengraphTitle
-          opengraphType
-          opengraphUrl
-          readingTime
           title
         }
         title
@@ -492,21 +463,6 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
         modified
         seo {
           metaDesc
-          opengraphAuthor
-          opengraphDescription
-          opengraphImage {
-            altText
-            sourceUrl
-            srcSet
-          }
-          opengraphModifiedTime
-          opengraphPublishedTime
-          opengraphPublisher
-          opengraphSiteName
-          opengraphTitle
-          opengraphType
-          opengraphUrl
-          readingTime
           title
         }
         title
