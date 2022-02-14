@@ -1,5 +1,6 @@
 import { PageInfo, Slug } from './app';
 import { ArticlePreview, RawArticlePreview } from './articles';
+import { ThematicPreview, TopicPreview } from './taxonomies';
 
 export type PostsList = {
   posts: ArticlePreview[];
@@ -25,5 +26,8 @@ export type AllPostsSlug = {
 };
 
 export type BlogPageProps = {
-  fallback: PostsList;
+  allThematics: ThematicPreview[];
+  allTopics: TopicPreview[];
+  firstPosts: PostsList;
+  totalPosts: number;
 };

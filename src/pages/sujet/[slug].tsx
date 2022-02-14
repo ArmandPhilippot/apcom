@@ -4,7 +4,11 @@ import PostPreview from '@components/PostPreview/PostPreview';
 import Sidebar from '@components/Sidebar/Sidebar';
 import Spinner from '@components/Spinner/Spinner';
 import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
-import { getAllTopicsSlug, getTopicBySlug } from '@services/graphql/queries';
+import {
+  getAllTopics,
+  getAllTopicsSlug,
+  getTopicBySlug,
+} from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
@@ -20,7 +24,7 @@ import { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { Article as Article, Graph, WebPage } from 'schema-dts';
 
-const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
+const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
   const intl = useIntl();
   const relatedThematics = useRef<ThematicPreview[]>([]);
   const router = useRouter();
@@ -161,6 +165,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic }) => {
         >
           <RelatedThematics thematics={relatedThematics.current} />
           <TopicsList
+            initialData={allTopics}
             title={intl.formatMessage({
               defaultMessage: 'Others topics',
               description: 'TopicPage: topics list widget title',
@@ -185,10 +190,12 @@ export const getStaticProps: GetStaticProps = async (
   const translation = await loadTranslation(locale);
   const { slug } = context.params as PostParams;
   const topic = await getTopicBySlug(slug);
+  const allTopics = await getAllTopics();
   const breadcrumbTitle = topic.title;
 
   return {
     props: {
+      allTopics,
       breadcrumbTitle,
       locale,
       topic,

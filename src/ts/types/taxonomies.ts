@@ -71,6 +71,7 @@ export type AllTopicsSlug = {
 };
 
 export type TopicProps = {
+  allTopics: TopicPreview[];
   topic: Topic;
 };
 
@@ -108,5 +109,6 @@ export type AllThematicsSlug = {
 };
 
 export type ThematicProps = {
+  allThematics: ThematicPreview[];
   thematic: Thematic;
 };

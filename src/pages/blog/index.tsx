@@ -6,7 +6,12 @@ import PostsList from '@components/PostsList/PostsList';
 import Sidebar from '@components/Sidebar/Sidebar';
 import Spinner from '@components/Spinner/Spinner';
 import { ThematicsList, TopicsList } from '@components/Widgets';
-import { getPublishedPosts } from '@services/graphql/queries';
+import {
+  getAllThematics,
+  getAllTopics,
+  getPostsTotal,
+  getPublishedPosts,
+} from '@services/graphql/queries';
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
@@ -20,7 +25,12 @@ import { useIntl } from 'react-intl';
 import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
 import useSWRInfinite from 'swr/infinite';
 
-const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
+const Blog: NextPageWithLayout<BlogPageProps> = ({
+  allThematics,
+  allTopics,
+  firstPosts,
+  totalPosts,
+}) => {
   const intl = useIntl();
   const lastPostRef = useRef<HTMLSpanElement>(null);
   const router = useRouter();
@@ -39,9 +49,9 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
   const { data, error, size, setSize } = useSWRInfinite(
     getKey,
     getPublishedPosts,
-    { fallback }
+    { fallbackData: [firstPosts] }
   );
-  const [totalPostsCount, setTotalPostsCount] = useState<number>(0);
+  const [totalPostsCount, setTotalPostsCount] = useState<number>(totalPosts);
 
   useEffect(() => {
     if (data) setTotalPostsCount(data[0].pageInfo.total);
@@ -158,12 +168,6 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
       >
         <PostHeader title={title} meta={{ results: totalPostsCount }} />
         <div className={styles.body}>
-          <noscript>
-            {intl.formatMessage({
-              defaultMessage: 'Javascript is required to load the posts.',
-              description: 'BlogPage: noscript tag',
-            })}
-          </noscript>
           {getPostsList()}
           {hasNextPage && (
             <>
@@ -182,6 +186,12 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
                   description: 'BlogPage: load more text',
                 })}
               </Button>
+              <noscript>
+                {intl.formatMessage({
+                  defaultMessage: 'Javascript is required to load more posts.',
+                  description: 'BlogPage: noscript tag',
+                })}
+              </noscript>
             </>
           )}
         </div>
@@ -193,12 +203,14 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({ fallback }) => {
           })}
         >
           <ThematicsList
+            initialData={allThematics}
             title={intl.formatMessage({
               defaultMessage: 'Thematics',
               description: 'BlogPage: thematics list widget title',
             })}
           />
           <TopicsList
+            initialData={allTopics}
             title={intl.formatMessage({
               defaultMessage: 'Topics',
               description: 'BlogPage: topics list widget title',
@@ -220,17 +232,21 @@ export const getStaticProps: GetStaticProps = async (
     defaultMessage: 'Blog',
     description: 'BlogPage: breadcrumb item',
   });
-  const data = await getPublishedPosts({ first: settings.postsPerPage });
+  const firstPosts = await getPublishedPosts({ first: settings.postsPerPage });
+  const totalPosts = await getPostsTotal();
+  const allThematics = await getAllThematics();
+  const allTopics = await getAllTopics();
   const { locale } = context;
   const translation = await loadTranslation(locale);
 
   return {
     props: {
+      allThematics,
+      allTopics,
       breadcrumbTitle,
-      fallback: {
-        '/api/posts': data,
-      },
+      firstPosts,
       locale,
+      totalPosts,
       translation,
     },
   };

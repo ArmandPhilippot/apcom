@@ -21,6 +21,7 @@ const RelatedThematics = ({ thematics }: { thematics: ThematicPreview[] }) => {
 
   return (
     <ExpandableWidget
+      expand={true}
       title={intl.formatMessage(
         {
           defaultMessage:
@@ -31,12 +32,6 @@ const RelatedThematics = ({ thematics }: { thematics: ThematicPreview[] }) => {
       )}
       withBorders={true}
     >
-      <noscript>
-        {intl.formatMessage({
-          defaultMessage: 'Javascript is required to load the thematics.',
-          description: 'RelatedThematics: noscript tag',
-        })}
-      </noscript>
       <List items={thematicsList} />
     </ExpandableWidget>
   );

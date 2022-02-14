@@ -5,6 +5,7 @@ import Sidebar from '@components/Sidebar/Sidebar';
 import Spinner from '@components/Spinner/Spinner';
 import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
 import {
+  getAllThematics,
   getAllThematicsSlug,
   getThematicBySlug,
 } from '@services/graphql/queries';
@@ -23,7 +24,10 @@ import { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
-const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
+const Thematic: NextPageWithLayout<ThematicProps> = ({
+  thematic,
+  allThematics,
+}) => {
   const intl = useIntl();
   const relatedTopics = useRef<TopicPreview[]>([]);
   const router = useRouter();
@@ -151,6 +155,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({ thematic }) => {
         >
           <RelatedTopics topics={relatedTopics.current} />
           <ThematicsList
+            initialData={allThematics}
             title={intl.formatMessage({
               defaultMessage: 'Others thematics',
               description: 'ThematicPage: thematics list widget title',
@@ -175,10 +180,12 @@ export const getStaticProps: GetStaticProps = async (
   const translation = await loadTranslation(locale);
   const { slug } = context.params as PostParams;
   const thematic = await getThematicBySlug(slug);
+  const allThematics = await getAllThematics();
   const breadcrumbTitle = thematic.title;
 
   return {
     props: {
+      allThematics,
       breadcrumbTitle,
       locale,
       thematic,

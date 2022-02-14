@@ -127,10 +127,6 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: breadcrumb item"
   },
-  "DXxn3X": {
-    "defaultMessage": "Javascript est nécessaire pour chargé les articles.",
-    "description": "BlogPage: noscript tag"
-  },
   "Dhow1m": {
     "defaultMessage": "Diaspora",
     "description": "Sharing: Diaspora"
@@ -202,6 +198,10 @@
   "J4nhm4": {
     "defaultMessage": "Commentaire",
     "description": "CommentForm: Comment field label"
+  },
+  "JPh168": {
+    "defaultMessage": "Javascript est nécessaire pour charger plus d'articles.",
+    "description": "BlogPage: noscript tag"
   },
   "JeYOeA": {
     "defaultMessage": "Barre latérale",
@@ -291,10 +291,6 @@
     "defaultMessage": "Barre latérale",
     "description": "CVPage: right sidebar aria-label"
   },
-  "QYxJrm": {
-    "defaultMessage": "Javascript est nécessaire pour charger les thématiques.",
-    "description": "RelatedThematics: noscript tag"
-  },
   "Qh2CwH": {
     "defaultMessage": "Retrouvez-moi ailleurs",
     "description": "ContactPage: social media widget title"
@@ -370,10 +366,6 @@
   "WGFOmA": {
     "defaultMessage": "Envoyer",
     "description": "CommentForm: Send button"
-  },
-  "WJHwIR": {
-    "defaultMessage": "Javascript est nécessaire pour charger les sujets.",
-    "description": "RelatedTopics: noscript tag"
   },
   "WRkY1/": {
     "defaultMessage": "Replier",
@@ -526,10 +518,6 @@
   "g4DckL": {
     "defaultMessage": "Table des matières",
     "description": "CVPage: ToC sidebar aria-label"
-  },
-  "g5aEea": {
-    "defaultMessage": "Javascript est nécessaire pour charger les sujets.",
-    "description": "TopicsList: noscript tag"
   },
   "gQKeF+": {
     "defaultMessage": "Merci. Votre message a bien été envoyé. J'y répondrai dès que possible.",
@@ -698,10 +686,6 @@
   "vkF/RP": {
     "defaultMessage": "Développement web",
     "description": "HomePage: link to web development thematic"
-  },
-  "w+LN1W": {
-    "defaultMessage": "Javascript est nécessaire pour charger les thématiques.",
-    "description": "ThematicsList: noscript tag"
   },
   "w/lPUh": {
     "defaultMessage": "{topicsCount, plural, =0 {Sujets liés} one {Sujet lié} other {Sujets liés}}",

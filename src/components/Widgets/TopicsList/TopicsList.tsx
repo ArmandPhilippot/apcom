@@ -2,6 +2,7 @@ import Spinner from '@components/Spinner/Spinner';
 import { ExpandableWidget, List } from '@components/WidgetParts';
 import { getAllTopics } from '@services/graphql/queries';
 import { TitleLevel } from '@ts/types/app';
+import { TopicPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
@@ -10,9 +11,11 @@ import useSWR from 'swr';
 const TopicsList = ({
   title,
   titleLevel,
+  initialData,
 }: {
   title: string;
   titleLevel?: TitleLevel;
+  initialData?: TopicPreview[];
 }) => {
   const intl = useIntl();
   const router = useRouter();
@@ -21,7 +24,9 @@ const TopicsList = ({
     ? router.asPath.replace('/sujet/', '')
     : '';
 
-  const { data, error } = useSWR('/api/topics', getAllTopics);
+  const { data, error } = useSWR('/api/topics', getAllTopics, {
+    fallbackData: initialData,
+  });
 
   const getList = () => {
     if (error)
@@ -62,12 +67,6 @@ const TopicsList = ({
       withBorders={true}
       expand={true}
     >
-      <noscript>
-        {intl.formatMessage({
-          defaultMessage: 'Javascript is required to load the topics.',
-          description: 'TopicsList: noscript tag',
-        })}
-      </noscript>
       {getList()}
     </ExpandableWidget>
   );

@@ -2,6 +2,7 @@ import Spinner from '@components/Spinner/Spinner';
 import { ExpandableWidget, List } from '@components/WidgetParts';
 import { getAllThematics } from '@services/graphql/queries';
 import { TitleLevel } from '@ts/types/app';
+import { ThematicPreview } from '@ts/types/taxonomies';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
@@ -10,9 +11,11 @@ import useSWR from 'swr';
 const ThematicsList = ({
   title,
   titleLevel,
+  initialData,
 }: {
   title: string;
   titleLevel?: TitleLevel;
+  initialData?: ThematicPreview[];
 }) => {
   const intl = useIntl();
   const router = useRouter();
@@ -21,7 +24,9 @@ const ThematicsList = ({
     ? router.asPath.replace('/thematique/', '')
     : '';
 
-  const { data, error } = useSWR('/api/thematics', getAllThematics);
+  const { data, error } = useSWR('/api/thematics', getAllThematics, {
+    fallbackData: initialData,
+  });
 
   const getList = () => {
     if (error)
@@ -62,12 +67,6 @@ const ThematicsList = ({
       withBorders={true}
       expand={true}
     >
-      <noscript>
-        {intl.formatMessage({
-          defaultMessage: 'Javascript is required to load the thematics.',
-          description: 'ThematicsList: noscript tag',
-        })}
-      </noscript>
       {getList()}
     </ExpandableWidget>
   );
