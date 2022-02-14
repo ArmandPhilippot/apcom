@@ -9,6 +9,7 @@ const Toolbar = () => {
   const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
   const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
+  const mainNavRef = useRef<HTMLDivElement>(null);
   const searchBtnRef = useRef<HTMLButtonElement>(null);
   const searchModalRef = useRef<HTMLDivElement>(null);
   const settingsBtnRef = useRef<HTMLButtonElement>(null);
@@ -39,16 +40,14 @@ const Toolbar = () => {
     ref: RefObject<HTMLDivElement>,
     target: EventTarget
   ) => {
-    const currentRef = ref.current;
-    return currentRef && !currentRef.contains(target as Node);
+    return ref.current && !ref.current.contains(target as Node);
   };
 
   const isToggleBtn = (ref: RefObject<HTMLDivElement>, target: EventTarget) => {
-    const currentRef = ref.current;
     return (
-      currentRef &&
-      currentRef.previousElementSibling &&
-      currentRef.previousElementSibling.contains(target as Node)
+      ref.current &&
+      ref.current.previousElementSibling &&
+      ref.current.previousElementSibling.contains(target as Node)
     );
   };
 
@@ -68,12 +67,21 @@ const Toolbar = () => {
   const handleVisibility = useCallback(
     (e: MouseEvent | FocusEvent) => {
       let ref: RefObject<HTMLDivElement> | null = null;
+      if (isNavOpened) ref = mainNavRef;
       if (isSearchOpened) ref = searchModalRef;
       if (isSettingsOpened) ref = settingsModalRef;
 
       if (!ref || !ref.current || !ref.current.id) return;
       if (!isClickOutside(ref, e.target as Node)) return;
       if (isToggleBtn(ref, e.target as Node)) return;
+
+      if (
+        ref.current.id === 'main-nav' &&
+        !isSettingsBtn(e.target as HTMLElement) &&
+        !isSearchBtn(e.target as HTMLElement)
+      ) {
+        setIsNavOpened(false);
+      }
 
       if (
         ref.current.id === 'search-modal' &&
@@ -86,7 +94,7 @@ const Toolbar = () => {
       )
         setIsSettingsOpened(false);
     },
-    [isSearchOpened, isSettingsOpened, isSearchBtn, isSettingsBtn]
+    [isNavOpened, isSearchOpened, isSettingsOpened, isSearchBtn, isSettingsBtn]
   );
 
   useEffect(() => {
@@ -109,7 +117,11 @@ const Toolbar = () => {
 
   return (
     <div className={styles.wrapper}>
-      <MainNav isOpened={isNavOpened} setIsOpened={setIsNavOpened} />
+      <MainNav
+        ref={mainNavRef}
+        isOpened={isNavOpened}
+        setIsOpened={setIsNavOpened}
+      />
       <ButtonToolbar
         ref={searchBtnRef}
         type="search"

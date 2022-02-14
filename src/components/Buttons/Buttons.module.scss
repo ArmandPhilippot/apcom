@@ -177,7 +177,7 @@
 }
 
 .toolbar {
-  --draw-border-thickness: #{fun.convert-px(5)};
+  --draw-border-thickness: #{fun.convert-px(4)};
   --icon-size: 100%;
 
   display: flex;
@@ -198,15 +198,11 @@
     @extend %draw-borders;
   }
 
-  /*   @include mix.media("screen") {
+  @include mix.media("screen") {
     @include mix.dimensions("md") {
-      &:hover,
-      &:focus {
-        transform: rotate(360deg);
-        transition: all 0.8s ease-in-out 0s;
-      }
+      border-radius: 8%;
     }
-  } */
+  }
 }
 
 .icon {

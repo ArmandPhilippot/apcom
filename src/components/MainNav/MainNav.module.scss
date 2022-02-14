@@ -37,12 +37,7 @@
   padding: var(--spacing-2xs);
 
   &:hover {
-    span,
-    span::before,
-    span::after {
-      background: var(--color-primary-lighter);
-      box-shadow: fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-shadow);
-    }
+    @extend %draw-borders;
   }
 
   @include mix.media("screen") {
@@ -63,12 +58,7 @@
 
   &:hover {
     ~ .label {
-      span,
-      span::before,
-      span::after {
-        background: var(--color-primary-lighter);
-        box-shadow: fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-shadow);
-      }
+      @extend %draw-borders;
     }
   }
 
