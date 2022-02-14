@@ -2,9 +2,12 @@ import FeedIcon from '@assets/images/icon-feed.svg';
 import { ButtonLink } from '@components/Buttons';
 import { ContactIcon } from '@components/Icons';
 import Layout from '@components/Layouts/Layout';
+import { RecentPosts } from '@components/Widgets';
 import HomePageContent from '@content/pages/homepage.mdx';
+import { getPublishedPosts } from '@services/graphql/queries';
 import styles from '@styles/pages/Home.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
+import { PostsList } from '@ts/types/blog';
 import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
@@ -13,7 +16,15 @@ import type { ReactElement } from 'react';
 import { useIntl } from 'react-intl';
 import { Graph, WebPage } from 'schema-dts';
 
-const Home: NextPageWithLayout = () => {
+type HomePageProps = {
+  recentPosts: PostsList;
+};
+
+const Home: NextPageWithLayout<HomePageProps> = ({
+  recentPosts,
+}: {
+  recentPosts: PostsList;
+}) => {
   const intl = useIntl();
 
   const CodingLinks = () => {
@@ -110,11 +121,16 @@ const Home: NextPageWithLayout = () => {
     );
   };
 
+  const getRecentPosts = () => {
+    return <RecentPosts posts={recentPosts} />;
+  };
+
   const components = {
     CodingLinks: CodingLinks,
     ColdarkRepos: ColdarkRepos,
     LibreLinks: LibreLinks,
     MoreLinks: MoreLinks,
+    RecentPosts: getRecentPosts,
   };
 
   const pageTitle = intl.formatMessage(
@@ -183,9 +199,11 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const { locale } = context;
   const translation = await loadTranslation(locale);
+  const recentPosts = await getPublishedPosts({ first: 3 });
 
   return {
     props: {
+      recentPosts,
       translation,
     },
   };

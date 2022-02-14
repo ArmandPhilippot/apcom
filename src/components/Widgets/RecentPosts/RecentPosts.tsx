@@ -1,6 +1,7 @@
 import Spinner from '@components/Spinner/Spinner';
 import { getPublishedPosts } from '@services/graphql/queries';
 import { ArticlePreview } from '@ts/types/articles';
+import { PostsList } from '@ts/types/blog';
 import { settings } from '@utils/config';
 import { getFormattedDate } from '@utils/helpers/format';
 import Image from 'next/image';
@@ -10,10 +11,12 @@ import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import styles from './RecentPosts.module.scss';
 
-const RecentPosts = () => {
+const RecentPosts = ({ posts }: { posts: PostsList }) => {
   const intl = useIntl();
-  const { data, error } = useSWR('/recent-posts', () =>
-    getPublishedPosts({ first: 3 })
+  const { data, error } = useSWR<PostsList>(
+    '/recent-posts',
+    () => getPublishedPosts({ first: 3 }),
+    { fallbackData: posts }
   );
   const router = useRouter();
   const locale = router.locale ? router.locale : settings.locales.defaultLocale;
@@ -67,17 +70,7 @@ const RecentPosts = () => {
     return data.posts.map((post) => getPost(post));
   };
 
-  return (
-    <ul className={styles.list}>
-      <noscript>
-        {intl.formatMessage({
-          defaultMessage: 'Javascript is required to load the latest posts.',
-          description: 'RecentPosts: noscript tag',
-        })}
-      </noscript>
-      {getPostsItems()}
-    </ul>
-  );
+  return <ul className={styles.list}>{getPostsItems()}</ul>;
 };
 
 export default RecentPosts;

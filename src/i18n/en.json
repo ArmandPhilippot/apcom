@@ -219,10 +219,6 @@
     "defaultMessage": "Load more?",
     "description": "BlogPage: load more text"
   },
-  "Mg1owa": {
-    "defaultMessage": "Javascript is required to load the latest posts.",
-    "description": "RecentPosts: noscript tag"
-  },
   "Mj2BQf": {
     "defaultMessage": "{name}'s CV",
     "description": "CVPage: page title"
