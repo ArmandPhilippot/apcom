@@ -20,6 +20,12 @@
   }
 }
 
+.body noscript {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
 .list {
   @extend %reset-ordered-list;
 }

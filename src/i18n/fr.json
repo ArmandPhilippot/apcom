@@ -219,6 +219,10 @@
     "defaultMessage": "En afficher plus ?",
     "description": "BlogPage: load more text"
   },
+  "LR70nt": {
+    "defaultMessage": "Sans Javascript, certaines fonctionnalités peuvent ne pas marcher comme charger plus d'articles ou utiliser la recherche. Si vous souhaitez bénéficier de ces fonctionnalités, veuillez activer Javascript.",
+    "description": "Layout: noscript banner"
+  },
   "Mj2BQf": {
     "defaultMessage": "CV d'{name}",
     "description": "CVPage: page title"

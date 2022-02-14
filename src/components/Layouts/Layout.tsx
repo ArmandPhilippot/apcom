@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { WebSite, WithContext } from 'schema-dts';
+import styles from './Layout.module.scss';
 
 const Layout = ({
   children,
@@ -94,6 +95,9 @@ const Layout = ({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
         ></script>
       </Head>
+      <noscript>
+        <div className={styles['noscript-spacing']}></div>
+      </noscript>
       <span ref={ref} tabIndex={-1} />
       <a href="#main" className="screen-reader-text">
         {intl.formatMessage({
@@ -104,6 +108,15 @@ const Layout = ({
       <Header isHome={isHome} />
       <Main>{children}</Main>
       <Footer />
+      <noscript>
+        <div className={styles.noscript}>
+          {intl.formatMessage({
+            defaultMessage:
+              'Without Javascript, some features may not work like loading more posts or use search. If you want to benefit from these features, please activate Javascript.',
+            description: 'Layout: noscript banner',
+          })}
+        </div>
+      </noscript>
     </>
   );
 };

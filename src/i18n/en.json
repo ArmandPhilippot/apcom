@@ -219,6 +219,10 @@
     "defaultMessage": "Load more?",
     "description": "BlogPage: load more text"
   },
+  "LR70nt": {
+    "defaultMessage": "Without Javascript, some features may not work like loading more posts or use search. If you want to benefit from these features, please activate Javascript.",
+    "description": "Layout: noscript banner"
+  },
   "Mj2BQf": {
     "defaultMessage": "{name}'s CV",
     "description": "CVPage: page title"
