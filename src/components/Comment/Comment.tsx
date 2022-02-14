@@ -24,7 +24,7 @@ const Comment = ({
   const intl = useIntl();
   const router = useRouter();
   const locale = router.locale ? router.locale : settings.locales.defaultLocale;
-  const [isReply, setIsReply] = useState<boolean>(false);
+  const [shouldOpenForm, setShouldOpenForm] = useState<boolean>(false);
   const firstFieldRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -98,21 +98,25 @@ const Comment = ({
           ></div>
           {!isNested && (
             <footer className={styles.footer}>
-              <Button clickHandler={() => setIsReply((prev) => !prev)}>
-                {intl.formatMessage({
-                  defaultMessage: 'Reply',
-                  description: 'Comment: reply button',
-                })}
+              <Button clickHandler={() => setShouldOpenForm((prev) => !prev)}>
+                {shouldOpenForm
+                  ? intl.formatMessage({
+                      defaultMessage: 'Cancel reply',
+                      description: 'Comment: reply button',
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: 'Reply',
+                      description: 'Comment: reply button',
+                    })}
               </Button>
             </footer>
           )}
         </article>
-        {isReply && (
+        {shouldOpenForm && (
           <CommentForm
             ref={firstFieldRef}
             articleId={articleId}
             parentId={comment.commentId}
-            isReply={isReply}
           />
         )}
         {comment.replies.length > 0 && (

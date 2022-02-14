@@ -98,6 +98,8 @@ export type Meta = {
   updatedOn: string;
 };
 
+export type NoticeType = 'error' | 'info' | 'success' | 'warning';
+
 export type PageInfo = {
   endCursor: string;
   hasNextPage: boolean;

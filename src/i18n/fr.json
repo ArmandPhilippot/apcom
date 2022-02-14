@@ -15,6 +15,10 @@
     "defaultMessage": "Blog : développement, libre et open-source - {websiteName}",
     "description": "BlogPage: SEO - Page title"
   },
+  "+aHn7j": {
+    "defaultMessage": "Laisser un commentaire",
+    "description": "CommentForm: Form title"
+  },
   "/IirIt": {
     "defaultMessage": "Mentions légales",
     "description": "LegalNoticePage: page title"
@@ -95,6 +99,10 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: page title"
   },
+  "AVUUgG": {
+    "defaultMessage": "Merci pour votre commentaire !",
+    "description": "CommentForm: success notice"
+  },
   "AnaPbu": {
     "defaultMessage": "Rechercher",
     "description": "SearchForm: search button text"
@@ -155,10 +163,6 @@
     "defaultMessage": "Mis à jour le :",
     "description": "PostMeta: update date label"
   },
-  "G/SLvC": {
-    "defaultMessage": "Merci pour votre commentaire ! Il est maintenant en attente de modération.",
-    "description": "CommentForm: Comment sent success message"
-  },
   "GUfnQ4": {
     "defaultMessage": "Temps de lecture :",
     "description": "Article meta"
@@ -170,6 +174,10 @@
   "H7C5Bk": {
     "defaultMessage": "Principal",
     "description": "MainNav: aria-label"
+  },
+  "HEJ3Gv": {
+    "defaultMessage": "En cours d'envoi...",
+    "description": "CommentForm: submitting message"
   },
   "HTdaZj": {
     "defaultMessage": "Pied de page",
@@ -303,6 +311,10 @@
     "defaultMessage": "Javascript est nécessaire pour utiliser la table des matières.",
     "description": "ToC: noscript tag"
   },
+  "Rle+UK": {
+    "defaultMessage": "Certains champs requis sont vides. Le commentaire ne peut être envoyé.",
+    "description": "CommentForm: missing required fields"
+  },
   "SWjj4l": {
     "defaultMessage": "Github",
     "description": "SocialMedia: Github"
@@ -334,6 +346,10 @@
   "Ua2g2p": {
     "defaultMessage": "Thème clair 🌞",
     "description": "Prism: toggle light theme button text"
+  },
+  "Ul2NIl": {
+    "defaultMessage": "Merci pour votre commentaire ! Il est maintenant en attente de modération.",
+    "description": "CommentForm: success notice but awaiting moderation"
   },
   "UsQske": {
     "defaultMessage": "En lire plus ici :",
@@ -419,6 +435,10 @@
     "defaultMessage": "Table des matières",
     "description": "ToC: widget title"
   },
+  "Zlkww3": {
+    "defaultMessage": "Échec du chargement.",
+    "description": "CommentsList: failed to load"
+  },
   "aA3hOT": {
     "defaultMessage": "{starsCount, plural, =0 {0 étoile sur Github} one {# étoile sur Github} other {# étoiles sur Github}}",
     "description": "ProjectSummary: technologies list label"
@@ -451,6 +471,10 @@
     "defaultMessage": "Contact",
     "description": "MainNav: contact link"
   },
+  "cjK9Ad": {
+    "defaultMessage": "Une erreur inattendue est survenue. Le commentaire ne peut pas être envoyé.",
+    "description": "CommentForm: error notice"
+  },
   "csCQQk": {
     "defaultMessage": "LinkedIn",
     "description": "Sharing: LinkedIn"
@@ -467,6 +491,10 @@
     "defaultMessage": "{articlesCount, plural, =0 {# article chargé} one {# article chargé} other {# articles chargés}} sur un total de {total}",
     "description": "PaginationCursor: loaded articles count message"
   },
+  "e1Forh": {
+    "defaultMessage": "Annuler la réponse",
+    "description": "Comment: reply button"
+  },
   "e9L59q": {
     "defaultMessage": "Aucun commentaire.",
     "description": "CommentsList: No comment message"
@@ -478,10 +506,6 @@
   "eUXMG4": {
     "defaultMessage": "Vu sur {domainName} :",
     "description": "Sharing: seen on text"
-  },
-  "ec3m6p": {
-    "defaultMessage": "Laisser un commentaire",
-    "description": "CommentForm: form title"
   },
   "enwhNm": {
     "defaultMessage": "{count, plural, =0 {Technologies :} one {Technologie :} other {Technologies :}}",
@@ -498,6 +522,10 @@
   "fOe8rH": {
     "defaultMessage": "Échec du chargement.",
     "description": "SearchPage: failed to load text"
+  },
+  "g1cFCa": {
+    "defaultMessage": "Javascript est nécessaire pour poster un commentaire.",
+    "description": "CommentForm: noscript tag"
   },
   "g4DckL": {
     "defaultMessage": "Table des matières",

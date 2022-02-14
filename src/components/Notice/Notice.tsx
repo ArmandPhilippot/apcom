@@ -1,7 +1,6 @@
+import { NoticeType } from '@ts/types/app';
 import { ReactNode } from 'react';
 import styles from './Notice.module.scss';
-
-type NoticeType = 'error' | 'info' | 'success' | 'warning';
 
 const Notice = ({
   children,

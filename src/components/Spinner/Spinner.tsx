@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 import styles from './Spinner.module.scss';
 
-const Spinner = () => {
+const Spinner = ({ message }: { message?: string }) => {
   const intl = useIntl();
 
   return (
@@ -10,10 +10,11 @@ const Spinner = () => {
       <div className={styles.ball}></div>
       <div className={styles.ball}></div>
       <div className={styles.text}>
-        {intl.formatMessage({
-          defaultMessage: 'Loading...',
-          description: 'Spinner: loading text',
-        })}
+        {message ||
+          intl.formatMessage({
+            defaultMessage: 'Loading...',
+            description: 'Spinner: loading text',
+          })}
       </div>
     </div>
   );

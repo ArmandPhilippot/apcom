@@ -15,6 +15,10 @@
     "defaultMessage": "Blog: development, open source - {websiteName}",
     "description": "BlogPage: SEO - Page title"
   },
+  "+aHn7j": {
+    "defaultMessage": "Leave a comment",
+    "description": "CommentForm: Form title"
+  },
   "/IirIt": {
     "defaultMessage": "Legal notice",
     "description": "LegalNoticePage: page title"
@@ -95,6 +99,10 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: page title"
   },
+  "AVUUgG": {
+    "defaultMessage": "Thanks for your comment!",
+    "description": "CommentForm: success notice"
+  },
   "AnaPbu": {
     "defaultMessage": "Search",
     "description": "SearchForm: search button text"
@@ -155,10 +163,6 @@
     "defaultMessage": "Updated on:",
     "description": "PostMeta: update date label"
   },
-  "G/SLvC": {
-    "defaultMessage": "Thanks for your comment! It is now awaiting moderation.",
-    "description": "CommentForm: Comment sent success message"
-  },
   "GUfnQ4": {
     "defaultMessage": "Reading time:",
     "description": "Article meta"
@@ -170,6 +174,10 @@
   "H7C5Bk": {
     "defaultMessage": "Primary",
     "description": "MainNav: aria-label"
+  },
+  "HEJ3Gv": {
+    "defaultMessage": "Submitting...",
+    "description": "CommentForm: submitting message"
   },
   "HTdaZj": {
     "defaultMessage": "Footer",
@@ -303,6 +311,10 @@
     "defaultMessage": "Javascript is required to use the table of contents.",
     "description": "ToC: noscript tag"
   },
+  "Rle+UK": {
+    "defaultMessage": "Some required fields are empty. Comment cannot be submitted.",
+    "description": "CommentForm: missing required fields"
+  },
   "SWjj4l": {
     "defaultMessage": "Github",
     "description": "SocialMedia: Github"
@@ -334,6 +346,10 @@
   "Ua2g2p": {
     "defaultMessage": "Light Theme 🌞",
     "description": "Prism: toggle light theme button text"
+  },
+  "Ul2NIl": {
+    "defaultMessage": "Thanks for your comment! It is now awaiting moderation.",
+    "description": "CommentForm: success notice but awaiting moderation"
   },
   "UsQske": {
     "defaultMessage": "Read more here:",
@@ -419,6 +435,10 @@
     "defaultMessage": "Table of contents",
     "description": "ToC: widget title"
   },
+  "Zlkww3": {
+    "defaultMessage": "Failed to load.",
+    "description": "CommentsList: failed to load"
+  },
   "aA3hOT": {
     "defaultMessage": "{starsCount, plural, =0 {0 stars on Github} one {# star on Github} other {# stars on Github}}",
     "description": "ProjectSummary: technologies list label"
@@ -451,6 +471,10 @@
     "defaultMessage": "Contact",
     "description": "MainNav: contact link"
   },
+  "cjK9Ad": {
+    "defaultMessage": "An unexpected error happened. Comment cannot be submitted.",
+    "description": "CommentForm: error notice"
+  },
   "csCQQk": {
     "defaultMessage": "LinkedIn",
     "description": "Sharing: LinkedIn"
@@ -467,6 +491,10 @@
     "defaultMessage": "{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}",
     "description": "PaginationCursor: loaded articles count message"
   },
+  "e1Forh": {
+    "defaultMessage": "Cancel reply",
+    "description": "Comment: reply button"
+  },
   "e9L59q": {
     "defaultMessage": "No comments yet.",
     "description": "CommentsList: No comment message"
@@ -478,10 +506,6 @@
   "eUXMG4": {
     "defaultMessage": "Seen on {domainName}:",
     "description": "Sharing: seen on text"
-  },
-  "ec3m6p": {
-    "defaultMessage": "Leave a comment",
-    "description": "CommentForm: form title"
   },
   "enwhNm": {
     "defaultMessage": "{count, plural, =0 {Technologies:} one {Technology:} other {Technologies:}}",
@@ -498,6 +522,10 @@
   "fOe8rH": {
     "defaultMessage": "Failed to load.",
     "description": "SearchPage: failed to load text"
+  },
+  "g1cFCa": {
+    "defaultMessage": "Javascript is required to post a comment.",
+    "description": "CommentForm: noscript tag"
   },
   "g4DckL": {
     "defaultMessage": "Table of Contents",
