@@ -15,10 +15,10 @@ const getAllPosts = async (): Promise<ArticlePreview[]> => {
 };
 
 export const generateFeed = async () => {
-  const websiteUrl = process.env.FRONTEND_URL ? process.env.FRONTEND_URL : '';
+  const websiteUrl = `${process.env.NEXT_PUBLIC_APP_PROTOCOL}://${process.env.NEXT_PUBLIC_APP_DOMAIN}`;
   const author = {
     name: settings.name,
-    email: process.env.AUTHOR_EMAIL,
+    email: process.env.APP_AUTHOR_EMAIL,
     link: websiteUrl,
   };
   const copyright = `${settings.name} CC BY SA ${settings.copyright.startYear} - ${settings.copyright.endYear}`;
@@ -27,7 +27,7 @@ export const generateFeed = async () => {
   const feed = new Feed({
     author,
     copyright,
-    description: process.env.FEED_DESCRIPTION,
+    description: process.env.APP_FEED_DESCRIPTION,
     feedLinks: {
       json: `${websiteUrl}/feed/json`,
       atom: `${websiteUrl}/feed/atom`,
