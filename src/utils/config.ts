@@ -14,10 +14,10 @@ export const settings = {
     supported: ['en', 'fr'],
   },
   matomo: {
-    urlBase: process.env.NEXT_PUBLIC_MATOMO_URL || '',
+    urlBase: `https://${process.env.NEXT_PUBLIC_MATOMO_DOMAIN}` || '',
     siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID || '0',
   },
   postsPerPage: 10,
   twitterId: '@ArmandPhilippot',
-  url: process.env.NEXT_PUBLIC_FRONTEND_URL,
+  url: `${process.env.NEXT_PUBLIC_APP_PROTOCOL}://${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
 };

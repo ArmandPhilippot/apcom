@@ -1,11 +1,84 @@
 const path = require('path');
 
-const backendDomain = process.env.BACKEND_URL.split('//')[1];
+const backendDomain = process.env.APP_BACKEND_DOMAIN;
+const frontendDomain = process.env.APP_FRONTEND_DOMAIN;
+const matomoDomain = process.env.NEXT_PUBLIC_MATOMO_DOMAIN;
+
+const contentSecurityPolicy = `
+  default-src 'self' ${backendDomain};
+  child-src: 'self' *.${frontendDomain.replace('www.', '')};
+  connect-src 'self' ${backendDomain} api.github.com;
+  font-src 'self';
+  frame-src 'self' ${matomoDomain};
+  img-src 'self' ${backendDomain} secure.gravatar.com data:;
+  media-src 'self' data:;
+  script-src 'self' ${matomoDomain} 'unsafe-inline';
+  style-src 'self' 'unsafe-inline';
+`;
+
+const contentSecurityPolicyDev = `
+  default-src 'self' ${backendDomain};
+  child-src: 'self' *.${frontendDomain.replace('www.', '')};
+  connect-src 'self' ${backendDomain} api.github.com;
+  font-src 'self';
+  frame-src 'self' ${matomoDomain};
+  img-src 'self' ${backendDomain} secure.gravatar.com data:;
+  media-src 'self' data:;
+  script-src 'self' ${matomoDomain} 'unsafe-inline' 'unsafe-eval';
+  style-src 'self' 'unsafe-inline';
+`;
+
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=31536000; includeSubDomains; preload',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin',
+  },
+  {
+    key: 'Content-Security-Policy',
+    value:
+      process.env.NODE_ENV !== 'development'
+        ? contentSecurityPolicy.replace(/\s{2,}/g, ' ').trim()
+        : contentSecurityPolicyDev.replace(/\s{2,}/g, ' ').trim(),
+  },
+];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     scrollRestoration: true,
+  },
+  async headers() {
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ];
   },
   i18n: {
     locales: ['fr'],
@@ -30,7 +103,7 @@ const nextConfig = {
       path.join(__dirname, 'node_modules'),
     ],
   },
-  webpack: (config, { dev }) => {
+  webpack: (config) => {
     config.module.rules.push(
       {
         test: /\.pdf/,
