@@ -63,9 +63,15 @@
 }
 
 .wp-block-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-sm);
+
   .blocks-gallery-grid {
     @extend %reset-list;
 
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--spacing-sm);
@@ -115,17 +121,23 @@
     }
   }
 
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      &.columns-2 {
-        .blocks-gallery-grid {
+  @for $i from 0 to 6 {
+    &.columns-#{$i} {
+      @include mix.media("screen") {
+        @include mix.dimensions("xs") {
           grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
 
-      &.columns-3 {
-        .blocks-gallery-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
+          .blocks-gallery-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @include mix.dimensions("sm") {
+          grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+
+          .blocks-gallery-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
         }
       }
     }
