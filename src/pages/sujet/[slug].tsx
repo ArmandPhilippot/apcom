@@ -79,7 +79,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
   const updateDate = new Date(topic.dates.update);
 
   const articleSchema: Article = {
-    '@id': `${settings.url}/topic`,
+    '@id': `${settings.url}/#topic`,
     '@type': 'Article',
     name: topic.title,
     description: topic.intro,
@@ -90,6 +90,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${settings.url}/#branding` },
+    headline: topic.title,
     thumbnailUrl: topic.featuredImage?.sourceUrl,
     image: topic.featuredImage?.sourceUrl,
     inLanguage: settings.locales.defaultLocale,

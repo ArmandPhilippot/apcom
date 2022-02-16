@@ -120,6 +120,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
     datePublished: publicationDate.toISOString(),
     discussionUrl: `${articleUrl}/#comments`,
     editor: { '@id': `${settings.url}/#branding` },
+    headline: title,
     image: featuredImage?.sourceUrl,
     inLanguage: settings.locales.defaultLocale,
     isPartOf: {
