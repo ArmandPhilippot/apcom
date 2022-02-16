@@ -66,6 +66,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${settings.url}/#branding` },
+    headline: meta.title,
     inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${pageUrl}` },

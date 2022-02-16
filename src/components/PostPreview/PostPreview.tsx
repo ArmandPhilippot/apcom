@@ -57,6 +57,7 @@ const PostPreview = ({
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${settings.url}/#branding` },
+    headline: title,
     image: featuredImage?.sourceUrl,
     inLanguage: settings.locales.defaultLocale,
     isBasedOn: `${settings.url}/article/${slug}`,

@@ -78,6 +78,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${settings.url}/#branding` },
+    headline: title,
     thumbnailUrl: meta.hasCover ? `/projects/${id}.jpg` : '',
     image: meta.hasCover ? `/projects/${id}.jpg` : '',
     inLanguage: settings.locales.defaultLocale,

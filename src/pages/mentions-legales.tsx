@@ -77,6 +77,7 @@ const LegalNotice: NextPageWithLayout = () => {
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${settings.url}/#branding` },
+    headline: title,
     inLanguage: settings.locales.defaultLocale,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
     mainEntityOfPage: { '@id': `${pageUrl}` },

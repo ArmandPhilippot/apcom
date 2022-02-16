@@ -152,7 +152,6 @@ const Home: NextPageWithLayout<HomePageProps> = ({
   const webpageSchema: WebPage = {
     '@id': `${settings.url}/#home`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     name: pageTitle,
     description: pageDescription,
     author: { '@id': `${settings.url}/#branding` },

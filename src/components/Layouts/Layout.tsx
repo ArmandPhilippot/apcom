@@ -7,7 +7,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
-import { WebSite, WithContext } from 'schema-dts';
+import { SearchAction, WebSite, WithContext } from 'schema-dts';
 import styles from './Layout.module.scss';
 
 const Layout = ({
@@ -40,11 +40,19 @@ const Layout = ({
     creator: { '@id': `${settings.url}/#branding` },
     editor: { '@id': `${settings.url}/#branding` },
     inLanguage: settings.locales.defaultLocale,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${settings.url}/recherche?s={query}`,
-      query: 'required',
-    },
+    potentialAction: { '@id': `${settings.url}/#search` },
+  };
+
+  type QueryAction = SearchAction & {
+    'query-input': string;
+  };
+
+  const searchActionSchema: QueryAction = {
+    '@type': 'SearchAction',
+    '@id': `${settings.url}/#search`,
+    target: `${settings.url}/recherche?s={query}`,
+    query: 'required',
+    'query-input': 'required name=query',
   };
 
   return (
@@ -93,6 +101,12 @@ const Layout = ({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        ></script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(searchActionSchema),
+          }}
         ></script>
       </Head>
       <noscript>

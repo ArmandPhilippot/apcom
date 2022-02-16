@@ -34,7 +34,7 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
           description: 'SearchForm : form title',
         })}
       </div>
-      <Form submitHandler={launchSearch} modifier="search">
+      <Form submitHandler={launchSearch} modifier="search" id="search">
         <label htmlFor="search-query" className="screen-reader-text">
           {intl.formatMessage({
             defaultMessage: 'Keywords:',

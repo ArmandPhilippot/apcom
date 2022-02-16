@@ -78,7 +78,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({
   const updateDate = new Date(thematic.dates.update);
 
   const articleSchema: Article = {
-    '@id': `${settings.url}/thematic`,
+    '@id': `${settings.url}/#thematic`,
     '@type': 'Article',
     name: thematic.title,
     description: thematic.intro,
@@ -89,6 +89,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({
     dateModified: updateDate.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${settings.url}/#branding` },
+    headline: thematic.title,
     inLanguage: settings.locales.defaultLocale,
     isPartOf: { '@id': `${settings.url}/blog` },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
