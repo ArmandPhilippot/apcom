@@ -7,10 +7,10 @@ const matomoDomain = process.env.NEXT_PUBLIC_MATOMO_DOMAIN;
 const contentSecurityPolicy = `
   default-src 'self' ${backendDomain};
   child-src 'self' *.${frontendDomain.replace('www.', '')};
-  connect-src 'self' ${backendDomain} api.github.com;
+  connect-src 'self' ${backendDomain} ${matomoDomain} api.github.com;
   font-src 'self';
   frame-src 'self' ${matomoDomain};
-  img-src 'self' ${backendDomain} secure.gravatar.com data:;
+  img-src 'self' ${backendDomain} ${matomoDomain} secure.gravatar.com data:;
   media-src 'self' data:;
   script-src 'self' ${matomoDomain} 'unsafe-inline';
   style-src 'self' 'unsafe-inline';
@@ -19,10 +19,10 @@ const contentSecurityPolicy = `
 const contentSecurityPolicyDev = `
   default-src 'self' ${backendDomain};
   child-src 'self' *.${frontendDomain.replace('www.', '')};
-  connect-src 'self' ${backendDomain} api.github.com;
+  connect-src 'self' ${backendDomain} ${matomoDomain} api.github.com;
   font-src 'self';
   frame-src 'self' ${matomoDomain};
-  img-src 'self' ${backendDomain} secure.gravatar.com data:;
+  img-src 'self' ${backendDomain} ${matomoDomain} secure.gravatar.com data:;
   media-src 'self' data:;
   script-src 'self' ${matomoDomain} 'unsafe-inline' 'unsafe-eval';
   style-src 'self' 'unsafe-inline';
