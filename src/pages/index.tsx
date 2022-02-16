@@ -96,6 +96,21 @@ const Home: NextPageWithLayout<HomePageProps> = ({
     );
   };
 
+  const ShaarliLink = () => {
+    return (
+      <ul className={styles['links-list']}>
+        <li>
+          <ButtonLink target="https://shaarli.armandphilippot.com/">
+            {intl.formatMessage({
+              defaultMessage: 'Shaarli',
+              description: 'HomePage: link to Shaarli',
+            })}
+          </ButtonLink>
+        </li>
+      </ul>
+    );
+  };
+
   const MoreLinks = () => {
     return (
       <ul className={styles['links-list']}>
@@ -131,6 +146,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
     LibreLinks: LibreLinks,
     MoreLinks: MoreLinks,
     RecentPosts: getRecentPosts,
+    ShaarliLink: ShaarliLink,
   };
 
   const pageTitle = intl.formatMessage(
