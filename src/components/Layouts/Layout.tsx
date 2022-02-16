@@ -26,6 +26,20 @@ const Layout = ({
     ref.current?.focus();
   }, [asPath]);
 
+  type QueryAction = SearchAction & {
+    'query-input': string;
+  };
+
+  const searchActionSchema: QueryAction = {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${settings.url}/recherche?s={search_term_string}`,
+    },
+    query: 'required',
+    'query-input': 'required name=search_term_string',
+  };
+
   const schemaJsonLd: WithContext<WebSite> = {
     '@context': 'https://schema.org',
     '@id': `${settings.url}`,
@@ -40,19 +54,7 @@ const Layout = ({
     creator: { '@id': `${settings.url}/#branding` },
     editor: { '@id': `${settings.url}/#branding` },
     inLanguage: settings.locales.defaultLocale,
-    potentialAction: { '@id': `${settings.url}/#search` },
-  };
-
-  type QueryAction = SearchAction & {
-    'query-input': string;
-  };
-
-  const searchActionSchema: QueryAction = {
-    '@type': 'SearchAction',
-    '@id': `${settings.url}/#search`,
-    target: `${settings.url}/recherche?s={query}`,
-    query: 'required',
-    'query-input': 'required name=query',
+    potentialAction: searchActionSchema,
   };
 
   return (
