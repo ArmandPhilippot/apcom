@@ -47,7 +47,7 @@
     "graphql-request": "^4.0.0",
     "intl-messageformat": "^9.11.3",
     "modern-normalize": "^1.1.0",
-    "next": "^12.0.9",
+    "next": "^12.1.0",
     "next-sitemap": "^2.1.14",
     "next-themes": "^0.0.15",
     "prism-themes": "^1.9.0",
