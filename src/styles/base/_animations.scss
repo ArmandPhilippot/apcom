@@ -87,18 +87,21 @@
 @keyframes branding-name-typing {
   0%,
   20% {
-    width: 100%;
+    transform: scaleX(1) translateX(0);
+    transform-origin: right;
     visibility: visible;
   }
 
   100% {
-    width: 0;
+    transform: scaleX(1) translateX(100%);
+    transform-origin: right;
   }
 }
 
 @keyframes branding-job-typing {
   0% {
-    width: 100%;
+    transform: scaleX(1) translateX(0);
+    transform-origin: right;
     content: "";
     visibility: visible;
   }
@@ -112,15 +115,18 @@
   }
 
   51% {
-    width: 100%;
+    transform: scaleX(1) translateX(0);
+    transform-origin: right;
   }
 
   70% {
-    width: 0;
+    transform: scaleX(1) translateX(100%);
+    transform-origin: right;
   }
 
   100% {
-    width: 0;
+    transform: scaleX(0) translateX(100%);
+    transform-origin: right;
   }
 }
 
