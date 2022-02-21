@@ -2,6 +2,7 @@
   "css.lint.validProperties": ["composes"],
   "scss.lint.validProperties": ["composes"],
   "cSpell.words": [
+    "Ackee",
     "aligncenter",
     "developpement",
     "hexcode",

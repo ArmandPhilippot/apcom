@@ -9,6 +9,7 @@ import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { SearchAction, WebSite, WithContext } from 'schema-dts';
 import styles from './Layout.module.scss';
+import Script from 'next/script';
 
 const Layout = ({
   children,
@@ -111,6 +112,13 @@ const Layout = ({
           }}
         ></script>
       </Head>
+      <Script
+        strategy="afterInteractive"
+        async
+        src={`${settings.ackee.url}/${settings.ackee.filename}`}
+        data-ackee-server={settings.ackee.url}
+        data-ackee-domain-id={settings.ackee.siteId}
+      />
       <noscript>
         <div className={styles['noscript-spacing']}></div>
       </noscript>
