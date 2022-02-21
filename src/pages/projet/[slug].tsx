@@ -20,6 +20,7 @@ import { MDXComponents, NestedMDXComponents } from 'mdx/types';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { ComponentType } from 'react';
 import { useIntl } from 'react-intl';
@@ -100,11 +101,12 @@ const Project: NextPageWithLayout<ProjectProps> = ({
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-project"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article
         id="project"
         className={`${styles.article} ${styles['article--no-comments']}`}

@@ -3,10 +3,10 @@ import CommentForm from '@components/CommentForm/CommentForm';
 import { Comment as CommentData } from '@ts/types/comments';
 import { settings } from '@utils/config';
 import { getFormattedDate } from '@utils/helpers/format';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Comment as CommentSchema, WithContext } from 'schema-dts';
@@ -175,12 +175,11 @@ const Comment = ({
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
-      </Head>
+      <Script
+        id="schema-comments"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <li className={styles.item}>
         {comment.approved ? getApprovedComment() : getCommentStatus()}
       </li>

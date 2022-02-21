@@ -12,6 +12,7 @@ import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
+import Script from 'next/script';
 import type { ReactElement } from 'react';
 import { useIntl } from 'react-intl';
 import { Graph, WebPage } from 'schema-dts';
@@ -193,11 +194,12 @@ const Home: NextPageWithLayout<HomePageProps> = ({
         <meta property="og:url" content={`${settings.url}`} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-homepage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <div id="home">
         <HomePageContent components={components} />
       </div>

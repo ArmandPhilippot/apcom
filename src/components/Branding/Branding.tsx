@@ -1,9 +1,9 @@
 import photo from '@assets/images/armand-philippot.jpg';
 import { settings } from '@utils/config';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { ReactElement, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { Person, WithContext } from 'schema-dts';
@@ -62,12 +62,11 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
-      </Head>
+      <Script
+        id="schema-branding"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <div id="branding" className={styles.wrapper}>
         <div className={styles.logo} ref={logoRef}>
           <div className={styles.logo__front}>

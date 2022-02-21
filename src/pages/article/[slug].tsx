@@ -28,6 +28,7 @@ import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 import '@utils/plugins/prism-color-scheme';
+import Script from 'next/script';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({
   comments,
@@ -168,11 +169,12 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
         <meta property="og:description" content={intro} />
         <meta property="og:image" content={featuredImage?.sourceUrl} />
         <meta property="og:image:alt" content={featuredImage?.altText} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article
         id="article"
         className={styles.article}

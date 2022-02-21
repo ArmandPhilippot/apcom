@@ -11,6 +11,7 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import { AboutPage, Graph, WebPage } from 'schema-dts';
 
@@ -100,11 +101,12 @@ const CV: NextPageWithLayout = () => {
         <meta property="og:description" content={intro} />
         <meta property="og:image" content={image} />
         <meta property="og:image:alt" content={title} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-cv"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article
         id="cv"
         className={`${styles.article} ${styles['article--no-comments']}`}
