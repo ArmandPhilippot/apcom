@@ -1,4 +1,9 @@
 export const settings = {
+  ackee: {
+    filename: process.env.NEXT_PUBLIC_ACKEE_FILENAME || 'tracker.js',
+    siteId: process.env.NEXT_PUBLIC_ACKEE_SITE_ID || '',
+    url: `https://${process.env.NEXT_PUBLIC_ACKEE_DOMAIN}` || '',
+  },
   name: 'Armand Philippot',
   baseline: {
     en: 'Front-end developer',
@@ -12,10 +17,6 @@ export const settings = {
     defaultLocale: 'fr',
     defaultCountry: 'FR',
     supported: ['en', 'fr'],
-  },
-  matomo: {
-    urlBase: `https://${process.env.NEXT_PUBLIC_MATOMO_DOMAIN}` || '',
-    siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID || '0',
   },
   postsPerPage: 10,
   twitterId: '@ArmandPhilippot',

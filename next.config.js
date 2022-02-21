@@ -2,29 +2,29 @@ const path = require('path');
 
 const backendDomain = process.env.APP_BACKEND_DOMAIN;
 const frontendDomain = process.env.APP_FRONTEND_DOMAIN;
-const matomoDomain = process.env.NEXT_PUBLIC_MATOMO_DOMAIN;
+const ackeeDomain = process.env.NEXT_PUBLIC_ACKEE_DOMAIN;
 
 const contentSecurityPolicy = `
   default-src 'self' ${backendDomain};
   child-src 'self' *.${frontendDomain.replace('www.', '')};
-  connect-src 'self' ${backendDomain} ${matomoDomain} api.github.com;
+  connect-src 'self' ${backendDomain} api.github.com;
   font-src 'self';
-  frame-src 'self' ${matomoDomain};
-  img-src 'self' ${backendDomain} ${matomoDomain} secure.gravatar.com data:;
+  frame-src 'self';
+  img-src 'self' ${backendDomain} secure.gravatar.com data:;
   media-src 'self' data:;
-  script-src 'self' ${matomoDomain} 'unsafe-inline';
+  script-src 'self' ${ackeeDomain} 'unsafe-inline';
   style-src 'self' 'unsafe-inline';
 `;
 
 const contentSecurityPolicyDev = `
   default-src 'self' ${backendDomain};
   child-src 'self' *.${frontendDomain.replace('www.', '')};
-  connect-src 'self' ${backendDomain} ${matomoDomain} api.github.com;
+  connect-src 'self' ${backendDomain} api.github.com;
   font-src 'self';
-  frame-src 'self' ${matomoDomain};
-  img-src 'self' ${backendDomain} ${matomoDomain} secure.gravatar.com data:;
+  frame-src 'self';
+  img-src 'self' ${backendDomain} secure.gravatar.com data:;
   media-src 'self' data:;
-  script-src 'self' ${matomoDomain} 'unsafe-inline' 'unsafe-eval';
+  script-src 'self' ${ackeeDomain} 'unsafe-inline' 'unsafe-eval';
   style-src 'self' 'unsafe-inline';
 `;
 
