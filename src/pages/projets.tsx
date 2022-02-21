@@ -10,6 +10,7 @@ import { getSortedProjects } from '@utils/helpers/projects';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
@@ -86,11 +87,12 @@ const Projects = ({ projects }: { projects: Project[] }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={pageDescription} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-projects"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article id="projects" className={styles.article}>
         <PostHeader title={meta.title} intro={<PageContent />} />
         <div className={styles.body}>

@@ -20,6 +20,7 @@ import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
@@ -157,11 +158,12 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={pageDescription} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-blog"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article
         id="blog"
         className={`${styles.article} ${styles['article--no-comments']}`}

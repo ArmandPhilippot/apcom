@@ -19,6 +19,7 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { useRef } from 'react';
 import { useIntl } from 'react-intl';
@@ -116,11 +117,12 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
         <meta property="og:description" content={topic.intro} />
         <meta property="og:image" content={topic.featuredImage?.sourceUrl} />
         <meta property="og:image:alt" content={topic.featuredImage?.altText} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-subject"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article
         id="topic"
         className={`${styles.article} ${styles['article--no-comments']}`}

@@ -14,6 +14,7 @@ import { loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
@@ -97,11 +98,12 @@ const LegalNotice: NextPageWithLayout = () => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={intro} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-legal-notice"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article
         id="legal-notice"
         className={`${styles.article} ${styles['article--no-comments']}`}

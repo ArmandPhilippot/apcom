@@ -1,7 +1,7 @@
 import { settings } from '@utils/config';
-import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import { BreadcrumbList, WithContext } from 'schema-dts';
 import styles from './Breadcrumb.module.scss';
@@ -125,12 +125,11 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
-      </Head>
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       {!isHome && (
         <nav id="breadcrumb" className={styles.wrapper}>
           <span className="screen-reader-text">

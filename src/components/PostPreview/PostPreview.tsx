@@ -5,11 +5,11 @@ import { TitleLevel } from '@ts/types/app';
 import { ArticleMeta, ArticlePreview } from '@ts/types/articles';
 import { settings } from '@utils/config';
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
 import { BlogPosting, WithContext } from 'schema-dts';
 import styles from './PostPreview.module.scss';
+import Script from 'next/script';
 
 const PostPreview = ({
   post,
@@ -68,12 +68,11 @@ const PostPreview = ({
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
-      </Head>
+      <Script
+        id="schema-post-preview"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article className={styles.wrapper}>
         {featuredImage && Object.keys(featuredImage).length > 0 && (
           <div className={styles.cover}>

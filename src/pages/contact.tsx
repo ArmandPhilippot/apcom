@@ -10,6 +10,7 @@ import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
 
@@ -82,11 +83,12 @@ const ContactPage: NextPageWithLayout = () => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-        ></script>
       </Head>
+      <Script
+        id="schema-contact"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <article
         id="contact"
         className={`${styles.article} ${styles['article--no-comments']}`}
