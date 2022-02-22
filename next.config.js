@@ -7,7 +7,7 @@ const ackeeDomain = process.env.NEXT_PUBLIC_ACKEE_DOMAIN;
 const contentSecurityPolicy = `
   default-src 'self' ${backendDomain};
   child-src 'self' *.${frontendDomain.replace('www.', '')};
-  connect-src 'self' ${backendDomain} api.github.com;
+  connect-src 'self' ${backendDomain} ${ackeeDomain} api.github.com;
   font-src 'self';
   frame-src 'self';
   img-src 'self' ${backendDomain} secure.gravatar.com data:;
@@ -19,7 +19,7 @@ const contentSecurityPolicy = `
 const contentSecurityPolicyDev = `
   default-src 'self' ${backendDomain};
   child-src 'self' *.${frontendDomain.replace('www.', '')};
-  connect-src 'self' ${backendDomain} api.github.com;
+  connect-src 'self' ${backendDomain} ${ackeeDomain} api.github.com;
   font-src 'self';
   frame-src 'self';
   img-src 'self' ${backendDomain} secure.gravatar.com data:;
