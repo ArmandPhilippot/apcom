@@ -1,11 +1,7 @@
-import Image, { ImageProps } from 'next/image';
+import { ResponsiveImageProps } from '@ts/types/app';
+import Image from 'next/image';
 import Link from 'next/link';
 import styles from './ResponsiveImage.module.scss';
-
-type ResponsiveImageProps = ImageProps & {
-  caption?: string;
-  linkTarget?: string;
-};
 
 const ResponsiveImage = (props: ResponsiveImageProps) => {
   const { caption, linkTarget, ...attributes } = props;
@@ -15,7 +11,11 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
       {linkTarget ? (
         <Link href={linkTarget}>
           <a className={styles.link}>
-            <Image alt={attributes.alt} layout="intrinsic" {...attributes} />
+            <Image
+              alt={attributes.alt}
+              layout={attributes.layout || 'intrinsic'}
+              {...attributes}
+            />
             {caption && (
               <figcaption className={styles.caption}>{caption}</figcaption>
             )}
@@ -23,7 +23,11 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
         </Link>
       ) : (
         <>
-          <Image alt={attributes.alt} layout="intrinsic" {...attributes} />
+          <Image
+            alt={attributes.alt}
+            layout={attributes.layout || 'intrinsic'}
+            {...attributes}
+          />
           {caption && (
             <figcaption className={styles.caption}>{caption}</figcaption>
           )}

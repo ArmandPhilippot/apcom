@@ -2,14 +2,16 @@ import FeedIcon from '@assets/images/icon-feed.svg';
 import { ButtonLink } from '@components/Buttons';
 import { ContactIcon } from '@components/Icons';
 import Layout from '@components/Layouts/Layout';
+import { ResponsiveImage } from '@components/MDX';
 import { RecentPosts } from '@components/Widgets';
 import HomePageContent from '@content/pages/homepage.mdx';
 import { getPublishedPosts } from '@services/graphql/queries';
 import styles from '@styles/pages/Home.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
+import { NextPageWithLayout, ResponsiveImageProps } from '@ts/types/app';
 import { PostsList } from '@ts/types/blog';
 import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
+import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -141,9 +143,10 @@ const Home: NextPageWithLayout<HomePageProps> = ({
     return <RecentPosts posts={recentPosts} />;
   };
 
-  const components = {
+  const components: NestedMDXComponents = {
     CodingLinks: CodingLinks,
     ColdarkRepos: ColdarkRepos,
+    Image: (props: ResponsiveImageProps) => ResponsiveImage({ ...props }),
     LibreLinks: LibreLinks,
     MoreLinks: MoreLinks,
     RecentPosts: getRecentPosts,

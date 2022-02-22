@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
+import { ImageProps } from 'next/image';
 import { ReactElement, ReactNode } from 'react';
 import { PostBy, TotalArticles } from './articles';
 import { AllPostsSlug, RawPostsList } from './blog';
@@ -136,6 +137,11 @@ export type ProjectMeta = Omit<Meta, 'title'> & {
 
 export type ProjectProps = {
   project: Project;
+};
+
+export type ResponsiveImageProps = ImageProps & {
+  caption?: string;
+  linkTarget?: string;
 };
 
 export type Slug = {

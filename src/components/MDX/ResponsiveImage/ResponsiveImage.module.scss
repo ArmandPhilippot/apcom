@@ -1,10 +1,21 @@
 @use "@styles/abstracts/functions" as fun;
 
 .wrapper {
-  width: max-content;
+  width: 100%;
   max-width: 100%;
   margin: var(--spacing-sm) auto;
   position: relative;
+  text-align: center;
+}
+
+.caption {
+  margin: 0;
+  padding: fun.convert-px(4) var(--spacing-2xs);
+  background: var(--color-bg-secondary);
+  border: fun.convert-px(1) solid var(--color-border);
+  box-shadow: 0 fun.convert-px(-1) fun.convert-px(1) fun.convert-px(1)
+    var(--color-shadow-light);
+  font-weight: 500;
 }
 
 .link {
@@ -36,14 +47,4 @@
       text-decoration: none;
     }
   }
-}
-
-.caption {
-  margin: 0;
-  padding: fun.convert-px(4) var(--spacing-2xs);
-  background: var(--color-bg-secondary);
-  border: fun.convert-px(1) solid var(--color-border);
-  box-shadow: 0 fun.convert-px(-1) fun.convert-px(1) fun.convert-px(1)
-    var(--color-shadow-light);
-  font-weight: 500;
 }
