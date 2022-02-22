@@ -70,6 +70,7 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    outputStandalone: true,
     scrollRestoration: true,
   },
   async headers() {
