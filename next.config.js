@@ -12,7 +12,7 @@ const contentSecurityPolicy = `
   frame-src 'self';
   img-src 'self' ${backendDomain} secure.gravatar.com data:;
   media-src 'self' data:;
-  script-src 'self' ${ackeeDomain} 'unsafe-inline';
+  script-src 'self' ${ackeeDomain} 'unsafe-inline' data:;
   style-src 'self' 'unsafe-inline';
 `;
 
@@ -24,7 +24,8 @@ const contentSecurityPolicyDev = `
   frame-src 'self';
   img-src 'self' ${backendDomain} secure.gravatar.com data:;
   media-src 'self' data:;
-  script-src 'self' ${ackeeDomain} 'unsafe-inline' 'unsafe-eval';
+  object-src 'self' data:;
+  script-src 'self' ${ackeeDomain} 'unsafe-inline' 'unsafe-eval' data:;
   style-src 'self' 'unsafe-inline';
 `;
 
