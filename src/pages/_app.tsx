@@ -1,5 +1,6 @@
 import { AppPropsWithLayout } from '@ts/types/app';
 import { settings } from '@utils/config';
+import { AckeeProvider } from '@utils/providers/ackee';
 import { PrismThemeProvider } from '@utils/providers/prism';
 import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
@@ -12,21 +13,23 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <IntlProvider
-      locale={appLocale}
-      defaultLocale={defaultLocale}
-      messages={pageProps.translation}
-    >
-      <ThemeProvider
-        defaultTheme="system"
-        enableColorScheme={true}
-        enableSystem={true}
+    <AckeeProvider domain={settings.ackee.url} siteId={settings.ackee.siteId}>
+      <IntlProvider
+        locale={appLocale}
+        defaultLocale={defaultLocale}
+        messages={pageProps.translation}
       >
-        <PrismThemeProvider>
-          {getLayout(<Component {...pageProps} />)}
-        </PrismThemeProvider>
-      </ThemeProvider>
-    </IntlProvider>
+        <ThemeProvider
+          defaultTheme="system"
+          enableColorScheme={true}
+          enableSystem={true}
+        >
+          <PrismThemeProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </PrismThemeProvider>
+        </ThemeProvider>
+      </IntlProvider>
+    </AckeeProvider>
   );
 };
 
