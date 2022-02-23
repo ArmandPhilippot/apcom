@@ -1,4 +1,5 @@
 import { getLayout } from '@components/Layouts/Layout';
+import { Link } from '@components/MDX';
 import PostHeader from '@components/PostHeader/PostHeader';
 import Sidebar from '@components/Sidebar/Sidebar';
 import { ToC } from '@components/Widgets';
@@ -11,6 +12,7 @@ import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta } from '@ts/types/articles';
 import { settings } from '@utils/config';
 import { loadTranslation } from '@utils/helpers/i18n';
+import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -89,6 +91,10 @@ const LegalNotice: NextPageWithLayout = () => {
     '@graph': [webpageSchema, articleSchema],
   };
 
+  const components: NestedMDXComponents = {
+    Link: (props) => Link(props),
+  };
+
   return (
     <>
       <Head>
@@ -113,7 +119,7 @@ const LegalNotice: NextPageWithLayout = () => {
           <ToC />
         </Sidebar>
         <div className={styles.body}>
-          <LegalNoticeContent />
+          <LegalNoticeContent components={components} />
         </div>
       </article>
     </>

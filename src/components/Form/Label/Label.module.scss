@@ -1,0 +1,22 @@
+@use "@styles/abstracts/functions" as fun;
+
+.regular {
+  display: block;
+  color: var(--color-primary-darker);
+  font-size: var(--font-size-sm);
+  font-variant: small-caps;
+  font-weight: 600;
+}
+
+.settings {
+  --icon-size: #{fun.convert-px(25)};
+  --toggle-width: #{fun.convert-px(45)};
+  --toggle-height: calc(var(--toggle-width) / 2);
+
+  display: inline-flex;
+  align-items: center;
+}
+
+.required {
+  color: var(--color-secondary);
+}
