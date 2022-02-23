@@ -1,4 +1,5 @@
 import { Label, Select } from '@components/Form';
+import Tooltip from '@components/Tooltip/Tooltip';
 import { useAckeeTracker } from '@utils/providers/ackee';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -34,13 +35,25 @@ const AckeeSelect = () => {
   const label = (
     <Label
       body={intl.formatMessage({
-        defaultMessage: 'Analytic tracking:',
+        defaultMessage: 'Tracking:',
         description: 'AckeeSelect: select label',
       })}
       htmlFor="ackee-settings"
       kind="settings"
     />
   );
+
+  const message = [
+    intl.formatMessage({
+      defaultMessage: 'Partial includes only page url, views and duration.',
+      description: 'AckeeSelect: tooltip message',
+    }),
+    intl.formatMessage({
+      defaultMessage:
+        'Full includes all information from partial as well as information about referrer, operating system, device, browser, screen size and language.',
+      description: 'AckeeSelect: tooltip message',
+    }),
+  ];
 
   return (
     <div className={styles.wrapper}>
@@ -52,6 +65,7 @@ const AckeeSelect = () => {
         value={value}
         setValue={setValue}
       />
+      <Tooltip message={message} title="Ackee tracking (analytics)" />
     </div>
   );
 };

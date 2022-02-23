@@ -1,5 +1,6 @@
 .wrapper {
   display: flex;
   flex-flow: row wrap;
+  align-items: center;
   gap: var(--spacing-xs);
 }

@@ -1,0 +1,52 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.icon {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.active {
+  .icon {
+    color: var(--color-fg-inverted);
+  }
+}
+
+.wrapper {
+  width: fun.convert-px(44);
+  height: fun.convert-px(44);
+  background: var(--color-bg);
+  border: fun.convert-px(3) solid var(--color-primary-dark);
+  border-radius: 50%;
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
+  transition: all 0.3s ease-in-out 0s;
+
+  @include mix.pointer("fine") {
+    width: fun.convert-px(30);
+    height: fun.convert-px(30);
+    line-height: 1;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: var(--color-primary-light);
+    color: var(--color-primary-light);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+        var(--color-shadow-light),
+      fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+        var(--color-shadow-light),
+      fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+        var(--color-shadow-light),
+      fun.convert-px(7) fun.convert-px(10) fun.convert-px(12) fun.convert-px(-3)
+        var(--color-shadow-light);
+    transform: scale(1.1);
+
+    .icon {
+      transform: scale(1.1);
+    }
+  }
+
+  &.active {
+    background: var(--color-primary);
+  }
+}

@@ -1,0 +1,111 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.title {
+  padding: var(--spacing-2xs) var(--spacing-xs);
+  position: absolute;
+  top: calc(var(--spacing-sm) * -1);
+  left: var(--spacing-lg);
+  background: var(--color-bg);
+  border: fun.convert-px(1) solid var(--color-primary-dark);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
+  color: var(--color-primary-darker);
+  font-size: var(--font-size-sm);
+  font-variant: small-caps;
+  font-weight: 500;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      left: var(--spacing-md);
+    }
+  }
+
+  &::before {
+    content: "?";
+    padding: var(--spacing-2xs);
+    position: absolute;
+    top: fun.convert-px(-1);
+    bottom: fun.convert-px(-1);
+    right: 100%;
+    background: var(--color-primary-dark);
+    border: fun.convert-px(1) solid var(--color-primary-dark);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
+    color: var(--color-fg-inverted);
+    font-weight: 600;
+  }
+}
+
+.message {
+  transition: all 0.5s ease-in-out 0;
+}
+
+.wrapper {
+  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-sm)
+    var(--spacing-md);
+  position: absolute;
+  top: fun.convert-px(-30);
+  left: fun.convert-px(15);
+  right: fun.convert-px(15);
+  background: var(--color-bg);
+  border: fun.convert-px(2) solid var(--color-primary-dark);
+  border-radius: fun.convert-px(3);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow),
+    fun.convert-px(2) fun.convert-px(2) fun.convert-px(1) fun.convert-px(1)
+      var(--color-shadow-light);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      padding-top: var(--spacing-md);
+      bottom: unset;
+      left: fun.convert-px(15);
+      right: fun.convert-px(15);
+      top: calc(100% - #{fun.convert-px(4)});
+    }
+  }
+
+  ul,
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  max-height: 0;
+  transition: all 0.5s ease-in-out 0s, opacity 0.3s ease-in-out 0.2s;
+
+  .message,
+  .title {
+    opacity: 0;
+  }
+
+  .message {
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  .title {
+    transition: all 0.2s ease-in-out 0.2s;
+  }
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  max-height: 100%;
+  transition: all 0.8s ease-in-out 0s, opacity 0.7s ease-in-out 0.2s;
+
+  .message,
+  .title {
+    opacity: 1;
+  }
+
+  .message {
+    transition: all 0.5s ease-in-out 0.2s;
+  }
+
+  .title {
+    transition: all 0.4s ease-in-out 0s;
+  }
+}
