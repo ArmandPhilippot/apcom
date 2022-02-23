@@ -1,5 +1,6 @@
 import { Label, Select } from '@components/Form';
 import Tooltip from '@components/Tooltip/Tooltip';
+import { LocalStorage } from '@services/local-storage';
 import { useAckeeTracker } from '@utils/providers/ackee';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -31,6 +32,15 @@ const AckeeSelect = () => {
   useEffect(() => {
     setDetailed(value === 'full');
   }, [setDetailed, value]);
+
+  useEffect(() => {
+    const initialState = LocalStorage.get('ackee-tracking');
+    if (initialState) setValue(initialState);
+  }, []);
+
+  useEffect(() => {
+    LocalStorage.set('ackee-tracking', `${value}`);
+  }, [value]);
 
   const label = (
     <Label
