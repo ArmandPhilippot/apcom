@@ -1,4 +1,5 @@
 import { ChangeEvent, ReactElement, SetStateAction } from 'react';
+import styles from './Select.module.scss';
 
 type SelectOptions = {
   id: string;
@@ -44,6 +45,7 @@ const Select = ({
         value={value}
         onChange={handleChange}
         required={required}
+        className={styles.wrapper}
       >
         {getOptions()}
       </select>
