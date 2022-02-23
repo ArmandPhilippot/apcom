@@ -155,6 +155,10 @@
     "defaultMessage": "Published on",
     "description": "PostsList: published on year label"
   },
+  "F1EQX3": {
+    "defaultMessage": "Ackee tracking (analytics)",
+    "description": "AckeeSelect: tooltip title"
+  },
   "F7QxJH": {
     "defaultMessage": "Name",
     "description": "CommentForm: Name field label"

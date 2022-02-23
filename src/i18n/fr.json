@@ -155,6 +155,10 @@
     "defaultMessage": "Publié en",
     "description": "PostsList: published on year label"
   },
+  "F1EQX3": {
+    "defaultMessage": "Suivi Ackee (analytique)",
+    "description": "AckeeSelect: tooltip title"
+  },
   "F7QxJH": {
     "defaultMessage": "Nom",
     "description": "CommentForm: Name field label"
@@ -276,7 +280,7 @@
     "description": "404Page: page title"
   },
   "Ogccx6": {
-    "defaultMessage": "Complet inclut toutes les informations de Partial ainsi que des informations à propos du site référent, du système d'exploitation, de l'appareil, du navigateur, de la taille d'écran et de la langue.",
+    "defaultMessage": "Complet inclut toutes les informations de Partiel ainsi que des informations à propos du site référent, du système d'exploitation, de l'appareil, du navigateur, de la taille d'écran et de la langue.",
     "description": "AckeeSelect: tooltip message"
   },
   "Oim3rQ": {

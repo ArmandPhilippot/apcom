@@ -75,7 +75,13 @@ const AckeeSelect = () => {
         value={value}
         setValue={setValue}
       />
-      <Tooltip message={message} title="Ackee tracking (analytics)" />
+      <Tooltip
+        message={message}
+        title={intl.formatMessage({
+          defaultMessage: 'Ackee tracking (analytics)',
+          description: 'AckeeSelect: tooltip title',
+        })}
+      />
     </div>
   );
 };
