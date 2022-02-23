@@ -51,6 +51,10 @@
     "defaultMessage": "Sujets",
     "description": "BlogPage: topics list widget title"
   },
+  "2pmylc": {
+    "defaultMessage": "Suivi :",
+    "description": "AckeeSelect: select label"
+  },
   "2pykor": {
     "defaultMessage": "Image de {title}",
     "description": "ProjectPreview: cover alt text"
@@ -87,6 +91,10 @@
     "defaultMessage": "Veuillez remplir le formulaire pour me contacter.",
     "description": "ContactPage: page introduction"
   },
+  "9kx83j": {
+    "defaultMessage": "Fermer l'aide",
+    "description": "Tooltip: button title"
+  },
   "9nhYRA": {
     "defaultMessage": "Table des matières",
     "description": "ArticlePage: ToC sidebar aria-label"
@@ -94,6 +102,10 @@
   "A4LTGq": {
     "defaultMessage": "Découvrez les résultats de recherche pour {query}",
     "description": "SearchPage: meta description with query"
+  },
+  "A5n+C9": {
+    "defaultMessage": "Afficher l'aide",
+    "description": "Tooltip: button title"
   },
   "AN9iy7": {
     "defaultMessage": "Contact",
@@ -263,6 +275,10 @@
     "defaultMessage": "Page non trouvée",
     "description": "404Page: page title"
   },
+  "Ogccx6": {
+    "defaultMessage": "Complet inclut toutes les informations de Partial ainsi que des informations à propos du site référent, du système d'exploitation, de l'appareil, du navigateur, de la taille d'écran et de la langue.",
+    "description": "AckeeSelect: tooltip message"
+  },
   "Oim3rQ": {
     "defaultMessage": "Email",
     "description": "CommentForm: Email field label"
@@ -290,6 +306,10 @@
   "PxMDzL": {
     "defaultMessage": "Échec du chargement.",
     "description": "ThematicsList: failed to load text"
+  },
+  "PzRpPw": {
+    "defaultMessage": "Complet",
+    "description": "AckeeSelect: full option name"
   },
   "QHOm5t": {
     "defaultMessage": "Barre latérale",
@@ -483,6 +503,10 @@
     "defaultMessage": "{articlesCount, plural, =0 {# article chargé} one {# article chargé} other {# articles chargés}} sur un total de {total}",
     "description": "PaginationCursor: loaded articles count message"
   },
+  "e/8Kyj": {
+    "defaultMessage": "Partiel",
+    "description": "AckeeSelect: partial option name"
+  },
   "e1Forh": {
     "defaultMessage": "Annuler la réponse",
     "description": "Comment: reply button"
@@ -543,6 +567,10 @@
     "defaultMessage": "Répondre",
     "description": "Comment: reply button"
   },
+  "i5L19t": {
+    "defaultMessage": "Shaarli",
+    "description": "HomePage: link to Shaarli"
+  },
   "iqAbyn": {
     "defaultMessage": "Aller au contenu",
     "description": "Layout: Skip to content button"
@@ -595,6 +623,10 @@
     "defaultMessage": "Autres thématiques",
     "description": "ThematicPage: thematics list widget title"
   },
+  "oPf+XA": {
+    "defaultMessage": "Aide",
+    "description": "ButtonHelp: screen reader text"
+  },
   "obmlFh": {
     "defaultMessage": "Gitlab",
     "description": "SocialMedia: Gitlab"
@@ -642,6 +674,10 @@
   "sO/Iwj": {
     "defaultMessage": "Me contacter",
     "description": "HomePage: contact button text"
+  },
+  "skb4W5": {
+    "defaultMessage": "Partiel inclut seulement l'url de la page, le nombre de visites et la durée.",
+    "description": "AckeeSelect: tooltip message"
   },
   "soj7do": {
     "defaultMessage": "Publié le :",

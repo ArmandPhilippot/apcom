@@ -51,6 +51,10 @@
     "defaultMessage": "Topics",
     "description": "BlogPage: topics list widget title"
   },
+  "2pmylc": {
+    "defaultMessage": "Tracking:",
+    "description": "AckeeSelect: select label"
+  },
   "2pykor": {
     "defaultMessage": "{title} picture",
     "description": "ProjectPreview: cover alt text"
@@ -87,6 +91,10 @@
     "defaultMessage": "Please fill the form to contact me.",
     "description": "ContactPage: page introduction"
   },
+  "9kx83j": {
+    "defaultMessage": "Close help",
+    "description": "Tooltip: button title"
+  },
   "9nhYRA": {
     "defaultMessage": "Table of Contents",
     "description": "ArticlePage: ToC sidebar aria-label"
@@ -94,6 +102,10 @@
   "A4LTGq": {
     "defaultMessage": "Discover search results for {query}",
     "description": "SearchPage: meta description with query"
+  },
+  "A5n+C9": {
+    "defaultMessage": "Show help",
+    "description": "Tooltip: button title"
   },
   "AN9iy7": {
     "defaultMessage": "Contact",
@@ -263,6 +275,10 @@
     "defaultMessage": "Page not found",
     "description": "404Page: page title"
   },
+  "Ogccx6": {
+    "defaultMessage": "Full includes all information from partial as well as information about referrer, operating system, device, browser, screen size and language.",
+    "description": "AckeeSelect: tooltip message"
+  },
   "Oim3rQ": {
     "defaultMessage": "Email",
     "description": "CommentForm: Email field label"
@@ -290,6 +306,10 @@
   "PxMDzL": {
     "defaultMessage": "Failed to load.",
     "description": "ThematicsList: failed to load text"
+  },
+  "PzRpPw": {
+    "defaultMessage": "Full",
+    "description": "AckeeSelect: full option name"
   },
   "QHOm5t": {
     "defaultMessage": "Sidebar",
@@ -483,6 +503,10 @@
     "defaultMessage": "{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}",
     "description": "PaginationCursor: loaded articles count message"
   },
+  "e/8Kyj": {
+    "defaultMessage": "Partial",
+    "description": "AckeeSelect: partial option name"
+  },
   "e1Forh": {
     "defaultMessage": "Cancel reply",
     "description": "Comment: reply button"
@@ -543,6 +567,10 @@
     "defaultMessage": "Reply",
     "description": "Comment: reply button"
   },
+  "i5L19t": {
+    "defaultMessage": "Shaarli",
+    "description": "HomePage: link to Shaarli"
+  },
   "iqAbyn": {
     "defaultMessage": "Skip to content",
     "description": "Layout: Skip to content button"
@@ -595,6 +623,10 @@
     "defaultMessage": "Others thematics",
     "description": "ThematicPage: thematics list widget title"
   },
+  "oPf+XA": {
+    "defaultMessage": "Help",
+    "description": "ButtonHelp: screen reader text"
+  },
   "obmlFh": {
     "defaultMessage": "Gitlab",
     "description": "SocialMedia: Gitlab"
@@ -642,6 +674,10 @@
   "sO/Iwj": {
     "defaultMessage": "Contact me",
     "description": "HomePage: contact button text"
+  },
+  "skb4W5": {
+    "defaultMessage": "Partial includes only page url, views and duration.",
+    "description": "AckeeSelect: tooltip message"
   },
   "soj7do": {
     "defaultMessage": "Published on:",
