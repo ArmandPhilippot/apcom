@@ -440,7 +440,7 @@
     "description": "MainNav: home link"
   },
   "ZWh78Y": {
-    "defaultMessage": "Désolé, il semble que la page demandée n'existe pas. Si vous pensez que le chemin devrait existait, n'hésitez pas à <link>me contacter</link> avec les informations nécessaires pour que je puisse corriger le problème.",
+    "defaultMessage": "Désolé, il semble que la page demandée n'existe pas. Si vous pensez que le chemin devrait exister, n'hésitez pas à <link>me contacter</link> avec les informations nécessaires pour que je puisse corriger le problème.",
     "description": "404Page: page body"
   },
   "Zg4L7U": {
