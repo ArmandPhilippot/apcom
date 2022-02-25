@@ -1,5 +1,5 @@
 import { ButtonSubmit } from '@components/Buttons';
-import { Form, FormItem, Input, TextArea } from '@components/Form';
+import { Form, FormItem, Input, Label, TextArea } from '@components/Form';
 import Notice from '@components/Notice/Notice';
 import Spinner from '@components/Spinner/Spinner';
 import { createComment } from '@services/graphql/mutations';
@@ -106,6 +106,34 @@ const CommentForm = (
     isReply ? styles['wrapper--reply'] : ''
   }`;
 
+  const getLabel = (
+    body: string,
+    htmlFor: string,
+    required: boolean = false
+  ) => {
+    return <Label body={body} htmlFor={htmlFor} required={required} />;
+  };
+
+  const nameLabelBody = intl.formatMessage({
+    defaultMessage: 'Name',
+    description: 'CommentForm: Name field label',
+  });
+
+  const emailLabelBody = intl.formatMessage({
+    defaultMessage: 'Email',
+    description: 'CommentForm: Email field label',
+  });
+
+  const websiteLabelBody = intl.formatMessage({
+    defaultMessage: 'Website',
+    description: 'CommentForm: Website field label',
+  });
+
+  const commentLabelBody = intl.formatMessage({
+    defaultMessage: 'Comment',
+    description: 'CommentForm: Comment field label',
+  });
+
   return (
     <div className={wrapperClasses}>
       <h2 className={styles.title}>
@@ -122,11 +150,7 @@ const CommentForm = (
           <Input
             id="commenter-name"
             name="commenter-name"
-            label={intl.formatMessage({
-              defaultMessage: 'Name',
-              description: 'CommentForm: Name field label',
-            })}
-            required={true}
+            label={getLabel(nameLabelBody, 'commenter-name', true)}
             value={name}
             setValue={setName}
             ref={ref}
@@ -137,11 +161,7 @@ const CommentForm = (
             id="commenter-email"
             name="commenter-email"
             type="email"
-            label={intl.formatMessage({
-              defaultMessage: 'Email',
-              description: 'CommentForm: Email field label',
-            })}
-            required={true}
+            label={getLabel(emailLabelBody, 'commenter-email', true)}
             value={email}
             setValue={setEmail}
           />
@@ -150,10 +170,7 @@ const CommentForm = (
           <Input
             id="commenter-website"
             name="commenter-website"
-            label={intl.formatMessage({
-              defaultMessage: 'Website',
-              description: 'CommentForm: Website field label',
-            })}
+            label={getLabel(websiteLabelBody, 'commenter-website')}
             value={website}
             setValue={setWebsite}
           />
@@ -162,13 +179,9 @@ const CommentForm = (
           <TextArea
             id="commenter-comment"
             name="commenter-comment"
-            label={intl.formatMessage({
-              defaultMessage: 'Comment',
-              description: 'CommentForm: Comment field label',
-            })}
+            label={getLabel(commentLabelBody, 'commenter-comment', true)}
             value={comment}
             setValue={setComment}
-            required={true}
           />
         </FormItem>
         <FormItem>

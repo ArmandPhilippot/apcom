@@ -1,4 +1,10 @@
-import { ChangeEvent, ForwardedRef, forwardRef, SetStateAction } from 'react';
+import {
+  ChangeEvent,
+  ForwardedRef,
+  forwardRef,
+  ReactElement,
+  SetStateAction,
+} from 'react';
 import styles from '../Form.module.scss';
 
 type InputType = 'text' | 'email' | 'number' | 'search';
@@ -10,7 +16,6 @@ const Input = (
     value,
     setValue,
     type = 'text',
-    required = false,
     label,
   }: {
     id: string;
@@ -18,8 +23,7 @@ const Input = (
     value: string;
     setValue: (value: SetStateAction<string>) => void;
     type?: InputType;
-    required?: boolean;
-    label?: string;
+    label?: ReactElement;
   },
   ref: ForwardedRef<HTMLInputElement>
 ) => {
@@ -29,12 +33,7 @@ const Input = (
 
   return (
     <>
-      {label && (
-        <label htmlFor={id} className={styles.label}>
-          {label}
-          {required && <span className={styles.required}> *</span>}
-        </label>
-      )}
+      {label}
       <input
         ref={ref}
         type={type}

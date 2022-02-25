@@ -27,14 +27,6 @@
   max-width: 45ch;
 }
 
-.label {
-  display: block;
-  color: var(--color-primary-darker);
-  font-size: var(--font-size-sm);
-  font-variant: small-caps;
-  font-weight: 600;
-}
-
 .field {
   width: 100%;
   padding: var(--spacing-2xs) var(--spacing-xs);
@@ -61,10 +53,6 @@
 
 .textarea {
   min-height: fun.convert-px(200);
-}
-
-.required {
-  color: var(--color-secondary);
 }
 
 .wrapper--search {
