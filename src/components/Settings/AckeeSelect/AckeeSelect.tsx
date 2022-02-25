@@ -1,4 +1,4 @@
-import { Label, Select } from '@components/Form';
+import { Field, Label } from '@components/FormElements';
 import Tooltip from '@components/Tooltip/Tooltip';
 import { LocalStorage } from '@services/local-storage';
 import { useAckeeTracker } from '@utils/providers/ackee';
@@ -67,9 +67,10 @@ const AckeeSelect = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Select
+      <Field
         id="ackee-settings"
         name="ackee-settings"
+        kind="select"
         label={label}
         options={options}
         value={value}

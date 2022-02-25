@@ -1,4 +1,4 @@
-import { Toggle } from '@components/Form';
+import { Toggle } from '@components/FormElements';
 import { LocalStorage } from '@services/local-storage';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';

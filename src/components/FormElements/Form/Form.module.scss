@@ -1,0 +1,37 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  width: 100%;
+}
+
+.centered {
+  max-width: 45ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  > input {
+    padding-right: calc(var(--btn-size) + var(--spacing-2xs));
+
+    &:hover ~ button {
+      transform: translate(fun.convert-px(-3), fun.convert-px(-3));
+    }
+
+    &:focus ~ button {
+      transform: translate(fun.convert-px(3), fun.convert-px(3));
+    }
+  }
+}
+
+.settings {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: var(--spacing-sm) 0;
+  position: relative;
+}

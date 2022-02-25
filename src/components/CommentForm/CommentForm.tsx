@@ -1,5 +1,5 @@
 import { ButtonSubmit } from '@components/Buttons';
-import { Form, FormItem, Input, Label, TextArea } from '@components/Form';
+import { Field, Form, FormItem, Label } from '@components/FormElements';
 import Notice from '@components/Notice/Notice';
 import Spinner from '@components/Spinner/Spinner';
 import { createComment } from '@services/graphql/mutations';
@@ -144,30 +144,32 @@ const CommentForm = (
       </h2>
       <Form
         submitHandler={submitHandler}
-        modifier={isReply ? 'centered' : undefined}
+        kind={isReply ? 'centered' : undefined}
       >
         <FormItem>
-          <Input
+          <Field
             id="commenter-name"
             name="commenter-name"
             label={getLabel(nameLabelBody, 'commenter-name', true)}
             value={name}
             setValue={setName}
+            required={true}
             ref={ref}
           />
         </FormItem>
         <FormItem>
-          <Input
+          <Field
             id="commenter-email"
             name="commenter-email"
-            type="email"
+            kind="email"
             label={getLabel(emailLabelBody, 'commenter-email', true)}
             value={email}
             setValue={setEmail}
+            required={true}
           />
         </FormItem>
         <FormItem>
-          <Input
+          <Field
             id="commenter-website"
             name="commenter-website"
             label={getLabel(websiteLabelBody, 'commenter-website')}
@@ -176,12 +178,14 @@ const CommentForm = (
           />
         </FormItem>
         <FormItem>
-          <TextArea
+          <Field
             id="commenter-comment"
             name="commenter-comment"
+            kind="textarea"
             label={getLabel(commentLabelBody, 'commenter-comment', true)}
             value={comment}
             setValue={setComment}
+            required={true}
           />
         </FormItem>
         <FormItem>

@@ -1,4 +1,4 @@
-import { Toggle } from '@components/Form';
+import { Toggle } from '@components/FormElements';
 import { MoonIcon, SunIcon } from '@components/Icons';
 import Spinner from '@components/Spinner/Spinner';
 import { useTheme } from 'next-themes';

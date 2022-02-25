@@ -24,7 +24,7 @@ const Toggle = ({
   };
 
   return (
-    <Form modifier="toggle" submitHandler={onSubmit}>
+    <Form kind="settings" submitHandler={onSubmit}>
       <input
         className={styles.checkbox}
         type="checkbox"

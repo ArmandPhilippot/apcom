@@ -1,5 +1,5 @@
 import { ButtonSubmit } from '@components/Buttons';
-import { Form, FormItem, Input, Label, TextArea } from '@components/Form';
+import { Field, Form, FormItem, Label } from '@components/FormElements';
 import { sendMail } from '@services/graphql/mutations';
 import { settings } from '@utils/config';
 import { FormEvent, useState } from 'react';
@@ -115,26 +115,28 @@ const ContactForm = () => {
     <>
       <Form submitHandler={submitHandler}>
         <FormItem>
-          <Input
+          <Field
             id="contact-name"
             name="name"
             value={name}
             setValue={setName}
+            required={true}
             label={getLabel(nameLabelBody, 'contact-name', true)}
           />
         </FormItem>
         <FormItem>
-          <Input
+          <Field
             id="contact-email"
-            type="email"
+            kind="email"
             name="email"
             value={email}
             setValue={setEmail}
+            required={true}
             label={getLabel(emailLabelBody, 'contact-email', true)}
           />
         </FormItem>
         <FormItem>
-          <Input
+          <Field
             id="contact-subject"
             name="subject"
             value={subject}
@@ -143,11 +145,13 @@ const ContactForm = () => {
           />
         </FormItem>
         <FormItem>
-          <TextArea
+          <Field
             id="contact-message"
+            kind="textarea"
             name="message"
             value={message}
             setValue={setMessage}
+            required={true}
             label={getLabel(messageLabelBody, 'contact-message', true)}
           />
         </FormItem>
