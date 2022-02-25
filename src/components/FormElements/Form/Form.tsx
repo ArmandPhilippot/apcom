@@ -1,19 +1,21 @@
 import { ReactNode } from 'react';
 import styles from './Form.module.scss';
 
+type FormKind = 'centered' | 'search' | 'settings';
+
 const Form = ({
   children,
   submitHandler,
-  modifier = '',
+  kind,
   id,
 }: {
   children: ReactNode;
   submitHandler: any;
-  modifier?: string;
+  kind?: FormKind;
   id?: string;
 }) => {
-  const withModifier = modifier ? styles[`wrapper--${modifier}`] : '';
-  const classes = `${styles.wrapper} ${withModifier}`;
+  const kindStyles = kind ? styles[kind] : '';
+  const classes = `${styles.wrapper} ${kindStyles}`;
 
   return (
     <form onSubmit={submitHandler} className={classes} id={id}>

@@ -1,5 +1,5 @@
 import { ButtonSubmit } from '@components/Buttons';
-import { Form, FormItem, Input, TextArea } from '@components/Form';
+import { Field, Form, FormItem, Label } from '@components/FormElements';
 import { sendMail } from '@services/graphql/mutations';
 import { settings } from '@utils/config';
 import { FormEvent, useState } from 'react';
@@ -83,59 +83,76 @@ const ContactForm = () => {
     );
   };
 
+  const getLabel = (
+    body: string,
+    htmlFor: string,
+    required: boolean = false
+  ) => {
+    return <Label body={body} htmlFor={htmlFor} required={required} />;
+  };
+
+  const nameLabelBody = intl.formatMessage({
+    defaultMessage: 'Name',
+    description: 'ContactForm: name field label',
+  });
+
+  const emailLabelBody = intl.formatMessage({
+    defaultMessage: 'Email',
+    description: 'ContactForm: email field label',
+  });
+
+  const subjectLabelBody = intl.formatMessage({
+    defaultMessage: 'Subject',
+    description: 'ContactForm: subject field label',
+  });
+
+  const messageLabelBody = intl.formatMessage({
+    defaultMessage: 'Message',
+    description: 'ContactForm: message field label',
+  });
+
   return (
     <>
       <Form submitHandler={submitHandler}>
         <FormItem>
-          <Input
+          <Field
             id="contact-name"
             name="name"
             value={name}
             setValue={setName}
-            label={intl.formatMessage({
-              defaultMessage: 'Name',
-              description: 'ContactForm: name field label',
-            })}
             required={true}
+            label={getLabel(nameLabelBody, 'contact-name', true)}
           />
         </FormItem>
         <FormItem>
-          <Input
+          <Field
             id="contact-email"
-            type="email"
+            kind="email"
             name="email"
             value={email}
             setValue={setEmail}
-            label={intl.formatMessage({
-              defaultMessage: 'Email',
-              description: 'ContactForm: email field label',
-            })}
             required={true}
+            label={getLabel(emailLabelBody, 'contact-email', true)}
           />
         </FormItem>
         <FormItem>
-          <Input
+          <Field
             id="contact-subject"
             name="subject"
             value={subject}
             setValue={setSubject}
-            label={intl.formatMessage({
-              defaultMessage: 'Subject',
-              description: 'ContactForm: subject field label',
-            })}
+            label={getLabel(subjectLabelBody, 'contact-subject')}
           />
         </FormItem>
         <FormItem>
-          <TextArea
+          <Field
             id="contact-message"
+            kind="textarea"
             name="message"
             value={message}
             setValue={setMessage}
-            label={intl.formatMessage({
-              defaultMessage: 'Message',
-              description: 'ContactForm: message field label',
-            })}
             required={true}
+            label={getLabel(messageLabelBody, 'contact-message', true)}
           />
         </FormItem>
         <FormItem>

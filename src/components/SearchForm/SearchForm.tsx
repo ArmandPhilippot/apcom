@@ -1,5 +1,5 @@
 import { ButtonSubmit } from '@components/Buttons';
-import { Form, Input } from '@components/Form';
+import { Field, Form } from '@components/FormElements';
 import { SearchIcon } from '@components/Icons';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
@@ -34,20 +34,21 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
           description: 'SearchForm : form title',
         })}
       </div>
-      <Form submitHandler={launchSearch} modifier="search" id="search">
+      <Form submitHandler={launchSearch} kind="search" id="search">
         <label htmlFor="search-query" className="screen-reader-text">
           {intl.formatMessage({
             defaultMessage: 'Keywords:',
             description: 'SearchForm: search field label',
           })}
         </label>
-        <Input
+        <Field
           ref={inputRef}
           id="search-query"
           name="search-query"
-          type="search"
+          kind="search"
           value={query}
           setValue={setQuery}
+          required={true}
         />
         <ButtonSubmit modifier="search">
           <SearchIcon />
