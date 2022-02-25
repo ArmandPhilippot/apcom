@@ -35,6 +35,22 @@ Even if the source code and the contents are under free licenses, I don't want t
 
 Other contents come from WordPress as headless CMS.
 
+## Production
+
+In any case, you need a reverse-proxy if you want to bind the live app to a domain.
+
+### With Docker
+
+Make sure Docker and Docker Compose are installed then, you can run: `sudo docker-compose up -d --build <service-name>`.
+
+`<service-name>` is optional. You don't need it the first time. However, if you want to rebuild and update only one container, it can be useful.
+
+If you wish to use custom ports, you can edit your `.env` file and specify `APP_DOCKER_PORT_PROD` and `APP_DOCKER_PORT_DEV` variables. By default the ports are respectively `3000` and `3200`.
+
+### Without Docker
+
+Just run `yarn build && yarn start`.
+
 ## Development
 
 ### First step
