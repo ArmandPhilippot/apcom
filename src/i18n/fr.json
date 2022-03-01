@@ -3,10 +3,6 @@
     "defaultMessage": "Autres sujets",
     "description": "TopicPage: topics list widget title"
   },
-  "+COyEW": {
-    "defaultMessage": "{topicsCount, plural, =0 {Sujets :} one {Sujet :} other {Sujets :}}",
-    "description": "PostMeta: topics list label"
-  },
   "+Dre5J": {
     "defaultMessage": "Projets open-source",
     "description": "CVPage: social media widget title"
@@ -31,6 +27,10 @@
     "defaultMessage": "Échec du chargement.",
     "description": "TopicsList: failed to load text"
   },
+  "0pp/IQ": {
+    "defaultMessage": "{topicsCount, plural, =0 {Sujet :} one {Sujet :} other {Sujets :}}",
+    "description": "Topics: topics list meta label"
+  },
   "0zBQpa": {
     "defaultMessage": "Message",
     "description": "ContactForm: message field label"
@@ -46,6 +46,10 @@
   "1h+N2z": {
     "defaultMessage": "Publié le :",
     "description": "RecentPosts: publication date label"
+  },
+  "1r4ujR": {
+    "defaultMessage": "{thematicsCount, plural, =0 {Thématique :} one {Thématique :} other {Thématiques :}}",
+    "description": "Thematics: thematics list meta label"
   },
   "2D9tB5": {
     "defaultMessage": "Sujets",
@@ -67,9 +71,21 @@
     "defaultMessage": "Page non trouvée.",
     "description": "404Page: SEO - Meta description"
   },
+  "4EMSLO": {
+    "defaultMessage": "{total, plural, =0 {Aucun article} one {# article} other {# articles}}",
+    "description": "PostCount: total found articles"
+  },
   "4zAUSu": {
     "defaultMessage": "Mentions légales - {websiteName}",
     "description": "LegalNoticePage: SEO - Page title"
+  },
+  "52Fev1": {
+    "defaultMessage": "Publié le :",
+    "description": "Dates: publication date meta label"
+  },
+  "6BRtAu": {
+    "defaultMessage": "Commentaires :",
+    "description": "CommentsCount: comment count meta label"
   },
   "6dXfvr": {
     "defaultMessage": "Table des matières",
@@ -123,6 +139,10 @@
     "defaultMessage": "Autres formats",
     "description": "CVPage: cv preview widget title"
   },
+  "C+r/LF": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "Dates: update date meta label"
+  },
   "C/XGkH": {
     "defaultMessage": "Échec du chargement.",
     "description": "BlogPage: failed to load text"
@@ -166,18 +186,6 @@
   "FLkF2R": {
     "defaultMessage": "Tous les articles dans {name}",
     "description": "TopicPage: posts list title"
-  },
-  "Fj8WFC": {
-    "defaultMessage": "{results, plural, =0 {Aucun article} one {# article} other {# articles}}",
-    "description": "PostMeta: total found articles"
-  },
-  "FtokGF": {
-    "defaultMessage": "Mis à jour le :",
-    "description": "PostMeta: update date label"
-  },
-  "GUfnQ4": {
-    "defaultMessage": "Temps de lecture :",
-    "description": "Article meta"
   },
   "GgIWnN": {
     "defaultMessage": "<a11y>Atteindre </a11y>{title}",
@@ -223,6 +231,10 @@
     "defaultMessage": "Barre latérale",
     "description": "ArticlePage: right sidebar aria-label"
   },
+  "JsOoAW": {
+    "defaultMessage": "Site web :",
+    "description": "Website: website meta label"
+  },
   "KERk7L": {
     "defaultMessage": "Filtrer par :",
     "description": "BlogPage: sidebar title"
@@ -246,10 +258,6 @@
   "N44SOc": {
     "defaultMessage": "Projets",
     "description": "HomePage: link to projects"
-  },
-  "N7I4lC": {
-    "defaultMessage": "moins d'une minute",
-    "description": "PostMeta: Reading time value"
   },
   "N804XO": {
     "defaultMessage": "Sujets",
@@ -286,10 +294,6 @@
   "Oim3rQ": {
     "defaultMessage": "Email",
     "description": "CommentForm: Email field label"
-  },
-  "Ox/daH": {
-    "defaultMessage": "{commentCount, plural, =0 {Aucun commentaire} one {# commentaire} other {# commentaires}}",
-    "description": "PostMeta: comment count value"
   },
   "P0I+Xm": {
     "defaultMessage": "Journal du hacker",
@@ -355,10 +359,6 @@
     "defaultMessage": "Recherche",
     "description": "SearchPage: breadcrumb item"
   },
-  "U++A+B": {
-    "defaultMessage": "{readingTime, plural, =0 {# minute} one {# minute} other {# minutes}}",
-    "description": "PostMeta: reading time value"
-  },
   "U+35YD": {
     "defaultMessage": "Recherche",
     "description": "SearchPage: page title"
@@ -386,10 +386,6 @@
   "Vuryko": {
     "defaultMessage": "Email",
     "description": "ContactForm: email field label"
-  },
-  "W2G95o": {
-    "defaultMessage": "Commentaires :",
-    "description": "PostMeta: comment count label"
   },
   "WGFOmA": {
     "defaultMessage": "Envoyer",
@@ -458,10 +454,6 @@
   "aA3hOT": {
     "defaultMessage": "{starsCount, plural, =0 {0 étoile sur Github} one {# étoile sur Github} other {# étoiles sur Github}}",
     "description": "ProjectSummary: technologies list label"
-  },
-  "agLf5v": {
-    "defaultMessage": "Site web :",
-    "description": "PostMeta: website label"
   },
   "akSutM": {
     "defaultMessage": "Projets",
@@ -535,10 +527,6 @@
     "defaultMessage": "Barre latérale",
     "description": "TopicPage: right sidebar aria-label"
   },
-  "fGnfqp": {
-    "defaultMessage": "Publié le :",
-    "description": "PostMeta: publication date label"
-  },
   "fOe8rH": {
     "defaultMessage": "Échec du chargement.",
     "description": "SearchPage: failed to load text"
@@ -587,9 +575,9 @@
     "defaultMessage": "Linux",
     "description": "HomePage: link to Linux thematic"
   },
-  "jGqV2+": {
+  "jCyqZS": {
     "defaultMessage": "Écrit par :",
-    "description": "Article meta"
+    "description": "Author: article author meta label"
   },
   "jN+dY5": {
     "defaultMessage": "Site web",
@@ -599,9 +587,13 @@
     "defaultMessage": "CV",
     "description": "MainNav: resume link"
   },
-  "l0+ROl": {
-    "defaultMessage": "{thematicsCount, plural, =0 {Thématiques :} one {Thématique :} other {Thématiques :}}",
-    "description": "PostMeta: thematics list label"
+  "k7/SkN": {
+    "defaultMessage": "Environ {number} mots",
+    "description": "ReadingTime: number of words"
+  },
+  "lKGNKx": {
+    "defaultMessage": "{total, plural, =0 {Aucun commentaire} one {# commentaire} other {# commentaires}}",
+    "description": "CommentsCount: comment count value"
   },
   "lKZm9t": {
     "defaultMessage": "Email",
@@ -618,6 +610,10 @@
   "mh7tGg": {
     "defaultMessage": "Aperçu de {title}",
     "description": "ProjectSummary: cover alt text"
+  },
+  "n0Gbod": {
+    "defaultMessage": "Temps de lecture :",
+    "description": "ReadingTime: reading time meta label"
   },
   "nFMdWI": {
     "defaultMessage": "Thème sombre 🌙",
@@ -642,6 +638,10 @@
   "okFrAO": {
     "defaultMessage": "{count, plural, =0 {Technologies :} one {Technologie :} other {Technologies :}}",
     "description": "ProjectPreview: technologies list label"
+  },
+  "p1zZ/Z": {
+    "defaultMessage": "Total :",
+    "description": "PostCount: total found articles meta label"
   },
   "pEtJik": {
     "defaultMessage": "En charger plus ?",
@@ -723,10 +723,6 @@
     "defaultMessage": "Popularité :",
     "description": "ProjectSummary: popularity label"
   },
-  "vhIggb": {
-    "defaultMessage": "Total :",
-    "description": "Article meta"
-  },
   "vkF/RP": {
     "defaultMessage": "Développement web",
     "description": "HomePage: link to web development thematic"
@@ -747,9 +743,17 @@
     "defaultMessage": "Libre",
     "description": "HomePage: link to free thematic"
   },
+  "wdqOpf": {
+    "defaultMessage": "{time, plural, =0 {# minute} one {# minute} other {# minutes}}",
+    "description": "ReadingTime: reading time value"
+  },
   "xC3Khf": {
     "defaultMessage": "Télécharger le <link>CV au format PDF</link>",
     "description": "CVPreview: download as PDF link"
+  },
+  "ySsWZl": {
+    "defaultMessage": "moins d'une minute",
+    "description": "ReadingTime: Reading time value"
   },
   "yWjXRx": {
     "defaultMessage": "Mentions légales",

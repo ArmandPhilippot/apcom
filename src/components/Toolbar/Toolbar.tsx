@@ -1,9 +1,20 @@
 import { ButtonToolbar } from '@components/Buttons';
 import MainNav from '@components/MainNav/MainNav';
-import SearchForm from '@components/SearchForm/SearchForm';
-import Settings from '@components/Settings/Settings';
+import Spinner from '@components/Spinner/Spinner';
+import dynamic from 'next/dynamic';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './Toolbar.module.scss';
+
+const DynamicSearchForm = dynamic(
+  () => import('@components/SearchForm/SearchForm'),
+  {
+    loading: () => <Spinner />,
+  }
+);
+
+const DynamicSettings = dynamic(() => import('@components/Settings/Settings'), {
+  loading: () => <Spinner />,
+});
 
 const Toolbar = () => {
   const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
@@ -129,7 +140,7 @@ const Toolbar = () => {
         setIsActivated={setIsSearchOpened}
       />
       <div id="search-modal" className={searchClasses} ref={searchModalRef}>
-        <SearchForm isOpened={isSearchOpened} />
+        <DynamicSearchForm isOpened={isSearchOpened} />
       </div>
       <ButtonToolbar
         ref={settingsBtnRef}
@@ -142,7 +153,7 @@ const Toolbar = () => {
         className={settingsClasses}
         ref={settingsModalRef}
       >
-        <Settings />
+        <DynamicSettings />
       </div>
     </div>
   );

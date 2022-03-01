@@ -19,9 +19,8 @@ const Layout = ({
   isHome?: boolean;
 }) => {
   const intl = useIntl();
-  const { locale } = useRouter();
+  const { asPath, locale } = useRouter();
   const ref = useRef<HTMLSpanElement>(null);
-  const { asPath } = useRouter();
 
   useEffect(() => {
     ref.current?.focus();

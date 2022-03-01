@@ -1,16 +1,24 @@
 import { Button } from '@components/Buttons';
-import CommentForm from '@components/CommentForm/CommentForm';
+import Spinner from '@components/Spinner/Spinner';
 import { Comment as CommentData } from '@ts/types/comments';
 import { settings } from '@utils/config';
 import { getFormattedDate } from '@utils/helpers/format';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Comment as CommentSchema, WithContext } from 'schema-dts';
 import styles from './Comment.module.scss';
+
+const DynamicCommentForm = dynamic(
+  () => import('@components/CommentForm/CommentForm'),
+  {
+    loading: () => <Spinner />,
+  }
+);
 
 const Comment = ({
   articleId,
@@ -25,11 +33,6 @@ const Comment = ({
   const router = useRouter();
   const locale = router.locale ? router.locale : settings.locales.defaultLocale;
   const [shouldOpenForm, setShouldOpenForm] = useState<boolean>(false);
-  const firstFieldRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    firstFieldRef.current && firstFieldRef.current.focus();
-  });
 
   const getCommentAuthor = () => {
     return comment.author.url ? (
@@ -113,8 +116,7 @@ const Comment = ({
           )}
         </article>
         {shouldOpenForm && (
-          <CommentForm
-            ref={firstFieldRef}
+          <DynamicCommentForm
             articleId={articleId}
             parentId={comment.commentId}
           />

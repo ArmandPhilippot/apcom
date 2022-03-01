@@ -4,14 +4,17 @@ import Notice from '@components/Notice/Notice';
 import Spinner from '@components/Spinner/Spinner';
 import { createComment } from '@services/graphql/mutations';
 import { NoticeType } from '@ts/types/app';
-import { ForwardedRef, forwardRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './CommentForm.module.scss';
 
-const CommentForm = (
-  { articleId, parentId = 0 }: { articleId: number; parentId?: number },
-  ref: ForwardedRef<HTMLInputElement>
-) => {
+const CommentForm = ({
+  articleId,
+  parentId = 0,
+}: {
+  articleId: number;
+  parentId?: number;
+}) => {
   const intl = useIntl();
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -20,6 +23,12 @@ const CommentForm = (
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [notice, setNotice] = useState<string>();
   const [noticeType, setNoticeType] = useState<NoticeType>('success');
+  const nameFieldRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (parentId === 0) return;
+    nameFieldRef.current && nameFieldRef.current.focus();
+  });
 
   const resetForm = () => {
     setName('');
@@ -154,7 +163,7 @@ const CommentForm = (
             value={name}
             setValue={setName}
             required={true}
-            ref={ref}
+            ref={nameFieldRef}
           />
         </FormItem>
         <FormItem>
@@ -216,4 +225,4 @@ const CommentForm = (
   );
 };
 
-export default forwardRef(CommentForm);
+export default CommentForm;

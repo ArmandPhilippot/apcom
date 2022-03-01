@@ -22,7 +22,7 @@ import { usePrismTheme } from '@utils/providers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Prism from 'prismjs';
+import { highlightAll } from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
 import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
@@ -39,7 +39,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
 
   useEffect(() => {
     addPrismClasses();
-    Prism.highlightAll();
+    highlightAll();
   });
 
   const { setCodeBlocks } = usePrismTheme();
