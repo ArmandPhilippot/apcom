@@ -99,6 +99,8 @@ export type Meta = {
   updatedOn: string;
 };
 
+export type MetaKind = 'article' | 'list';
+
 export type NoticeType = 'error' | 'info' | 'success' | 'warning';
 
 export type PageInfo = {

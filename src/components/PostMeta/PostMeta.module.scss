@@ -18,32 +18,13 @@
     }
   }
 
-  &--single {
+  &--article {
     flex-flow: column wrap;
     margin: var(--spacing-sm) 0 0;
 
     @include mix.media("screen") {
       @include mix.dimensions("xs") {
         font-size: var(--font-size-sm);
-      }
-    }
-
-    .item {
-      display: flex;
-      flex-flow: row wrap;
-    }
-
-    .term {
-      margin-right: var(--spacing-2xs);
-      color: var(--color-fg-light);
-    }
-
-    .description {
-      &:not(:first-of-type) {
-        &::before {
-          content: "/";
-          margin: 0 var(--spacing-2xs);
-        }
       }
     }
   }

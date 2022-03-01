@@ -16,19 +16,6 @@ const PostHeader = ({
   meta?: ArticleMeta;
   title: string;
 }) => {
-  const hasMeta = () => {
-    return (
-      meta?.author ||
-      meta?.commentCount ||
-      meta?.dates ||
-      meta?.readingTime ||
-      meta?.results ||
-      meta?.thematics ||
-      meta?.website ||
-      meta?.wordsCount
-    );
-  };
-
   const getIntro = () => {
     if (React.isValidElement(intro)) {
       const Intro = () => intro;
@@ -38,6 +25,7 @@ const PostHeader = ({
         </div>
       );
     }
+
     return (
       intro && (
         <div
@@ -59,7 +47,7 @@ const PostHeader = ({
           )}
           {title}
         </h1>
-        {meta && hasMeta() && <PostMeta mode="single" meta={meta} />}
+        {meta && <PostMeta kind="article" meta={meta} />}
         {getIntro()}
       </div>
     </header>

@@ -1,0 +1,18 @@
+.wrapper--article {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.title--article {
+  margin-right: var(--spacing-2xs);
+  color: var(--color-fg-light);
+}
+
+.body--article {
+  &:not(:first-of-type) {
+    &::before {
+      content: "/";
+      margin: 0 var(--spacing-2xs);
+    }
+  }
+}
