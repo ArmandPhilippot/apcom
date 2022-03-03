@@ -12,6 +12,7 @@
     auto-fit,
     min(calc(100vw - (var(--spacing-md) * 2)), var(--items-size))
   );
+  justify-content: center;
   gap: var(--spacing-sm);
   width: min(
     calc(100vw - (var(--spacing-md) * 2)),
