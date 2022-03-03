@@ -15,6 +15,10 @@
   font-weight: 500;
 
   @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      top: 0;
+    }
+
     @include mix.dimensions("md") {
       left: var(--spacing-md);
     }
@@ -40,10 +44,9 @@
 }
 
 .wrapper {
-  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-sm)
-    var(--spacing-md);
+  padding: 9% 6% var(--spacing-sm) 6%;
   position: absolute;
-  top: fun.convert-px(-30);
+  bottom: 30%;
   left: fun.convert-px(15);
   right: fun.convert-px(15);
   background: var(--color-bg);
@@ -52,14 +55,20 @@
   box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow),
     fun.convert-px(2) fun.convert-px(2) fun.convert-px(1) fun.convert-px(1)
       var(--color-shadow-light);
+  transform-origin: bottom;
 
   @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      overflow-y: auto;
+      top: 18%;
+    }
+
     @include mix.dimensions("sm") {
-      padding-top: var(--spacing-md);
       bottom: unset;
       left: fun.convert-px(15);
       right: fun.convert-px(15);
-      top: calc(100% - #{fun.convert-px(4)});
+      top: 100%;
+      transform-origin: top;
     }
   }
 
@@ -73,8 +82,8 @@
 .hidden {
   visibility: hidden;
   opacity: 0;
-  max-height: 0;
   transition: all 0.5s ease-in-out 0s, opacity 0.3s ease-in-out 0.2s;
+  transform: scaleY(0);
 
   .message,
   .title {
@@ -93,7 +102,7 @@
 .visible {
   visibility: visible;
   opacity: 1;
-  max-height: 100%;
+  transform: scaleY(1);
   transition: all 0.8s ease-in-out 0s, opacity 0.7s ease-in-out 0.2s;
 
   .message,
