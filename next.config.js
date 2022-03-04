@@ -1,7 +1,12 @@
 const path = require('path');
 
-const backendDomain = process.env.APP_BACKEND_DOMAIN;
-const frontendDomain = process.env.APP_FRONTEND_DOMAIN;
+const isStaging = process.env.NEXT_PUBLIC_APP_ENV === 'staging';
+const backendDomain = isStaging
+  ? process.env.APP_STAGING_BACKEND_DOMAIN
+  : process.env.APP_BACKEND_DOMAIN;
+const frontendDomain = isStaging
+  ? process.env.APP_STAGING_FRONTEND_DOMAIN
+  : process.env.APP_FRONTEND_DOMAIN;
 const ackeeDomain = process.env.NEXT_PUBLIC_ACKEE_DOMAIN;
 
 const contentSecurityPolicy = `

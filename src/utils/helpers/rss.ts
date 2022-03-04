@@ -15,11 +15,10 @@ const getAllPosts = async (): Promise<ArticlePreview[]> => {
 };
 
 export const generateFeed = async () => {
-  const websiteUrl = `${process.env.NEXT_PUBLIC_APP_PROTOCOL}://${process.env.NEXT_PUBLIC_APP_DOMAIN}`;
   const author = {
     name: settings.name,
     email: process.env.APP_AUTHOR_EMAIL,
-    link: websiteUrl,
+    link: settings.url,
   };
   const copyright = `${settings.name} CC BY SA ${settings.copyright.startYear} - ${settings.copyright.endYear}`;
   const title = `${settings.name} | ${settings.baseline.fr}`;
@@ -29,13 +28,13 @@ export const generateFeed = async () => {
     copyright,
     description: process.env.APP_FEED_DESCRIPTION,
     feedLinks: {
-      json: `${websiteUrl}/feed/json`,
-      atom: `${websiteUrl}/feed/atom`,
+      json: `${settings.url}/feed/json`,
+      atom: `${settings.url}/feed/atom`,
     },
     generator: 'Feed & NextJS',
-    id: websiteUrl,
+    id: settings.url,
     language: settings.locales.defaultLocale,
-    link: websiteUrl,
+    link: settings.url,
     title,
   });
 
@@ -47,7 +46,7 @@ export const generateFeed = async () => {
       date: new Date(post.dates.publication),
       description: post.intro,
       id: post.id,
-      link: `${websiteUrl}/article/${post.slug}`,
+      link: `${settings.url}/article/${post.slug}`,
       title: post.title,
     });
   });

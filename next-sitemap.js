@@ -1,7 +1,11 @@
 /** @type {import('next-sitemap').IConfig} */
 
+const isStaging = process.env.APP_ENV === 'staging';
+
 module.exports = {
-  siteUrl: `${process.env.NEXT_PUBLIC_APP_PROTOCOL}://${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
+  siteUrl: isStaging
+    ? process.env.NEXT_PUBLIC_STAGING_APP_URL
+    : process.env.NEXT_PUBLIC_APP_URL,
   generateRobotsTxt: true,
   changefreq: null,
   priority: null,

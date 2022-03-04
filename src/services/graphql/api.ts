@@ -1,8 +1,9 @@
 import { RequestType, VariablesType } from '@ts/types/app';
+import { settings } from '@utils/config';
 import { GraphQLClient } from 'graphql-request';
 
 export const getGraphQLClient = (): GraphQLClient => {
-  const apiUrl: string = process.env.NEXT_PUBLIC_GRAPHQL_API || '';
+  const apiUrl = settings.api.url;
 
   if (!apiUrl) throw new Error('API URL not defined.');
 
