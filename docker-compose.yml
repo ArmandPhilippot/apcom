@@ -5,21 +5,27 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        DOCKER_PORT: ${APP_DOCKER_PORT_PROD:-3000}
+        APP_ENV: production
+        DOCKER_PORT: ${APP_DOCKER_PORT:-3000}
     container_name: apcom
     env_file:
       - .env
+    environment:
+      APP_ENV: production
     ports:
-      - '${APP_DOCKER_PORT_PROD:-3000}:${APP_DOCKER_PORT_PROD:-3000}'
+      - '${APP_DOCKER_PORT:-3000}:${APP_DOCKER_PORT:-3000}'
     restart: always
-  apcom-dev:
+  apcom-staging:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        DOCKER_PORT: ${APP_DOCKER_PORT_DEV:-3200}
-    container_name: apcom-dev
+        APP_ENV: staging
+        DOCKER_PORT: ${APP_STAGING_DOCKER_PORT:-3200}
+    container_name: apcom-staging
     env_file:
       - .env
+    environment:
+      APP_ENV: staging
     ports:
-      - '${APP_DOCKER_PORT_DEV:-3200}:${APP_DOCKER_PORT_DEV:-3200}'
+      - '${APP_STAGING_DOCKER_PORT:-3200}:${APP_STAGING_DOCKER_PORT:-3200}'
