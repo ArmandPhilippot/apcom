@@ -9,6 +9,14 @@ services:
         APP_ENV: production
         DOCKER_PORT: ${APP_DOCKER_PORT:-3000}
     container_name: apcom
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 20M
     env_file:
       - .env
     environment:
@@ -25,6 +33,14 @@ services:
         APP_ENV: staging
         DOCKER_PORT: ${APP_STAGING_DOCKER_PORT:-3200}
     container_name: apcom-staging
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 20M
     env_file:
       - .env
     environment:
