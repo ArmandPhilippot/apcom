@@ -14,14 +14,18 @@ loadenvs() {
 
 error() {
   printf "Error: stack name not defined.\n"
-  printf "Usage: sh deploy.sh your-stack-name\n"
+  printf "Usage: sh deploy.sh your-stack-name [OPTIONS]\n"
   exit 1
 }
 
 deploy() {
-  [ $# -ne 1 ] && error
+  [ $# -eq 0 ] && error
+
+  _stack_name="$1"
+  shift
+
   loadenvs
-  docker stack deploy -c docker-compose.yml "$1"
+  docker stack deploy -c docker-compose.yml "$@" "$_stack_name"
 }
 
 deploy "$@"
