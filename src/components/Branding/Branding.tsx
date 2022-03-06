@@ -24,7 +24,7 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
     if (logoRef.current) {
       logoRef.current.style.setProperty(
         '--branding-logo-animation',
-        'flip-logo 6.4s ease-in 0s 1'
+        'flip-logo 9s ease-in 0s 1'
       );
     }
   }, []);
@@ -33,7 +33,7 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
     if (titleRef.current) {
       titleRef.current.style.setProperty(
         '--branding-name-animation',
-        'blink 0.5s ease-in-out 0s 1, branding-name-typing 3s linear 0s 1'
+        'blink 0.8s ease-in-out 0s 2, typing 4.3s linear 0s 1'
       );
     }
   }, []);
@@ -42,7 +42,7 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
     if (jobRef.current) {
       jobRef.current.style.setProperty(
         '--branding-job-animation',
-        'branding-job-typing 8s linear 0s 1, blink 0.8s ease-in-out 6s 3'
+        'hide-text 4.25s linear 0s 1, blink 0.8s ease-in-out 4.25s 2, typing 3.8s linear 4.25s 1'
       );
     }
   }, []);

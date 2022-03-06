@@ -75,7 +75,7 @@
 
 @keyframes flip-logo {
   0%,
-  85% {
+  90% {
     transform: rotateY(180deg);
   }
 
@@ -84,48 +84,27 @@
   }
 }
 
-@keyframes branding-name-typing {
+@keyframes hide-text {
   0%,
-  20% {
-    transform: scaleX(1) translateX(0);
-    transform-origin: right;
-    visibility: visible;
-  }
-
   100% {
-    transform: scaleX(1) translateX(100%);
+    transform: translateX(0);
     transform-origin: right;
+    content: "";
+    visibility: visible;
   }
 }
 
-@keyframes branding-job-typing {
-  0% {
-    transform: scaleX(1) translateX(0);
+@keyframes typing {
+  0%,
+  35% {
+    transform: translateX(0);
     transform-origin: right;
-    content: "";
+    content: "|";
     visibility: visible;
   }
 
-  48% {
-    content: "";
-  }
-
-  49% {
-    content: "|";
-  }
-
-  51% {
-    transform: scaleX(1) translateX(0);
-    transform-origin: right;
-  }
-
-  70% {
-    transform: scaleX(1) translateX(100%);
-    transform-origin: right;
-  }
-
   100% {
-    transform: scaleX(0) translateX(100%);
+    transform: translateX(100%);
     transform-origin: right;
   }
 }

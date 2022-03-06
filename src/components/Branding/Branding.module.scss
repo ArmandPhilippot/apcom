@@ -91,6 +91,7 @@
   font-weight: 500;
   letter-spacing: 0.01ex;
   position: relative;
+  overflow: hidden;
 
   &::after {
     content: "|";
@@ -104,7 +105,7 @@
     color: var(--color-primary-darker);
     font-weight: 400;
     visibility: hidden;
-    transform: scaleX(0) translateX(100%);
+    transform: translateX(100%);
     transform-origin: right;
     animation: var(--branding-name-animation);
   }
@@ -122,6 +123,7 @@
   font-size: var(--font-size-lg);
   font-weight: 500;
   position: relative;
+  overflow: hidden;
 
   &::after {
     content: "|";
@@ -135,7 +137,7 @@
     color: var(--color-primary-darker);
     font-weight: 400;
     visibility: hidden;
-    transform: scaleX(0) translateX(100%);
+    transform: translateX(100%);
     transform-origin: right;
     animation: var(--branding-job-animation);
   }
