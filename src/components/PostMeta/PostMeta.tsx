@@ -49,7 +49,7 @@ const PostMeta = ({
       {readingTime !== undefined && wordsCount !== undefined && (
         <ReadingTime time={readingTime} words={wordsCount} kind={kind} />
       )}
-      {results && <PostsCount total={results} kind={kind} />}
+      {results !== undefined && <PostsCount total={results} kind={kind} />}
       {!isThematic() && thematics && thematics.length > 0 && (
         <Thematics list={thematics} kind={kind} />
       )}
