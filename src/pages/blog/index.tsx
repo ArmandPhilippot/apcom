@@ -1,5 +1,6 @@
 import { Button } from '@components/Buttons';
 import { getLayout } from '@components/Layouts/Layout';
+import Pagination from '@components/Pagination/Pagination';
 import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
 import PostHeader from '@components/PostHeader/PostHeader';
 import PostsList from '@components/PostsList/PostsList';
@@ -29,12 +30,17 @@ import useSWRInfinite from 'swr/infinite';
 const Blog: NextPageWithLayout<BlogPageProps> = ({
   allThematics,
   allTopics,
-  firstPosts,
+  posts,
   totalPosts,
 }) => {
   const intl = useIntl();
   const lastPostRef = useRef<HTMLSpanElement>(null);
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window !== undefined) setIsMounted(true);
+  }, []);
 
   const getKey = (pageIndex: number, previousData: PostsListData) => {
     if (previousData && !previousData.posts) return null;
@@ -50,7 +56,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
   const { data, error, size, setSize } = useSWRInfinite(
     getKey,
     getPublishedPosts,
-    { fallbackData: [firstPosts] }
+    { fallbackData: [posts] }
   );
   const [totalPostsCount, setTotalPostsCount] = useState<number>(totalPosts);
 
@@ -171,31 +177,28 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
         <PostHeader title={title} meta={{ results: totalPostsCount }} />
         <div className={styles.body}>
           {getPostsList()}
-          {hasNextPage && (
-            <>
-              <PaginationCursor
-                current={loadedPostsCount}
-                total={totalPostsCount}
-              />
-              <Button
-                isDisabled={isLoadingMore}
-                clickHandler={loadMorePosts}
-                position="center"
-                spacing={true}
-              >
-                {intl.formatMessage({
-                  defaultMessage: 'Load more?',
-                  description: 'BlogPage: load more text',
-                })}
-              </Button>
-              <noscript>
-                {intl.formatMessage({
-                  defaultMessage: 'Javascript is required to load more posts.',
-                  description: 'BlogPage: noscript tag',
-                })}
-              </noscript>
-            </>
-          )}
+          {hasNextPage &&
+            (isMounted ? (
+              <>
+                <PaginationCursor
+                  current={loadedPostsCount}
+                  total={totalPostsCount}
+                />
+                <Button
+                  isDisabled={isLoadingMore}
+                  clickHandler={loadMorePosts}
+                  position="center"
+                  spacing={true}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: 'Load more?',
+                    description: 'BlogPage: load more text',
+                  })}
+                </Button>
+              </>
+            ) : (
+              <Pagination baseUrl="/blog" total={totalPostsCount} />
+            ))}
         </div>
         <Sidebar
           position="right"
@@ -246,8 +249,8 @@ export const getStaticProps: GetStaticProps = async (
       allThematics,
       allTopics,
       breadcrumbTitle,
-      firstPosts,
       locale,
+      posts: firstPosts,
       totalPosts,
       translation,
     },
