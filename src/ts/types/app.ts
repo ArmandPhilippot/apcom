@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import { ImageProps } from 'next/image';
 import { ReactElement, ReactNode } from 'react';
 import { PostBy, TotalArticles } from './articles';
-import { AllPostsSlug, RawPostsList } from './blog';
+import { AllPostsSlug, LastPostCursor, RawPostsList } from './blog';
 import { CommentData, CommentsByPostId, CreateComment } from './comments';
 import { ContactData, SendEmail } from './contact';
 import {
@@ -39,6 +39,8 @@ export type VariablesType<T> = T extends PostBy | TopicBy | ThematicBy
   ? { id: number }
   : T extends CreateComment
   ? CommentData
+  : T extends LastPostCursor
+  ? { first: number }
   : T extends SendEmail
   ? ContactData
   : null;
@@ -51,6 +53,7 @@ export type RequestType =
   | AllThematicsSlug
   | CommentsByPostId
   | CreateComment
+  | LastPostCursor
   | PostBy
   | RawPostsList
   | SendEmail
@@ -107,6 +110,10 @@ export type PageInfo = {
   endCursor: string;
   hasNextPage: boolean;
   total: number;
+};
+
+export type ParamsIds = {
+  params: { id: string };
 };
 
 export type ParamsSlug = {

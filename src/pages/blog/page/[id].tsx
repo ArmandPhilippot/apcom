@@ -1,114 +1,50 @@
-import { Button } from '@components/Buttons';
 import { getLayout } from '@components/Layouts/Layout';
 import Pagination from '@components/Pagination/Pagination';
-import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
 import PostHeader from '@components/PostHeader/PostHeader';
 import PostsList from '@components/PostsList/PostsList';
 import Sidebar from '@components/Sidebar/Sidebar';
-import Spinner from '@components/Spinner/Spinner';
 import { ThematicsList, TopicsList } from '@components/Widgets';
 import {
   getAllThematics,
   getAllTopics,
+  getEndCursor,
   getPostsTotal,
   getPublishedPosts,
 } from '@services/graphql/queries';
-import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
-import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
+import { BlogPageProps } from '@ts/types/blog';
 import { settings } from '@utils/config';
 import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
-import useSWRInfinite from 'swr/infinite';
+import { Blog, Graph, WebPage } from 'schema-dts';
+import styles from '@styles/pages/Page.module.scss';
+import { getFormattedPageNumbers } from '@utils/helpers/format';
+import { useEffect } from 'react';
 
-const Blog: NextPageWithLayout<BlogPageProps> = ({
+const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   allThematics,
   allTopics,
   posts,
   totalPosts,
 }) => {
   const intl = useIntl();
-  const lastPostRef = useRef<HTMLSpanElement>(null);
   const router = useRouter();
-  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const pageNumber = Number(router.query.id);
 
   useEffect(() => {
-    if (typeof window !== undefined) setIsMounted(true);
-  }, []);
-
-  const getKey = (pageIndex: number, previousData: PostsListData) => {
-    if (previousData && !previousData.posts) return null;
-
-    return pageIndex === 0
-      ? { first: settings.postsPerPage }
-      : {
-          first: settings.postsPerPage,
-          after: previousData.pageInfo.endCursor,
-        };
-  };
-
-  const { data, error, size, setSize } = useSWRInfinite(
-    getKey,
-    getPublishedPosts,
-    { fallbackData: [posts] }
-  );
-  const [totalPostsCount, setTotalPostsCount] = useState<number>(totalPosts);
-
-  useEffect(() => {
-    if (data) setTotalPostsCount(data[0].pageInfo.total);
-  }, [data]);
-
-  const [loadedPostsCount, setLoadedPostsCount] = useState<number>(
-    settings.postsPerPage
-  );
-
-  useEffect(() => {
-    if (data && data.length > 0) {
-      const newCount =
-        settings.postsPerPage +
-        data[0].pageInfo.total -
-        data[data.length - 1].pageInfo.total;
-      setLoadedPostsCount(newCount);
-    }
-  }, [data]);
-
-  const isLoadingInitialData = !data && !error;
-  const isLoadingMore: boolean =
-    isLoadingInitialData ||
-    (size > 0 && data !== undefined && typeof data[size - 1] === 'undefined');
-
-  const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
-
-  const loadMorePosts = () => {
-    if (lastPostRef.current) {
-      lastPostRef.current.focus();
-    }
-    setSize(size + 1);
-  };
-
-  const getPostsList = () => {
-    if (error)
-      return intl.formatMessage({
-        defaultMessage: 'Failed to load.',
-        description: 'BlogPage: failed to load text',
-      });
-    if (!data) return <Spinner />;
-
-    return <PostsList ref={lastPostRef} data={data} showYears={true} />;
-  };
+    if (router.query.id === '1') router.push('/blog');
+  }, [router]);
 
   const pageTitle = intl.formatMessage(
     {
-      defaultMessage: 'Blog: development, open source - {websiteName}',
+      defaultMessage: `Blog - Page {number} - {websiteName}`,
       description: 'BlogPage: SEO - Page title',
     },
-    { websiteName: settings.name }
+    { number: pageNumber, websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage(
     {
@@ -134,7 +70,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
     },
   };
 
-  const blogSchema: BlogSchema = {
+  const blogSchema: Blog = {
     '@id': `${settings.url}/#blog`,
     '@type': 'Blog',
     author: { '@id': `${settings.url}/#branding` },
@@ -174,31 +110,10 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
         id="blog"
         className={`${styles.article} ${styles['article--no-comments']}`}
       >
-        <PostHeader title={title} meta={{ results: totalPostsCount }} />
+        <PostHeader title={title} meta={{ results: totalPosts }} />
         <div className={styles.body}>
-          {getPostsList()}
-          {hasNextPage &&
-            (isMounted ? (
-              <>
-                <PaginationCursor
-                  current={loadedPostsCount}
-                  total={totalPostsCount}
-                />
-                <Button
-                  isDisabled={isLoadingMore}
-                  clickHandler={loadMorePosts}
-                  position="center"
-                  spacing={true}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: 'Load more?',
-                    description: 'BlogPage: load more text',
-                  })}
-                </Button>
-              </>
-            ) : (
-              <Pagination baseUrl="/blog" total={totalPostsCount} />
-            ))}
+          <PostsList data={[posts]} showYears={true} />
+          <Pagination baseUrl="/blog" total={totalPosts} />
         </div>
         <Sidebar
           position="right"
@@ -227,7 +142,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
   );
 };
 
-Blog.getLayout = getLayout;
+BlogPage.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
@@ -237,11 +152,20 @@ export const getStaticProps: GetStaticProps = async (
     defaultMessage: 'Blog',
     description: 'BlogPage: breadcrumb item',
   });
-  const firstPosts = await getPublishedPosts({ first: settings.postsPerPage });
+  const { locale, params } = context;
+  const queriedPageNumber = params ? Number(params.id) : 1;
+  const queriedPostsNumber = settings.postsPerPage * queriedPageNumber;
+  const endCursor =
+    queriedPostsNumber === 1
+      ? undefined
+      : await getEndCursor({ first: queriedPostsNumber });
+  const posts = await getPublishedPosts({
+    first: settings.postsPerPage,
+    after: endCursor,
+  });
   const totalPosts = await getPostsTotal();
   const allThematics = await getAllThematics();
   const allTopics = await getAllTopics();
-  const { locale } = context;
   const translation = await loadTranslation(locale);
 
   return {
@@ -250,11 +174,22 @@ export const getStaticProps: GetStaticProps = async (
       allTopics,
       breadcrumbTitle,
       locale,
-      posts: firstPosts,
+      posts,
       totalPosts,
       translation,
     },
   };
 };
 
-export default Blog;
+export default BlogPage;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const totalPosts = await getPostsTotal();
+  const totalPages = Math.floor(totalPosts / settings.postsPerPage);
+  const paths = getFormattedPageNumbers(totalPages);
+
+  return {
+    paths,
+    fallback: true,
+  };
+};

@@ -1,6 +1,11 @@
 import { Slug } from '@ts/types/app';
 import { Article, PostBy, TotalArticles } from '@ts/types/articles';
-import { AllPostsSlug, PostsList, RawPostsList } from '@ts/types/blog';
+import {
+  AllPostsSlug,
+  LastPostCursor,
+  PostsList,
+  RawPostsList,
+} from '@ts/types/blog';
 import { Comment, CommentsByPostId } from '@ts/types/comments';
 import {
   AllTopics,
@@ -509,4 +514,26 @@ export const getAllThematics = async (): Promise<ThematicPreview[]> => {
 
   const response = await fetchApi<AllThematics>(query, null);
   return response.thematics.nodes;
+};
+
+export const getEndCursor = async ({
+  first = 10,
+}: {
+  first: number;
+}): Promise<string> => {
+  const query = gql`
+    query EndCursorAfter($first: Int) {
+      posts(first: $first) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  `;
+
+  const variables = { first };
+  const response = await fetchApi<LastPostCursor>(query, variables);
+
+  return response.posts.pageInfo.endCursor;
 };

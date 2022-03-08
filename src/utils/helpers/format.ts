@@ -1,4 +1,4 @@
-import { ParamsSlug, Slug } from '@ts/types/app';
+import { ParamsIds, ParamsSlug, Slug } from '@ts/types/app';
 import {
   Article,
   ArticlePreview,
@@ -292,4 +292,19 @@ export const getFormattedPaths = (array: Slug[]): ParamsSlug[] => {
   return array.map((object) => {
     return { params: { slug: object.slug } };
   });
+};
+
+/**
+ * Convert a number of pages to an array of params with ids.
+ * @param {number} totalPages - The total pages.
+ * @returns {ParamsIds} An array of params with ids.
+ */
+export const getFormattedPageNumbers = (totalPages: number): ParamsIds[] => {
+  const paths = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    paths.push({ params: { id: `${i}` } });
+  }
+
+  return paths;
 };
