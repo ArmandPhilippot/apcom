@@ -107,6 +107,10 @@
     "defaultMessage": "Please fill the form to contact me.",
     "description": "ContactPage: page introduction"
   },
+  "8w+jnD": {
+    "defaultMessage": "Blog - Page {number} - {websiteName}",
+    "description": "BlogPage: SEO - Page title"
+  },
   "9kx83j": {
     "defaultMessage": "Close help",
     "description": "Tooltip: button title"
@@ -138,6 +142,10 @@
   "B9OCyV": {
     "defaultMessage": "Others formats",
     "description": "CVPage: cv preview widget title"
+  },
+  "BAkq7J": {
+    "defaultMessage": "Pagination",
+    "description": "Pagination: pagination title"
   },
   "C+r/LF": {
     "defaultMessage": "Updated on:",
@@ -222,10 +230,6 @@
   "J4nhm4": {
     "defaultMessage": "Comment",
     "description": "CommentForm: Comment field label"
-  },
-  "JPh168": {
-    "defaultMessage": "Javascript is required to load more posts.",
-    "description": "BlogPage: noscript tag"
   },
   "JeYOeA": {
     "defaultMessage": "Sidebar",
@@ -331,6 +335,10 @@
     "defaultMessage": "Blog",
     "description": "BlogPage: breadcrumb item"
   },
+  "R4yaW6": {
+    "defaultMessage": "Next page {icon}",
+    "description": "Pagination: Next page link"
+  },
   "RZzx/4": {
     "defaultMessage": "Javascript is required to use the table of contents.",
     "description": "ToC: noscript tag"
@@ -354,6 +362,10 @@
   "T4YA64": {
     "defaultMessage": "Subscribe",
     "description": "HomePage: RSS feed subscription text"
+  },
+  "TSXPzr": {
+    "defaultMessage": "<a11y>Page </a11y>{number}",
+    "description": "Pagination: page number"
   },
   "TfU6Qm": {
     "defaultMessage": "Search",
@@ -454,6 +466,10 @@
   "aA3hOT": {
     "defaultMessage": "{starsCount, plural, =0 {0 stars on Github} one {# star on Github} other {# stars on Github}}",
     "description": "ProjectSummary: technologies list label"
+  },
+  "aMFqPH": {
+    "defaultMessage": "{icon} Previous page",
+    "description": "Pagination: previous page link"
   },
   "akSutM": {
     "defaultMessage": "Projects",

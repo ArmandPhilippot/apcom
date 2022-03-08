@@ -107,6 +107,10 @@
     "defaultMessage": "Veuillez remplir le formulaire pour me contacter.",
     "description": "ContactPage: page introduction"
   },
+  "8w+jnD": {
+    "defaultMessage": "Blog - Page {number} - {websiteName}",
+    "description": "BlogPage: SEO - Page title"
+  },
   "9kx83j": {
     "defaultMessage": "Fermer l'aide",
     "description": "Tooltip: button title"
@@ -138,6 +142,10 @@
   "B9OCyV": {
     "defaultMessage": "Autres formats",
     "description": "CVPage: cv preview widget title"
+  },
+  "BAkq7J": {
+    "defaultMessage": "Pagination",
+    "description": "Pagination: pagination title"
   },
   "C+r/LF": {
     "defaultMessage": "Mis à jour le :",
@@ -222,10 +230,6 @@
   "J4nhm4": {
     "defaultMessage": "Commentaire",
     "description": "CommentForm: Comment field label"
-  },
-  "JPh168": {
-    "defaultMessage": "Javascript est nécessaire pour charger plus d'articles.",
-    "description": "BlogPage: noscript tag"
   },
   "JeYOeA": {
     "defaultMessage": "Barre latérale",
@@ -331,6 +335,10 @@
     "defaultMessage": "Blog",
     "description": "BlogPage: breadcrumb item"
   },
+  "R4yaW6": {
+    "defaultMessage": "Page suivante {icon}",
+    "description": "Pagination: Next page link"
+  },
   "RZzx/4": {
     "defaultMessage": "Javascript est nécessaire pour utiliser la table des matières.",
     "description": "ToC: noscript tag"
@@ -354,6 +362,10 @@
   "T4YA64": {
     "defaultMessage": "Vous abonner",
     "description": "HomePage: RSS feed subscription text"
+  },
+  "TSXPzr": {
+    "defaultMessage": "<a11y>Page </a11y>{number}",
+    "description": "Pagination: page number"
   },
   "TfU6Qm": {
     "defaultMessage": "Recherche",
@@ -454,6 +466,10 @@
   "aA3hOT": {
     "defaultMessage": "{starsCount, plural, =0 {0 étoile sur Github} one {# étoile sur Github} other {# étoiles sur Github}}",
     "description": "ProjectSummary: technologies list label"
+  },
+  "aMFqPH": {
+    "defaultMessage": "{icon} Page précédente",
+    "description": "Pagination: previous page link"
   },
   "akSutM": {
     "defaultMessage": "Projets",
