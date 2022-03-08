@@ -19,6 +19,14 @@ export type RawPostsList = {
   };
 };
 
+export type LastPostCursor = {
+  posts: {
+    pageInfo: {
+      endCursor: string;
+    };
+  };
+};
+
 export type AllPostsSlug = {
   posts: {
     nodes: Slug[];
@@ -28,6 +36,6 @@ export type AllPostsSlug = {
 export type BlogPageProps = {
   allThematics: ThematicPreview[];
   allTopics: TopicPreview[];
-  firstPosts: PostsList;
+  posts: PostsList;
   totalPosts: number;
 };
