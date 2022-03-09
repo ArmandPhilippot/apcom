@@ -235,24 +235,22 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
 
 export const getCommentsByPostId = async (id: number): Promise<Comment[]> => {
   const query = gql`
-    query MyQuery($id: Int) {
-      postBy(postId: $id) {
-        comments(where: { order: ASC, orderby: COMMENT_DATE }) {
-          nodes {
-            approved
-            author {
-              node {
-                gravatarUrl
-                id
-                name
-                url
-              }
+    query PostComments($id: ID!) {
+      comments(where: { contentId: $id, order: ASC, orderby: COMMENT_DATE }) {
+        nodes {
+          approved
+          author {
+            node {
+              databaseId
+              gravatarUrl
+              name
+              url
             }
-            commentId
-            content
-            date
-            parentDatabaseId
           }
+          content
+          databaseId
+          date
+          parentDatabaseId
         }
       }
     }
@@ -260,9 +258,7 @@ export const getCommentsByPostId = async (id: number): Promise<Comment[]> => {
 
   const variables = { id };
   const response = await fetchApi<CommentsByPostId>(query, variables);
-  const formattedComments = getFormattedComments(
-    response.postBy.comments.nodes
-  );
+  const formattedComments = getFormattedComments(response.comments.nodes);
 
   return buildCommentsTree(formattedComments);
 };

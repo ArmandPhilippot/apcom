@@ -67,7 +67,10 @@ const Comment = ({
   const getApprovedComment = () => {
     return (
       <>
-        <article className={styles.wrapper} id={`comment-${comment.commentId}`}>
+        <article
+          className={styles.wrapper}
+          id={`comment-${comment.databaseId}`}
+        >
           <header className={styles.header}>
             {comment.author.gravatarUrl && (
               <div className={styles.avatar}>
@@ -89,7 +92,7 @@ const Comment = ({
             </dt>
             <dd>
               <time dateTime={comment.date}>
-                <Link href={`#comment-${comment.commentId}`}>
+                <Link href={`#comment-${comment.databaseId}`}>
                   <a>{getLocaleDate()}</a>
                 </Link>
               </time>
@@ -118,7 +121,7 @@ const Comment = ({
         {shouldOpenForm && (
           <DynamicCommentForm
             articleId={articleId}
-            parentId={comment.commentId}
+            parentId={comment.databaseId}
           />
         )}
         {comment.replies.length > 0 && (
@@ -127,7 +130,7 @@ const Comment = ({
               return (
                 <Comment
                   articleId={articleId}
-                  key={reply.commentId}
+                  key={reply.databaseId}
                   comment={reply}
                   isNested={true}
                 />
@@ -152,7 +155,7 @@ const Comment = ({
 
   const schemaJsonLd: WithContext<CommentSchema> = {
     '@context': 'https://schema.org',
-    '@id': `${settings.url}/#comment-${comment.commentId}`,
+    '@id': `${settings.url}/#comment-${comment.databaseId}`,
     '@type': 'Comment',
     parentItem: isNested
       ? { '@id': `${settings.url}/#comment-${comment.parentDatabaseId}` }
