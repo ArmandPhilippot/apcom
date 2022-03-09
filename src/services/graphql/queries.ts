@@ -163,8 +163,8 @@ export const getAllPostsSlug = async (): Promise<Slug[]> => {
 
 export const getPostBySlug = async (slug: string): Promise<Article> => {
   const query = gql`
-    query PostBySlug($slug: String!) {
-      postBy(slug: $slug) {
+    query PostBySlug($slug: ID!) {
+      post(id: $slug, idType: SLUG) {
         acfPosts {
           postsInTopic {
             ... on Topic {
@@ -226,7 +226,7 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
   const variables = { slug };
   const response = await fetchApi<PostBy>(query, variables);
 
-  return getFormattedPost(response.postBy);
+  return getFormattedPost(response.post);
 };
 
 //==============================================================================

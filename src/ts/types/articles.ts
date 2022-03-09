@@ -1,5 +1,5 @@
 import { ContentInfo, ContentParts, Dates } from './app';
-import { Comment, CommentsNode } from './comments';
+import { Comment } from './comments';
 import { Cover, RawCover } from './cover';
 import { SEO } from './seo';
 import { RawTopicPreview, TopicPreview, ThematicPreview } from './taxonomies';
@@ -85,7 +85,7 @@ export type RawArticlePreview = Pick<
 };
 
 export type PostBy = {
-  postBy: RawArticle;
+  post: RawArticle;
 };
 
 export type ArticleProps = {
