@@ -2,17 +2,9 @@
 // Comments query
 //==============================================================================
 
-export type CommentsByPostId = {
-  postBy: {
-    comments: {
-      nodes: RawComment[];
-    };
-  };
-};
-
 export type CommentAuthor = {
-  gravatarUrl: string;
   name: string;
+  gravatarUrl: string;
   url: string;
 };
 
@@ -23,12 +15,10 @@ export type RawCommentAuthor = {
 export type Comment = {
   approved: '';
   author: CommentAuthor;
-  commentId: number;
+  databaseId: number;
   content: string;
   date: string;
-  id: string;
   parentDatabaseId: number;
-  parentId: string | null;
   replies: Comment[];
 };
 
@@ -38,6 +28,10 @@ export type RawComment = Omit<Comment, 'author' | 'replies'> & {
 
 export type CommentsNode = {
   nodes: RawComment[];
+};
+
+export type CommentsByPostId = {
+  comments: CommentsNode;
 };
 
 //==============================================================================

@@ -61,7 +61,7 @@ export type RawTopic = TopicPreview & {
 };
 
 export type TopicBy = {
-  topicBy: RawTopic;
+  topic: RawTopic;
 };
 
 export type AllTopicsSlug = {
@@ -99,7 +99,7 @@ export type RawThematic = TaxonomyPreview & {
 };
 
 export type ThematicBy = {
-  thematicBy: RawThematic;
+  thematic: RawThematic;
 };
 
 export type AllThematicsSlug = {

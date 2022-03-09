@@ -163,8 +163,8 @@ export const getAllPostsSlug = async (): Promise<Slug[]> => {
 
 export const getPostBySlug = async (slug: string): Promise<Article> => {
   const query = gql`
-    query PostBySlug($slug: String!) {
-      postBy(slug: $slug) {
+    query PostBySlug($slug: ID!) {
+      post(id: $slug, idType: SLUG) {
         acfPosts {
           postsInTopic {
             ... on Topic {
@@ -226,7 +226,7 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
   const variables = { slug };
   const response = await fetchApi<PostBy>(query, variables);
 
-  return getFormattedPost(response.postBy);
+  return getFormattedPost(response.post);
 };
 
 //==============================================================================
@@ -235,24 +235,22 @@ export const getPostBySlug = async (slug: string): Promise<Article> => {
 
 export const getCommentsByPostId = async (id: number): Promise<Comment[]> => {
   const query = gql`
-    query MyQuery($id: Int) {
-      postBy(postId: $id) {
-        comments(where: { order: ASC, orderby: COMMENT_DATE }) {
-          nodes {
-            approved
-            author {
-              node {
-                gravatarUrl
-                id
-                name
-                url
-              }
+    query PostComments($id: ID!) {
+      comments(where: { contentId: $id, order: ASC, orderby: COMMENT_DATE }) {
+        nodes {
+          approved
+          author {
+            node {
+              databaseId
+              gravatarUrl
+              name
+              url
             }
-            commentId
-            content
-            date
-            parentDatabaseId
           }
+          content
+          databaseId
+          date
+          parentDatabaseId
         }
       }
     }
@@ -260,9 +258,7 @@ export const getCommentsByPostId = async (id: number): Promise<Comment[]> => {
 
   const variables = { id };
   const response = await fetchApi<CommentsByPostId>(query, variables);
-  const formattedComments = getFormattedComments(
-    response.postBy.comments.nodes
-  );
+  const formattedComments = getFormattedComments(response.comments.nodes);
 
   return buildCommentsTree(formattedComments);
 };
@@ -273,8 +269,8 @@ export const getCommentsByPostId = async (id: number): Promise<Comment[]> => {
 
 export const getTopicBySlug = async (slug: string): Promise<Topic> => {
   const query = gql`
-    query TopicBySlug($slug: String!) {
-      topicBy(slug: $slug) {
+    query TopicBySlug($slug: ID!) {
+      topic(id: $slug, idType: SLUG) {
         acfTopics {
           officialWebsite
           postsInTopic {
@@ -358,7 +354,7 @@ export const getTopicBySlug = async (slug: string): Promise<Topic> => {
   const variables = { slug };
   const response = await fetchApi<TopicBy>(query, variables);
 
-  return getFormattedTopic(response.topicBy);
+  return getFormattedTopic(response.topic);
 };
 
 export const getAllTopicsSlug = async (): Promise<Slug[]> => {
@@ -400,8 +396,8 @@ export const getAllTopics = async (): Promise<TopicPreview[]> => {
 
 export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
   const query = gql`
-    query ThematicBySlug($slug: String!) {
-      thematicBy(slug: $slug) {
+    query ThematicBySlug($slug: ID!) {
+      thematic(id: $slug, idType: SLUG) {
         acfThematics {
           postsInThematic {
             ... on Post {
@@ -477,7 +473,7 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
   const variables = { slug };
   const response = await fetchApi<ThematicBy>(query, variables);
 
-  return getFormattedThematic(response.thematicBy);
+  return getFormattedThematic(response.thematic);
 };
 
 export const getAllThematicsSlug = async (): Promise<Slug[]> => {

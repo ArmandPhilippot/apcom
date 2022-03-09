@@ -189,15 +189,15 @@ export const buildCommentsTree = (comments: Comment[]) => {
   const commentsTree: Comment[] = [];
 
   comments.forEach(
-    (comment) => (hashTable[comment.commentId] = { ...comment, replies: [] })
+    (comment) => (hashTable[comment.databaseId] = { ...comment, replies: [] })
   );
 
   comments.forEach((comment) => {
     if (!comment.parentDatabaseId) {
-      commentsTree.push(hashTable[comment.commentId]);
+      commentsTree.push(hashTable[comment.databaseId]);
     } else {
       hashTable[comment.parentDatabaseId].replies.push(
-        hashTable[comment.commentId]
+        hashTable[comment.databaseId]
       );
     }
   });

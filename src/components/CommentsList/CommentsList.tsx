@@ -33,7 +33,7 @@ const CommentsList = ({
     return data.map((comment) => {
       return (
         <Comment
-          key={comment.commentId}
+          key={comment.databaseId}
           articleId={articleId}
           comment={comment}
         />
