@@ -24,6 +24,7 @@ import { Blog, Graph, WebPage } from 'schema-dts';
 import styles from '@styles/pages/Page.module.scss';
 import { getFormattedPageNumbers } from '@utils/helpers/format';
 import { useEffect } from 'react';
+import Spinner from '@components/Spinner/Spinner';
 
 const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   allThematics,
@@ -38,6 +39,8 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   useEffect(() => {
     if (router.query.id === '1') router.push('/blog');
   }, [router]);
+
+  if (router.isFallback) return <Spinner />;
 
   const pageTitle = intl.formatMessage(
     {
