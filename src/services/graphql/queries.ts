@@ -269,8 +269,8 @@ export const getCommentsByPostId = async (id: number): Promise<Comment[]> => {
 
 export const getTopicBySlug = async (slug: string): Promise<Topic> => {
   const query = gql`
-    query TopicBySlug($slug: String!) {
-      topicBy(slug: $slug) {
+    query TopicBySlug($slug: ID!) {
+      topic(id: $slug, idType: SLUG) {
         acfTopics {
           officialWebsite
           postsInTopic {
@@ -354,7 +354,7 @@ export const getTopicBySlug = async (slug: string): Promise<Topic> => {
   const variables = { slug };
   const response = await fetchApi<TopicBy>(query, variables);
 
-  return getFormattedTopic(response.topicBy);
+  return getFormattedTopic(response.topic);
 };
 
 export const getAllTopicsSlug = async (): Promise<Slug[]> => {

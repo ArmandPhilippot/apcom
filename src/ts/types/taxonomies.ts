@@ -61,7 +61,7 @@ export type RawTopic = TopicPreview & {
 };
 
 export type TopicBy = {
-  topicBy: RawTopic;
+  topic: RawTopic;
 };
 
 export type AllTopicsSlug = {
