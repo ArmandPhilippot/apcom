@@ -99,7 +99,7 @@ export type RawThematic = TaxonomyPreview & {
 };
 
 export type ThematicBy = {
-  thematicBy: RawThematic;
+  thematic: RawThematic;
 };
 
 export type AllThematicsSlug = {

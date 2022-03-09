@@ -396,8 +396,8 @@ export const getAllTopics = async (): Promise<TopicPreview[]> => {
 
 export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
   const query = gql`
-    query ThematicBySlug($slug: String!) {
-      thematicBy(slug: $slug) {
+    query ThematicBySlug($slug: ID!) {
+      thematic(id: $slug, idType: SLUG) {
         acfThematics {
           postsInThematic {
             ... on Post {
@@ -473,7 +473,7 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
   const variables = { slug };
   const response = await fetchApi<ThematicBy>(query, variables);
 
-  return getFormattedThematic(response.thematicBy);
+  return getFormattedThematic(response.thematic);
 };
 
 export const getAllThematicsSlug = async (): Promise<Slug[]> => {
