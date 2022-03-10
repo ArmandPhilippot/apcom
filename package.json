@@ -25,6 +25,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
+    "deploy": "sh ./bin/deploy.sh",
     "i18n:compile": "formatjs compile-folder src/i18n lang/",
     "i18n:extract": "formatjs extract 'src/**/*.ts*' --out-file src/i18n/en.json",
     "release": "standard-version -s",
