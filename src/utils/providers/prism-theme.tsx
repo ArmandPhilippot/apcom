@@ -28,8 +28,12 @@ export type PrismThemeProviderProps = {
 
 export const PrismThemeContext = createContext<UsePrismThemeProps>({
   themes: ['dark', 'light', 'system'],
-  setTheme: (_) => {},
-  setCodeBlocks: (_) => {},
+  setTheme: (_) => {
+    // This is intentional.
+  },
+  setCodeBlocks: (_) => {
+    // This is intentional.
+  },
 });
 
 export const usePrismTheme = () => useContext(PrismThemeContext);

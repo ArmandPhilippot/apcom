@@ -41,6 +41,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
   };
 
   const components: NestedMDXComponents = {
+    CodeBlock: (props) => CodeBlock(props),
     Gallery: (props) => Gallery(props),
     Image: (props) => ResponsiveImage({ caption: props.caption, ...props }),
     Link: (props) => Link(props),

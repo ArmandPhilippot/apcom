@@ -17,19 +17,18 @@ export const addPrismClasses = () => {
   const preTags = document.getElementsByTagName('pre');
 
   Array.from(preTags).forEach((preTag) => {
-    if (
-      isLanguageBlock(preTag.classList) &&
-      !preTag.classList.contains('command-line') &&
-      !preTag.classList.contains('language-diff')
-    ) {
-      preTag.classList.add('line-numbers', 'match-braces');
+    if (!isLanguageBlock(preTag.classList)) return;
+
+    preTag.classList.add('match-braces');
+
+    if (preTag.classList.contains('filter-output')) {
+      preTag.setAttribute('data-filter-output', '#output#');
     }
 
-    if (
-      preTag.classList.contains('command-line') &&
-      preTag.classList.contains('filter-output')
-    ) {
-      preTag.setAttribute('data-filter-output', '#output#');
+    if (preTag.classList.contains('language-bash')) {
+      preTag.classList.add('command-line');
+    } else if (!preTag.classList.contains('language-diff')) {
+      preTag.classList.add('line-numbers');
     }
   });
 };

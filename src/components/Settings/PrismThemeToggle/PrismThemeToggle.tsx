@@ -1,7 +1,7 @@
 import { Toggle } from '@components/FormElements';
 import { MoonIcon, SunIcon } from '@components/Icons';
 import Spinner from '@components/Spinner/Spinner';
-import { usePrismTheme } from '@utils/providers/prism';
+import { usePrismTheme } from '@utils/providers/prism-theme';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
