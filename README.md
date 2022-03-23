@@ -45,7 +45,13 @@ Make sure Docker and Docker Compose are installed then, you can run: `sudo docke
 
 `<service-name>` is optional. You don't need it the first time. However, if you want to rebuild and update only one container, it can be useful.
 
-If you wish to use custom ports, you can edit your `.env` file and specify `APP_DOCKER_PORT_PROD` and `APP_DOCKER_PORT_DEV` variables. By default the ports are respectively `3000` and `3200`.
+If you wish to use custom ports, you can edit your `.env` file and specify `APP_DOCKER_PORT` and `APP_STAGING_DOCKER_PORT` variables. By default the ports are respectively `3000` and `3200`.
+
+If you are using Docker Swarm, you can instead use the deploy script to ensure that environment variables are loaded:
+
+```bash
+sh ./bin/deploy.sh
+```
 
 ### Without Docker
 
