@@ -34,6 +34,7 @@ const ContactForm = () => {
           defaultMessage:
             'Warning: mail not sent. Some required fields are empty.',
           description: 'ContactForm: missing fields message.',
+          id: 'WpycgB',
         })
       );
       return;
@@ -57,6 +58,7 @@ const ContactForm = () => {
           defaultMessage:
             'Thanks. Your message was successfully sent. I will answer it as soon as possible.',
           description: 'ContactForm: success message',
+          id: 'gQKeF+',
         })
       );
       resetForm();
@@ -64,6 +66,7 @@ const ContactForm = () => {
       const errorPrefix = intl.formatMessage({
         defaultMessage: 'An error occurred:',
         description: 'ContactForm: error message',
+        id: 'pTxT7N',
       });
       const error = `${errorPrefix} ${mail.message}`;
       setStatus('error');
@@ -94,21 +97,25 @@ const ContactForm = () => {
   const nameLabelBody = intl.formatMessage({
     defaultMessage: 'Name',
     description: 'ContactForm: name field label',
+    id: '6ibqFS',
   });
 
   const emailLabelBody = intl.formatMessage({
     defaultMessage: 'Email',
     description: 'ContactForm: email field label',
+    id: 'Vuryko',
   });
 
   const subjectLabelBody = intl.formatMessage({
     defaultMessage: 'Subject',
     description: 'ContactForm: subject field label',
+    id: 'uMURuJ',
   });
 
   const messageLabelBody = intl.formatMessage({
     defaultMessage: 'Message',
     description: 'ContactForm: message field label',
+    id: '0zBQpa',
   });
 
   return (
@@ -160,6 +167,7 @@ const ContactForm = () => {
             {intl.formatMessage({
               defaultMessage: 'Send',
               description: 'ContactForm: send button text',
+              id: 'X7n7N2',
             })}
           </ButtonSubmit>
         </FormItem>

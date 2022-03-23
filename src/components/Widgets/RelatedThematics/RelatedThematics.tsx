@@ -27,6 +27,7 @@ const RelatedThematics = ({ thematics }: { thematics: ThematicPreview[] }) => {
           defaultMessage:
             '{thematicsCount, plural, =0 {Related thematics} one {Related thematic} other {Related thematics}}',
           description: 'RelatedThematics: widget title',
+          id: 'qXQETZ',
         },
         { thematicsCount: thematics.length }
       )}

@@ -16,6 +16,7 @@ const Settings = () => {
         {intl.formatMessage({
           defaultMessage: 'Settings',
           description: 'Settings: modal title',
+          id: 'bHEmkY',
         })}
       </div>
       <ThemeToggle />

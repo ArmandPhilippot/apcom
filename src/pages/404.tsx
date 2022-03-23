@@ -16,12 +16,14 @@ const Error404: NextPageWithLayout = () => {
     {
       defaultMessage: 'Error 404: Page not found - {websiteName}',
       description: '404Page: SEO - Page title',
+      id: '310o3F',
     },
     { websiteName: settings.name }
   );
   const pageDescription = intl.formatMessage({
     defaultMessage: 'Page not found.',
     description: '404Page: SEO - Meta description',
+    id: '48Ww//',
   });
 
   return (
@@ -35,12 +37,14 @@ const Error404: NextPageWithLayout = () => {
           title={intl.formatMessage({
             defaultMessage: 'Page not found',
             description: '404Page: page title',
+            id: 'OccTWi',
           })}
         />
         <div className={styles.body}>
           <FormattedMessage
             defaultMessage="Sorry, it seems that the page your are looking for does not exist. If you think this path should work, feel free to <link>contact me</link> with the necessary information so that I can fix the problem."
             description="404Page: page body"
+            id="ZWh78Y"
             values={{
               link: (chunks: string) => (
                 <Link href="/contact/">
@@ -64,6 +68,7 @@ export const getStaticProps: GetStaticProps = async (
   const breadcrumbTitle = intl.formatMessage({
     defaultMessage: 'Error 404',
     description: '404Page: breadcrumb item',
+    id: 'ywkCsK',
   });
   const { locale } = context;
   const translation = await loadTranslation(locale);

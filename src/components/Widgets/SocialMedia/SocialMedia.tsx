@@ -27,6 +27,7 @@ const SocialMedia = ({
       name: intl.formatMessage({
         defaultMessage: 'Github',
         description: 'SocialMedia: Github',
+        id: 'SWjj4l',
       }),
       url: 'https://github.com/ArmandPhilippot',
     },
@@ -35,6 +36,7 @@ const SocialMedia = ({
       name: intl.formatMessage({
         defaultMessage: 'Gitlab',
         description: 'SocialMedia: Gitlab',
+        id: 'obmlFh',
       }),
       url: 'https://gitlab.com/ArmandPhilippot',
     },
@@ -43,6 +45,7 @@ const SocialMedia = ({
       name: intl.formatMessage({
         defaultMessage: 'LinkedIn',
         description: 'SocialMedia: LinkedIn',
+        id: 'VbcHZ4',
       }),
       url: 'https://www.linkedin.com/in/armandphilippot',
     },
@@ -51,6 +54,7 @@ const SocialMedia = ({
       name: intl.formatMessage({
         defaultMessage: 'Twitter',
         description: 'SocialMedia: Twitter',
+        id: 'IPs/Ck',
       }),
       url: 'https://twitter.com/ArmandPhilippot',
     },

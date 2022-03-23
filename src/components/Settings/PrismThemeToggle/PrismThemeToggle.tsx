@@ -37,6 +37,7 @@ const PrismThemeToggle = () => {
       label={intl.formatMessage({
         defaultMessage: 'Code blocks:',
         description: 'PrismThemeToggle: toggle label',
+        id: 'w0UfY0',
       })}
       leftChoice={<SunIcon />}
       rightChoice={<MoonIcon />}

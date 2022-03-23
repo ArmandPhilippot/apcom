@@ -32,6 +32,7 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
         {intl.formatMessage({
           defaultMessage: 'Search',
           description: 'SearchForm : form title',
+          id: 'eFMu2E',
         })}
       </div>
       <Form submitHandler={launchSearch} kind="search" id="search">
@@ -39,6 +40,7 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
           {intl.formatMessage({
             defaultMessage: 'Keywords:',
             description: 'SearchForm: search field label',
+            id: 'YvMPuD',
           })}
         </label>
         <Field
@@ -56,6 +58,7 @@ const SearchForm = ({ isOpened }: { isOpened: boolean }) => {
             {intl.formatMessage({
               defaultMessage: 'Search',
               description: 'SearchForm: search button text',
+              id: 'AnaPbu',
             })}
           </span>
         </ButtonSubmit>

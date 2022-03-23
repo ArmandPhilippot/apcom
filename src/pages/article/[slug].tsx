@@ -140,22 +140,27 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
   const copyText = intl.formatMessage({
     defaultMessage: 'Copy',
     description: 'Prism: copy button text (no clicked)',
+    id: '/ly3AC',
   });
   const copiedText = intl.formatMessage({
     defaultMessage: 'Copied!',
     description: 'Prism: copy button text (clicked)',
+    id: 'OV9r1K',
   });
   const errorText = intl.formatMessage({
     defaultMessage: 'Use Ctrl+c to copy',
     description: 'Prism: error text',
+    id: 'z9qkcQ',
   });
   const darkTheme = intl.formatMessage({
     defaultMessage: 'Dark Theme 🌙',
     description: 'Prism: toggle dark theme button text',
+    id: 'nFMdWI',
   });
   const lightTheme = intl.formatMessage({
     defaultMessage: 'Light Theme 🌞',
     description: 'Prism: toggle light theme button text',
+    id: 'Ua2g2p',
   });
 
   return (
@@ -190,6 +195,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Table of Contents',
             description: 'ArticlePage: ToC sidebar aria-label',
+            id: '9nhYRA',
           })}
         >
           <ToC />
@@ -204,6 +210,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Sidebar',
             description: 'ArticlePage: right sidebar aria-label',
+            id: 'JeYOeA',
           })}
         >
           <Sharing title={title} excerpt={intro} />

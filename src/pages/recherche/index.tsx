@@ -81,12 +81,14 @@ const Search: NextPageWithLayout = () => {
         {
           defaultMessage: 'Search results for {query}',
           description: 'SearchPage: search results text',
+          id: 'VSGuGE',
         },
         { query }
       )
     : intl.formatMessage({
         defaultMessage: 'Search',
         description: 'SearchPage: page title',
+        id: 'U+35YD',
       });
 
   const description = query
@@ -94,6 +96,7 @@ const Search: NextPageWithLayout = () => {
         {
           defaultMessage: 'Discover search results for {query}',
           description: 'SearchPage: meta description with query',
+          id: 'A4LTGq',
         },
         { query }
       )
@@ -101,6 +104,7 @@ const Search: NextPageWithLayout = () => {
         {
           defaultMessage: 'Search for a post on {websiteName}',
           description: 'SearchPage: meta description without query',
+          id: 'PrIz5o',
         },
         { websiteName: settings.name }
       );
@@ -122,6 +126,7 @@ const Search: NextPageWithLayout = () => {
       return intl.formatMessage({
         defaultMessage: 'Failed to load.',
         description: 'SearchPage: failed to load text',
+        id: 'fOe8rH',
       });
     if (!data) return <Spinner />;
 
@@ -155,6 +160,7 @@ const Search: NextPageWithLayout = () => {
                 {intl.formatMessage({
                   defaultMessage: 'Load more?',
                   description: 'SearchPage: load more text',
+                  id: 'pEtJik',
                 })}
               </Button>
             </>
@@ -165,12 +171,14 @@ const Search: NextPageWithLayout = () => {
             title={intl.formatMessage({
               defaultMessage: 'Thematics',
               description: 'SearchPage: thematics list widget title',
+              id: 'Dq6+WH',
             })}
           />
           <TopicsList
             title={intl.formatMessage({
               defaultMessage: 'Topics',
               description: 'SearchPage: topics list widget title',
+              id: 'N804XO',
             })}
           />
         </Sidebar>
@@ -188,6 +196,7 @@ export const getStaticProps: GetStaticProps = async (
   const breadcrumbTitle = intl.formatMessage({
     defaultMessage: 'Search',
     description: 'SearchPage: breadcrumb item',
+    id: 'TfU6Qm',
   });
   const { locale } = context;
   const translation = await loadTranslation(locale);

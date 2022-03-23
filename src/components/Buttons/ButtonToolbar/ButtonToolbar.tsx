@@ -44,6 +44,7 @@ const ButtonToolbar = (
             {
               defaultMessage: 'Close {type}',
               description: 'ButtonToolbar: Close button',
+              id: 'SWq8a4',
             },
             {
               type,
@@ -56,6 +57,7 @@ const ButtonToolbar = (
             {
               defaultMessage: 'Open {type}',
               description: 'ButtonToolbar: Open button',
+              id: 'Z1eSIz',
             },
             {
               type,

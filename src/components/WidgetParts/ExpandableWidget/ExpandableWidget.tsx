@@ -42,10 +42,12 @@ const ExpandableWidget = ({
             ? intl.formatMessage({
                 defaultMessage: 'Collapse',
                 description: 'ExpandableWidget: collapse text',
+                id: 'WRkY1/',
               })
             : intl.formatMessage({
                 defaultMessage: 'Expand',
                 description: 'ExpandableWidget: expand text',
+                id: 'hV0qHp',
               })}
         </span>
         <TitleTag className={styles.title}>{title}</TitleTag>

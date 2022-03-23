@@ -28,6 +28,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
     {
       defaultMessage: 'Projects: open-source makings - {websiteName}',
       description: 'ProjectsPage: SEO - Page title',
+      id: 'SX1z3t',
     },
     { websiteName: settings.name }
   );
@@ -36,6 +37,7 @@ const Projects = ({ projects }: { projects: Project[] }) => {
       defaultMessage:
         'Discover {websiteName} projects. Mostly related to web development and open source.',
       description: 'ProjectsPage: SEO - Meta description',
+      id: 's6U1Xt',
     },
     { websiteName: settings.name }
   );

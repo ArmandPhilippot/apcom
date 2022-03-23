@@ -56,6 +56,7 @@ const Comment = ({
       {
         defaultMessage: '{date} at {time}',
         description: 'Comment: publication date',
+        id: 'CT3ydM',
       },
       {
         date,
@@ -88,6 +89,7 @@ const Comment = ({
               {intl.formatMessage({
                 defaultMessage: 'Published on:',
                 description: 'Comment: publication date label',
+                id: 'soj7do',
               })}
             </dt>
             <dd>
@@ -109,10 +111,12 @@ const Comment = ({
                   ? intl.formatMessage({
                       defaultMessage: 'Cancel reply',
                       description: 'Comment: reply button',
+                      id: 'e1Forh',
                     })
                   : intl.formatMessage({
                       defaultMessage: 'Reply',
                       description: 'Comment: reply button',
+                      id: 'hzHuCc',
                     })}
               </Button>
             </footer>
@@ -148,6 +152,7 @@ const Comment = ({
         {intl.formatMessage({
           defaultMessage: 'This comment is awaiting moderation.',
           description: 'Comment: awaiting moderation message',
+          id: 'rXeTkM',
         })}
       </p>
     );

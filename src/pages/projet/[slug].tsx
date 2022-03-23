@@ -117,6 +117,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Table of Contents',
             description: 'ProjectPage: ToC sidebar aria-label',
+            id: '6dXfvr',
           })}
         >
           <ToC />
@@ -130,6 +131,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Sidebar',
             description: 'ProjectPage: right sidebar aria-label',
+            id: 'hHrNd0',
           })}
         >
           <Sharing title={title} excerpt={intro} />

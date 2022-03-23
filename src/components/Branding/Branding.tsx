@@ -76,6 +76,7 @@ const Branding: BrandingReturn = ({ isHome = false }) => {
                 {
                   defaultMessage: '{brandingName} picture',
                   description: 'Branding: branding name picture.',
+                  id: 'ILRLTq',
                 },
                 {
                   brandingName: settings.name,

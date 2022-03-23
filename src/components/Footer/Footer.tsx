@@ -41,6 +41,7 @@ const Footer = () => {
             {intl.formatMessage({
               defaultMessage: 'Back to top',
               description: 'Footer: Back to top button',
+              id: 'dqrd6I',
             })}
           </span>
           <ArrowIcon direction="top" />

@@ -22,6 +22,7 @@ const ContactPage: NextPageWithLayout = () => {
     {
       defaultMessage: 'Contact form - {websiteName}',
       description: 'ContactPage: SEO - Page title',
+      id: 'Y3qRib',
     },
     { websiteName: settings.name }
   );
@@ -30,6 +31,7 @@ const ContactPage: NextPageWithLayout = () => {
       defaultMessage:
         "Contact {websiteName} through its website. All you need to do it's to fill the contact form.",
       description: 'ContactPage: SEO - Meta description',
+      id: 'OIffB4',
     },
     { websiteName: settings.name }
   );
@@ -37,10 +39,12 @@ const ContactPage: NextPageWithLayout = () => {
   const title = intl.formatMessage({
     defaultMessage: 'Contact',
     description: 'ContactPage: page title',
+    id: 'AN9iy7',
   });
   const intro = intl.formatMessage({
     defaultMessage: 'Please fill the form to contact me.',
     description: 'ContactPage: page introduction',
+    id: '8Ls2mD',
   });
 
   const webpageSchema: WebPage = {
@@ -99,6 +103,7 @@ const ContactPage: NextPageWithLayout = () => {
             {intl.formatMessage({
               defaultMessage: 'All fields marked with * are required.',
               description: 'ContactPage: required fields text',
+              id: 'txusHd',
             })}
           </p>
           <ContactForm />
@@ -108,6 +113,7 @@ const ContactPage: NextPageWithLayout = () => {
             title={intl.formatMessage({
               defaultMessage: 'Find me elsewhere',
               description: 'ContactPage: social media widget title',
+              id: 'Qh2CwH',
             })}
             github={true}
             gitlab={true}
@@ -128,6 +134,7 @@ export const getStaticProps: GetStaticProps = async (
   const breadcrumbTitle = intl.formatMessage({
     defaultMessage: 'Contact',
     description: 'ContactPage: breadcrumb item',
+    id: 'CzTbM4',
   });
   const { locale } = context;
   const translation = await loadTranslation(locale);

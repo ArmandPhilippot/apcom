@@ -25,6 +25,7 @@ const ProjectPreview = ({ project }: { project: Project }) => {
                     {
                       defaultMessage: '{title} picture',
                       description: 'ProjectPreview: cover alt text',
+                      id: '2pykor',
                     },
                     { title }
                   )}
@@ -49,6 +50,7 @@ const ProjectPreview = ({ project }: { project: Project }) => {
                         defaultMessage:
                           '{count, plural, =0 {Technologies:} one {Technology:} other {Technologies:}}',
                         description: 'ProjectPreview: technologies list label',
+                        id: 'okFrAO',
                       },
                       { count: meta.technologies.length }
                     )}

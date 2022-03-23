@@ -15,6 +15,7 @@ const CommentsCount = ({ total, kind }: { total: number; kind: MetaKind }) => {
         defaultMessage:
           '{total, plural, =0 {No comments} one {# comment} other {# comments}}',
         description: 'CommentsCount: comment count value',
+        id: 'lKGNKx',
       },
       { total }
     );
@@ -25,6 +26,7 @@ const CommentsCount = ({ total, kind }: { total: number; kind: MetaKind }) => {
       title={intl.formatMessage({
         defaultMessage: 'Comments:',
         description: 'CommentsCount: comment count meta label',
+        id: '6BRtAu',
       })}
       value={
         isArticle() ? (

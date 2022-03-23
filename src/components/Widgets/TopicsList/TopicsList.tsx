@@ -35,6 +35,7 @@ const TopicsList = ({
           {intl.formatMessage({
             defaultMessage: 'Failed to load.',
             description: 'TopicsList: failed to load text',
+            id: '00Pf5p',
           })}
         </ul>
       );

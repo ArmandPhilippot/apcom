@@ -33,6 +33,7 @@ const ProjectSummary = ({
             alt={intl.formatMessage({
               defaultMessage: '{title} preview',
               description: 'ProjectSummary: cover alt text',
+              id: 'mh7tGg',
             })}
             layout="fill"
             objectFit="contain"
@@ -46,6 +47,7 @@ const ProjectSummary = ({
               {intl.formatMessage({
                 defaultMessage: 'Created on:',
                 description: 'ProjectSummary: creation date label',
+                id: 'CWi0go',
               })}
             </dt>
             <dd>
@@ -61,6 +63,7 @@ const ProjectSummary = ({
               {intl.formatMessage({
                 defaultMessage: 'Last updated on:',
                 description: 'ProjectSummary: update date label',
+                id: 'vJ+QDV',
               })}
             </dt>
             <dd>
@@ -75,6 +78,7 @@ const ProjectSummary = ({
             {intl.formatMessage({
               defaultMessage: 'License:',
               description: 'ProjectSummary: license label',
+              id: 'hKagVG',
             })}
           </dt>
           <dd>{license}</dd>
@@ -87,6 +91,7 @@ const ProjectSummary = ({
                   defaultMessage:
                     '{count, plural, =0 {Technologies:} one {Technology:} other {Technologies:}}',
                   description: 'ProjectSummary: technologies list label',
+                  id: 'enwhNm',
                 },
                 { count: technologies.length }
               )}
@@ -109,6 +114,7 @@ const ProjectSummary = ({
                   defaultMessage:
                     '{count, plural, =0 {Repositories:} one {Repository:} other {Repositories:}}',
                   description: 'ProjectSummary: repositories list label',
+                  id: 'OTTv+m',
                 },
                 { count: Object.keys(repos).length }
               )}
@@ -143,6 +149,7 @@ const ProjectSummary = ({
               {intl.formatMessage({
                 defaultMessage: 'Popularity:',
                 description: 'ProjectSummary: popularity label',
+                id: 'vgMk0q',
               })}
             </dt>
             {repos.github && (
@@ -154,6 +161,7 @@ const ProjectSummary = ({
                       defaultMessage:
                         '{starsCount, plural, =0 {0 stars on Github} one {# star on Github} other {# stars on Github}}',
                       description: 'ProjectSummary: technologies list label',
+                      id: 'aA3hOT',
                     },
                     { starsCount: data.stargazers_count }
                   )}

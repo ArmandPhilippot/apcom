@@ -27,14 +27,17 @@ const ReduceMotion = () => {
       label={intl.formatMessage({
         defaultMessage: 'Animations:',
         description: 'ReduceMotion: toggle label',
+        id: 'X3PDXO',
       })}
       leftChoice={intl.formatMessage({
         defaultMessage: 'On',
         description: 'ReduceMotion: toggle on label',
+        id: 'qPU/Qn',
       })}
       rightChoice={intl.formatMessage({
         defaultMessage: 'Off',
         description: 'ReduceMotion: toggle off label',
+        id: 'w1nIrj',
       })}
       value={isDeactivated}
       changeHandler={updateState}

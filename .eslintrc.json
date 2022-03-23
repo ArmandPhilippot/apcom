@@ -2,6 +2,13 @@
   "extends": ["next/core-web-vitals", "prettier"],
   "plugins": ["formatjs"],
   "rules": {
-    "formatjs/enforce-default-message": ["error", "literal"]
+    "formatjs/enforce-default-message": ["error", "literal"],
+    "formatjs/enforce-description": ["error", "literal"],
+    "formatjs/enforce-id": [
+      "error",
+      {
+        "idInterpolationPattern": "[sha512:contenthash:base64:6]"
+      }
+    ]
   }
 }

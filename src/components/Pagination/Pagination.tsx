@@ -23,6 +23,7 @@ const Pagination = ({ baseUrl, total }: { baseUrl: string; total: number }) => {
               {
                 defaultMessage: '{icon} Previous page',
                 description: 'Pagination: previous page link',
+                id: 'aMFqPH',
               },
               { icon: '←' }
             )}
@@ -41,6 +42,7 @@ const Pagination = ({ baseUrl, total }: { baseUrl: string; total: number }) => {
               {
                 defaultMessage: 'Next page {icon}',
                 description: 'Pagination: Next page link',
+                id: 'R4yaW6',
               },
               { icon: '→' }
             )}
@@ -62,6 +64,7 @@ const Pagination = ({ baseUrl, total }: { baseUrl: string; total: number }) => {
                 {
                   defaultMessage: '<a11y>Page </a11y>{number}',
                   description: 'Pagination: page number',
+                  id: 'TSXPzr',
                 },
                 {
                   number: i,
@@ -83,6 +86,7 @@ const Pagination = ({ baseUrl, total }: { baseUrl: string; total: number }) => {
                   {
                     defaultMessage: '<a11y>Page </a11y>{number}',
                     description: 'Pagination: page number',
+                    id: 'TSXPzr',
                   },
                   {
                     number: i,
@@ -117,6 +121,7 @@ const Pagination = ({ baseUrl, total }: { baseUrl: string; total: number }) => {
         {intl.formatMessage({
           defaultMessage: 'Pagination',
           description: 'Pagination: pagination title',
+          id: 'BAkq7J',
         })}
       </h2>
       <ul className={styles.list}>

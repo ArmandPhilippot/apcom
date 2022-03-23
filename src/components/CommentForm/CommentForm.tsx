@@ -63,6 +63,7 @@ const CommentForm = ({
           intl.formatMessage({
             defaultMessage: 'Thanks for your comment!',
             description: 'CommentForm: success notice',
+            id: 'AVUUgG',
           })
         );
       } else {
@@ -71,6 +72,7 @@ const CommentForm = ({
             defaultMessage:
               'Thanks for your comment! It is now awaiting moderation.',
             description: 'CommentForm: success notice but awaiting moderation',
+            id: 'Ul2NIl',
           })
         );
       }
@@ -85,6 +87,7 @@ const CommentForm = ({
           defaultMessage:
             'An unexpected error happened. Comment cannot be submitted.',
           description: 'CommentForm: error notice',
+          id: 'cjK9Ad',
         })
       );
     }
@@ -105,6 +108,7 @@ const CommentForm = ({
           defaultMessage:
             'Some required fields are empty. Comment cannot be submitted.',
           description: 'CommentForm: missing required fields',
+          id: 'Rle+UK',
         })
       );
     }
@@ -126,21 +130,25 @@ const CommentForm = ({
   const nameLabelBody = intl.formatMessage({
     defaultMessage: 'Name',
     description: 'CommentForm: Name field label',
+    id: 'F7QxJH',
   });
 
   const emailLabelBody = intl.formatMessage({
     defaultMessage: 'Email',
     description: 'CommentForm: Email field label',
+    id: 'Oim3rQ',
   });
 
   const websiteLabelBody = intl.formatMessage({
     defaultMessage: 'Website',
     description: 'CommentForm: Website field label',
+    id: 'jN+dY5',
   });
 
   const commentLabelBody = intl.formatMessage({
     defaultMessage: 'Comment',
     description: 'CommentForm: Comment field label',
+    id: 'J4nhm4',
   });
 
   return (
@@ -149,6 +157,7 @@ const CommentForm = ({
         {intl.formatMessage({
           defaultMessage: 'Leave a comment',
           description: 'CommentForm: Form title',
+          id: '+aHn7j',
         })}
       </h2>
       <Form
@@ -202,12 +211,14 @@ const CommentForm = ({
             {intl.formatMessage({
               defaultMessage: 'Javascript is required to post a comment.',
               description: 'CommentForm: noscript tag',
+              id: 'g1cFCa',
             })}
           </noscript>
           <ButtonSubmit>
             {intl.formatMessage({
               defaultMessage: 'Send',
               description: 'CommentForm: Send button',
+              id: 'WGFOmA',
             })}
           </ButtonSubmit>
         </FormItem>
@@ -217,6 +228,7 @@ const CommentForm = ({
           message={intl.formatMessage({
             defaultMessage: 'Submitting...',
             description: 'CommentForm: submitting message',
+            id: 'HEJ3Gv',
           })}
         />
       )}

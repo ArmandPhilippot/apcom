@@ -10,6 +10,7 @@ const Website = ({ url, kind }: { url: string; kind: MetaKind }) => {
       title={intl.formatMessage({
         defaultMessage: 'Website:',
         description: 'Website: website meta label',
+        id: 'JsOoAW',
       })}
       value={<a href={url}>{url}</a>}
       kind={kind}

@@ -38,6 +38,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
             {intl.formatMessage({
               defaultMessage: 'Web development',
               description: 'HomePage: link to web development thematic',
+              id: 'vkF/RP',
             })}
           </ButtonLink>
         </li>
@@ -46,6 +47,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
             {intl.formatMessage({
               defaultMessage: 'Projects',
               description: 'HomePage: link to projects',
+              id: 'N44SOc',
             })}
           </ButtonLink>
         </li>
@@ -84,6 +86,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
             {intl.formatMessage({
               defaultMessage: 'Free',
               description: 'HomePage: link to free thematic',
+              id: 'w8GrOf',
             })}
           </ButtonLink>
         </li>
@@ -92,6 +95,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
             {intl.formatMessage({
               defaultMessage: 'Linux',
               description: 'HomePage: link to Linux thematic',
+              id: 'jASD7k',
             })}
           </ButtonLink>
         </li>
@@ -107,6 +111,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
             {intl.formatMessage({
               defaultMessage: 'Shaarli',
               description: 'HomePage: link to Shaarli',
+              id: 'i5L19t',
             })}
           </ButtonLink>
         </li>
@@ -123,6 +128,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
             {intl.formatMessage({
               defaultMessage: 'Contact me',
               description: 'HomePage: contact button text',
+              id: 'sO/Iwj',
             })}
           </ButtonLink>
         </li>
@@ -132,6 +138,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
             {intl.formatMessage({
               defaultMessage: 'Subscribe',
               description: 'HomePage: RSS feed subscription text',
+              id: 'T4YA64',
             })}
           </ButtonLink>
         </li>
@@ -157,6 +164,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
     {
       defaultMessage: '{websiteName} | Front-end developer: WordPress/React',
       description: 'HomePage: SEO - Page title',
+      id: 'PXp2hv',
     },
     { websiteName: settings.name }
   );
@@ -165,6 +173,7 @@ const Home: NextPageWithLayout<HomePageProps> = ({
       defaultMessage:
         '{websiteName} is a front-end developer located in France. He codes and he writes mostly about web development and open-source.',
       description: 'HomePage: SEO - Meta description',
+      id: 'tMuNTy',
     },
     { websiteName: settings.name }
   );

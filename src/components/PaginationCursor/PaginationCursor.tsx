@@ -18,6 +18,7 @@ const PaginationCursor = ({
             defaultMessage:
               '{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}',
             description: 'PaginationCursor: loaded articles count message',
+            id: 'du4MLN',
           },
           { articlesCount: current, total }
         )}
@@ -32,6 +33,7 @@ const PaginationCursor = ({
           defaultMessage:
             'Number of articles loaded out of the total available.',
           description: 'PaginationCursor: loaded articles count aria-label',
+          id: 'mC21ht',
         })}
       ></progress>
     </div>

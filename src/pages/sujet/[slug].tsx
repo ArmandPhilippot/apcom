@@ -138,6 +138,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Table of Contents',
             description: 'TopicPage: ToC sidebar aria-label',
+            id: 'lsDB5G',
           })}
         >
           <ToC />
@@ -151,6 +152,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
                   {
                     defaultMessage: 'All posts in {name}',
                     description: 'TopicPage: posts list title',
+                    id: 'FLkF2R',
                   },
                   { name: topic.title }
                 )}
@@ -164,6 +166,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Sidebar',
             description: 'TopicPage: right sidebar aria-label',
+            id: 'eu3beS',
           })}
         >
           <RelatedThematics thematics={relatedThematics.current} />
@@ -172,6 +175,7 @@ const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
             title={intl.formatMessage({
               defaultMessage: 'Others topics',
               description: 'TopicPage: topics list widget title',
+              id: '+4tiVb',
             })}
           />
         </Sidebar>
