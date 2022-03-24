@@ -23,8 +23,9 @@
       "@pages/*": ["src/pages/*"],
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
-      "@utils/*": ["src/utils/*"],
-      "@ts/*": ["src/ts/*"]
+      "@test-utils": ["__tests__/utils/test-utils"],
+      "@ts/*": ["src/ts/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": [

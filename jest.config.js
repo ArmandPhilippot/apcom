@@ -26,6 +26,7 @@ const customJestConfig = {
     '^@pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@test-utils': '<rootDir>/__tests__/utils/test-utils',
     '^@ts/(.*)$': '<rootDir>/src/ts/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
@@ -35,6 +36,11 @@ const customJestConfig = {
 
   // The test environment that will be used for testing
   testEnvironment: 'jest-environment-jsdom',
+
+  testPathIgnorePatterns: [
+    '<rootDir>/__tests__/jest/__mocks__',
+    '<rootDir>/__tests__/utils',
+  ],
 };
 
 /**
