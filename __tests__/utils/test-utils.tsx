@@ -32,13 +32,11 @@ const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => {
  * @param {CustomRenderOptions} [options] - An object of render options and providers options.
  * @returns A React component wrapped with all the providers.
  */
-const customRender = (ui: JSX.Element, options?: CustomRenderOptions) => {
-  const Component = () => ui;
-  render(<Component />, {
+const customRender = (ui: JSX.Element, options?: CustomRenderOptions) =>
+  render(ui, {
     wrapper: () => <AllTheProviders {...options?.providers} />,
     ...options?.testingLibrary,
   });
-};
 
 export * from '@testing-library/react';
 export { customRender as render };
