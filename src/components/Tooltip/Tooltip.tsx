@@ -29,10 +29,12 @@ const Tooltip = ({
     ? intl.formatMessage({
         defaultMessage: 'Close help',
         description: 'Tooltip: button title',
+        id: '9kx83j',
       })
     : intl.formatMessage({
         defaultMessage: 'Show help',
         description: 'Tooltip: button title',
+        id: 'A5n+C9',
       });
 
   const wrapperModifier = isOpen ? styles.visible : styles.hidden;

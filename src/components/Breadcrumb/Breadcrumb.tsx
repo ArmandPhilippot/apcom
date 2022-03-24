@@ -25,6 +25,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
               {intl.formatMessage({
                 defaultMessage: 'Home',
                 description: 'Breadcrumb: Home item',
+                id: 'Enij19',
               })}
             </a>
           </Link>
@@ -37,6 +38,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
                   {intl.formatMessage({
                     defaultMessage: 'Blog',
                     description: 'Breadcrumb: Blog item',
+                    id: 'z0ic9c',
                   })}
                 </a>
               </Link>
@@ -51,6 +53,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
                   {intl.formatMessage({
                     defaultMessage: 'Projects',
                     description: 'Breadcrumb: Projects item',
+                    id: 'Igx3qp',
                   })}
                 </a>
               </Link>
@@ -70,6 +73,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
       name: intl.formatMessage({
         defaultMessage: 'Home',
         description: 'Breadcrumb: Home item',
+        id: 'Enij19',
       }),
       item: settings.url,
     };
@@ -83,6 +87,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
         name: intl.formatMessage({
           defaultMessage: 'Blog',
           description: 'Breadcrumb: Blog item',
+          id: 'z0ic9c',
         }),
         item: `${settings.url}/blog`,
       };
@@ -97,6 +102,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
         name: intl.formatMessage({
           defaultMessage: 'Projects',
           description: 'Breadcrumb: Projects item',
+          id: 'Igx3qp',
         }),
         item: `${settings.url}/projets`,
       };
@@ -136,6 +142,7 @@ const Breadcrumb = ({ pageTitle }: { pageTitle: string }) => {
             {intl.formatMessage({
               defaultMessage: 'You are here:',
               description: 'Breadcrumb: You are here prefix',
+              id: '16zl9Z',
             })}
           </span>
           <ol className={styles.list}>{getItems()}</ol>

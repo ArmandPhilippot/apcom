@@ -27,6 +27,7 @@ const Dates = ({
         title={intl.formatMessage({
           defaultMessage: 'Published on:',
           description: 'Dates: publication date meta label',
+          id: '52Fev1',
         })}
         values={[
           <time key={publication} dateTime={publication}>
@@ -40,6 +41,7 @@ const Dates = ({
           title={intl.formatMessage({
             defaultMessage: 'Updated on:',
             description: 'Dates: update date meta label',
+            id: 'C+r/LF',
           })}
           values={[
             <time key={update} dateTime={update}>

@@ -9,6 +9,7 @@ const ToC = () => {
   const title = intl.formatMessage({
     defaultMessage: 'Table of contents',
     description: 'ToC: widget title',
+    id: 'Zg4L7U',
   });
 
   const getItems = (headings: Heading[]) => {
@@ -19,6 +20,7 @@ const ToC = () => {
             <FormattedMessage
               defaultMessage="<a11y>Jump to </a11y>{title}"
               description="ToC: link"
+              id="GgIWnN"
               values={{
                 title: heading.title,
                 a11y: (chunks: string) => (
@@ -42,6 +44,7 @@ const ToC = () => {
           defaultMessage:
             'Javascript is required to use the table of contents.',
           description: 'ToC: noscript tag',
+          id: 'RZzx/4',
         })}
       </noscript>
       <OrderedList items={getItems(headingsTree)} />

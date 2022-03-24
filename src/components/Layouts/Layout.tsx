@@ -121,6 +121,7 @@ const Layout = ({
         {intl.formatMessage({
           defaultMessage: 'Skip to content',
           description: 'Layout: Skip to content button',
+          id: 'iqAbyn',
         })}
       </a>
       <Header isHome={isHome} />
@@ -132,6 +133,7 @@ const Layout = ({
             defaultMessage:
               'Without Javascript, some features may not work like loading more posts or use search. If you want to benefit from these features, please activate Javascript.',
             description: 'Layout: noscript banner',
+            id: 'LR70nt',
           })}
         </div>
       </noscript>

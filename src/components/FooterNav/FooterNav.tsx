@@ -12,6 +12,7 @@ const FooterNav = () => {
       name: intl.formatMessage({
         defaultMessage: 'Legal notice',
         description: 'FooterNav: legal notice link',
+        id: 'yWjXRx',
       }),
       slug: '/mentions-legales',
     },
@@ -33,6 +34,7 @@ const FooterNav = () => {
       aria-label={intl.formatMessage({
         defaultMessage: 'Footer',
         description: 'FooterNav: aria-label',
+        id: 'HTdaZj',
       })}
     >
       <ul className={styles.list}>{navItems}</ul>

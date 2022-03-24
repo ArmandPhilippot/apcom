@@ -1,7 +1,7 @@
 import { Toggle } from '@components/FormElements';
 import { MoonIcon, SunIcon } from '@components/Icons';
 import Spinner from '@components/Spinner/Spinner';
-import { usePrismTheme } from '@utils/providers/prism';
+import { usePrismTheme } from '@utils/providers/prism-theme';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -37,6 +37,7 @@ const PrismThemeToggle = () => {
       label={intl.formatMessage({
         defaultMessage: 'Code blocks:',
         description: 'PrismThemeToggle: toggle label',
+        id: 'w0UfY0',
       })}
       leftChoice={<SunIcon />}
       rightChoice={<MoonIcon />}

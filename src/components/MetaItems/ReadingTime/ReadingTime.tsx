@@ -20,6 +20,7 @@ const ReadingTime = ({
       return intl.formatMessage({
         defaultMessage: 'less than 1 minute',
         description: 'ReadingTime: Reading time value',
+        id: 'ySsWZl',
       });
     }
 
@@ -28,6 +29,7 @@ const ReadingTime = ({
         defaultMessage:
           '{time, plural, =0 {# minutes} one {# minute} other {# minutes}}',
         description: 'ReadingTime: reading time value',
+        id: 'wdqOpf',
       },
       { time }
     );
@@ -38,12 +40,14 @@ const ReadingTime = ({
       title={intl.formatMessage({
         defaultMessage: 'Reading time:',
         description: 'ReadingTime: reading time meta label',
+        id: 'n0Gbod',
       })}
       value={getEstimation()}
       info={intl.formatMessage(
         {
-          defaultMessage: `Approximately {number} words`,
+          defaultMessage: 'Approximately {number} words',
           description: 'ReadingTime: number of words',
+          id: 'k7/SkN',
         },
         { number: words.toLocaleString(locale) }
       )}

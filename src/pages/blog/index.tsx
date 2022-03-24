@@ -97,6 +97,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
       return intl.formatMessage({
         defaultMessage: 'Failed to load.',
         description: 'BlogPage: failed to load text',
+        id: 'C/XGkH',
       });
     if (!data) return <Spinner />;
 
@@ -107,6 +108,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
     {
       defaultMessage: 'Blog: development, open source - {websiteName}',
       description: 'BlogPage: SEO - Page title',
+      id: '+Y+tLK',
     },
     { websiteName: settings.name }
   );
@@ -115,6 +117,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
       defaultMessage:
         "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
       description: 'BlogPage: SEO - Meta description',
+      id: '18h/t0',
     },
     { websiteName: settings.name }
   );
@@ -153,6 +156,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
   const title = intl.formatMessage({
     defaultMessage: 'Blog',
     description: 'BlogPage: page title',
+    id: '7TbbIk',
   });
 
   return (
@@ -193,6 +197,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
                   {intl.formatMessage({
                     defaultMessage: 'Load more?',
                     description: 'BlogPage: load more text',
+                    id: 'Kqq2cm',
                   })}
                 </Button>
               </>
@@ -205,6 +210,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
           title={intl.formatMessage({
             defaultMessage: 'Filter by:',
             description: 'BlogPage: sidebar title',
+            id: 'KERk7L',
           })}
         >
           <ThematicsList
@@ -212,6 +218,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
             title={intl.formatMessage({
               defaultMessage: 'Thematics',
               description: 'BlogPage: thematics list widget title',
+              id: 'HriY57',
             })}
           />
           <TopicsList
@@ -219,6 +226,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
             title={intl.formatMessage({
               defaultMessage: 'Topics',
               description: 'BlogPage: topics list widget title',
+              id: '2D9tB5',
             })}
           />
         </Sidebar>
@@ -236,6 +244,7 @@ export const getStaticProps: GetStaticProps = async (
   const breadcrumbTitle = intl.formatMessage({
     defaultMessage: 'Blog',
     description: 'BlogPage: breadcrumb item',
+    id: 'R0eDmw',
   });
   const firstPosts = await getPublishedPosts({ first: settings.postsPerPage });
   const totalPosts = await getPostsTotal();

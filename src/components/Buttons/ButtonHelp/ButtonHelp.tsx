@@ -32,6 +32,7 @@ const ButtonHelp = ({
         {intl.formatMessage({
           defaultMessage: 'Help',
           description: 'ButtonHelp: screen reader text',
+          id: 'oPf+XA',
         })}
       </span>
     </button>

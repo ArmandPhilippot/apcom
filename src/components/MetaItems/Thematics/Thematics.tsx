@@ -30,6 +30,7 @@ const Thematics = ({
           defaultMessage:
             '{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}',
           description: 'Thematics: thematics list meta label',
+          id: '1r4ujR',
         },
         { thematicsCount: list.length }
       )}

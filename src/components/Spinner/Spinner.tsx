@@ -14,6 +14,7 @@ const Spinner = ({ message }: { message?: string }) => {
           intl.formatMessage({
             defaultMessage: 'Loading...',
             description: 'Spinner: loading text',
+            id: 'q9cJQe',
           })}
       </div>
     </div>

@@ -25,6 +25,7 @@ const CommentsList = ({
       return intl.formatMessage({
         defaultMessage: 'Failed to load.',
         description: 'CommentsList: failed to load',
+        id: 'Zlkww3',
       });
     }
 
@@ -47,6 +48,7 @@ const CommentsList = ({
         {intl.formatMessage({
           defaultMessage: 'Comments',
           description: 'CommentsList: Comments section title',
+          id: 'Ns8CFb',
         })}
       </h2>
       {data && data.length > 0 ? (
@@ -56,6 +58,7 @@ const CommentsList = ({
           {intl.formatMessage({
             defaultMessage: 'No comments yet.',
             description: 'CommentsList: No comment message',
+            id: 'e9L59q',
           })}
         </p>
       )}

@@ -35,6 +35,7 @@ const LegalNotice: NextPageWithLayout = () => {
     {
       defaultMessage: 'Legal notice - {websiteName}',
       description: 'LegalNoticePage: SEO - Page title',
+      id: '4zAUSu',
     },
     { websiteName: settings.name }
   );
@@ -42,6 +43,7 @@ const LegalNotice: NextPageWithLayout = () => {
     {
       defaultMessage: "Discover the legal notice of {websiteName}'s website.",
       description: 'LegalNoticePage: SEO - Meta description',
+      id: 'uvB+32',
     },
     { websiteName: settings.name }
   );
@@ -49,6 +51,7 @@ const LegalNotice: NextPageWithLayout = () => {
   const title = intl.formatMessage({
     defaultMessage: 'Legal notice',
     description: 'LegalNoticePage: page title',
+    id: '/IirIt',
   });
   const publicationDate = new Date(dates.publication);
   const updateDate = new Date(dates.update);

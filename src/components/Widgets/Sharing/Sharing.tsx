@@ -1,5 +1,4 @@
 import { ExpandableWidget } from '@components/WidgetParts';
-import { getIntlInstance } from '@utils/helpers/i18n';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -58,10 +57,12 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
             const intro = intl.formatMessage({
               defaultMessage: 'Introduction:',
               description: 'Sharing: email content prefix',
+              id: 'yfgMcl',
             });
             const readMore = intl.formatMessage({
               defaultMessage: 'Read more here:',
               description: 'Sharing: content link prefix',
+              id: 'UsQske',
             });
             const body = `${intro}\n\n"${pageExcerpt}"\n\n${readMore} ${pageUrl}`;
             sharingUrl += encodeURI(body);
@@ -76,6 +77,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
                   {
                     defaultMessage: 'Seen on {domainName}:',
                     description: 'Sharing: seen on text',
+                    id: 'eUXMG4',
                   },
                   { domainName }
                 )
@@ -101,6 +103,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       name: intl.formatMessage({
         defaultMessage: 'Diaspora',
         description: 'Sharing: Diaspora',
+        id: 'Dhow1m',
       }),
       parameters: {
         content: '',
@@ -115,6 +118,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       name: intl.formatMessage({
         defaultMessage: 'Facebook',
         description: 'Sharing: Facebook',
+        id: '7iiaRx',
       }),
       parameters: {
         content: '',
@@ -129,6 +133,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       name: intl.formatMessage({
         defaultMessage: 'LinkedIn',
         description: 'Sharing: LinkedIn',
+        id: 'csCQQk',
       }),
       parameters: {
         content: '',
@@ -143,6 +148,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       name: intl.formatMessage({
         defaultMessage: 'Twitter',
         description: 'Sharing: Twitter',
+        id: 'WjVBnY',
       }),
       parameters: {
         content: '',
@@ -157,6 +163,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       name: intl.formatMessage({
         defaultMessage: 'Journal du hacker',
         description: 'Sharing: Journal du hacker',
+        id: 'P0I+Xm',
       }),
       parameters: {
         content: '',
@@ -171,6 +178,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       name: intl.formatMessage({
         defaultMessage: 'Email',
         description: 'Sharing: Email',
+        id: 'lKZm9t',
       }),
       parameters: {
         content: 'body',
@@ -200,6 +208,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
                 {
                   defaultMessage: 'Share on {name}',
                   description: 'Sharing: share on social network text',
+                  id: 'ureXFw',
                 },
                 { name }
               )}
@@ -215,6 +224,7 @@ const Sharing = ({ excerpt, title }: { excerpt: string; title: string }) => {
       title={intl.formatMessage({
         defaultMessage: 'Share',
         description: 'Sharing: widget title',
+        id: 'q3U6uI',
       })}
       expand={true}
     >

@@ -128,6 +128,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Table of Contents',
             description: 'ThematicPage: ToC sidebar aria-label',
+            id: 'YwvYfw',
           })}
         >
           <ToC />
@@ -141,6 +142,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({
                   {
                     defaultMessage: 'All posts in {name}',
                     description: 'ThematicPage: posts list title',
+                    id: 'P7fxX2',
                   },
                   { name: thematic.title }
                 )}
@@ -154,6 +156,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Sidebar',
             description: 'ThematicPage: right sidebar aria-label',
+            id: 'syLgY9',
           })}
         >
           <RelatedTopics topics={relatedTopics.current} />
@@ -162,6 +165,7 @@ const Thematic: NextPageWithLayout<ThematicProps> = ({
             title={intl.formatMessage({
               defaultMessage: 'Others thematics',
               description: 'ThematicPage: thematics list widget title',
+              id: 'norrGp',
             })}
           />
         </Sidebar>

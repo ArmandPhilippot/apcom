@@ -28,6 +28,7 @@ const CVPreview = ({
         <FormattedMessage
           defaultMessage="Download <link>CV in PDF</link>"
           description="CVPreview: download as PDF link"
+          id="xC3Khf"
           values={{
             link: (chunks: string) => (
               <Link href={pdf}>

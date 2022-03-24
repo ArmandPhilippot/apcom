@@ -44,6 +44,7 @@ const RecentPosts = ({ posts }: { posts: PostsList }) => {
                   {intl.formatMessage({
                     defaultMessage: 'Published on:',
                     description: 'RecentPosts: publication date label',
+                    id: '1h+N2z',
                   })}
                 </dt>
                 <dd>
@@ -64,6 +65,7 @@ const RecentPosts = ({ posts }: { posts: PostsList }) => {
       return intl.formatMessage({
         defaultMessage: 'Failed to load.',
         description: 'RecentPosts: failed to load text',
+        id: 'iyEh0R',
       });
     if (!data) return <Spinner />;
 

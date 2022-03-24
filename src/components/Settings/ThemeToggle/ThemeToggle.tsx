@@ -28,6 +28,7 @@ const ThemeToggle = () => {
       label={intl.formatMessage({
         defaultMessage: 'Theme:',
         description: 'ThemeToggle: toggle label',
+        id: 'O9XLDc',
       })}
       leftChoice={<SunIcon />}
       rightChoice={<MoonIcon />}

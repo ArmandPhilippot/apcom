@@ -37,6 +37,7 @@ const PostFooter = ({ topics }: { topics: TopicPreview[] }) => {
               {intl.formatMessage({
                 defaultMessage: 'Read more articles about:',
                 description: 'PostFooter: read more posts about given subjects',
+                id: 'YEudoh',
               })}
             </dt>
             <dd>

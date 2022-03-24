@@ -10,6 +10,7 @@ const Author = ({ name, kind }: { name: string; kind: MetaKind }) => {
       title={intl.formatMessage({
         defaultMessage: 'Written by:',
         description: 'Author: article author meta label',
+        id: 'jCyqZS',
       })}
       value={name}
       kind={kind}

@@ -27,6 +27,7 @@ const RelatedTopics = ({ topics }: { topics: TopicPreview[] }) => {
           defaultMessage:
             '{topicsCount, plural, =0 {Related topics} one {Related topic} other {Related topics}}',
           description: 'RelatedTopics: widget title',
+          id: 'w/lPUh',
         },
         { topicsCount: topicsList.length }
       )}

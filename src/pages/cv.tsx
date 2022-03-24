@@ -31,6 +31,7 @@ const CV: NextPageWithLayout = () => {
     {
       defaultMessage: 'CV Front-end developer - {websiteName}',
       description: 'CVPage: SEO - Page title',
+      id: 'Y1ZdJ6',
     },
     { websiteName: settings.name }
   );
@@ -39,6 +40,7 @@ const CV: NextPageWithLayout = () => {
       defaultMessage:
         'Discover the curriculum of {websiteName}, front-end developer located in France: skills, experiences and training.',
       description: 'CVPage: SEO - Meta description',
+      id: 'bBdMGm',
     },
     { websiteName: settings.name }
   );
@@ -86,6 +88,7 @@ const CV: NextPageWithLayout = () => {
     {
       defaultMessage: "{name}'s CV",
       description: 'CVPage: page title',
+      id: 'Mj2BQf',
     },
     { name: settings.name }
   );
@@ -117,6 +120,7 @@ const CV: NextPageWithLayout = () => {
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Table of Contents',
             description: 'CVPage: ToC sidebar aria-label',
+            id: 'g4DckL',
           })}
         >
           <ToC />
@@ -129,12 +133,14 @@ const CV: NextPageWithLayout = () => {
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Sidebar',
             description: 'CVPage: right sidebar aria-label',
+            id: 'QHOm5t',
           })}
         >
           <CVPreview
             title={intl.formatMessage({
               defaultMessage: 'Others formats',
               description: 'CVPage: cv preview widget title',
+              id: 'B9OCyV',
             })}
             imgSrc={image}
             pdf={pdf}
@@ -143,6 +149,7 @@ const CV: NextPageWithLayout = () => {
             title={intl.formatMessage({
               defaultMessage: 'Open-source projects',
               description: 'CVPage: social media widget title',
+              id: '+Dre5J',
             })}
             github={true}
             gitlab={true}

@@ -14,6 +14,7 @@ const AckeeSelect = () => {
       name: intl.formatMessage({
         defaultMessage: 'Partial',
         description: 'AckeeSelect: partial option name',
+        id: 'e/8Kyj',
       }),
       value: 'partial',
     },
@@ -22,6 +23,7 @@ const AckeeSelect = () => {
       name: intl.formatMessage({
         defaultMessage: 'Full',
         description: 'AckeeSelect: full option name',
+        id: 'PzRpPw',
       }),
       value: 'full',
     },
@@ -47,6 +49,7 @@ const AckeeSelect = () => {
       body={intl.formatMessage({
         defaultMessage: 'Tracking:',
         description: 'AckeeSelect: select label',
+        id: '2pmylc',
       })}
       htmlFor="ackee-settings"
       kind="settings"
@@ -57,11 +60,13 @@ const AckeeSelect = () => {
     intl.formatMessage({
       defaultMessage: 'Partial includes only page url, views and duration.',
       description: 'AckeeSelect: tooltip message',
+      id: 'skb4W5',
     }),
     intl.formatMessage({
       defaultMessage:
         'Full includes all information from partial as well as information about referrer, operating system, device, browser, screen size and language.',
       description: 'AckeeSelect: tooltip message',
+      id: 'Ogccx6',
     }),
   ];
 
@@ -81,6 +86,7 @@ const AckeeSelect = () => {
         title={intl.formatMessage({
           defaultMessage: 'Ackee tracking (analytics)',
           description: 'AckeeSelect: tooltip title',
+          id: 'F1EQX3',
         })}
       />
     </div>

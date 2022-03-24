@@ -14,21 +14,20 @@ import {
 import styles from '@styles/pages/Page.module.scss';
 import { NextPageWithLayout } from '@ts/types/app';
 import { ArticleMeta, ArticleProps } from '@ts/types/articles';
+import { PrismDefaultPlugins, PrismPlugins } from '@ts/types/prism';
 import { settings } from '@utils/config';
 import { getFormattedPaths } from '@utils/helpers/format';
 import { loadTranslation } from '@utils/helpers/i18n';
 import { addPrismClasses } from '@utils/helpers/prism';
-import { usePrismTheme } from '@utils/providers/prism';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { highlightAll } from 'prismjs';
+import Script from 'next/script';
+import Prism from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
-import '@utils/plugins/prism-color-scheme';
-import Script from 'next/script';
 
 const SingleArticle: NextPageWithLayout<ArticleProps> = ({
   comments,
@@ -37,19 +36,48 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
   const intl = useIntl();
   const router = useRouter();
 
-  useEffect(() => {
-    addPrismClasses();
-    highlightAll();
-  });
+  const loadPrismPlugins = useCallback(
+    async (prismPlugins: (PrismDefaultPlugins | PrismPlugins)[]) => {
+      for (const plugin of prismPlugins) {
+        try {
+          if (plugin === 'color-scheme') {
+            await import(`@utils/plugins/prism-${plugin}`);
+          } else {
+            await import(`prismjs/plugins/${plugin}/prism-${plugin}.min.js`);
 
-  const { setCodeBlocks } = usePrismTheme();
+            if (plugin === 'autoloader')
+              Prism.plugins.autoloader.languages_path = '/prism/';
+          }
+        } catch (error) {
+          console.error('Article: an error occurred with Prism.');
+          console.error(error);
+        }
+      }
+    },
+    []
+  );
+
+  const plugins: (PrismDefaultPlugins | PrismPlugins)[] = useMemo(
+    () => [
+      'autoloader',
+      'toolbar',
+      'show-language',
+      'copy-to-clipboard',
+      'color-scheme',
+      'command-line',
+      'line-numbers',
+      'match-braces',
+      'normalize-whitespace',
+    ],
+    []
+  );
 
   useEffect(() => {
-    const allPre: NodeListOf<HTMLPreElement> = document.querySelectorAll(
-      'pre[data-prismjs-color-scheme-current]'
-    );
-    setCodeBlocks(allPre);
-  }, [setCodeBlocks, router.asPath]);
+    loadPrismPlugins(plugins).then(() => {
+      addPrismClasses();
+      Prism.highlightAll();
+    });
+  }, [plugins, loadPrismPlugins]);
 
   if (router.isFallback) return <Spinner />;
 
@@ -140,22 +168,27 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
   const copyText = intl.formatMessage({
     defaultMessage: 'Copy',
     description: 'Prism: copy button text (no clicked)',
+    id: '/ly3AC',
   });
   const copiedText = intl.formatMessage({
     defaultMessage: 'Copied!',
     description: 'Prism: copy button text (clicked)',
+    id: 'OV9r1K',
   });
   const errorText = intl.formatMessage({
     defaultMessage: 'Use Ctrl+c to copy',
     description: 'Prism: error text',
+    id: 'z9qkcQ',
   });
   const darkTheme = intl.formatMessage({
     defaultMessage: 'Dark Theme 🌙',
     description: 'Prism: toggle dark theme button text',
+    id: 'nFMdWI',
   });
   const lightTheme = intl.formatMessage({
     defaultMessage: 'Light Theme 🌞',
     description: 'Prism: toggle light theme button text',
+    id: 'Ua2g2p',
   });
 
   return (
@@ -190,6 +223,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Table of Contents',
             description: 'ArticlePage: ToC sidebar aria-label',
+            id: '9nhYRA',
           })}
         >
           <ToC />
@@ -204,6 +238,7 @@ const SingleArticle: NextPageWithLayout<ArticleProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Sidebar',
             description: 'ArticlePage: right sidebar aria-label',
+            id: 'JeYOeA',
           })}
         >
           <Sharing title={title} excerpt={intro} />

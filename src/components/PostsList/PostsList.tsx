@@ -37,6 +37,7 @@ const PostsList = (
                 {intl.formatMessage({
                   defaultMessage: 'Published on',
                   description: 'PostsList: published on year label',
+                  id: 'EvODgw',
                 })}{' '}
               </span>
               {year}
@@ -77,6 +78,7 @@ const PostsList = (
             {intl.formatMessage({
               defaultMessage: 'No results found.',
               description: 'PostsList: no results',
+              id: 'vK7Sxv',
             })}
           </p>
         );

@@ -100,6 +100,7 @@ const PostPreview = ({
             <FormattedMessage
               defaultMessage="Read more<a11y> about {title}</a11y>"
               description="PostPreview: read more link"
+              id="bkbrN7"
               values={{
                 title,
                 a11y: (chunks: string) => (

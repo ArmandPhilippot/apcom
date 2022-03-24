@@ -32,6 +32,7 @@ const MainNav = (
       name: intl.formatMessage({
         defaultMessage: 'Home',
         description: 'MainNav: home link',
+        id: 'ZJMNRW',
       }),
       slug: '/',
     },
@@ -40,6 +41,7 @@ const MainNav = (
       name: intl.formatMessage({
         defaultMessage: 'Blog',
         description: 'MainNav: blog link',
+        id: 'zPJifH',
       }),
       slug: '/blog',
     },
@@ -48,6 +50,7 @@ const MainNav = (
       name: intl.formatMessage({
         defaultMessage: 'Projects',
         description: 'MainNav: projects link',
+        id: 'akSutM',
       }),
       slug: '/projets',
     },
@@ -56,6 +59,7 @@ const MainNav = (
       name: intl.formatMessage({
         defaultMessage: 'Resume',
         description: 'MainNav: resume link',
+        id: 'jpv+Nz',
       }),
       slug: '/cv',
     },
@@ -64,6 +68,7 @@ const MainNav = (
       name: intl.formatMessage({
         defaultMessage: 'Contact',
         description: 'MainNav: contact link',
+        id: 'c2NtPj',
       }),
       slug: '/contact',
     },
@@ -124,10 +129,12 @@ const MainNav = (
             ? intl.formatMessage({
                 defaultMessage: 'Close menu',
                 description: 'MainNav: close button',
+                id: 'dE8xxV',
               })
             : intl.formatMessage({
                 defaultMessage: 'Open menu',
                 description: 'MainNav: open button',
+                id: 'azc1GT',
               })}
         </span>
       </label>
@@ -136,6 +143,7 @@ const MainNav = (
         aria-label={intl.formatMessage({
           defaultMessage: 'Primary',
           description: 'MainNav: aria-label',
+          id: 'H7C5Bk',
         })}
       >
         <ul className={styles.list}>{navItems}</ul>

@@ -41,6 +41,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
   };
 
   const components: NestedMDXComponents = {
+    CodeBlock: (props) => CodeBlock(props),
     Gallery: (props) => Gallery(props),
     Image: (props) => ResponsiveImage({ caption: props.caption, ...props }),
     Link: (props) => Link(props),
@@ -117,6 +118,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Table of Contents',
             description: 'ProjectPage: ToC sidebar aria-label',
+            id: '6dXfvr',
           })}
         >
           <ToC />
@@ -130,6 +132,7 @@ const Project: NextPageWithLayout<ProjectProps> = ({
           ariaLabel={intl.formatMessage({
             defaultMessage: 'Sidebar',
             description: 'ProjectPage: right sidebar aria-label',
+            id: 'hHrNd0',
           })}
         >
           <Sharing title={title} excerpt={intro} />

@@ -24,6 +24,7 @@ const Topics = ({ list, kind }: { list: TopicPreview[]; kind: MetaKind }) => {
           defaultMessage:
             '{topicsCount, plural, =0 {Topics:} one {Topic:} other {Topics:}}',
           description: 'Topics: topics list meta label',
+          id: '0pp/IQ',
         },
         { topicsCount: list.length }
       )}
