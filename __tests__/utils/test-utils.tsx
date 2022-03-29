@@ -1,6 +1,6 @@
 import { render, RenderOptions } from '@testing-library/react';
 import { ThemeProvider } from 'next-themes';
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 import { IntlProvider } from 'react-intl';
 
 type ProvidersConfig = {
@@ -8,8 +8,8 @@ type ProvidersConfig = {
 };
 
 type CustomRenderOptions = {
-  providers: ProvidersConfig;
-  testingLibrary: Omit<RenderOptions, 'wrapper'>;
+  providers?: ProvidersConfig;
+  testingLibrary?: Omit<RenderOptions, 'wrapper'>;
 };
 
 /**
@@ -28,13 +28,13 @@ const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => {
 /**
  * Render a component with all the providers.
  *
- * @param {JSX.Element} ui - A React component.
+ * @param {ReactElement} ui - A React component.
  * @param {CustomRenderOptions} [options] - An object of render options and providers options.
  * @returns A React component wrapped with all the providers.
  */
-const customRender = (ui: JSX.Element, options?: CustomRenderOptions) =>
+const customRender = (ui: ReactElement, options?: CustomRenderOptions) =>
   render(ui, {
-    wrapper: () => <AllTheProviders {...options?.providers} />,
+    wrapper: (props) => <AllTheProviders {...props} {...options?.providers} />,
     ...options?.testingLibrary,
   });
 
