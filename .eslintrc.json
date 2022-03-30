@@ -1,5 +1,9 @@
 {
-  "extends": ["next/core-web-vitals", "prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:storybook/recommended"
+  ],
   "plugins": ["formatjs"],
   "rules": {
     "formatjs/enforce-default-message": ["error", "literal"],

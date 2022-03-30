@@ -32,7 +32,9 @@
     "test": "jest",
     "test:ci": "jest --ci",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@formatjs/swc-plugin": "^1.3.2",
@@ -57,9 +59,17 @@
     "use-ackee": "^3.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.8",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
     "@formatjs/cli": "^4.8.2",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
     "@svgr/webpack": "^6.2.1",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
@@ -73,17 +83,21 @@
     "eslint-config-next": "^12.1.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-formatjs": "^3.0.0",
+    "eslint-plugin-storybook": "^0.5.7",
     "eslint-plugin-testing-library": "^5.1.0",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
     "next-router-mock": "^0.6.5",
+    "postcss": "^8.4.12",
     "prettier": "^2.6.1",
     "sass": "^1.49.9",
     "standard-version": "^9.3.2",
+    "storybook-addon-next": "^1.6.2",
     "stylelint": "^14.6.1",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "webpack": "^5.70.0"
   }
 }
