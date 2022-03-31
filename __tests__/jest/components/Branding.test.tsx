@@ -1,6 +1,5 @@
 import Branding from '@components/Branding/Branding';
 import { render, screen } from '@test-utils';
-import '../__mocks__/matchMedia.mock';
 
 describe('Branding', () => {
   it('renders the title wrapped with an h1 element on homepage', () => {
