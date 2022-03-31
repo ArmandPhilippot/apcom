@@ -41,3 +41,15 @@
     }
   }
 }
+
+.label {
+  display: block;
+  color: var(--color-primary-darker);
+  font-size: var(--font-size-sm);
+  font-variant: small-caps;
+  font-weight: 600;
+}
+
+.required {
+  color: var(--color-secondary);
+}
