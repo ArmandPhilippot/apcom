@@ -8,6 +8,10 @@
   box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow);
   transition: all 0.25s linear 0s;
 
+  &--select {
+    cursor: pointer;
+  }
+
   &--textarea {
     min-height: fun.convert-px(200);
   }
