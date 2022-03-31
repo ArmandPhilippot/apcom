@@ -22,6 +22,7 @@
       fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(3)
         var(--color-primary-dark);
     color: var(--color-fg-inverted);
+    text-decoration: none;
     text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-shadow);
 
     &:disabled {
@@ -36,6 +37,7 @@
           0 0 0 fun.convert-px(3) var(--color-primary-darker),
           fun.convert-px(7) fun.convert-px(7) 0 fun.convert-px(2)
             var(--color-primary-dark);
+        color: var(--color-fg-inverted);
         transform: translateX(#{fun.convert-px(-4)})
           translateY(#{fun.convert-px(-4)});
       }
