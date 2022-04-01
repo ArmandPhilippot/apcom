@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, SetStateAction } from 'react';
 import styles from './forms.module.scss';
 
-type FieldType =
+export type FieldType =
   | 'datetime-local'
   | 'email'
   | 'number'
@@ -12,7 +12,7 @@ type FieldType =
   | 'time'
   | 'url';
 
-type FieldProps = {
+export type FieldProps = {
   /**
    * Field state. Either enabled (false) or disabled (true).
    */
@@ -20,7 +20,7 @@ type FieldProps = {
   /**
    * Field id attribute.
    */
-  id?: string;
+  id: string;
   /**
    * Field maximum value.
    */
@@ -32,7 +32,7 @@ type FieldProps = {
   /**
    * Field name attribute.
    */
-  name?: string;
+  name: string;
   /**
    * Placeholder value.
    */

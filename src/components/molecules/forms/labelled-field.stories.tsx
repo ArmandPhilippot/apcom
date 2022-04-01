@@ -1,15 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import FieldComponent from './field';
+import LabelledFieldComponent from './labelled-field';
 
 export default {
-  title: 'Atoms/Forms',
-  component: FieldComponent,
+  title: 'Molecules/Forms',
+  component: LabelledFieldComponent,
   args: {
     disabled: false,
     required: false,
-    setValue: () => null,
-    type: 'text',
-    value: '',
   },
   argTypes: {
     disabled: {
@@ -31,6 +28,16 @@ export default {
         type: 'text',
       },
       description: 'Field id.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
+    label: {
+      control: {
+        type: 'text',
+      },
+      description: 'Field label.',
       type: {
         name: 'string',
         required: true,
@@ -157,16 +164,17 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof FieldComponent>;
+} as ComponentMeta<typeof LabelledFieldComponent>;
 
-const Template: ComponentStory<typeof FieldComponent> = (args) => (
-  <FieldComponent {...args} />
+const Template: ComponentStory<typeof LabelledFieldComponent> = (args) => (
+  <LabelledFieldComponent {...args} />
 );
 
-export const Field = Template.bind({});
-Field.args = {
-  id: 'field-storybook',
-  name: 'field-storybook',
+export const LabelledField = Template.bind({});
+LabelledField.args = {
+  id: 'labelled-field-storybook',
+  label: 'Labelled field',
+  name: 'labelled-field-storybook',
   setValue: () => null,
   value: '',
 };
