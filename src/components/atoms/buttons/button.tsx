@@ -19,6 +19,10 @@ export type ButtonProps = {
    */
   onClick?: MouseEventHandler<HTMLButtonElement>;
   /**
+   * Button shape. Default: rectangle.
+   */
+  shape?: 'rectangle' | 'square';
+  /**
    * Button type attribute. Default: button.
    */
   type?: 'button' | 'reset' | 'submit';
@@ -33,16 +37,18 @@ const Button: FC<ButtonProps> = ({
   children,
   disabled = false,
   kind = 'secondary',
+  shape = 'rectangle',
   type = 'button',
   ...props
 }) => {
   const kindClass = styles[`btn--${kind}`];
+  const shapeClass = styles[`btn--${shape}`];
 
   return (
     <button
       type={type}
       disabled={disabled}
-      className={`${styles.btn} ${kindClass}`}
+      className={`${styles.btn} ${kindClass} ${shapeClass}`}
       {...props}
     >
       {children}

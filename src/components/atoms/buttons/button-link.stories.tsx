@@ -43,6 +43,21 @@ export default {
         required: false,
       },
     },
+    shape: {
+      control: {
+        type: 'select',
+      },
+      description: 'The link shape.',
+      options: ['rectangle', 'square'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'rectangle' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     target: {
       control: {
         type: null,

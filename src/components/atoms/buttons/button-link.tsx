@@ -16,6 +16,10 @@ type ButtonLinkProps = {
    */
   kind?: 'primary' | 'secondary';
   /**
+   * ButtonLink shape. Default: rectangle.
+   */
+  shape?: 'rectangle' | 'square';
+  /**
    * Define an URL as target.
    */
   target: string;
@@ -30,18 +34,26 @@ const ButtonLink: FC<ButtonLinkProps> = ({
   children,
   target,
   kind = 'secondary',
+  shape = 'rectangle',
   external = false,
   ...props
 }) => {
   const kindClass = styles[`btn--${kind}`];
+  const shapeClass = styles[`btn--${shape}`];
 
   return external ? (
-    <a href={target} className={`${styles.btn} ${kindClass}`} {...props}>
+    <a
+      href={target}
+      className={`${styles.btn} ${kindClass} ${shapeClass}`}
+      {...props}
+    >
       {children}
     </a>
   ) : (
-    <Link href={target} {...props}>
-      <a className={`${styles.btn} ${kindClass}`}>{children}</a>
+    <Link href={target}>
+      <a className={`${styles.btn} ${kindClass} ${shapeClass}`} {...props}>
+        {children}
+      </a>
     </Link>
   );
 };

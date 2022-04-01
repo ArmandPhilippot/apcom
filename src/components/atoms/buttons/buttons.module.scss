@@ -1,14 +1,23 @@
 @use "@styles/abstracts/functions" as fun;
 
 .btn {
-  display: block;
-  max-width: max-content;
-  padding: var(--spacing-2xs) var(--spacing-md);
+  display: inline-flex;
+  place-content: center;
+  align-items: center;
   border: none;
   border-radius: fun.convert-px(5);
   font-size: var(--font-size-md);
   font-weight: 600;
   transition: all 0.3s ease-in-out 0s;
+
+  &--rectangle {
+    padding: var(--spacing-2xs) var(--spacing-md);
+  }
+
+  &--square {
+    padding: var(--spacing-xs);
+    aspect-ratio: 1 / 1;
+  }
 
   &:disabled {
     cursor: wait;
