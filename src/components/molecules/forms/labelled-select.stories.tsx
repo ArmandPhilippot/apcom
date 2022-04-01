@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SelectComponent from './select';
+import LabelledSelectComponent from './labelled-select';
 
 const selectOptions = [
   { id: 'option1', name: 'Option 1', value: 'option1' },
@@ -8,8 +8,12 @@ const selectOptions = [
 ];
 
 export default {
-  title: 'Atoms/Forms',
-  component: SelectComponent,
+  title: 'Molecules/Forms',
+  component: LabelledSelectComponent,
+  args: {
+    disabled: false,
+    required: false,
+  },
   argTypes: {
     disabled: {
       control: {
@@ -30,6 +34,16 @@ export default {
         type: 'text',
       },
       description: 'Field id.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
+    label: {
+      control: {
+        type: 'text',
+      },
+      description: 'Field label.',
       type: {
         name: 'string',
         required: true,
@@ -96,15 +110,18 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SelectComponent>;
+} as ComponentMeta<typeof LabelledSelectComponent>;
 
-const Template: ComponentStory<typeof SelectComponent> = (args) => (
-  <SelectComponent {...args} />
+const Template: ComponentStory<typeof LabelledSelectComponent> = (args) => (
+  <LabelledSelectComponent {...args} />
 );
 
-export const Select = Template.bind({});
-Select.args = {
+export const LabelledSelect = Template.bind({});
+LabelledSelect.args = {
+  id: 'labelled-select-storybook',
+  label: 'Labelled select',
+  name: 'labelled-select-storybook',
   options: selectOptions,
   setValue: () => null,
-  value: 'option2',
+  value: '',
 };

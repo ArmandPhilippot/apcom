@@ -7,7 +7,7 @@ type SelectOptions = {
   value: string;
 };
 
-type SelectProps = {
+export type SelectProps = {
   /**
    * Field state. Either enabled (false) or disabled (true).
    */
@@ -15,11 +15,11 @@ type SelectProps = {
   /**
    * Field id attribute.
    */
-  id?: string;
+  id: string;
   /**
    * Field name attribute.
    */
-  name?: string;
+  name: string;
   /**
    * True if the field is required. Default: false.
    */
