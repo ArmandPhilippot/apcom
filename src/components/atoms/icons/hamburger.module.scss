@@ -1,0 +1,57 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  display: block;
+  width: var(--icon-size, #{fun.convert-px(50)});
+  height: var(--icon-size, #{fun.convert-px(50)});
+  position: relative;
+
+  &,
+  &::before,
+  &::after {
+    display: block;
+    height: fun.convert-px(7);
+    background: var(--color-primary-lighter);
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-light) 0%,
+      var(--color-primary-lighter) 100%
+    );
+    border: fun.convert-px(1) solid var(--color-primary-darker);
+    border-radius: fun.convert-px(3);
+    transition: all 0.25s ease-in-out 0s, transform 0.4s ease-in 0s;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: fun.convert-px(-1);
+    right: fun.convert-px(-1);
+  }
+
+  &::before {
+    bottom: fun.convert-px(15);
+  }
+
+  &::after {
+    top: fun.convert-px(15);
+  }
+
+  &--active {
+    background: transparent;
+    border: transparent;
+
+    &::before {
+      bottom: 0;
+      transform-origin: 50% 50%;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      top: 0;
+      transform-origin: 50% 50%;
+      transform: rotate(-45deg);
+    }
+  }
+}
