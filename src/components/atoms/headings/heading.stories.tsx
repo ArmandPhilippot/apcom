@@ -4,12 +4,30 @@ import HeadingComponent from './heading';
 export default {
   title: 'Atoms/Headings',
   component: HeadingComponent,
+  args: {
+    isFake: false,
+    withMargin: true,
+  },
   argTypes: {
     children: {
       description: 'Heading body.',
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    isFake: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Use an heading element or only its styles.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
       },
     },
     level: {
@@ -21,6 +39,20 @@ export default {
       type: {
         name: 'number',
         required: true,
+      },
+    },
+    withMargin: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Adds margin.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: true },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
       },
     },
   },

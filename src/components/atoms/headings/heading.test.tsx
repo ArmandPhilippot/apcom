@@ -43,4 +43,14 @@ describe('Heading', () => {
       'Level 6'
     );
   });
+
+  it('renders a text with heading styles', () => {
+    render(
+      <Heading isFake={true} level={2}>
+        Fake heading
+      </Heading>
+    );
+    expect(screen.queryByRole('heading', { level: 2 })).not.toBeInTheDocument();
+    expect(screen.getByText('Fake heading')).toHaveClass('heading');
+  });
 });
