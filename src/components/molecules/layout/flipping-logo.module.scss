@@ -1,0 +1,59 @@
+@use "@styles/abstracts/functions" as fun;
+
+.logo {
+  width: var(--logo-size, fun.convert-px(100));
+  height: var(--logo-size, fun.convert-px(100));
+  position: relative;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  transition: all 0.6s linear 0s;
+
+  &__front,
+  &__back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    background: var(--color-bg);
+    border: fun.convert-px(2) solid var(--color-primary-dark);
+    border-radius: 50%;
+    transition: all 0.6s linear 0s;
+
+    svg,
+    img {
+      // !important is required to override next/image styles...
+      padding: fun.convert-px(2) !important;
+      border-radius: 50%;
+    }
+  }
+
+  &__front {
+    box-shadow: fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
+        var(--color-shadow-light),
+      fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
+        var(--color-shadow-light);
+  }
+
+  &__back {
+    transform: rotateY(180deg);
+  }
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+
+  &:hover & {
+    &__front {
+      box-shadow: none;
+    }
+
+    &__back {
+      box-shadow: fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
+          var(--color-shadow-light),
+        fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
+          var(--color-shadow-light);
+    }
+  }
+}
