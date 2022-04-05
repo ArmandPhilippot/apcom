@@ -1,0 +1,39 @@
+.list {
+  margin: 0;
+
+  ::marker {
+    color: var(--color-primary-dark);
+  }
+
+  & & {
+    margin-top: var(--spacing-2xs);
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: var(--spacing-2xs);
+    }
+  }
+
+  &--ordered {
+    padding: 0;
+    counter-reset: li;
+    list-style-type: none;
+  }
+
+  &--ordered &__item {
+    display: table;
+    counter-increment: li;
+
+    &::before {
+      content: counters(li, ".") ". ";
+      display: table-cell;
+      padding-right: var(--spacing-2xs);
+      color: var(--color-secondary);
+    }
+  }
+
+  &--unordered {
+    padding: 0 0 0 var(--spacing-sm);
+  }
+}
