@@ -1,0 +1,43 @@
+@use "@styles/abstracts/functions" as fun;
+
+.progress {
+  width: max-content;
+  margin: var(--spacing-sm) auto var(--spacing-md);
+  text-align: center;
+
+  &__info {
+    margin-bottom: var(--spacing-2xs);
+    font-size: var(--font-size-sm);
+  }
+
+  &__bar[value] {
+    display: block;
+    width: clamp(25ch, 20vw, 30ch);
+    max-width: 100%;
+    height: fun.convert-px(13);
+    appearance: none;
+    background: var(--color-bg-tertiary);
+    border: fun.convert-px(1) solid var(--color-primary-darker);
+    border-radius: 1em;
+    box-shadow: inset 0 0 fun.convert-px(4) fun.convert-px(1)
+      var(--color-shadow-light);
+
+    &::-webkit-progress-value {
+      background-color: var(--color-primary-dark);
+      border-radius: 1em;
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--color-primary-dark);
+      border-radius: 1em;
+    }
+
+    &::-webkit-progress-bar {
+      background: var(--color-bg-tertiary);
+      border: fun.convert-px(1) solid var(--color-primary-darker);
+      border-radius: 1em;
+      box-shadow: inset 0 0 fun.convert-px(4) fun.convert-px(1)
+        var(--color-shadow-light);
+    }
+  }
+}
