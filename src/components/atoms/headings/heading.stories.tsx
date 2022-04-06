@@ -9,6 +9,19 @@ export default {
     withMargin: true,
   },
   argTypes: {
+    additionalClasses: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classes.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     children: {
       description: 'Heading body.',
       type: {

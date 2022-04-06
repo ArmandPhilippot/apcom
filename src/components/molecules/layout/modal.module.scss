@@ -1,0 +1,21 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  padding: var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border: fun.convert-px(4) solid;
+  border-image: radial-gradient(
+      ellipse at top,
+      var(--color-primary-lighter) 20%,
+      var(--color-primary) 100%
+    )
+    1;
+  box-shadow: fun.convert-px(2) fun.convert-px(-2) fun.convert-px(3)
+    fun.convert-px(-1) var(--color-shadow-dark);
+}
+
+.icon {
+  --icon-size: #{fun.convert-px(30)};
+
+  margin-right: var(--spacing-2xs);
+}

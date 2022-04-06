@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './heading.module.scss';
 
-type HeadingProps = {
+export type HeadingProps = {
   /**
    * Adds additional classes.
    */
@@ -33,12 +33,12 @@ const Heading: FC<HeadingProps> = ({
   withMargin = true,
 }) => {
   const TitleTag = isFake ? `p` : (`h${level}` as keyof JSX.IntrinsicElements);
-  const variantClass = withMargin ? 'heading--margin' : 'heading--regular';
   const levelClass = `heading--${level}`;
+  const marginClass = withMargin ? 'heading--margin' : 'heading--regular';
 
   return (
     <TitleTag
-      className={`${styles.heading} ${styles[variantClass]} ${styles[levelClass]} ${additionalClasses}`}
+      className={`${styles.heading} ${styles[levelClass]} ${styles[marginClass]} ${additionalClasses}`}
     >
       {children}
     </TitleTag>
