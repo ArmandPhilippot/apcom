@@ -1,0 +1,52 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  max-width: max-content;
+  margin: var(--spacing-sm) auto;
+  position: relative;
+  text-align: center;
+}
+
+.caption {
+  margin: 0;
+  padding: fun.convert-px(4) var(--spacing-2xs);
+  background: var(--color-bg-secondary);
+  border: fun.convert-px(1) solid var(--color-border);
+  box-shadow: 0 fun.convert-px(-1) fun.convert-px(1) fun.convert-px(1)
+    var(--color-shadow-light);
+  font-weight: 500;
+}
+
+.link {
+  display: flex;
+  flex-flow: column;
+  background: none;
+  text-decoration: none;
+
+  .caption {
+    color: var(--color-primary-darker);
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    .caption {
+      text-decoration: underline solid var(--color-primary-darker)
+        fun.convert-px(3);
+    }
+  }
+
+  &:active {
+    transform: scale(0.9);
+
+    .caption {
+      text-decoration: none;
+    }
+  }
+}

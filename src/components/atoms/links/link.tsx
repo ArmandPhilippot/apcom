@@ -4,6 +4,10 @@ import styles from './link.module.scss';
 
 type LinkProps = {
   /**
+   * Set additional classes to the link.
+   */
+  classes?: string;
+  /**
    * True if it is an external link. Default: false.
    */
   external?: boolean;
@@ -22,18 +26,26 @@ type LinkProps = {
  *
  * Render a link.
  */
-const Link: FC<LinkProps> = ({ children, href, lang, external = false }) => {
+const Link: FC<LinkProps> = ({
+  children,
+  classes,
+  href,
+  lang,
+  external = false,
+}) => {
+  const additionalClasses = classes || '';
+
   return external ? (
     <a
       href={href}
       hrefLang={lang}
-      className={`${styles.link} ${styles['link--external']}`}
+      className={`${styles.link} ${styles['link--external']} ${additionalClasses}`}
     >
       {children}
     </a>
   ) : (
     <NextLink href={href}>
-      <a className={styles.link}>{children}</a>
+      <a className={`${styles.link} ${additionalClasses}`}>{children}</a>
     </NextLink>
   );
 };
