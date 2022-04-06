@@ -3,9 +3,13 @@ import styles from './buttons.module.scss';
 
 export type ButtonProps = {
   /**
+   * Add additional classes to the button wrapper.
+   */
+  additionalClasses?: string;
+  /**
    * Button accessible label.
    */
-  'aria-label'?: string;
+  ariaLabel?: string;
   /**
    * Button state. Default: false.
    */
@@ -21,7 +25,7 @@ export type ButtonProps = {
   /**
    * Button shape. Default: rectangle.
    */
-  shape?: 'rectangle' | 'square';
+  shape?: 'circle' | 'rectangle' | 'square';
   /**
    * Button type attribute. Default: button.
    */
@@ -34,6 +38,8 @@ export type ButtonProps = {
  * Use a button as call to action.
  */
 const Button: FC<ButtonProps> = ({
+  additionalClasses,
+  ariaLabel,
   children,
   disabled = false,
   kind = 'secondary',
@@ -48,7 +54,8 @@ const Button: FC<ButtonProps> = ({
     <button
       type={type}
       disabled={disabled}
-      className={`${styles.btn} ${kindClass} ${shapeClass}`}
+      className={`${styles.btn} ${kindClass} ${shapeClass} ${additionalClasses}`}
+      aria-label={ariaLabel}
       {...props}
     >
       {children}

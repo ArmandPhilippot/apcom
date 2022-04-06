@@ -14,9 +14,14 @@
     padding: var(--spacing-2xs) var(--spacing-md);
   }
 
-  &--square {
+  &--square,
+  &--circle {
     padding: var(--spacing-xs);
     aspect-ratio: 1 / 1;
+  }
+
+  &--circle {
+    border-radius: 50%;
   }
 
   &:disabled {

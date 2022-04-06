@@ -80,7 +80,7 @@ export default {
         type: 'select',
       },
       description: 'The link shape.',
-      options: ['rectangle', 'square'],
+      options: ['circle', 'rectangle', 'square'],
       table: {
         category: 'Options',
         defaultValue: { summary: 'rectangle' },
