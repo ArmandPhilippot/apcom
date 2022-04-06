@@ -1,0 +1,74 @@
+@use "@styles/abstracts/functions" as fun;
+
+.label {
+  --toggle-width: #{fun.convert-px(45)};
+  --toggle-height: calc(var(--toggle-width) / 2);
+
+  display: inline-flex;
+  align-items: center;
+}
+
+.title {
+  margin-right: var(--spacing-xs);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  background: var(--color-shadow-light);
+  border: fun.convert-px(1) solid var(--color-primary);
+  border-radius: fun.convert-px(32);
+  box-shadow: inset 0 0 fun.convert-px(3) 0 var(--color-shadow-dark);
+  margin: 0 var(--spacing-2xs);
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    width: calc((var(--toggle-width) / 2) - 1px);
+    height: calc((var(--toggle-width) / 2) - 1px);
+    background: var(--color-primary-light);
+    border: fun.convert-px(1) solid var(--color-primary);
+    border-radius: 50%;
+    box-shadow: inset 0 0 fun.convert-px(1) fun.convert-px(1)
+        var(--color-shadow),
+      0 0 fun.convert-px(2) fun.convert-px(1) var(--color-shadow-light);
+    position: absolute;
+    left: fun.convert-px(-2);
+    transition: all 0.3s ease-in-out 0s;
+  }
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+
+  &:checked ~ .label {
+    .toggle::after {
+      position: absolute;
+      left: calc(100% - (var(--toggle-width) / 2) + #{fun.convert-px(2)});
+    }
+  }
+
+  &:hover,
+  &:focus {
+    ~ .label {
+      .toggle::after {
+        background: var(--color-primary-lighter);
+      }
+    }
+  }
+
+  &:focus ~ .label {
+    .title {
+      text-decoration: underline solid var(--color-primary) fun.convert-px(2);
+    }
+
+    .toggle {
+      outline: var(--color-border) solid fun.convert-px(5);
+    }
+  }
+}
