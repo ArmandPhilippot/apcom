@@ -1,0 +1,41 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  transition: all 0.25s ease-in-out 0s;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  background: inherit;
+  border: none;
+  border-top: fun.convert-px(2) solid var(--color-primary-dark);
+  border-bottom: fun.convert-px(2) solid var(--color-primary-dark);
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    .icon {
+      background: var(--color-primary-light);
+      color: var(--color-fg-inverted);
+      transform: scale(1.25);
+
+      &::before,
+      &::after {
+        background: var(--color-bg);
+      }
+    }
+  }
+}
+
+.heading {
+  background: none;
+  padding: var(--spacing-2xs) 0;
+}
