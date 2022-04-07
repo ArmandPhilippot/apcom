@@ -5,6 +5,34 @@ import HelpButtonComponent from './help-button';
 export default {
   title: 'Molecules/Buttons',
   component: HelpButtonComponent,
+  argTypes: {
+    classes: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classes to the button.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    onClick: {
+      control: {
+        type: null,
+      },
+      description: 'A callback function to handle click on button.',
+      table: {
+        category: 'Events',
+      },
+      type: {
+        name: 'function',
+        required: false,
+      },
+    },
+  },
 } as ComponentMeta<typeof HelpButtonComponent>;
 
 const Template: ComponentStory<typeof HelpButtonComponent> = (args) => (

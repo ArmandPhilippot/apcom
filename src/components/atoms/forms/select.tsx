@@ -1,13 +1,17 @@
 import { ChangeEvent, FC, SetStateAction } from 'react';
 import styles from './forms.module.scss';
 
-type SelectOptions = {
+export type SelectOptions = {
   id: string;
   name: string;
   value: string;
 };
 
 export type SelectProps = {
+  /**
+   * Set additional classes.
+   */
+  classes?: string;
   /**
    * Field state. Either enabled (false) or disabled (true).
    */
@@ -43,7 +47,12 @@ export type SelectProps = {
  *
  * Render a HTML select element.
  */
-const Select: FC<SelectProps> = ({ options, setValue, ...props }) => {
+const Select: FC<SelectProps> = ({
+  classes = '',
+  options,
+  setValue,
+  ...props
+}) => {
   /**
    * Update select value when an option is selected.
    * @param e - The option change event.
@@ -65,7 +74,7 @@ const Select: FC<SelectProps> = ({ options, setValue, ...props }) => {
 
   return (
     <select
-      className={`${styles.field} ${styles['field--select']}`}
+      className={`${styles.field} ${styles['field--select']} ${classes}`}
       onChange={updateValue}
       {...props}
     >
