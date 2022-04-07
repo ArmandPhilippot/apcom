@@ -7,30 +7,30 @@ import Sun from '@components/atoms/icons/sun';
 import { FC, useState } from 'react';
 import { useIntl } from 'react-intl';
 
-export type ThemeToggleProps = Pick<ToggleProps, 'value'>;
+export type PrismThemeToggleProps = Pick<ToggleProps, 'value'>;
 
 /**
- * ThemeToggle component
+ * PrismThemeToggle component
  *
- * Render a Toggle component to set theme.
+ * Render a Toggle component to set code blocks theme.
  */
-const ThemeToggle: FC<ThemeToggleProps> = ({ value }) => {
+const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ value }) => {
   const intl = useIntl();
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(value);
   const themeLabel = intl.formatMessage({
-    defaultMessage: 'Theme:',
-    description: 'ThemeToggle: theme label',
-    id: 'suXOBu',
+    defaultMessage: 'Code blocks:',
+    description: 'PrismThemeToggle: theme label',
+    id: 'ftXN+0',
   });
   const lightThemeLabel = intl.formatMessage({
     defaultMessage: 'Light theme',
-    description: 'ThemeToggle: light theme label',
-    id: 'Ygea7s',
+    description: 'PrismThemeToggle: light theme label',
+    id: 'tsWh8x',
   });
   const darkThemeLabel = intl.formatMessage({
     defaultMessage: 'Dark theme',
-    description: 'ThemeToggle: dark theme label',
-    id: '2QwvtS',
+    description: 'PrismThemeToggle: dark theme label',
+    id: 'og/zWL',
   });
   const themeChoices: ToggleChoices = {
     left: <Sun title={lightThemeLabel} />,
@@ -39,8 +39,8 @@ const ThemeToggle: FC<ThemeToggleProps> = ({ value }) => {
 
   return (
     <Toggle
-      id="theme-settings"
-      name="theme-settings"
+      id="prism-theme-settings"
+      name="prism-theme-settings"
       label={themeLabel}
       choices={themeChoices}
       value={isDarkTheme}
@@ -49,4 +49,4 @@ const ThemeToggle: FC<ThemeToggleProps> = ({ value }) => {
   );
 };
 
-export default ThemeToggle;
+export default PrismThemeToggle;
