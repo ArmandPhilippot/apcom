@@ -1,9 +1,8 @@
-import Cog from '@components/atoms/icons/cog';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ModalComponent from './modal';
 
 export default {
-  title: 'Molecules/Layout',
+  title: 'Molecules/Modals',
   component: ModalComponent,
   argTypes: {
     children: {
