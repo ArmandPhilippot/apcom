@@ -4,7 +4,24 @@ import LabelComponent from './label';
 export default {
   title: 'Atoms/Forms',
   component: LabelComponent,
+  args: {
+    required: false,
+    size: 'small',
+  },
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Add classnames to the label.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     children: {
       control: {
         type: 'text',
@@ -32,22 +49,37 @@ export default {
       description: 'Set to true if the field is required.',
       table: {
         category: 'Options',
+        defaultValue: { summary: false },
       },
       type: {
         name: 'boolean',
         required: false,
       },
     },
+    size: {
+      control: {
+        type: 'select',
+      },
+      description: 'The label size.',
+      options: ['medium', 'small'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'small' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
   },
 } as ComponentMeta<typeof LabelComponent>;
 
-const Template: ComponentStory<typeof LabelComponent> = (args) => {
-  const { children, ...props } = args;
-  return <LabelComponent {...props}>{children}</LabelComponent>;
-};
+const Template: ComponentStory<typeof LabelComponent> = ({
+  children,
+  ...args
+}) => <LabelComponent {...args}>{children}</LabelComponent>;
 
 export const Label = Template.bind({});
 Label.args = {
   children: 'A label',
-  htmlFor: 'a-field-id',
 };

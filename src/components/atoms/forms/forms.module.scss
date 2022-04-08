@@ -1,7 +1,12 @@
 @use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.item {
+  margin: var(--spacing-xs) 0;
+  max-width: 45ch;
+}
 
 .field {
-  width: 100%;
   padding: var(--spacing-2xs) var(--spacing-xs);
   background: var(--color-bg-tertiary);
   border: fun.convert-px(2) solid var(--color-border);
@@ -10,6 +15,10 @@
 
   &--select {
     cursor: pointer;
+
+    @include mix.pointer("fine") {
+      padding: fun.convert-px(3) var(--spacing-xs);
+    }
   }
 
   &--textarea {
@@ -40,16 +49,4 @@
       transition: all 0.2s ease-in-out 0s, transform 0.3s ease-out 0s;
     }
   }
-}
-
-.label {
-  display: block;
-  color: var(--color-primary-darker);
-  font-size: var(--font-size-sm);
-  font-variant: small-caps;
-  font-weight: 600;
-}
-
-.required {
-  color: var(--color-secondary);
 }

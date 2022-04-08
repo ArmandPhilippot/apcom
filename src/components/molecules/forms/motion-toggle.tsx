@@ -2,17 +2,17 @@ import Toggle, {
   ToggleChoices,
   ToggleProps,
 } from '@components/atoms/forms/toggle';
-import { FC, useState } from 'react';
+import { useState, VFC } from 'react';
 import { useIntl } from 'react-intl';
 
-export type MotionToggleProps = Pick<ToggleProps, 'value'>;
+export type MotionToggleProps = Pick<ToggleProps, 'labelClassName' | 'value'>;
 
 /**
  * MotionToggle component
  *
  * Render a Toggle component to set reduce motion.
  */
-const MotionToggle: FC<MotionToggleProps> = ({ value }) => {
+const MotionToggle: VFC<MotionToggleProps> = ({ value, ...props }) => {
   const intl = useIntl();
   const [isDeactivated, setIsDeactivated] = useState<boolean>(value);
   const reduceMotionLabel = intl.formatMessage({
@@ -40,9 +40,11 @@ const MotionToggle: FC<MotionToggleProps> = ({ value }) => {
       id="reduce-motion-settings"
       name="reduce-motion-settings"
       label={reduceMotionLabel}
+      labelSize="medium"
       choices={reduceMotionChoices}
       value={isDeactivated}
       setValue={setIsDeactivated}
+      {...props}
     />
   );
 };

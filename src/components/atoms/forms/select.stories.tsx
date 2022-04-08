@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useState } from 'react';
 import SelectComponent from './select';
 
 const selectOptions = [
@@ -10,14 +11,31 @@ const selectOptions = [
 export default {
   title: 'Atoms/Forms',
   component: SelectComponent,
+  args: {
+    disabled: false,
+    required: false,
+  },
   argTypes: {
-    classes: {
+    'aria-labelledby': {
       control: {
         type: 'text',
       },
-      description: 'Set additional classes',
+      description: 'One or more ids that refers to the select field name.',
       table: {
-        category: 'Options',
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Add classnames to the select field.',
+      table: {
+        category: 'Styles',
       },
       type: {
         name: 'string',
@@ -59,9 +77,6 @@ export default {
       },
     },
     options: {
-      control: {
-        type: null,
-      },
       description: 'Select options.',
       type: {
         name: 'array',
@@ -100,7 +115,7 @@ export default {
     },
     value: {
       control: {
-        type: 'text',
+        type: null,
       },
       description: 'Field value.',
       type: {
@@ -111,13 +126,20 @@ export default {
   },
 } as ComponentMeta<typeof SelectComponent>;
 
-const Template: ComponentStory<typeof SelectComponent> = (args) => (
-  <SelectComponent {...args} />
-);
+const Template: ComponentStory<typeof SelectComponent> = ({
+  value,
+  setValue: _setValue,
+  ...args
+}) => {
+  const [selected, setSelected] = useState<string>(value);
+
+  return <SelectComponent value={selected} setValue={setSelected} {...args} />;
+};
 
 export const Select = Template.bind({});
 Select.args = {
+  id: 'storybook-select',
+  name: 'storybook-select',
   options: selectOptions,
-  setValue: () => null,
   value: 'option2',
 };

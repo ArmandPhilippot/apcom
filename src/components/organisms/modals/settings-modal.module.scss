@@ -1,0 +1,14 @@
+.wrapper {
+  max-width: 30ch;
+
+  .label {
+    margin-right: auto;
+  }
+}
+
+.tooltip {
+  width: 120%;
+  top: calc(100% + var(--spacing-sm));
+  right: -10%;
+  transform-origin: top right;
+}

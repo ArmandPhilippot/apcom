@@ -1,17 +1,30 @@
-import { ChangeEvent, FC, SetStateAction } from 'react';
+import { ChangeEvent, SetStateAction, VFC } from 'react';
 import styles from './forms.module.scss';
 
 export type SelectOptions = {
+  /**
+   * The option id.
+   */
   id: string;
+  /**
+   * The option name.
+   */
   name: string;
+  /**
+   * The option value.
+   */
   value: string;
 };
 
 export type SelectProps = {
   /**
-   * Set additional classes.
+   * One or more ids that refers to the select field name.
    */
-  classes?: string;
+  'aria-labelledby'?: string;
+  /**
+   * Add classnames to the select field.
+   */
+  className?: string;
   /**
    * Field state. Either enabled (false) or disabled (true).
    */
@@ -47,8 +60,8 @@ export type SelectProps = {
  *
  * Render a HTML select element.
  */
-const Select: FC<SelectProps> = ({
-  classes = '',
+const Select: VFC<SelectProps> = ({
+  className = '',
   options,
   setValue,
   ...props
@@ -74,7 +87,7 @@ const Select: FC<SelectProps> = ({
 
   return (
     <select
-      className={`${styles.field} ${styles['field--select']} ${classes}`}
+      className={`${styles.field} ${styles['field--select']} ${className}`}
       onChange={updateValue}
       {...props}
     >

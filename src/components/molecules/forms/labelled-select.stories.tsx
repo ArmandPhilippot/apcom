@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useState } from 'react';
 import LabelledSelectComponent from './labelled-select';
 
 const selectOptions = [
@@ -12,6 +13,7 @@ export default {
   component: LabelledSelectComponent,
   args: {
     disabled: false,
+    labelPosition: 'top',
     required: false,
   },
   argTypes: {
@@ -47,6 +49,48 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    labelClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the label.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    labelPosition: {
+      control: {
+        type: 'select',
+      },
+      description: 'The label position.',
+      options: ['left', 'top'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'top' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    labelSize: {
+      control: {
+        type: 'select',
+      },
+      description: 'The label size.',
+      options: ['medium', 'small'],
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     name: {
@@ -86,6 +130,19 @@ export default {
         required: false,
       },
     },
+    selectClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the select field.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     setValue: {
       control: {
         type: null,
@@ -101,7 +158,7 @@ export default {
     },
     value: {
       control: {
-        type: 'text',
+        type: null,
       },
       description: 'Field value.',
       type: {
@@ -112,9 +169,21 @@ export default {
   },
 } as ComponentMeta<typeof LabelledSelectComponent>;
 
-const Template: ComponentStory<typeof LabelledSelectComponent> = (args) => (
-  <LabelledSelectComponent {...args} />
-);
+const Template: ComponentStory<typeof LabelledSelectComponent> = ({
+  value,
+  setValue: _setValue,
+  ...args
+}) => {
+  const [selected, setSelected] = useState<string>(value);
+
+  return (
+    <LabelledSelectComponent
+      value={selected}
+      setValue={setSelected}
+      {...args}
+    />
+  );
+};
 
 export const LabelledSelect = Template.bind({});
 LabelledSelect.args = {
@@ -122,6 +191,5 @@ LabelledSelect.args = {
   label: 'Labelled select',
   name: 'labelled-select-storybook',
   options: selectOptions,
-  setValue: () => null,
-  value: '',
+  value: 'option1',
 };

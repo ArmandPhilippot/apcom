@@ -17,26 +17,6 @@ export default {
         required: true,
       },
     },
-    title: {
-      control: {
-        type: 'text',
-      },
-      description: 'The tooltip title',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-    label: {
-      control: {
-        type: 'text',
-      },
-      description: 'The select label.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
     disabled: {
       control: {
         type: 'boolean',
@@ -59,6 +39,43 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    label: {
+      control: {
+        type: 'text',
+      },
+      description: 'The select label.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
+    labelClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the label.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    labelSize: {
+      control: {
+        type: 'select',
+      },
+      description: 'The label size.',
+      options: ['medium', 'small'],
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     name: {
@@ -98,6 +115,19 @@ export default {
         required: false,
       },
     },
+    selectClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the select field.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     setValue: {
       control: {
         type: null,
@@ -109,6 +139,29 @@ export default {
       type: {
         name: 'function',
         required: true,
+      },
+    },
+    title: {
+      control: {
+        type: 'text',
+      },
+      description: 'The tooltip title',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
+    tooltipClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the tooltip.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     value: {

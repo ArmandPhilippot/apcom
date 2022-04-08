@@ -1,19 +1,22 @@
-import Select, { SelectProps } from '@components/atoms/forms/select';
-import { FC, useState } from 'react';
+import { useState, VFC } from 'react';
 import HelpButton from '../buttons/help-button';
-import Tooltip, { TooltipProps } from '../modals/tooltip';
+import Tooltip, { type TooltipProps } from '../modals/tooltip';
+import LabelledSelect, { type LabelledSelectProps } from './labelled-select';
 import styles from './select-with-tooltip.module.scss';
 
-export type SelectWithTooltipProps = SelectProps &
+export type SelectWithTooltipProps = Omit<
+  LabelledSelectProps,
+  'labelPosition'
+> &
   Pick<TooltipProps, 'title' | 'content'> & {
     /**
      * The select label.
      */
     label: string;
     /**
-     * Set additional classes to the tooltip wrapper.
+     * Set additional classnames to the tooltip wrapper.
      */
-    tooltipClasses?: string;
+    tooltipClassName?: string;
   };
 
 /**
@@ -21,12 +24,11 @@ export type SelectWithTooltipProps = SelectProps &
  *
  * Render a select with a button to display a tooltip about options.
  */
-const SelectWithTooltip: FC<SelectWithTooltipProps> = ({
+const SelectWithTooltip: VFC<SelectWithTooltipProps> = ({
   title,
   content,
   id,
-  label,
-  tooltipClasses = '',
+  tooltipClassName = '',
   ...props
 }) => {
   const [isTooltipOpened, setIsTooltipOpened] = useState<boolean>(false);
@@ -37,19 +39,21 @@ const SelectWithTooltip: FC<SelectWithTooltipProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      <label htmlFor={id} className={styles.label}>
-        {label}
-      </label>
-      <Select id={id} {...props} classes={styles.select} />
+      <LabelledSelect
+        labelPosition="left"
+        id={id}
+        labelClassName={styles.label}
+        {...props}
+      />
       <HelpButton
         onClick={() => setIsTooltipOpened(!isTooltipOpened)}
-        classes={buttonModifier}
+        className={`${styles.btn} ${buttonModifier}`}
       />
       <Tooltip
         title={title}
         content={content}
         icon="?"
-        classes={`${styles.tooltip} ${tooltipModifier} ${tooltipClasses}`}
+        className={`${styles.tooltip} ${tooltipModifier} ${tooltipClassName}`}
       />
     </div>
   );

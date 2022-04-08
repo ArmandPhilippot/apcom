@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useState } from 'react';
 import LabelledFieldComponent from './labelled-field';
 
 export default {
@@ -6,6 +7,7 @@ export default {
   component: LabelledFieldComponent,
   args: {
     disabled: false,
+    labelPosition: 'top',
     required: false,
   },
   argTypes: {
@@ -41,6 +43,21 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    labelPosition: {
+      control: {
+        type: 'select',
+      },
+      description: 'The label position.',
+      options: ['left', 'top'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'top' },
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     max: {
@@ -155,7 +172,7 @@ export default {
     },
     value: {
       control: {
-        type: 'text',
+        type: null,
       },
       description: 'Field value.',
       type: {
@@ -166,15 +183,19 @@ export default {
   },
 } as ComponentMeta<typeof LabelledFieldComponent>;
 
-const Template: ComponentStory<typeof LabelledFieldComponent> = (args) => (
-  <LabelledFieldComponent {...args} />
-);
+const Template: ComponentStory<typeof LabelledFieldComponent> = ({
+  value: _value,
+  setValue: _setValue,
+  ...args
+}) => {
+  const [value, setValue] = useState<string>('');
+
+  return <LabelledFieldComponent value={value} setValue={setValue} {...args} />;
+};
 
 export const LabelledField = Template.bind({});
 LabelledField.args = {
   id: 'labelled-field-storybook',
   label: 'Labelled field',
   name: 'labelled-field-storybook',
-  setValue: () => null,
-  value: '',
 };

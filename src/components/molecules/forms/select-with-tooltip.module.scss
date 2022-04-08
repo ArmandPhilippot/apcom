@@ -5,12 +5,7 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  gap: var(--spacing-xs);
   position: relative;
-}
-
-.label {
-  margin-right: auto;
 }
 
 .select {
@@ -22,6 +17,8 @@
 }
 
 .btn {
+  margin-left: var(--spacing-xs);
+
   &--activated {
     background: var(--color-primary);
 
@@ -34,8 +31,7 @@
 .tooltip {
   position: absolute;
   top: calc(100% + var(--spacing-xs));
-  right: 0;
-  transform-origin: top right;
+  transform-origin: top;
   transition: all 0.75s ease-in-out 0s;
 
   &--hidden {

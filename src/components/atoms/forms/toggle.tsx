@@ -27,6 +27,10 @@ export type ToggleProps = {
    */
   label: string;
   /**
+   * Set additional classnames to the label.
+   */
+  labelClassName?: string;
+  /**
    * The label size.
    */
   labelSize?: LabelProps['size'];
@@ -53,6 +57,7 @@ const Toggle: VFC<ToggleProps> = ({
   choices,
   id,
   label,
+  labelClassName = '',
   labelSize,
   name,
   setValue,
@@ -69,7 +74,7 @@ const Toggle: VFC<ToggleProps> = ({
         className={styles.checkbox}
       />
       <Label size={labelSize} htmlFor={id} className={styles.label}>
-        <span className={styles.title}>{label}</span>
+        <span className={`${styles.title} ${labelClassName}`}>{label}</span>
         {choices.left}
         <span className={styles.toggle}></span>
         {choices.right}

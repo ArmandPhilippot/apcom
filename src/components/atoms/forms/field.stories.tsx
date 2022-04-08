@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useState } from 'react';
 import FieldComponent from './field';
 
 export default {
@@ -7,11 +8,35 @@ export default {
   args: {
     disabled: false,
     required: false,
-    setValue: () => null,
     type: 'text',
-    value: '',
   },
   argTypes: {
+    'aria-labelledby': {
+      control: {
+        type: 'text',
+      },
+      description: 'One or more ids that refers to the field name.',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Add classnames to the field.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     disabled: {
       control: {
         type: 'boolean',
@@ -148,7 +173,7 @@ export default {
     },
     value: {
       control: {
-        type: 'text',
+        type: null,
       },
       description: 'Field value.',
       type: {
@@ -159,14 +184,18 @@ export default {
   },
 } as ComponentMeta<typeof FieldComponent>;
 
-const Template: ComponentStory<typeof FieldComponent> = (args) => (
-  <FieldComponent {...args} />
-);
+const Template: ComponentStory<typeof FieldComponent> = ({
+  value: _value,
+  setValue: _setValue,
+  ...args
+}) => {
+  const [value, setValue] = useState<string>('');
+
+  return <FieldComponent value={value} setValue={setValue} {...args} />;
+};
 
 export const Field = Template.bind({});
 Field.args = {
   id: 'field-storybook',
   name: 'field-storybook',
-  setValue: () => null,
-  value: '',
 };

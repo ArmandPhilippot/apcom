@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, SetStateAction } from 'react';
+import { ChangeEvent, SetStateAction, VFC } from 'react';
 import styles from './forms.module.scss';
 
 export type FieldType =
@@ -13,6 +13,14 @@ export type FieldType =
   | 'url';
 
 export type FieldProps = {
+  /**
+   * One or more ids that refers to the field name.
+   */
+  'aria-labelledby'?: string;
+  /**
+   * Add classnames to the field.
+   */
+  className?: string;
   /**
    * Field state. Either enabled (false) or disabled (true).
    */
@@ -64,7 +72,12 @@ export type FieldProps = {
  *
  * Render either an input or a textarea.
  */
-const Field: FC<FieldProps> = ({ setValue, type, ...props }) => {
+const Field: VFC<FieldProps> = ({
+  className = '',
+  setValue,
+  type,
+  ...props
+}) => {
   /**
    * Update select value when an option is selected.
    * @param e - The option change event.
@@ -78,14 +91,14 @@ const Field: FC<FieldProps> = ({ setValue, type, ...props }) => {
   return type === 'textarea' ? (
     <textarea
       onChange={updateValue}
-      className={`${styles.field} ${styles['field--textarea']}`}
+      className={`${styles.field} ${styles['field--textarea']} ${className}`}
       {...props}
     />
   ) : (
     <input
       type={type}
       onChange={updateValue}
-      className={styles.field}
+      className={`${styles.field} ${className}`}
       {...props}
     />
   );
