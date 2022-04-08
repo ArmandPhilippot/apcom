@@ -3,17 +3,9 @@ import styles from './plus-minus.module.scss';
 
 type PlusMinusProps = {
   /**
-   * Adds additional classes.
+   * Set additional classnames to the icon.
    */
-  additionalClasses?: string;
-  /**
-   * An accessible name.
-   */
-  ariaLabel?: string;
-  /**
-   * Should be hidden for accessibility. Default: true.
-   */
-  ariaHidden?: boolean;
+  className?: string;
   /**
    * Which state should be displayed.
    */
@@ -25,19 +17,13 @@ type PlusMinusProps = {
  *
  * Render a plus or a minus icon.
  */
-const PlusMinus: FC<PlusMinusProps> = ({
-  additionalClasses,
-  ariaHidden = true,
-  ariaLabel,
-  state,
-}) => {
+const PlusMinus: FC<PlusMinusProps> = ({ className, state }) => {
   const stateClass = `icon--${state}`;
 
   return (
     <div
-      className={`${styles.icon} ${styles[stateClass]} ${additionalClasses}`}
-      aria-label={ariaLabel}
-      aria-hidden={ariaHidden}
+      className={`${styles.icon} ${styles[stateClass]} ${className}`}
+      aria-hidden={true}
     ></div>
   );
 };

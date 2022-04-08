@@ -1,17 +1,24 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './posts-stack.module.scss';
+
+export type PostsStackProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
+};
 
 /**
  * Posts stack component.
  *
  * Render a posts stack svg icon.
  */
-const PostsStack: FC = () => {
+const PostsStack: VFC<PostsStackProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles.icon}
+      className={`${styles.icon} ${className}`}
     >
       <path
         className={styles.background}

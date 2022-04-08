@@ -5,6 +5,19 @@ export default {
   title: 'Atoms/Icons',
   component: HamburgerIcon,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     isActive: {
       control: {
         type: 'boolean',

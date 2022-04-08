@@ -1,13 +1,17 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './arrow.module.scss';
 
-type ArrowDirection = 'top' | 'right' | 'bottom' | 'left';
+export type ArrowDirection = 'top' | 'right' | 'bottom' | 'left';
 
-type ArrowProps = {
+export type ArrowProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
   /**
    * The arrow direction. Default: right.
    */
-  direction?: ArrowDirection;
+  direction: ArrowDirection;
 };
 
 /**
@@ -15,9 +19,9 @@ type ArrowProps = {
  *
  * Render a svg arrow icon.
  */
-const Arrow: FC<ArrowProps> = ({ direction = 'right' }) => {
+const Arrow: VFC<ArrowProps> = ({ className = '', direction }) => {
   const directionClass = styles[`icon--${direction}`];
-  const classes = `${styles.icon} ${directionClass}`;
+  const classes = `${styles.icon} ${directionClass} ${className}`;
 
   if (direction === 'top') {
     return (

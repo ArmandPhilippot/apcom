@@ -1,17 +1,24 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './career.module.scss';
+
+export type CareerProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
+};
 
 /**
  * Career Component
  *
  * Render a career svg icon.
  */
-const Career: FC = () => {
+const Career: VFC<CareerProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles.icon}
+      className={`${styles.icon} ${className}`}
     >
       <path
         className={styles.bottom}

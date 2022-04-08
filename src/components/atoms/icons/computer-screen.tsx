@@ -1,17 +1,24 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './computer-screen.module.scss';
+
+export type ComputerScreenProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
+};
 
 /**
  * ComputerScreen component
  *
  * Render a computer screen svg icon.
  */
-const ComputerScreen: FC = () => {
+const ComputerScreen: VFC<ComputerScreenProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles.icon}
+      className={`${styles.icon} ${className}`}
     >
       <path
         d="M 1.0206528,11.991149 H 98.979347 V 78.466748 H 1.0206528 Z"

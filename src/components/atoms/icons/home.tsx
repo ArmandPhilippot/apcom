@@ -1,17 +1,24 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './home.module.scss';
+
+export type HomeProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
+};
 
 /**
  * Home component.
  *
  * Render a home svg icon.
  */
-const Home: FC = () => {
+const Home: VFC<HomeProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles.icon}
+      className={`${styles.icon} ${className}`}
     >
       <path
         className={styles.wall}

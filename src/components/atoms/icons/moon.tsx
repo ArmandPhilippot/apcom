@@ -1,14 +1,21 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './moon.module.scss';
 
 type MoonProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
+  /**
+   * The SVG title.
+   */
   title?: string;
 };
 
-const Moon: FC<MoonProps> = ({ title }) => {
+const Moon: VFC<MoonProps> = ({ className = '', title }) => {
   return (
     <svg
-      className={styles.icon}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
     >

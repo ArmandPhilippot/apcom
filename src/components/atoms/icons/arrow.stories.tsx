@@ -5,15 +5,25 @@ export default {
   title: 'Atoms/Icons',
   component: ArrowIcon,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     direction: {
       control: {
         type: 'select',
       },
       description: 'An arrow icon.',
       options: ['bottom', 'left', 'right', 'top'],
-      table: {
-        defaultValue: { summary: 'right' },
-      },
       type: {
         name: 'string',
         required: false,
@@ -27,3 +37,6 @@ const Template: ComponentStory<typeof ArrowIcon> = (args) => (
 );
 
 export const Arrow = Template.bind({});
+Arrow.args = {
+  direction: 'right',
+};

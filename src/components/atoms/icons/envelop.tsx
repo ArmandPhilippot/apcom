@@ -1,17 +1,24 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './envelop.module.scss';
+
+export type EnvelopProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
+};
 
 /**
  * Envelop Component
  *
  * Render an envelop svg icon.
  */
-const Envelop: FC = () => {
+const Envelop: VFC<EnvelopProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles.icon}
+      className={`${styles.icon} ${className}`}
     >
       <path
         className={styles.background}

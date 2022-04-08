@@ -1,17 +1,24 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './magnifying-glass.module.scss';
+
+export type MagnifyingGlassProps = {
+  /**
+   * Set additional classnames to the icon.
+   */
+  className?: string;
+};
 
 /**
  * MagnifyingGlass component
  *
  * Render a magnifying glass svg icon.
  */
-const MagnifyingGlass: FC = () => {
+const MagnifyingGlass: VFC<MagnifyingGlassProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles.icon}
+      className={`${styles.icon} ${className}`}
     >
       <path
         className={styles['small-handle']}

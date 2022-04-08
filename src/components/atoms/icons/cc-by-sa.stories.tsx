@@ -5,6 +5,21 @@ import CCBySAIcon from './cc-by-sa';
 export default {
   title: 'Atoms/Icons',
   component: CCBySAIcon,
+  argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+  },
 } as ComponentMeta<typeof CCBySAIcon>;
 
 const Template: ComponentStory<typeof CCBySAIcon> = (args) => (
