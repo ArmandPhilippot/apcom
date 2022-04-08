@@ -28,6 +28,10 @@
     cursor: wait;
   }
 
+  &--neutral {
+    background: inherit;
+  }
+
   &--primary {
     background: var(--color-primary);
     border: fun.convert-px(2) solid var(--color-bg);

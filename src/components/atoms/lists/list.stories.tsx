@@ -8,13 +8,13 @@ export default {
     kind: 'unordered',
   },
   argTypes: {
-    classes: {
+    className: {
       control: {
         type: 'text',
       },
-      description: 'Add additional classes to the list element.',
+      description: 'Set additional classnames to the list wrapper',
       table: {
-        category: 'Options',
+        category: 'Styles',
       },
       type: {
         name: 'string',

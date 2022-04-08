@@ -1,6 +1,6 @@
 import Heading from '@components/atoms/headings/heading';
 import Link from 'next/link';
-import { FC } from 'react';
+import { VFC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './branding.module.scss';
 import FlippingLogo from './flipping-logo';
@@ -33,7 +33,7 @@ type BrandingProps = {
  *
  * Render the branding logo, title and optional baseline.
  */
-const Branding: FC<BrandingProps> = ({
+const Branding: VFC<BrandingProps> = ({
   baseline,
   isHome = false,
   photo,
@@ -61,7 +61,7 @@ const Branding: FC<BrandingProps> = ({
   return (
     <div className={styles.wrapper}>
       <FlippingLogo
-        additionalClasses={styles.logo}
+        className={styles.logo}
         altText={altText}
         logoTitle={logoTitle}
         photo={photo}
@@ -70,7 +70,7 @@ const Branding: FC<BrandingProps> = ({
         isFake={!isHome}
         level={1}
         withMargin={false}
-        additionalClasses={styles.title}
+        className={styles.title}
       >
         {withLink ? (
           <Link href="/">
@@ -85,7 +85,7 @@ const Branding: FC<BrandingProps> = ({
           isFake={true}
           level={4}
           withMargin={false}
-          additionalClasses={styles.baseline}
+          className={styles.baseline}
         >
           {baseline}
         </Heading>

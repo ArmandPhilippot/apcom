@@ -5,19 +5,6 @@ export default {
   title: 'Molecules/Layout',
   component: FlippingLogoComponent,
   argTypes: {
-    additionalClasses: {
-      control: {
-        type: 'text',
-      },
-      description: 'Adds additional classes to the logo wrapper.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     altText: {
       control: {
         type: 'text',
@@ -26,6 +13,32 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the logo wrapper.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    logoTitle: {
+      control: {
+        type: 'text',
+      },
+      description: 'An accessible name for the logo.',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     photo: {

@@ -15,6 +15,19 @@ export default {
         required: true,
       },
     },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     external: {
       control: {
         type: 'boolean',

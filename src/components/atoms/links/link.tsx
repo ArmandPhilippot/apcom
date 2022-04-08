@@ -2,11 +2,11 @@ import NextLink from 'next/link';
 import { FC } from 'react';
 import styles from './link.module.scss';
 
-type LinkProps = {
+export type LinkProps = {
   /**
-   * Set additional classes to the link.
+   * Set additional classnames to the link.
    */
-  classes?: string;
+  className?: string;
   /**
    * True if it is an external link. Default: false.
    */
@@ -28,24 +28,22 @@ type LinkProps = {
  */
 const Link: FC<LinkProps> = ({
   children,
-  classes,
+  className = '',
   href,
   lang,
   external = false,
 }) => {
-  const additionalClasses = classes || '';
-
   return external ? (
     <a
       href={href}
       hrefLang={lang}
-      className={`${styles.link} ${styles['link--external']} ${additionalClasses}`}
+      className={`${styles.link} ${styles['link--external']} ${className}`}
     >
       {children}
     </a>
   ) : (
     <NextLink href={href}>
-      <a className={`${styles.link} ${additionalClasses}`}>{children}</a>
+      <a className={`${styles.link} ${className}`}>{children}</a>
     </NextLink>
   );
 };

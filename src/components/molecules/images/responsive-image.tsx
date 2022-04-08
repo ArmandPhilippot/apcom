@@ -1,6 +1,6 @@
 import Link from '@components/atoms/links/link';
 import Image, { ImageProps } from 'next/image';
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './responsive-image.module.scss';
 
 type ResponsiveImageProps = Omit<ImageProps, 'alt' | 'width' | 'height'> & {
@@ -31,7 +31,7 @@ type ResponsiveImageProps = Omit<ImageProps, 'alt' | 'width' | 'height'> & {
  *
  * Render a responsive image wrapped in a figure element.
  */
-const ResponsiveImage: FC<ResponsiveImageProps> = ({
+const ResponsiveImage: VFC<ResponsiveImageProps> = ({
   alt,
   caption,
   layout,
@@ -42,7 +42,7 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
   return (
     <figure className={styles.wrapper}>
       {target ? (
-        <Link href={target} classes={styles.link}>
+        <Link href={target} className={styles.link}>
           <Image alt={alt} layout={layout || 'intrinsic'} {...props} />
           {caption && (
             <figcaption className={styles.caption}>{caption}</figcaption>

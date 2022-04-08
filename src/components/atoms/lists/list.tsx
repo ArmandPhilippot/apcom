@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './list.module.scss';
 
 export type ListItem = {
@@ -18,9 +18,9 @@ export type ListItem = {
 
 export type ListProps = {
   /**
-   * Add additional classes to the list element.
+   * Set additional classnames to the list wrapper
    */
-  classes?: string;
+  className?: string;
   /**
    * An array of list items.
    */
@@ -36,9 +36,8 @@ export type ListProps = {
  *
  * Render either an ordered or an unordered list.
  */
-const List: FC<ListProps> = ({ classes, items, kind = 'unordered' }) => {
+const List: VFC<ListProps> = ({ className, items, kind = 'unordered' }) => {
   const ListTag = kind === 'ordered' ? 'ol' : 'ul';
-  const additionalClasses = classes || '';
   const kindClass = `list--${kind}`;
 
   /**
@@ -52,7 +51,7 @@ const List: FC<ListProps> = ({ classes, items, kind = 'unordered' }) => {
         {value}
         {child && (
           <ListTag
-            className={`${styles.list} ${styles[kindClass]} ${additionalClasses}`}
+            className={`${styles.list} ${styles[kindClass]} ${className}`}
           >
             {getItems(child)}
           </ListTag>
@@ -62,9 +61,7 @@ const List: FC<ListProps> = ({ classes, items, kind = 'unordered' }) => {
   };
 
   return (
-    <ListTag
-      className={`${styles.list} ${styles[kindClass]} ${additionalClasses}`}
-    >
+    <ListTag className={`${styles.list} ${styles[kindClass]} ${className}`}>
       {getItems(items)}
     </ListTag>
   );

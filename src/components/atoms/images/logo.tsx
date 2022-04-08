@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './logo.module.scss';
 
 type LogoProps = {
@@ -13,7 +13,7 @@ type LogoProps = {
  *
  * Render a SVG logo.
  */
-const Logo: FC<LogoProps> = ({ title }) => {
+const Logo: VFC<LogoProps> = ({ title }) => {
   return (
     <svg
       viewBox="0 0 512 512"

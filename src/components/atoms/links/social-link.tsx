@@ -2,14 +2,16 @@ import GithubIcon from '@assets/images/social-media/github.svg';
 import GitlabIcon from '@assets/images/social-media/gitlab.svg';
 import LinkedInIcon from '@assets/images/social-media/linkedin.svg';
 import TwitterIcon from '@assets/images/social-media/twitter.svg';
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './social-link.module.scss';
 
-type SocialLinkProps = {
+export type SocialWebsite = 'Github' | 'Gitlab' | 'LinkedIn' | 'Twitter';
+
+export type SocialLinkProps = {
   /**
    * The social website name.
    */
-  name: 'Github' | 'Gitlab' | 'LinkedIn' | 'Twitter';
+  name: SocialWebsite;
   /**
    * The social profile url.
    */
@@ -21,7 +23,7 @@ type SocialLinkProps = {
  *
  * Render a social icon link.
  */
-const SocialLink: FC<SocialLinkProps> = ({ name, url }) => {
+const SocialLink: VFC<SocialLinkProps> = ({ name, url }) => {
   /**
    * Retrieve a social link icon by id.
    * @param {string} id - The social website id.

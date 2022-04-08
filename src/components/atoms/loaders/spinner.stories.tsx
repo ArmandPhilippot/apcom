@@ -11,6 +11,9 @@ export default {
         type: 'text',
       },
       description: 'Loading message.',
+      table: {
+        category: 'Options',
+      },
       type: {
         name: 'string',
         required: false,

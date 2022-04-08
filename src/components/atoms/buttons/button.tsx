@@ -3,9 +3,9 @@ import styles from './buttons.module.scss';
 
 export type ButtonProps = {
   /**
-   * Add additional classes to the button wrapper.
+   * Set additional classnames to the button wrapper.
    */
-  additionalClasses?: string;
+  className?: string;
   /**
    * Button accessible label.
    */
@@ -17,7 +17,7 @@ export type ButtonProps = {
   /**
    * Button kind. Default: secondary.
    */
-  kind?: 'primary' | 'secondary' | 'tertiary';
+  kind?: 'primary' | 'secondary' | 'tertiary' | 'neutral';
   /**
    * A callback function to handle click.
    */
@@ -38,7 +38,7 @@ export type ButtonProps = {
  * Use a button as call to action.
  */
 const Button: FC<ButtonProps> = ({
-  additionalClasses,
+  className = '',
   ariaLabel,
   children,
   disabled = false,
@@ -54,7 +54,7 @@ const Button: FC<ButtonProps> = ({
     <button
       type={type}
       disabled={disabled}
-      className={`${styles.btn} ${kindClass} ${shapeClass} ${additionalClasses}`}
+      className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
       aria-label={ariaLabel}
       {...props}
     >

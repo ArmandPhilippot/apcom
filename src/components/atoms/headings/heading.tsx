@@ -1,19 +1,21 @@
 import { FC } from 'react';
 import styles from './heading.module.scss';
 
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+
 export type HeadingProps = {
   /**
-   * Adds additional classes.
+   * Set additional classnames.
    */
-  additionalClasses?: string;
+  className?: string;
   /**
    * Use an heading element or only its styles. Default: false.
    */
   isFake?: boolean;
   /**
-   * HTML heading level: 'h1', 'h2', 'h3', 'h4', 'h5' or 'h6'.
+   * HTML heading level.
    */
-  level: 1 | 2 | 3 | 4 | 5 | 6;
+  level: HeadingLevel;
   /**
    * Adds margin. Default: true.
    */
@@ -27,7 +29,7 @@ export type HeadingProps = {
  */
 const Heading: FC<HeadingProps> = ({
   children,
-  additionalClasses,
+  className,
   isFake = false,
   level,
   withMargin = true,
@@ -38,7 +40,7 @@ const Heading: FC<HeadingProps> = ({
 
   return (
     <TitleTag
-      className={`${styles.heading} ${styles[levelClass]} ${styles[marginClass]} ${additionalClasses}`}
+      className={`${styles.heading} ${styles[levelClass]} ${styles[marginClass]} ${className}`}
     >
       {children}
     </TitleTag>

@@ -6,11 +6,11 @@ export default {
   title: 'Molecules/Buttons',
   component: HelpButtonComponent,
   argTypes: {
-    classes: {
+    className: {
       control: {
         type: 'text',
       },
-      description: 'Set additional classes to the button.',
+      description: 'Set additional classnames to the button wrapper.',
       table: {
         category: 'Options',
       },

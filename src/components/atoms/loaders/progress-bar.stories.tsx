@@ -5,11 +5,14 @@ export default {
   title: 'Atoms/Loaders',
   component: ProgressBarComponent,
   argTypes: {
-    ariaLabel: {
+    'aria-label': {
       control: {
         type: 'string',
       },
       description: 'An accessible name.',
+      table: {
+        category: 'Accessibility',
+      },
       type: {
         name: 'string',
         required: false,
@@ -30,6 +33,9 @@ export default {
         type: 'text',
       },
       description: 'An additional information to display.',
+      table: {
+        category: 'Options',
+      },
       type: {
         name: 'string',
         required: false,

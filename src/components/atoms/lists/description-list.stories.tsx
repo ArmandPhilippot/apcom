@@ -7,13 +7,13 @@ export default {
   title: 'Atoms/Lists',
   component: DescriptionListComponent,
   argTypes: {
-    classes: {
+    className: {
       control: {
         type: 'text',
       },
-      description: 'Set additional classes to the list wrapper.',
+      description: 'Set additional classnames to the list wrapper',
       table: {
-        category: 'Options',
+        category: 'Styles',
       },
       type: {
         name: 'string',

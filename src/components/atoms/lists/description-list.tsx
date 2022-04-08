@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './description-list.module.scss';
 
 export type DescriptionListItem = {
@@ -18,9 +18,9 @@ export type DescriptionListItem = {
 
 export type DescriptionListProps = {
   /**
-   * Set additional classes to the list wrapper.
+   * Set additional classnames to the list wrapper.
    */
-  classes?: string;
+  className?: string;
   /**
    * The list items.
    */
@@ -32,7 +32,10 @@ export type DescriptionListProps = {
  *
  * Render a description list.
  */
-const DescriptionList: FC<DescriptionListProps> = ({ classes = '', items }) => {
+const DescriptionList: VFC<DescriptionListProps> = ({
+  className = '',
+  items,
+}) => {
   /**
    * Retrieve the description list items wrapped in a div element.
    *
@@ -54,7 +57,7 @@ const DescriptionList: FC<DescriptionListProps> = ({ classes = '', items }) => {
     });
   };
 
-  return <dl className={`${styles.list} ${classes}`}>{getItems(items)}</dl>;
+  return <dl className={`${styles.list} ${className}`}>{getItems(items)}</dl>;
 };
 
 export default DescriptionList;

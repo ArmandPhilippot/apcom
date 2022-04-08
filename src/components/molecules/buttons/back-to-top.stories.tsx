@@ -6,11 +6,14 @@ export default {
   title: 'Molecules/Buttons',
   component: BackToTopComponent,
   argTypes: {
-    additionalClasses: {
+    className: {
       control: {
         type: 'text',
       },
-      description: 'Add additional classes to the button wrapper.',
+      description: 'Set additional classnames to the button wrapper.',
+      table: {
+        category: 'Styles',
+      },
       type: {
         name: 'string',
         required: false,

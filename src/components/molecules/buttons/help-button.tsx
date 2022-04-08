@@ -1,13 +1,13 @@
 import Button, { ButtonProps } from '@components/atoms/buttons/button';
-import { FC } from 'react';
+import { VFC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './help-button.module.scss';
 
 export type HelpButtonProps = Pick<ButtonProps, 'onClick'> & {
   /**
-   * Set additional classes to the button.
+   * Set additional classnames to the button wrapper.
    */
-  classes?: string;
+  className?: string;
 };
 
 /**
@@ -15,7 +15,7 @@ export type HelpButtonProps = Pick<ButtonProps, 'onClick'> & {
  *
  * Render a button with an interrogation mark icon.
  */
-const HelpButton: FC<HelpButtonProps> = ({ classes = '', onClick }) => {
+const HelpButton: VFC<HelpButtonProps> = ({ className = '', onClick }) => {
   const intl = useIntl();
   const text = intl.formatMessage({
     defaultMessage: 'Help',
@@ -26,7 +26,7 @@ const HelpButton: FC<HelpButtonProps> = ({ classes = '', onClick }) => {
   return (
     <Button
       shape="circle"
-      additionalClasses={`${styles.btn} ${classes}`}
+      className={`${styles.btn} ${className}`}
       onClick={onClick}
     >
       <span className="screen-reader-text">{text}</span>

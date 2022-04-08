@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import styles from './progress-bar.module.scss';
 
 export type ProgressBarProps = {
   /**
    * Accessible progress bar name.
    */
-  ariaLabel?: string;
+  'aria-label'?: string;
   /**
    * Current value.
    */
@@ -29,12 +29,12 @@ export type ProgressBarProps = {
  *
  * Render a progress bar.
  */
-const ProgressBar: FC<ProgressBarProps> = ({
-  ariaLabel,
+const ProgressBar: VFC<ProgressBarProps> = ({
   current,
   info,
   min,
   max,
+  ...props
 }) => {
   return (
     <div className={styles.progress}>
@@ -46,7 +46,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={current}
-        aria-label={ariaLabel}
+        {...props}
       ></progress>
     </div>
   );

@@ -1,12 +1,12 @@
 import List, { type ListItem } from '@components/atoms/lists/list';
-import { FC, ReactNode } from 'react';
+import { ReactNode, VFC } from 'react';
 import styles from './tooltip.module.scss';
 
 export type TooltipProps = {
   /**
-   * Set additional classes to the tooltip wrapper.
+   * Set additional classnames to the tooltip wrapper.
    */
-  classes?: string;
+  className?: string;
   /**
    * The tooltip body.
    */
@@ -26,7 +26,12 @@ export type TooltipProps = {
  *
  * Render a tooltip modal.
  */
-const Tooltip: FC<TooltipProps> = ({ classes = '', content, icon, title }) => {
+const Tooltip: VFC<TooltipProps> = ({
+  className = '',
+  content,
+  icon,
+  title,
+}) => {
   /**
    * Format an array of strings to an array of object with id and value.
    *
@@ -40,7 +45,7 @@ const Tooltip: FC<TooltipProps> = ({ classes = '', content, icon, title }) => {
   };
 
   return (
-    <div className={`${styles.wrapper} ${classes}`}>
+    <div className={`${styles.wrapper} ${className}`}>
       <div className={styles.title}>
         <span className={styles.icon}>{icon}</span>
         {title}

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import styles from './buttons.module.scss';
 
-type ButtonLinkProps = {
+export type ButtonLinkProps = {
   /**
    * ButtonLink accessible label.
    */

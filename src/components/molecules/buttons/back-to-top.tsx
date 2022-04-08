@@ -1,14 +1,14 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Arrow from '@components/atoms/icons/arrow';
-import { FC } from 'react';
+import { VFC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './back-to-top.module.scss';
 
-type BackToTopProps = {
+export type BackToTopProps = {
   /**
-   * Add additional classes to the button wrapper.
+   * Set additional classnames to the button wrapper.
    */
-  additionalClasses?: string;
+  className?: string;
   /**
    * An element id (without hashtag) to use as anchor.
    */
@@ -20,7 +20,7 @@ type BackToTopProps = {
  *
  * Render a back to top link.
  */
-const BackToTop: FC<BackToTopProps> = ({ additionalClasses, target }) => {
+const BackToTop: VFC<BackToTopProps> = ({ className = '', target }) => {
   const intl = useIntl();
   const linkName = intl.formatMessage({
     defaultMessage: 'Back to top',
@@ -29,7 +29,7 @@ const BackToTop: FC<BackToTopProps> = ({ additionalClasses, target }) => {
   });
 
   return (
-    <div className={`${styles.wrapper} ${additionalClasses}`}>
+    <div className={`${styles.wrapper} ${className}`}>
       <ButtonLink shape="square" target={`#${target}`} aria-label={linkName}>
         <Arrow direction="top" />
       </ButtonLink>

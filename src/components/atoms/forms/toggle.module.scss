@@ -6,10 +6,11 @@
 
   display: inline-flex;
   align-items: center;
+  width: 100%;
 }
 
 .title {
-  margin-right: var(--spacing-xs);
+  margin-right: auto;
 }
 
 .toggle {

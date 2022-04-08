@@ -9,13 +9,13 @@ export default {
     withMargin: true,
   },
   argTypes: {
-    additionalClasses: {
+    className: {
       control: {
         type: 'text',
       },
-      description: 'Set additional classes.',
+      description: 'Set additional classnames.',
       table: {
-        category: 'Options',
+        category: 'Styles',
       },
       type: {
         name: 'string',
@@ -71,12 +71,12 @@ export default {
   },
 } as ComponentMeta<typeof HeadingComponent>;
 
-const Template: ComponentStory<typeof HeadingComponent> = (args) => {
-  const { level, ...props } = args;
-  return <HeadingComponent level={level || 1} {...props} />;
-};
+const Template: ComponentStory<typeof HeadingComponent> = (args) => (
+  <HeadingComponent {...args} />
+);
 
 export const Heading = Template.bind({});
 Heading.args = {
   children: 'Your title',
+  level: 1,
 };

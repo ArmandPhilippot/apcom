@@ -34,6 +34,20 @@ export default {
         required: true,
       },
     },
+    labelSize: {
+      control: {
+        type: 'select',
+      },
+      description: 'The label size.',
+      options: ['medium', 'small'],
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     name: {
       control: {
         type: 'text',

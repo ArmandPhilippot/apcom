@@ -5,11 +5,34 @@ export default {
   title: 'Molecules/Modals',
   component: TooltipComponent,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the tooltip.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     content: {
       control: {
         type: 'text',
       },
       description: 'The tooltip body.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
+    icon: {
+      control: {
+        type: 'text',
+      },
+      description: 'The tooltip icon.',
       type: {
         name: 'string',
         required: true,
