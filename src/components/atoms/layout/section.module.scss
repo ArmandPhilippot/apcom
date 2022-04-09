@@ -1,0 +1,25 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/placeholders";
+
+.wrapper {
+  @extend %grid;
+
+  padding: var(--spacing-md) 0;
+
+  &--borders {
+    border-bottom: fun.convert-px(1) solid var(--color-border);
+  }
+
+  &--dark {
+    background: var(--color-bg-secondary);
+  }
+
+  &--light {
+    background: var(--color-bg);
+  }
+}
+
+.body,
+.title {
+  grid-column: 2;
+}
