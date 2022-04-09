@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ToggleComponent from './toggle';
 
 export default {
-  title: 'Atoms/Forms',
+  title: 'Molecules/Forms',
   component: ToggleComponent,
   argTypes: {
     choices: {
@@ -32,6 +32,19 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    labelClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the label.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     labelSize: {

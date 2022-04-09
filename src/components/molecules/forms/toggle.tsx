@@ -1,5 +1,6 @@
+import Checkbox from '@components/atoms/forms/checkbox';
+import Label, { type LabelProps } from '@components/atoms/forms/label';
 import { ReactNode, VFC } from 'react';
-import Label, { LabelProps } from './label';
 import styles from './toggle.module.scss';
 
 export type ToggleChoices = {
@@ -65,12 +66,11 @@ const Toggle: VFC<ToggleProps> = ({
 }) => {
   return (
     <>
-      <input
-        type="checkbox"
+      <Checkbox
         name={name}
         id={id}
-        checked={value}
-        onChange={() => setValue(!value)}
+        value={value}
+        setValue={() => setValue(!value)}
         className={styles.checkbox}
       />
       <Label size={labelSize} htmlFor={id} className={styles.label}>

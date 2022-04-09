@@ -1,9 +1,9 @@
+import Moon from '@components/atoms/icons/moon';
+import Sun from '@components/atoms/icons/sun';
 import Toggle, {
   ToggleChoices,
   ToggleProps,
-} from '@components/atoms/forms/toggle';
-import Moon from '@components/atoms/icons/moon';
-import Sun from '@components/atoms/icons/sun';
+} from '@components/molecules/forms/toggle';
 import { useState, VFC } from 'react';
 import { useIntl } from 'react-intl';
 

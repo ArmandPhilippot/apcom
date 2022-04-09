@@ -1,7 +1,7 @@
 import Toggle, {
   ToggleChoices,
   ToggleProps,
-} from '@components/atoms/forms/toggle';
+} from '@components/molecules/forms/toggle';
 import { useState, VFC } from 'react';
 import { useIntl } from 'react-intl';
 
