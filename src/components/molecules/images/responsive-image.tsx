@@ -13,6 +13,10 @@ type ResponsiveImageProps = Omit<ImageProps, 'alt' | 'width' | 'height'> & {
    */
   caption?: string;
   /**
+   * Set additional classnames to the figure wrapper.
+   */
+  className?: string;
+  /**
    * The image height.
    */
   height: number | string;
@@ -34,16 +38,22 @@ type ResponsiveImageProps = Omit<ImageProps, 'alt' | 'width' | 'height'> & {
 const ResponsiveImage: VFC<ResponsiveImageProps> = ({
   alt,
   caption,
+  className = '',
   layout,
   objectFit,
   target,
   ...props
 }) => {
   return (
-    <figure className={styles.wrapper}>
+    <figure className={`${styles.wrapper} ${className}`}>
       {target ? (
         <Link href={target} className={styles.link}>
-          <Image alt={alt} layout={layout || 'intrinsic'} {...props} />
+          <Image
+            alt={alt}
+            layout={layout || 'intrinsic'}
+            objectFit={objectFit || 'contain'}
+            {...props}
+          />
           {caption && (
             <figcaption className={styles.caption}>{caption}</figcaption>
           )}

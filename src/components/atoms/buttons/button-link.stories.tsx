@@ -28,6 +28,19 @@ export default {
         required: true,
       },
     },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the button link.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     kind: {
       control: {
         type: 'select',

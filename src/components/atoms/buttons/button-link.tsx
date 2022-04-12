@@ -8,6 +8,10 @@ export type ButtonLinkProps = {
    */
   'aria-label'?: string;
   /**
+   * Set additional classnames to the button link.
+   */
+  className?: string;
+  /**
    * True if it is an external link. Default: false.
    */
   external?: boolean;
@@ -18,7 +22,7 @@ export type ButtonLinkProps = {
   /**
    * ButtonLink shape. Default: rectangle.
    */
-  shape?: 'rectangle' | 'square';
+  shape?: 'circle' | 'rectangle' | 'square';
   /**
    * Define an URL as target.
    */
@@ -32,6 +36,7 @@ export type ButtonLinkProps = {
  */
 const ButtonLink: FC<ButtonLinkProps> = ({
   children,
+  className,
   target,
   kind = 'secondary',
   shape = 'rectangle',
@@ -44,14 +49,17 @@ const ButtonLink: FC<ButtonLinkProps> = ({
   return external ? (
     <a
       href={target}
-      className={`${styles.btn} ${kindClass} ${shapeClass}`}
+      className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
       {...props}
     >
       {children}
     </a>
   ) : (
     <Link href={target}>
-      <a className={`${styles.btn} ${kindClass} ${shapeClass}`} {...props}>
+      <a
+        className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
+        {...props}
+      >
         {children}
       </a>
     </Link>
