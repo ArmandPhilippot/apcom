@@ -1,21 +1,24 @@
 @use "@styles/abstracts/functions" as fun;
 
 .wrapper {
-  a {
+  .link {
+    width: clamp(#{fun.convert-px(44)}, 6vw, #{fun.convert-px(55)});
+    height: clamp(#{fun.convert-px(44)}, 6vw, #{fun.convert-px(55)});
+
     svg {
       width: 100%;
     }
 
     :global {
       .arrow-head {
-        transform: translateY(30%) scale(1.1);
+        transform: translateY(30%) scale(1.2);
         transition: all 0.45s ease-in-out 0s;
       }
 
       .arrow-bar {
         opacity: 0;
         transform: translateY(30%) scaleY(0);
-        transition: transform 0.4s ease-in-out 0s, opacity 0.1s linear 0.4s;
+        transition: transform 0.45s ease-in-out 0s, opacity 0.1s linear 0.2s;
       }
     }
 
@@ -29,7 +32,6 @@
         .arrow-bar {
           opacity: 1;
           transform: translateY(0) scaleY(1);
-          transition: transform 0.45s ease-in-out 0s;
         }
       }
 

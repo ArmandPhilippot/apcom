@@ -30,7 +30,12 @@ const BackToTop: VFC<BackToTopProps> = ({ className = '', target }) => {
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
-      <ButtonLink shape="square" target={`#${target}`} aria-label={linkName}>
+      <ButtonLink
+        shape="square"
+        target={`#${target}`}
+        aria-label={linkName}
+        className={styles.link}
+      >
         <Arrow direction="top" />
       </ButtonLink>
     </div>
