@@ -1,0 +1,22 @@
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
+
+.nav {
+  &__list {
+    @extend %reset-list;
+
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--spacing-2xs);
+    align-items: center;
+  }
+
+  &--footer & {
+    &__item:not(:first-child) {
+      &::before {
+        content: "\2022";
+        margin-right: var(--spacing-2xs);
+      }
+    }
+  }
+}

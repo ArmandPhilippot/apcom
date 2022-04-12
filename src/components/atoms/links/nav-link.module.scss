@@ -15,8 +15,7 @@
   row-gap: var(--spacing-2xs);
   min-width: var(--link-min-width, fun.convert-px(85));
   padding: var(--spacing-xs);
-  background: var(--color-bg);
-  background-repeat: no-repeat;
+  background: inherit;
   font-size: var(--font-size-sm);
   font-variant: small-caps;
   font-weight: 600;
@@ -25,7 +24,6 @@
 
   @include mix.media("screen") {
     @include mix.dimensions("md") {
-      background-color: inherit;
       border-radius: 8%;
     }
   }
