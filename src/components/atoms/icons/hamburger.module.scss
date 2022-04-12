@@ -1,16 +1,21 @@
 @use "@styles/abstracts/functions" as fun;
 
-.icon {
-  display: block;
+.wrapper {
+  display: flex;
+  align-items: center;
   width: var(--icon-size, #{fun.convert-px(50)});
   height: var(--icon-size, #{fun.convert-px(50)});
   position: relative;
+}
 
+.icon {
   &,
   &::before,
   &::after {
     display: block;
     height: fun.convert-px(7);
+    width: 100%;
+    position: absolute;
     background: var(--color-primary-lighter);
     background-image: linear-gradient(
       to right,
@@ -25,33 +30,13 @@
   &::before,
   &::after {
     content: "";
-    position: absolute;
-    left: fun.convert-px(-1);
-    right: fun.convert-px(-1);
   }
 
   &::before {
-    bottom: fun.convert-px(15);
+    top: fun.convert-px(-15);
   }
 
   &::after {
-    top: fun.convert-px(15);
-  }
-
-  &--active {
-    background: transparent;
-    border: transparent;
-
-    &::before {
-      bottom: 0;
-      transform-origin: 50% 50%;
-      transform: rotate(45deg);
-    }
-
-    &::after {
-      top: 0;
-      transform-origin: 50% 50%;
-      transform: rotate(-45deg);
-    }
+    bottom: fun.convert-px(-15);
   }
 }

@@ -9,7 +9,7 @@ export default {
       control: {
         type: 'text',
       },
-      description: 'Set additional classnames.',
+      description: 'Set additional classnames to the icon wrapper.',
       table: {
         category: 'Styles',
       },
@@ -18,14 +18,17 @@ export default {
         required: false,
       },
     },
-    isActive: {
+    iconClassName: {
       control: {
-        type: 'boolean',
+        type: 'text',
       },
-      description: 'Transform hamburger into a cross when state is active.',
+      description: 'Set additional classnames to the icon.',
+      table: {
+        category: 'Styles',
+      },
       type: {
-        name: 'boolean',
-        required: true,
+        name: 'string',
+        required: false,
       },
     },
   },

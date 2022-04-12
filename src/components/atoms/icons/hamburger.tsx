@@ -3,13 +3,14 @@ import styles from './hamburger.module.scss';
 
 type HamburgerProps = {
   /**
-   * Set additional classnames to the icon.
+   * Set additional classnames to the icon wrapper.
    */
   className?: string;
+
   /**
-   * Transform hamburger to a close icon when active.
+   * Set additional classnames to the icon.
    */
-  isActive: boolean;
+  iconClassName?: string;
 };
 
 /**
@@ -17,11 +18,15 @@ type HamburgerProps = {
  *
  * Render a Hamburger icon.
  */
-const Hamburger: FC<HamburgerProps> = ({ className = '', isActive }) => {
-  const stateClass = isActive ? `${styles['icon--active']}` : '';
-  const iconClasses = `${styles.icon} ${stateClass} ${className}`;
-
-  return <span className={iconClasses}></span>;
+const Hamburger: FC<HamburgerProps> = ({
+  className = '',
+  iconClassName = '',
+}) => {
+  return (
+    <span className={`${styles.wrapper} ${className}`}>
+      <span className={`${styles.icon} ${iconClassName}`}></span>
+    </span>
+  );
 };
 
 export default Hamburger;
