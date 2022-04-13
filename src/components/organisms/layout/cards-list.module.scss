@@ -1,0 +1,27 @@
+@use "@styles/abstracts/placeholders";
+
+.wrapper {
+  --card-width: 30ch;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    min(calc(100vw - (var(--spacing-md) * 2)), var(--card-width))
+  );
+  gap: var(--spacing-sm);
+  place-content: center;
+  align-items: stretch;
+  justify-items: stretch;
+
+  &--ordered {
+    @extend %reset-ordered-list;
+  }
+
+  &--unordered {
+    @extend %reset-list;
+  }
+}
+
+.card {
+  height: 100%;
+}
