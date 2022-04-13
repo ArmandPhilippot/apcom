@@ -3,7 +3,10 @@ import Image, { ImageProps } from 'next/image';
 import { VFC } from 'react';
 import styles from './responsive-image.module.scss';
 
-type ResponsiveImageProps = Omit<ImageProps, 'alt' | 'width' | 'height'> & {
+export type ResponsiveImageProps = Omit<
+  ImageProps,
+  'alt' | 'width' | 'height'
+> & {
   /**
    * An alternative text.
    */

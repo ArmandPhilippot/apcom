@@ -6,6 +6,9 @@ import DescriptionListComponent, {
 export default {
   title: 'Atoms/Lists',
   component: DescriptionListComponent,
+  args: {
+    layout: 'column',
+  },
   argTypes: {
     className: {
       control: {
@@ -29,6 +32,21 @@ export default {
         name: 'object',
         required: true,
         value: {},
+      },
+    },
+    layout: {
+      control: {
+        type: 'select',
+      },
+      description: 'The list layout.',
+      options: ['column', 'inline'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'column' },
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
   },
