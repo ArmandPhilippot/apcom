@@ -35,6 +35,10 @@ export type NavProps = {
    * The navigation kind.
    */
   kind: 'main' | 'footer';
+  /**
+   * Set additional classnames to the navigation list.
+   */
+  listClassName?: string;
 };
 
 /**
@@ -42,7 +46,12 @@ export type NavProps = {
  *
  * Render the nav links.
  */
-const Nav: VFC<NavProps> = ({ className = '', items, kind }) => {
+const Nav: VFC<NavProps> = ({
+  className = '',
+  items,
+  kind,
+  listClassName = '',
+}) => {
   const kindClass = `nav--${kind}`;
 
   /**
@@ -63,7 +72,7 @@ const Nav: VFC<NavProps> = ({ className = '', items, kind }) => {
 
   return (
     <nav className={`${styles[kindClass]} ${className}`}>
-      <ul className={styles.nav__list}>{getItems()}</ul>
+      <ul className={`${styles.nav__list} ${listClassName}`}>{getItems()}</ul>
     </nav>
   );
 };

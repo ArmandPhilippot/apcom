@@ -29,6 +29,10 @@ export type ListProps = {
    * The list kind (ordered or unordered).
    */
   kind?: 'ordered' | 'unordered';
+  /**
+   * Set margin between list items. Default: true.
+   */
+  withMargin?: boolean;
 };
 
 /**
@@ -36,9 +40,15 @@ export type ListProps = {
  *
  * Render either an ordered or an unordered list.
  */
-const List: VFC<ListProps> = ({ className, items, kind = 'unordered' }) => {
+const List: VFC<ListProps> = ({
+  className,
+  items,
+  kind = 'unordered',
+  withMargin = true,
+}) => {
   const ListTag = kind === 'ordered' ? 'ol' : 'ul';
   const kindClass = `list--${kind}`;
+  const marginClass = withMargin ? 'list--has-margin' : 'list--no-margin';
 
   /**
    * Retrieve the list items.
@@ -51,7 +61,7 @@ const List: VFC<ListProps> = ({ className, items, kind = 'unordered' }) => {
         {value}
         {child && (
           <ListTag
-            className={`${styles.list} ${styles[kindClass]} ${className}`}
+            className={`${styles.list} ${styles[kindClass]} ${styles[marginClass]} ${className}`}
           >
             {getItems(child)}
           </ListTag>
@@ -61,7 +71,9 @@ const List: VFC<ListProps> = ({ className, items, kind = 'unordered' }) => {
   };
 
   return (
-    <ListTag className={`${styles.list} ${styles[kindClass]} ${className}`}>
+    <ListTag
+      className={`${styles.list} ${styles[kindClass]} ${styles[marginClass]} ${className}`}
+    >
       {getItems(items)}
     </ListTag>
   );

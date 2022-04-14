@@ -9,12 +9,6 @@
     margin-top: var(--spacing-2xs);
   }
 
-  &__item {
-    &:not(:last-child) {
-      margin-bottom: var(--spacing-2xs);
-    }
-  }
-
   &--ordered {
     padding: 0;
     counter-reset: li;
@@ -35,5 +29,11 @@
 
   &--unordered {
     padding: 0 0 0 var(--spacing-sm);
+  }
+
+  &--has-margin &__item {
+    &:not(:last-child) {
+      margin-bottom: var(--spacing-2xs);
+    }
   }
 }
