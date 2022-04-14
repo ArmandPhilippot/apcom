@@ -1,14 +1,21 @@
-.wrapper {
-  max-width: 30ch;
+@use "@styles/abstracts/mixins" as mix;
 
+.wrapper {
   .label {
     margin-right: auto;
   }
-}
 
-.tooltip {
-  width: 120%;
-  top: calc(100% + var(--spacing-sm));
-  right: -10%;
-  transform-origin: top right;
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      font-size: var(--font-size-sm);
+
+      .heading {
+        font-size: var(--font-size-lg);
+      }
+
+      .label {
+        font-size: var(--font-size-sm);
+      }
+    }
+  }
 }

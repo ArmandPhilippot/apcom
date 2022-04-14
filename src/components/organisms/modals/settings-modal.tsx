@@ -10,9 +10,13 @@ import styles from './settings-modal.module.scss';
 
 export type SettingsModalProps = {
   /**
-   * Set additional classnames to modal wrapper.
+   * Set additional classnames to the modal wrapper.
    */
   className?: string;
+  /**
+   * Set additional classnames to the tooltip wrapper.
+   */
+  tooltipClassName?: string;
 };
 
 /**
@@ -20,7 +24,10 @@ export type SettingsModalProps = {
  *
  * Render a modal with settings options.
  */
-const SettingsModal: VFC<SettingsModalProps> = ({ className }) => {
+const SettingsModal: VFC<SettingsModalProps> = ({
+  className = '',
+  tooltipClassName = '',
+}) => {
   const intl = useIntl();
   const title = intl.formatMessage({
     defaultMessage: 'Settings',
@@ -33,6 +40,7 @@ const SettingsModal: VFC<SettingsModalProps> = ({ className }) => {
       title={title}
       icon="cogs"
       className={`${styles.wrapper} ${className}`}
+      headingClassName={styles.heading}
     >
       <Form onSubmit={() => null}>
         <ThemeToggle labelClassName={styles.label} value={false} />
@@ -41,7 +49,7 @@ const SettingsModal: VFC<SettingsModalProps> = ({ className }) => {
         <AckeeSelect
           initialValue="full"
           labelClassName={styles.label}
-          tooltipClassName={styles.tooltip}
+          tooltipClassName={tooltipClassName}
         />
       </Form>
     </Modal>

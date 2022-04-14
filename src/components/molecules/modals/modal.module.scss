@@ -1,4 +1,5 @@
 @use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
   padding: var(--spacing-md);
@@ -12,6 +13,22 @@
     1;
   box-shadow: fun.convert-px(2) fun.convert-px(-2) fun.convert-px(3)
     fun.convert-px(-1) var(--color-shadow-dark);
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "sm") {
+      padding: var(--spacing-xs);
+      border-left: none;
+      border-right: none;
+
+      .title {
+        margin-bottom: var(--spacing-2xs);
+      }
+    }
+
+    @include mix.dimensions("sm") {
+      max-width: 35ch;
+    }
+  }
 }
 
 .icon {

@@ -1,8 +1,6 @@
 import { render, screen } from '@test-utils';
 import SettingsModal from './settings-modal';
 
-jest.mock('next/dynamic', () => () => 'dynamic-import');
-
 describe('SettingsModal', () => {
   it('renders a theme toggle setting', () => {
     render(<SettingsModal />);

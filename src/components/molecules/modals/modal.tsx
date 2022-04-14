@@ -13,6 +13,10 @@ export type ModalProps = {
    */
   className?: string;
   /**
+   * Set additional classnames to the heading.
+   */
+  headingClassName?: string;
+  /**
    * A icon to illustrate the modal.
    */
   icon?: Icons;
@@ -22,9 +26,12 @@ export type ModalProps = {
   title?: string;
 };
 
-const CogIcon = dynamic<CogProps>(() => import('@components/atoms/icons/cog'));
+const CogIcon = dynamic<CogProps>(() => import('@components/atoms/icons/cog'), {
+  ssr: false,
+});
 const SearchIcon = dynamic<MagnifyingGlassProps>(
-  () => import('@components/atoms/icons/magnifying-glass')
+  () => import('@components/atoms/icons/magnifying-glass'),
+  { ssr: false }
 );
 
 /**
@@ -32,7 +39,13 @@ const SearchIcon = dynamic<MagnifyingGlassProps>(
  *
  * Render a modal component with an optional title and icon.
  */
-const Modal: FC<ModalProps> = ({ children, className = '', icon, title }) => {
+const Modal: FC<ModalProps> = ({
+  children,
+  className = '',
+  headingClassName = '',
+  icon,
+  title,
+}) => {
   const getIcon = (id: Icons) => {
     switch (id) {
       case 'cogs':
@@ -47,7 +60,11 @@ const Modal: FC<ModalProps> = ({ children, className = '', icon, title }) => {
   return (
     <div className={`${styles.wrapper} ${className}`}>
       {title && (
-        <Heading isFake={true} level={3}>
+        <Heading
+          isFake={true}
+          level={3}
+          className={`${styles.title} ${headingClassName}`}
+        >
           {icon && <span className={styles.icon}>{getIcon(icon)}</span>}
           {title}
         </Heading>
