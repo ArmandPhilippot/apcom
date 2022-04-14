@@ -6,10 +6,15 @@
   --btn-size: #{fun.convert-px(65)};
 
   display: flex;
+  position: relative;
 
   @include mix.media("screen") {
     @include mix.dimensions("sm") {
-      justify-content: center;
+      justify-content: flex-end;
+    }
+
+    @include mix.dimensions("md") {
+      justify-content: flex-end;
     }
   }
 }
@@ -83,7 +88,7 @@
         @include mix.dimensions("sm") {
           transform: perspective(#{fun.convert-px(400)})
             translate3d(0, 0, #{fun.convert-px(-400)});
-          transform-origin: 50% -50%;
+          transform-origin: 100% -50%;
         }
       }
     }

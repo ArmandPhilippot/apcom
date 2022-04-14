@@ -11,6 +11,8 @@
 
   @include mix.media("screen") {
     @include mix.dimensions("sm") {
+      --toolbar-size: 0px;
+
       flex-flow: row wrap;
       font-size: var(--font-size-sm);
     }
