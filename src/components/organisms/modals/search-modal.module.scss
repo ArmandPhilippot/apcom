@@ -1,0 +1,11 @@
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  padding-bottom: var(--spacing-md);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      max-width: 40ch;
+    }
+  }
+}
