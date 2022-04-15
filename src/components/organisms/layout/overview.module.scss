@@ -1,0 +1,12 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: fun.convert-px(1) solid var(--color-border);
+}
+
+.cover {
+  max-height: fun.convert-px(150);
+  margin: 0 auto var(--spacing-md);
+  border: fun.convert-px(1) solid var(--color-border);
+}

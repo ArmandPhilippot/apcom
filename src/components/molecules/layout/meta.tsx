@@ -32,6 +32,10 @@ export type MetaProps = {
    * The meta layout.
    */
   layout?: DescriptionListProps['layout'];
+  /**
+   * Determine if the layout should be responsive.
+   */
+  responsiveLayout?: DescriptionListProps['responsiveLayout'];
 };
 
 /**
