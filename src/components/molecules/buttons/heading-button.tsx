@@ -1,10 +1,14 @@
 import Heading, { type HeadingProps } from '@components/atoms/headings/heading';
 import PlusMinus from '@components/atoms/icons/plus-minus';
-import { FC, SetStateAction } from 'react';
+import { SetStateAction, VFC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './heading-button.module.scss';
 
 export type HeadingButtonProps = Pick<HeadingProps, 'level'> & {
+  /**
+   * Set additional classnames to the button.
+   */
+  className?: string;
   /**
    * Accordion state.
    */
@@ -24,7 +28,8 @@ export type HeadingButtonProps = Pick<HeadingProps, 'level'> & {
  *
  * Render a button as accordion title to toggle body.
  */
-const HeadingButton: FC<HeadingButtonProps> = ({
+const HeadingButton: VFC<HeadingButtonProps> = ({
+  className = '',
   expanded,
   level,
   setExpanded,
@@ -47,18 +52,14 @@ const HeadingButton: FC<HeadingButtonProps> = ({
   return (
     <button
       type="button"
-      className={styles.wrapper}
+      className={`${styles.wrapper} ${className}`}
       onClick={() => setExpanded(!expanded)}
     >
-      <Heading
-        level={level}
-        withMargin={false}
-        additionalClasses={styles.heading}
-      >
+      <Heading level={level} withMargin={false} className={styles.heading}>
         <span className="screen-reader-text">{titlePrefix} </span>
         {title}
       </Heading>
-      <PlusMinus state={iconState} additionalClasses={styles.icon} />
+      <PlusMinus state={iconState} className={styles.icon} />
     </button>
   );
 };
