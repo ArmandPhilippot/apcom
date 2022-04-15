@@ -9,6 +9,10 @@ export type HeadingProps = {
    */
   className?: string;
   /**
+   * The heading id.
+   */
+  id?: string;
+  /**
    * Use an heading element or only its styles. Default: false.
    */
   isFake?: boolean;
@@ -30,6 +34,7 @@ export type HeadingProps = {
 const Heading: FC<HeadingProps> = ({
   children,
   className,
+  id,
   isFake = false,
   level,
   withMargin = true,
@@ -41,6 +46,7 @@ const Heading: FC<HeadingProps> = ({
   return (
     <TitleTag
       className={`${styles.heading} ${styles[levelClass]} ${styles[marginClass]} ${className}`}
+      id={id}
     >
       {children}
     </TitleTag>

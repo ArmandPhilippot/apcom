@@ -65,7 +65,7 @@ export default {
         type: 'select',
       },
       description: 'Button kind.',
-      options: ['primary', 'secondary', 'tertiary'],
+      options: ['primary', 'secondary', 'tertiary', 'neutral'],
       table: {
         category: 'Options',
         defaultValue: { summary: 'secondary' },
@@ -93,7 +93,7 @@ export default {
         type: 'select',
       },
       description: 'The link shape.',
-      options: ['circle', 'rectangle', 'square'],
+      options: ['circle', 'rectangle', 'square', 'initial'],
       table: {
         category: 'Options',
         defaultValue: { summary: 'rectangle' },

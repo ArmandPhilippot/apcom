@@ -10,6 +10,10 @@
   font-weight: 600;
   transition: all 0.3s ease-in-out 0s;
 
+  &--initial {
+    border-radius: 0;
+  }
+
   &--rectangle {
     padding: var(--spacing-2xs) var(--spacing-md);
   }
@@ -107,7 +111,7 @@
             fun.convert-px(-4) var(--color-shadow-light),
           fun.convert-px(7) fun.convert-px(10) fun.convert-px(12)
             fun.convert-px(-3) var(--color-shadow-light);
-        transform: scale(1.1);
+        transform: scale(var(--scale-up, 1.1));
       }
 
       &:focus {
@@ -119,7 +123,7 @@
         box-shadow: 0 0 0 0 var(--color-shadow);
         color: var(--color-primary-dark);
         text-decoration: underline transparent 0;
-        transform: scale(0.94);
+        transform: scale(var(--scale-down, 0.94));
       }
     }
   }

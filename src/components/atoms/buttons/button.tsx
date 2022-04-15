@@ -9,7 +9,7 @@ export type ButtonProps = {
   /**
    * Button accessible label.
    */
-  ariaLabel?: string;
+  'aria-label'?: string;
   /**
    * Button state. Default: false.
    */
@@ -25,7 +25,7 @@ export type ButtonProps = {
   /**
    * Button shape. Default: rectangle.
    */
-  shape?: 'circle' | 'rectangle' | 'square';
+  shape?: 'circle' | 'rectangle' | 'square' | 'initial';
   /**
    * Button type attribute. Default: button.
    */
@@ -39,7 +39,6 @@ export type ButtonProps = {
  */
 const Button: FC<ButtonProps> = ({
   className = '',
-  ariaLabel,
   children,
   disabled = false,
   kind = 'secondary',
@@ -55,7 +54,6 @@ const Button: FC<ButtonProps> = ({
       type={type}
       disabled={disabled}
       className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
-      aria-label={ariaLabel}
       {...props}
     >
       {children}
