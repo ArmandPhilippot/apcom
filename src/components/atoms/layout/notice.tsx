@@ -14,6 +14,11 @@ export type NoticeProps = {
   message: string;
 };
 
+/**
+ * Notice component
+ *
+ * Render a colored message depending on notice kind.
+ */
 const Notice: VFC<NoticeProps> = ({ kind, message }) => {
   const kindClass = `wrapper--${kind}`;
 
