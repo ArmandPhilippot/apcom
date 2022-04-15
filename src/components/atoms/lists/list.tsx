@@ -18,13 +18,17 @@ export type ListItem = {
 
 export type ListProps = {
   /**
-   * Set additional classnames to the list wrapper
+   * Set additional classnames to the list wrapper.
    */
   className?: string;
   /**
    * An array of list items.
    */
   items: ListItem[];
+  /**
+   * Set additional classnames to the list items.
+   */
+  itemsClassName?: string;
   /**
    * The list kind (ordered or unordered).
    */
@@ -41,8 +45,9 @@ export type ListProps = {
  * Render either an ordered or an unordered list.
  */
 const List: VFC<ListProps> = ({
-  className,
+  className = '',
   items,
+  itemsClassName = '',
   kind = 'unordered',
   withMargin = true,
 }) => {
@@ -57,7 +62,7 @@ const List: VFC<ListProps> = ({
    */
   const getItems = (array: ListItem[]): JSX.Element[] => {
     return array.map(({ child, id, value }) => (
-      <li key={id} className={styles.list__item}>
+      <li key={id} className={`${styles.list__item} ${itemsClassName}`}>
         {value}
         {child && (
           <ListTag
