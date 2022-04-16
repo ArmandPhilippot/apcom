@@ -1,8 +1,12 @@
 import NextLink from 'next/link';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './link.module.scss';
 
 export type LinkProps = {
+  /**
+   * The link body.
+   */
+  children: ReactNode;
   /**
    * Set additional classnames to the link.
    */

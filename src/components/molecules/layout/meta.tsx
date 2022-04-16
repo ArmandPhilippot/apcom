@@ -2,7 +2,7 @@ import DescriptionList, {
   type DescriptionListProps,
   type DescriptionListItem,
 } from '@components/atoms/lists/description-list';
-import { ReactNode, VFC } from 'react';
+import { FC, ReactNode } from 'react';
 
 export type MetaItem = {
   /**
@@ -43,7 +43,7 @@ export type MetaProps = {
  *
  * Renders the page metadata.
  */
-const Meta: VFC<MetaProps> = ({ data, ...props }) => {
+const Meta: FC<MetaProps> = ({ data, ...props }) => {
   /**
    * Transform the metadata to description list item format.
    *

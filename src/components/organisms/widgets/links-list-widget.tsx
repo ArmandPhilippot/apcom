@@ -1,8 +1,11 @@
 import Link from '@components/atoms/links/link';
-import List, { ListProps, type ListItem } from '@components/atoms/lists/list';
+import List, {
+  type ListProps,
+  type ListItem,
+} from '@components/atoms/lists/list';
 import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
 import { slugify } from '@utils/helpers/slugify';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './links-list-widget.module.scss';
 
 export type LinksListItems = {
@@ -33,7 +36,7 @@ export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> &
  *
  * Render a list of links inside a widget.
  */
-const LinksListWidget: VFC<LinksListWidgetProps> = ({
+const LinksListWidget: FC<LinksListWidgetProps> = ({
   items,
   kind = 'unordered',
   ...props

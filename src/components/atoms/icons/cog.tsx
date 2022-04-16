@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './cog.module.scss';
 
 export type CogProps = {
@@ -13,7 +13,7 @@ export type CogProps = {
  *
  * Render a cog svg icon.
  */
-const Cog: VFC<CogProps> = ({ className = '' }) => {
+const Cog: FC<CogProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

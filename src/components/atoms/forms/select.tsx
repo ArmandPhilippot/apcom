@@ -1,4 +1,4 @@
-import { ChangeEvent, SetStateAction, VFC } from 'react';
+import { ChangeEvent, FC, SetStateAction } from 'react';
 import styles from './forms.module.scss';
 
 export type SelectOptions = {
@@ -60,7 +60,7 @@ export type SelectProps = {
  *
  * Render a HTML select element.
  */
-const Select: VFC<SelectProps> = ({
+const Select: FC<SelectProps> = ({
   className = '',
   options,
   setValue,

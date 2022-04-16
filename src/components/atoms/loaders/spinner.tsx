@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './spinner.module.scss';
 
@@ -14,7 +14,7 @@ export type SpinnerProps = {
  *
  * Render a loading message with animation.
  */
-const Spinner: VFC<SpinnerProps> = ({ message }) => {
+const Spinner: FC<SpinnerProps> = ({ message }) => {
   const intl = useIntl();
 
   return (

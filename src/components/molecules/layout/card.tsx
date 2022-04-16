@@ -1,11 +1,11 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
 import DescriptionList, {
-  DescriptionListItem,
+  type DescriptionListItem,
 } from '@components/atoms/lists/description-list';
-import { VFC } from 'react';
+import { FC } from 'react';
 import ResponsiveImage, {
-  ResponsiveImageProps,
+  type ResponsiveImageProps,
 } from '../images/responsive-image';
 import styles from './card.module.scss';
 
@@ -68,7 +68,7 @@ export type CardProps = {
  *
  * Render a link with minimal information about its content.
  */
-const Card: VFC<CardProps> = ({
+const Card: FC<CardProps> = ({
   className = '',
   cover,
   coverFit = 'cover',

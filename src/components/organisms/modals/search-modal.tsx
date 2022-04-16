@@ -1,5 +1,5 @@
-import Modal from '@components/molecules/modals/modal';
-import { VFC } from 'react';
+import Modal, { type ModalProps } from '@components/molecules/modals/modal';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import SearchForm from '../forms/search-form';
 import styles from './search-modal.module.scss';
@@ -8,7 +8,7 @@ export type SearchModalProps = {
   /**
    * Set additional classnames to modal wrapper.
    */
-  className?: string;
+  className?: ModalProps['className'];
 };
 
 /**
@@ -16,7 +16,7 @@ export type SearchModalProps = {
  *
  * Render a search form modal.
  */
-const SearchModal: VFC<SearchModalProps> = ({ className }) => {
+const SearchModal: FC<SearchModalProps> = ({ className }) => {
   const intl = useIntl();
   const modalTitle = intl.formatMessage({
     defaultMessage: 'Search',

@@ -1,6 +1,6 @@
-import Link from '@components/atoms/links/link';
-import Image, { ImageProps } from 'next/image';
-import { VFC } from 'react';
+import Link, { type LinkProps } from '@components/atoms/links/link';
+import Image, { type ImageProps } from 'next/image';
+import { FC } from 'react';
 import styles from './responsive-image.module.scss';
 
 export type ResponsiveImageProps = Omit<
@@ -26,7 +26,7 @@ export type ResponsiveImageProps = Omit<
   /**
    * A link target.
    */
-  target?: string;
+  target?: LinkProps['href'];
   /**
    * The image width.
    */
@@ -38,7 +38,7 @@ export type ResponsiveImageProps = Omit<
  *
  * Render a responsive image wrapped in a figure element.
  */
-const ResponsiveImage: VFC<ResponsiveImageProps> = ({
+const ResponsiveImage: FC<ResponsiveImageProps> = ({
   alt,
   caption,
   className = '',

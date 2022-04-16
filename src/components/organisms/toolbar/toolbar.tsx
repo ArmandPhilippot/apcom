@@ -1,4 +1,4 @@
-import { useState, VFC } from 'react';
+import { FC, useState } from 'react';
 import MainNav, { type MainNavProps } from '../toolbar/main-nav';
 import Search from '../toolbar/search';
 import Settings from '../toolbar/settings';
@@ -20,7 +20,7 @@ export type ToolbarProps = {
  *
  * Render the website toolbar.
  */
-const Toolbar: VFC<ToolbarProps> = ({ className = '', nav }) => {
+const Toolbar: FC<ToolbarProps> = ({ className = '', nav }) => {
   const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
   const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);

@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './close.module.scss';
 
 export type CloseProps = {
@@ -13,7 +13,7 @@ export type CloseProps = {
  *
  * Render a close svg icon.
  */
-const Close: VFC<CloseProps> = ({ className = '' }) => {
+const Close: FC<CloseProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

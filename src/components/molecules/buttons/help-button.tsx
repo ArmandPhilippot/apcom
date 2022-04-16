@@ -1,5 +1,5 @@
-import Button, { ButtonProps } from '@components/atoms/buttons/button';
-import { VFC } from 'react';
+import Button, { type ButtonProps } from '@components/atoms/buttons/button';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './help-button.module.scss';
 
@@ -15,7 +15,7 @@ export type HelpButtonProps = Pick<ButtonProps, 'onClick'> & {
  *
  * Render a button with an interrogation mark icon.
  */
-const HelpButton: VFC<HelpButtonProps> = ({ className = '', onClick }) => {
+const HelpButton: FC<HelpButtonProps> = ({ className = '', onClick }) => {
   const intl = useIntl();
   const text = intl.formatMessage({
     defaultMessage: 'Help',

@@ -103,7 +103,7 @@ Summary.args = {
   cover: {
     alt: 'A cover',
     height: 480,
-    url: 'http://placeimg.com/640/480',
+    src: 'http://placeimg.com/640/480',
     width: 640,
   },
   excerpt:

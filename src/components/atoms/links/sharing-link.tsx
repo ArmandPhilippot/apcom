@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './sharing-link.module.scss';
 
@@ -26,7 +26,7 @@ export type SharingLinkProps = {
  *
  * Render a sharing link.
  */
-const SharingLink: VFC<SharingLinkProps> = ({ medium, url }) => {
+const SharingLink: FC<SharingLinkProps> = ({ medium, url }) => {
   const intl = useIntl();
   const text = intl.formatMessage(
     {

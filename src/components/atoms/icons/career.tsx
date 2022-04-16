@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './career.module.scss';
 
 export type CareerProps = {
@@ -13,7 +13,7 @@ export type CareerProps = {
  *
  * Render a career svg icon.
  */
-const Career: VFC<CareerProps> = ({ className = '' }) => {
+const Career: FC<CareerProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

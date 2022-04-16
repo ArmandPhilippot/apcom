@@ -2,15 +2,20 @@ import Button from '@components/atoms/buttons/button';
 import Form from '@components/atoms/forms/form';
 import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
 import LabelledField, {
-  LabelledFieldProps,
+  type LabelledFieldProps,
 } from '@components/molecules/forms/labelled-field';
-import { useState, VFC } from 'react';
+import { FC, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './search-form.module.scss';
 
 export type SearchFormProps = Pick<LabelledFieldProps, 'hideLabel'>;
 
-const SearchForm: VFC<SearchFormProps> = ({ hideLabel }) => {
+/**
+ * SearchForm component
+ *
+ * Render a search form.
+ */
+const SearchForm: FC<SearchFormProps> = ({ hideLabel }) => {
   const intl = useIntl();
   const fieldLabel = intl.formatMessage({
     defaultMessage: 'Search for:',

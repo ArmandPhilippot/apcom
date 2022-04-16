@@ -1,6 +1,6 @@
 import Heading, { type HeadingProps } from '@components/atoms/headings/heading';
 import PlusMinus from '@components/atoms/icons/plus-minus';
-import { SetStateAction, VFC } from 'react';
+import { FC, SetStateAction } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './heading-button.module.scss';
 
@@ -28,7 +28,7 @@ export type HeadingButtonProps = Pick<HeadingProps, 'level'> & {
  *
  * Render a button as accordion title to toggle body.
  */
-const HeadingButton: VFC<HeadingButtonProps> = ({
+const HeadingButton: FC<HeadingButtonProps> = ({
   className = '',
   expanded,
   level,

@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './cc-by-sa.module.scss';
 
@@ -14,7 +14,7 @@ export type CCBySAProps = {
  *
  * Render a CC BY SA svg icon.
  */
-const CCBySA: VFC<CCBySAProps> = ({ className = '' }) => {
+const CCBySA: FC<CCBySAProps> = ({ className = '' }) => {
   const intl = useIntl();
 
   return (

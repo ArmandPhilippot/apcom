@@ -1,6 +1,6 @@
-import Checkbox from '@components/atoms/forms/checkbox';
+import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
 import Label, { type LabelProps } from '@components/atoms/forms/label';
-import { ReactNode, VFC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './toggle.module.scss';
 
 export type ToggleChoices = {
@@ -14,15 +14,11 @@ export type ToggleChoices = {
   right: ReactNode;
 };
 
-export type ToggleProps = {
+export type ToggleProps = Pick<CheckboxProps, 'id' | 'name'> & {
   /**
    * The toggle choices.
    */
   choices: ToggleChoices;
-  /**
-   * The input id.
-   */
-  id: string;
   /**
    * The toggle label.
    */
@@ -30,15 +26,11 @@ export type ToggleProps = {
   /**
    * Set additional classnames to the label.
    */
-  labelClassName?: string;
+  labelClassName?: LabelProps['className'];
   /**
    * The label size.
    */
   labelSize?: LabelProps['size'];
-  /**
-   * The input name.
-   */
-  name: string;
   /**
    * The toggle value. True if checked.
    */
@@ -54,7 +46,7 @@ export type ToggleProps = {
  *
  * Render a toggle with a label and two choices.
  */
-const Toggle: VFC<ToggleProps> = ({
+const Toggle: FC<ToggleProps> = ({
   choices,
   id,
   label,

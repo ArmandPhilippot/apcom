@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './description-list.module.scss';
 
 export type DescriptionListItem = {
@@ -52,7 +52,7 @@ export type DescriptionListProps = {
  *
  * Render a description list.
  */
-const DescriptionList: VFC<DescriptionListProps> = ({
+const DescriptionList: FC<DescriptionListProps> = ({
   className = '',
   descriptionClassName = '',
   groupClassName = '',

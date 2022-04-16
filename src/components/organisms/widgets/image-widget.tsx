@@ -1,28 +1,16 @@
-import ResponsiveImage from '@components/molecules/images/responsive-image';
+import ResponsiveImage, {
+  type ResponsiveImageProps,
+} from '@components/molecules/images/responsive-image';
 import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './image-widget.module.scss';
 
 export type Alignment = 'left' | 'center' | 'right';
 
-export type Image = {
-  /**
-   * An alternative text for the image.
-   */
-  alt: string;
-  /**
-   * The image height.
-   */
-  height: number;
-  /**
-   * The image source.
-   */
-  src: string;
-  /**
-   * The image width.
-   */
-  width: number;
-};
+export type Image = Pick<
+  ResponsiveImageProps,
+  'alt' | 'height' | 'src' | 'width'
+>;
 
 export type ImageWidgetProps = Pick<
   WidgetProps,
@@ -35,7 +23,7 @@ export type ImageWidgetProps = Pick<
   /**
    * Add a caption to the image.
    */
-  description?: string;
+  description?: ResponsiveImageProps['caption'];
   /**
    * An object describing the image.
    */
@@ -43,7 +31,7 @@ export type ImageWidgetProps = Pick<
   /**
    * Add a link to the image.
    */
-  url?: string;
+  url?: ResponsiveImageProps['target'];
 };
 
 /**
@@ -51,7 +39,7 @@ export type ImageWidgetProps = Pick<
  *
  * Renders a widget that print an image and an optional text.
  */
-const ImageWidget: VFC<ImageWidgetProps> = ({
+const ImageWidget: FC<ImageWidgetProps> = ({
   alignment = 'left',
   description,
   img,

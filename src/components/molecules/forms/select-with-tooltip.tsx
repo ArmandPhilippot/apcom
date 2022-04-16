@@ -1,4 +1,4 @@
-import { useState, VFC } from 'react';
+import { FC, useState } from 'react';
 import HelpButton from '../buttons/help-button';
 import Tooltip, { type TooltipProps } from '../modals/tooltip';
 import LabelledSelect, { type LabelledSelectProps } from './labelled-select';
@@ -10,13 +10,9 @@ export type SelectWithTooltipProps = Omit<
 > &
   Pick<TooltipProps, 'title' | 'content'> & {
     /**
-     * The select label.
-     */
-    label: string;
-    /**
      * Set additional classnames to the tooltip wrapper.
      */
-    tooltipClassName?: string;
+    tooltipClassName?: TooltipProps['className'];
   };
 
 /**
@@ -24,7 +20,7 @@ export type SelectWithTooltipProps = Omit<
  *
  * Render a select with a button to display a tooltip about options.
  */
-const SelectWithTooltip: VFC<SelectWithTooltipProps> = ({
+const SelectWithTooltip: FC<SelectWithTooltipProps> = ({
   title,
   content,
   id,

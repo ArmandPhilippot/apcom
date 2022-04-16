@@ -3,7 +3,7 @@ import Form from '@components/atoms/forms/form';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
 import Spinner from '@components/atoms/loaders/spinner';
 import LabelledField from '@components/molecules/forms/labelled-field';
-import { ReactNode, useState, VFC } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './comment-form.module.scss';
 
@@ -31,7 +31,7 @@ export type CommentFormProps = {
   titleLevel?: HeadingLevel;
 };
 
-const CommentForm: VFC<CommentFormProps> = ({
+const CommentForm: FC<CommentFormProps> = ({
   className = '',
   Notice,
   saveComment,

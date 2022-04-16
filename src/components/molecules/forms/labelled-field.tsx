@@ -1,6 +1,6 @@
 import Field, { type FieldProps } from '@components/atoms/forms/field';
 import Label from '@components/atoms/forms/label';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './labelled-field.module.scss';
 
 export type LabelledFieldProps = FieldProps & {
@@ -23,7 +23,7 @@ export type LabelledFieldProps = FieldProps & {
  *
  * Render a field tied to a label.
  */
-const LabelledField: VFC<LabelledFieldProps> = ({
+const LabelledField: FC<LabelledFieldProps> = ({
   hideLabel = false,
   id,
   label,

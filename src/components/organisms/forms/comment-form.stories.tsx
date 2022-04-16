@@ -1,4 +1,3 @@
-import Notice from '@components/atoms/layout/notice';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import CommentFormComponent from './comment-form';

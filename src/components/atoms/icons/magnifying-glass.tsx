@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './magnifying-glass.module.scss';
 
 export type MagnifyingGlassProps = {
@@ -13,7 +13,7 @@ export type MagnifyingGlassProps = {
  *
  * Render a magnifying glass svg icon.
  */
-const MagnifyingGlass: VFC<MagnifyingGlassProps> = ({ className = '' }) => {
+const MagnifyingGlass: FC<MagnifyingGlassProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

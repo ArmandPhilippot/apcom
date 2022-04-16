@@ -1,4 +1,4 @@
-import { Children, FC, FormEvent, Fragment } from 'react';
+import { Children, FC, FormEvent, Fragment, ReactNode } from 'react';
 import styles from './forms.module.scss';
 
 export type FormProps = {
@@ -10,6 +10,10 @@ export type FormProps = {
    * One or more ids that refers to the form name.
    */
   'aria-labelledby'?: string;
+  /**
+   * The form body.
+   */
+  children: ReactNode;
   /**
    * Set additional classnames to the form wrapper.
    */

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { VFC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './nav-link.module.scss';
 
 export type NavLinkProps = {
@@ -22,7 +22,7 @@ export type NavLinkProps = {
  *
  * Render a navigation link.
  */
-const NavLink: VFC<NavLinkProps> = ({ href, label, logo }) => {
+const NavLink: FC<NavLinkProps> = ({ href, label, logo }) => {
   return (
     <Link href={href}>
       <a className={styles.link}>

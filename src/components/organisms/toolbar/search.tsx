@@ -1,17 +1,17 @@
-import Checkbox, { CheckboxProps } from '@components/atoms/forms/checkbox';
+import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
 import Label from '@components/atoms/forms/label';
 import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import SearchModal from '../modals/search-modal';
-import sharedStyles from './toolbar-items.module.scss';
+import SearchModal, { type SearchModalProps } from '../modals/search-modal';
 import searchStyles from './search.module.scss';
+import sharedStyles from './toolbar-items.module.scss';
 
 export type SearchProps = {
   /**
    * Set additional classnames to the modal wrapper.
    */
-  className?: string;
+  className?: SearchModalProps['className'];
   /**
    * The button state.
    */
@@ -22,11 +22,7 @@ export type SearchProps = {
   setIsActive: CheckboxProps['setValue'];
 };
 
-const Search: VFC<SearchProps> = ({
-  className = '',
-  isActive,
-  setIsActive,
-}) => {
+const Search: FC<SearchProps> = ({ className = '', isActive, setIsActive }) => {
   const intl = useIntl();
   const label = isActive
     ? intl.formatMessage({

@@ -1,5 +1,5 @@
 import List, { type ListItem } from '@components/atoms/lists/list';
-import { ReactNode, VFC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './tooltip.module.scss';
 
 export type TooltipProps = {
@@ -26,7 +26,7 @@ export type TooltipProps = {
  *
  * Render a tooltip modal.
  */
-const Tooltip: VFC<TooltipProps> = ({
+const Tooltip: FC<TooltipProps> = ({
   className = '',
   content,
   icon,

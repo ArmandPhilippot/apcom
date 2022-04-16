@@ -3,7 +3,7 @@ import List, {
   type ListProps,
 } from '@components/atoms/lists/list';
 import Card, { type CardProps } from '@components/molecules/layout/card';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './cards-list.module.scss';
 
 export type CardsListItem = Omit<
@@ -37,7 +37,7 @@ export type CardsListProps = {
  *
  * Return a list of Card components.
  */
-const CardsList: VFC<CardsListProps> = ({
+const CardsList: FC<CardsListProps> = ({
   coverFit,
   items,
   kind = 'unordered',

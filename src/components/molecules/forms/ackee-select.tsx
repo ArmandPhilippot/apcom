@@ -1,8 +1,8 @@
 import { SelectOptions } from '@components/atoms/forms/select';
-import { Dispatch, SetStateAction, useState, VFC } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useIntl } from 'react-intl';
 import SelectWithTooltip, {
-  SelectWithTooltipProps,
+  type SelectWithTooltipProps,
 } from './select-with-tooltip';
 
 export type AckeeOptions = 'full' | 'partial';
@@ -22,7 +22,7 @@ export type AckeeSelectProps = Pick<
  *
  * Render a select to set Ackee settings.
  */
-const AckeeSelect: VFC<AckeeSelectProps> = ({ initialValue, ...props }) => {
+const AckeeSelect: FC<AckeeSelectProps> = ({ initialValue, ...props }) => {
   const intl = useIntl();
   const [value, setValue] = useState<AckeeOptions>(initialValue);
 

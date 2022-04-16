@@ -2,7 +2,7 @@ import SharingLink, {
   type SharingMedium,
 } from '@components/atoms/links/sharing-link';
 import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './sharing.module.scss';
 
@@ -21,7 +21,7 @@ export type SharingData = {
   url: string;
 };
 
-export type SharingProps = WidgetProps & {
+export type SharingProps = Omit<WidgetProps, 'children'> & {
   /**
    * The page data to share.
    */
@@ -37,7 +37,7 @@ export type SharingProps = WidgetProps & {
  *
  * Render a list of sharing links inside a widget.
  */
-const Sharing: VFC<SharingProps> = ({ data, media, ...props }) => {
+const Sharing: FC<SharingProps> = ({ data, media, ...props }) => {
   const intl = useIntl();
 
   /**

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './buttons.module.scss';
 
 export type ButtonLinkProps = {
@@ -7,6 +7,10 @@ export type ButtonLinkProps = {
    * ButtonLink accessible label.
    */
   'aria-label'?: string;
+  /**
+   * The button link body.
+   */
+  children: ReactNode;
   /**
    * Set additional classnames to the button link.
    */

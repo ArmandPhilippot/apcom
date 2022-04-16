@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './envelop.module.scss';
 
 export type EnvelopProps = {
@@ -13,7 +13,7 @@ export type EnvelopProps = {
  *
  * Render an envelop svg icon.
  */
-const Envelop: VFC<EnvelopProps> = ({ className = '' }) => {
+const Envelop: FC<EnvelopProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

@@ -5,7 +5,9 @@
   &[hreflang] {
     &::after {
       display: inline-block;
-      content: "\0000a0["attr(hreflang) "]";
+      /* Prettier is removing spacing between content parts. */
+      /* prettier-ignore */
+      content: "\0000a0[" attr(hreflang) "]";
       font-size: var(--font-size-sm);
     }
   }
@@ -13,22 +15,30 @@
   &--external {
     &::after {
       display: inline-block;
-      content: "\0000a0"url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
+      /* Prettier is removing spacing between content parts. */
+      /* prettier-ignore */
+      content: "\0000a0" url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
     }
 
     &:focus:not(:active)::after {
-      content: "\0000a0"url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_white}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_white}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
+      /* Prettier is removing spacing between content parts. */
+      /* prettier-ignore */
+      content: "\0000a0" url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_white}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_white}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
     }
 
     &[hreflang] {
       &::after {
-        content: "\0000a0["attr(hreflang) "]\0000a0"url(fun.encode-svg(
+        /* Prettier is removing spacing between content parts. */
+        /* prettier-ignore */
+        content: "\0000a0[" attr(hreflang) "]\0000a0" url(fun.encode-svg(
             '<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
           ));
       }
 
       &:focus:not(:active)::after {
-        content: "\0000a0["attr(hreflang) "]\0000a0"url(fun.encode-svg(
+        /* Prettier is removing spacing between content parts. */
+        /* prettier-ignore */
+        content: "\0000a0[" attr(hreflang) "]\0000a0" url(fun.encode-svg(
             '<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_white}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_white}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
           ));
       }

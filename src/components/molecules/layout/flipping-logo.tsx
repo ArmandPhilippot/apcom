@@ -1,9 +1,9 @@
-import Logo from '@components/atoms/images/logo';
+import Logo, { type LogoProps } from '@components/atoms/images/logo';
 import Image from 'next/image';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './flipping-logo.module.scss';
 
-type FlippingLogoProps = {
+export type FlippingLogoProps = {
   /**
    * Set additional classnames to the logo wrapper.
    */
@@ -15,7 +15,7 @@ type FlippingLogoProps = {
   /**
    * Logo image title.
    */
-  logoTitle?: string;
+  logoTitle?: LogoProps['title'];
   /**
    * Photo url.
    */
@@ -27,7 +27,7 @@ type FlippingLogoProps = {
  *
  * Render a logo and a photo with a flipping effect.
  */
-const FlippingLogo: VFC<FlippingLogoProps> = ({
+const FlippingLogo: FC<FlippingLogoProps> = ({
   className = '',
   altText,
   logoTitle,

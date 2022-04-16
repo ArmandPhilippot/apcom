@@ -1,4 +1,4 @@
-import { ChangeEvent, SetStateAction, VFC } from 'react';
+import { ChangeEvent, FC, SetStateAction } from 'react';
 import styles from './forms.module.scss';
 
 export type FieldType =
@@ -72,7 +72,7 @@ export type FieldProps = {
  *
  * Render either an input or a textarea.
  */
-const Field: VFC<FieldProps> = ({
+const Field: FC<FieldProps> = ({
   className = '',
   setValue,
   type,

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './hamburger.module.scss';
 
-type HamburgerProps = {
+export type HamburgerProps = {
   /**
    * Set additional classnames to the icon wrapper.
    */

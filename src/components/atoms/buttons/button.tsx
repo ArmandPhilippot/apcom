@@ -1,7 +1,11 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, ReactNode } from 'react';
 import styles from './buttons.module.scss';
 
 export type ButtonProps = {
+  /**
+   * The button body.
+   */
+  children: ReactNode;
   /**
    * Set additional classnames to the button wrapper.
    */

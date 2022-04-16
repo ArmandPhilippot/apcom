@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './home.module.scss';
 
 export type HomeProps = {
@@ -13,7 +13,7 @@ export type HomeProps = {
  *
  * Render a home svg icon.
  */
-const Home: VFC<HomeProps> = ({ className = '' }) => {
+const Home: FC<HomeProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

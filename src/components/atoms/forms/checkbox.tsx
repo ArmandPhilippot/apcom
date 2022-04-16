@@ -1,4 +1,4 @@
-import { SetStateAction, VFC } from 'react';
+import { FC, SetStateAction } from 'react';
 
 export type CheckboxProps = {
   /**
@@ -32,7 +32,7 @@ export type CheckboxProps = {
  *
  * Render a checkbox type input.
  */
-const Checkbox: VFC<CheckboxProps> = ({ value, setValue, ...props }) => {
+const Checkbox: FC<CheckboxProps> = ({ value, setValue, ...props }) => {
   return (
     <input
       type="checkbox"

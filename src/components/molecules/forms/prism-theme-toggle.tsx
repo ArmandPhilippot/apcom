@@ -1,10 +1,10 @@
 import Moon from '@components/atoms/icons/moon';
 import Sun from '@components/atoms/icons/sun';
 import Toggle, {
-  ToggleChoices,
-  ToggleProps,
+  type ToggleChoices,
+  type ToggleProps,
 } from '@components/molecules/forms/toggle';
-import { useState, VFC } from 'react';
+import { FC, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 export type PrismThemeToggleProps = Pick<
@@ -17,7 +17,7 @@ export type PrismThemeToggleProps = Pick<
  *
  * Render a Toggle component to set code blocks theme.
  */
-const PrismThemeToggle: VFC<PrismThemeToggleProps> = ({ value, ...props }) => {
+const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ value, ...props }) => {
   const intl = useIntl();
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(value);
   const themeLabel = intl.formatMessage({

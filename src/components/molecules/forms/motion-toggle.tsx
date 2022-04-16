@@ -1,8 +1,8 @@
 import Toggle, {
-  ToggleChoices,
-  ToggleProps,
+  type ToggleChoices,
+  type ToggleProps,
 } from '@components/molecules/forms/toggle';
-import { useState, VFC } from 'react';
+import { FC, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 export type MotionToggleProps = Pick<ToggleProps, 'labelClassName' | 'value'>;
@@ -12,7 +12,7 @@ export type MotionToggleProps = Pick<ToggleProps, 'labelClassName' | 'value'>;
  *
  * Render a Toggle component to set reduce motion.
  */
-const MotionToggle: VFC<MotionToggleProps> = ({ value, ...props }) => {
+const MotionToggle: FC<MotionToggleProps> = ({ value, ...props }) => {
   const intl = useIntl();
   const [isDeactivated, setIsDeactivated] = useState<boolean>(value);
   const reduceMotionLabel = intl.formatMessage({

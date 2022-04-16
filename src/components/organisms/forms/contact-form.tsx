@@ -2,7 +2,7 @@ import Button from '@components/atoms/buttons/button';
 import Form from '@components/atoms/forms/form';
 import Spinner from '@components/atoms/loaders/spinner';
 import LabelledField from '@components/molecules/forms/labelled-field';
-import { ReactNode, useState, VFC } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './contact-form.module.scss';
 
@@ -27,7 +27,7 @@ export type ContactFormProps = {
  *
  * Render a contact form.
  */
-const ContactForm: VFC<ContactFormProps> = ({
+const ContactForm: FC<ContactFormProps> = ({
   className = '',
   Notice,
   sendMail,

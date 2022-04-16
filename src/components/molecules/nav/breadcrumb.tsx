@@ -1,7 +1,7 @@
 import Link from '@components/atoms/links/link';
 import { settings } from '@utils/config';
 import Script from 'next/script';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import styles from './breadcrumb.module.scss';
@@ -37,7 +37,7 @@ export type BreadcrumbProps = {
  *
  * Render a breadcrumb navigation.
  */
-const Breadcrumb: VFC<BreadcrumbProps> = ({ items, ...props }) => {
+const Breadcrumb: FC<BreadcrumbProps> = ({ items, ...props }) => {
   const intl = useIntl();
 
   /**

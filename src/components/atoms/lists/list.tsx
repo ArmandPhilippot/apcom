@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './list.module.scss';
 
 export type ListItem = {
@@ -44,7 +44,7 @@ export type ListProps = {
  *
  * Render either an ordered or an unordered list.
  */
-const List: VFC<ListProps> = ({
+const List: FC<ListProps> = ({
   className = '',
   items,
   itemsClassName = '',

@@ -1,11 +1,17 @@
-import { FC, useState } from 'react';
-import HeadingButton, { HeadingButtonProps } from '../buttons/heading-button';
+import { FC, ReactNode, useState } from 'react';
+import HeadingButton, {
+  type HeadingButtonProps,
+} from '../buttons/heading-button';
 import styles from './widget.module.scss';
 
 export type WidgetProps = Pick<
   HeadingButtonProps,
   'expanded' | 'level' | 'title'
 > & {
+  /**
+   * The widget body.
+   */
+  children: ReactNode;
   /**
    * Set additional classnames to the widget wrapper.
    */

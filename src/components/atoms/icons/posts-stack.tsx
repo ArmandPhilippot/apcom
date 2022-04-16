@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './posts-stack.module.scss';
 
 export type PostsStackProps = {
@@ -13,7 +13,7 @@ export type PostsStackProps = {
  *
  * Render a posts stack svg icon.
  */
-const PostsStack: VFC<PostsStackProps> = ({ className = '' }) => {
+const PostsStack: FC<PostsStackProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

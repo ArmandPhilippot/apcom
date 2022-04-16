@@ -1,17 +1,20 @@
 import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
 import Label from '@components/atoms/forms/label';
 import Hamburger from '@components/atoms/icons/hamburger';
-import Nav, { type NavItem } from '@components/molecules/nav/nav';
-import { VFC } from 'react';
+import Nav, {
+  type NavProps,
+  type NavItem,
+} from '@components/molecules/nav/nav';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import sharedStyles from './toolbar-items.module.scss';
 import mainNavStyles from './main-nav.module.scss';
+import sharedStyles from './toolbar-items.module.scss';
 
 export type MainNavProps = {
   /**
    * Set additional classnames to the nav element.
    */
-  className?: string;
+  className?: NavProps['className'];
   /**
    * The button state.
    */
@@ -26,7 +29,12 @@ export type MainNavProps = {
   setIsActive: CheckboxProps['setValue'];
 };
 
-const MainNav: VFC<MainNavProps> = ({
+/**
+ * MainNav component
+ *
+ * Render the main navigation.
+ */
+const MainNav: FC<MainNavProps> = ({
   className = '',
   isActive,
   items,

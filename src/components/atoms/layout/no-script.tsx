@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './no-script.module.scss';
 
 export type NoScriptProps = {
@@ -12,7 +12,7 @@ export type NoScriptProps = {
   position?: 'initial' | 'top';
 };
 
-const NoScript: VFC<NoScriptProps> = ({ message, position = 'initial' }) => {
+const NoScript: FC<NoScriptProps> = ({ message, position = 'initial' }) => {
   const positionClass = styles[`noscript--${position}`];
 
   return <div className={`${styles.noscript} ${positionClass}`}>{message}</div>;

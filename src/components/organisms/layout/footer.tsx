@@ -1,7 +1,9 @@
-import Copyright, { CopyrightProps } from '@components/atoms/layout/copyright';
+import Copyright, {
+  type CopyrightProps,
+} from '@components/atoms/layout/copyright';
 import BackToTop from '@components/molecules/buttons/back-to-top';
 import Nav, { type NavItem } from '@components/molecules/nav/nav';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './footer.module.scss';
 
 export type FooterProps = {
@@ -28,12 +30,7 @@ export type FooterProps = {
  *
  * Renders a footer with copyright and nav;
  */
-const Footer: VFC<FooterProps> = ({
-  className,
-  copyright,
-  navItems,
-  topId,
-}) => {
+const Footer: FC<FooterProps> = ({ className, copyright, navItems, topId }) => {
   return (
     <footer className={`${styles.wrapper} ${className}`}>
       <Copyright

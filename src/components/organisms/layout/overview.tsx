@@ -2,7 +2,7 @@ import ResponsiveImage, {
   type ResponsiveImageProps,
 } from '@components/molecules/images/responsive-image';
 import Meta, { type MetaMap } from '@components/molecules/layout/meta';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './overview.module.scss';
 
 export type OverviewProps = {
@@ -15,7 +15,7 @@ export type OverviewProps = {
  *
  * Render an overview.
  */
-const Overview: VFC<OverviewProps> = ({ cover, meta }) => {
+const Overview: FC<OverviewProps> = ({ cover, meta }) => {
   return (
     <div className={styles.wrapper}>
       {cover && (

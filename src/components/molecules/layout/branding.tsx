@@ -1,11 +1,11 @@
 import Heading from '@components/atoms/headings/heading';
 import Link from 'next/link';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './branding.module.scss';
-import FlippingLogo from './flipping-logo';
+import FlippingLogo, { type FlippingLogoProps } from './flipping-logo';
 
-type BrandingProps = {
+export type BrandingProps = Pick<FlippingLogoProps, 'photo'> & {
   /**
    * The Branding baseline.
    */
@@ -14,10 +14,6 @@ type BrandingProps = {
    * Use H1 if the current page is homepage. Default: false.
    */
   isHome?: boolean;
-  /**
-   * A photography URL.
-   */
-  photo: string;
   /**
    * The Branding title;
    */
@@ -33,7 +29,7 @@ type BrandingProps = {
  *
  * Render the branding logo, title and optional baseline.
  */
-const Branding: VFC<BrandingProps> = ({
+const Branding: FC<BrandingProps> = ({
   baseline,
   isHome = false,
   photo,

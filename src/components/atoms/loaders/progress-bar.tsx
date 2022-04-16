@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './progress-bar.module.scss';
 
 export type ProgressBarProps = {
@@ -29,7 +29,7 @@ export type ProgressBarProps = {
  *
  * Render a progress bar.
  */
-const ProgressBar: VFC<ProgressBarProps> = ({
+const ProgressBar: FC<ProgressBarProps> = ({
   current,
   info,
   min,

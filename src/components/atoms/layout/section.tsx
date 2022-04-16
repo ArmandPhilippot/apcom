@@ -1,4 +1,4 @@
-import { ReactNode, VFC } from 'react';
+import { FC, ReactNode } from 'react';
 import Heading from '../headings/heading';
 import styles from './section.module.scss';
 
@@ -32,7 +32,7 @@ export type SectionProps = {
  *
  * Render a section element.
  */
-const Section: VFC<SectionProps> = ({
+const Section: FC<SectionProps> = ({
   className = '',
   content,
   title,

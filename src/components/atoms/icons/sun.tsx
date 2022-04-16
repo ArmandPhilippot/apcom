@@ -1,7 +1,7 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './sun.module.scss';
 
-type SunProps = {
+export type SunProps = {
   /**
    * Set additional classnames to the icon.
    */
@@ -17,7 +17,7 @@ type SunProps = {
  *
  * Render a svg sun icon.
  */
-const Sun: VFC<SunProps> = ({ className = '', title }) => {
+const Sun: FC<SunProps> = ({ className = '', title }) => {
   return (
     <svg
       className={`${styles.sun} ${className}`}

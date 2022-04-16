@@ -1,7 +1,11 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './label.module.scss';
 
 export type LabelProps = {
+  /**
+   * The label body.
+   */
+  children: ReactNode;
   /**
    * Add classnames to the label.
    */

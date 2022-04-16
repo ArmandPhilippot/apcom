@@ -1,6 +1,6 @@
 import Link from '@components/atoms/links/link';
 import NavLink from '@components/atoms/links/nav-link';
-import { ReactNode, VFC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './nav.module.scss';
 
 export type NavItem = {
@@ -46,7 +46,7 @@ export type NavProps = {
  *
  * Render the nav links.
  */
-const Nav: VFC<NavProps> = ({
+const Nav: FC<NavProps> = ({
   className = '',
   items,
   kind,

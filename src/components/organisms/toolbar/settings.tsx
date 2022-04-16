@@ -1,11 +1,13 @@
-import Checkbox, { CheckboxProps } from '@components/atoms/forms/checkbox';
+import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
 import Label from '@components/atoms/forms/label';
 import Cog from '@components/atoms/icons/cog';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import SettingsModal from '../modals/settings-modal';
-import sharedStyles from './toolbar-items.module.scss';
+import SettingsModal, {
+  type SettingsModalProps,
+} from '../modals/settings-modal';
 import settingsStyles from './settings.module.scss';
+import sharedStyles from './toolbar-items.module.scss';
 
 export type SettingsProps = {
   /**
@@ -23,10 +25,10 @@ export type SettingsProps = {
   /**
    * Set additional classnames to the tooltip wrapper.
    */
-  tooltipClassName?: string;
+  tooltipClassName?: SettingsModalProps['tooltipClassName'];
 };
 
-const Settings: VFC<SettingsProps> = ({
+const Settings: FC<SettingsProps> = ({
   className = '',
   isActive,
   setIsActive,

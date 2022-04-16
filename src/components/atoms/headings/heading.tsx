@@ -1,9 +1,13 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './heading.module.scss';
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type HeadingProps = {
+  /**
+   * The heading body.
+   */
+  children: ReactNode;
   /**
    * Set additional classnames.
    */

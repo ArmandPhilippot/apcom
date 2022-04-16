@@ -1,7 +1,7 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './logo.module.scss';
 
-type LogoProps = {
+export type LogoProps = {
   /**
    * SVG Image title.
    */
@@ -13,7 +13,7 @@ type LogoProps = {
  *
  * Render a SVG logo.
  */
-const Logo: VFC<LogoProps> = ({ title }) => {
+const Logo: FC<LogoProps> = ({ title }) => {
   return (
     <svg
       viewBox="0 0 512 512"

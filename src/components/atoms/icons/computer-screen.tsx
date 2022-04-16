@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './computer-screen.module.scss';
 
 export type ComputerScreenProps = {
@@ -13,7 +13,7 @@ export type ComputerScreenProps = {
  *
  * Render a computer screen svg icon.
  */
-const ComputerScreen: VFC<ComputerScreenProps> = ({ className = '' }) => {
+const ComputerScreen: FC<ComputerScreenProps> = ({ className = '' }) => {
   return (
     <svg
       viewBox="0 0 100 100"

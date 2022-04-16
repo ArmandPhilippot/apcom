@@ -1,13 +1,17 @@
-import Heading from '@components/atoms/headings/heading';
-import { CogProps } from '@components/atoms/icons/cog';
-import { MagnifyingGlassProps } from '@components/atoms/icons/magnifying-glass';
+import Heading, { type HeadingProps } from '@components/atoms/headings/heading';
+import { type CogProps } from '@components/atoms/icons/cog';
+import { type MagnifyingGlassProps } from '@components/atoms/icons/magnifying-glass';
 import dynamic from 'next/dynamic';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './modal.module.scss';
 
 export type Icons = 'cogs' | 'search';
 
 export type ModalProps = {
+  /**
+   * The modal body.
+   */
+  children: ReactNode;
   /**
    * Set additional classnames.
    */
@@ -15,7 +19,7 @@ export type ModalProps = {
   /**
    * Set additional classnames to the heading.
    */
-  headingClassName?: string;
+  headingClassName?: HeadingProps['className'];
   /**
    * A icon to illustrate the modal.
    */

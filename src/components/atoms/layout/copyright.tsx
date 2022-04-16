@@ -1,4 +1,4 @@
-import { ReactNode, VFC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './copyright.module.scss';
 
 export type CopyrightDates = {
@@ -32,7 +32,7 @@ export type CopyrightProps = {
  *
  * Renders a copyright information (owner, dates, license icon).
  */
-const Copyright: VFC<CopyrightProps> = ({ owner, dates, icon }) => {
+const Copyright: FC<CopyrightProps> = ({ owner, dates, icon }) => {
   const getFormattedDate = (date: string) => {
     const datetime = new Date(date).toISOString();
 

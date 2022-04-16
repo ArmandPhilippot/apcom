@@ -1,10 +1,10 @@
 import Moon from '@components/atoms/icons/moon';
 import Sun from '@components/atoms/icons/sun';
 import Toggle, {
-  ToggleChoices,
-  ToggleProps,
+  type ToggleChoices,
+  type ToggleProps,
 } from '@components/molecules/forms/toggle';
-import { useState, VFC } from 'react';
+import { FC, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 export type ThemeToggleProps = Pick<ToggleProps, 'labelClassName' | 'value'>;
@@ -14,7 +14,7 @@ export type ThemeToggleProps = Pick<ToggleProps, 'labelClassName' | 'value'>;
  *
  * Render a Toggle component to set theme.
  */
-const ThemeToggle: VFC<ThemeToggleProps> = ({ value, ...props }) => {
+const ThemeToggle: FC<ThemeToggleProps> = ({ value, ...props }) => {
   const intl = useIntl();
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(value);
   const themeLabel = intl.formatMessage({

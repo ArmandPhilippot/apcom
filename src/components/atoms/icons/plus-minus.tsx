@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './plus-minus.module.scss';
 
-type PlusMinusProps = {
+export type PlusMinusProps = {
   /**
    * Set additional classnames to the icon.
    */

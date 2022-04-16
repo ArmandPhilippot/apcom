@@ -2,18 +2,18 @@ import ButtonLink from '@components/atoms/buttons/button-link';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
 import Arrow from '@components/atoms/icons/arrow';
 import Link from '@components/atoms/links/link';
-import ResponsiveImage from '@components/molecules/images/responsive-image';
+import ResponsiveImage, {
+  type ResponsiveImageProps,
+} from '@components/molecules/images/responsive-image';
 import Meta, { type MetaItem } from '@components/molecules/layout/meta';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './summary.module.scss';
 
-export type Cover = {
-  alt: string;
-  height: number;
-  url: string;
-  width: number;
-};
+export type Cover = Pick<
+  ResponsiveImageProps,
+  'alt' | 'src' | 'width' | 'height'
+>;
 
 export type RequiredMetaKey = 'publication';
 
@@ -35,11 +35,29 @@ export type OptionalMeta = {
 export type Meta = RequiredMeta & OptionalMeta;
 
 export type SummaryProps = {
+  /**
+   * The post cover.
+   */
   cover?: Cover;
+  /**
+   * The post excerpt.
+   */
   excerpt: string;
+  /**
+   * The post meta.
+   */
   meta: Meta;
+  /**
+   * The post title.
+   */
   title: string;
+  /**
+   * The heading level (hn).
+   */
   titleLevel?: HeadingLevel;
+  /**
+   * The post url.
+   */
   url: string;
 };
 
@@ -48,7 +66,7 @@ export type SummaryProps = {
  *
  * Render a page summary.
  */
-const Summary: VFC<SummaryProps> = ({
+const Summary: FC<SummaryProps> = ({
   cover,
   excerpt,
   meta,
@@ -57,18 +75,23 @@ const Summary: VFC<SummaryProps> = ({
   url,
 }) => {
   const intl = useIntl();
+  const readMore = intl.formatMessage(
+    {
+      defaultMessage: 'Read more<a11y> about {title}</a11y>',
+      description: 'Summary: read more link',
+      id: 'Zpgv+f',
+    },
+    {
+      title,
+      a11y: (chunks: string) => (
+        <span className="screen-reader-text">{chunks}</span>
+      ),
+    }
+  );
 
   return (
     <article className={styles.wrapper}>
-      {cover && (
-        <ResponsiveImage
-          alt={cover.alt}
-          src={cover.url}
-          width={cover.width}
-          height={cover.height}
-          className={styles.cover}
-        />
-      )}
+      {cover && <ResponsiveImage className={styles.cover} {...cover} />}
       <header className={styles.header}>
         <Link href={url}>
           <Heading level={titleLevel} className={styles.title}>
@@ -79,20 +102,10 @@ const Summary: VFC<SummaryProps> = ({
       <div className={styles.body}>
         {excerpt}
         <ButtonLink target={url} className={styles['read-more']}>
-          {intl.formatMessage(
-            {
-              defaultMessage: 'Read more<a11y> about {title}</a11y>',
-              description: 'Summary: read more link',
-              id: 'Zpgv+f',
-            },
-            {
-              title,
-              a11y: (chunks: string) => (
-                <span className="screen-reader-text">{chunks}</span>
-              ),
-            }
-          )}
-          <Arrow direction="right" />
+          <>
+            {readMore}
+            <Arrow direction="right" />
+          </>
         </ButtonLink>
       </div>
       <footer className={styles.footer}>

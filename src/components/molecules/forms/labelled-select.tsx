@@ -1,6 +1,6 @@
-import Label, { LabelProps } from '@components/atoms/forms/label';
+import Label, { type LabelProps } from '@components/atoms/forms/label';
 import Select, { type SelectProps } from '@components/atoms/forms/select';
-import { VFC } from 'react';
+import { FC } from 'react';
 import styles from './labelled-select.module.scss';
 
 export type LabelledSelectProps = Omit<
@@ -14,7 +14,7 @@ export type LabelledSelectProps = Omit<
   /**
    * Set additional classnames to the label.
    */
-  labelClassName?: string;
+  labelClassName?: LabelProps['className'];
   /**
    * The label position. Default: top.
    */
@@ -26,10 +26,15 @@ export type LabelledSelectProps = Omit<
   /**
    * Set additional classnames to the select field.
    */
-  selectClassName?: string;
+  selectClassName?: SelectProps['className'];
 };
 
-const LabelledSelect: VFC<LabelledSelectProps> = ({
+/**
+ * LabelledSelect component
+ *
+ * Render a select with a label.
+ */
+const LabelledSelect: FC<LabelledSelectProps> = ({
   id,
   label,
   labelClassName = '',
