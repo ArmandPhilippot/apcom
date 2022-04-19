@@ -1,0 +1,307 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  :global {
+    .code-toolbar {
+      --gutter-size: clamp(#{fun.convert-px(75)}, 20vw, #{fun.convert-px(90)});
+      --toolbar-height: #{fun.convert-px(90)};
+
+      position: relative;
+      margin-top: calc(var(--toolbar-height) + var(--spacing-md));
+
+      @include mix.media("screen") {
+        @include mix.dimensions("2xs") {
+          --toolbar-height: #{fun.convert-px(60)};
+        }
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        justify-items: end;
+        width: 100%;
+        height: var(--toolbar-height);
+        position: absolute;
+        top: calc(var(--toolbar-height) * -1);
+        left: 0;
+        right: 0;
+        background: var(--color-bg-tertiary);
+        border: fun.convert-px(1) solid var(--color-border);
+
+        @include mix.media("screen") {
+          @include mix.dimensions("2xs") {
+            display: flex;
+            flex-flow: row wrap;
+          }
+        }
+      }
+
+      .toolbar-item {
+        display: flex;
+        align-items: center;
+      }
+
+      .toolbar-item:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        margin-right: auto;
+        padding: 0 var(--spacing-sm);
+        background: var(--color-bg-code);
+        border-right: fun.convert-px(1) solid var(--color-border);
+        color: var(--color-primary-darker);
+        font-size: var(--font-size-sm);
+        font-weight: 600;
+      }
+
+      .toolbar-item:nth-child(2) {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0 var(--spacing-2xs);
+      }
+
+      .toolbar-item:nth-child(3) {
+        grid-column: 2;
+        grid-row: 2;
+        margin: 0 var(--spacing-2xs);
+      }
+    }
+
+    pre[class*="language-"] {
+      max-height: max(30vw, fun.convert-px(300));
+      margin: var(--spacing-md) 0;
+      padding: 0;
+      position: relative;
+      background: var(--color-bg-secondary);
+      color: var(--color-fg);
+      border: fun.convert-px(1) solid var(--color-border);
+
+      > code {
+        display: block;
+        padding: var(--spacing-xs) 0 var(--spacing-xs)
+          calc(var(--gutter-size) + var(--spacing-xs));
+      }
+
+      .line-numbers-rows,
+      .command-line-prompt {
+        width: var(--gutter-size);
+        min-height: 100%;
+        padding: var(--spacing-xs) var(--spacing-2xs);
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        user-select: none;
+        background: var(--color-bg);
+        border-right: fun.convert-px(1) solid var(--color-border);
+      }
+
+      .token {
+        &.comment,
+        &.doc-comment {
+          color: var(--color-fg-light);
+        }
+
+        &.punctuation {
+          color: var(--color-fg);
+        }
+
+        &.attr-name,
+        &.hexcode,
+        &.inserted,
+        &.string {
+          color: var(--color-token-green);
+        }
+
+        &.class,
+        &.coord,
+        &.id,
+        &.function {
+          color: var(--color-token-purple);
+        }
+
+        &.builtin,
+        &.builtin.class-name,
+        &.property-access,
+        &.regex,
+        &.scope {
+          color: var(--color-token-magenta);
+        }
+
+        &.class-name,
+        &.constant,
+        &.global,
+        &.interpolation,
+        &.key,
+        &.package,
+        &.this,
+        &.title,
+        &.variable {
+          color: var(--color-token-blue);
+        }
+
+        &.combinator,
+        &.keyword,
+        &.operator,
+        &.pseudo-class,
+        &.pseudo-element,
+        &.rule,
+        &.selector,
+        &.unit {
+          color: var(--color-token-orange);
+        }
+
+        &.attr-value,
+        &.boolean,
+        &.number {
+          color: var(--color-token-yellow);
+        }
+
+        &.delimiter,
+        &.doctype,
+        &.parameter,
+        &.parent,
+        &.property,
+        &.shebang,
+        &.tag {
+          color: var(--color-token-cyan);
+        }
+
+        &.deleted {
+          color: var(--color-token-red);
+        }
+
+        &.punctuation.brace-hover,
+        &.punctuation.brace-selected {
+          background: var(--color-bg);
+          outline: solid fun.convert-px(1) var(--color-primary-light);
+        }
+      }
+
+      span.inline-color-wrapper {
+        background: url(fun.encode-svg(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="gray" d="M0 0h2v2H0z"/><path fill="white" d="M0 0h1v1H0zM1 1h1v1H1z"/></svg>'
+        ));
+
+        /* Prevent glitches where 1px from the repeating pattern could be seen. */
+        background-position: center;
+        background-size: 110%;
+
+        display: inline-block;
+        height: 1.1ch;
+        width: 1.1ch;
+        margin: 0 0.5ch 0 0;
+        border: fun.convert-px(1) solid var(--color-bg);
+        outline: fun.convert-px(1) solid var(--color-border-dark);
+        overflow: hidden;
+      }
+
+      span.inline-color {
+        display: block;
+
+        /* To prevent visual glitches again */
+        height: 120%;
+        width: 120%;
+      }
+    }
+
+    pre.line-numbers {
+      counter-reset: lineNumber;
+
+      .line-numbers-rows {
+        > span {
+          counter-increment: lineNumber;
+
+          &::before {
+            display: block;
+            padding: 0 var(--spacing-xs);
+            content: counter(lineNumber);
+            color: var(--color-primary-darker);
+            text-align: right;
+            line-height: var(--line-height);
+          }
+        }
+      }
+    }
+
+    pre.command-line {
+      --gutter-size: clamp(
+        #{fun.convert-px(195)},
+        48vw,
+        #{fun.convert-px(235)}
+      );
+
+      ~ .toolbar {
+        --gutter-size: clamp(
+          #{fun.convert-px(195)},
+          48vw,
+          #{fun.convert-px(235)}
+        );
+      }
+
+      .command-line-prompt {
+        > span {
+          &::before {
+            display: block;
+            content: "";
+          }
+
+          &[data-user]::before {
+            content: "[" attr(data-user) "@" attr(data-host) "] $";
+          }
+
+          &[data-user="root"]::before {
+            content: "[" attr(data-user) "@" attr(data-host) "] #";
+          }
+
+          &[data-prompt]::before {
+            content: attr(data-prompt);
+          }
+        }
+      }
+    }
+
+    .copy-to-clipboard-button,
+    .prism-color-scheme-button {
+      display: block;
+      padding: fun.convert-px(3) var(--spacing-xs);
+      background: var(--color-bg);
+      border: 0.4ex solid var(--color-primary);
+      border-radius: fun.convert-px(30);
+      box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+          var(--color-shadow),
+        fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+          var(--color-shadow),
+        fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+          var(--color-shadow);
+      color: var(--color-primary);
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      transition: all 0.35s ease-in-out 0s;
+
+      &:hover,
+      &:focus {
+        transform: translateX(#{fun.convert-px(-2)})
+          translateY(#{fun.convert-px(-2)});
+        box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+            var(--color-shadow-light),
+          fun.convert-px(1) fun.convert-px(2) fun.convert-px(2)
+            fun.convert-px(-2) var(--color-shadow-light),
+          fun.convert-px(3) fun.convert-px(4) fun.convert-px(5)
+            fun.convert-px(-4) var(--color-shadow-light),
+          fun.convert-px(4) fun.convert-px(7) fun.convert-px(8)
+            fun.convert-px(-3) var(--color-shadow-light);
+      }
+
+      &:focus {
+        text-decoration: underline var(--color-primary) fun.convert-px(3);
+      }
+
+      &:active {
+        text-decoration: none;
+        transform: translateY(#{fun.convert-px(2)});
+        box-shadow: 0 0 0 0 var(--color-shadow);
+      }
+    }
+  }
+}
