@@ -1,10 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import BreadcrumbComponent, { type BreadcrumbItem } from './breadcrumb';
+import Breadcrumb from './breadcrumb';
 
+/**
+ * Breadcrumb - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Nav',
-  component: BreadcrumbComponent,
+  title: 'Molecules/Navigation/Breadcrumb',
+  component: Breadcrumb,
   argTypes: {
     className: {
       control: {
@@ -28,21 +31,46 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof BreadcrumbComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof Breadcrumb>;
 
-const Template: ComponentStory<typeof BreadcrumbComponent> = (args) => (
-  <IntlProvider locale="en">
-    <BreadcrumbComponent {...args} />
-  </IntlProvider>
+const Template: ComponentStory<typeof Breadcrumb> = (args) => (
+  <Breadcrumb {...args} />
 );
 
-const items: BreadcrumbItem[] = [
-  { id: 'home', url: '#', name: 'Home' },
-  { id: 'blog', url: '#', name: 'Blog' },
-  { id: 'post1', url: '#', name: 'A Post' },
-];
+/**
+ * Breadcrumb Stories - One item
+ */
+export const OneItem = Template.bind({});
+OneItem.args = {
+  items: [{ id: 'home', url: '#', name: 'Home' }],
+};
 
-export const Breadcrumb = Template.bind({});
-Breadcrumb.args = {
-  items,
+/**
+ * Breadcrumb Stories - Two items
+ */
+export const TwoItems = Template.bind({});
+TwoItems.args = {
+  items: [
+    { id: 'home', url: '#', name: 'Home' },
+    { id: 'blog', url: '#', name: 'Blog' },
+  ],
+};
+
+/**
+ * Breadcrumb Stories - Three items
+ */
+export const ThreeItems = Template.bind({});
+ThreeItems.args = {
+  items: [
+    { id: 'home', url: '#', name: 'Home' },
+    { id: 'blog', url: '#', name: 'Blog' },
+    { id: 'post1', url: '#', name: 'A Post' },
+  ],
 };

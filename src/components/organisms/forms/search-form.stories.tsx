@@ -1,10 +1,16 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import SearchFormComponent from './search-form';
+import SearchForm from './search-form';
 
+/**
+ * SearchForm - Storybook Meta
+ */
 export default {
   title: 'Organisms/Forms',
-  component: SearchFormComponent,
+  component: SearchForm,
+  args: {
+    hideLabel: false,
+  },
   argTypes: {
     className: {
       control: {
@@ -19,16 +25,38 @@ export default {
         required: false,
       },
     },
+    hideLabel: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Determine if the input label should be visually hidden.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
   },
-} as ComponentMeta<typeof SearchFormComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof SearchForm>;
 
-const Template: ComponentStory<typeof SearchFormComponent> = (args) => (
-  <IntlProvider locale="en">
-    <SearchFormComponent {...args} />
-  </IntlProvider>
+const Template: ComponentStory<typeof SearchForm> = (args) => (
+  <SearchForm {...args} />
 );
 
-export const SearchForm = Template.bind({});
-SearchForm.args = {
+/**
+ * Forms Stories - Search
+ */
+export const Search = Template.bind({});
+Search.args = {
   hideLabel: true,
 };

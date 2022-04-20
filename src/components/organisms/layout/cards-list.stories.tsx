@@ -1,13 +1,32 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CardsListComponent, { type CardsListItem } from './cards-list';
 
+/**
+ * CardsList - Storybook Meta
+ */
 export default {
   title: 'Organisms/Layout',
   component: CardsListComponent,
   args: {
+    coverFit: 'cover',
     kind: 'unordered',
   },
   argTypes: {
+    coverFit: {
+      control: {
+        type: 'select',
+      },
+      description: 'The cover fit.',
+      options: ['fill', 'contain', 'cover', 'none', 'scale-down'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'cover' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     items: {
       description: 'The cards data.',
       type: {
@@ -34,6 +53,8 @@ export default {
     titleLevel: {
       control: {
         type: 'number',
+        min: 1,
+        max: 6,
       },
       description: 'The heading level for each card.',
       type: {
@@ -56,6 +77,8 @@ const items: CardsListItem[] = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
+      // @ts-ignore - Needed because of the placeholder image.
+      unoptimized: true,
     },
     meta: [
       { id: 'meta-1', term: 'Quibusdam', value: ['Velit', 'Ex', 'Alias'] },
@@ -71,6 +94,8 @@ const items: CardsListItem[] = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
+      // @ts-ignore - Needed because of the placeholder image.
+      unoptimized: true,
     },
     meta: [{ id: 'meta-1', term: 'Est', value: ['Voluptas'] }],
     tagline: 'Quod vel accusamus',
@@ -84,6 +109,8 @@ const items: CardsListItem[] = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
+      // @ts-ignore - Needed because of the placeholder image.
+      unoptimized: true,
     },
     meta: [
       {
@@ -98,6 +125,9 @@ const items: CardsListItem[] = [
   },
 ];
 
+/**
+ * Layout Stories - Cards list
+ */
 export const CardsList = Template.bind({});
 CardsList.args = {
   items,

@@ -1,9 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SocialLinkComponent from './social-link';
+import SocialLink from './social-link';
 
+/**
+ * SocialLink - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Links',
-  component: SocialLinkComponent,
+  title: 'Atoms/Buttons/Social',
+  component: SocialLink,
   argTypes: {
     name: {
       control: {
@@ -27,14 +30,44 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SocialLinkComponent>;
+} as ComponentMeta<typeof SocialLink>;
 
-const Template: ComponentStory<typeof SocialLinkComponent> = (args) => (
-  <SocialLinkComponent {...args} />
+const Template: ComponentStory<typeof SocialLink> = (args) => (
+  <SocialLink {...args} />
 );
 
-export const SocialLink = Template.bind({});
-SocialLink.args = {
+/**
+ * Social Link Stories - Github
+ */
+export const Github = Template.bind({});
+Github.args = {
   name: 'Github',
+  url: '#',
+};
+
+/**
+ * Social Link Stories - Gitlab
+ */
+export const Gitlab = Template.bind({});
+Gitlab.args = {
+  name: 'Gitlab',
+  url: '#',
+};
+
+/**
+ * Social Link Stories - LinkedIn
+ */
+export const LinkedIn = Template.bind({});
+LinkedIn.args = {
+  name: 'LinkedIn',
+  url: '#',
+};
+
+/**
+ * Social Link Stories - Twitter
+ */
+export const Twitter = Template.bind({});
+Twitter.args = {
+  name: 'Twitter',
   url: '#',
 };

@@ -1,10 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import AckeeSelectComponent from './ackee-select';
+import AckeeSelect from './ackee-select';
 
+/**
+ * AckeeSelect - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Forms',
-  component: AckeeSelectComponent,
+  title: 'Molecules/Forms/Select',
+  component: AckeeSelect,
   argTypes: {
     initialValue: {
       control: {
@@ -17,16 +20,50 @@ export default {
         required: true,
       },
     },
+    labelClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the label wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    tooltipClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the tooltip wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
   },
-} as ComponentMeta<typeof AckeeSelectComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof AckeeSelect>;
 
-const Template: ComponentStory<typeof AckeeSelectComponent> = (args) => (
-  <IntlProvider locale="en">
-    <AckeeSelectComponent {...args} />
-  </IntlProvider>
+const Template: ComponentStory<typeof AckeeSelect> = (args) => (
+  <AckeeSelect {...args} />
 );
 
-export const AckeeSelect = Template.bind({});
-AckeeSelect.args = {
+/**
+ * Select Stories - Ackee select
+ */
+export const Ackee = Template.bind({});
+Ackee.args = {
   initialValue: 'full',
 };

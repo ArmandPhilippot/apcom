@@ -1,9 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import LinkComponent from './link';
+import Link from './link';
 
+/**
+ * Link - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Links',
-  component: LinkComponent,
+  title: 'Atoms/Typography/Links',
+  component: Link,
   argTypes: {
     children: {
       control: {
@@ -65,15 +68,37 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof LinkComponent>;
+} as ComponentMeta<typeof Link>;
 
-const Template: ComponentStory<typeof LinkComponent> = (args) => (
-  <LinkComponent {...args} />
-);
+const Template: ComponentStory<typeof Link> = (args) => <Link {...args} />;
 
-export const Link = Template.bind({});
-Link.args = {
+/**
+ * Links Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
   children: 'A link',
   href: '#',
   external: false,
+};
+
+/**
+ * Links Stories - External
+ */
+export const External = Template.bind({});
+External.args = {
+  children: 'A link',
+  href: '#',
+  external: true,
+};
+
+/**
+ * Links Stories - External With Lang
+ */
+export const ExternalWithLang = Template.bind({});
+ExternalWithLang.args = {
+  children: 'A link',
+  href: '#',
+  external: true,
+  lang: 'en',
 };

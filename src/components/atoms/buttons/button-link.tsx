@@ -22,7 +22,7 @@ export type ButtonLinkProps = {
   /**
    * ButtonLink kind. Default: secondary.
    */
-  kind?: 'primary' | 'secondary';
+  kind?: 'primary' | 'secondary' | 'tertiary';
   /**
    * ButtonLink shape. Default: rectangle.
    */

@@ -28,6 +28,7 @@
   width: auto;
   max-height: fun.convert-px(100);
   max-width: 100%;
+  margin-bottom: var(--spacing-sm);
   border: fun.convert-px(1) solid var(--color-border);
 
   @include mix.media("screen") {

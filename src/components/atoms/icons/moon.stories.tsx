@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import MoonIcon from './moon';
 
+/**
+ * Moon icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: MoonIcon,
   argTypes: {
     className: {
@@ -38,4 +41,7 @@ const Template: ComponentStory<typeof MoonIcon> = (args) => (
   <MoonIcon {...args} />
 );
 
+/**
+ * Icons Stories - Moon
+ */
 export const Moon = Template.bind({});

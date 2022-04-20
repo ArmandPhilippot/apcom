@@ -1,10 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import ContactFormComponent from './contact-form';
+import ContactForm from './contact-form';
 
+/**
+ * ContactForm - Storybook Meta
+ */
 export default {
   title: 'Organisms/Forms',
-  component: ContactFormComponent,
+  component: ContactForm,
   argTypes: {
     className: {
       control: {
@@ -43,16 +46,24 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ContactFormComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof ContactForm>;
 
-const Template: ComponentStory<typeof ContactFormComponent> = (args) => (
-  <IntlProvider locale="en">
-    <ContactFormComponent {...args} />
-  </IntlProvider>
+const Template: ComponentStory<typeof ContactForm> = (args) => (
+  <ContactForm {...args} />
 );
 
-export const ContactForm = Template.bind({});
-ContactForm.args = {
+/**
+ * Forms Stories - Contact
+ */
+export const Contact = Template.bind({});
+Contact.args = {
   sendMail: (reset: () => void) => {
     reset();
   },

@@ -21,7 +21,7 @@ export type SharingData = {
   url: string;
 };
 
-export type SharingProps = Omit<WidgetProps, 'children'> & {
+export type SharingProps = Pick<WidgetProps, 'expanded' | 'level' | 'title'> & {
   /**
    * The page data to share.
    */

@@ -6,7 +6,7 @@ import ResponsiveImage, {
   type ResponsiveImageProps,
 } from '@components/molecules/images/responsive-image';
 import Meta, { type MetaItem } from '@components/molecules/layout/meta';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './summary.module.scss';
 
@@ -83,7 +83,7 @@ const Summary: FC<SummaryProps> = ({
     },
     {
       title,
-      a11y: (chunks: string) => (
+      a11y: (chunks: ReactNode) => (
         <span className="screen-reader-text">{chunks}</span>
       ),
     }

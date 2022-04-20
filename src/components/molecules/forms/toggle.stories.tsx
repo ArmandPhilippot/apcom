@@ -1,10 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import ToggleComponent from './toggle';
+import Toggle from './toggle';
 
+/**
+ * ThemeToggle - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Forms',
-  component: ToggleComponent,
+  title: 'Molecules/Forms/Toggle',
+  component: Toggle,
   argTypes: {
     choices: {
       description: 'The toggle choices.',
@@ -92,21 +95,22 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ToggleComponent>;
+} as ComponentMeta<typeof Toggle>;
 
-const Template: ComponentStory<typeof ToggleComponent> = ({
+const Template: ComponentStory<typeof Toggle> = ({
   value: _value,
   setValue: _setValue,
   ...args
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  return (
-    <ToggleComponent value={isChecked} setValue={setIsChecked} {...args} />
-  );
+  return <Toggle value={isChecked} setValue={setIsChecked} {...args} />;
 };
 
-export const Toggle = Template.bind({});
-Toggle.args = {
+/**
+ * Toggle Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
   choices: {
     left: 'On',
     right: 'Off',

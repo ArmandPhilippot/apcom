@@ -8,6 +8,9 @@ const selectOptions = [
   { id: 'option3', name: 'Option 3', value: 'option3' },
 ];
 
+/**
+ * Select - Storybook Meta
+ */
 export default {
   title: 'Atoms/Forms',
   component: SelectComponent,
@@ -136,6 +139,9 @@ const Template: ComponentStory<typeof SelectComponent> = ({
   return <SelectComponent value={selected} setValue={setSelected} {...args} />;
 };
 
+/**
+ * Select Story
+ */
 export const Select = Template.bind({});
 Select.args = {
   id: 'storybook-select',

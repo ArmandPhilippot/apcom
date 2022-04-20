@@ -1,12 +1,14 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import WidgetComponent from './widget';
+import Widget from './widget';
 
+/**
+ * Widget - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Layout',
-  component: WidgetComponent,
+  title: 'Molecules/Layout/Widget',
+  component: Widget,
   args: {
-    expanded: true,
     withBorders: false,
   },
   argTypes: {
@@ -37,6 +39,8 @@ export default {
     level: {
       control: {
         type: 'number',
+        min: 1,
+        max: 6,
       },
       description: 'The heading level.',
       type: {
@@ -69,17 +73,35 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof WidgetComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof Widget>;
 
-const Template: ComponentStory<typeof WidgetComponent> = (args) => (
-  <IntlProvider locale="en">
-    <WidgetComponent {...args} />
-  </IntlProvider>
-);
+const Template: ComponentStory<typeof Widget> = (args) => <Widget {...args} />;
 
-export const Widget = Template.bind({});
-Widget.args = {
+/**
+ * Widget Stories - Expanded
+ */
+export const Expanded = Template.bind({});
+Expanded.args = {
   children: 'Widget body',
+  expanded: true,
+  level: 2,
+  title: 'Widget title',
+};
+
+/**
+ * Widget Stories - Collapsed
+ */
+export const Collapsed = Template.bind({});
+Collapsed.args = {
+  children: 'Widget body',
+  expanded: false,
   level: 2,
   title: 'Widget title',
 };

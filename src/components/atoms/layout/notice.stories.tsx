@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import NoticeComponent from './notice';
 
+/**
+ * Notice - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Layout',
+  title: 'Atoms/Layout/Notice',
   component: NoticeComponent,
   argTypes: {
     kind: {
@@ -33,8 +36,38 @@ const Template: ComponentStory<typeof NoticeComponent> = (args) => (
   <NoticeComponent {...args} />
 );
 
-export const Notice = Template.bind({});
-Notice.args = {
+/**
+ * Notice stories - Error
+ */
+export const Error = Template.bind({});
+Error.args = {
+  kind: 'error',
+  message: 'Nisi provident sapiente.',
+};
+
+/**
+ * Notice stories - Info
+ */
+export const Info = Template.bind({});
+Info.args = {
   kind: 'info',
+  message: 'Nisi provident sapiente.',
+};
+
+/**
+ * Notice stories - Success
+ */
+export const Success = Template.bind({});
+Success.args = {
+  kind: 'success',
+  message: 'Nisi provident sapiente.',
+};
+
+/**
+ * Notice stories - Warning
+ */
+export const Warning = Template.bind({});
+Warning.args = {
+  kind: 'warning',
   message: 'Nisi provident sapiente.',
 };

@@ -2,6 +2,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import BackToTopComponent from './back-to-top';
 
+/**
+ * BackToTop - Storybook Meta
+ */
 export default {
   title: 'Molecules/Buttons',
   component: BackToTopComponent,
@@ -30,14 +33,22 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof BackToTopComponent>;
 
 const Template: ComponentStory<typeof BackToTopComponent> = (args) => (
-  <IntlProvider locale="en">
-    <BackToTopComponent {...args} />
-  </IntlProvider>
+  <BackToTopComponent {...args} />
 );
 
+/**
+ * Buttons Stories - Back to top
+ */
 export const BackToTop = Template.bind({});
 BackToTop.args = {
   target: 'top',

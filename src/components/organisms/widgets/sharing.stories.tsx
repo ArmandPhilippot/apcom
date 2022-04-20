@@ -2,6 +2,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import SharingWidget from './sharing';
 
+/**
+ * Sharing - Storybook Meta
+ */
 export default {
   title: 'Organisms/Widgets',
   component: SharingWidget,
@@ -27,6 +30,8 @@ export default {
     level: {
       control: {
         type: 'number',
+        min: 1,
+        max: 6,
       },
       description: 'The heading level.',
       type: {
@@ -55,14 +60,22 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof SharingWidget>;
 
 const Template: ComponentStory<typeof SharingWidget> = (args) => (
-  <IntlProvider locale="en">
-    <SharingWidget {...args} />
-  </IntlProvider>
+  <SharingWidget {...args} />
 );
 
+/**
+ * Widgets Stories - Sharing
+ */
 export const Sharing = Template.bind({});
 Sharing.args = {
   expanded: true,

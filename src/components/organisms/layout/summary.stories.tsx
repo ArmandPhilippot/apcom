@@ -1,10 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import SummaryComponent from './summary';
+import Summary from './summary';
 
+/**
+ * Summary - Storybook Meta
+ */
 export default {
-  title: 'Organisms/Layout',
-  component: SummaryComponent,
+  title: 'Organisms/Layout/Summary',
+  component: Summary,
   args: {
     titleLevel: 2,
   },
@@ -51,6 +54,8 @@ export default {
     titleLevel: {
       control: {
         type: 'number',
+        min: 1,
+        max: 6,
       },
       description: 'The page title level (hn)',
       table: {
@@ -73,13 +78,26 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SummaryComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof Summary>;
 
-const Template: ComponentStory<typeof SummaryComponent> = (args) => (
-  <IntlProvider locale="en">
-    <SummaryComponent {...args} />
-  </IntlProvider>
+const Template: ComponentStory<typeof Summary> = (args) => (
+  <Summary {...args} />
 );
+
+const cover = {
+  alt: 'A cover',
+  height: 480,
+  src: 'http://placeimg.com/640/480',
+  width: 640,
+  unoptimized: true,
+};
 
 const meta = {
   publication: { name: 'Published on:', value: 'April 11th 2022' },
@@ -98,14 +116,24 @@ const meta = {
   comments: { name: 'Comments:', value: '1 comment' },
 };
 
-export const Summary = Template.bind({});
-Summary.args = {
-  cover: {
-    alt: 'A cover',
-    height: 480,
-    src: 'http://placeimg.com/640/480',
-    width: 640,
-  },
+/**
+ * Summary Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
+  excerpt:
+    'Perspiciatis quasi libero nemo non eligendi nam minima. Deleniti expedita tempore. Praesentium explicabo molestiae eaque consectetur vero. Quae nostrum quisquam similique. Ut hic est quas ut esse quisquam nobis.',
+  meta,
+  title: 'Odio odit necessitatibus',
+  url: '#',
+};
+
+/**
+ * Summary Stories - With cover
+ */
+export const WithCover = Template.bind({});
+WithCover.args = {
+  cover,
   excerpt:
     'Perspiciatis quasi libero nemo non eligendi nam minima. Deleniti expedita tempore. Praesentium explicabo molestiae eaque consectetur vero. Quae nostrum quisquam similique. Ut hic est quas ut esse quisquam nobis.',
   meta,

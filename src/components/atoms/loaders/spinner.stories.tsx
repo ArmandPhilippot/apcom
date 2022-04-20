@@ -2,8 +2,11 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import SpinnerComponent from './spinner';
 
+/**
+ * Spinner - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Loaders',
+  title: 'Atoms/Loaders/Spinner',
   component: SpinnerComponent,
   argTypes: {
     message: {
@@ -20,12 +23,28 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof SpinnerComponent>;
 
 const Template: ComponentStory<typeof SpinnerComponent> = (args) => (
-  <IntlProvider locale="en">
-    <SpinnerComponent {...args} />
-  </IntlProvider>
+  <SpinnerComponent {...args} />
 );
 
+/**
+ * Loaders Stories - Default Spinner
+ */
 export const Spinner = Template.bind({});
+
+/**
+ * Loaders Stories - Spinner with custom message
+ */
+export const SpinnerCustomMessage = Template.bind({});
+SpinnerCustomMessage.args = {
+  message: 'Submitting...',
+};

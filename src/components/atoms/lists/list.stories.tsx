@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ListComponent, { type ListItem } from './list';
 
+/**
+ * List - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Lists',
+  title: 'Atoms/Typography/Lists',
   component: ListComponent,
   args: {
     kind: 'unordered',
@@ -68,13 +71,19 @@ const items: ListItem[] = [
   { id: 'item-4', value: 'Item 4' },
 ];
 
-export const Unordered = Template.bind({});
-Unordered.args = {
-  items,
-};
-
+/**
+ * List Stories - Ordered list
+ */
 export const Ordered = Template.bind({});
 Ordered.args = {
   items,
   kind: 'ordered',
+};
+
+/**
+ * List Stories - Unordered list
+ */
+export const Unordered = Template.bind({});
+Unordered.args = {
+  items,
 };

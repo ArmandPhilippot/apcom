@@ -1,9 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import NoScriptComponent from './no-script';
+import NoScript from './no-script';
 
+/**
+ * NoScript - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Layout',
-  component: NoScriptComponent,
+  title: 'Atoms/Layout/NoScript',
+  component: NoScript,
   args: {
     position: 'initial',
   },
@@ -34,13 +37,26 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof NoScriptComponent>;
+} as ComponentMeta<typeof NoScript>;
 
-const Template: ComponentStory<typeof NoScriptComponent> = (args) => (
-  <NoScriptComponent {...args} />
+const Template: ComponentStory<typeof NoScript> = (args) => (
+  <NoScript {...args} />
 );
 
-export const NoScript = Template.bind({});
-NoScript.args = {
+/**
+ * NoScript Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
   message: 'A noscript only message.',
+  position: 'initial',
+};
+
+/**
+ * NoScript Stories - Top
+ */
+export const Top = Template.bind({});
+Top.args = {
+  message: 'A noscript only message.',
+  position: 'top',
 };

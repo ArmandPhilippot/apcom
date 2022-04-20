@@ -2,8 +2,11 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import CCBySAIcon from './cc-by-sa';
 
+/**
+ * CC BY SA icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: CCBySAIcon,
   argTypes: {
     className: {
@@ -20,12 +23,20 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof CCBySAIcon>;
 
 const Template: ComponentStory<typeof CCBySAIcon> = (args) => (
-  <IntlProvider locale="en">
-    <CCBySAIcon {...args} />
-  </IntlProvider>
+  <CCBySAIcon {...args} />
 );
 
+/**
+ * Icons Stories - CC BY SA
+ */
 export const CCBySA = Template.bind({});

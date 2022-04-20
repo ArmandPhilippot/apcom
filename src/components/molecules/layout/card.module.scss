@@ -17,10 +17,6 @@
     justify-content: flex-start;
   }
 
-  .footer {
-    margin-top: var(--spacing-md);
-  }
-
   .cover {
     align-self: flex-start;
     max-height: fun.convert-px(150);
@@ -46,6 +42,7 @@
 
   .tagline {
     flex: 1;
+    margin-bottom: var(--spacing-md);
     color: var(--color-fg);
     font-weight: 400;
   }

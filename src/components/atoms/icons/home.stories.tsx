@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import HomeIcon from './home';
 
+/**
+ * Home icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: HomeIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof HomeIcon> = (args) => (
   <HomeIcon {...args} />
 );
 
+/**
+ * Icons Stories - Home
+ */
 export const Home = Template.bind({});

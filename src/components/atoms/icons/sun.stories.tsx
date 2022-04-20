@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import SunIcon from './sun';
 
+/**
+ * Sun icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: SunIcon,
   argTypes: {
     className: {
@@ -38,4 +41,7 @@ const Template: ComponentStory<typeof SunIcon> = (args) => (
   <SunIcon {...args} />
 );
 
+/**
+ * Icons Stories - Sun
+ */
 export const Sun = Template.bind({});

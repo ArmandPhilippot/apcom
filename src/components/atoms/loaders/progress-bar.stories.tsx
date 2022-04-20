@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ProgressBarComponent from './progress-bar';
 
+/**
+ * ProgressBar - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Loaders',
+  title: 'Atoms/Loaders/ProgressBar',
   component: ProgressBarComponent,
   argTypes: {
     'aria-label': {
@@ -68,9 +71,23 @@ const Template: ComponentStory<typeof ProgressBarComponent> = (args) => (
   <ProgressBarComponent {...args} />
 );
 
+/**
+ * Loaders Stories - Default Progress bar
+ */
 export const ProgressBar = Template.bind({});
 ProgressBar.args = {
   current: 10,
+  min: 0,
+  max: 50,
+};
+
+/**
+ * Loaders Stories - Progress bar With Info
+ */
+export const ProgressBarWithInfo = Template.bind({});
+ProgressBarWithInfo.args = {
+  current: 10,
+  info: 'Loaded: 10 / 50',
   min: 0,
   max: 50,
 };

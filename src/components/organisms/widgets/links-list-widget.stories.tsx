@@ -2,8 +2,11 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import LinksListWidget from './links-list-widget';
 
+/**
+ * LinksListWidget - Storybook Meta
+ */
 export default {
-  title: 'Organisms/Widgets',
+  title: 'Organisms/Widgets/LinksList',
   component: LinksListWidget,
   args: {
     kind: 'unordered',
@@ -35,6 +38,8 @@ export default {
     level: {
       control: {
         type: 'number',
+        min: 1,
+        max: 6,
       },
       description: 'The heading level.',
       type: {
@@ -53,12 +58,17 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof LinksListWidget>;
 
 const Template: ComponentStory<typeof LinksListWidget> = (args) => (
-  <IntlProvider locale="en">
-    <LinksListWidget {...args} />
-  </IntlProvider>
+  <LinksListWidget {...args} />
 );
 
 const items = [
@@ -84,9 +94,24 @@ const items = [
   { name: 'Level 1: Item 4', url: '#' },
 ];
 
-export const LinksList = Template.bind({});
-LinksList.args = {
+/**
+ * Links List Widget Stories - Unordered
+ */
+export const Unordered = Template.bind({});
+Unordered.args = {
   items,
+  kind: 'unordered',
+  level: 2,
+  title: 'A list of links',
+};
+
+/**
+ * Links List Widget Stories - Ordered
+ */
+export const Ordered = Template.bind({});
+Ordered.args = {
+  items,
+  kind: 'ordered',
   level: 2,
   title: 'A list of links',
 };

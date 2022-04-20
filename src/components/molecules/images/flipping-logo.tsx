@@ -32,11 +32,18 @@ const FlippingLogo: FC<FlippingLogoProps> = ({
   altText,
   logoTitle,
   photo,
+  ...props
 }) => {
   return (
     <div className={`${styles.logo} ${className}`}>
       <div className={styles.logo__front}>
-        <Image src={photo} alt={altText} layout="fill" objectFit="cover" />
+        <Image
+          src={photo}
+          alt={altText}
+          layout="fill"
+          objectFit="cover"
+          {...props}
+        />
       </div>
       <div className={styles.logo__back}>
         <Logo title={logoTitle} />

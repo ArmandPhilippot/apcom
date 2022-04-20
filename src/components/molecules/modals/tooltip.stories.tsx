@@ -1,9 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import TooltipComponent from './tooltip';
+import Tooltip from './tooltip';
 
+/**
+ * Tooltip - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Modals',
-  component: TooltipComponent,
+  title: 'Molecules/Modals/Tooltip',
+  component: Tooltip,
   argTypes: {
     className: {
       control: {
@@ -49,14 +52,17 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof TooltipComponent>;
+} as ComponentMeta<typeof Tooltip>;
 
-const Template: ComponentStory<typeof TooltipComponent> = (args) => (
-  <TooltipComponent {...args} />
+const Template: ComponentStory<typeof Tooltip> = (args) => (
+  <Tooltip {...args} />
 );
 
-export const Tooltip = Template.bind({});
-Tooltip.args = {
+/**
+ * Tooltip Stories - Help
+ */
+export const Help = Template.bind({});
+Help.args = {
   content:
     'Minima tempora fuga omnis ratione doloribus ut. Totam ea vitae consequatur. Fuga hic ipsum. In non debitis ex assumenda ut dicta. Sit ut maxime eligendi est.',
   icon: '?',

@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import FlippingLogoComponent from './flipping-logo';
 
+/**
+ * FlippingLogo - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Layout',
+  title: 'Molecules/Images',
   component: FlippingLogoComponent,
   argTypes: {
     altText: {
@@ -51,6 +54,7 @@ export default {
         required: true,
       },
     },
+    unoptimized: { table: { disable: true } },
   },
 } as ComponentMeta<typeof FlippingLogoComponent>;
 
@@ -58,9 +62,14 @@ const Template: ComponentStory<typeof FlippingLogoComponent> = (args) => (
   <FlippingLogoComponent {...args} />
 );
 
+/**
+ * Images Stories - Flipping Logo
+ */
 export const FlippingLogo = Template.bind({});
 FlippingLogo.args = {
   altText: 'Website picture',
   logoTitle: 'Website logo',
   photo: 'http://placeimg.com/640/480',
+  // @ts-ignore - Needed because of the placeholder image.
+  unoptimized: true,
 };

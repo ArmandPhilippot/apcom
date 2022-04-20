@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import MagnifyingGlassIcon from './magnifying-glass';
 
+/**
+ * Magnifying Glass icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: MagnifyingGlassIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof MagnifyingGlassIcon> = (args) => (
   <MagnifyingGlassIcon {...args} />
 );
 
+/**
+ * Icons Stories - Magnifying Glass
+ */
 export const MagnifyingGlass = Template.bind({});

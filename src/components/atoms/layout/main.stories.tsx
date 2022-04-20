@@ -1,6 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import MainComponent from './main';
 
+/**
+ * Main - Storybook Meta
+ */
 export default {
   title: 'Atoms/Layout',
   component: MainComponent,
@@ -45,6 +48,9 @@ const Template: ComponentStory<typeof MainComponent> = (args) => (
   <MainComponent {...args} />
 );
 
+/**
+ * Layout Stories - Main
+ */
 export const Main = Template.bind({});
 Main.args = {
   children: 'The main content.',

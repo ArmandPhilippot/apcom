@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CareerIcon from './career';
 
+/**
+ * Career icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: CareerIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof CareerIcon> = (args) => (
   <CareerIcon {...args} />
 );
 
+/**
+ * Icons Stories - Career
+ */
 export const Career = Template.bind({});

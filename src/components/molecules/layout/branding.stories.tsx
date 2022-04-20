@@ -1,10 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import BrandingComponent from './branding';
+import Branding from './branding';
 
+/**
+ * Branding - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Layout',
-  component: BrandingComponent,
+  title: 'Molecules/Layout/Branding',
+  component: Branding,
   args: {
     isHome: false,
   },
@@ -53,6 +56,7 @@ export default {
         required: true,
       },
     },
+    unoptimized: { table: { disable: true } },
     withLink: {
       control: {
         type: 'boolean',
@@ -68,16 +72,38 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof BrandingComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof Branding>;
 
-const Template: ComponentStory<typeof BrandingComponent> = (args) => (
-  <IntlProvider locale="en">
-    <BrandingComponent {...args} />
-  </IntlProvider>
+const Template: ComponentStory<typeof Branding> = (args) => (
+  <Branding {...args} />
 );
 
-export const Branding = Template.bind({});
-Branding.args = {
+/**
+ * Branding Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
   title: 'Website title',
   photo: 'http://placeimg.com/640/480',
+  // @ts-ignore - Needed because of the placeholder image.
+  unoptimized: true,
+};
+
+/**
+ * Branding Stories - With baseline
+ */
+export const WithBaseline = Template.bind({});
+WithBaseline.args = {
+  title: 'Website title',
+  baseline: 'Maiores corporis qui',
+  photo: 'http://placeimg.com/640/480',
+  // @ts-ignore - Needed because of the placeholder image.
+  unoptimized: true,
 };

@@ -1,10 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
-import CommentFormComponent from './comment-form';
+import CommentForm from './comment-form';
 
+/**
+ * CommentForm - Storybook Meta
+ */
 export default {
   title: 'Organisms/Forms',
-  component: CommentFormComponent,
+  component: CommentForm,
   argTypes: {
     className: {
       control: {
@@ -58,6 +61,8 @@ export default {
     titleLevel: {
       control: {
         type: 'number',
+        min: 1,
+        max: 6,
       },
       description: 'The title level (hn).',
       table: {
@@ -69,16 +74,24 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof CommentFormComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof CommentForm>;
 
-const Template: ComponentStory<typeof CommentFormComponent> = (args) => (
-  <IntlProvider locale="en">
-    <CommentFormComponent {...args} />
-  </IntlProvider>
+const Template: ComponentStory<typeof CommentForm> = (args) => (
+  <CommentForm {...args} />
 );
 
-export const CommentForm = Template.bind({});
-CommentForm.args = {
+/**
+ * Forms Stories - Comment
+ */
+export const Comment = Template.bind({});
+Comment.args = {
   saveComment: (reset: () => void) => {
     reset();
   },

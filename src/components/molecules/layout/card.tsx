@@ -93,7 +93,7 @@ const Card: FC<CardProps> = ({
             {title}
           </Heading>
         </header>
-        <div className={styles.tagline}>{tagline}</div>
+        {tagline && <div className={styles.tagline}>{tagline}</div>}
         {meta && (
           <footer className={styles.footer}>
             <DescriptionList

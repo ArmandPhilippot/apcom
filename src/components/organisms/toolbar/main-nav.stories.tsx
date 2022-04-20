@@ -1,11 +1,14 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
-import MainNavComponent from './main-nav';
+import MainNav from './main-nav';
 
+/**
+ * MainNav - Storybook Meta
+ */
 export default {
-  title: 'Organisms/Toolbar',
-  component: MainNavComponent,
+  title: 'Organisms/Toolbar/MainNav',
+  component: MainNav,
   argTypes: {
     className: {
       control: {
@@ -49,25 +52,43 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof MainNavComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof MainNav>;
 
-const Template: ComponentStory<typeof MainNavComponent> = ({
+const Template: ComponentStory<typeof MainNav> = ({
   isActive,
   setIsActive: _setIsActive,
   ...args
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return (
-    <IntlProvider locale="en">
-      <MainNavComponent isActive={isOpen} setIsActive={setIsOpen} {...args} />
-    </IntlProvider>
-  );
+  return <MainNav isActive={isOpen} setIsActive={setIsOpen} {...args} />;
 };
 
-export const MainNav = Template.bind({});
-MainNav.args = {
+/**
+ * MainNav Stories - Inactive
+ */
+export const Inactive = Template.bind({});
+Inactive.args = {
   isActive: false,
+  items: [
+    { id: 'home', label: 'Home', href: '#' },
+    { id: 'contact', label: 'Contact', href: '#' },
+  ],
+};
+
+/**
+ * MainNav Stories - Active
+ */
+export const Active = Template.bind({});
+Active.args = {
+  isActive: true,
   items: [
     { id: 'home', label: 'Home', href: '#' },
     { id: 'contact', label: 'Contact', href: '#' },

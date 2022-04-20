@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import LogoComponent from './logo';
 
+/**
+ * Logo - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Images',
+  title: 'Atoms/Illustrations/Images',
   component: LogoComponent,
   argTypes: {
     title: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof LogoComponent> = (args) => (
   <LogoComponent {...args} />
 );
 
+/**
+ * Images Stories - Logo
+ */
 export const Logo = Template.bind({});

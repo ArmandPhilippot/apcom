@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ComputerScreenIcon from './computer-screen';
 
+/**
+ * Computer Screen icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: ComputerScreenIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof ComputerScreenIcon> = (args) => (
   <ComputerScreenIcon {...args} />
 );
 
+/**
+ * Icons Stories - Computer Screen
+ */
 export const ComputerScreen = Template.bind({});

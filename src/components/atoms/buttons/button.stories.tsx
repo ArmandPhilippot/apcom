@@ -1,12 +1,14 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ButtonComponent from './button';
+import Button from './button';
 
+/**
+ * Button - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Buttons',
-  component: ButtonComponent,
+  title: 'Atoms/Buttons/Button',
+  component: Button,
   args: {
     disabled: false,
-    kind: 'secondary',
     type: 'button',
   },
   argTypes: {
@@ -119,9 +121,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ButtonComponent>;
+} as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof ButtonComponent> = (args) => {
+const Template: ComponentStory<typeof Button> = (args) => {
   const { children, type, ...props } = args;
 
   const getBody = () => {
@@ -139,10 +141,32 @@ const Template: ComponentStory<typeof ButtonComponent> = (args) => {
   };
 
   return (
-    <ButtonComponent type={type} {...props}>
+    <Button type={type} {...props}>
       {getBody()}
-    </ButtonComponent>
+    </Button>
   );
 };
 
-export const Button = Template.bind({});
+/**
+ * Button Story - Primary
+ */
+export const Primary = Template.bind({});
+Primary.args = {
+  kind: 'primary',
+};
+
+/**
+ * Button Story - Secondary
+ */
+export const Secondary = Template.bind({});
+Secondary.args = {
+  kind: 'secondary',
+};
+
+/**
+ * Button Story - Tertiary
+ */
+export const Tertiary = Template.bind({});
+Tertiary.args = {
+  kind: 'tertiary',
+};

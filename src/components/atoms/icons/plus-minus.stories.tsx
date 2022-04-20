@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import PlusMinusIcon from './plus-minus';
 
+/**
+ * Plus/Minus icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: PlusMinusIcon,
   argTypes: {
     className: {
@@ -37,6 +40,9 @@ const Template: ComponentStory<typeof PlusMinusIcon> = (args) => (
   <PlusMinusIcon {...args} />
 );
 
+/**
+ * Icons Stories - Plus/Minus
+ */
 export const PlusMinus = Template.bind({});
 PlusMinus.args = {
   state: 'plus',

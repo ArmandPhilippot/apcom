@@ -2,8 +2,8 @@ import Heading from '@components/atoms/headings/heading';
 import Link from 'next/link';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import FlippingLogo, { type FlippingLogoProps } from '../images/flipping-logo';
 import styles from './branding.module.scss';
-import FlippingLogo, { type FlippingLogoProps } from './flipping-logo';
 
 export type BrandingProps = Pick<FlippingLogoProps, 'photo'> & {
   /**
@@ -35,6 +35,7 @@ const Branding: FC<BrandingProps> = ({
   photo,
   title,
   withLink = false,
+  ...props
 }) => {
   const intl = useIntl();
   const altText = intl.formatMessage(
@@ -61,6 +62,7 @@ const Branding: FC<BrandingProps> = ({
         altText={altText}
         logoTitle={logoTitle}
         photo={photo}
+        {...props}
       />
       <Heading
         isFake={!isHome}

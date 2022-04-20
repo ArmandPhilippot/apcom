@@ -2,6 +2,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import SocialMediaWidget, { Media } from './social-media';
 
+/**
+ * SocialMedia - Storybook Meta
+ */
 export default {
   title: 'Organisms/Widgets',
   component: SocialMediaWidget,
@@ -9,6 +12,8 @@ export default {
     level: {
       control: {
         type: 'number',
+        min: 1,
+        max: 6,
       },
       description: 'The heading level.',
       type: {
@@ -35,12 +40,17 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof SocialMediaWidget>;
 
 const Template: ComponentStory<typeof SocialMediaWidget> = (args) => (
-  <IntlProvider locale="en">
-    <SocialMediaWidget {...args} />
-  </IntlProvider>
+  <SocialMediaWidget {...args} />
 );
 
 const media: Media[] = [
@@ -48,6 +58,9 @@ const media: Media[] = [
   { name: 'LinkedIn', url: '#' },
 ];
 
+/**
+ * Widgets Stories - Social media
+ */
 export const SocialMedia = Template.bind({});
 SocialMedia.args = {
   media,

@@ -1,9 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ModalComponent from './modal';
+import Modal from './modal';
 
+/**
+ * Widget - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Modals',
-  component: ModalComponent,
+  title: 'Molecules/Modals/Modal',
+  component: Modal,
   argTypes: {
     children: {
       control: {
@@ -56,14 +59,25 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ModalComponent>;
+} as ComponentMeta<typeof Modal>;
 
-const Template: ComponentStory<typeof ModalComponent> = (args) => (
-  <ModalComponent {...args} />
-);
+const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
 
-export const Modal = Template.bind({});
-Modal.args = {
+/**
+ * Modal Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
   children:
     'Inventore natus dignissimos aut illum modi asperiores. Et voluptatibus delectus.',
+};
+
+/**
+ * Modal Stories - With title
+ */
+export const WithTitle = Template.bind({});
+WithTitle.args = {
+  children:
+    'Inventore natus dignissimos aut illum modi asperiores. Et voluptatibus delectus.',
+  title: 'Alias praesentium corporis',
 };

@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import HamburgerIcon from './hamburger';
 
+/**
+ * Hamburger icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: HamburgerIcon,
   argTypes: {
     className: {
@@ -38,4 +41,7 @@ const Template: ComponentStory<typeof HamburgerIcon> = (args) => (
   <HamburgerIcon {...args} />
 );
 
+/**
+ * Icons Stories - Hamburger
+ */
 export const Hamburger = Template.bind({});

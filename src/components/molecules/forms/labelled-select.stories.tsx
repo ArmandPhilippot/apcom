@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import LabelledSelectComponent from './labelled-select';
+import LabelledSelect from './labelled-select';
 
 const selectOptions = [
   { id: 'option1', name: 'Option 1', value: 'option1' },
@@ -8,9 +8,12 @@ const selectOptions = [
   { id: 'option3', name: 'Option 3', value: 'option3' },
 ];
 
+/**
+ * LabelledSelect - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Forms',
-  component: LabelledSelectComponent,
+  title: 'Molecules/Forms/Select',
+  component: LabelledSelect,
   args: {
     disabled: false,
     labelPosition: 'top',
@@ -167,29 +170,67 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof LabelledSelectComponent>;
+} as ComponentMeta<typeof LabelledSelect>;
 
-const Template: ComponentStory<typeof LabelledSelectComponent> = ({
+const Template: ComponentStory<typeof LabelledSelect> = ({
   value,
   setValue: _setValue,
   ...args
 }) => {
   const [selected, setSelected] = useState<string>(value);
 
-  return (
-    <LabelledSelectComponent
-      value={selected}
-      setValue={setSelected}
-      {...args}
-    />
-  );
+  return <LabelledSelect value={selected} setValue={setSelected} {...args} />;
 };
 
-export const LabelledSelect = Template.bind({});
-LabelledSelect.args = {
+/**
+ * Labelled Select Stories - Left
+ */
+export const Left = Template.bind({});
+Left.args = {
+  id: 'labelled-select-storybook',
+  label: 'Labelled select',
+  labelPosition: 'left',
+  name: 'labelled-select-storybook',
+  options: selectOptions,
+  value: 'option1',
+};
+
+/**
+ * Labelled Select Stories - Top
+ */
+export const Top = Template.bind({});
+Top.args = {
+  id: 'labelled-select-storybook',
+  label: 'Labelled select',
+  labelPosition: 'top',
+  name: 'labelled-select-storybook',
+  options: selectOptions,
+  value: 'option1',
+};
+
+/**
+ * Labelled Select Stories - Disabled
+ */
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
   id: 'labelled-select-storybook',
   label: 'Labelled select',
   name: 'labelled-select-storybook',
   options: selectOptions,
+  value: 'option1',
+};
+
+/**
+ * Labelled Select Stories - Required
+ */
+export const Required = Template.bind({});
+Required.args = {
+  id: 'labelled-select-storybook',
+  label: 'Labelled select',
+  labelPosition: 'top',
+  name: 'labelled-select-storybook',
+  options: selectOptions,
+  required: true,
   value: 'option1',
 };

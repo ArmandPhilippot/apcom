@@ -1,9 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ResponsiveImageComponent from './responsive-image';
+import ResponsiveImage from './responsive-image';
 
+/**
+ * ResponsiveImage - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Images',
-  component: ResponsiveImageComponent,
+  title: 'Molecules/Images/ResponsiveImage',
+  component: ResponsiveImage,
   argTypes: {
     alt: {
       control: {
@@ -72,16 +75,60 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ResponsiveImageComponent>;
+} as ComponentMeta<typeof ResponsiveImage>;
 
-const Template: ComponentStory<typeof ResponsiveImageComponent> = (args) => (
-  <ResponsiveImageComponent {...args} />
+const Template: ComponentStory<typeof ResponsiveImage> = (args) => (
+  <ResponsiveImage {...args} />
 );
 
-export const ResponsiveImage = Template.bind({});
-ResponsiveImage.args = {
+/**
+ * Responsive Image Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
   alt: 'An example',
   src: 'http://placeimg.com/640/480/transport',
   width: 640,
   height: 480,
+  unoptimized: true,
+};
+
+/**
+ * Responsive Image Stories - With link
+ */
+export const WithLink = Template.bind({});
+WithLink.args = {
+  alt: 'An example',
+  src: 'http://placeimg.com/640/480/transport',
+  width: 640,
+  height: 480,
+  unoptimized: true,
+  target: '#',
+};
+
+/**
+ * Responsive Image Stories - With caption
+ */
+export const WithCaption = Template.bind({});
+WithCaption.args = {
+  alt: 'An example',
+  src: 'http://placeimg.com/640/480/transport',
+  width: 640,
+  height: 480,
+  caption: 'Omnis nulla labore',
+  unoptimized: true,
+};
+
+/**
+ * Responsive Image Stories - With caption and link
+ */
+export const WithCaptionAndLink = Template.bind({});
+WithCaptionAndLink.args = {
+  alt: 'An example',
+  src: 'http://placeimg.com/640/480/transport',
+  width: 640,
+  height: 480,
+  caption: 'Omnis nulla labore',
+  target: '#',
+  unoptimized: true,
 };

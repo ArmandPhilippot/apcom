@@ -2,6 +2,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import HelpButtonComponent from './help-button';
 
+/**
+ * HelpButton - Storybook Meta
+ */
 export default {
   title: 'Molecules/Buttons',
   component: HelpButtonComponent,
@@ -33,12 +36,20 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof HelpButtonComponent>;
 
 const Template: ComponentStory<typeof HelpButtonComponent> = (args) => (
-  <IntlProvider locale="en">
-    <HelpButtonComponent {...args} />
-  </IntlProvider>
+  <HelpButtonComponent {...args} />
 );
 
+/**
+ * Help Button Stories - Level 1
+ */
 export const HelpButton = Template.bind({});

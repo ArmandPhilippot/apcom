@@ -3,8 +3,11 @@ import DescriptionListComponent, {
   DescriptionListItem,
 } from './description-list';
 
+/**
+ * DescriptionList - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Lists',
+  title: 'Atoms/Typography/Lists',
   component: DescriptionListComponent,
   args: {
     layout: 'column',
@@ -67,6 +70,9 @@ const items: DescriptionListItem[] = [
   { id: 'term-4', term: 'Term 4:', value: ['Value for term 4'] },
 ];
 
+/**
+ * List Stories - Description list
+ */
 export const DescriptionList = Template.bind({});
 DescriptionList.args = {
   items,

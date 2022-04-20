@@ -1,9 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SectionComponent from './section';
+import Section from './section';
 
+/**
+ * Section - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Layout',
-  component: SectionComponent,
+  title: 'Atoms/Layout/Section',
+  component: Section,
   args: {
     variant: 'dark',
     withBorder: true,
@@ -72,14 +75,28 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SectionComponent>;
+} as ComponentMeta<typeof Section>;
 
-const Template: ComponentStory<typeof SectionComponent> = (args) => (
-  <SectionComponent {...args} />
+const Template: ComponentStory<typeof Section> = (args) => (
+  <Section {...args} />
 );
 
-export const Section = Template.bind({});
-Section.args = {
+/**
+ * Section Stories - Light
+ */
+export const Light = Template.bind({});
+Light.args = {
   title: 'A title',
   content: 'The content.',
+  variant: 'light',
+};
+
+/**
+ * Section Stories - Dark
+ */
+export const Dark = Template.bind({});
+Dark.args = {
+  title: 'A title',
+  content: 'The content.',
+  variant: 'dark',
 };

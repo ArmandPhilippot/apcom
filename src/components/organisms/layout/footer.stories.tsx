@@ -2,6 +2,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import FooterComponent from './footer';
 
+/**
+ * Footer - Storybook Meta
+ */
 export default {
   title: 'Organisms/Layout',
   component: FooterComponent,
@@ -50,12 +53,17 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof FooterComponent>;
 
 const Template: ComponentStory<typeof FooterComponent> = (args) => (
-  <IntlProvider locale="en">
-    <FooterComponent {...args} />
-  </IntlProvider>
+  <FooterComponent {...args} />
 );
 
 const copyright = {
@@ -66,6 +74,9 @@ const copyright = {
 
 const navItems = [{ id: 'legal-notice', href: '#', label: 'Legal notice' }];
 
+/**
+ * Layout Stories - Footer
+ */
 export const Footer = Template.bind({});
 Footer.args = {
   copyright,

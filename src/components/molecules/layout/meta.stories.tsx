@@ -1,6 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import MetaComponent from './meta';
 
+/**
+ * Meta - Storybook Meta
+ */
 export default {
   title: 'Molecules/Layout',
   component: MetaComponent,
@@ -18,10 +21,7 @@ export default {
         required: false,
       },
     },
-    meta: {
-      control: {
-        type: null,
-      },
+    data: {
       description: 'The page metadata.',
       type: {
         name: 'object',
@@ -51,6 +51,9 @@ const data = {
   },
 };
 
+/**
+ * Layout Stories - Meta
+ */
 export const Meta = Template.bind({});
 Meta.args = {
   data,

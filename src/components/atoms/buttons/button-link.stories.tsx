@@ -1,9 +1,15 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ButtonLinkComponent from './button-link';
+import ButtonLink from './button-link';
 
+/**
+ * ButtonLink - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Buttons',
-  component: ButtonLinkComponent,
+  title: 'Atoms/Buttons/ButtonLink',
+  component: ButtonLink,
+  args: {
+    shape: 'rectangle',
+  },
   argTypes: {
     'aria-label': {
       control: {
@@ -82,14 +88,38 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ButtonLinkComponent>;
+} as ComponentMeta<typeof ButtonLink>;
 
-const Template: ComponentStory<typeof ButtonLinkComponent> = (args) => (
-  <ButtonLinkComponent {...args} />
+const Template: ComponentStory<typeof ButtonLink> = (args) => (
+  <ButtonLink {...args} />
 );
 
-export const ButtonLink = Template.bind({});
-ButtonLink.args = {
+/**
+ * ButtonLink Story - Primary
+ */
+export const Primary = Template.bind({});
+Primary.args = {
   children: 'Link',
+  kind: 'primary',
+  target: '#',
+};
+
+/**
+ * ButtonLink Story - Secondary
+ */
+export const Secondary = Template.bind({});
+Secondary.args = {
+  children: 'Link',
+  kind: 'secondary',
+  target: '#',
+};
+
+/**
+ * ButtonLink Story - Tertiary
+ */
+export const Tertiary = Template.bind({});
+Tertiary.args = {
+  children: 'Link',
+  kind: 'tertiary',
   target: '#',
 };

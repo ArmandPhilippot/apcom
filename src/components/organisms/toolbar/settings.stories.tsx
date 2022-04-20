@@ -1,11 +1,14 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
-import SettingsComponent from './settings';
+import Settings from './settings';
 
+/**
+ * Settings - Storybook Meta
+ */
 export default {
-  title: 'Organisms/Toolbar',
-  component: SettingsComponent,
+  title: 'Organisms/Toolbar/Settings',
+  component: Settings,
   argTypes: {
     className: {
       control: {
@@ -54,23 +57,37 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SettingsComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof Settings>;
 
-const Template: ComponentStory<typeof SettingsComponent> = ({
+const Template: ComponentStory<typeof Settings> = ({
   isActive,
   setIsActive: _setIsActive,
   ...args
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return (
-    <IntlProvider locale="en">
-      <SettingsComponent isActive={isOpen} setIsActive={setIsOpen} {...args} />
-    </IntlProvider>
-  );
+  return <Settings isActive={isOpen} setIsActive={setIsOpen} {...args} />;
 };
 
-export const Settings = Template.bind({});
-Settings.args = {
+/**
+ * Settings Stories - Inactive
+ */
+export const Inactive = Template.bind({});
+Inactive.args = {
   isActive: false,
+};
+
+/**
+ * Settings Stories - Active
+ */
+export const Active = Template.bind({});
+Active.args = {
+  isActive: true,
 };

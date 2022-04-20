@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ArrowIcon from './arrow';
 
+/**
+ * Arrow icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: ArrowIcon,
   argTypes: {
     className: {
@@ -36,6 +39,9 @@ const Template: ComponentStory<typeof ArrowIcon> = (args) => (
   <ArrowIcon {...args} />
 );
 
+/**
+ * Icons Stories - Arrow
+ */
 export const Arrow = Template.bind({});
 Arrow.args = {
   direction: 'right',

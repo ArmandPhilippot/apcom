@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import EnvelopIcon from './envelop';
 
+/**
+ * Envelop icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: EnvelopIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof EnvelopIcon> = (args) => (
   <EnvelopIcon {...args} />
 );
 
+/**
+ * Icons Stories - Envelop
+ */
 export const Envelop = Template.bind({});

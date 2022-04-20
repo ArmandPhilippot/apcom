@@ -3,6 +3,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 import CopyrightComponent from './copyright';
 
+/**
+ * Copyright - Storybook Meta
+ */
 export default {
   title: 'Atoms/Layout',
   component: CopyrightComponent,
@@ -36,14 +39,22 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
 } as ComponentMeta<typeof CopyrightComponent>;
 
 const Template: ComponentStory<typeof CopyrightComponent> = (args) => (
-  <IntlProvider locale="en">
-    <CopyrightComponent {...args} />
-  </IntlProvider>
+  <CopyrightComponent {...args} />
 );
 
+/**
+ * Layout Stories - Copyright
+ */
 export const Copyright = Template.bind({});
 Copyright.args = {
   dates: {

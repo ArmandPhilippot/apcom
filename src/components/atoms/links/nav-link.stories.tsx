@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import NavLinkComponent from './nav-link';
 
+/**
+ * NavLink - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Links',
+  title: 'Atoms/Typography/Links',
   component: NavLinkComponent,
   argTypes: {
     href: {
@@ -42,6 +45,9 @@ const Template: ComponentStory<typeof NavLinkComponent> = (args) => (
   <NavLinkComponent {...args} />
 );
 
+/**
+ * Links Stories - Nav Link
+ */
 export const NavLink = Template.bind({});
 NavLink.args = {
   href: '#',

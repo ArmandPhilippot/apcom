@@ -1,14 +1,16 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import FieldComponent from './field';
+import Field from './field';
 
+/**
+ * Field - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Forms',
-  component: FieldComponent,
+  title: 'Atoms/Forms/Fields',
+  component: Field,
   args: {
     disabled: false,
     required: false,
-    type: 'text',
   },
   argTypes: {
     'aria-labelledby': {
@@ -182,20 +184,74 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof FieldComponent>;
+} as ComponentMeta<typeof Field>;
 
-const Template: ComponentStory<typeof FieldComponent> = ({
+const Template: ComponentStory<typeof Field> = ({
   value: _value,
   setValue: _setValue,
   ...args
 }) => {
   const [value, setValue] = useState<string>('');
 
-  return <FieldComponent value={value} setValue={setValue} {...args} />;
+  return <Field value={value} setValue={setValue} {...args} />;
 };
 
-export const Field = Template.bind({});
-Field.args = {
+/**
+ * Field Story - DateTime
+ */
+export const DateTime = Template.bind({});
+DateTime.args = {
   id: 'field-storybook',
   name: 'field-storybook',
+  type: 'datetime-local',
+};
+
+/**
+ * Field Story - Email
+ */
+export const Email = Template.bind({});
+Email.args = {
+  id: 'field-storybook',
+  name: 'field-storybook',
+  type: 'email',
+};
+
+/**
+ * Field Story - Text
+ */
+export const Text = Template.bind({});
+Text.args = {
+  id: 'field-storybook',
+  name: 'field-storybook',
+  type: 'text',
+};
+
+/**
+ * Field Story - Number
+ */
+export const Number = Template.bind({});
+Number.args = {
+  id: 'field-storybook',
+  name: 'field-storybook',
+  type: 'number',
+};
+
+/**
+ * Field Story - TextArea
+ */
+export const TextArea = Template.bind({});
+TextArea.args = {
+  id: 'field-storybook',
+  name: 'field-storybook',
+  type: 'textarea',
+};
+
+/**
+ * Field Story - Time
+ */
+export const Time = Template.bind({});
+Time.args = {
+  id: 'field-storybook',
+  name: 'field-storybook',
+  type: 'time',
 };

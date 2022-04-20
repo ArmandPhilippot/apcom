@@ -1,11 +1,14 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
-import SearchComponent from './search';
+import Search from './search';
 
+/**
+ * Search - Storybook Meta
+ */
 export default {
-  title: 'Organisms/Toolbar',
-  component: SearchComponent,
+  title: 'Organisms/Toolbar/Search',
+  component: Search,
   argTypes: {
     className: {
       control: {
@@ -41,23 +44,37 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SearchComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof Search>;
 
-const Template: ComponentStory<typeof SearchComponent> = ({
+const Template: ComponentStory<typeof Search> = ({
   isActive,
   setIsActive: _setIsActive,
   ...args
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return (
-    <IntlProvider locale="en">
-      <SearchComponent isActive={isOpen} setIsActive={setIsOpen} {...args} />
-    </IntlProvider>
-  );
+  return <Search isActive={isOpen} setIsActive={setIsOpen} {...args} />;
 };
 
-export const Search = Template.bind({});
-Search.args = {
+/**
+ * Search Stories - Inactive
+ */
+export const Inactive = Template.bind({});
+Inactive.args = {
   isActive: false,
+};
+
+/**
+ * Search Stories - Active
+ */
+export const Active = Template.bind({});
+Active.args = {
+  isActive: true,
 };

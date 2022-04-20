@@ -5,7 +5,12 @@
   flex-flow: column;
 
   &__header {
+    z-index: 2;
     background: var(--color-bg);
+  }
+
+  &__body {
+    position: relative;
   }
 
   &--has-borders & {

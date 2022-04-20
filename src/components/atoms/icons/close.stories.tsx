@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CloseIcon from './close';
 
+/**
+ * Close icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: CloseIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof CloseIcon> = (args) => (
   <CloseIcon {...args} />
 );
 
+/**
+ * Icons Stories - Close
+ */
 export const Close = Template.bind({});

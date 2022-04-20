@@ -1,6 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import LabelComponent from './label';
 
+/**
+ * Label - Storybook Meta
+ */
 export default {
   title: 'Atoms/Forms',
   component: LabelComponent,
@@ -79,6 +82,9 @@ const Template: ComponentStory<typeof LabelComponent> = ({
   ...args
 }) => <LabelComponent {...args}>{children}</LabelComponent>;
 
+/**
+ * Label Story
+ */
 export const Label = Template.bind({});
 Label.args = {
   children: 'A label',

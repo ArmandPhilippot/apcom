@@ -1,11 +1,14 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
-import SelectWithTooltipComponent from './select-with-tooltip';
+import SelectWithTooltip from './select-with-tooltip';
 
+/**
+ * SelectWithTooltip - Storybook Meta
+ */
 export default {
-  title: 'Molecules/Forms',
-  component: SelectWithTooltipComponent,
+  title: 'Molecules/Forms/Select',
+  component: SelectWithTooltip,
   argTypes: {
     content: {
       control: {
@@ -175,7 +178,14 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SelectWithTooltipComponent>;
+  decorators: [
+    (Story) => (
+      <IntlProvider locale="en">
+        <Story />
+      </IntlProvider>
+    ),
+  ],
+} as ComponentMeta<typeof SelectWithTooltip>;
 
 const selectOptions = [
   { id: 'option1', name: 'Option 1', value: 'option1' },
@@ -183,25 +193,22 @@ const selectOptions = [
   { id: 'option3', name: 'Option 3', value: 'option3' },
 ];
 
-const Template: ComponentStory<typeof SelectWithTooltipComponent> = ({
+const Template: ComponentStory<typeof SelectWithTooltip> = ({
   value: _value,
   setValue: _setValue,
   ...args
 }) => {
   const [selected, setSelected] = useState<string>('option1');
   return (
-    <IntlProvider locale="en">
-      <SelectWithTooltipComponent
-        value={selected}
-        setValue={setSelected}
-        {...args}
-      />
-    </IntlProvider>
+    <SelectWithTooltip value={selected} setValue={setSelected} {...args} />
   );
 };
 
-export const SelectWithTooltip = Template.bind({});
-SelectWithTooltip.args = {
+/**
+ * Select Stories - With tooltip
+ */
+export const WithTooltip = Template.bind({});
+WithTooltip.args = {
   content: 'Illo voluptatibus quia minima placeat sit nostrum excepturi.',
   title: 'Possimus quidem dolor',
   id: 'storybook-select',

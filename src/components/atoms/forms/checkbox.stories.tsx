@@ -2,6 +2,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import CheckboxComponent from './checkbox';
 
+/**
+ * Checkbox - Storybook Meta
+ */
 export default {
   title: 'Atoms/Forms',
   component: CheckboxComponent,
@@ -88,6 +91,9 @@ const Template: ComponentStory<typeof CheckboxComponent> = ({
   );
 };
 
+/**
+ * Checkbox Story
+ */
 export const Checkbox = Template.bind({});
 Checkbox.args = {
   id: 'storybook-checkbox',

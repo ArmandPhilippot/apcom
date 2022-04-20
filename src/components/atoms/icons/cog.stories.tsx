@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CogIcon from './cog';
 
+/**
+ * Cogs icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: CogIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof CogIcon> = (args) => (
   <CogIcon {...args} />
 );
 
+/**
+ * Icons Stories - Cogs
+ */
 export const Cog = Template.bind({});

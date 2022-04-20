@@ -1,15 +1,21 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import OverviewComponent from './overview';
+import Overview from './overview';
 
+/**
+ * Overview - Storybook Meta
+ */
 export default {
-  title: 'Organisms/Layout',
-  component: OverviewComponent,
+  title: 'Organisms/Layout/Overview',
+  component: Overview,
   argTypes: {
     cover: {
       description: 'The overview cover.',
+      table: {
+        category: 'Options',
+      },
       type: {
         name: 'object',
-        required: true,
+        required: false,
         value: {},
       },
     },
@@ -22,10 +28,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof OverviewComponent>;
+} as ComponentMeta<typeof Overview>;
 
-const Template: ComponentStory<typeof OverviewComponent> = (args) => (
-  <OverviewComponent {...args} />
+const Template: ComponentStory<typeof Overview> = (args) => (
+  <Overview {...args} />
 );
 
 const cover = {
@@ -33,6 +39,7 @@ const cover = {
   height: 480,
   src: 'http://placeimg.com/640/480/cats',
   width: 640,
+  unoptimized: true,
 };
 
 const meta = {
@@ -43,8 +50,20 @@ const meta = {
   },
 };
 
-export const Overview = Template.bind({});
-Overview.args = {
+/**
+ * Overview Stories - Default
+ */
+export const Default = Template.bind({});
+Default.args = {
+  cover,
+  meta,
+};
+
+/**
+ * Overview Stories - With cover
+ */
+export const WithCover = Template.bind({});
+WithCover.args = {
   cover,
   meta,
 };

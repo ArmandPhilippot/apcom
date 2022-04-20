@@ -1,8 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import PostsStackIcon from './posts-stack';
 
+/**
+ * Posts Stack icon - Storybook Meta
+ */
 export default {
-  title: 'Atoms/Icons',
+  title: 'Atoms/Illustrations/Icons',
   component: PostsStackIcon,
   argTypes: {
     className: {
@@ -25,4 +28,7 @@ const Template: ComponentStory<typeof PostsStackIcon> = (args) => (
   <PostsStackIcon {...args} />
 );
 
+/**
+ * Icons Stories - Posts Stack
+ */
 export const PostsStack = Template.bind({});
