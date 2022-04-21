@@ -1,0 +1,32 @@
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
+
+.section {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      align-items: first baseline;
+    }
+  }
+}
+
+.list {
+  @extend %reset-ordered-list;
+
+  .item {
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.year {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      grid-column: 1;
+      justify-self: end;
+      margin-right: var(--spacing-lg);
+      position: sticky;
+      top: var(--spacing-xs);
+    }
+  }
+}
