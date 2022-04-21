@@ -1,0 +1,51 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/placeholders";
+
+.wrapper {
+  .list {
+    @extend %flex-list;
+
+    align-items: stretch;
+    justify-content: center;
+    position: relative;
+    row-gap: var(--spacing-xs);
+    column-gap: var(--spacing-sm);
+
+    &--pages {
+      column-gap: var(--spacing-2xs);
+      margin-top: var(--spacing-sm);
+    }
+  }
+
+  .link {
+    height: 100%;
+    min-width: 5ch;
+    min-height: 6ex;
+    position: relative;
+
+    &:not(&--disabled) {
+      &:hover,
+      &:focus {
+        z-index: 3;
+      }
+    }
+
+    &--number {
+      padding: 0;
+    }
+
+    &--disabled {
+      display: flex;
+      place-content: center;
+      align-items: center;
+      background: var(--color-bg);
+      border: fun.convert-px(3) solid var(--color-primary-darker);
+      border-radius: fun.convert-px(5);
+      color: var(--color-primary-darker);
+      font-size: var(--font-size-md);
+      font-weight: 600;
+      text-decoration: underline transparent 0;
+      transform: scale(var(--scale-down, 0.94));
+    }
+  }
+}
