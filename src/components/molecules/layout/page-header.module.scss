@@ -1,0 +1,63 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
+
+.wrapper {
+  @extend %grid;
+
+  &::before,
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg-secondary);
+    border-top: fun.convert-px(3) solid var(--color-border-light);
+    border-bottom: fun.convert-px(3) solid var(--color-border-light);
+  }
+
+  &::before {
+    grid-column: 1;
+    justify-self: start;
+    border-right: fun.convert-px(3) solid var(--color-border-light);
+  }
+
+  &::after {
+    grid-column: 3;
+    justify-self: end;
+    border-left: fun.convert-px(3) solid var(--color-border-light);
+  }
+}
+
+.body {
+  grid-column: 2;
+  display: flex;
+  flex-flow: column wrap;
+  row-gap: var(--spacing-sm);
+}
+
+.title {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    width: 100%;
+    height: fun.convert-px(4);
+    background: radial-gradient(
+      ellipse at center,
+      var(--color-primary-light),
+      var(--color-primary-dark)
+    );
+  }
+}
+
+.meta {
+  @include mix.media("screen") {
+    @include mix.dimensions("xs") {
+      font-size: var(--font-size-sm);
+    }
+  }
+}
