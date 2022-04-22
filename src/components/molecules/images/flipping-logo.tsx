@@ -1,5 +1,5 @@
 import Logo, { type LogoProps } from '@components/atoms/images/logo';
-import Image from 'next/image';
+import Image, { type ImageProps } from 'next/image';
 import { FC } from 'react';
 import styles from './flipping-logo.module.scss';
 
@@ -19,7 +19,7 @@ export type FlippingLogoProps = {
   /**
    * Photo url.
    */
-  photo: string;
+  photo: ImageProps['src'];
 };
 
 /**
