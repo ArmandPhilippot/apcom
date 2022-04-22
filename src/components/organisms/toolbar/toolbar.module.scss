@@ -26,7 +26,11 @@
   .modal {
     &--search,
     &--settings {
-      min-width: 30ch;
+      @include mix.media("screen") {
+        @include mix.dimensions("sm") {
+          min-width: 35ch;
+        }
+      }
     }
   }
 

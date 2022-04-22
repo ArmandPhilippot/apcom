@@ -1,0 +1,35 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+:global {
+  #__next {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 100vh;
+  }
+}
+
+.header {
+  padding: var(--spacing-sm) 0 var(--spacing-md);
+  border-bottom: fun.convert-px(3) solid var(--color-border-light);
+}
+
+.main {
+  flex: 1;
+}
+
+.footer {
+  border-top: fun.convert-px(3) solid var(--color-border-light);
+}
+
+.noscript-spacing {
+  width: 100%;
+  height: fun.convert-px(75);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("xs") {
+      height: fun.convert-px(50);
+    }
+  }
+}

@@ -28,17 +28,11 @@
     display: block;
     width: auto;
     height: auto;
-    padding: var(--spacing-xs) var(--spacing-sm);
     left: var(--spacing-2xs);
     top: var(--spacing-xs);
     z-index: 100000;
-    background: var(--color-primary);
-    box-shadow: fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-      var(--color-shadow-dark);
     clip: auto !important;
     color: var(--color-fg-inverted);
-    font-size: var(--font-size-md);
-    font-weight: 600;
   }
 }
 

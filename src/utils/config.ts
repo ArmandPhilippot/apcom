@@ -18,7 +18,7 @@ export const settings = {
   },
   copyright: {
     startYear: '2012',
-    endYear: new Date().getFullYear(),
+    endYear: new Date().getFullYear().toString(),
   },
   locales: {
     defaultLocale: 'fr',

@@ -38,6 +38,9 @@ export default {
       </IntlProvider>
     ),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as ComponentMeta<typeof ToolbarComponent>;
 
 const Template: ComponentStory<typeof ToolbarComponent> = (args) => (
