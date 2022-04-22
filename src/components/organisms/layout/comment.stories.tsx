@@ -109,7 +109,6 @@ Comment.args = {
   content:
     'Harum aut cumque iure fugit neque sequi cupiditate repudiandae laudantium. Ratione aut assumenda qui illum voluptas accusamus quis officiis exercitationem. Consectetur est harum eius perspiciatis officiis nihil. Aut corporis minima debitis adipisci possimus debitis et.',
   id: 2,
-  postId: 21,
   publication: '2021-04-03 23:04:24',
   saveComment: () => null,
   // @ts-ignore - Needed because of the placeholder image.

@@ -41,10 +41,6 @@ export type CommentProps = {
    */
   id: number | string;
   /**
-   * The post id.
-   */
-  postId: number | string;
-  /**
    * The comment date.
    */
   publication: string;
