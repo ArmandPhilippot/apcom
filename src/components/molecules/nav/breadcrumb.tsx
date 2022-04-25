@@ -27,6 +27,10 @@ export type BreadcrumbProps = {
    */
   className?: string;
   /**
+   * Set additional classnames to the breadcrumb items.
+   */
+  itemClassName?: string;
+  /**
    * The breadcrumb items
    */
   items: BreadcrumbItem[];
@@ -37,8 +41,18 @@ export type BreadcrumbProps = {
  *
  * Render a breadcrumb navigation.
  */
-const Breadcrumb: FC<BreadcrumbProps> = ({ items, ...props }) => {
+const Breadcrumb: FC<BreadcrumbProps> = ({
+  itemClassName = '',
+  items,
+  ...props
+}) => {
   const intl = useIntl();
+
+  const ariaLabel = intl.formatMessage({
+    defaultMessage: 'Breadcrumb',
+    description: 'Breadcrumb: an accessible name for the breadcrumb nav.',
+    id: '28nnDY',
+  });
 
   /**
    * Retrieve the breadcrumb list items.
@@ -49,12 +63,12 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items, ...props }) => {
   const getListItems = (list: BreadcrumbItem[]): JSX.Element[] => {
     return list.map((item, index) => {
       const isLastItem = index === list.length - 1;
-      const itemClassnames = isLastItem
+      const itemStyles = isLastItem
         ? `${styles.item} screen-reader-text`
         : styles.item;
 
       return (
-        <li key={item.id} className={itemClassnames}>
+        <li key={item.id} className={`${itemStyles} ${itemClassName}`}>
           {isLastItem ? item.name : <Link href={item.url}>{item.name}</Link>}
         </li>
       );
@@ -96,7 +110,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items, ...props }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <nav {...props}>
+      <nav aria-label={ariaLabel} {...props}>
         <span className="screen-reader-text">
           {intl.formatMessage({
             defaultMessage: 'You are here:',

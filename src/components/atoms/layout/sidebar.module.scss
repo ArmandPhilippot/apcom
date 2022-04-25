@@ -5,3 +5,8 @@
     margin-top: fun.convert-px(-2);
   }
 }
+
+.body {
+  position: sticky;
+  top: var(--spacing-xs);
+}

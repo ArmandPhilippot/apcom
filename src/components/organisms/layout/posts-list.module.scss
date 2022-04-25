@@ -1,3 +1,4 @@
+@use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
@@ -5,8 +6,9 @@
   @include mix.media("screen") {
     @include mix.dimensions("md") {
       display: grid;
-      grid-template-columns: max-content minmax(0, 1fr);
+      grid-template-columns: fun.convert-px(150) minmax(0, 1fr);
       align-items: first baseline;
+      margin-left: fun.convert-px(-150);
     }
   }
 }
@@ -16,6 +18,7 @@
 
   .item {
     margin-bottom: var(--spacing-md);
+    border-bottom: fun.convert-px(1) solid var(--color-border);
   }
 }
 
@@ -24,9 +27,13 @@
     @include mix.dimensions("md") {
       grid-column: 1;
       justify-self: end;
-      margin-right: var(--spacing-lg);
+      padding-right: var(--spacing-lg);
       position: sticky;
       top: var(--spacing-xs);
+    }
+
+    @include mix.dimensions("lg") {
+      padding-right: var(--spacing-xl);
     }
   }
 }

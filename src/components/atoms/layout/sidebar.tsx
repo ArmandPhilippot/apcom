@@ -18,7 +18,11 @@ export type SidebarProps = {
  * Render an aside element.
  */
 const Sidebar: FC<SidebarProps> = ({ children, className = '' }) => {
-  return <aside className={`${styles.wrapper} ${className}`}>{children}</aside>;
+  return (
+    <aside className={`${styles.wrapper} ${className}`}>
+      <div className={styles.body}>{children}</div>
+    </aside>
+  );
 };
 
 export default Sidebar;

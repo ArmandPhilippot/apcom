@@ -22,6 +22,19 @@ export default {
         required: false,
       },
     },
+    itemClassName: {
+      control: {
+        type: 'text',
+      },
+      table: {
+        category: 'Styles',
+      },
+      description: 'Set additional classnames to the breadcrumb items.',
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     items: {
       description: 'The breadcrumb items.',
       type: {

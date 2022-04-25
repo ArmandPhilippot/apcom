@@ -14,6 +14,7 @@ import {
   TopicPreview,
   Thematic,
 } from '@ts/types/taxonomies';
+import { settings } from '@utils/config';
 
 /**
  * Format a post preview from RawArticlePreview to ArticlePreview type.
@@ -269,11 +270,14 @@ export const getFormattedPost = (rawPost: RawArticle): Article => {
 
 /**
  * Converts a date to a string by using the specified locale.
- * @param {string} date The date.
- * @param {string} locale A locale.
+ * @param {string} date - The date.
+ * @param {string} [locale] - A locale.
  * @returns {string} The formatted date to locale date string.
  */
-export const getFormattedDate = (date: string, locale: string) => {
+export const getFormattedDate = (
+  date: string,
+  locale: string = settings.locales.defaultLocale
+): string => {
   const dateOptions: Intl.DateTimeFormatOptions = {
     day: 'numeric',
     month: 'long',
@@ -281,6 +285,24 @@ export const getFormattedDate = (date: string, locale: string) => {
   };
 
   return new Date(date).toLocaleDateString(locale, dateOptions);
+};
+
+/**
+ * Converts a date to a time string by using the specified locale.
+ * @param {string} date - The date.
+ * @param {string} [locale] - A locale.
+ * @returns {string} The formatted time to locale date string.
+ */
+export const getFormattedTime = (
+  date: string,
+  locale: string = settings.locales.defaultLocale
+): string => {
+  const time = new Date(date).toLocaleTimeString(locale, {
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+
+  return locale === 'fr' ? time.replace(':', 'h') : time;
 };
 
 /**

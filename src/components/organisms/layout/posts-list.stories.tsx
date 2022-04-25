@@ -171,6 +171,13 @@ ByYears.args = {
   posts,
   byYear: true,
 };
+ByYears.decorators = [
+  (Story) => (
+    <div style={{ marginLeft: 150 }}>
+      <Story />
+    </div>
+  ),
+];
 
 /**
  * PostsList Stories - No results

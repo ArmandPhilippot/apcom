@@ -7,7 +7,7 @@
     minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 100ch)
     minmax(0, 1fr);
   align-items: center;
-  padding: var(--spacing-sm) 0 var(--spacing-md);
+  padding: var(--spacing-md) 0 var(--spacing-lg);
 
   .toolbar {
     justify-content: space-around;

@@ -3,6 +3,7 @@ import DescriptionList, {
   type DescriptionListItem,
 } from '@components/atoms/lists/description-list';
 import { FC, ReactNode } from 'react';
+import styles from './meta.module.scss';
 
 export type MetaItem = {
   /**
@@ -23,7 +24,7 @@ export type MetaProps = {
   /**
    * Set additional classnames to the meta wrapper.
    */
-  className?: string;
+  className?: DescriptionListProps['className'];
   /**
    * The meta data.
    */
@@ -43,7 +44,7 @@ export type MetaProps = {
  *
  * Renders the page metadata.
  */
-const Meta: FC<MetaProps> = ({ data, ...props }) => {
+const Meta: FC<MetaProps> = ({ className, data, ...props }) => {
   /**
    * Transform the metadata to description list item format.
    *
@@ -68,7 +69,14 @@ const Meta: FC<MetaProps> = ({ data, ...props }) => {
     return listItems;
   };
 
-  return <DescriptionList items={getItems(data)} {...props} />;
+  return (
+    <DescriptionList
+      items={getItems(data)}
+      className={`${styles.list} ${className}`}
+      descriptionClassName={styles.value}
+      {...props}
+    />
+  );
 };
 
 export default Meta;

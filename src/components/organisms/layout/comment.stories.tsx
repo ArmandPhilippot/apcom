@@ -51,16 +51,6 @@ export default {
         required: true,
       },
     },
-    postId: {
-      control: {
-        type: 'number',
-      },
-      description: 'The post id.',
-      type: {
-        name: 'number',
-        required: true,
-      },
-    },
     publication: {
       description: 'The publication date.',
       type: {
