@@ -2,6 +2,7 @@ import { LocalStorage } from '@services/local-storage';
 import {
   createContext,
   FC,
+  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -22,6 +23,7 @@ export type UsePrismThemeProps = {
 
 export type PrismThemeProviderProps = {
   attribute?: string;
+  children: ReactNode;
   storageKey?: string;
   themes?: PrismTheme[];
 };

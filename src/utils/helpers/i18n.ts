@@ -3,7 +3,7 @@ import { settings } from '@utils/config';
 import { readFile } from 'fs/promises';
 import path from 'path';
 
-type Messages = { [key: string]: string };
+export type Messages = { [key: string]: string };
 
 export const defaultLocale = settings.locales.defaultLocale;
 
