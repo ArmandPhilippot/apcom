@@ -89,6 +89,7 @@ export const articlesQuery = `query Articles($after: String = "", $first: Int = 
           beforeMore
         }
         databaseId
+        date
         featuredImage {
           node {
             altText
