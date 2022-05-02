@@ -36,7 +36,15 @@ export default {
   decorators: [
     (Story) => (
       <IntlProvider locale="en">
-        <div id="__next">
+        <div
+          id="__next"
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexFlow: 'column nowrap',
+            minHeight: '100vh',
+          }}
+        >
           <Story />
         </div>
       </IntlProvider>

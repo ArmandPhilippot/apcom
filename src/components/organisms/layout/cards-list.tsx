@@ -15,6 +15,10 @@ export type CardsListItem = Omit<
 
 export type CardsListProps = {
   /**
+   * Set additional classnames to the list wrapper.
+   */
+  className?: string;
+  /**
    * The cover fit.
    */
   coverFit?: CardProps['coverFit'];
@@ -38,6 +42,7 @@ export type CardsListProps = {
  * Return a list of Card components.
  */
 const CardsList: FC<CardsListProps> = ({
+  className = '',
   coverFit,
   items,
   kind = 'unordered',
@@ -70,9 +75,10 @@ const CardsList: FC<CardsListProps> = ({
 
   return (
     <List
+      kind="flex"
       items={getCards(items)}
       withMargin={false}
-      className={`${styles.wrapper} ${styles[kindModifier]}`}
+      className={`${styles.wrapper} ${styles[kindModifier]} ${className}`}
     />
   );
 };

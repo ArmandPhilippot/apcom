@@ -12,6 +12,19 @@ export default {
     kind: 'unordered',
   },
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the list wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     coverFit: {
       control: {
         type: 'select',

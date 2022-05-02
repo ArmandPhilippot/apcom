@@ -1,10 +1,19 @@
-import { Article } from '@ts/types/app';
-import { RawArticle, TotalItems } from '@ts/types/raw-data';
+import { type Article, type ArticleCard } from '@ts/types/app';
+import {
+  type RawArticle,
+  type RawArticlePreview,
+  type TotalItems,
+} from '@ts/types/raw-data';
 import { getAuthorFromRawData } from '@utils/helpers/author';
+import { getDates } from '@utils/helpers/dates';
 import { getImageFromRawData } from '@utils/helpers/images';
 import { getPageLinkFromRawData } from '@utils/helpers/pages';
 import { EdgesVars, fetchAPI, getAPIUrl, PageInfo } from './api';
-import { articlesQuery, totalArticlesQuery } from './articles.query';
+import {
+  articlesCardQuery,
+  articlesQuery,
+  totalArticlesQuery,
+} from './articles.query';
 
 /**
  * Retrieve the total number of articles.
@@ -101,4 +110,41 @@ export const getArticles = async ({
     ),
     pageInfo: response.posts.pageInfo,
   };
+};
+
+/**
+ * Convert a raw article preview to an article card.
+ *
+ * @param {RawArticlePreview} data - A raw article preview.
+ * @returns {ArticleCard} An article card.
+ */
+const getArticleCardFromRawData = (data: RawArticlePreview): ArticleCard => {
+  const { databaseId, date, featuredImage, slug, title } = data;
+
+  return {
+    cover: featuredImage ? getImageFromRawData(featuredImage.node) : undefined,
+    dates: getDates(date, ''),
+    id: databaseId,
+    slug,
+    title,
+  };
+};
+
+/**
+ * Retrieve the given number of article cards from API.
+ *
+ * @param {EdgesVars} obj - An object.
+ * @param {number} obj.first - The number of articles.
+ * @returns {Promise<ArticleCard[]>} - The article cards data.
+ */
+export const getArticlesCard = async ({
+  first,
+}: EdgesVars): Promise<ArticleCard[]> => {
+  const response = await fetchAPI<RawArticlePreview, typeof articlesCardQuery>({
+    api: getAPIUrl(),
+    query: articlesCardQuery,
+    variables: { first },
+  });
+
+  return response.posts.nodes.map((node) => getArticleCardFromRawData(node));
 };

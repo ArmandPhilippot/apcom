@@ -30,9 +30,9 @@ export type ListProps = {
    */
   itemsClassName?: string;
   /**
-   * The list kind (ordered or unordered).
+   * The list kind.
    */
-  kind?: 'ordered' | 'unordered';
+  kind?: 'ordered' | 'unordered' | 'flex';
   /**
    * Set margin between list items. Default: true.
    */

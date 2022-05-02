@@ -39,8 +39,8 @@ export default {
       control: {
         type: 'select',
       },
-      description: 'The list kind: ordered or unordered.',
-      options: ['ordered', 'unordered'],
+      description: 'The list kind: flex, ordered or unordered.',
+      options: ['flex', 'ordered', 'unordered'],
       table: {
         category: 'Options',
         defaultValue: { summary: 'unordered' },
@@ -70,6 +70,15 @@ const items: ListItem[] = [
   },
   { id: 'item-4', value: 'Item 4' },
 ];
+
+/**
+ * List Stories - Flex list
+ */
+export const Flex = Template.bind({});
+Flex.args = {
+  items,
+  kind: 'flex',
+};
 
 /**
  * List Stories - Ordered list

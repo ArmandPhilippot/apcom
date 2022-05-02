@@ -1,3 +1,5 @@
+@use "@styles/abstracts/placeholders";
+
 .list {
   margin: 0;
 
@@ -35,5 +37,19 @@
     &:not(:last-child) {
       margin-bottom: var(--spacing-2xs);
     }
+  }
+
+  &--flex {
+    @extend %reset-list;
+
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--spacing-sm);
+  }
+
+  &--flex &--flex {
+    display: initial;
+    position: relative;
+    top: var(--spacing-2xs);
   }
 }

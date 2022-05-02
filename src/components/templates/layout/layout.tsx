@@ -1,4 +1,3 @@
-import photo from '@assets/images/armand-philippot.jpg';
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Career from '@components/atoms/icons/career';
 import CCBySA from '@components/atoms/icons/cc-by-sa';
@@ -8,12 +7,18 @@ import Home from '@components/atoms/icons/home';
 import PostsStack from '@components/atoms/icons/posts-stack';
 import Main from '@components/atoms/layout/main';
 import NoScript from '@components/atoms/layout/no-script';
-import Footer from '@components/organisms/layout/footer';
-import Header, { HeaderProps } from '@components/organisms/layout/header';
-import { settings } from '@utils/config';
+import Footer, { FooterProps } from '@components/organisms/layout/footer';
+import Header, { type HeaderProps } from '@components/organisms/layout/header';
+import useSettings from '@utils/hooks/use-settings';
+import Script from 'next/script';
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
+import { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
 import styles from './layout.module.scss';
+
+export type QueryAction = SearchAction & {
+  'query-input': string;
+};
 
 export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
   /**
@@ -33,6 +38,9 @@ export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
  */
 const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
   const intl = useIntl();
+  const { website } = useSettings();
+  const { baseline, copyright, locales, name, picture, url } = website;
+
   const skipToContent = intl.formatMessage({
     defaultMessage: 'Skip to content',
     description: 'Layout: Skip to content link',
@@ -45,12 +53,12 @@ const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
     id: '7jVUT6',
   });
 
-  const copyright = {
+  const copyrightData = {
     dates: {
-      start: settings.copyright.startYear,
-      end: settings.copyright.endYear,
+      start: copyright.start,
+      end: copyright.end,
     },
-    owner: settings.name,
+    owner: name,
     icon: <CCBySA />,
   };
 
@@ -80,21 +88,77 @@ const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
     id: 'AE4kCD',
   });
 
-  const nav: HeaderProps['nav'] = [
-    { id: 'home', label: homeLabel, href: '#', logo: <Home /> },
-    { id: 'blog', label: blogLabel, href: '#', logo: <PostsStack /> },
+  const mainNav: HeaderProps['nav'] = [
+    { id: 'home', label: homeLabel, href: '/', logo: <Home /> },
+    { id: 'blog', label: blogLabel, href: '/blog', logo: <PostsStack /> },
     {
       id: 'projects',
       label: projectsLabel,
-      href: '#',
+      href: '/projets',
       logo: <ComputerScreen />,
     },
-    { id: 'cv', label: cvLabel, href: '#', logo: <Career /> },
-    { id: 'contact', label: contactLabel, href: '#', logo: <Envelop /> },
+    { id: 'cv', label: cvLabel, href: '/cv', logo: <Career /> },
+    { id: 'contact', label: contactLabel, href: '/contact', logo: <Envelop /> },
   ];
+
+  const legalNoticeLabel = intl.formatMessage({
+    defaultMessage: 'Legal notice',
+    description: 'Layout: Legal notice label',
+    id: 'nwbzKm',
+  });
+
+  const footerNav: FooterProps['navItems'] = [
+    { id: 'legal-notice', label: legalNoticeLabel, href: '/mentions-legales' },
+  ];
+
+  const searchActionSchema: QueryAction = {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${url}/recherche?s={search_term_string}`,
+    },
+    query: 'required',
+    'query-input': 'required name=search_term_string',
+  };
+
+  const schemaJsonLd: WithContext<WebSite> = {
+    '@context': 'https://schema.org',
+    '@id': `${url}`,
+    '@type': 'WebSite',
+    name: name,
+    description: baseline,
+    url: url,
+    author: { '@id': `${url}/#branding` },
+    copyrightYear: Number(copyright.start),
+    creator: { '@id': `${url}/#branding` },
+    editor: { '@id': `${url}/#branding` },
+    inLanguage: locales.default,
+    potentialAction: searchActionSchema,
+  };
+
+  const brandingSchema: WithContext<Person> = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${url}/#branding`,
+    name: name,
+    url: url,
+    jobTitle: baseline,
+    image: picture.src,
+    subjectOf: { '@id': `${url}` },
+  };
 
   return (
     <>
+      <Script
+        id="schema-layout"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      ></Script>
+      <Script
+        id="schema-branding"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(brandingSchema) }}
+      />
       <noscript>
         <div className={styles['noscript-spacing']}></div>
       </noscript>
@@ -103,10 +167,10 @@ const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
         {skipToContent}
       </ButtonLink>
       <Header
-        title={settings.name}
-        baseline={settings.baseline.fr}
-        photo={photo.src}
-        nav={nav}
+        title={name}
+        baseline={baseline}
+        photo={picture}
+        nav={mainNav}
         isHome={isHome}
         className={styles.header}
         withLink={true}
@@ -114,7 +178,12 @@ const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
       <Main id="main" className={styles.main}>
         <article {...props}>{children}</article>
       </Main>
-      <Footer copyright={copyright} topId="top" className={styles.footer} />
+      <Footer
+        copyright={copyrightData}
+        navItems={footerNav}
+        topId="top"
+        className={styles.footer}
+      />
       <noscript>
         <NoScript message={noScript} position="top" />
       </noscript>

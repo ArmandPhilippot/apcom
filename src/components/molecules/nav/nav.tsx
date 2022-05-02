@@ -24,6 +24,10 @@ export type NavItem = {
 
 export type NavProps = {
   /**
+   * An accessible name.
+   */
+  'aria-label'?: string;
+  /**
    * Set additional classnames to the navigation wrapper.
    */
   className?: string;
@@ -51,6 +55,7 @@ const Nav: FC<NavProps> = ({
   items,
   kind,
   listClassName = '',
+  ...props
 }) => {
   const kindClass = `nav--${kind}`;
 
@@ -71,7 +76,7 @@ const Nav: FC<NavProps> = ({
   };
 
   return (
-    <nav className={`${styles[kindClass]} ${className}`}>
+    <nav className={`${styles[kindClass]} ${className}`} {...props}>
       <ul className={`${styles.nav__list} ${listClassName}`}>{getItems()}</ul>
     </nav>
   );

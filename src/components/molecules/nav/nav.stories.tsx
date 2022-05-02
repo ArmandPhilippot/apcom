@@ -11,6 +11,19 @@ export default {
   title: 'Molecules/Navigation/Nav',
   component: NavComponent,
   argTypes: {
+    'aria-label': {
+      control: {
+        type: 'text',
+      },
+      description: 'An accessible name for the navigation.',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     className: {
       control: {
         type: 'text',
@@ -44,6 +57,19 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    listClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the navigation list.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
   },

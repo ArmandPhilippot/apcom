@@ -1,12 +1,10 @@
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
-  --card-width: 30ch;
-
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
-    min(calc(100vw - (var(--spacing-md) * 2)), var(--card-width))
+    min(calc(100vw - (var(--spacing-md) * 2)), var(--card-width, 30ch))
   );
   gap: var(--spacing-sm);
   place-content: center;

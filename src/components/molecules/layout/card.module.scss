@@ -19,7 +19,8 @@
 
   .cover {
     align-self: flex-start;
-    max-height: fun.convert-px(150);
+    place-content: center;
+    height: fun.convert-px(150);
     margin: auto;
     border-bottom: fun.convert-px(1) solid var(--color-border);
   }

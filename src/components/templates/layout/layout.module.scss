@@ -1,15 +1,6 @@
 @use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/mixins" as mix;
 
-:global {
-  #__next {
-    flex: 1;
-    display: flex;
-    flex-flow: column nowrap;
-    min-height: 100vh;
-  }
-}
-
 .header {
   border-bottom: fun.convert-px(3) solid var(--color-border-light);
 }

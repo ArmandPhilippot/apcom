@@ -11,7 +11,7 @@ export type PageHeaderProps = {
   /**
    * The page introduction.
    */
-  intro?: string;
+  intro?: string | JSX.Element;
   /**
    * The page metadata.
    */
