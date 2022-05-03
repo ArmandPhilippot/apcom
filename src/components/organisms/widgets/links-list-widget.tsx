@@ -24,7 +24,7 @@ export type LinksListItems = {
 };
 
 export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> &
-  Pick<ListProps, 'kind'> & {
+  Pick<ListProps, 'className' | 'kind'> & {
     /**
      * An array of name/url couple.
      */
@@ -37,6 +37,7 @@ export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> &
  * Render a list of links inside a widget.
  */
 const LinksListWidget: FC<LinksListWidgetProps> = ({
+  className = '',
   items,
   kind = 'unordered',
   ...props
@@ -74,7 +75,7 @@ const LinksListWidget: FC<LinksListWidgetProps> = ({
         items={getListItems(items)}
         kind={kind}
         withMargin={false}
-        className={`${styles.list} ${styles[listKindClass]}`}
+        className={`${styles.list} ${styles[listKindClass]} ${className}`}
         itemsClassName={styles.list__item}
       />
     </Widget>

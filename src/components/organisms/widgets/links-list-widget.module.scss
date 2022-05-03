@@ -3,6 +3,12 @@
 
 .widget {
   .list {
+    .list {
+      > *:first-child {
+        border-top: fun.convert-px(1) solid var(--color-primary);
+      }
+    }
+
     &__link {
       display: block;
       padding: var(--spacing-2xs) var(--spacing-xs);
@@ -50,9 +56,7 @@
 
     &__item {
       &:not(:last-child) {
-        .list__link {
-          border-bottom: fun.convert-px(1) solid var(--color-primary);
-        }
+        border-bottom: fun.convert-px(1) solid var(--color-primary);
       }
 
       > .list {

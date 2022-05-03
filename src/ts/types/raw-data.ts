@@ -3,7 +3,7 @@
  */
 
 import { NodeResponse, PageInfo } from '@services/graphql/api';
-import { AuthorKind } from './app';
+import { ContentKind } from './app';
 
 export type ACFPosts = {
   postsInThematic?: RawThematicPreview[];
@@ -29,8 +29,8 @@ export type Info = {
   wordsCount: number;
 };
 
-export type RawAuthor<T extends AuthorKind> = {
-  description?: T extends 'page' ? string | undefined : never;
+export type RawAuthor<T extends ContentKind> = {
+  description?: T extends 'comment' ? never : string;
   gravatarUrl?: string;
   name: string;
   url?: string;

@@ -36,6 +36,8 @@
 }
 
 .heading {
-  background: none;
   padding: var(--spacing-2xs) 0;
+  background: none;
+  font-size: var(--font-size-xl);
+  text-align: left;
 }

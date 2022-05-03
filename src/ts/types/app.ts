@@ -1,8 +1,14 @@
-export type AuthorKind = 'page' | 'comment';
+export type ContentKind =
+  | 'article'
+  | 'comment'
+  | 'page'
+  | 'project'
+  | 'thematic'
+  | 'topic';
 
-export type Author<T extends AuthorKind> = {
+export type Author<T extends ContentKind> = {
   avatar?: Image;
-  description?: T extends 'page' ? string | undefined : never;
+  description?: T extends 'comment' ? never : string;
   name: string;
   website?: string;
 };
@@ -44,11 +50,11 @@ export type SEO = {
   title: string;
 };
 
-export type PageKind = 'article' | 'project' | 'thematic' | 'topic';
+export type PageKind = Exclude<ContentKind, 'comment'>;
 
 export type Meta<T extends PageKind> = {
   articles?: T extends 'thematic' | 'topic' ? Article[] : never;
-  author: Author<'page'>;
+  author?: T extends 'article' | 'page' ? Author<T> : never;
   commentsCount?: T extends 'article' ? number : never;
   cover?: Image;
   dates: Dates;

@@ -2,12 +2,18 @@
 
 .list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: var(--spacing-sm);
 
   @include mix.media("screen") {
+    @include mix.dimensions("2xs") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     @include mix.dimensions("sm") {
       display: flex;
       flex-flow: column nowrap;
+      gap: var(--spacing-2xs);
     }
   }
 }

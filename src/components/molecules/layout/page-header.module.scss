@@ -1,5 +1,4 @@
 @use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
@@ -55,9 +54,5 @@
 }
 
 .meta {
-  @include mix.media("screen") {
-    @include mix.dimensions("xs") {
-      font-size: var(--font-size-sm);
-    }
-  }
+  font-size: var(--font-size-sm);
 }
