@@ -14,7 +14,7 @@ export type Image = Pick<
 
 export type ImageWidgetProps = Pick<
   WidgetProps,
-  'expanded' | 'level' | 'title'
+  'className' | 'expanded' | 'level' | 'title'
 > & {
   /**
    * The content alignment.
@@ -27,7 +27,11 @@ export type ImageWidgetProps = Pick<
   /**
    * An object describing the image.
    */
-  img: Image;
+  image: Image;
+  /**
+   * Set additional classnames to the image wrapper.
+   */
+  imageClassName?: string;
   /**
    * Add a link to the image.
    */
@@ -41,20 +45,22 @@ export type ImageWidgetProps = Pick<
  */
 const ImageWidget: FC<ImageWidgetProps> = ({
   alignment = 'left',
+  className = '',
   description,
-  img,
+  image,
+  imageClassName = '',
   url,
   ...props
 }) => {
   const alignmentClass = `widget--${alignment}`;
 
   return (
-    <Widget className={styles[alignmentClass]} {...props}>
+    <Widget className={`${styles[alignmentClass]} ${className}`} {...props}>
       <ResponsiveImage
         target={url}
         caption={description}
-        className={styles.img}
-        {...img}
+        className={`${styles.figure} ${imageClassName}`}
+        {...image}
       />
     </Widget>
   );

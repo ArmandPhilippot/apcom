@@ -12,6 +12,10 @@ export type LinkProps = {
    */
   className?: string;
   /**
+   * True if it is a download link. Default: false.
+   */
+  download?: boolean;
+  /**
    * True if it is an external link. Default: false.
    */
   external?: boolean;
@@ -33,21 +37,29 @@ export type LinkProps = {
 const Link: FC<LinkProps> = ({
   children,
   className = '',
+  download = false,
+  external = false,
   href,
   lang,
-  external = false,
 }) => {
+  const downloadClass = download ? styles['link--download'] : '';
+
   return external ? (
     <a
       href={href}
       hrefLang={lang}
-      className={`${styles.link} ${styles['link--external']} ${className}`}
+      className={`${styles.link} ${styles['link--external']} ${downloadClass} ${className}`}
     >
       {children}
     </a>
   ) : (
     <NextLink href={href}>
-      <a className={`${styles.link} ${className}`}>{children}</a>
+      <a
+        hrefLang={lang}
+        className={`${styles.link} ${downloadClass} ${className}`}
+      >
+        {children}
+      </a>
     </NextLink>
   );
 };

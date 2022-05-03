@@ -18,7 +18,12 @@ const url = '/another-page';
 describe('ImageWidget', () => {
   it('renders an image', () => {
     render(
-      <ImageWidget expanded={true} img={img} title={title} level={titleLevel} />
+      <ImageWidget
+        expanded={true}
+        image={img}
+        title={title}
+        level={titleLevel}
+      />
     );
     expect(screen.getByRole('img', { name: img.alt })).toBeInTheDocument();
   });
@@ -27,7 +32,7 @@ describe('ImageWidget', () => {
     render(
       <ImageWidget
         expanded={true}
-        img={img}
+        image={img}
         title={title}
         level={titleLevel}
         url={url}
@@ -43,7 +48,7 @@ describe('ImageWidget', () => {
     render(
       <ImageWidget
         expanded={true}
-        img={img}
+        image={img}
         description={description}
         title={title}
         level={titleLevel}

@@ -3,8 +3,7 @@
 .wrapper {
   display: flex;
   flex-flow: column;
-  width: 100%;
-  max-width: max-content;
+  width: fit-content;
   margin: 0;
   position: relative;
   text-align: center;
@@ -14,9 +13,7 @@
   margin: 0;
   padding: fun.convert-px(4) var(--spacing-2xs);
   background: var(--color-bg-secondary);
-  border: fun.convert-px(1) solid var(--color-border);
-  box-shadow: 0 fun.convert-px(-1) fun.convert-px(1) fun.convert-px(1)
-    var(--color-shadow-light);
+  border: fun.convert-px(1) solid var(--color-border-light);
   font-weight: 500;
 }
 
@@ -32,7 +29,7 @@
 
   &:hover,
   &:focus {
-    transform: scale(1.1);
+    transform: scale(var(--scale-up, 1.05));
   }
 
   &:focus {
@@ -43,7 +40,7 @@
   }
 
   &:active {
-    transform: scale(0.9);
+    transform: scale(var(--scale-down, 0.95));
 
     .caption {
       text-decoration: none;

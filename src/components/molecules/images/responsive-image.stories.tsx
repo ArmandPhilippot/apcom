@@ -64,6 +64,7 @@ export default {
         required: false,
       },
     },
+    unoptimized: { table: { disable: true } },
     width: {
       control: {
         type: 'number',

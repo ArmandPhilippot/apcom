@@ -1,6 +1,6 @@
 import Link, { type LinkProps } from '@components/atoms/links/link';
 import Image, { type ImageProps } from 'next/image';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './responsive-image.module.scss';
 
 export type ResponsiveImageProps = Omit<
@@ -14,7 +14,7 @@ export type ResponsiveImageProps = Omit<
   /**
    * A figure caption.
    */
-  caption?: string;
+  caption?: ReactNode;
   /**
    * Set additional classnames to the figure wrapper.
    */
@@ -55,6 +55,7 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
             alt={alt}
             layout={layout || 'intrinsic'}
             objectFit={objectFit || 'contain'}
+            className={styles.img}
             {...props}
           />
           {caption && (
@@ -67,6 +68,7 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
             alt={alt}
             layout={layout || 'intrinsic'}
             objectFit={objectFit || 'contain'}
+            className={styles.img}
             {...props}
           />
           {caption && (

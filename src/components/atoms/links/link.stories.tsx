@@ -31,14 +31,29 @@ export default {
         required: false,
       },
     },
+    download: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Determine if the link purpose is to download a file.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
     external: {
       control: {
         type: 'boolean',
       },
+      description: 'Determine if the link is external of the current website.',
       table: {
         category: 'Options',
+        defaultValue: { summary: false },
       },
-      description: 'Determine if the link is external of the current website.',
       type: {
         name: 'boolean',
         required: false,
@@ -79,6 +94,7 @@ export const Default = Template.bind({});
 Default.args = {
   children: 'A link',
   href: '#',
+  download: false,
   external: false,
 };
 
@@ -89,6 +105,7 @@ export const External = Template.bind({});
 External.args = {
   children: 'A link',
   href: '#',
+  download: false,
   external: true,
 };
 
@@ -99,6 +116,7 @@ export const ExternalWithLang = Template.bind({});
 ExternalWithLang.args = {
   children: 'A link',
   href: '#',
+  download: false,
   external: true,
   lang: 'en',
 };

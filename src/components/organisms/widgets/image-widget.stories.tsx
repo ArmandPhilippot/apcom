@@ -50,12 +50,25 @@ export default {
         required: true,
       },
     },
-    img: {
+    image: {
       description: 'An image object.',
       type: {
         name: 'object',
         required: true,
         value: {},
+      },
+    },
+    imageClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the image wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     level: {
@@ -107,7 +120,7 @@ const Template: ComponentStory<typeof ImageWidget> = (args) => (
   <ImageWidget {...args} />
 );
 
-const img = {
+const image = {
   alt: 'Et perferendis quaerat',
   height: 480,
   src: 'http://placeimg.com/640/480/nature',
@@ -122,7 +135,7 @@ export const AlignLeft = Template.bind({});
 AlignLeft.args = {
   alignment: 'left',
   expanded: true,
-  img,
+  image,
   level: 2,
   title: 'Quo et totam',
 };
@@ -134,7 +147,7 @@ export const AlignCenter = Template.bind({});
 AlignCenter.args = {
   alignment: 'center',
   expanded: true,
-  img,
+  image,
   level: 2,
   title: 'Quo et totam',
 };
@@ -146,7 +159,7 @@ export const AlignRight = Template.bind({});
 AlignRight.args = {
   alignment: 'right',
   expanded: true,
-  img,
+  image,
   level: 2,
   title: 'Quo et totam',
 };
@@ -158,7 +171,7 @@ export const WithDescription = Template.bind({});
 WithDescription.args = {
   description: 'Sint enim harum',
   expanded: true,
-  img,
+  image,
   level: 2,
   title: 'Quo et totam',
 };
