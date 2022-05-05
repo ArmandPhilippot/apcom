@@ -62,6 +62,7 @@ export type Meta<T extends PageKind> = {
   readingTime: number;
   repos?: T extends 'projects' ? Repos : never;
   seo: SEO;
+  tagline?: T extends 'projects' ? string : never;
   technologies?: T extends 'projects' ? string[] : never;
   thematics?: T extends 'article' | 'topic' ? PageLink[] : never;
   topics?: T extends 'article' | 'thematic' ? PageLink[] : never;
@@ -71,7 +72,7 @@ export type Meta<T extends PageKind> = {
 
 export type Page<T extends PageKind> = {
   content: string;
-  id: number;
+  id: number | string;
   intro: string;
   meta?: Meta<T>;
   slug: string;
@@ -88,5 +89,12 @@ export type Article = Page<'article'>;
 export type ArticleCard = Pick<Article, 'id' | 'slug' | 'title'> &
   Pick<Meta<'article'>, 'cover' | 'dates'>;
 export type Project = Page<'project'>;
+export type ProjectCard = Pick<Page<'project'>, 'id' | 'slug' | 'title'> & {
+  meta: Pick<Meta<'project'>, 'cover' | 'dates' | 'tagline' | 'technologies'>;
+};
 export type Thematic = Page<'thematic'>;
 export type Topic = Page<'topic'>;
+
+export type Slug = {
+  slug: string;
+};
