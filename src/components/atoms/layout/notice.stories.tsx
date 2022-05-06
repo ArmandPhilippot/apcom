@@ -8,6 +8,19 @@ export default {
   title: 'Atoms/Layout/Notice',
   component: NoticeComponent,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the notice wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     kind: {
       control: {
         type: 'select',

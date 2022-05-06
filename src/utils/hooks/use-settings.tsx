@@ -60,6 +60,10 @@ export type WebsiteSettings = {
    */
   copyright: CopyrightSettings;
   /**
+   * The website admin email.
+   */
+  email: string;
+  /**
    * The website locales.
    */
   locales: LocaleSettings;
@@ -84,7 +88,8 @@ export type UseSettingsReturn = {
  * @returns {UseSettingsReturn} - An object describing settings.
  */
 const useSettings = (): UseSettingsReturn => {
-  const { baseline, copyright, locales, name, postsPerPage, url } = settings;
+  const { baseline, copyright, email, locales, name, postsPerPage, url } =
+    settings;
   const router = useRouter();
   const locale = router.locale || locales.defaultLocale;
 
@@ -98,6 +103,7 @@ const useSettings = (): UseSettingsReturn => {
         end: copyright.endYear,
         start: copyright.startYear,
       },
+      email,
       locales: {
         default: locales.defaultLocale,
         supported: locales.supported,

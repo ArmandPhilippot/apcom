@@ -2,7 +2,9 @@ import { render, screen } from '@test-utils';
 import ContactForm from './contact-form';
 
 const props = {
-  sendMail: () => null,
+  sendMail: async () => {
+    /** Do nothing. */
+  },
 };
 
 describe('ContactForm', () => {

@@ -64,7 +64,7 @@ const Template: ComponentStory<typeof ContactForm> = (args) => (
  */
 export const Contact = Template.bind({});
 Contact.args = {
-  sendMail: (reset: () => void) => {
+  sendMail: async (_data, reset: () => void) => {
     reset();
   },
 };

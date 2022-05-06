@@ -6,6 +6,13 @@ import { FC, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './contact-form.module.scss';
 
+export type ContactFormData = {
+  email: string;
+  message: string;
+  name: string;
+  subject: string;
+};
+
 export type ContactFormProps = {
   /**
    * Set additional classnames to the form wrapper.
@@ -16,10 +23,9 @@ export type ContactFormProps = {
    */
   Notice?: ReactNode;
   /**
-   * A callback function to send mail. It takes a function as parameter to
-   * reset the form.
+   * A callback function to send mail.
    */
-  sendMail: (reset: () => void) => void;
+  sendMail: (data: ContactFormData, reset: () => void) => Promise<void>;
 };
 
 /**
@@ -80,9 +86,11 @@ const ContactForm: FC<ContactFormProps> = ({
     id: 'yN5P+m',
   });
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     setIsSubmitting(true);
-    sendMail(resetForm);
+    sendMail({ email, message, name, subject: object }, resetForm).then(() =>
+      setIsSubmitting(false)
+    );
   };
 
   return (

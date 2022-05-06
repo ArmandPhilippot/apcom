@@ -7,6 +7,7 @@ import {
   totalArticlesQuery,
 } from './articles.query';
 import { commentsQuery } from './comments.query';
+import { sendMailMutation } from './contact.mutation';
 import {
   thematicBySlugQuery,
   thematicsListQuery,
@@ -17,6 +18,8 @@ import {
   topicsListQuery,
   topicsSlugQuery,
 } from './topics.query';
+
+export type Mutations = typeof sendMailMutation;
 
 export type Queries =
   | typeof articlesQuery
@@ -42,6 +45,10 @@ export type ArticlesResponse<T> = {
 
 export type CommentsResponse<T> = {
   comments: T[];
+};
+
+export type SendMailResponse<T> = {
+  sendEmail: T;
 };
 
 export type ThematicResponse<T> = {
@@ -85,15 +92,16 @@ export type NodesResponse<T> = {
 };
 
 export type ResponseMap<T> = {
-  [articleBySlugQuery]: ArticleResponse<NodesResponse<T>>;
+  [articleBySlugQuery]: ArticleResponse<T>;
   [articlesCardQuery]: ArticlesResponse<NodesResponse<T>>;
   [articlesQuery]: ArticlesResponse<EdgesResponse<T>>;
   [articlesSlugQuery]: ArticlesResponse<EdgesResponse<T>>;
   [commentsQuery]: CommentsResponse<NodesResponse<T>>;
-  [thematicBySlugQuery]: ThematicResponse<NodesResponse<T>>;
+  [sendMailMutation]: SendMailResponse<T>;
+  [thematicBySlugQuery]: ThematicResponse<T>;
   [thematicsListQuery]: ThematicsResponse<EdgesResponse<T>>;
   [thematicsSlugQuery]: ThematicsResponse<EdgesResponse<T>>;
-  [topicBySlugQuery]: TopicResponse<NodesResponse<T>>;
+  [topicBySlugQuery]: TopicResponse<T>;
   [topicsListQuery]: TopicsResponse<EdgesResponse<T>>;
   [topicsSlugQuery]: TopicsResponse<EdgesResponse<T>>;
   [totalArticlesQuery]: ArticlesResponse<T>;
@@ -133,12 +141,20 @@ export type ByContentIdVar = {
   contentId: number;
 };
 
+export type sendMailVars = {
+  body: string;
+  clientMutationId: string;
+  replyTo: string;
+  subject: string;
+};
+
 export type VariablesMap = {
   [articleBySlugQuery]: BySlugVar;
   [articlesCardQuery]: EdgesVars;
   [articlesQuery]: EdgesVars;
   [articlesSlugQuery]: EdgesVars;
   [commentsQuery]: ByContentIdVar;
+  [sendMailMutation]: sendMailVars;
   [thematicBySlugQuery]: BySlugVar;
   [thematicsListQuery]: EdgesVars;
   [thematicsSlugQuery]: EdgesVars;
@@ -148,7 +164,7 @@ export type VariablesMap = {
   [totalArticlesQuery]: null;
 };
 
-export type FetchAPIProps<T extends Queries> = {
+export type FetchAPIProps<T extends Queries | Mutations> = {
   /**
    * A GraphQL API URL.
    */
@@ -170,7 +186,7 @@ export type FetchAPIProps<T extends Queries> = {
  * @param {Queries} obj.query - A GraphQL query.
  * @param {object} [obj.variables] - The query variables.
  */
-export async function fetchAPI<T, U extends Queries>({
+export async function fetchAPI<T, U extends Queries | Mutations>({
   api,
   query,
   variables,

@@ -20,6 +20,7 @@ export const settings = {
     startYear: '2012',
     endYear: new Date().getFullYear().toString(),
   },
+  email: process.env.APP_AUTHOR_EMAIL || '',
   locales: {
     defaultLocale: 'fr',
     defaultCountry: 'FR',

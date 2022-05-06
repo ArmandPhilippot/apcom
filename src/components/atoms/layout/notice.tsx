@@ -5,6 +5,10 @@ export type NoticeKind = 'error' | 'info' | 'success' | 'warning';
 
 export type NoticeProps = {
   /**
+   * Set additional classnames to the notice wrapper.
+   */
+  className?: string;
+  /**
    * The notice kind.
    */
   kind: NoticeKind;
@@ -19,11 +23,15 @@ export type NoticeProps = {
  *
  * Render a colored message depending on notice kind.
  */
-const Notice: FC<NoticeProps> = ({ kind, message }) => {
+const Notice: FC<NoticeProps> = ({ className = '', kind, message }) => {
   const kindClass = `wrapper--${kind}`;
 
-  return (
-    <div className={`${styles.wrapper} ${styles[kindClass]}`}>{message}</div>
+  return message ? (
+    <div className={`${styles.wrapper} ${styles[kindClass]} ${className}`}>
+      {message}
+    </div>
+  ) : (
+    <></>
   );
 };
 
