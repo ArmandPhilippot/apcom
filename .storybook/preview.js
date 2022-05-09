@@ -1,4 +1,5 @@
 import '@styles/globals.scss';
+import { IntlProvider } from 'react-intl';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -9,3 +10,11 @@ export const parameters = {
     },
   },
 };
+
+export const decorators = [
+  (Story) => (
+    <IntlProvider locale="en">
+      <Story />
+    </IntlProvider>
+  ),
+];

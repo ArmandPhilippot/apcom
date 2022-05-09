@@ -1,5 +1,5 @@
 import { render, screen } from '@test-utils';
-import { getFormattedDate, getFormattedTime } from '@utils/helpers/format';
+import { getFormattedDate, getFormattedTime } from '@utils/helpers/dates';
 import Comment from './comment';
 
 const author = {

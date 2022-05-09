@@ -1,12 +1,44 @@
 @use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
   padding: var(--spacing-sm) var(--spacing-md);
   border: fun.convert-px(1) solid var(--color-border);
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      min(calc(100vw - (var(--spacing-md) * 2)), 23ch)
+    );
+    row-gap: var(--spacing-2xs);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("md") {
+        grid-template-columns: repeat(
+          auto-fit,
+          min(calc(100vw - (var(--spacing-md) * 2)), 20ch)
+        );
+      }
+    }
+
+    &--has-techno {
+      div:last-child {
+        gap: var(--spacing-2xs);
+
+        dd {
+          padding: 0 var(--spacing-2xs);
+          border: fun.convert-px(1) solid var(--color-border-dark);
+        }
+      }
+    }
+  }
 }
 
 .cover {
-  max-height: fun.convert-px(150);
+  width: 100%;
+  height: fun.convert-px(175);
   margin: 0 auto var(--spacing-md);
+  padding: var(--spacing-2xs);
   border: fun.convert-px(1) solid var(--color-border);
 }

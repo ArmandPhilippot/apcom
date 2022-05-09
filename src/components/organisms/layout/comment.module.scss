@@ -60,16 +60,20 @@
   }
 
   .date {
-    flex-flow: row wrap;
-    justify-content: center;
     margin: var(--spacing-sm) 0;
     font-size: var(--font-size-sm);
-    text-align: center;
+
+    &__item {
+      justify-content: center;
+    }
 
     @include mix.media("screen") {
       @include mix.dimensions("sm") {
-        justify-content: left;
         margin: 0 0 var(--spacing-sm);
+
+        &__item {
+          justify-content: left;
+        }
       }
     }
   }

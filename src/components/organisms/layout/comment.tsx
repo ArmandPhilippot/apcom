@@ -1,10 +1,12 @@
 import Button from '@components/atoms/buttons/button';
 import Link from '@components/atoms/links/link';
-import DescriptionList from '@components/atoms/lists/description-list';
-import { getFormattedDate, getFormattedTime } from '@utils/helpers/format';
+import Meta from '@components/molecules/layout/meta';
+import useSettings from '@utils/hooks/use-settings';
 import Image from 'next/image';
+import Script from 'next/script';
 import { FC, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { type Comment as CommentSchema, type WithContext } from 'schema-dts';
 import CommentForm, { type CommentFormProps } from '../forms/comment-form';
 import styles from './comment.module.scss';
 
@@ -41,7 +43,11 @@ export type CommentProps = {
    */
   id: number | string;
   /**
-   * The comment date.
+   * The comment parent id.
+   */
+  parentId?: number | string;
+  /**
+   * The comment date and time separated with a space.
    */
   publication: string;
   /**
@@ -60,15 +66,14 @@ const Comment: FC<CommentProps> = ({
   canReply = true,
   content,
   id,
+  parentId,
   publication,
   saveComment,
   ...props
 }) => {
   const intl = useIntl();
   const [isReplying, setIsReplying] = useState<boolean>(false);
-  const commentDate = getFormattedDate(publication);
-  const commentTime = getFormattedTime(publication);
-  const commentDateTime = new Date(publication).toISOString();
+  const [publicationDate, publicationTime] = publication.split(' ');
 
   const avatarAltText = intl.formatMessage(
     {
@@ -89,37 +94,46 @@ const Comment: FC<CommentProps> = ({
         description: 'Comment: reply button',
         id: 'hzHuCc',
       });
-  const dateLabel = intl.formatMessage({
-    defaultMessage: 'Published on:',
-    description: 'Comment: publication date label',
-    id: 'soj7do',
-  });
-  const dateValue = intl.formatMessage(
-    {
-      defaultMessage: '{date} at {time}',
-      description: 'Comment: publication date and time',
-      id: 'Ld6yMP',
-    },
-    {
-      date: commentDate,
-      time: commentTime,
-    }
-  );
   const formTitle = intl.formatMessage({
     defaultMessage: 'Leave a reply',
     description: 'Comment: comment form title',
     id: '2fD5CI',
   });
 
-  const dateLink = (
-    <Link href={`#comment-${id}`}>
-      <time dateTime={commentDateTime}></time>
-      {dateValue}
-    </Link>
-  );
+  const { website } = useSettings();
+
+  const commentSchema: WithContext<CommentSchema> = {
+    '@context': 'https://schema.org',
+    '@id': `${website.url}/#comment-${id}`,
+    '@type': 'Comment',
+    parentItem: parentId
+      ? { '@id': `${website.url}/#comment-${parentId}` }
+      : undefined,
+    about: { '@type': 'Article', '@id': `${website.url}/#article` },
+    author: {
+      '@type': 'Person',
+      name: author.name,
+      image: author.avatar,
+      url: author.url,
+    },
+    creator: {
+      '@type': 'Person',
+      name: author.name,
+      image: author.avatar,
+      url: author.url,
+    },
+    dateCreated: publication,
+    datePublished: publication,
+    text: content,
+  };
 
   return (
     <>
+      <Script
+        id="schema-comments"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(commentSchema) }}
+      />
       <article
         id={`comment-${id}`}
         className={`${styles.wrapper} ${styles['wrapper--comment']}`}
@@ -142,11 +156,18 @@ const Comment: FC<CommentProps> = ({
             <span className={styles.author}>{author.name}</span>
           )}
         </header>
-        <DescriptionList
-          items={[{ id: 'comment-date', term: dateLabel, value: [dateLink] }]}
+        <Meta
+          data={{
+            publication: {
+              date: publicationDate,
+              time: publicationTime,
+              target: `#comment-${id}`,
+            },
+          }}
           layout="inline"
+          itemsLayout="inline"
           className={styles.date}
-          groupClassName={styles.meta}
+          groupClassName={styles.date__item}
         />
         <div className={styles.body}>{content}</div>
         <footer className={styles.footer}>

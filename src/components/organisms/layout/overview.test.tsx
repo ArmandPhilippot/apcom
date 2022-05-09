@@ -1,5 +1,5 @@
 import { render, screen } from '@test-utils';
-import Overview from './overview';
+import Overview, { type OverviewMeta } from './overview';
 
 const cover = {
   alt: 'Incidunt unde quam',
@@ -8,22 +8,19 @@ const cover = {
   width: 640,
 };
 
-const meta = {
-  publication: { name: 'Illo ut odio:', value: 'Sequi et excepturi' },
-  update: {
-    name: 'Perspiciatis vel laudantium:',
-    value: 'Dignissimos ratione veritatis',
-  },
+const data: OverviewMeta = {
+  creation: { date: '2022-05-09' },
+  license: 'Dignissimos ratione veritatis',
 };
 
 describe('Overview', () => {
-  it('renders some meta', () => {
-    render(<Overview meta={meta} />);
-    expect(screen.getByText(meta['publication'].name)).toBeInTheDocument();
+  it('renders some data', () => {
+    render(<Overview meta={data} />);
+    expect(screen.getByText(data.license!)).toBeInTheDocument();
   });
 
   it('renders a cover', () => {
-    render(<Overview meta={meta} cover={cover} />);
+    render(<Overview cover={cover} meta={data} />);
     expect(screen.getByRole('img', { name: cover.alt })).toBeInTheDocument();
   });
 });

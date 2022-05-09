@@ -2,53 +2,16 @@
 
 .list {
   display: flex;
-  flex-flow: column wrap;
-  gap: var(--spacing-2xs);
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-2xs);
   margin: 0;
 
-  &__term {
-    flex: 0 0 max-content;
-    color: var(--color-fg-light);
-    font-weight: 600;
+  &--inline {
+    flex-flow: row wrap;
+    align-items: baseline;
   }
 
-  &__description {
-    flex: 0 0 auto;
-    margin: 0;
-  }
-
-  &__item {
-    display: flex;
-  }
-
-  &--inline &__item {
-    flex-flow: column wrap;
-
-    @include mix.media("screen") {
-      @include mix.dimensions("xs") {
-        flex-flow: row wrap;
-        gap: var(--spacing-2xs);
-
-        .list__description:not(:first-of-type) {
-          &::before {
-            content: "/";
-            margin-right: var(--spacing-2xs);
-          }
-        }
-      }
-    }
-  }
-
-  &--column#{&}--responsive {
-    @include mix.media("screen") {
-      @include mix.dimensions("xs") {
-        flex-flow: row wrap;
-        gap: var(--spacing-lg);
-      }
-    }
-  }
-
-  &--column &__item {
+  &--column {
     flex-flow: column wrap;
   }
 }

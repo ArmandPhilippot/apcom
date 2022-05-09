@@ -1,13 +1,11 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
-import DescriptionList, {
-  type DescriptionListItem,
-} from '@components/atoms/lists/description-list';
 import { FC } from 'react';
 import ResponsiveImage, {
   type ResponsiveImageProps,
 } from '../images/responsive-image';
 import styles from './card.module.scss';
+import Meta, { type MetaData } from './meta';
 
 export type Cover = {
   /**
@@ -44,7 +42,7 @@ export type CardProps = {
   /**
    * The card meta.
    */
-  meta?: DescriptionListItem[];
+  meta?: MetaData;
   /**
    * The card tagline.
    */
@@ -96,13 +94,13 @@ const Card: FC<CardProps> = ({
         <div className={styles.tagline}>{tagline}</div>
         {meta && (
           <footer className={styles.footer}>
-            <DescriptionList
-              items={meta}
+            <Meta
+              data={meta}
               layout="inline"
               className={styles.list}
-              groupClassName={styles.items}
-              termClassName={styles.term}
-              descriptionClassName={styles.description}
+              groupClassName={styles.meta__item}
+              labelClassName={styles.meta__label}
+              valueClassName={styles.meta__value}
             />
           </footer>
         )}

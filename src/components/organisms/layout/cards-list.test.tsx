@@ -1,7 +1,7 @@
 import { render, screen } from '@test-utils';
-import CardsList from './cards-list';
+import CardsList, { type CardsListItem } from './cards-list';
 
-const items = [
+const items: CardsListItem[] = [
   {
     id: 'card-1',
     cover: {
@@ -9,10 +9,10 @@ const items = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
+      // @ts-ignore - Needed because of the placeholder image.
+      unoptimized: true,
     },
-    meta: [
-      { id: 'meta-1', term: 'Quibusdam', value: ['Velit', 'Ex', 'Alias'] },
-    ],
+    meta: { thematics: ['Velit', 'Ex', 'Alias'] },
     tagline: 'Molestias ut error',
     title: 'Et alias omnis',
     url: '#',
@@ -24,8 +24,10 @@ const items = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
+      // @ts-ignore - Needed because of the placeholder image.
+      unoptimized: true,
     },
-    meta: [{ id: 'meta-1', term: 'Est', value: ['Voluptas'] }],
+    meta: { thematics: ['Voluptas'] },
     tagline: 'Quod vel accusamus',
     title: 'Laboriosam doloremque mollitia',
     url: '#',
@@ -37,14 +39,12 @@ const items = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
+      // @ts-ignore - Needed because of the placeholder image.
+      unoptimized: true,
     },
-    meta: [
-      {
-        id: 'meta-1',
-        term: 'Omnis',
-        value: ['Quisquam', 'Quia', 'Sapiente', 'Perspiciatis'],
-      },
-    ],
+    meta: {
+      thematics: ['Quisquam', 'Quia', 'Sapiente', 'Perspiciatis'],
+    },
     tagline: 'Quo error eum',
     title: 'Magni rem nulla',
     url: '#',

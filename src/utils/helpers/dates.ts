@@ -1,4 +1,3 @@
-import { Dates } from '@ts/types/app';
 import { settings } from '@utils/config';
 
 /**
@@ -38,18 +37,4 @@ export const getFormattedTime = (
   });
 
   return locale === 'fr' ? formattedTime.replace(':', 'h') : formattedTime;
-};
-
-/**
- * Retrieve a Dates object.
- *
- * @param publication - The publication date.
- * @param update - The update date.
- * @returns {Dates} A Dates object.
- */
-export const getDates = (publication: string, update: string): Dates => {
-  return {
-    publication: getFormattedDate(publication),
-    update: getFormattedDate(update),
-  };
 };

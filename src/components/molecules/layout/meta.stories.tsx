@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import MetaComponent from './meta';
+import MetaComponent, { MetaData } from './meta';
 
 /**
  * Meta - Storybook Meta
@@ -8,25 +8,41 @@ export default {
   title: 'Molecules/Layout',
   component: MetaComponent,
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the meta wrapper.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     data: {
       description: 'The page metadata.',
       type: {
         name: 'object',
         required: true,
         value: {},
+      },
+    },
+    itemsLayout: {
+      control: {
+        type: 'select',
+      },
+      description: 'The items layout.',
+      options: ['inline', 'inline-values', 'stacked'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'inline-values' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    withSeparator: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Add a slash as separator between multiple values.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: true },
+      },
+      type: {
+        name: 'boolean',
+        required: true,
       },
     },
   },
@@ -36,19 +52,16 @@ const Template: ComponentStory<typeof MetaComponent> = (args) => (
   <MetaComponent {...args} />
 );
 
-const data = {
-  publication: { name: 'Published on:', value: 'April 9th 2022' },
-  categories: {
-    name: 'Categories:',
-    value: [
-      <a key="category1" href="#">
-        Category 1
-      </a>,
-      <a key="category2" href="#">
-        Category 2
-      </a>,
-    ],
-  },
+const data: MetaData = {
+  publication: { date: '2022-04-09', time: '01:04:00' },
+  thematics: [
+    <a key="category1" href="#">
+      Category 1
+    </a>,
+    <a key="category2" href="#">
+      Category 2
+    </a>,
+  ],
 };
 
 /**

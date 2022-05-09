@@ -8,13 +8,10 @@ const cover = {
   width: 640,
 };
 
-const meta = [
-  {
-    id: 'an-id',
-    term: 'Voluptates',
-    value: ['Autem', 'Eos'],
-  },
-];
+const meta = {
+  author: 'Possimus',
+  thematics: ['Autem', 'Eos'],
+};
 
 const tagline = 'Ut rerum incidunt';
 
@@ -47,6 +44,6 @@ describe('Card', () => {
 
   it('renders some meta', () => {
     render(<Card title={title} titleLevel={2} url={url} meta={meta} />);
-    expect(screen.getByText(meta[0].term)).toBeInTheDocument();
+    expect(screen.getByText(meta.author)).toBeInTheDocument();
   });
 });

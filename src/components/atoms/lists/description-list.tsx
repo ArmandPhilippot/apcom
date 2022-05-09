@@ -1,4 +1,7 @@
 import { FC } from 'react';
+import DescriptionListItem, {
+  type DescriptionListItemProps,
+} from './description-list-item';
 import styles from './description-list.module.scss';
 
 export type DescriptionListItem = {
@@ -7,13 +10,17 @@ export type DescriptionListItem = {
    */
   id: string;
   /**
-   * A list term.
+   * The list item layout.
    */
-  term: string;
+  layout?: DescriptionListItemProps['layout'];
   /**
-   * An array of values for the list term.
+   * A list label.
    */
-  value: any[];
+  label: DescriptionListItemProps['label'];
+  /**
+   * An array of values for the list item.
+   */
+  value: DescriptionListItemProps['value'];
 };
 
 export type DescriptionListProps = {
@@ -21,10 +28,6 @@ export type DescriptionListProps = {
    * Set additional classnames to the list wrapper.
    */
   className?: string;
-  /**
-   * Set additional classnames to the `dd` element.
-   */
-  descriptionClassName?: string;
   /**
    * Set additional classnames to the `dt`/`dd` couple wrapper.
    */
@@ -34,17 +37,21 @@ export type DescriptionListProps = {
    */
   items: DescriptionListItem[];
   /**
-   * The list items layout. Default: column.
+   * Set additional classnames to the `dt` element.
+   */
+  labelClassName?: string;
+  /**
+   * The list layout. Default: column.
    */
   layout?: 'inline' | 'column';
   /**
-   * Define if the layout should automatically create rows/columns.
+   * Set additional classnames to the `dd` element.
    */
-  responsiveLayout?: boolean;
+  valueClassName?: string;
   /**
-   * Set additional classnames to the `dt` element.
+   * If true, use a slash to delimitate multiple values.
    */
-  termClassName?: string;
+  withSeparator?: DescriptionListItemProps['withSeparator'];
 };
 
 /**
@@ -54,44 +61,40 @@ export type DescriptionListProps = {
  */
 const DescriptionList: FC<DescriptionListProps> = ({
   className = '',
-  descriptionClassName = '',
   groupClassName = '',
   items,
+  labelClassName = '',
   layout = 'column',
-  responsiveLayout = false,
-  termClassName = '',
+  valueClassName = '',
+  withSeparator,
 }) => {
   const layoutModifier = `list--${layout}`;
-  const responsiveModifier = responsiveLayout ? 'list--responsive' : '';
 
   /**
-   * Retrieve the description list items wrapped in a div element.
+   * Retrieve the description list items.
    *
-   * @param {DescriptionListItem[]} listItems - An array of term and description couples.
+   * @param {DescriptionListItem[]} listItems - An array of items.
    * @returns {JSX.Element[]} The description list items.
    */
   const getItems = (listItems: DescriptionListItem[]): JSX.Element[] => {
-    return listItems.map(({ id, term, value }) => {
+    return listItems.map(({ id, layout: itemLayout, label, value }) => {
       return (
-        <div key={id} className={`${styles.list__item} ${groupClassName}`}>
-          <dt className={`${styles.list__term} ${termClassName}`}>{term}</dt>
-          {value.map((currentValue, index) => (
-            <dd
-              key={`${id}-${index}`}
-              className={`${styles.list__description} ${descriptionClassName}`}
-            >
-              {currentValue}
-            </dd>
-          ))}
-        </div>
+        <DescriptionListItem
+          key={id}
+          label={label}
+          value={value}
+          layout={itemLayout}
+          className={groupClassName}
+          descriptionClassName={valueClassName}
+          termClassName={labelClassName}
+          withSeparator={withSeparator}
+        />
       );
     });
   };
 
   return (
-    <dl
-      className={`${styles.list} ${styles[layoutModifier]} ${styles[responsiveModifier]} ${className}`}
-    >
+    <dl className={`${styles.list} ${styles[layoutModifier]} ${className}`}>
       {getItems(items)}
     </dl>
   );

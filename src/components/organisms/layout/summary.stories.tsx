@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import Summary from './summary';
 
 /**
@@ -78,13 +77,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof Summary>;
 
 const Template: ComponentStory<typeof Summary> = (args) => (
@@ -100,20 +92,17 @@ const cover = {
 };
 
 const meta = {
-  publication: { name: 'Published on:', value: 'April 11th 2022' },
-  readingTime: { name: 'Reading time:', value: '5 minutes' },
-  categories: {
-    name: 'Categories:',
-    value: [
-      <a key="cat-1" href="#">
-        Cat 1
-      </a>,
-      <a key="cat-2" href="#">
-        Cat 2
-      </a>,
-    ],
-  },
-  comments: { name: 'Comments:', value: '1 comment' },
+  publication: { date: '2022-04-11' },
+  readingTime: '5 minutes',
+  thematics: [
+    <a key="cat-1" href="#">
+      Cat 1
+    </a>,
+    <a key="cat-2" href="#">
+      Cat 2
+    </a>,
+  ],
+  commentsCount: '1 comment',
 };
 
 /**

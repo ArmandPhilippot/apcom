@@ -40,7 +40,7 @@ const sortPostsByYear = (data: Post[]): YearCollection => {
   const yearCollection: YearCollection = {};
 
   data.forEach((post) => {
-    const postYear = new Date(post.meta.publication.value as string)
+    const postYear = new Date(post.meta.publication!.date)
       .getFullYear()
       .toString();
     yearCollection[postYear] = [...(yearCollection[postYear] || []), post];

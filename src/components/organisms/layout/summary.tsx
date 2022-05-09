@@ -5,7 +5,7 @@ import Link from '@components/atoms/links/link';
 import ResponsiveImage, {
   type ResponsiveImageProps,
 } from '@components/molecules/images/responsive-image';
-import Meta, { type MetaItem } from '@components/molecules/layout/meta';
+import Meta, { MetaData } from '@components/molecules/layout/meta';
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './summary.module.scss';
@@ -15,24 +15,15 @@ export type Cover = Pick<
   'alt' | 'src' | 'width' | 'height'
 >;
 
-export type RequiredMetaKey = 'publication';
-
-export type RequiredMeta = {
-  [key in RequiredMetaKey]: MetaItem;
-};
-
-export type OptionalMetaKey =
+export type SummaryMeta = Pick<
+  MetaData,
   | 'author'
-  | 'categories'
-  | 'comments'
+  | 'commentsCount'
+  | 'publication'
   | 'readingTime'
-  | 'update';
-
-export type OptionalMeta = {
-  [key in OptionalMetaKey]?: MetaItem;
-};
-
-export type Meta = RequiredMeta & OptionalMeta;
+  | 'thematics'
+  | 'update'
+>;
 
 export type SummaryProps = {
   /**
@@ -46,7 +37,7 @@ export type SummaryProps = {
   /**
    * The post meta.
    */
-  meta: Meta;
+  meta: SummaryMeta;
   /**
    * The post title.
    */
@@ -100,7 +91,11 @@ const Summary: FC<SummaryProps> = ({
         </Link>
       </header>
       <div className={styles.body}>
-        {excerpt}
+        {typeof excerpt === 'string' ? (
+          <div dangerouslySetInnerHTML={{ __html: excerpt }} />
+        ) : (
+          excerpt
+        )}
         <ButtonLink target={url} className={styles['read-more']}>
           <>
             {readMore}

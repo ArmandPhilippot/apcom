@@ -6,7 +6,6 @@ import PostsList from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import Sharing from '@components/organisms/widgets/sharing';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import PageLayoutComponent from './page-layout';
 
 /**
@@ -157,15 +156,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <div id="__next">
-          <Story />
-        </div>
-      </IntlProvider>
-    ),
-  ],
   parameters: {
     layout: 'fullscreen',
   },
@@ -231,7 +221,6 @@ SinglePage.args = {
         'linkedin',
         'twitter',
       ]}
-      title="Share"
       level={2}
       expanded={true}
     />,
@@ -320,22 +309,19 @@ Post.args = {
   title: pageTitle,
   intro: pageIntro,
   headerMeta: {
-    publication: { name: 'Published on:', value: 'March 14th 2020' },
-    categories: {
-      name: 'Categories:',
-      value: [
-        <Link key="cat1" href="#">
-          Cat 1
-        </Link>,
-        <Link key="cat2" href="#">
-          Cat 2
-        </Link>,
-      ],
-    },
+    publication: { date: '2020-03-14' },
+    thematics: [
+      <Link key="cat1" href="#">
+        Cat 1
+      </Link>,
+      <Link key="cat2" href="#">
+        Cat 2
+      </Link>,
+    ],
   },
   footerMeta: {
-    tags: {
-      name: 'Read more about:',
+    custom: {
+      label: 'Read more about:',
       value: <ButtonLink target="#">Topic 1</ButtonLink>,
     },
   },
@@ -379,7 +365,6 @@ Post.args = {
         'linkedin',
         'twitter',
       ]}
-      title="Share"
       level={2}
       expanded={true}
     />,
@@ -400,23 +385,17 @@ const posts = [
       'Esse et voluptas sapiente modi impedit unde et. Ducimus nulla ea impedit sit placeat nihil assumenda. Rem est fugiat amet quo hic. Corrupti fuga quod animi autem dolorem ullam corrupti vel aut.',
     id: 'post-1',
     meta: {
-      publication: {
-        name: 'Published on:',
-        value: '2022-02-26T00:42:02',
-      },
-      readingTime: { name: 'Reading time:', value: '5 minutes' },
-      categories: {
-        name: 'Categories:',
-        value: [
-          <a key="cat-1" href="#">
-            Cat 1
-          </a>,
-          <a key="cat-2" href="#">
-            Cat 2
-          </a>,
-        ],
-      },
-      comments: { name: 'Comments:', value: '1 comment' },
+      publication: { date: '2022-02-26' },
+      readingTime: '5 minutes',
+      categories: [
+        <a key="cat-1" href="#">
+          Cat 1
+        </a>,
+        <a key="cat-2" href="#">
+          Cat 2
+        </a>,
+      ],
+      commentsCount: '1 comment',
     },
     title: 'Ratione velit fuga',
     url: '#',
@@ -435,19 +414,15 @@ const posts = [
     id: 'post-2',
     meta: {
       publication: {
-        name: 'Published on:',
-        value: '2022-02-20T10:40:00',
+        date: '2022-02-20',
       },
-      readingTime: { name: 'Reading time:', value: '8 minutes' },
-      categories: {
-        name: 'Categories:',
-        value: [
-          <a key="cat-2" href="#">
-            Cat 2
-          </a>,
-        ],
-      },
-      comments: { name: 'Comments:', value: '0 comments' },
+      readingTime: '8 minutes',
+      categories: [
+        <a key="cat-2" href="#">
+          Cat 2
+        </a>,
+      ],
+      comments: '0 comments',
     },
     title: 'Debitis laudantium laudantium',
     url: '#',
@@ -458,19 +433,15 @@ const posts = [
     id: 'post-3',
     meta: {
       publication: {
-        name: 'Published on:',
-        value: '2021-12-20T15:12:02',
+        date: '2021-12-20',
       },
-      readingTime: { name: 'Reading time:', value: '3 minutes' },
-      categories: {
-        name: 'Categories:',
-        value: [
-          <a key="cat-1" href="#">
-            Cat 1
-          </a>,
-        ],
-      },
-      comments: { name: 'Comments:', value: '3 comments' },
+      readingTime: '3 minutes',
+      categories: [
+        <a key="cat-1" href="#">
+          Cat 1
+        </a>,
+      ],
+      comments: '3 comments',
     },
     title: 'Quaerat ut corporis',
     url: '#',
@@ -502,7 +473,7 @@ export const Blog = Template.bind({});
 Blog.args = {
   breadcrumb: postsListBreadcrumb,
   title: 'Blog',
-  headerMeta: { total: { name: 'Total:', value: `${posts.length} posts` } },
+  headerMeta: { total: `${posts.length} posts` },
   children: (
     <>
       <PostsList posts={posts} byYear={true} />

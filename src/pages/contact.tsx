@@ -41,7 +41,7 @@ const ContactPage: NextPage = () => {
   const { asPath } = useRouter();
   const pageUrl = `${website.url}${asPath}`;
   const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = new Date(dates.update);
+  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
@@ -64,7 +64,7 @@ const ContactPage: NextPage = () => {
     author: { '@id': `${website.url}/#branding` },
     creator: { '@id': `${website.url}/#branding` },
     dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate.toISOString(),
+    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
     datePublished: pagePublicationDate.toISOString(),
     editor: { '@id': `${website.url}/#branding` },
     inLanguage: website.locales.default,

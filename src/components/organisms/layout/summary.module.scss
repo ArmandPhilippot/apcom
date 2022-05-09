@@ -83,5 +83,18 @@
 }
 
 .meta {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    min(100vw, calc(50% - var(--spacing-lg)))
+  );
+  margin-top: var(--spacing-lg);
   font-size: var(--font-size-sm);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      display: flex;
+      margin-top: 0;
+    }
+  }
 }

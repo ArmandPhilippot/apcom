@@ -12,20 +12,17 @@ const excerpt =
   'Perspiciatis quasi libero nemo non eligendi nam minima. Deleniti expedita tempore. Praesentium explicabo molestiae eaque consectetur vero. Quae nostrum quisquam similique. Ut hic est quas ut esse quisquam nobis.';
 
 const meta = {
-  publication: { name: 'Published on:', value: 'April 11th 2022' },
-  readingTime: { name: 'Reading time:', value: '5 minutes' },
-  categories: {
-    name: 'Categories:',
-    value: [
-      <a key="cat-1" href="#">
-        Cat 1
-      </a>,
-      <a key="cat-2" href="#">
-        Cat 2
-      </a>,
-    ],
-  },
-  comments: { name: 'Comments:', value: '1 comment' },
+  publication: { date: '2022-04-11' },
+  readingTime: '5 minutes',
+  thematics: [
+    <a key="cat-1" href="#">
+      Cat 1
+    </a>,
+    <a key="cat-2" href="#">
+      Cat 2
+    </a>,
+  ],
+  commentsCount: '1 comment',
 };
 
 const title = 'Odio odit necessitatibus';
@@ -80,6 +77,6 @@ describe('Summary', () => {
 
   it('renders some meta', () => {
     render(<Summary excerpt={excerpt} meta={meta} title={title} url={url} />);
-    expect(screen.getByText(meta.publication.name)).toBeInTheDocument();
+    expect(screen.getByText(meta.readingTime)).toBeInTheDocument();
   });
 });

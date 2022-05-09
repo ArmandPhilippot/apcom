@@ -8,6 +8,19 @@ export default {
   title: 'Molecules/Layout/Card',
   component: Card,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the card wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     cover: {
       description: 'The card cover data (src, dimensions, alternative text).',
       table: {
@@ -17,6 +30,21 @@ export default {
         name: 'object',
         required: false,
         value: {},
+      },
+    },
+    coverFit: {
+      control: {
+        type: 'select',
+      },
+      description: 'The cover fit.',
+      options: ['contain', 'cover', 'fill', 'scale-down'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'cover' },
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     meta: {
@@ -88,13 +116,9 @@ const cover = {
   unoptimized: true,
 };
 
-const meta = [
-  {
-    id: 'an-id',
-    term: 'Voluptates',
-    value: ['Autem', 'Eos'],
-  },
-];
+const meta = {
+  thematics: ['Autem', 'Eos'],
+};
 
 /**
  * Card Stories - Default

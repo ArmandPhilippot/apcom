@@ -8,6 +8,19 @@ export default {
   title: 'Molecules/Layout/PageHeader',
   component: PageHeader,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the header element.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     intro: {
       control: {
         type: 'text',
@@ -50,18 +63,15 @@ const Template: ComponentStory<typeof PageHeader> = (args) => (
 );
 
 const meta = {
-  publication: { name: 'Published on:', value: 'April 9th 2022' },
-  categories: {
-    name: 'Categories:',
-    value: [
-      <a key="category1" href="#">
-        Category 1
-      </a>,
-      <a key="category2" href="#">
-        Category 2
-      </a>,
-    ],
-  },
+  publication: { date: '2022-04-09' },
+  thematics: [
+    <a key="category1" href="#">
+      Category 1
+    </a>,
+    <a key="category2" href="#">
+      Category 2
+    </a>,
+  ],
 };
 
 /**

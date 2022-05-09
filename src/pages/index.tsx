@@ -225,17 +225,7 @@ const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
       return {
         cover: post.cover,
         id: post.slug,
-        meta: [
-          {
-            id: 'publication',
-            term: intl.formatMessage({
-              defaultMessage: 'Published on:',
-              description: 'HomePage: publication date label',
-              id: 'pT5nHk',
-            }),
-            value: [post.dates.publication],
-          },
-        ],
+        meta: { publication: { date: post.dates.publication } },
         title: post.title,
         url: `/article/${post.slug}`,
       };

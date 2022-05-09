@@ -133,9 +133,17 @@ const PageLayout: FC<PageLayoutProps> = ({
           )}
         </Sidebar>
       )}
-      <div ref={bodyRef} className={styles.body}>
-        {children}
-      </div>
+      {typeof children === 'string' ? (
+        <div
+          ref={bodyRef}
+          className={styles.body}
+          dangerouslySetInnerHTML={{ __html: children }}
+        />
+      ) : (
+        <div ref={bodyRef} className={styles.body}>
+          {children}
+        </div>
+      )}
       <PageFooter meta={footerMeta} className={styles.footer} />
       <Sidebar className={`${styles.sidebar} ${styles['sidebar--last']}`}>
         {widgets}

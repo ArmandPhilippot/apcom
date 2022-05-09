@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Meta, { type MetaMap } from './meta';
+import Meta, { MetaData } from './meta';
 
 export type PageFooterProps = {
   /**
@@ -9,7 +9,7 @@ export type PageFooterProps = {
   /**
    * The footer metadata.
    */
-  meta?: MetaMap;
+  meta?: MetaData;
 };
 
 /**

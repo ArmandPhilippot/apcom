@@ -1,7 +1,7 @@
 import Heading from '@components/atoms/headings/heading';
-import styles from './page-header.module.scss';
-import Meta, { type MetaMap } from './meta';
 import { FC } from 'react';
+import Meta, { type MetaData } from './meta';
+import styles from './page-header.module.scss';
 
 export type PageHeaderProps = {
   /**
@@ -15,7 +15,7 @@ export type PageHeaderProps = {
   /**
    * The page metadata.
    */
-  meta?: MetaMap;
+  meta?: MetaData;
   /**
    * The page title.
    */
@@ -33,14 +33,29 @@ const PageHeader: FC<PageHeaderProps> = ({
   meta,
   title,
 }) => {
+  const getIntro = () => {
+    return typeof intro === 'string' ? (
+      <div dangerouslySetInnerHTML={{ __html: intro }} />
+    ) : (
+      <div>{intro}</div>
+    );
+  };
+
   return (
     <header className={`${styles.wrapper} ${className}`}>
       <div className={styles.body}>
         <Heading level={1} className={styles.title} withMargin={false}>
           {title}
         </Heading>
-        {meta && <Meta data={meta} className={styles.meta} layout="inline" />}
-        {intro && <div>{intro}</div>}
+        {meta && (
+          <Meta
+            data={meta}
+            className={styles.meta}
+            layout="column"
+            itemsLayout="inline"
+          />
+        )}
+        {intro && getIntro()}
       </div>
     </header>
   );

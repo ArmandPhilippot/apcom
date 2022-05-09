@@ -7,7 +7,6 @@ import PageLayout, {
 } from '@components/templates/page/page-layout';
 import CVContent, { data, meta } from '@content/pages/cv.mdx';
 import styles from '@styles/pages/cv.module.scss';
-import { getFormattedDate } from '@utils/helpers/dates';
 import { loadTranslation } from '@utils/helpers/i18n';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticProps, NextPage } from 'next';
@@ -46,24 +45,15 @@ const CVPage: NextPage = () => {
     id: '+Dre5J',
   });
 
-  const publicationLabel = intl.formatMessage({
-    defaultMessage: 'Published on:',
-    description: 'Meta: publication date label',
-    id: 'QGi5uD',
-  });
-
-  const updateLabel = intl.formatMessage({
-    defaultMessage: 'Updated on:',
-    description: 'Meta: update date label',
-    id: 'tLC7bh',
-  });
-
   const headerMeta: PageLayoutProps['headerMeta'] = {
     publication: {
-      name: publicationLabel,
-      value: getFormattedDate(dates.publication),
+      date: dates.publication,
     },
-    update: { name: updateLabel, value: getFormattedDate(dates.update) },
+    update: dates.update
+      ? {
+          date: dates.update,
+        }
+      : undefined,
   };
 
   const { website } = useSettings();
@@ -118,7 +108,7 @@ const CVPage: NextPage = () => {
   const { asPath } = useRouter();
   const pageUrl = `${website.url}${asPath}`;
   const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = new Date(dates.update);
+  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
@@ -141,7 +131,7 @@ const CVPage: NextPage = () => {
     author: { '@id': `${website.url}/#branding` },
     creator: { '@id': `${website.url}/#branding` },
     dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate.toISOString(),
+    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
     datePublished: pagePublicationDate.toISOString(),
     editor: { '@id': `${website.url}/#branding` },
     image: image.src,
