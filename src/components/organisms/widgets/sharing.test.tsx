@@ -9,15 +9,7 @@ const postData: SharingData = {
 
 describe('Sharing', () => {
   it('renders a sharing widget', () => {
-    render(
-      <Sharing
-        data={postData}
-        media={['facebook', 'twitter']}
-        expanded={true}
-        title="Sharing"
-        level={2}
-      />
-    );
+    render(<Sharing data={postData} media={['facebook', 'twitter']} />);
     expect(
       screen.getByRole('link', { name: 'Share on facebook' })
     ).toBeInTheDocument();

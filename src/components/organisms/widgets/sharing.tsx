@@ -21,11 +21,19 @@ export type SharingData = {
   url: string;
 };
 
-export type SharingProps = Pick<WidgetProps, 'expanded' | 'level' | 'title'> & {
+export type SharingProps = {
   /**
    * The page data to share.
    */
   data: SharingData;
+  /**
+   * The widget default state.
+   */
+  expanded?: WidgetProps['expanded'];
+  /**
+   * The HTML heading level.
+   */
+  level?: WidgetProps['level'];
   /**
    * A list of active and ordered sharing medium.
    */
@@ -37,8 +45,19 @@ export type SharingProps = Pick<WidgetProps, 'expanded' | 'level' | 'title'> & {
  *
  * Render a list of sharing links inside a widget.
  */
-const Sharing: FC<SharingProps> = ({ data, media, ...props }) => {
+const Sharing: FC<SharingProps> = ({
+  data,
+  media,
+  expanded = true,
+  level = 2,
+  ...props
+}) => {
   const intl = useIntl();
+  const widgetTitle = intl.formatMessage({
+    defaultMessage: 'Share',
+    id: 'q3U6uI',
+    description: 'Sharing: widget title',
+  });
 
   /**
    * Build the Diaspora sharing url with provided data.
@@ -181,7 +200,7 @@ const Sharing: FC<SharingProps> = ({ data, media, ...props }) => {
   };
 
   return (
-    <Widget {...props}>
+    <Widget expanded={expanded} level={level} title={widgetTitle} {...props}>
       <ul className={styles.list}>{getItems()}</ul>
     </Widget>
   );

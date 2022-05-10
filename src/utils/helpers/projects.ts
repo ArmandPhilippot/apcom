@@ -1,4 +1,4 @@
-import { ProjectCard } from '@ts/types/app';
+import { ProjectCard, ProjectPreview } from '@ts/types/app';
 import { MDXProjectMeta } from '@ts/types/mdx';
 import { readdirSync } from 'fs';
 import path from 'path';
@@ -16,45 +16,61 @@ export const getProjectFilenames = (): string[] => {
 };
 
 /**
- * Retrieve project's data by filename.
+ * Retrieve the data of a project by filename.
+ *
+ * @param {string} filename - The project filename.
+ * @returns {Promise<ProjectPreview>}
+ */
+export const getProjectData = async (
+  filename: string
+): Promise<ProjectPreview> => {
+  try {
+    const {
+      meta,
+    }: {
+      meta: MDXProjectMeta;
+    } = await import(`../../content/projects/${filename}.mdx`);
+
+    const { dates, intro, title, ...projectMeta } = meta;
+    const { publication, update } = dates;
+    const cover = await import(`../../../public/projects/${filename}.jpg`);
+
+    return {
+      id: filename,
+      intro,
+      meta: {
+        ...projectMeta,
+        dates: { publication, update },
+        // Dynamic import source does not work so I use it only to get sizes
+        cover: {
+          ...cover.default,
+          alt: `${title} image`,
+          src: `/projects/${filename}.jpg`,
+        },
+      },
+      slug: filename,
+      title: title,
+    };
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+/**
+ * Retrieve all the projects data using filenames.
  *
  * @param {string[]} filenames - The filenames without extension.
- * @returns {Promise<ProjectCard[]>} - The project data.
+ * @returns {Promise<ProjectCard[]>} - An array of projects data.
  */
 export const getProjectsData = async (
   filenames: string[]
 ): Promise<ProjectCard[]> => {
   return Promise.all(
     filenames.map(async (filename) => {
-      try {
-        const {
-          meta,
-        }: {
-          meta: MDXProjectMeta;
-        } = await import(`../../content/projects/${filename}.mdx`);
-
-        const { intro: _intro, title, ...projectMeta } = meta;
-
-        const cover = await import(`../../../public/projects/${filename}.jpg`);
-
-        return {
-          id: filename,
-          meta: {
-            ...projectMeta,
-            // Dynamic import source does not work so I use it only to get sizes
-            cover: {
-              ...cover.default,
-              alt: `${title} image`,
-              src: `/projects/${filename}.jpg`,
-            },
-          },
-          slug: filename,
-          title: title,
-        };
-      } catch (err) {
-        console.error(err);
-        throw err;
-      }
+      const { id, meta, slug, title } = await getProjectData(filename);
+      const { cover, dates, tagline, technologies } = meta;
+      return { id, meta: { cover, dates, tagline, technologies }, slug, title };
     })
   );
 };

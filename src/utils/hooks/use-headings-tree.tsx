@@ -1,4 +1,4 @@
-import { slugify } from '@utils/helpers/slugify';
+import { slugify } from '@utils/helpers/strings';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export type Heading = {

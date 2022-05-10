@@ -22,9 +22,13 @@ export default {
         type: null,
       },
       description: 'Default widget state (expanded or collapsed).',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: true },
+      },
       type: {
         name: 'boolean',
-        required: true,
+        required: false,
       },
     },
     level: {
@@ -34,9 +38,13 @@ export default {
         max: 6,
       },
       description: 'The heading level.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 2 },
+      },
       type: {
         name: 'number',
-        required: true,
+        required: false,
       },
     },
     media: {
@@ -44,16 +52,6 @@ export default {
         type: null,
       },
       description: 'An array of active and ordered sharing medium.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-    title: {
-      control: {
-        type: 'text',
-      },
-      description: 'The widget title.',
       type: {
         name: 'string',
         required: true,
@@ -78,14 +76,11 @@ const Template: ComponentStory<typeof SharingWidget> = (args) => (
  */
 export const Sharing = Template.bind({});
 Sharing.args = {
-  expanded: true,
   data: {
     excerpt:
       'Alias similique eius ducimus laudantium aspernatur. Est rem ut eum temporibus sit reprehenderit aut non molestias. Vel dolorem expedita labore quo inventore aliquid nihil nam. Possimus nobis enim quas corporis eos.',
     title: 'Accusantium totam nostrum',
     url: 'https://www.example.test',
   },
-  level: 2,
   media: ['diaspora', 'facebook', 'linkedin', 'twitter', 'email'],
-  title: 'Sharing',
 };

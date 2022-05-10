@@ -41,21 +41,12 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
 
   const items: CardsListItem[] = projects.map(
     ({ id, meta: projectMeta, slug, title: projectTitle }) => {
-      const { cover, tagline, ...remainingMeta } = projectMeta;
-      const formattedMeta: CardsListItem['meta'] = remainingMeta.technologies
-        ? [
-            {
-              id: 'technologies',
-              term: 'Technologies',
-              value: remainingMeta.technologies,
-            },
-          ]
-        : undefined;
+      const { cover, tagline, technologies } = projectMeta;
 
       return {
         cover,
         id: id as string,
-        meta: formattedMeta,
+        meta: { technologies: technologies },
         tagline,
         title: projectTitle,
         url: `/projets/${slug}`,
@@ -71,7 +62,7 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
   const { asPath } = useRouter();
   const pageUrl = `${website.url}${asPath}`;
   const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = new Date(dates.update);
+  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
 
   const webpageSchema: WebPage = {
     '@id': `${pageUrl}`,
@@ -97,7 +88,7 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
     copyrightYear: pagePublicationDate.getFullYear(),
     creator: { '@id': `${website.url}/#branding` },
     dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate.toISOString(),
+    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
     datePublished: pagePublicationDate.toISOString(),
     editor: { '@id': `${website.url}/#branding` },
     headline: meta.title,
@@ -112,13 +103,9 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
   };
 
   return (
-    <PageLayout
-      title={title}
-      intro={<PageContent components={components} />}
-      breadcrumb={breadcrumb}
-    >
+    <>
       <Head>
-        <title>{seo.title}</title>
+        <title>{`${seo.title} - ${website.name}`}</title>
         <meta name="description" content={seo.description} />
         <meta property="og:url" content={`${pageUrl}`} />
         <meta property="og:type" content="article" />
@@ -130,8 +117,14 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <CardsList items={items} titleLevel={2} className={styles.list} />
-    </PageLayout>
+      <PageLayout
+        title={title}
+        intro={<PageContent components={components} />}
+        breadcrumb={breadcrumb}
+      >
+        <CardsList items={items} titleLevel={2} className={styles.list} />
+      </PageLayout>
+    </>
   );
 };
 
@@ -141,7 +134,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      projects,
+      projects: JSON.parse(JSON.stringify(projects)),
       translation,
     },
   };

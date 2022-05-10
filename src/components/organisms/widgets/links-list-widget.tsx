@@ -4,7 +4,7 @@ import List, {
   type ListItem,
 } from '@components/atoms/lists/list';
 import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
-import { slugify } from '@utils/helpers/slugify';
+import { slugify } from '@utils/helpers/strings';
 import { FC } from 'react';
 import styles from './links-list-widget.module.scss';
 

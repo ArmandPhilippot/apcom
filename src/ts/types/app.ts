@@ -29,7 +29,7 @@ export type Comment = {
 
 export type Dates = {
   publication: string;
-  update: string;
+  update?: string;
 };
 
 export type Image = {
@@ -58,23 +58,23 @@ export type Meta<T extends PageKind> = {
   commentsCount?: T extends 'article' ? number : never;
   cover?: Image;
   dates: Dates;
-  license?: T extends 'projects' ? string : never;
-  readingTime: number;
-  repos?: T extends 'projects' ? Repos : never;
+  license?: T extends 'project' ? string : never;
+  readingTime?: number;
+  repos?: T extends 'project' ? Repos : never;
   seo: SEO;
-  tagline?: T extends 'projects' ? string : never;
-  technologies?: T extends 'projects' ? string[] : never;
+  tagline?: T extends 'project' ? string : never;
+  technologies?: T extends 'project' ? string[] : never;
   thematics?: T extends 'article' | 'topic' ? PageLink[] : never;
   topics?: T extends 'article' | 'thematic' ? PageLink[] : never;
   website?: T extends 'topic' ? string : never;
-  wordsCount: number;
+  wordsCount?: number;
 };
 
 export type Page<T extends PageKind> = {
   content: string;
   id: number | string;
   intro: string;
-  meta?: Meta<T>;
+  meta: Meta<T>;
   slug: string;
   title: string;
 };
@@ -89,6 +89,7 @@ export type Article = Page<'article'>;
 export type ArticleCard = Pick<Article, 'id' | 'slug' | 'title'> &
   Pick<Meta<'article'>, 'cover' | 'dates'>;
 export type Project = Page<'project'>;
+export type ProjectPreview = Omit<Page<'project'>, 'content'>;
 export type ProjectCard = Pick<Page<'project'>, 'id' | 'slug' | 'title'> & {
   meta: Pick<Meta<'project'>, 'cover' | 'dates' | 'tagline' | 'technologies'>;
 };

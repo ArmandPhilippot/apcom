@@ -35,6 +35,11 @@
 
 .body {
   grid-column: 2;
+
+  > * + * {
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
 }
 
 .sidebar {
