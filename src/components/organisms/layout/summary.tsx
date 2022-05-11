@@ -5,7 +5,9 @@ import Link from '@components/atoms/links/link';
 import ResponsiveImage, {
   type ResponsiveImageProps,
 } from '@components/molecules/images/responsive-image';
-import Meta, { MetaData } from '@components/molecules/layout/meta';
+import Meta, { type MetaData } from '@components/molecules/layout/meta';
+import { type Dates } from '@ts/types/app';
+import useReadingTime from '@utils/hooks/use-reading-time';
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './summary.module.scss';
@@ -15,15 +17,25 @@ export type Cover = Pick<
   'alt' | 'src' | 'width' | 'height'
 >;
 
-export type SummaryMeta = Pick<
-  MetaData,
-  | 'author'
-  | 'commentsCount'
-  | 'publication'
-  | 'readingTime'
-  | 'thematics'
-  | 'update'
->;
+export type SummaryMetaLink = {
+  id: number | string;
+  name: string;
+  url: string;
+};
+
+export type SummaryMetaReadingTime = {
+  wordsCount: number;
+  onlyMinutes?: boolean;
+};
+
+export type SummaryMeta = {
+  author?: string;
+  commentsCount?: number;
+  dates: Dates;
+  readingTime: SummaryMetaReadingTime;
+  thematics?: SummaryMetaLink[];
+  topics?: SummaryMetaLink[];
+};
 
 export type SummaryProps = {
   /**
@@ -79,6 +91,36 @@ const Summary: FC<SummaryProps> = ({
       ),
     }
   );
+  const { wordsCount, onlyMinutes } = meta.readingTime;
+  const readingTime = useReadingTime(wordsCount, onlyMinutes);
+
+  const getMeta = (data: SummaryMeta): MetaData => {
+    const { author, commentsCount, dates, thematics, topics } = data;
+
+    return {
+      author,
+      publication: { date: dates.publication },
+      update:
+        dates.update && dates.publication !== dates.update
+          ? { date: dates.update }
+          : undefined,
+      readingTime,
+      thematics: thematics?.map((thematic) => (
+        <Link key={thematic.id} href={thematic.url}>
+          {thematic.name}
+        </Link>
+      )),
+      topics: topics?.map((topic) => (
+        <Link key={topic.id} href={topic.url}>
+          {topic.name}
+        </Link>
+      )),
+      comments: {
+        count: commentsCount || 0,
+        target: `${url}#comments`,
+      },
+    };
+  };
 
   return (
     <article className={styles.wrapper}>
@@ -104,7 +146,7 @@ const Summary: FC<SummaryProps> = ({
         </ButtonLink>
       </div>
       <footer className={styles.footer}>
-        <Meta data={meta} layout="column" className={styles.meta} />
+        <Meta data={getMeta(meta)} layout="column" className={styles.meta} />
       </footer>
     </article>
   );

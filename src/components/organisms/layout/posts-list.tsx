@@ -3,6 +3,8 @@ import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import Summary, { type SummaryProps } from './summary';
 import styles from './posts-list.module.scss';
+import ProgressBar from '@components/atoms/loaders/progress-bar';
+import Button from '@components/atoms/buttons/button';
 
 export type Post = SummaryProps & {
   /**
@@ -28,6 +30,10 @@ export type PostsListProps = {
    * The posts heading level (hn).
    */
   titleLevel?: HeadingLevel;
+  /**
+   * The total posts number.
+   */
+  total: number;
 };
 
 /**
@@ -40,7 +46,7 @@ const sortPostsByYear = (data: Post[]): YearCollection => {
   const yearCollection: YearCollection = {};
 
   data.forEach((post) => {
-    const postYear = new Date(post.meta.publication!.date)
+    const postYear = new Date(post.meta.dates.publication)
       .getFullYear()
       .toString();
     yearCollection[postYear] = [...(yearCollection[postYear] || []), post];
@@ -58,6 +64,7 @@ const PostsList: FC<PostsListProps> = ({
   byYear = false,
   posts,
   titleLevel,
+  total,
 }) => {
   const intl = useIntl();
 
@@ -106,6 +113,22 @@ const PostsList: FC<PostsListProps> = ({
     });
   };
 
+  const progressInfo = intl.formatMessage(
+    {
+      defaultMessage:
+        '{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}',
+      description: 'PostsList: loaded articles progress',
+      id: '9MeLN3',
+    },
+    { articlesCount: posts.length, total: total }
+  );
+
+  const loadMore = intl.formatMessage({
+    defaultMessage: 'Load more articles?',
+    id: 'uaqd5F',
+    description: 'PostsList: load more button',
+  });
+
   return posts.length === 0 ? (
     <p>
       {intl.formatMessage({
@@ -115,7 +138,16 @@ const PostsList: FC<PostsListProps> = ({
       })}
     </p>
   ) : (
-    <>{getPosts()}</>
+    <>
+      {getPosts()}
+      <ProgressBar
+        min={1}
+        max={total}
+        current={posts.length}
+        info={progressInfo}
+      />
+      <Button className={styles.btn}>{loadMore}</Button>
+    </>
   );
 };
 

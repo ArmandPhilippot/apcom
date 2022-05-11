@@ -12,6 +12,17 @@ export type CustomMeta = {
   value: ReactNode | ReactNode[];
 };
 
+export type MetaComments = {
+  /**
+   * The comments count.
+   */
+  count: number;
+  /**
+   * Wrap the comments count with a link to the given target.
+   */
+  target?: string;
+};
+
 export type MetaDate = {
   /**
    * A date string. Ex: `2022-04-30`.
@@ -35,7 +46,7 @@ export type MetaData = {
   /**
    * The comments count.
    */
-  commentsCount?: string | JSX.Element;
+  comments?: MetaComments;
   /**
    * The creation date.
    */
@@ -86,6 +97,8 @@ export type MetaData = {
   update?: MetaDate;
 };
 
+export type MetaKey = keyof MetaData;
+
 export type MetaProps = Omit<
   DescriptionListProps,
   'items' | 'withSeparator'
@@ -131,7 +144,7 @@ const Meta: FC<MetaProps> = ({
           id: 'OI0N37',
           description: 'Meta: author label',
         });
-      case 'commentsCount':
+      case 'comments':
         return intl.formatMessage({
           defaultMessage: 'Comments:',
           id: 'jTVIh8',
@@ -229,38 +242,46 @@ const Meta: FC<MetaProps> = ({
     }
 
     const isoDateTime = new Date(`${date}T${time}`).toISOString();
+    const dateString = intl.formatMessage(
+      {
+        defaultMessage: '{date} at {time}',
+        description: 'Meta: publication date and time',
+        id: 'fcHeyC',
+      },
+      {
+        date: getFormattedDate(dateTime.date),
+        time: getFormattedTime(`${dateTime.date}T${dateTime.time}`),
+      }
+    );
 
     return target ? (
       <Link href={target}>
-        <time dateTime={isoDateTime}>
-          {intl.formatMessage(
-            {
-              defaultMessage: '{date} at {time}',
-              description: 'Meta: publication date and time',
-              id: 'fcHeyC',
-            },
-            {
-              date: getFormattedDate(dateTime.date),
-              time: getFormattedTime(`${dateTime.date}T${dateTime.time}`),
-            }
-          )}
-        </time>
+        <time dateTime={isoDateTime}>{dateString}</time>
       </Link>
     ) : (
-      <time dateTime={isoDateTime}>
-        {intl.formatMessage(
-          {
-            defaultMessage: '{date} at {time}',
-            description: 'Meta: publication date and time',
-            id: 'fcHeyC',
-          },
-          {
-            date: getFormattedDate(dateTime.date),
-            time: getFormattedTime(`${dateTime.date}T${dateTime.time}`),
-          }
-        )}
-      </time>
+      <time dateTime={isoDateTime}>{dateString}</time>
     );
+  };
+
+  /**
+   * Retrieve the formatted comments count.
+   *
+   * @param comments - The comments object.
+   * @returns {string | JSX.Element} - The comments count.
+   */
+  const getCommentsCount = (comments: MetaComments) => {
+    const { count, target } = comments;
+    const commentsCount = intl.formatMessage(
+      {
+        defaultMessage:
+          '{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}',
+        id: 'adTrj7',
+        description: 'Meta: comments count',
+      },
+      { commentsCount: count }
+    );
+
+    return target ? <Link href={target}>{commentsCount}</Link> : commentsCount;
   };
 
   /**
@@ -270,14 +291,20 @@ const Meta: FC<MetaProps> = ({
    * @param {ValueOf<MetaData>} value - The meta value.
    * @returns {string|ReactNode|ReactNode[]} - The formatted value.
    */
-  const getValue = <T extends keyof MetaData>(
+  const getValue = <T extends MetaKey>(
     key: T,
     value: MetaData[T]
   ): string | ReactNode | ReactNode[] => {
-    if (key === 'creation' || key === 'publication' || key === 'update') {
-      return getDate(value as MetaDate);
+    switch (key) {
+      case 'comments':
+        return getCommentsCount(value as MetaComments);
+      case 'creation':
+      case 'publication':
+      case 'update':
+        return getDate(value as MetaDate);
+      default:
+        return value as string | ReactNode | ReactNode[];
     }
-    return value as string | ReactNode | ReactNode[];
   };
 
   /**
@@ -291,7 +318,7 @@ const Meta: FC<MetaProps> = ({
       .map(([key, value]) => {
         if (!key || !value) return;
 
-        const metaKey = key as keyof MetaData;
+        const metaKey = key as MetaKey;
 
         return {
           id: metaKey,
@@ -301,12 +328,9 @@ const Meta: FC<MetaProps> = ({
               : getLabel(metaKey),
           layout: itemsLayout,
           value:
-            metaKey === 'custom'
+            metaKey === 'custom' && (value as CustomMeta)
               ? (value as CustomMeta).value
-              : getValue(
-                  metaKey,
-                  value as string | string[] | JSX.Element | JSX.Element[]
-                ),
+              : getValue(metaKey, value),
         } as DescriptionListItem;
       })
       .filter((item): item is DescriptionListItem => !!item);

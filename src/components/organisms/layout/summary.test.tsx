@@ -12,17 +12,13 @@ const excerpt =
   'Perspiciatis quasi libero nemo non eligendi nam minima. Deleniti expedita tempore. Praesentium explicabo molestiae eaque consectetur vero. Quae nostrum quisquam similique. Ut hic est quas ut esse quisquam nobis.';
 
 const meta = {
-  publication: { date: '2022-04-11' },
-  readingTime: '5 minutes',
+  dates: { publication: '2022-04-11' },
+  readingTime: { wordsCount: excerpt.split(' ').length },
   thematics: [
-    <a key="cat-1" href="#">
-      Cat 1
-    </a>,
-    <a key="cat-2" href="#">
-      Cat 2
-    </a>,
+    { id: 'cat-1', name: 'Cat 1', url: '#' },
+    { id: 'cat-2', name: 'Cat 2', url: '#' },
   ],
-  commentsCount: '1 comment',
+  commentsCount: 1,
 };
 
 const title = 'Odio odit necessitatibus';
@@ -77,6 +73,6 @@ describe('Summary', () => {
 
   it('renders some meta', () => {
     render(<Summary excerpt={excerpt} meta={meta} title={title} url={url} />);
-    expect(screen.getByText(meta.readingTime)).toBeInTheDocument();
+    expect(screen.getByText(meta.thematics[0].name)).toBeInTheDocument();
   });
 });

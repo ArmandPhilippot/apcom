@@ -1,5 +1,4 @@
 @use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/variables" as var;
 
 h1 {
   font-size: var(--font-size-3xl);
@@ -116,7 +115,7 @@ dl {
 ul,
 ol,
 dl {
-  margin: var(--spacing-md) 0;
+  margin: var(--spacing-sm) 0;
 
   & & {
     margin: var(--spacing-2xs) 0 0;
@@ -137,13 +136,13 @@ a {
   background: linear-gradient(to top, var(--color-primary) 50%, transparent 50%)
     0 0 / 100% 200% no-repeat;
   color: var(--color-primary);
-  text-decoration-thickness: 13%;
+  text-decoration-thickness: 0.15em;
   text-underline-offset: 20%;
   transition: all 0.3s linear 0s, text-decoration 0.18s ease-in-out 0s;
 
   &:hover {
     color: var(--color-primary-light);
-    text-decoration-thickness: 23%;
+    text-decoration-thickness: 0.25em;
   }
 
   &:focus {
@@ -155,39 +154,6 @@ a {
     background-position: 0 0;
     color: var(--color-primary-dark);
     text-decoration-thickness: 18%;
-  }
-
-  &.external {
-    &::after {
-      display: inline-block;
-      content: "\0000a0"url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
-    }
-
-    &:focus:not(:active)::after {
-      content: "\0000a0"url(fun.encode-svg('<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_white}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_white}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'));
-    }
-  }
-
-  &[hreflang] {
-    &::after {
-      display: inline-block;
-      content: "\0000a0["attr(hreflang) "]";
-      font-size: var(--font-size-sm);
-    }
-
-    &.external {
-      &::after {
-        content: "\0000a0["attr(hreflang) "]\0000a0"url(fun.encode-svg(
-            '<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_blue}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_blue}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
-          ));
-      }
-
-      &:focus:not(:active)::after {
-        content: "\0000a0["attr(hreflang) "]\0000a0"url(fun.encode-svg(
-            '<svg width="13" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#{var.$light-theme_white}" d="M100 0 59.543 5.887l20.8 6.523-51.134 51.134 7.249 7.248L87.59 19.66l6.522 20.798z"/><path fill="#{var.$light-theme_white}" d="M4 10a4 4 0 0 0-4 4v82a4 4 0 0 0 4 4h82a4 4 0 0 0 4-4V62.314h-8V92H8V18h29.686v-8z"/></svg>'
-          ));
-      }
-    }
   }
 }
 
