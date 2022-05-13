@@ -115,3 +115,14 @@ export const topicsSlugQuery = `query TopicsSlug($first: Int = 10, $after: Strin
     }
   }
 }`;
+
+/**
+ * Query the total number of topics.
+ */
+export const totalTopicsQuery = `query TopicsTotal {
+  topics {
+    pageInfo {
+      total
+    }
+  }
+}`;

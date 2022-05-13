@@ -12,11 +12,13 @@ import {
   thematicBySlugQuery,
   thematicsListQuery,
   thematicsSlugQuery,
+  totalThematicsQuery,
 } from './thematics.query';
 import {
   topicBySlugQuery,
   topicsListQuery,
   topicsSlugQuery,
+  totalTopicsQuery,
 } from './topics.query';
 
 export type Mutations = typeof sendMailMutation;
@@ -33,7 +35,9 @@ export type Queries =
   | typeof topicBySlugQuery
   | typeof topicsListQuery
   | typeof topicsSlugQuery
-  | typeof totalArticlesQuery;
+  | typeof totalArticlesQuery
+  | typeof totalThematicsQuery
+  | typeof totalTopicsQuery;
 
 export type ArticleResponse<T> = {
   post: T;
@@ -105,6 +109,8 @@ export type ResponseMap<T> = {
   [topicsListQuery]: TopicsResponse<EdgesResponse<T>>;
   [topicsSlugQuery]: TopicsResponse<EdgesResponse<T>>;
   [totalArticlesQuery]: ArticlesResponse<T>;
+  [totalThematicsQuery]: ThematicsResponse<T>;
+  [totalTopicsQuery]: TopicsResponse<T>;
 };
 
 export type GraphQLResponse<
@@ -162,6 +168,8 @@ export type VariablesMap = {
   [topicsListQuery]: EdgesVars;
   [topicsSlugQuery]: EdgesVars;
   [totalArticlesQuery]: null;
+  [totalThematicsQuery]: null;
+  [totalTopicsQuery]: null;
 };
 
 export type FetchAPIProps<T extends Queries | Mutations> = {

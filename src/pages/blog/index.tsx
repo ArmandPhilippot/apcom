@@ -1,5 +1,9 @@
+import Notice from '@components/atoms/layout/notice';
 import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
+import LinksListWidget, {
+  LinksListItems,
+} from '@components/organisms/widgets/links-list-widget';
 import PageLayout from '@components/templates/page/page-layout';
 import { type EdgesResponse } from '@services/graphql/api';
 import {
@@ -7,8 +11,17 @@ import {
   getArticles,
   getTotalArticles,
 } from '@services/graphql/articles';
+import {
+  getThematicsPreview,
+  getTotalThematics,
+} from '@services/graphql/thematics';
+import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
 import { type Article, type Meta } from '@ts/types/app';
-import { type RawArticle } from '@ts/types/raw-data';
+import {
+  RawThematicPreview,
+  RawTopicPreview,
+  type RawArticle,
+} from '@ts/types/raw-data';
 import { settings } from '@utils/config';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import usePagination from '@utils/hooks/use-pagination';
@@ -22,6 +35,8 @@ import { Blog, Graph, WebPage } from 'schema-dts';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;
+  thematicsList: RawThematicPreview[];
+  topicsList: RawTopicPreview[];
   totalArticles: number;
   translation: Messages;
 };
@@ -29,7 +44,12 @@ type BlogPageProps = {
 /**
  * Blog index page.
  */
-const BlogPage: NextPage<BlogPageProps> = ({ articles, totalArticles }) => {
+const BlogPage: NextPage<BlogPageProps> = ({
+  articles,
+  thematicsList,
+  topicsList,
+  totalArticles,
+}) => {
   const intl = useIntl();
   const title = intl.formatMessage({
     defaultMessage: 'Blog',
@@ -183,6 +203,32 @@ const BlogPage: NextPage<BlogPageProps> = ({ articles, totalArticles }) => {
     setSize((prevSize) => prevSize + 1);
   };
 
+  const getLinksListItems = (
+    rawData: RawThematicPreview[] | RawTopicPreview[],
+    kind: 'thematic' | 'topic'
+  ): LinksListItems[] => {
+    const baseUrl = kind === 'thematic' ? '/thematique/' : '/sujet/';
+
+    return rawData.map((taxonomy) => {
+      return {
+        name: taxonomy.title,
+        url: `${baseUrl}${taxonomy.slug}`,
+      };
+    });
+  };
+
+  const thematicsListTitle = intl.formatMessage({
+    defaultMessage: 'Thematics',
+    description: 'BlogPage: thematics list widget title',
+    id: 'HriY57',
+  });
+
+  const topicsListTitle = intl.formatMessage({
+    defaultMessage: 'Topics',
+    description: 'BlogPage: topics list widget title',
+    id: '2D9tB5',
+  });
+
   return (
     <>
       <Head>
@@ -202,6 +248,20 @@ const BlogPage: NextPage<BlogPageProps> = ({ articles, totalArticles }) => {
         title={title}
         breadcrumb={breadcrumb}
         headerMeta={{ total: postsCount }}
+        widgets={[
+          <LinksListWidget
+            key="thematics-list"
+            items={getLinksListItems(thematicsList, 'thematic')}
+            title={thematicsListTitle}
+            level={2}
+          />,
+          <LinksListWidget
+            key="topics-list"
+            items={getLinksListItems(topicsList, 'topic')}
+            title={topicsListTitle}
+            level={2}
+          />,
+        ]}
       >
         {data && (
           <PostsList
@@ -213,25 +273,37 @@ const BlogPage: NextPage<BlogPageProps> = ({ articles, totalArticles }) => {
             total={totalArticles}
           />
         )}
-        {error &&
-          intl.formatMessage({
-            defaultMessage: 'Failed to load.',
-            description: 'BlogPage: failed to load text',
-            id: 'C/XGkH',
-          })}
+        {error && (
+          <Notice
+            kind="error"
+            message={intl.formatMessage({
+              defaultMessage: 'Failed to load.',
+              description: 'BlogPage: failed to load text',
+              id: 'C/XGkH',
+            })}
+          />
+        )}
       </PageLayout>
     </>
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
+  locale,
+}) => {
   const articles = await getArticles({ first: settings.postsPerPage });
   const totalArticles = await getTotalArticles();
+  const totalThematics = await getTotalThematics();
+  const thematics = await getThematicsPreview({ first: totalThematics });
+  const totalTopics = await getTotalTopics();
+  const topics = await getTopicsPreview({ first: totalTopics });
   const translation = await loadTranslation(locale);
 
   return {
     props: {
       articles: JSON.parse(JSON.stringify(articles)),
+      thematicsList: thematics.edges.map((edge) => edge.node),
+      topicsList: topics.edges.map((edge) => edge.node),
       totalArticles,
       translation,
     },

@@ -114,3 +114,14 @@ export const thematicsSlugQuery = `query ThematicsSlug($first: Int = 10, $after:
     }
   }
 }`;
+
+/**
+ * Query the total number of thematics.
+ */
+export const totalThematicsQuery = `query ThematicsTotal {
+  thematics {
+    pageInfo {
+      total
+    }
+  }
+}`;
