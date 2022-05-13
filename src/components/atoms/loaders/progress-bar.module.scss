@@ -1,7 +1,6 @@
 @use "@styles/abstracts/functions" as fun;
 
 .progress {
-  width: max-content;
   margin: var(--spacing-sm) auto var(--spacing-md);
   text-align: center;
 
@@ -15,6 +14,7 @@
     width: clamp(25ch, 20vw, 30ch);
     max-width: 100%;
     height: fun.convert-px(13);
+    margin: auto;
     appearance: none;
     background: var(--color-bg-tertiary);
     border: fun.convert-px(1) solid var(--color-primary-darker);

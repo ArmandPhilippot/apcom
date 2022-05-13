@@ -1,11 +1,17 @@
-import ProgressBar from '@components/atoms/loaders/progress-bar';
-import { BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
-import PostsList, { Post } from '@components/organisms/layout/posts-list';
+import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
+import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import PageLayout from '@components/templates/page/page-layout';
-import { getArticles, getTotalArticles } from '@services/graphql/articles';
-import { Article, Meta } from '@ts/types/app';
+import { type EdgesResponse } from '@services/graphql/api';
+import {
+  getArticleFromRawData,
+  getArticles,
+  getTotalArticles,
+} from '@services/graphql/articles';
+import { type Article, type Meta } from '@ts/types/app';
+import { type RawArticle } from '@ts/types/raw-data';
 import { settings } from '@utils/config';
-import { loadTranslation, Messages } from '@utils/helpers/i18n';
+import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import usePagination from '@utils/hooks/use-pagination';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -15,15 +21,15 @@ import { useIntl } from 'react-intl';
 import { Blog, Graph, WebPage } from 'schema-dts';
 
 type BlogPageProps = {
-  posts: Article[];
-  totalPosts: number;
+  articles: EdgesResponse<RawArticle>;
+  totalArticles: number;
   translation: Messages;
 };
 
 /**
  * Blog index page.
  */
-const BlogPage: NextPage<BlogPageProps> = ({ posts, totalPosts }) => {
+const BlogPage: NextPage<BlogPageProps> = ({ articles, totalArticles }) => {
   const intl = useIntl();
   const title = intl.formatMessage({
     defaultMessage: 'Blog',
@@ -40,7 +46,7 @@ const BlogPage: NextPage<BlogPageProps> = ({ posts, totalPosts }) => {
     { id: 'blog', name: title, url: '/blog' },
   ];
 
-  const { website } = useSettings();
+  const { blog, website } = useSettings();
   const { asPath } = useRouter();
   const pageTitle = intl.formatMessage(
     {
@@ -98,11 +104,17 @@ const BlogPage: NextPage<BlogPageProps> = ({ posts, totalPosts }) => {
       id: 'OF5cPz',
       description: 'BlogPage: posts count meta',
     },
-    { postsCount: totalPosts }
+    { postsCount: totalArticles }
   );
 
-  const getPostMeta = (data: Meta<'article'>): Post['meta'] => {
-    const { commentsCount, dates, thematics, wordsCount } = data;
+  /**
+   * Retrieve the formatted meta.
+   *
+   * @param {Meta<'article'>} meta - The article meta.
+   * @returns {Post['meta']} The formatted meta.
+   */
+  const getPostMeta = (meta: Meta<'article'>): Post['meta'] => {
+    const { commentsCount, dates, thematics, wordsCount } = meta;
 
     return {
       commentsCount,
@@ -114,7 +126,13 @@ const BlogPage: NextPage<BlogPageProps> = ({ posts, totalPosts }) => {
     };
   };
 
-  const getPosts = (): Post[] => {
+  /**
+   * Retrieve the formatted posts.
+   *
+   * @param {Article[]} posts - An array of articles.
+   * @returns {Post[]} An array of formatted posts.
+   */
+  const getPosts = (posts: Article[]): Post[] => {
     return posts.map((post) => {
       return {
         ...post,
@@ -124,6 +142,45 @@ const BlogPage: NextPage<BlogPageProps> = ({ posts, totalPosts }) => {
         url: `/article/${post.slug}`,
       };
     });
+  };
+
+  /**
+   * Retrieve the posts list from raw data.
+   *
+   * @param {EdgesResponse<RawArticle>[]} rawData - The raw data.
+   * @returns {Post[]} An array of posts.
+   */
+  const getPostsList = (rawData: EdgesResponse<RawArticle>[]): Post[] => {
+    const articlesList: RawArticle[] = [];
+    rawData.forEach((articleData) =>
+      articleData.edges.forEach((edge) => {
+        articlesList.push(edge.node);
+      })
+    );
+
+    return getPosts(
+      articlesList.map((article) => getArticleFromRawData(article))
+    );
+  };
+
+  const {
+    data,
+    error,
+    isLoadingInitialData,
+    isLoadingMore,
+    hasNextPage,
+    setSize,
+  } = usePagination<RawArticle>({
+    fallbackData: [articles],
+    fetcher: getArticles,
+    perPage: blog.postsPerPage,
+  });
+
+  /**
+   * Load more posts handler.
+   */
+  const loadMore = () => {
+    setSize((prevSize) => prevSize + 1);
   };
 
   return (
@@ -146,21 +203,36 @@ const BlogPage: NextPage<BlogPageProps> = ({ posts, totalPosts }) => {
         breadcrumb={breadcrumb}
         headerMeta={{ total: postsCount }}
       >
-        <PostsList posts={getPosts()} byYear={true} total={totalPosts} />
+        {data && (
+          <PostsList
+            byYear={true}
+            isLoading={isLoadingMore || isLoadingInitialData}
+            loadMore={loadMore}
+            posts={getPostsList(data)}
+            showLoadMoreBtn={hasNextPage}
+            total={totalArticles}
+          />
+        )}
+        {error &&
+          intl.formatMessage({
+            defaultMessage: 'Failed to load.',
+            description: 'BlogPage: failed to load text',
+            id: 'C/XGkH',
+          })}
       </PageLayout>
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const posts = await getArticles({ first: settings.postsPerPage });
-  const totalPosts = await getTotalArticles();
+  const articles = await getArticles({ first: settings.postsPerPage });
+  const totalArticles = await getTotalArticles();
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(posts.articles)),
-      totalPosts,
+      articles: JSON.parse(JSON.stringify(articles)),
+      totalArticles,
       translation,
     },
   };

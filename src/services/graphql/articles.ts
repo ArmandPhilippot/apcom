@@ -1,17 +1,18 @@
-import { type Article, type ArticleCard } from '@ts/types/app';
+import { Slug, type Article, type ArticleCard } from '@ts/types/app';
 import {
   type RawArticle,
   type RawArticlePreview,
   type TotalItems,
 } from '@ts/types/raw-data';
 import { getAuthorFromRawData } from '@utils/helpers/author';
-import { getDates } from '@utils/helpers/dates';
 import { getImageFromRawData } from '@utils/helpers/images';
 import { getPageLinkFromRawData } from '@utils/helpers/pages';
-import { EdgesVars, fetchAPI, getAPIUrl, PageInfo } from './api';
+import { EdgesResponse, EdgesVars, fetchAPI, getAPIUrl, PageInfo } from './api';
 import {
+  articleBySlugQuery,
   articlesCardQuery,
   articlesQuery,
+  articlesSlugQuery,
   totalArticlesQuery,
 } from './articles.query';
 
@@ -66,10 +67,7 @@ export const getArticleFromRawData = (data: RawArticle): Article => {
       cover: featuredImage?.node
         ? getImageFromRawData(featuredImage.node)
         : undefined,
-      dates: {
-        publication: date,
-        update: modified,
-      },
+      dates: { publication: date, update: modified },
       readingTime: info.readingTime,
       seo: {
         description: seo?.metaDesc || '',
@@ -91,25 +89,19 @@ export const getArticleFromRawData = (data: RawArticle): Article => {
 /**
  * Retrieve the given number of articles from API.
  *
- * @param {EdgesVars} obj - An object.
- * @param {number} obj.first - The number of articles.
- * @returns {Promise<GetArticlesReturn>} - The articles data.
+ * @param {EdgesVars} props - An object of GraphQL variables.
+ * @returns {Promise<EdgesResponse<RawArticle>>} The articles data.
  */
-export const getArticles = async ({
-  first,
-}: EdgesVars): Promise<GetArticlesReturn> => {
+export const getArticles = async (
+  props: EdgesVars
+): Promise<EdgesResponse<RawArticle>> => {
   const response = await fetchAPI<RawArticle, typeof articlesQuery>({
     api: getAPIUrl(),
     query: articlesQuery,
-    variables: { first },
+    variables: { ...props },
   });
 
-  return {
-    articles: response.posts.edges.map((edge) =>
-      getArticleFromRawData(edge.node)
-    ),
-    pageInfo: response.posts.pageInfo,
-  };
+  return response.posts;
 };
 
 /**
@@ -123,7 +115,7 @@ const getArticleCardFromRawData = (data: RawArticlePreview): ArticleCard => {
 
   return {
     cover: featuredImage ? getImageFromRawData(featuredImage.node) : undefined,
-    dates: getDates(date, ''),
+    dates: { publication: date },
     id: databaseId,
     slug,
     title,
@@ -147,4 +139,36 @@ export const getArticlesCard = async ({
   });
 
   return response.posts.nodes.map((node) => getArticleCardFromRawData(node));
+};
+
+/**
+ * Retrieve an Article object by slug.
+ *
+ * @param {string} slug - The article slug.
+ * @returns {Promise<Article>} The requested article.
+ */
+export const getArticleBySlug = async (slug: string): Promise<Article> => {
+  const response = await fetchAPI<RawArticle, typeof articleBySlugQuery>({
+    api: getAPIUrl(),
+    query: articleBySlugQuery,
+    variables: { slug },
+  });
+
+  return getArticleFromRawData(response.post);
+};
+
+/**
+ * Retrieve all the articles slugs.
+ *
+ * @returns {Promise<string[]>} - An array of articles slugs.
+ */
+export const getAllArticlesSlugs = async (): Promise<string[]> => {
+  const totalArticles = await getTotalArticles();
+  const response = await fetchAPI<Slug, typeof articlesSlugQuery>({
+    api: getAPIUrl(),
+    query: articlesSlugQuery,
+    variables: { first: totalArticles },
+  });
+
+  return response.posts.edges.map((edge) => edge.node.slug);
 };

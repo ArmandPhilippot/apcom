@@ -1,4 +1,8 @@
-import { getArticles, getTotalArticles } from '@services/graphql/articles';
+import {
+  getArticleFromRawData,
+  getArticles,
+  getTotalArticles,
+} from '@services/graphql/articles';
 import { Article } from '@ts/types/app';
 import { settings } from '@utils/config';
 import { Feed } from 'feed';
@@ -10,7 +14,12 @@ import { Feed } from 'feed';
  */
 const getAllArticles = async (): Promise<Article[]> => {
   const totalArticles = await getTotalArticles();
-  const { articles } = await getArticles({ first: totalArticles });
+  const rawArticles = await getArticles({ first: totalArticles });
+  const articles: Article[] = [];
+
+  rawArticles.edges.forEach((edge) =>
+    articles.push(getArticleFromRawData(edge.node))
+  );
 
   return articles;
 };

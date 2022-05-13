@@ -1,10 +1,11 @@
-import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
-import { FC } from 'react';
-import { useIntl } from 'react-intl';
-import Summary, { type SummaryProps } from './summary';
-import styles from './posts-list.module.scss';
-import ProgressBar from '@components/atoms/loaders/progress-bar';
 import Button from '@components/atoms/buttons/button';
+import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
+import ProgressBar from '@components/atoms/loaders/progress-bar';
+import Spinner from '@components/atoms/loaders/spinner';
+import { FC, Fragment, useRef } from 'react';
+import { useIntl } from 'react-intl';
+import styles from './posts-list.module.scss';
+import Summary, { type SummaryProps } from './summary';
 
 export type Post = SummaryProps & {
   /**
@@ -23,9 +24,21 @@ export type PostsListProps = {
    */
   byYear?: boolean;
   /**
+   * Determine if the data is loading.
+   */
+  isLoading?: boolean;
+  /**
+   * Load more button handler.
+   */
+  loadMore?: () => void;
+  /**
    * The posts data.
    */
   posts: Post[];
+  /**
+   * Determine if the load more button should be visible.
+   */
+  showLoadMoreBtn?: boolean;
   /**
    * The posts heading level (hn).
    */
@@ -62,29 +75,42 @@ const sortPostsByYear = (data: Post[]): YearCollection => {
  */
 const PostsList: FC<PostsListProps> = ({
   byYear = false,
+  isLoading = false,
+  loadMore,
   posts,
+  showLoadMoreBtn = false,
   titleLevel,
   total,
 }) => {
   const intl = useIntl();
+  const lastPostRef = useRef<HTMLSpanElement>(null);
 
   /**
    * Retrieve the list of posts.
    *
-   * @param {Posts[]} data - A collection fo posts.
+   * @param {Posts[]} allPosts - A collection fo posts.
    * @param {HeadingLevel} [headingLevel] - The posts heading level (hn).
    * @returns {JSX.Element} The list of posts.
    */
   const getList = (
-    data: Post[],
+    allPosts: Post[],
     headingLevel: HeadingLevel = 2
   ): JSX.Element => {
+    const lastPostId = allPosts[allPosts.length - 1].id;
+
     return (
       <ol className={styles.list}>
-        {data.map(({ id, ...post }) => (
-          <li key={id} className={styles.item}>
-            <Summary {...post} titleLevel={headingLevel} />
-          </li>
+        {allPosts.map(({ id, ...post }) => (
+          <Fragment key={id}>
+            <li className={styles.item}>
+              <Summary {...post} titleLevel={headingLevel} />
+            </li>
+            {id === lastPostId && (
+              <li>
+                <span ref={lastPostRef} tabIndex={-1} />
+              </li>
+            )}
+          </Fragment>
         ))}
       </ol>
     );
@@ -93,7 +119,7 @@ const PostsList: FC<PostsListProps> = ({
   /**
    * Retrieve the list of posts.
    *
-   * @returns {JSX.Element | JSX.Element[]} - The posts list.
+   * @returns {JSX.Element | JSX.Element[]} The posts list.
    */
   const getPosts = (): JSX.Element | JSX.Element[] => {
     if (!byYear) return getList(posts);
@@ -123,11 +149,22 @@ const PostsList: FC<PostsListProps> = ({
     { articlesCount: posts.length, total: total }
   );
 
-  const loadMore = intl.formatMessage({
+  const loadMoreBody = intl.formatMessage({
     defaultMessage: 'Load more articles?',
     id: 'uaqd5F',
     description: 'PostsList: load more button',
   });
+
+  /**
+   * Load more posts handler.
+   */
+  const loadMorePosts = () => {
+    if (lastPostRef.current) {
+      lastPostRef.current.focus();
+    }
+
+    loadMore && loadMore();
+  };
 
   return posts.length === 0 ? (
     <p>
@@ -140,13 +177,23 @@ const PostsList: FC<PostsListProps> = ({
   ) : (
     <>
       {getPosts()}
+      {isLoading && <Spinner />}
       <ProgressBar
         min={1}
         max={total}
         current={posts.length}
         info={progressInfo}
       />
-      <Button className={styles.btn}>{loadMore}</Button>
+      {showLoadMoreBtn && (
+        <Button
+          kind="tertiary"
+          onClick={loadMorePosts}
+          disabled={isLoading}
+          className={styles.btn}
+        >
+          {loadMoreBody}
+        </Button>
+      )}
     </>
   );
 };

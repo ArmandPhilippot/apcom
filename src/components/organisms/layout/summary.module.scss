@@ -2,6 +2,10 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-sm);
   padding: var(--spacing-2xs) 0 var(--spacing-lg);
 
   @include mix.media("screen") {
@@ -18,19 +22,26 @@
     }
 
     @include mix.dimensions("sm") {
-      display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
       grid-template-rows: repeat(3, max-content);
-      column-gap: var(--spacing-md);
+    }
+  }
+
+  &:hover {
+    .icon {
+      transform: scaleX(1.4);
+      transform-origin: left;
     }
   }
 }
 
 .cover {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   width: auto;
-  max-height: fun.convert-px(100);
+  height: fun.convert-px(100);
   max-width: 100%;
-  margin-bottom: var(--spacing-sm);
   border: fun.convert-px(1) solid var(--color-border);
 
   @include mix.media("screen") {
@@ -70,7 +81,9 @@
 }
 
 .title {
+  margin: 0;
   background: none;
+  color: inherit;
   text-shadow: none;
 }
 
@@ -79,17 +92,16 @@
   flex-flow: row nowrap;
   column-gap: var(--spacing-xs);
   width: max-content;
-  margin: var(--spacing-sm) 0;
+  margin: var(--spacing-sm) 0 0;
 }
 
 .meta {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    min(100vw, calc(50% - var(--spacing-lg)))
-  );
-  margin-top: var(--spacing-lg);
+  flex-flow: row wrap;
   font-size: var(--font-size-sm);
+
+  &__item {
+    flex: 1 0 min(calc(100vw - 2 * var(--spacing-md)), 14ch);
+  }
 
   @include mix.media("screen") {
     @include mix.dimensions("sm") {

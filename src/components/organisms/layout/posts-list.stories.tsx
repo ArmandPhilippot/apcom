@@ -9,6 +9,9 @@ export default {
   component: PostsList,
   args: {
     byYear: false,
+    isLoading: false,
+    showLoadMoreBtn: false,
+    titleLevel: 2,
   },
   argTypes: {
     byYear: {
@@ -25,12 +28,53 @@ export default {
         required: false,
       },
     },
+    isLoading: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Determine if the data is loading.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
+    loadMore: {
+      control: {
+        type: null,
+      },
+      description: 'A function to load more posts on button click.',
+      table: {
+        category: 'Events',
+      },
+      type: {
+        name: 'function',
+        required: false,
+      },
+    },
     posts: {
       description: 'The posts data.',
       type: {
         name: 'object',
         required: true,
         value: {},
+      },
+    },
+    showLoadMoreBtn: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Determine if the load more button should be visible.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
       },
     },
     titleLevel: {

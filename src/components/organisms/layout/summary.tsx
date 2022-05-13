@@ -141,12 +141,19 @@ const Summary: FC<SummaryProps> = ({
         <ButtonLink target={url} className={styles['read-more']}>
           <>
             {readMore}
-            <Arrow direction="right" />
+            <Arrow direction="right" className={styles.icon} />
           </>
         </ButtonLink>
       </div>
       <footer className={styles.footer}>
-        <Meta data={getMeta(meta)} layout="column" className={styles.meta} />
+        <Meta
+          data={getMeta(meta)}
+          layout="column"
+          itemsLayout="stacked"
+          withSeparator={false}
+          className={styles.meta}
+          groupClassName={styles.meta__item}
+        />
       </footer>
     </article>
   );
