@@ -16,6 +16,13 @@ export const topicBySlugQuery = `query TopicBy($slug: ID!) {
               }
             }
           }
+          author {
+            node {
+              gravatarUrl
+              name
+              url
+            }
+          }
           commentCount
           contentParts {
             beforeMore
