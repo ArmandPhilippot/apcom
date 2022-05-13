@@ -15,6 +15,13 @@ export const thematicBySlugQuery = `query ThematicBy($slug: ID!) {
               }
             }
           }
+          author {
+            node {
+              gravatarUrl
+              name
+              url
+            }
+          }
           commentCount
           contentParts {
             beforeMore

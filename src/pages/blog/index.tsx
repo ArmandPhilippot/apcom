@@ -24,6 +24,10 @@ import {
 } from '@ts/types/raw-data';
 import { settings } from '@utils/config';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import {
+  getLinksListItems,
+  getPageLinkFromRawData,
+} from '@utils/helpers/pages';
 import usePagination from '@utils/hooks/use-pagination';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticProps, NextPage } from 'next';
@@ -203,20 +207,6 @@ const BlogPage: NextPage<BlogPageProps> = ({
     setSize((prevSize) => prevSize + 1);
   };
 
-  const getLinksListItems = (
-    rawData: RawThematicPreview[] | RawTopicPreview[],
-    kind: 'thematic' | 'topic'
-  ): LinksListItems[] => {
-    const baseUrl = kind === 'thematic' ? '/thematique/' : '/sujet/';
-
-    return rawData.map((taxonomy) => {
-      return {
-        name: taxonomy.title,
-        url: `${baseUrl}${taxonomy.slug}`,
-      };
-    });
-  };
-
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Thematics',
     description: 'BlogPage: thematics list widget title',
@@ -251,13 +241,19 @@ const BlogPage: NextPage<BlogPageProps> = ({
         widgets={[
           <LinksListWidget
             key="thematics-list"
-            items={getLinksListItems(thematicsList, 'thematic')}
+            items={getLinksListItems(
+              thematicsList.map(getPageLinkFromRawData),
+              'thematic'
+            )}
             title={thematicsListTitle}
             level={2}
           />,
           <LinksListWidget
             key="topics-list"
-            items={getLinksListItems(topicsList, 'topic')}
+            items={getLinksListItems(
+              topicsList.map(getPageLinkFromRawData),
+              'topic'
+            )}
             title={topicsListTitle}
             level={2}
           />,

@@ -122,18 +122,20 @@ const PostsList: FC<PostsListProps> = ({
    * @returns {JSX.Element | JSX.Element[]} The posts list.
    */
   const getPosts = (): JSX.Element | JSX.Element[] => {
-    if (!byYear) return getList(posts);
+    const firstLevel = titleLevel || 2;
+    if (!byYear) return getList(posts, firstLevel);
 
     const postsPerYear = sortPostsByYear(posts);
     const years = Object.keys(postsPerYear).reverse();
+    const nextLevel = (firstLevel + 1) as HeadingLevel;
 
     return years.map((year) => {
       return (
         <section key={year} className={styles.section}>
-          <Heading level={2} className={styles.year}>
+          <Heading level={firstLevel} className={styles.year}>
             {year}
           </Heading>
-          {getList(postsPerYear[year], titleLevel)}
+          {getList(postsPerYear[year], nextLevel)}
         </section>
       );
     });
