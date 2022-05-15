@@ -85,12 +85,12 @@ export default {
     },
     id: {
       control: {
-        type: 'text',
+        type: 'number',
       },
       description: 'The page id.',
       type: {
-        name: 'string',
-        required: true,
+        name: 'number',
+        required: false,
       },
     },
     intro: {

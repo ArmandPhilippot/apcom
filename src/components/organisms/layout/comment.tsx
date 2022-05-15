@@ -25,7 +25,7 @@ export type CommentAuthor = {
   url?: string;
 };
 
-export type CommentProps = {
+export type CommentProps = Pick<CommentFormProps, 'Notice' | 'saveComment'> & {
   /**
    * The comment author data.
    */
@@ -50,10 +50,6 @@ export type CommentProps = {
    * The comment date and time separated with a space.
    */
   publication: string;
-  /**
-   * A callback function to save comment form data.
-   */
-  saveComment: CommentFormProps['saveComment'];
 };
 
 /**
@@ -66,6 +62,7 @@ const Comment: FC<CommentProps> = ({
   canReply = true,
   content,
   id,
+  Notice,
   parentId,
   publication,
   saveComment,
@@ -169,7 +166,10 @@ const Comment: FC<CommentProps> = ({
           className={styles.date}
           groupClassName={styles.date__item}
         />
-        <div className={styles.body}>{content}</div>
+        <div
+          className={styles.body}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
         <footer className={styles.footer}>
           {canReply && (
             <Button kind="tertiary" onClick={() => setIsReplying(!isReplying)}>
@@ -180,6 +180,8 @@ const Comment: FC<CommentProps> = ({
       </article>
       {isReplying && (
         <CommentForm
+          Notice={Notice}
+          parentId={id as number}
           saveComment={saveComment}
           title={formTitle}
           className={`${styles.wrapper} ${styles['wrapper--form']}`}

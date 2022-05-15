@@ -7,6 +7,14 @@ import { FC, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './comment-form.module.scss';
 
+export type CommentFormData = {
+  comment: string;
+  email: string;
+  name: string;
+  parentId?: number;
+  website?: string;
+};
+
 export type CommentFormProps = {
   /**
    * Set additional classnames to the form wrapper.
@@ -17,10 +25,14 @@ export type CommentFormProps = {
    */
   Notice?: ReactNode;
   /**
+   * The comment parent id.
+   */
+  parentId?: number;
+  /**
    * A callback function to save comment. It takes a function as parameter to
    * reset the form.
    */
-  saveComment: (reset: () => void) => void;
+  saveComment: (data: CommentFormData, reset: () => void) => Promise<void>;
   /**
    * The form title.
    */
@@ -34,6 +46,7 @@ export type CommentFormProps = {
 const CommentForm: FC<CommentFormProps> = ({
   className = '',
   Notice,
+  parentId,
   saveComment,
   title,
   titleLevel = 2,
@@ -95,7 +108,9 @@ const CommentForm: FC<CommentFormProps> = ({
    */
   const submitHandler = () => {
     setIsSubmitting(true);
-    saveComment(resetForm);
+    saveComment({ comment, email, name, parentId, website }, resetForm).then(
+      () => setIsSubmitting(false)
+    );
   };
 
   return (

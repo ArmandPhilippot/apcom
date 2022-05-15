@@ -1,6 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import CommentsListComponent, { Comment } from './comments-list';
+
+const saveComment = async () => {
+  /** Do nothing. */
+};
 
 /**
  * CommentsList - Storybook Meta
@@ -8,6 +11,9 @@ import CommentsListComponent, { Comment } from './comments-list';
 export default {
   title: 'Organisms/Layout/CommentsList',
   component: CommentsListComponent,
+  args: {
+    saveComment,
+  },
   argTypes: {
     comments: {
       control: {
@@ -30,6 +36,19 @@ export default {
         required: true,
       },
     },
+    Notice: {
+      control: {
+        type: null,
+      },
+      description: 'A component to display a success or error message.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'function',
+        required: false,
+      },
+    },
     saveComment: {
       control: {
         type: null,
@@ -44,13 +63,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof CommentsListComponent>;
 
 const Template: ComponentStory<typeof CommentsListComponent> = (args) => (
@@ -130,7 +142,6 @@ export const WithoutChildComments = Template.bind({});
 WithoutChildComments.args = {
   comments,
   depth: 0,
-  saveComment: () => null,
 };
 
 /**
@@ -140,5 +151,4 @@ export const WithChildComments = Template.bind({});
 WithChildComments.args = {
   comments,
   depth: 1,
-  saveComment: () => null,
 };

@@ -1,6 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import CommentComponent from './comment';
+
+const saveComment = async () => {
+  /** Do nothing. */
+};
 
 /**
  * Comment - Storybook Meta
@@ -8,6 +11,9 @@ import CommentComponent from './comment';
 export default {
   title: 'Organisms/Layout',
   component: CommentComponent,
+  args: {
+    saveComment,
+  },
   argTypes: {
     author: {
       description: 'The author data.',
@@ -51,6 +57,29 @@ export default {
         required: true,
       },
     },
+    Notice: {
+      control: {
+        type: null,
+      },
+      description: 'A component to display a success or error message.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'function',
+        required: false,
+      },
+    },
+    parentId: {
+      control: {
+        type: null,
+      },
+      description: 'The parent id if it is a reply.',
+      type: {
+        name: 'number',
+        required: false,
+      },
+    },
     publication: {
       description: 'The publication date.',
       type: {
@@ -73,13 +102,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof CommentComponent>;
 
 const Template: ComponentStory<typeof CommentComponent> = (args) => (
@@ -100,7 +122,6 @@ Comment.args = {
     'Harum aut cumque iure fugit neque sequi cupiditate repudiandae laudantium. Ratione aut assumenda qui illum voluptas accusamus quis officiis exercitationem. Consectetur est harum eius perspiciatis officiis nihil. Aut corporis minima debitis adipisci possimus debitis et.',
   id: 2,
   publication: '2021-04-03 23:04:24',
-  saveComment: () => null,
   // @ts-ignore - Needed because of the placeholder image.
   unoptimized: true,
 };

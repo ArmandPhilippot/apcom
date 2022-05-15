@@ -1,6 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import CommentForm from './comment-form';
+
+const saveComment = async () => {
+  /** Do nothing. */
+};
 
 /**
  * CommentForm - Storybook Meta
@@ -8,6 +11,9 @@ import CommentForm from './comment-form';
 export default {
   title: 'Organisms/Forms',
   component: CommentForm,
+  args: {
+    saveComment,
+  },
   argTypes: {
     className: {
       control: {
@@ -32,6 +38,16 @@ export default {
       },
       type: {
         name: 'function',
+        required: false,
+      },
+    },
+    parentId: {
+      control: {
+        type: null,
+      },
+      description: 'The parent id if it is a reply.',
+      type: {
+        name: 'number',
         required: false,
       },
     },
@@ -74,13 +90,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof CommentForm>;
 
 const Template: ComponentStory<typeof CommentForm> = (args) => (
@@ -91,8 +100,3 @@ const Template: ComponentStory<typeof CommentForm> = (args) => (
  * Forms Stories - Comment
  */
 export const Comment = Template.bind({});
-Comment.args = {
-  saveComment: (reset: () => void) => {
-    reset();
-  },
-};

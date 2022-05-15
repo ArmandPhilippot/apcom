@@ -8,7 +8,7 @@ export type Comment = Omit<CommentProps, 'canReply' | 'saveComment'> & {
   child?: Comment[];
 };
 
-export type CommentsListProps = {
+export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
   /**
    * An array of comments.
    */
@@ -17,10 +17,6 @@ export type CommentsListProps = {
    * The maximum depth. Use `0` to not display nested comments.
    */
   depth: 0 | 1 | 2 | 3 | 4;
-  /**
-   * A callback function to save comment form data.
-   */
-  saveComment: CommentProps['saveComment'];
 };
 
 /**
@@ -31,6 +27,7 @@ export type CommentsListProps = {
 const CommentsList: FC<CommentsListProps> = ({
   comments,
   depth,
+  Notice,
   saveComment,
 }) => {
   /**
@@ -48,8 +45,9 @@ const CommentsList: FC<CommentsListProps> = ({
     return commentsList.map(({ child, ...comment }) => (
       <li key={comment.id} className={styles.item}>
         <SingleComment
-          saveComment={saveComment}
           canReply={!isLastLevel}
+          Notice={Notice}
+          saveComment={saveComment}
           {...comment}
         />
         {child && !isLastLevel && (

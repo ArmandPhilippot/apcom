@@ -57,10 +57,14 @@ const comments: Comment[] = [
   },
 ];
 
+const saveComment = async () => {
+  /** Do nothing. */
+};
+
 describe('CommentsList', () => {
   it('renders a comments list', () => {
     render(
-      <CommentsList comments={comments} depth={1} saveComment={() => null} />
+      <CommentsList comments={comments} depth={1} saveComment={saveComment} />
     );
   });
 });

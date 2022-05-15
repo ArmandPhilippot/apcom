@@ -6,6 +6,7 @@ import {
   articlesSlugQuery,
   totalArticlesQuery,
 } from './articles.query';
+import { sendCommentMutation } from './comments.mutation';
 import { commentsQuery } from './comments.query';
 import { sendMailMutation } from './contact.mutation';
 import {
@@ -21,7 +22,7 @@ import {
   totalTopicsQuery,
 } from './topics.query';
 
-export type Mutations = typeof sendMailMutation;
+export type Mutations = typeof sendMailMutation | typeof sendCommentMutation;
 
 export type Queries =
   | typeof articlesQuery
@@ -49,6 +50,10 @@ export type ArticlesResponse<T> = {
 
 export type CommentsResponse<T> = {
   comments: T;
+};
+
+export type SendCommentResponse<T> = {
+  createComment: T;
 };
 
 export type SendMailResponse<T> = {
@@ -101,6 +106,7 @@ export type ResponseMap<T> = {
   [articlesQuery]: ArticlesResponse<EdgesResponse<T>>;
   [articlesSlugQuery]: ArticlesResponse<EdgesResponse<T>>;
   [commentsQuery]: CommentsResponse<NodesResponse<T>>;
+  [sendCommentMutation]: SendCommentResponse<T>;
   [sendMailMutation]: SendMailResponse<T>;
   [thematicBySlugQuery]: ThematicResponse<T>;
   [thematicsListQuery]: ThematicsResponse<EdgesResponse<T>>;
@@ -154,10 +160,53 @@ export type SearchVar = {
   search?: string;
 };
 
-export type SendMailVars = {
-  body: string;
+export type SendCommentVars = {
+  /**
+   * The author name.
+   */
+  author: string;
+  /**
+   * The author e-mail address.
+   */
+  authorEmail: string;
+  /**
+   * The author website.
+   */
+  authorUrl: string;
+  /**
+   * A mutation id.
+   */
   clientMutationId: string;
+  /**
+   * A post or page id.
+   */
+  commentOn: number;
+  /**
+   * The comment body.
+   */
+  content: string;
+  /**
+   * The comment parent.
+   */
+  parent?: number;
+};
+
+export type SendMailVars = {
+  /**
+   * The mail body.
+   */
+  body: string;
+  /**
+   * A mutation id.
+   */
+  clientMutationId: string;
+  /**
+   * The reply to e-mail address.
+   */
   replyTo: string;
+  /**
+   * The mail subject.
+   */
   subject: string;
 };
 
@@ -167,6 +216,7 @@ export type VariablesMap = {
   [articlesQuery]: EdgesVars;
   [articlesSlugQuery]: EdgesVars;
   [commentsQuery]: ByContentIdVar;
+  [sendCommentMutation]: SendCommentVars;
   [sendMailMutation]: SendMailVars;
   [thematicBySlugQuery]: BySlugVar;
   [thematicsListQuery]: EdgesVars;

@@ -11,13 +11,15 @@ const content =
   'Harum aut cumque iure fugit neque sequi cupiditate repudiandae laudantium. Ratione aut assumenda qui illum voluptas accusamus quis officiis exercitationem. Consectetur est harum eius perspiciatis officiis nihil. Aut corporis minima debitis adipisci possimus debitis et.';
 const publication = '2021-04-03 23:04:24';
 const id = 5;
-
+const saveComment = async () => {
+  /** Do nothing. */
+};
 const data = {
   author,
   content,
   id,
   publication,
-  saveComment: () => null,
+  saveComment,
 };
 
 const formattedDate = getFormattedDate(publication);

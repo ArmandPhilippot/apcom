@@ -1,4 +1,5 @@
 import Heading from '@components/atoms/headings/heading';
+import Notice, { type NoticeKind } from '@components/atoms/layout/notice';
 import Sidebar from '@components/atoms/layout/sidebar';
 import PageFooter, {
   type PageFooterProps,
@@ -9,15 +10,19 @@ import PageHeader, {
 import Breadcrumb, {
   type BreadcrumbItem,
 } from '@components/molecules/nav/breadcrumb';
-import CommentForm from '@components/organisms/forms/comment-form';
+import CommentForm, {
+  type CommentFormProps,
+} from '@components/organisms/forms/comment-form';
 import CommentsList, {
   type CommentsListProps,
 } from '@components/organisms/layout/comments-list';
 import TableOfContents from '@components/organisms/widgets/table-of-contents';
+import { type SendCommentVars } from '@services/graphql/api';
+import { sendComment } from '@services/graphql/comments';
 import useIsMounted from '@utils/hooks/use-is-mounted';
-import { FC, ReactNode, useRef } from 'react';
+import { FC, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
-import Layout, { LayoutProps } from '../layout/layout';
+import Layout, { type LayoutProps } from '../layout/layout';
 import styles from './page-layout.module.scss';
 
 export type PageLayoutProps = {
@@ -45,6 +50,10 @@ export type PageLayoutProps = {
    * The header metadata.
    */
   headerMeta?: PageHeaderProps['meta'];
+  /**
+   * The page id.
+   */
+  id?: number;
   /**
    * The page introduction.
    */
@@ -79,6 +88,7 @@ const PageLayout: FC<PageLayoutProps> = ({
   comments,
   footerMeta,
   headerMeta,
+  id,
   intro,
   isHome = false,
   widgets,
@@ -106,8 +116,56 @@ const PageLayout: FC<PageLayoutProps> = ({
     ? 'article--has-comments'
     : 'article--no-comments';
 
-  const saveComment = () => {
-    return null;
+  const [status, setStatus] = useState<NoticeKind>('info');
+  const [statusMessage, setStatusMessage] = useState<string>('');
+  const isReplyRef = useRef<boolean>(false);
+
+  const saveComment: CommentFormProps['saveComment'] = async (data, reset) => {
+    if (!id) throw new Error('Page id missing. Cannot save comment.');
+
+    const { comment: commentBody, email, name, parentId, website } = data;
+    const commentData: SendCommentVars = {
+      author: name,
+      authorEmail: email,
+      authorUrl: website || '',
+      clientMutationId: 'contact',
+      commentOn: id,
+      content: commentBody,
+      parent: parentId,
+    };
+    const { comment, success } = await sendComment(commentData);
+
+    isReplyRef.current = !!parentId;
+
+    if (success) {
+      setStatus('success');
+      const successPrefix = intl.formatMessage({
+        defaultMessage: 'Thanks, your comment was successfully sent.',
+        description: 'PageLayout: comment form success message',
+        id: 'B290Ph',
+      });
+      const successMessage = comment?.approved
+        ? intl.formatMessage({
+            defaultMessage: 'It has been approved.',
+            id: 'g3+Ahv',
+            description: 'PageLayout: comment approved.',
+          })
+        : intl.formatMessage({
+            defaultMessage: 'It is now awaiting moderation.',
+            id: 'Vmj5cw',
+            description: 'PageLayout: comment awaiting moderation',
+          });
+      setStatusMessage(`${successPrefix} ${successMessage}`);
+      reset();
+    } else {
+      const error = intl.formatMessage({
+        defaultMessage: 'An error occurred:',
+        description: 'PageLayout: comment form error message',
+        id: 'fkcTGp',
+      });
+      setStatus('error');
+      setStatusMessage(error);
+    }
   };
 
   return (
@@ -154,15 +212,36 @@ const PageLayout: FC<PageLayoutProps> = ({
             <section className={styles.comments__section}>
               <Heading level={2}>{commentsTitle}</Heading>
               <CommentsList
-                saveComment={saveComment}
                 comments={comments}
-                depth={2}
+                depth={1}
+                Notice={
+                  isReplyRef.current === true ? (
+                    <Notice
+                      kind={status}
+                      message={statusMessage}
+                      className={styles.notice}
+                    />
+                  ) : undefined
+                }
+                saveComment={saveComment}
               />
             </section>
           )}
           {allowComments && (
             <section className={styles.comments__section}>
-              <CommentForm saveComment={saveComment} title={commentFormTitle} />
+              <CommentForm
+                saveComment={saveComment}
+                title={commentFormTitle}
+                Notice={
+                  isReplyRef.current === false ? (
+                    <Notice
+                      kind={status}
+                      message={statusMessage}
+                      className={styles.notice}
+                    />
+                  ) : undefined
+                }
+              />
             </section>
           )}
         </div>

@@ -1,7 +1,6 @@
 @use "@styles/abstracts/functions" as fun;
 
 .wrapper {
-  width: max-content;
   padding: var(--spacing-2xs) var(--spacing-xs);
   border: fun.convert-px(2) solid;
   font-weight: bold;
