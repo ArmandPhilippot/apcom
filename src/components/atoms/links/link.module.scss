@@ -2,6 +2,29 @@
 @use "@styles/abstracts/variables" as var;
 
 .link {
+  background: linear-gradient(to top, var(--color-primary) 50%, transparent 50%)
+    0 0 / 100% 201% no-repeat;
+  color: var(--color-primary);
+  text-decoration-thickness: 0.15em;
+  text-underline-offset: 20%;
+  transition: all 0.3s linear 0s, text-decoration 0.18s ease-in-out 0s;
+
+  &:hover {
+    color: var(--color-primary-light);
+    text-decoration-thickness: 0.25em;
+  }
+
+  &:focus {
+    background-position: 0 100%;
+    color: var(--color-fg-inverted);
+  }
+
+  &:active {
+    background-position: 0 0;
+    color: var(--color-primary-dark);
+    text-decoration-thickness: 18%;
+  }
+
   &[hreflang] {
     &::after {
       display: inline-block;

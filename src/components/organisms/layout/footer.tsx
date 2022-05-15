@@ -4,6 +4,7 @@ import Copyright, {
 import BackToTop from '@components/molecules/buttons/back-to-top';
 import Nav, { type NavItem } from '@components/molecules/nav/nav';
 import { FC } from 'react';
+import { useIntl } from 'react-intl';
 import styles from './footer.module.scss';
 
 export type FooterProps = {
@@ -31,6 +32,13 @@ export type FooterProps = {
  * Renders a footer with copyright and nav;
  */
 const Footer: FC<FooterProps> = ({ className, copyright, navItems, topId }) => {
+  const intl = useIntl();
+  const ariaLabel = intl.formatMessage({
+    defaultMessage: 'Footer',
+    description: 'Footer: an accessible name for footer nav',
+    id: 'd4N8nD',
+  });
+
   return (
     <footer className={`${styles.wrapper} ${className}`}>
       <Copyright
@@ -39,7 +47,12 @@ const Footer: FC<FooterProps> = ({ className, copyright, navItems, topId }) => {
         icon={copyright.icon}
       />
       {navItems && (
-        <Nav kind="footer" items={navItems} className={styles.nav} />
+        <Nav
+          aria-label={ariaLabel}
+          kind="footer"
+          items={navItems}
+          className={styles.nav}
+        />
       )}
       <BackToTop target={topId} className={styles['back-to-top']} />
     </footer>

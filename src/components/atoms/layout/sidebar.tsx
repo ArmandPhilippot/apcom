@@ -3,6 +3,10 @@ import styles from './sidebar.module.scss';
 
 export type SidebarProps = {
   /**
+   * An accessible name for the sidebar.
+   */
+  'aria-label'?: string;
+  /**
    * The sidebar body.
    */
   children: ReactNode;
@@ -17,9 +21,9 @@ export type SidebarProps = {
  *
  * Render an aside element.
  */
-const Sidebar: FC<SidebarProps> = ({ children, className = '' }) => {
+const Sidebar: FC<SidebarProps> = ({ children, className = '', ...props }) => {
   return (
-    <aside className={`${styles.wrapper} ${className}`}>
+    <aside className={`${styles.wrapper} ${className}`} {...props}>
       <div className={styles.body}>{children}</div>
     </aside>
   );

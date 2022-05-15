@@ -9,6 +9,19 @@ export default {
   title: 'Atoms/Layout',
   component: SidebarComponent,
   argTypes: {
+    'aria-label': {
+      control: {
+        type: 'text',
+      },
+      description: 'An accessible name for the sidebar.',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     children: {
       control: {
         type: 'text',

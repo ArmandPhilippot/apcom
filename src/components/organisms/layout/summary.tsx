@@ -116,6 +116,7 @@ const Summary: FC<SummaryProps> = ({
         </Link>
       )),
       comments: {
+        about: title,
         count: commentsCount || 0,
         target: `${url}#comments`,
       },
@@ -126,7 +127,7 @@ const Summary: FC<SummaryProps> = ({
     <article className={styles.wrapper}>
       {cover && <ResponsiveImage className={styles.cover} {...cover} />}
       <header className={styles.header}>
-        <Link href={url}>
+        <Link href={url} className={styles.link}>
           <Heading level={titleLevel} className={styles.title}>
             {title}
           </Heading>

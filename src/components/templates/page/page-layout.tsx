@@ -185,7 +185,14 @@ const PageLayout: FC<PageLayoutProps> = ({
         className={styles.header}
       />
       {withToC && (
-        <Sidebar className={`${styles.sidebar} ${styles['sidebar--first']}`}>
+        <Sidebar
+          className={`${styles.sidebar} ${styles['sidebar--first']}`}
+          aria-label={intl.formatMessage({
+            defaultMessage: 'Table of contents sidebar',
+            id: 'Q+1GbT',
+            description: 'PageLayout: accessible name for ToC sidebar',
+          })}
+        >
           {isMounted && bodyRef.current && (
             <TableOfContents wrapper={bodyRef.current} />
           )}
@@ -203,7 +210,14 @@ const PageLayout: FC<PageLayoutProps> = ({
         </div>
       )}
       <PageFooter meta={footerMeta} className={styles.footer} />
-      <Sidebar className={`${styles.sidebar} ${styles['sidebar--last']}`}>
+      <Sidebar
+        className={`${styles.sidebar} ${styles['sidebar--last']}`}
+        aria-label={intl.formatMessage({
+          defaultMessage: 'Sidebar',
+          id: 'c556Qo',
+          description: 'PageLayout: accessible name for the sidebar',
+        })}
+      >
         {widgets}
       </Sidebar>
       {hasCommentsSection && (

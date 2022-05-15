@@ -14,6 +14,10 @@ export type CustomMeta = {
 
 export type MetaComments = {
   /**
+   * A page title.
+   */
+  about: string;
+  /**
    * The comments count.
    */
   count: number;
@@ -269,19 +273,29 @@ const Meta: FC<MetaProps> = ({
    * @param comments - The comments object.
    * @returns {string | JSX.Element} - The comments count.
    */
-  const getCommentsCount = (comments: MetaComments) => {
-    const { count, target } = comments;
+  const getCommentsCount = (comments: MetaComments): string | JSX.Element => {
+    const { about, count, target } = comments;
     const commentsCount = intl.formatMessage(
       {
         defaultMessage:
-          '{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}',
-        id: 'adTrj7',
+          '{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}<a11y> about {title}</a11y>',
+        id: '02rgLO',
         description: 'Meta: comments count',
       },
-      { commentsCount: count }
+      {
+        a11y: (chunks: ReactNode) => (
+          <span className="screen-reader-text">{chunks}</span>
+        ),
+        commentsCount: count,
+        title: about,
+      }
     );
 
-    return target ? <Link href={target}>{commentsCount}</Link> : commentsCount;
+    return target ? (
+      <Link href={target}>{commentsCount as JSX.Element}</Link>
+    ) : (
+      (commentsCount as JSX.Element)
+    );
   };
 
   /**

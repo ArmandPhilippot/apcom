@@ -322,7 +322,7 @@ const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
   };
 
   return (
-    <Layout>
+    <Layout isHome={true}>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
