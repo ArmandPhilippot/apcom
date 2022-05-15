@@ -1,4 +1,5 @@
 import Notice from '@components/atoms/layout/notice';
+import Spinner from '@components/atoms/loaders/spinner';
 import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
@@ -20,12 +21,12 @@ import {
   RawTopicPreview,
   type RawArticle,
 } from '@ts/types/raw-data';
-import { settings } from '@utils/config';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import {
   getLinksListItems,
   getPageLinkFromRawData,
 } from '@utils/helpers/pages';
+import useDataFromAPI from '@utils/hooks/use-data-from-api';
 import usePagination from '@utils/hooks/use-pagination';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticProps, NextPage } from 'next';
@@ -35,58 +36,71 @@ import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import { Blog, Graph, WebPage } from 'schema-dts';
 
-type BlogPageProps = {
-  articles: EdgesResponse<RawArticle>;
+type SearchPageProps = {
   thematicsList: RawThematicPreview[];
   topicsList: RawTopicPreview[];
-  totalArticles: number;
   translation: Messages;
 };
 
 /**
- * Blog index page.
+ * Search page.
  */
-const BlogPage: NextPage<BlogPageProps> = ({
-  articles,
+const SearchPage: NextPage<SearchPageProps> = ({
   thematicsList,
   topicsList,
-  totalArticles,
 }) => {
   const intl = useIntl();
-  const title = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'BlogPage: page title',
-    id: '7TbbIk',
-  });
+  const { asPath, query } = useRouter();
+  const title = query.s
+    ? intl.formatMessage(
+        {
+          defaultMessage: 'Search results for {query}',
+          description: 'SearchPage: SEO - Page title',
+          id: 'ZNBhDP',
+        },
+        { query: query.s as string }
+      )
+    : intl.formatMessage({
+        defaultMessage: 'Search',
+        description: 'SearchPage: SEO - Page title',
+        id: 'WDwNDl',
+      });
   const homeLabel = intl.formatMessage({
     defaultMessage: 'Home',
     description: 'Breadcrumb: home label',
     id: 'j5k9Fe',
   });
+  const blogLabel = intl.formatMessage({
+    defaultMessage: 'Blog',
+    description: 'Breadcrumb: blog label',
+    id: 'Es52wh',
+  });
   const breadcrumb: BreadcrumbItem[] = [
     { id: 'home', name: homeLabel, url: '/' },
-    { id: 'blog', name: title, url: '/blog' },
+    { id: 'blog', name: blogLabel, url: '/blog' },
+    { id: 'search', name: title, url: '/recherche' },
   ];
 
   const { blog, website } = useSettings();
-  const { asPath } = useRouter();
-  const pageTitle = intl.formatMessage(
-    {
-      defaultMessage: 'Blog: development, open source - {websiteName}',
-      description: 'BlogPage: SEO - Page title',
-      id: '+Y+tLK',
-    },
-    { websiteName: website.name }
-  );
-  const pageDescription = intl.formatMessage(
-    {
-      defaultMessage:
-        "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
-      description: 'BlogPage: SEO - Meta description',
-      id: '18h/t0',
-    },
-    { websiteName: website.name }
-  );
+  const pageTitle = `${title} - ${website.name}`;
+  const pageDescription = query.s
+    ? intl.formatMessage(
+        {
+          defaultMessage:
+            'Discover search results for {query} on {websiteName}.',
+          description: 'SearchPage: SEO - Meta description',
+          id: 'pg26sn',
+        },
+        { query: query.s as string, websiteName: website.name }
+      )
+    : intl.formatMessage(
+        {
+          defaultMessage: 'Search for a post on {websiteName}.',
+          description: 'SearchPage: SEO - Meta description',
+          id: 'npisb3',
+        },
+        { websiteName: website.name }
+      );
   const pageUrl = `${website.url}${asPath}`;
 
   const webpageSchema: WebPage = {
@@ -119,14 +133,32 @@ const BlogPage: NextPage<BlogPageProps> = ({
     '@graph': [webpageSchema, blogSchema],
   };
 
+  const {
+    data,
+    error,
+    isLoadingInitialData,
+    isLoadingMore,
+    hasNextPage,
+    setSize,
+  } = usePagination<RawArticle>({
+    fallbackData: [],
+    fetcher: getArticles,
+    perPage: blog.postsPerPage,
+    search: query.s as string,
+  });
+
+  const totalArticles = useDataFromAPI<number>(() =>
+    getTotalArticles(query.s as string)
+  );
+
   const postsCount = intl.formatMessage(
     {
       defaultMessage:
         '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-      id: 'OF5cPz',
-      description: 'BlogPage: posts count meta',
+      id: 'LtsVOx',
+      description: 'SearchPage: posts count meta',
     },
-    { postsCount: totalArticles }
+    { postsCount: totalArticles || 0 }
   );
 
   /**
@@ -185,19 +217,6 @@ const BlogPage: NextPage<BlogPageProps> = ({
     );
   };
 
-  const {
-    data,
-    error,
-    isLoadingInitialData,
-    isLoadingMore,
-    hasNextPage,
-    setSize,
-  } = usePagination<RawArticle>({
-    fallbackData: [articles],
-    fetcher: getArticles,
-    perPage: blog.postsPerPage,
-  });
-
   /**
    * Load more posts handler.
    */
@@ -207,14 +226,14 @@ const BlogPage: NextPage<BlogPageProps> = ({
 
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Thematics',
-    description: 'BlogPage: thematics list widget title',
-    id: 'HriY57',
+    description: 'SearchPage: thematics list widget title',
+    id: 'Dq6+WH',
   });
 
   const topicsListTitle = intl.formatMessage({
     defaultMessage: 'Topics',
-    description: 'BlogPage: topics list widget title',
-    id: '2D9tB5',
+    description: 'SearchPage: topics list widget title',
+    id: 'N804XO',
   });
 
   return (
@@ -257,23 +276,25 @@ const BlogPage: NextPage<BlogPageProps> = ({
           />,
         ]}
       >
-        {data && (
+        {data && data.length > 0 ? (
           <PostsList
             byYear={true}
             isLoading={isLoadingMore || isLoadingInitialData}
             loadMore={loadMore}
             posts={getPostsList(data)}
             showLoadMoreBtn={hasNextPage}
-            total={totalArticles}
+            total={totalArticles || 0}
           />
+        ) : (
+          <Spinner />
         )}
         {error && (
           <Notice
             kind="error"
             message={intl.formatMessage({
               defaultMessage: 'Failed to load.',
-              description: 'BlogPage: failed to load text',
-              id: 'C/XGkH',
+              description: 'SearchPage: failed to load text',
+              id: 'fOe8rH',
             })}
           />
         )}
@@ -282,11 +303,9 @@ const BlogPage: NextPage<BlogPageProps> = ({
   );
 };
 
-export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
+export const getStaticProps: GetStaticProps<SearchPageProps> = async ({
   locale,
 }) => {
-  const articles = await getArticles({ first: settings.postsPerPage });
-  const totalArticles = await getTotalArticles();
   const totalThematics = await getTotalThematics();
   const thematics = await getThematicsPreview({ first: totalThematics });
   const totalTopics = await getTotalTopics();
@@ -295,13 +314,11 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
 
   return {
     props: {
-      articles: JSON.parse(JSON.stringify(articles)),
       thematicsList: thematics.edges.map((edge) => edge.node),
       topicsList: topics.edges.map((edge) => edge.node),
-      totalArticles,
       translation,
     },
   };
 };
 
-export default BlogPage;
+export default SearchPage;

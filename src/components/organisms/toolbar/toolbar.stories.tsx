@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import ToolbarComponent from './toolbar';
 
 /**
@@ -8,6 +7,9 @@ import ToolbarComponent from './toolbar';
 export default {
   title: 'Organisms/Toolbar',
   component: ToolbarComponent,
+  args: {
+    searchPage: '#',
+  },
   argTypes: {
     className: {
       control: {
@@ -31,13 +33,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
   parameters: {
     layout: 'fullscreen',
   },

@@ -5,28 +5,25 @@ import { FC } from 'react';
 import Toolbar, { type ToolbarProps } from '../toolbar/toolbar';
 import styles from './header.module.scss';
 
-export type HeaderProps = BrandingProps & {
-  /**
-   * Set additional classnames to the header element.
-   */
-  className?: string;
-  /**
-   * The main nav items.
-   */
-  nav: ToolbarProps['nav'];
-};
+export type HeaderProps = BrandingProps &
+  Pick<ToolbarProps, 'nav' | 'searchPage'> & {
+    /**
+     * Set additional classnames to the header element.
+     */
+    className?: string;
+  };
 
 /**
  * Header component
  *
  * Render the website header.
  */
-const Header: FC<HeaderProps> = ({ className, nav, ...props }) => {
+const Header: FC<HeaderProps> = ({ className, nav, searchPage, ...props }) => {
   return (
     <header className={`${styles.wrapper} ${className}`}>
       <div className={styles.body}>
         <Branding {...props} />
-        <Toolbar nav={nav} className={styles.toolbar} />
+        <Toolbar nav={nav} searchPage={searchPage} className={styles.toolbar} />
       </div>
     </header>
   );

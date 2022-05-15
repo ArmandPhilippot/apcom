@@ -1,10 +1,10 @@
 import Modal, { type ModalProps } from '@components/molecules/modals/modal';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import SearchForm from '../forms/search-form';
+import SearchForm, { SearchFormProps } from '../forms/search-form';
 import styles from './search-modal.module.scss';
 
-export type SearchModalProps = {
+export type SearchModalProps = Pick<SearchFormProps, 'searchPage'> & {
   /**
    * Set additional classnames to modal wrapper.
    */
@@ -16,7 +16,7 @@ export type SearchModalProps = {
  *
  * Render a search form modal.
  */
-const SearchModal: FC<SearchModalProps> = ({ className }) => {
+const SearchModal: FC<SearchModalProps> = ({ className, searchPage }) => {
   const intl = useIntl();
   const modalTitle = intl.formatMessage({
     defaultMessage: 'Search',
@@ -26,7 +26,7 @@ const SearchModal: FC<SearchModalProps> = ({ className }) => {
 
   return (
     <Modal title={modalTitle} className={`${styles.wrapper} ${className}`}>
-      <SearchForm hideLabel={true} />
+      <SearchForm hideLabel={true} searchPage={searchPage} />
     </Modal>
   );
 };

@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SearchModal from './search-modal';
 
 /**
@@ -8,6 +7,9 @@ import SearchModal from './search-modal';
 export default {
   title: 'Organisms/Modals',
   component: SearchModal,
+  args: {
+    searchPage: '#',
+  },
   argTypes: {
     className: {
       control: {
@@ -23,13 +25,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof SearchModal>;
 
 const Template: ComponentStory<typeof SearchModal> = (args) => (

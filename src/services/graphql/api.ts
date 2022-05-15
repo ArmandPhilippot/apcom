@@ -48,7 +48,7 @@ export type ArticlesResponse<T> = {
 };
 
 export type CommentsResponse<T> = {
-  comments: T[];
+  comments: T;
 };
 
 export type SendMailResponse<T> = {
@@ -147,7 +147,14 @@ export type ByContentIdVar = {
   contentId: number;
 };
 
-export type sendMailVars = {
+export type SearchVar = {
+  /**
+   * A search term.
+   */
+  search?: string;
+};
+
+export type SendMailVars = {
   body: string;
   clientMutationId: string;
   replyTo: string;
@@ -160,14 +167,14 @@ export type VariablesMap = {
   [articlesQuery]: EdgesVars;
   [articlesSlugQuery]: EdgesVars;
   [commentsQuery]: ByContentIdVar;
-  [sendMailMutation]: sendMailVars;
+  [sendMailMutation]: SendMailVars;
   [thematicBySlugQuery]: BySlugVar;
   [thematicsListQuery]: EdgesVars;
   [thematicsSlugQuery]: EdgesVars;
   [topicBySlugQuery]: BySlugVar;
   [topicsListQuery]: EdgesVars;
   [topicsSlugQuery]: EdgesVars;
-  [totalArticlesQuery]: null;
+  [totalArticlesQuery]: SearchVar;
   [totalThematicsQuery]: null;
   [totalTopicsQuery]: null;
 };

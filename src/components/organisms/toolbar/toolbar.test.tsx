@@ -10,7 +10,7 @@ const nav = [
 
 describe('Toolbar', () => {
   it('renders a navigation menu', () => {
-    render(<Toolbar nav={nav} />);
+    render(<Toolbar nav={nav} searchPage="#" />);
     expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 });

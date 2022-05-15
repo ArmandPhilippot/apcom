@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SearchForm from './search-form';
 
 /**
@@ -10,6 +9,7 @@ export default {
   component: SearchForm,
   args: {
     hideLabel: false,
+    searchPage: '#',
   },
   argTypes: {
     className: {
@@ -40,13 +40,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof SearchForm>;
 
 const Template: ComponentStory<typeof SearchForm> = (args) => (

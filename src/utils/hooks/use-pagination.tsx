@@ -99,7 +99,8 @@ const usePagination = <T extends object>({
     isLoadingInitialData ||
     (size > 0 && data && typeof data[size - 1] === 'undefined');
   const isRefreshing = isValidating && data && data.length === size;
-  const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
+  const hasNextPage =
+    data && data.length > 0 && data[data.length - 1].pageInfo.hasNextPage;
 
   return {
     data,

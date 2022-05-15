@@ -171,9 +171,10 @@ const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
         baseline={baseline}
         photo={picture}
         nav={mainNav}
+        searchPage="/recherche"
         isHome={isHome}
-        className={styles.header}
         withLink={true}
+        className={styles.header}
       />
       <Main id="main" className={styles.main}>
         <article {...props}>{children}</article>

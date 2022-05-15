@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import HeaderComponent from './header';
 
 /**
@@ -10,6 +9,7 @@ export default {
   component: HeaderComponent,
   args: {
     isHome: false,
+    searchPage: '#',
     withLink: false,
   },
   argTypes: {
@@ -95,13 +95,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
   parameters: {
     layout: 'fullscreen',
   },

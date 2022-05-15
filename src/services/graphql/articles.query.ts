@@ -166,8 +166,8 @@ export const articlesSlugQuery = `query ArticlesSlug($first: Int = 10, $after: S
 /**
  * Query the total number of articles.
  */
-export const totalArticlesQuery = `query PostsTotal {
-  posts {
+export const totalArticlesQuery = `query PostsTotal($search: String = "") {
+  posts(where: {search: $search}) {
     pageInfo {
       total
     }

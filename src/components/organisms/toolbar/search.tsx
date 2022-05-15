@@ -17,12 +17,21 @@ export type SearchProps = {
    */
   isActive: CheckboxProps['value'];
   /**
+   * A callback function to execute search.
+   */
+  searchPage: SearchModalProps['searchPage'];
+  /**
    * A callback function to handle button state.
    */
   setIsActive: CheckboxProps['setValue'];
 };
 
-const Search: FC<SearchProps> = ({ className = '', isActive, setIsActive }) => {
+const Search: FC<SearchProps> = ({
+  className = '',
+  isActive,
+  searchPage,
+  setIsActive,
+}) => {
   const intl = useIntl();
   const label = isActive
     ? intl.formatMessage({
@@ -53,6 +62,7 @@ const Search: FC<SearchProps> = ({ className = '', isActive, setIsActive }) => {
         <MagnifyingGlass />
       </Label>
       <SearchModal
+        searchPage={searchPage}
         className={`${sharedStyles.modal} ${searchStyles.modal} ${className}`}
       />
     </div>

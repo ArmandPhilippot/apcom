@@ -21,10 +21,11 @@ import {
  *
  * @returns {Promise<number>} - The articles total number.
  */
-export const getTotalArticles = async (): Promise<number> => {
+export const getTotalArticles = async (search?: string): Promise<number> => {
   const response = await fetchAPI<TotalItems, typeof totalArticlesQuery>({
     api: getAPIUrl(),
     query: totalArticlesQuery,
+    variables: { search },
   });
 
   return response.posts.pageInfo.total;

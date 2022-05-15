@@ -9,6 +9,9 @@ import Search from './search';
 export default {
   title: 'Organisms/Toolbar/Search',
   component: Search,
+  args: {
+    searchPage: '#',
+  },
   argTypes: {
     className: {
       control: {
@@ -44,13 +47,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof Search>;
 
 const Template: ComponentStory<typeof Search> = ({
