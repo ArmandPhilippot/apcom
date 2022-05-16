@@ -72,6 +72,7 @@
 
 .footer {
   grid-column: 2;
+  margin: var(--spacing-sm) 0 var(--spacing-2xs);
 }
 
 .comments {
@@ -86,5 +87,10 @@
   &__section {
     grid-column: 2;
     margin: var(--spacing-md) 0 0;
+  }
+
+  &__form {
+    max-width: 40ch;
+    margin: auto;
   }
 }

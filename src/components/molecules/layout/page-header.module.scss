@@ -56,3 +56,9 @@
 .meta {
   font-size: var(--font-size-sm);
 }
+
+.intro {
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}

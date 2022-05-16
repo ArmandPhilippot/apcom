@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SharingWidget from './sharing';
 
 /**
@@ -9,6 +8,19 @@ export default {
   title: 'Organisms/Widgets',
   component: SharingWidget,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the sharing links list.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     data: {
       description: 'The page data.',
       type: {
@@ -58,13 +70,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof SharingWidget>;
 
 const Template: ComponentStory<typeof SharingWidget> = (args) => (

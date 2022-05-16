@@ -14,6 +14,17 @@ export const articleBySlugQuery = `query PostBy($slug: ID!) {
       postsInTopic {
         ... on Topic {
           databaseId
+          featuredImage {
+            node {
+              altText
+              mediaDetails {
+                height
+                width
+              }
+              sourceUrl
+              title
+            }
+          }
           slug
           title
         }

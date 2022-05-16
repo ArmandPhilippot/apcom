@@ -94,6 +94,17 @@ export const topicsListQuery = `query TopicsList($after: String = "", $first: In
       cursor
       node {
         databaseId
+        featuredImage {
+          node {
+            altText
+            mediaDetails {
+              height
+              width
+            }
+            sourceUrl
+            title
+          }
+        }
         slug
         title
       }

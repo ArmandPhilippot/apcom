@@ -1,5 +1,5 @@
 import Heading from '@components/atoms/headings/heading';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import Meta, { type MetaData } from './meta';
 import styles from './page-header.module.scss';
 
@@ -19,7 +19,7 @@ export type PageHeaderProps = {
   /**
    * The page title.
    */
-  title: string;
+  title: ReactNode;
 };
 
 /**
@@ -35,9 +35,12 @@ const PageHeader: FC<PageHeaderProps> = ({
 }) => {
   const getIntro = () => {
     return typeof intro === 'string' ? (
-      <div dangerouslySetInnerHTML={{ __html: intro }} />
+      <div
+        className={styles.intro}
+        dangerouslySetInnerHTML={{ __html: intro }}
+      />
     ) : (
-      <div>{intro}</div>
+      <div className={styles.intro}>{intro}</div>
     );
   };
 

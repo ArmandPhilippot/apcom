@@ -120,21 +120,15 @@ dl {
   & & {
     margin: var(--spacing-2xs) 0 0;
   }
-}
 
-dt {
-  flex: 0 0 max-content;
-  font-weight: 600;
-}
-
-dd {
-  flex: 0 0 auto;
-  margin: 0;
+  ::marker {
+    color: var(--color-primary-dark);
+  }
 }
 
 a {
   background: linear-gradient(to top, var(--color-primary) 50%, transparent 50%)
-    0 0 / 100% 200% no-repeat;
+    0 0 / 100% 201% no-repeat;
   color: var(--color-primary);
   text-decoration-thickness: 0.15em;
   text-underline-offset: 20%;
@@ -198,14 +192,4 @@ pre {
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
-}
-
-figure {
-  margin: var(--spacing-md) 0;
-}
-
-figcaption {
-  margin-top: var(--spacing-xs);
-  font-size: var(--font-size-sm);
-  text-align: center;
 }

@@ -35,7 +35,6 @@ export type FormProps = {
  */
 const Form: FC<FormProps> = ({
   children,
-  className = '',
   grouped = true,
   onSubmit,
   ...props
@@ -68,7 +67,7 @@ const Form: FC<FormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={className} {...props}>
+    <form onSubmit={handleSubmit} {...props}>
       {getFormItems()}
     </form>
   );

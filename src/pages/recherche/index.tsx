@@ -140,16 +140,6 @@ const SearchPage: NextPage<SearchPageProps> = ({
     getTotalArticles(query.s as string)
   );
 
-  const postsCount = intl.formatMessage(
-    {
-      defaultMessage:
-        '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-      id: 'LtsVOx',
-      description: 'SearchPage: posts count meta',
-    },
-    { postsCount: totalArticles || 0 }
-  );
-
   /**
    * Retrieve the formatted meta.
    *
@@ -244,7 +234,7 @@ const SearchPage: NextPage<SearchPageProps> = ({
         title={title}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={{ total: postsCount }}
+        headerMeta={{ total: totalArticles }}
         widgets={[
           <LinksListWidget
             key="thematics-list"

@@ -1,0 +1,11 @@
+@mixin styles {
+  figure {
+    margin: var(--spacing-md) 0;
+  }
+
+  figcaption {
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    text-align: center;
+  }
+}

@@ -1,5 +1,5 @@
 import Button from '@components/atoms/buttons/button';
-import Form from '@components/atoms/forms/form';
+import Form, { type FormProps } from '@components/atoms/forms/form';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
 import Spinner from '@components/atoms/loaders/spinner';
 import LabelledField from '@components/molecules/forms/labelled-field';
@@ -15,11 +15,7 @@ export type CommentFormData = {
   website?: string;
 };
 
-export type CommentFormProps = {
-  /**
-   * Set additional classnames to the form wrapper.
-   */
-  className?: string;
+export type CommentFormProps = Pick<FormProps, 'className'> & {
   /**
    * Pass a component to print a success/error message.
    */
@@ -44,12 +40,12 @@ export type CommentFormProps = {
 };
 
 const CommentForm: FC<CommentFormProps> = ({
-  className = '',
   Notice,
   parentId,
   saveComment,
   title,
   titleLevel = 2,
+  ...props
 }) => {
   const intl = useIntl();
   const [name, setName] = useState<string>('');
@@ -116,9 +112,9 @@ const CommentForm: FC<CommentFormProps> = ({
   return (
     <Form
       onSubmit={submitHandler}
-      className={className}
       aria-label={formAriaLabel}
       aria-labelledby={formLabelledBy}
+      {...props}
     >
       {title && (
         <Heading id={formId} level={titleLevel}>

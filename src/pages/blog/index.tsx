@@ -114,16 +114,6 @@ const BlogPage: NextPage<BlogPageProps> = ({
     '@graph': [webpageSchema, blogSchema],
   };
 
-  const postsCount = intl.formatMessage(
-    {
-      defaultMessage:
-        '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-      id: 'OF5cPz',
-      description: 'BlogPage: posts count meta',
-    },
-    { postsCount: totalArticles }
-  );
-
   /**
    * Retrieve the formatted meta.
    *
@@ -231,7 +221,7 @@ const BlogPage: NextPage<BlogPageProps> = ({
         title={title}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={{ total: postsCount }}
+        headerMeta={{ total: totalArticles }}
         widgets={[
           <LinksListWidget
             key="thematics-list"

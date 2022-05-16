@@ -1,0 +1,6 @@
+@use "@styles/abstracts/functions" as fun;
+
+.logo {
+  max-width: fun.convert-px(50);
+  margin-right: var(--spacing-xs);
+}

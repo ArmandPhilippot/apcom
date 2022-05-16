@@ -27,6 +27,8 @@
   }
 
   &--inline-values {
+    row-gap: var(--spacing-2xs);
+
     .term {
       flex: 1 1 100%;
     }

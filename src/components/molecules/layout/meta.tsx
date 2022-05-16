@@ -92,13 +92,17 @@ export type MetaData = {
    */
   topics?: string[] | JSX.Element[];
   /**
-   * A total.
+   * A total number of posts.
    */
-  total?: string;
+  total?: number;
   /**
    * The update date.
    */
   update?: MetaDate;
+  /**
+   * An url.
+   */
+  website?: string;
 };
 
 export type MetaKey = keyof MetaData;
@@ -145,80 +149,86 @@ const Meta: FC<MetaProps> = ({
       case 'author':
         return intl.formatMessage({
           defaultMessage: 'Written by:',
-          id: 'OI0N37',
           description: 'Meta: author label',
+          id: 'OI0N37',
         });
       case 'comments':
         return intl.formatMessage({
           defaultMessage: 'Comments:',
-          id: 'jTVIh8',
           description: 'Meta: comments label',
+          id: 'jTVIh8',
         });
       case 'creation':
         return intl.formatMessage({
           defaultMessage: 'Created on:',
-          id: 'b4fdYE',
           description: 'Meta: creation date label',
+          id: 'b4fdYE',
         });
       case 'license':
         return intl.formatMessage({
           defaultMessage: 'License:',
-          id: 'AuGklx',
           description: 'Meta: license label',
+          id: 'AuGklx',
         });
       case 'popularity':
         return intl.formatMessage({
           defaultMessage: 'Popularity:',
-          id: 'pWTj2W',
           description: 'Meta: popularity label',
+          id: 'pWTj2W',
         });
       case 'publication':
         return intl.formatMessage({
           defaultMessage: 'Published on:',
-          id: 'QGi5uD',
           description: 'Meta: publication date label',
+          id: 'QGi5uD',
         });
       case 'readingTime':
         return intl.formatMessage({
           defaultMessage: 'Reading time:',
-          id: 'EbFvsM',
           description: 'Meta: reading time label',
+          id: 'EbFvsM',
         });
       case 'repositories':
         return intl.formatMessage({
           defaultMessage: 'Repositories:',
-          id: 'DssFG1',
           description: 'Meta: repositories label',
+          id: 'DssFG1',
         });
       case 'technologies':
         return intl.formatMessage({
           defaultMessage: 'Technologies:',
-          id: 'ADQmDF',
           description: 'Meta: technologies label',
+          id: 'ADQmDF',
         });
       case 'thematics':
         return intl.formatMessage({
           defaultMessage: 'Thematics:',
-          id: 'bz53Us',
           description: 'Meta: thematics label',
+          id: 'bz53Us',
         });
       case 'topics':
         return intl.formatMessage({
           defaultMessage: 'Topics:',
-          id: 'gJNaBD',
           description: 'Meta: topics label',
+          id: 'gJNaBD',
         });
       case 'total':
         return intl.formatMessage({
           defaultMessage: 'Total:',
-          id: '92zgdp',
           description: 'Meta: total label',
+          id: '92zgdp',
         });
       case 'update':
         return intl.formatMessage({
           defaultMessage: 'Updated on:',
-          id: 'tLC7bh',
           description: 'Meta: update date label',
+          id: 'tLC7bh',
+        });
+      case 'website':
+        return intl.formatMessage({
+          defaultMessage: 'Official website:',
+          description: 'Meta: official website label',
+          id: 'GRyyfy',
         });
       default:
         return '';
@@ -279,8 +289,8 @@ const Meta: FC<MetaProps> = ({
       {
         defaultMessage:
           '{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}<a11y> about {title}</a11y>',
-        id: '02rgLO',
         description: 'Meta: comments count',
+        id: '02rgLO',
       },
       {
         a11y: (chunks: ReactNode) => (
@@ -316,6 +326,23 @@ const Meta: FC<MetaProps> = ({
       case 'publication':
       case 'update':
         return getDate(value as MetaDate);
+      case 'total':
+        return intl.formatMessage(
+          {
+            defaultMessage:
+              '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+            description: 'BlogPage: posts count meta',
+            id: 'OF5cPz',
+          },
+          { postsCount: value as number }
+        );
+      case 'website':
+        const url = value as string;
+        return (
+          <Link href={url} external={true}>
+            {url}
+          </Link>
+        );
       default:
         return value as string | ReactNode | ReactNode[];
     }

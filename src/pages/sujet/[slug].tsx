@@ -1,4 +1,5 @@
 import Heading from '@components/atoms/headings/heading';
+import ResponsiveImage from '@components/molecules/images/responsive-image';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import PageLayout, {
@@ -10,6 +11,7 @@ import {
   getTopicsPreview,
   getTotalTopics,
 } from '@services/graphql/topics';
+import styles from '@styles/pages/topic.module.scss';
 import { type Article, type PageLink, type Topic } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import {
@@ -35,7 +37,14 @@ export type TopicPageProps = {
 
 const TopicPage: NextPage<TopicPageProps> = ({ currentTopic, topics }) => {
   const { content, intro, meta, slug, title } = currentTopic;
-  const { articles, dates, seo, thematics } = meta;
+  const {
+    articles,
+    cover,
+    dates,
+    seo,
+    thematics,
+    website: officialWebsite,
+  } = meta;
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
@@ -45,6 +54,8 @@ const TopicPage: NextPage<TopicPageProps> = ({ currentTopic, topics }) => {
   const headerMeta: PageLayoutProps['headerMeta'] = {
     publication: { date: dates.publication },
     update: dates.update ? { date: dates.update } : undefined,
+    website: officialWebsite,
+    total: articles ? articles.length : undefined,
   };
 
   const { website } = useSettings();
@@ -98,10 +109,10 @@ const TopicPage: NextPage<TopicPageProps> = ({ currentTopic, topics }) => {
         ...remainingData
       } = article;
 
-      const { cover, ...remainingMeta } = articleMeta;
+      const { cover: articleCover, ...remainingMeta } = articleMeta;
 
       return {
-        cover,
+        cover: articleCover,
         excerpt: articleIntro,
         meta: getPostMeta(remainingMeta),
         url: `/article/${articleSlug}`,
@@ -122,6 +133,15 @@ const TopicPage: NextPage<TopicPageProps> = ({ currentTopic, topics }) => {
     id: '/sRqPT',
   });
 
+  const getPageHeading = () => {
+    return (
+      <>
+        {cover && <ResponsiveImage className={styles.logo} {...cover} />}
+        {title}
+      </>
+    );
+  };
+
   return (
     <>
       <Head>
@@ -140,7 +160,7 @@ const TopicPage: NextPage<TopicPageProps> = ({ currentTopic, topics }) => {
       <PageLayout
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        title={title}
+        title={getPageHeading()}
         intro={intro}
         headerMeta={headerMeta}
         widgets={
@@ -206,14 +226,15 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
   const allTopics = allTopicsEdges.edges.map((edge) =>
     getPageLinkFromRawData(edge.node)
   );
+  const topicsLinks = allTopics.filter(
+    (topic) => topic.slug !== (params!.slug as TopicParams['slug'])
+  );
   const translation = await loadTranslation(locale);
 
   return {
     props: {
       currentTopic: JSON.parse(JSON.stringify(currentTopic)),
-      topics: allTopics.filter(
-        (topic) => topic.slug !== (params!.slug as TopicParams['slug'])
-      ),
+      topics: JSON.parse(JSON.stringify(topicsLinks)),
       translation,
     },
   };

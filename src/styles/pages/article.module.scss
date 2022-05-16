@@ -1,0 +1,36 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/variables" as var;
+@use "partials/article-links";
+@use "partials/article-lists";
+@use "partials/article-media";
+@use "partials/article-prism";
+@use "partials/article-wp-blocks";
+
+.btn {
+  margin-right: var(--spacing-2xs);
+  padding: var(--spacing-2xs) var(--spacing-xs);
+
+  &__icon {
+    max-width: fun.convert-px(22);
+    margin-right: var(--spacing-2xs);
+  }
+}
+
+.body {
+  :global {
+    @include article-links.styles;
+    @include article-lists.styles;
+    @include article-media.styles;
+    @include article-prism.styles;
+    @include article-wp-blocks.styles;
+  }
+}
+
+.widget {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      width: min-content;
+    }
+  }
+}

@@ -81,6 +81,7 @@ export type Page<T extends PageKind> = {
 
 export type PageLink = {
   id: number;
+  logo?: Image;
   name: string;
   slug: string;
 };

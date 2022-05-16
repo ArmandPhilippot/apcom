@@ -1,5 +1,6 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Link from '@components/atoms/links/link';
+import ResponsiveImage from '@components/molecules/images/responsive-image';
 import Sharing from '@components/organisms/widgets/sharing';
 import PageLayout, {
   type PageLayoutProps,
@@ -9,15 +10,20 @@ import {
   getArticleBySlug,
 } from '@services/graphql/articles';
 import { getPostComments } from '@services/graphql/comments';
+import styles from '@styles/pages/article.module.scss';
 import { type Article, type Comment } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import useAddPrismClassAttr from '@utils/hooks/use-add-prism-class-attr';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import usePrismPlugins, { PrismPlugin } from '@utils/hooks/use-prism-plugins';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
+import { HTMLAttributes } from 'react';
+import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 import useSWR from 'swr';
 
@@ -54,16 +60,31 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
       )),
   };
 
+  const intl = useIntl();
+  const footerMetaLabel = intl.formatMessage({
+    defaultMessage: 'Read more articles about:',
+    description: 'ArticlePage: footer topics list label',
+    id: '50xc4o',
+  });
+
   const footerMeta: PageLayoutProps['footerMeta'] = {
-    topics:
-      topics &&
-      topics.map((topic) => {
+    custom: topics && {
+      label: footerMetaLabel,
+      value: topics.map((topic) => {
         return (
-          <ButtonLink key={topic.id} target={`/sujet/${topic.slug}`}>
+          <ButtonLink
+            key={topic.id}
+            target={`/sujet/${topic.slug}`}
+            className={styles.btn}
+          >
+            {topic.logo && (
+              <ResponsiveImage className={styles.btn__icon} {...topic.logo} />
+            )}{' '}
             {topic.name}
           </ButtonLink>
         );
       }),
+    },
   };
 
   const { website } = useSettings();
@@ -156,6 +177,15 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
     });
   };
 
+  const prismPlugins: PrismPlugin[] = ['command-line', 'line-numbers'];
+  const { pluginsAttribute, pluginsClassName } = usePrismPlugins(prismPlugins);
+  useAddPrismClassAttr({
+    attributes: {
+      'data-filter-output': '#output#"',
+    },
+    classNames: pluginsClassName,
+  });
+
   return (
     <>
       <Head>
@@ -173,6 +203,10 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
       />
       <PageLayout
         allowComments={true}
+        bodyAttributes={{
+          ...(pluginsAttribute as HTMLAttributes<HTMLDivElement>),
+        }}
+        bodyClassName={styles.body}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
         comments={data && getCommentsList(data)}
@@ -185,6 +219,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
         widgets={[
           <Sharing
             key="sharing-widget"
+            className={styles.widget}
             data={{ excerpt: intro, title, url: pageUrl }}
             media={[
               'diaspora',

@@ -89,14 +89,17 @@ export type RawThematic = RawPage & {
 
 export type RawThematicPreview = Pick<
   RawThematic,
-  'databaseId' | 'slug' | 'title'
+  'databaseId' | 'featuredImage' | 'slug' | 'title'
 >;
 
 export type RawTopic = RawPage & {
   acfTopics: ACFTopics;
 };
 
-export type RawTopicPreview = Pick<RawTopic, 'databaseId' | 'slug' | 'title'>;
+export type RawTopicPreview = Pick<
+  RawTopic,
+  'databaseId' | 'featuredImage' | 'slug' | 'title'
+>;
 
 export type TotalItems = {
   pageInfo: Pick<PageInfo, 'total'>;

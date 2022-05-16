@@ -473,7 +473,7 @@ export const Blog = Template.bind({});
 Blog.args = {
   breadcrumb: postsListBreadcrumb,
   title: 'Blog',
-  headerMeta: { total: `${posts.length} posts` },
+  headerMeta: { total: posts.length },
   children: (
     <>
       <PostsList posts={posts} byYear={true} total={posts.length} />

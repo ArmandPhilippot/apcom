@@ -1,4 +1,6 @@
+import Heading from '@components/atoms/headings/heading';
 import Link from '@components/atoms/links/link';
+import List from '@components/atoms/lists/list';
 import ImageWidget from '@components/organisms/widgets/image-widget';
 import SocialMedia from '@components/organisms/widgets/social-media';
 import PageLayout, {
@@ -9,11 +11,12 @@ import styles from '@styles/pages/cv.module.scss';
 import { loadTranslation } from '@utils/helpers/i18n';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
+import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import { AboutPage, Graph, WebPage } from 'schema-dts';
 
@@ -141,6 +144,18 @@ const CVPage: NextPage = () => {
     '@graph': [webpageSchema, cvSchema],
   };
 
+  const components: NestedMDXComponents = {
+    a: (props) => <Link external={true} {...props} />,
+    h1: (props) => <Heading level={1} {...props} />,
+    h2: (props) => <Heading level={2} {...props} />,
+    h3: (props) => <Heading level={3} {...props} />,
+    h4: (props) => <Heading level={4} {...props} />,
+    h5: (props) => <Heading level={5} {...props} />,
+    h6: (props) => <Heading level={6} {...props} />,
+    Link: (props) => <Link {...props} />,
+    List: (props) => <List {...props} />,
+  };
+
   return (
     <PageLayout
       breadcrumb={breadcrumbItems}
@@ -166,7 +181,7 @@ const CVPage: NextPage = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <CVContent />
+      <CVContent components={components} />
     </PageLayout>
   );
 };

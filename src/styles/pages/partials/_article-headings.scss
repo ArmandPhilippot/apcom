@@ -1,0 +1,57 @@
+@use "@styles/abstracts/functions" as fun;
+
+@mixin styles {
+  h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: 500;
+  }
+
+  h2 {
+    padding-bottom: fun.convert-px(3);
+    background: linear-gradient(
+        to top,
+        var(--color-primary-dark) 0.3rem,
+        transparent 0.3rem
+      )
+      0 0 / 3rem 100% no-repeat;
+    font-size: var(--font-size-2xl);
+    font-weight: 500;
+    text-shadow: fun.convert-px(1) fun.convert-px(1) 0 var(--color-shadow-light);
+  }
+
+  h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+  }
+
+  h6 {
+    font-size: var(--font-size-md);
+    font-weight: 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-primary-dark);
+    font-family: var(--font-family-secondary);
+    letter-spacing: 0.01ex;
+    margin: 0 0 var(--spacing-sm);
+
+    & + & {
+      margin-top: var(--spacing-md);
+    }
+  }
+}

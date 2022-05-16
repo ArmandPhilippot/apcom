@@ -23,6 +23,10 @@ export type SharingData = {
 
 export type SharingProps = {
   /**
+   * Set additional classnames to the sharing links list.
+   */
+  className?: string;
+  /**
    * The page data to share.
    */
   data: SharingData;
@@ -46,6 +50,7 @@ export type SharingProps = {
  * Render a list of sharing links inside a widget.
  */
 const Sharing: FC<SharingProps> = ({
+  className = '',
   data,
   media,
   expanded = true,
@@ -201,7 +206,7 @@ const Sharing: FC<SharingProps> = ({
 
   return (
     <Widget expanded={expanded} level={level} title={widgetTitle} {...props}>
-      <ul className={styles.list}>{getItems()}</ul>
+      <ul className={`${styles.list} ${className}`}>{getItems()}</ul>
     </Widget>
   );
 };

@@ -20,7 +20,7 @@ import TableOfContents from '@components/organisms/widgets/table-of-contents';
 import { type SendCommentVars } from '@services/graphql/api';
 import { sendComment } from '@services/graphql/comments';
 import useIsMounted from '@utils/hooks/use-is-mounted';
-import { FC, ReactNode, useRef, useState } from 'react';
+import { FC, HTMLAttributes, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import Layout, { type LayoutProps } from '../layout/layout';
 import styles from './page-layout.module.scss';
@@ -33,6 +33,11 @@ export type PageLayoutProps = Pick<
    * True if the page accepts new comments. Default: false.
    */
   allowComments?: boolean;
+  bodyAttributes?: HTMLAttributes<HTMLDivElement>;
+  /**
+   * Set additional classnames to the body wrapper.
+   */
+  bodyClassName?: string;
   /**
    * The breadcrumb items.
    */
@@ -83,6 +88,8 @@ export type PageLayoutProps = Pick<
 const PageLayout: FC<PageLayoutProps> = ({
   children,
   allowComments = false,
+  bodyAttributes,
+  bodyClassName = '',
   breadcrumb,
   breadcrumbSchema,
   comments,
@@ -91,8 +98,8 @@ const PageLayout: FC<PageLayoutProps> = ({
   id,
   intro,
   isHome = false,
-  widgets,
   title,
+  widgets,
   withToC = false,
 }) => {
   const intl = useIntl();
@@ -202,11 +209,12 @@ const PageLayout: FC<PageLayoutProps> = ({
       {typeof children === 'string' ? (
         <div
           ref={bodyRef}
-          className={styles.body}
+          className={`${styles.body} ${bodyClassName}`}
           dangerouslySetInnerHTML={{ __html: children }}
+          {...bodyAttributes}
         />
       ) : (
-        <div ref={bodyRef} className={styles.body}>
+        <div ref={bodyRef} className={`${styles.body} ${bodyClassName}`}>
           {children}
         </div>
       )}
@@ -245,6 +253,7 @@ const PageLayout: FC<PageLayoutProps> = ({
           {allowComments && (
             <section className={styles.comments__section}>
               <CommentForm
+                className={styles.comments__form}
                 saveComment={saveComment}
                 title={commentFormTitle}
                 Notice={

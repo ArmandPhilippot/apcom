@@ -19,7 +19,9 @@ export type PageFooterProps = {
  */
 const PageFooter: FC<PageFooterProps> = ({ meta, ...props }) => {
   return (
-    <footer {...props}>{meta && <Meta data={meta} layout="column" />}</footer>
+    <footer {...props}>
+      {meta && <Meta data={meta} withSeparator={false} />}
+    </footer>
   );
 };
 
