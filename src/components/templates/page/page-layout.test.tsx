@@ -1,4 +1,5 @@
 import { render, screen } from '@test-utils';
+import { BreadcrumbList } from 'schema-dts';
 import PageLayout from './page-layout';
 
 const title = 'Incidunt ad earum';
@@ -6,13 +7,18 @@ const breadcrumb = [
   { id: 'home', url: '#', name: 'Home' },
   { id: 'page', url: '#', name: title },
 ];
+const breadcrumbSchema: BreadcrumbList['itemListElement'][] = [];
 const children =
   'Reprehenderit aut quis aperiam magnam quia id. Vero enim animi placeat quia. Laborum sit odio minima. Dolores et debitis eaque iste quidem. Omnis aliquam illum porro ea non. Quaerat totam iste quos ex facilis officia accusantium.';
 
 describe('PageLayout', () => {
   it('renders the page title', () => {
     render(
-      <PageLayout breadcrumb={breadcrumb} title={title}>
+      <PageLayout
+        breadcrumb={breadcrumb}
+        breadcrumbSchema={breadcrumbSchema}
+        title={title}
+      >
         {children}
       </PageLayout>
     );
@@ -23,7 +29,11 @@ describe('PageLayout', () => {
 
   it('renders the page content', () => {
     render(
-      <PageLayout breadcrumb={breadcrumb} title={title}>
+      <PageLayout
+        breadcrumb={breadcrumb}
+        breadcrumbSchema={breadcrumbSchema}
+        title={title}
+      >
         {children}
       </PageLayout>
     );
@@ -32,7 +42,11 @@ describe('PageLayout', () => {
 
   it('renders the breadcrumb', () => {
     render(
-      <PageLayout breadcrumb={breadcrumb} title={title}>
+      <PageLayout
+        breadcrumb={breadcrumb}
+        breadcrumbSchema={breadcrumbSchema}
+        title={title}
+      >
         {children}
       </PageLayout>
     );
@@ -43,7 +57,12 @@ describe('PageLayout', () => {
 
   it('renders the table of contents', () => {
     render(
-      <PageLayout breadcrumb={breadcrumb} title={title} withToC={true}>
+      <PageLayout
+        breadcrumb={breadcrumb}
+        breadcrumbSchema={breadcrumbSchema}
+        title={title}
+        withToC={true}
+      >
         {children}
       </PageLayout>
     );
@@ -54,7 +73,12 @@ describe('PageLayout', () => {
 
   it('renders the comment form', () => {
     render(
-      <PageLayout breadcrumb={breadcrumb} title={title} allowComments={true}>
+      <PageLayout
+        breadcrumb={breadcrumb}
+        breadcrumbSchema={breadcrumbSchema}
+        title={title}
+        allowComments={true}
+      >
         {children}
       </PageLayout>
     );
@@ -79,7 +103,12 @@ describe('PageLayout', () => {
       },
     ];
     render(
-      <PageLayout breadcrumb={breadcrumb} title={title} comments={comments}>
+      <PageLayout
+        breadcrumb={breadcrumb}
+        breadcrumbSchema={breadcrumbSchema}
+        title={title}
+        comments={comments}
+      >
         {children}
       </PageLayout>
     );

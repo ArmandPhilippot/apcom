@@ -19,6 +19,7 @@ import { getArticlesCard } from '@services/graphql/articles';
 import styles from '@styles/pages/home.module.scss';
 import { ArticleCard } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps, NextPage } from 'next';
@@ -38,6 +39,10 @@ type HomeProps = {
  */
 const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
   const intl = useIntl();
+  const { schema: breadcrumbSchema } = useBreadcrumb({
+    title: '',
+    url: `/`,
+  });
 
   /**
    * Retrieve a list of coding links.
@@ -322,7 +327,7 @@ const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
   };
 
   return (
-    <Layout isHome={true}>
+    <Layout breadcrumbSchema={breadcrumbSchema} isHome={true}>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
@@ -340,7 +345,7 @@ const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
   const translation = await loadTranslation(locale);
   const recentPosts = await getArticlesCard({ first: 3 });
 

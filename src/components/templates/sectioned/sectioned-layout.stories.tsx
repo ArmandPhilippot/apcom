@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SectionedLayoutComponent from './sectioned-layout';
 
 /**
@@ -8,7 +7,21 @@ import SectionedLayoutComponent from './sectioned-layout';
 export default {
   title: 'Templates/Sectioned',
   component: SectionedLayoutComponent,
+  args: {
+    breadcrumbSchema: [],
+  },
   argTypes: {
+    breadcrumbSchema: {
+      control: {
+        type: null,
+      },
+      description: 'The JSON schema for breadcrumb items.',
+      type: {
+        name: 'object',
+        required: true,
+        value: {},
+      },
+    },
     sections: {
       description: 'The different sections.',
       type: {
@@ -18,15 +31,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <div id="__next">
-          <Story />
-        </div>
-      </IntlProvider>
-    ),
-  ],
   parameters: {
     layout: 'fullscreen',
   },

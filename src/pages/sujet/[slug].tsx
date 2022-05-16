@@ -1,5 +1,4 @@
 import Heading from '@components/atoms/headings/heading';
-import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import PageLayout, {
@@ -18,6 +17,7 @@ import {
   getPageLinkFromRawData,
   getPostMeta,
 } from '@utils/helpers/pages';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -37,21 +37,10 @@ const TopicPage: NextPage<TopicPageProps> = ({ currentTopic, topics }) => {
   const { content, intro, meta, slug, title } = currentTopic;
   const { articles, dates, seo, thematics } = meta;
   const intl = useIntl();
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/sujet/${slug}`,
   });
-  const blogLabel = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'Breadcrumb: blog label',
-    id: 'Es52wh',
-  });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'blog', name: blogLabel, url: '/blog' },
-    { id: 'topic', name: title, url: `/sujet/${slug}` },
-  ];
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     publication: { date: dates.publication },
@@ -149,7 +138,8 @@ const TopicPage: NextPage<TopicPageProps> = ({ currentTopic, topics }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
-        breadcrumb={breadcrumb}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
         title={title}
         intro={intro}
         headerMeta={headerMeta}

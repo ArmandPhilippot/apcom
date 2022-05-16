@@ -25,7 +25,10 @@ import { useIntl } from 'react-intl';
 import Layout, { type LayoutProps } from '../layout/layout';
 import styles from './page-layout.module.scss';
 
-export type PageLayoutProps = {
+export type PageLayoutProps = Pick<
+  LayoutProps,
+  'breadcrumbSchema' | 'isHome'
+> & {
   /**
    * True if the page accepts new comments. Default: false.
    */
@@ -59,10 +62,6 @@ export type PageLayoutProps = {
    */
   intro?: PageHeaderProps['intro'];
   /**
-   * True if it is homepage. Default: false.
-   */
-  isHome?: LayoutProps['isHome'];
-  /**
    * The page title.
    */
   title: PageHeaderProps['title'];
@@ -85,6 +84,7 @@ const PageLayout: FC<PageLayoutProps> = ({
   children,
   allowComments = false,
   breadcrumb,
+  breadcrumbSchema,
   comments,
   footerMeta,
   headerMeta,
@@ -170,6 +170,7 @@ const PageLayout: FC<PageLayoutProps> = ({
 
   return (
     <Layout
+      breadcrumbSchema={breadcrumbSchema}
       isHome={isHome}
       className={`${styles.article} ${styles[articleModifier]}`}
     >

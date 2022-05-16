@@ -1,6 +1,5 @@
 import Notice from '@components/atoms/layout/notice';
 import Spinner from '@components/atoms/loaders/spinner';
-import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import PageLayout from '@components/templates/page/page-layout';
@@ -26,6 +25,7 @@ import {
   getLinksListItems,
   getPageLinkFromRawData,
 } from '@utils/helpers/pages';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useDataFromAPI from '@utils/hooks/use-data-from-api';
 import usePagination from '@utils/hooks/use-pagination';
 import useSettings from '@utils/hooks/use-settings';
@@ -65,21 +65,10 @@ const SearchPage: NextPage<SearchPageProps> = ({
         description: 'SearchPage: SEO - Page title',
         id: 'WDwNDl',
       });
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/recherche`,
   });
-  const blogLabel = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'Breadcrumb: blog label',
-    id: 'Es52wh',
-  });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'blog', name: blogLabel, url: '/blog' },
-    { id: 'search', name: title, url: '/recherche' },
-  ];
 
   const { blog, website } = useSettings();
   const pageTitle = `${title} - ${website.name}`;
@@ -253,7 +242,8 @@ const SearchPage: NextPage<SearchPageProps> = ({
       />
       <PageLayout
         title={title}
-        breadcrumb={breadcrumb}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
         headerMeta={{ total: postsCount }}
         widgets={[
           <LinksListWidget

@@ -1,35 +1,28 @@
 import Link from '@components/atoms/links/link';
 import ResponsiveImage from '@components/molecules/images/responsive-image';
-import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import PageLayout, {
   type PageLayoutProps,
 } from '@components/templates/page/page-layout';
 import LegalNoticeContent, { meta } from '@content/pages/legal-notice.mdx';
 import { loadTranslation } from '@utils/helpers/i18n';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
 /**
  * Legal Notice page.
  */
 const LegalNoticePage: NextPage = () => {
-  const intl = useIntl();
   const { dates, intro, seo, title } = meta;
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/mentions-legales`,
   });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'legal-notice', name: title, url: '/mentions-legales' },
-  ];
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     publication: {
@@ -93,10 +86,11 @@ const LegalNoticePage: NextPage = () => {
 
   return (
     <PageLayout
-      title={title}
-      intro={intro}
+      breadcrumb={breadcrumbItems}
+      breadcrumbSchema={breadcrumbSchema}
       headerMeta={headerMeta}
-      breadcrumb={breadcrumb}
+      intro={intro}
+      title={title}
       withToC={true}
     >
       <Head>

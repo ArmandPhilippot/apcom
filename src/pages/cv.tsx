@@ -1,5 +1,4 @@
 import Link from '@components/atoms/links/link';
-import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import ImageWidget from '@components/organisms/widgets/image-widget';
 import SocialMedia from '@components/organisms/widgets/social-media';
 import PageLayout, {
@@ -8,6 +7,7 @@ import PageLayout, {
 import CVContent, { data, meta } from '@content/pages/cv.mdx';
 import styles from '@styles/pages/cv.module.scss';
 import { loadTranslation } from '@utils/helpers/i18n';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -24,15 +24,10 @@ const CVPage: NextPage = () => {
   const intl = useIntl();
   const { file, image } = data;
   const { dates, intro, seo, title } = meta;
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/cv`,
   });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'cv', name: title, url: '/cv' },
-  ];
 
   const imageWidgetTitle = intl.formatMessage({
     defaultMessage: 'Others formats',
@@ -148,12 +143,13 @@ const CVPage: NextPage = () => {
 
   return (
     <PageLayout
-      title={title}
-      intro={intro}
+      breadcrumb={breadcrumbItems}
+      breadcrumbSchema={breadcrumbSchema}
       headerMeta={headerMeta}
-      breadcrumb={breadcrumb}
-      withToC={true}
+      intro={intro}
+      title={title}
       widgets={widgets}
+      withToC={true}
     >
       <Head>
         <title>{`${seo.title} - ${website.name}`}</title>

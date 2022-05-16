@@ -1,6 +1,8 @@
 import { render, screen } from '@test-utils';
+import { BreadcrumbList } from 'schema-dts';
 import SectionedLayout from './sectioned-layout';
 
+const breadcrumbSchema: BreadcrumbList['itemListElement'][] = [];
 const sections = [
   {
     title: 'Section 1',
@@ -26,7 +28,12 @@ const sections = [
 
 describe('SectionedLayout', () => {
   it('renders the correct number of section', () => {
-    render(<SectionedLayout sections={sections} />);
+    render(
+      <SectionedLayout
+        breadcrumbSchema={breadcrumbSchema}
+        sections={sections}
+      />
+    );
     expect(screen.getAllByRole('heading', { name: /^Section/ })).toHaveLength(
       sections.length
     );

@@ -1,7 +1,6 @@
-import Notice, { NoticeKind } from '@components/atoms/layout/notice';
-import { BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
+import Notice, { type NoticeKind } from '@components/atoms/layout/notice';
 import ContactForm, {
-  ContactFormProps,
+  type ContactFormProps,
 } from '@components/organisms/forms/contact-form';
 import SocialMedia from '@components/organisms/widgets/social-media';
 import PageLayout from '@components/templates/page/page-layout';
@@ -17,19 +16,15 @@ import Script from 'next/script';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 
 const ContactPage: NextPage = () => {
   const { dates, intro, seo, title } = meta;
   const intl = useIntl();
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/contact`,
   });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'contact', name: title, url: '/contact' },
-  ];
 
   const socialMediaTitle = intl.formatMessage({
     defaultMessage: 'Find me elsewhere',
@@ -148,9 +143,10 @@ const ContactPage: NextPage = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
-        title="Contact"
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
         intro={intro}
-        breadcrumb={breadcrumb}
+        title="Contact"
         widgets={widgets}
       >
         <ContactForm

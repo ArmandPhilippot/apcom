@@ -1,5 +1,4 @@
 import Link from '@components/atoms/links/link';
-import { BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import CardsList, {
   CardsListItem,
 } from '@components/organisms/layout/cards-list';
@@ -9,13 +8,13 @@ import styles from '@styles/pages/projects.module.scss';
 import { ProjectCard } from '@ts/types/app';
 import { loadTranslation, Messages } from '@utils/helpers/i18n';
 import { getProjectsCard } from '@utils/helpers/projects';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useIntl } from 'react-intl';
 import { Article, Graph, WebPage } from 'schema-dts';
 
 type ProjectsPageProps = {
@@ -27,17 +26,11 @@ type ProjectsPageProps = {
  * Projects page.
  */
 const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
-  const intl = useIntl();
   const { dates, seo, title } = meta;
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/projets`,
   });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'projects', name: title, url: '/projets' },
-  ];
 
   const items: CardsListItem[] = projects.map(
     ({ id, meta: projectMeta, slug, title: projectTitle }) => {
@@ -120,7 +113,8 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
       <PageLayout
         title={title}
         intro={<PageContent components={components} />}
-        breadcrumb={breadcrumb}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
       >
         <CardsList items={items} titleLevel={2} className={styles.list} />
       </PageLayout>
@@ -128,7 +122,9 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<ProjectsPageProps> = async ({
+  locale,
+}) => {
   const projects = await getProjectsCard();
   const translation = await loadTranslation(locale);
 

@@ -13,7 +13,13 @@ import useSettings from '@utils/hooks/use-settings';
 import Script from 'next/script';
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
+import {
+  BreadcrumbList,
+  Person,
+  SearchAction,
+  WebSite,
+  WithContext,
+} from 'schema-dts';
 import styles from './layout.module.scss';
 
 export type QueryAction = SearchAction & {
@@ -21,6 +27,10 @@ export type QueryAction = SearchAction & {
 };
 
 export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
+  /**
+   * The breadcrumb JSON schema.
+   */
+  breadcrumbSchema: BreadcrumbList['itemListElement'][];
   /**
    * The layout main content.
    */
@@ -36,7 +46,12 @@ export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
  *
  * Render the base layout used by all pages.
  */
-const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
+const Layout: FC<LayoutProps> = ({
+  breadcrumbSchema,
+  children,
+  isHome,
+  ...props
+}) => {
   const intl = useIntl();
   const { website } = useSettings();
   const { baseline, copyright, locales, name, picture, url } = website;
@@ -153,11 +168,16 @@ const Layout: FC<LayoutProps> = ({ children, isHome, ...props }) => {
         id="schema-layout"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      ></Script>
+      />
       <Script
         id="schema-branding"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brandingSchema) }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <noscript>
         <div className={styles['noscript-spacing']}></div>

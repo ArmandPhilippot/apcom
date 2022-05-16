@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import LayoutComponent from './layout';
 
 /**
@@ -8,6 +7,10 @@ import LayoutComponent from './layout';
 export default {
   title: 'Templates/LayoutBase',
   component: LayoutComponent,
+  args: {
+    breadcrumbSchema: [],
+    isHome: false,
+  },
   argTypes: {
     children: {
       control: {
@@ -17,6 +20,31 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    breadcrumbSchema: {
+      control: {
+        type: 'null',
+      },
+      description: 'The JSON schema for breadcrumb items.',
+      type: {
+        name: 'object',
+        required: true,
+        value: {},
+      },
+    },
+    isHome: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Determine if it is the homepage.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
       },
     },
     className: {
@@ -35,19 +63,17 @@ export default {
   },
   decorators: [
     (Story) => (
-      <IntlProvider locale="en">
-        <div
-          id="__next"
-          style={{
-            flex: 1,
-            display: 'flex',
-            flexFlow: 'column nowrap',
-            minHeight: '100vh',
-          }}
-        >
-          <Story />
-        </div>
-      </IntlProvider>
+      <div
+        id="__next"
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexFlow: 'column nowrap',
+          minHeight: '100vh',
+        }}
+      >
+        <Story />
+      </div>
     ),
   ],
   parameters: {

@@ -1,6 +1,5 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Link from '@components/atoms/links/link';
-import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import Sharing from '@components/organisms/widgets/sharing';
 import PageLayout, {
   type PageLayoutProps,
@@ -12,13 +11,13 @@ import {
 import { getPostComments } from '@services/graphql/comments';
 import { type Article, type Comment } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
-import { useIntl } from 'react-intl';
 import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 import useSWR from 'swr';
 
@@ -37,22 +36,10 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
   const { data } = useSWR(() => id, getPostComments, {
     fallbackData: comments,
   });
-  const intl = useIntl();
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/article/${slug}`,
   });
-  const blogLabel = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'Breadcrumb: blog label',
-    id: 'Es52wh',
-  });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'blog', name: blogLabel, url: '/blog' },
-    { id: 'article', name: title, url: `/article/${slug}` },
-  ];
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     author: author?.name,
@@ -186,7 +173,8 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
       />
       <PageLayout
         allowComments={true}
-        breadcrumb={breadcrumb}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
         comments={data && getCommentsList(data)}
         footerMeta={footerMeta}
         headerMeta={headerMeta}

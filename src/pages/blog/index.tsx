@@ -1,5 +1,4 @@
 import Notice from '@components/atoms/layout/notice';
-import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import PageLayout from '@components/templates/page/page-layout';
@@ -26,6 +25,7 @@ import {
   getLinksListItems,
   getPageLinkFromRawData,
 } from '@utils/helpers/pages';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import usePagination from '@utils/hooks/use-pagination';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticProps, NextPage } from 'next';
@@ -58,15 +58,10 @@ const BlogPage: NextPage<BlogPageProps> = ({
     description: 'BlogPage: page title',
     id: '7TbbIk',
   });
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: '/blog',
   });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'blog', name: title, url: '/blog' },
-  ];
 
   const { blog, website } = useSettings();
   const { asPath } = useRouter();
@@ -234,7 +229,8 @@ const BlogPage: NextPage<BlogPageProps> = ({
       />
       <PageLayout
         title={title}
-        breadcrumb={breadcrumb}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
         headerMeta={{ total: postsCount }}
         widgets={[
           <LinksListWidget

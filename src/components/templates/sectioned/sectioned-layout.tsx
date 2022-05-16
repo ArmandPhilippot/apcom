@@ -3,11 +3,11 @@ import Section, {
   type SectionVariant,
 } from '@components/atoms/layout/section';
 import { FC } from 'react';
-import Layout from '../layout/layout';
+import Layout, { type LayoutProps } from '../layout/layout';
 
 export type Section = Pick<SectionProps, 'content' | 'title'>;
 
-export type SectionedLayoutProps = {
+export type SectionedLayoutProps = Pick<LayoutProps, 'breadcrumbSchema'> & {
   /**
    * An array of objects describing each section.
    */
@@ -19,7 +19,7 @@ export type SectionedLayoutProps = {
  *
  * Render a sectioned layout.
  */
-const SectionedLayout: FC<SectionedLayoutProps> = ({ sections }) => {
+const SectionedLayout: FC<SectionedLayoutProps> = ({ sections, ...props }) => {
   const getSections = (items: SectionProps[]) => {
     return items.map((section, index) => {
       const variant: SectionVariant = index % 2 ? 'light' : 'dark';
@@ -37,7 +37,7 @@ const SectionedLayout: FC<SectionedLayoutProps> = ({ sections }) => {
     });
   };
 
-  return <Layout>{getSections(sections)}</Layout>;
+  return <Layout {...props}>{getSections(sections)}</Layout>;
 };
 
 export default SectionedLayout;

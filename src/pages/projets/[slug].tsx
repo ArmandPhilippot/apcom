@@ -3,7 +3,6 @@ import SocialLink, { SocialWebsite } from '@components/atoms/links/social-link';
 import Spinner from '@components/atoms/loaders/spinner';
 import ResponsiveImage from '@components/molecules/images/responsive-image';
 import Code from '@components/molecules/layout/code';
-import { BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import Gallery from '@components/organisms/images/gallery';
 import Overview, { OverviewMeta } from '@components/organisms/layout/overview';
 import Sharing from '@components/organisms/widgets/sharing';
@@ -14,6 +13,7 @@ import { ProjectPreview, Repos } from '@ts/types/app';
 import { loadTranslation, Messages } from '@utils/helpers/i18n';
 import { getProjectData, getProjectFilenames } from '@utils/helpers/projects';
 import { capitalize } from '@utils/helpers/strings';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useGithubApi, { RepoData } from '@utils/hooks/use-github-api';
 import useSettings from '@utils/hooks/use-settings';
 import { MDXComponents, NestedMDXComponents } from 'mdx/types';
@@ -37,21 +37,10 @@ const ProjectPage: NextPage<ProjectPageProps> = ({ project }) => {
   const { id, intro, meta, title } = project;
   const { cover, dates, license, repos, seo, technologies } = meta;
   const intl = useIntl();
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/projets/${id}`,
   });
-  const projectsLabel = intl.formatMessage({
-    defaultMessage: 'Projects',
-    description: 'Breadcrumb: projects label',
-    id: '28GZdv',
-  });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'projects', name: projectsLabel, url: '/projets' },
-    { id: 'project', name: title, url: `/projets/${id}` },
-  ];
 
   const ProjectContent: ComponentType<MDXComponents> =
     require(`../../content/projects/${id}.mdx`).default;
@@ -192,7 +181,8 @@ const ProjectPage: NextPage<ProjectPageProps> = ({ project }) => {
       <PageLayout
         title={title}
         intro={intro}
-        breadcrumb={breadcrumb}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
         headerMeta={headerMeta}
         withToC={true}
         widgets={[
@@ -217,7 +207,10 @@ const ProjectPage: NextPage<ProjectPageProps> = ({ project }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
+export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
+  locale,
+  params,
+}) => {
   const translation = await loadTranslation(locale);
   const { slug } = params!;
   const project = await getProjectData(slug as string);

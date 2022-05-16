@@ -16,6 +16,7 @@ export default {
   component: PageLayoutComponent,
   args: {
     allowComments: false,
+    breadcrumbSchema: [],
   },
   argTypes: {
     allowComments: {
@@ -34,6 +35,17 @@ export default {
     },
     breadcrumb: {
       description: 'The breadcrumb items.',
+      type: {
+        name: 'object',
+        required: true,
+        value: {},
+      },
+    },
+    breadcrumbSchema: {
+      control: {
+        type: null,
+      },
+      description: 'The JSON schema for breadcrumb items.',
       type: {
         name: 'object',
         required: true,

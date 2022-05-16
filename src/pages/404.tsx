@@ -1,5 +1,4 @@
 import Link from '@components/atoms/links/link';
-import { type BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import PageLayout from '@components/templates/page/page-layout';
 import {
@@ -16,6 +15,7 @@ import {
   getLinksListItems,
   getPageLinkFromRawData,
 } from '@utils/helpers/pages';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -53,15 +53,10 @@ const Error404Page: NextPage<Error404PageProps> = ({
       link: (chunks: ReactNode) => <Link href="/contact">{chunks}</Link>,
     }
   );
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/404`,
   });
-  const breadcrumb: BreadcrumbItem[] = [
-    { id: 'home', name: homeLabel, url: '/' },
-    { id: 'error-404', name: title, url: '/404' },
-  ];
   const pageTitle = intl.formatMessage(
     {
       defaultMessage: 'Error 404: Page not found - {websiteName}',
@@ -95,7 +90,8 @@ const Error404Page: NextPage<Error404PageProps> = ({
       </Head>
       <PageLayout
         title={title}
-        breadcrumb={breadcrumb}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
         widgets={[
           <LinksListWidget
             key="thematics-list"
