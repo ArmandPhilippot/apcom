@@ -1,5 +1,6 @@
 @use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
 
 .header {
   border-bottom: fun.convert-px(3) solid var(--color-border-light);
@@ -7,6 +8,19 @@
 
 .main {
   flex: 1;
+}
+
+.article {
+  &--grid {
+    @extend %grid;
+
+    grid-auto-flow: column dense;
+    align-items: baseline;
+  }
+
+  &--padding {
+    padding-bottom: var(--spacing-lg);
+  }
 }
 
 .footer {

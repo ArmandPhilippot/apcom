@@ -13,16 +13,16 @@ import Columns, {
 import CardsList, {
   type CardsListItem,
 } from '@components/organisms/layout/cards-list';
-import Layout from '@components/templates/layout/layout';
+import { getLayout } from '@components/templates/layout/layout';
 import HomePageContent from '@content/pages/homepage.mdx';
 import { getArticlesCard } from '@services/graphql/articles';
 import styles from '@styles/pages/home.module.scss';
-import { ArticleCard } from '@ts/types/app';
+import { type ArticleCard, type NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
-import { GetStaticProps, NextPage } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
 import { ReactElement } from 'react';
@@ -37,7 +37,7 @@ type HomeProps = {
 /**
  * Home page.
  */
-const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
+const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
   const intl = useIntl();
   const { schema: breadcrumbSchema } = useBreadcrumb({
     title: '',
@@ -327,7 +327,7 @@ const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
   };
 
   return (
-    <Layout breadcrumbSchema={breadcrumbSchema} isHome={true}>
+    <>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
@@ -340,10 +340,18 @@ const HomePage: NextPage<HomeProps> = ({ recentPosts }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <HomePageContent components={components} />
-    </Layout>
+    </>
   );
 };
+
+HomePage.getLayout = (page) =>
+  getLayout(page, { isHome: true, withExtraPadding: false });
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
   const translation = await loadTranslation(locale);

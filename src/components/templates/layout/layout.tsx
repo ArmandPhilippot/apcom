@@ -9,18 +9,13 @@ import Main from '@components/atoms/layout/main';
 import NoScript from '@components/atoms/layout/no-script';
 import Footer, { type FooterProps } from '@components/organisms/layout/footer';
 import Header, { type HeaderProps } from '@components/organisms/layout/header';
+import { type NextPageWithLayoutOptions } from '@ts/types/app';
 import useScrollPosition from '@utils/hooks/use-scroll-position';
 import useSettings from '@utils/hooks/use-settings';
 import Script from 'next/script';
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactElement, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
-import {
-  BreadcrumbList,
-  Person,
-  SearchAction,
-  WebSite,
-  WithContext,
-} from 'schema-dts';
+import { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
 import styles from './layout.module.scss';
 
 export type QueryAction = SearchAction & {
@@ -29,17 +24,17 @@ export type QueryAction = SearchAction & {
 
 export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
   /**
-   * The breadcrumb JSON schema.
-   */
-  breadcrumbSchema: BreadcrumbList['itemListElement'][];
-  /**
    * The layout main content.
    */
   children: ReactNode;
   /**
-   * Set additional classnames to the article element.
+   * Determine if article has a comments section.
    */
-  className?: string;
+  withExtraPadding?: boolean;
+  /**
+   * Determine if article should use grid. Default: false.
+   */
+  useGrid?: boolean;
 };
 
 /**
@@ -48,14 +43,16 @@ export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
  * Render the base layout used by all pages.
  */
 const Layout: FC<LayoutProps> = ({
-  breadcrumbSchema,
   children,
+  withExtraPadding = false,
   isHome,
-  ...props
+  useGrid = false,
 }) => {
   const intl = useIntl();
   const { website } = useSettings();
   const { baseline, copyright, locales, name, picture, url } = website;
+  const articleGridClass = useGrid ? 'article--grid' : '';
+  const articleCommentsClass = withExtraPadding ? 'article--padding' : '';
 
   const skipToContent = intl.formatMessage({
     defaultMessage: 'Skip to content',
@@ -188,11 +185,6 @@ const Layout: FC<LayoutProps> = ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brandingSchema) }}
       />
-      <Script
-        id="schema-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
       <noscript>
         <div className={styles['noscript-spacing']}></div>
       </noscript>
@@ -211,7 +203,11 @@ const Layout: FC<LayoutProps> = ({
         className={styles.header}
       />
       <Main id="main" className={styles.main}>
-        <article {...props}>{children}</article>
+        <article
+          className={`${styles[articleGridClass]} ${styles[articleCommentsClass]}`}
+        >
+          {children}
+        </article>
       </Main>
       <Footer
         copyright={copyrightData}
@@ -225,6 +221,20 @@ const Layout: FC<LayoutProps> = ({
       </noscript>
     </>
   );
+};
+
+/**
+ * Get the global layout.
+ *
+ * @param {ReactElement} page - A page.
+ * @param {boolean} [isHome] - Determine if it is the homepage.
+ * @returns A page wrapped with the global layout.
+ */
+export const getLayout = (
+  page: ReactElement,
+  props: NextPageWithLayoutOptions
+) => {
+  return <Layout {...props}>{page}</Layout>;
 };
 
 export default Layout;

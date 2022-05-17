@@ -1,11 +1,13 @@
 import Link from '@components/atoms/links/link';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
+import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
 import {
   getThematicsPreview,
   getTotalThematics,
 } from '@services/graphql/thematics';
 import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
+import { type NextPageWithLayout } from '@ts/types/app';
 import {
   type RawThematicPreview,
   type RawTopicPreview,
@@ -17,7 +19,7 @@ import {
 } from '@utils/helpers/pages';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
-import { GetStaticProps, NextPage } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
@@ -31,7 +33,7 @@ type Error404PageProps = {
 /**
  * Error 404 page.
  */
-const Error404Page: NextPage<Error404PageProps> = ({
+const Error404Page: NextPageWithLayout<Error404PageProps> = ({
   thematicsList,
   topicsList,
 }) => {
@@ -118,6 +120,9 @@ const Error404Page: NextPage<Error404PageProps> = ({
     </>
   );
 };
+
+Error404Page.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
 export const getStaticProps: GetStaticProps<Error404PageProps> = async ({
   locale,

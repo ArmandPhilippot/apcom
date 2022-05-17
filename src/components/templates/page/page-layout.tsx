@@ -21,19 +21,20 @@ import TableOfContents from '@components/organisms/widgets/table-of-contents';
 import { type SendCommentVars } from '@services/graphql/api';
 import { sendComment } from '@services/graphql/comments';
 import useIsMounted from '@utils/hooks/use-is-mounted';
+import Script from 'next/script';
 import { FC, HTMLAttributes, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
-import Layout, { type LayoutProps } from '../layout/layout';
+import { BreadcrumbList } from 'schema-dts';
 import styles from './page-layout.module.scss';
 
-export type PageLayoutProps = Pick<
-  LayoutProps,
-  'breadcrumbSchema' | 'isHome'
-> & {
+export type PageLayoutProps = {
   /**
    * True if the page accepts new comments. Default: false.
    */
   allowComments?: boolean;
+  /**
+   * Set attributes to the page body.
+   */
   bodyAttributes?: HTMLAttributes<HTMLDivElement>;
   /**
    * Set additional classnames to the body wrapper.
@@ -43,6 +44,10 @@ export type PageLayoutProps = Pick<
    * The breadcrumb items.
    */
   breadcrumb: BreadcrumbItem[];
+  /**
+   * The breadcrumb JSON schema.
+   */
+  breadcrumbSchema: BreadcrumbList['itemListElement'][];
   /**
    * The main content of the page.
    */
@@ -98,7 +103,6 @@ const PageLayout: FC<PageLayoutProps> = ({
   headerMeta,
   id,
   intro,
-  isHome = false,
   title,
   widgets,
   withToC = false,
@@ -117,13 +121,7 @@ const PageLayout: FC<PageLayoutProps> = ({
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const isMounted = useIsMounted(bodyRef);
-
   const hasComments = Array.isArray(comments) && comments.length > 0;
-  const articleModifier =
-    hasComments || allowComments
-      ? 'article--has-comments'
-      : 'article--no-comments';
-
   const [status, setStatus] = useState<NoticeKind>('info');
   const [statusMessage, setStatusMessage] = useState<string>('');
   const isReplyRef = useRef<boolean>(false);
@@ -186,11 +184,12 @@ const PageLayout: FC<PageLayoutProps> = ({
   };
 
   return (
-    <Layout
-      breadcrumbSchema={breadcrumbSchema}
-      isHome={isHome}
-      className={`${styles.article} ${styles[articleModifier]}`}
-    >
+    <>
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Breadcrumb
         items={breadcrumb}
         className={styles.breadcrumb}
@@ -291,7 +290,7 @@ const PageLayout: FC<PageLayoutProps> = ({
           </section>
         </div>
       )}
-    </Layout>
+    </>
   );
 };
 

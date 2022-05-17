@@ -2,12 +2,17 @@ import Section, {
   type SectionProps,
   type SectionVariant,
 } from '@components/atoms/layout/section';
+import Script from 'next/script';
 import { FC } from 'react';
-import Layout, { type LayoutProps } from '../layout/layout';
+import { BreadcrumbList } from 'schema-dts';
 
 export type Section = Pick<SectionProps, 'content' | 'title'>;
 
-export type SectionedLayoutProps = Pick<LayoutProps, 'breadcrumbSchema'> & {
+export type SectionedLayoutProps = {
+  /**
+   * The breadcrumb JSON schema.
+   */
+  breadcrumbSchema: BreadcrumbList['itemListElement'][];
   /**
    * An array of objects describing each section.
    */
@@ -19,7 +24,10 @@ export type SectionedLayoutProps = Pick<LayoutProps, 'breadcrumbSchema'> & {
  *
  * Render a sectioned layout.
  */
-const SectionedLayout: FC<SectionedLayoutProps> = ({ sections, ...props }) => {
+const SectionedLayout: FC<SectionedLayoutProps> = ({
+  breadcrumbSchema,
+  sections,
+}) => {
   const getSections = (items: SectionProps[]) => {
     return items.map((section, index) => {
       const variant: SectionVariant = index % 2 ? 'light' : 'dark';
@@ -37,7 +45,16 @@ const SectionedLayout: FC<SectionedLayoutProps> = ({ sections, ...props }) => {
     });
   };
 
-  return <Layout {...props}>{getSections(sections)}</Layout>;
+  return (
+    <>
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {getSections(sections)}
+    </>
+  );
 };
 
 export default SectionedLayout;

@@ -1,11 +1,11 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Heading from '@components/atoms/headings/heading';
 import Link from '@components/atoms/links/link';
-import ProgressBar from '@components/atoms/loaders/progress-bar';
 import PostsList from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import Sharing from '@components/organisms/widgets/sharing';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { LayoutBase } from '../layout/layout.stories';
 import PageLayoutComponent from './page-layout';
 
 /**
@@ -118,20 +118,6 @@ export default {
         required: false,
       },
     },
-    isHome: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Determine if the current page is the homepage.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: false },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
     title: {
       control: {
         type: 'text',
@@ -168,6 +154,13 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <LayoutBase {...LayoutBase.args}>
+        <Story />
+      </LayoutBase>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
   },
@@ -477,7 +470,6 @@ Blog.args = {
   children: (
     <>
       <PostsList posts={posts} byYear={true} total={posts.length} />
-      <ProgressBar min={1} max={1} current={1} info="1/1 page loaded." />
     </>
   ),
   widgets: [

@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { LayoutBase } from '../layout/layout.stories';
 import SectionedLayoutComponent from './sectioned-layout';
 
 /**
@@ -31,6 +32,13 @@ export default {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <LayoutBase {...LayoutBase.args}>
+        <Story />
+      </LayoutBase>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
   },

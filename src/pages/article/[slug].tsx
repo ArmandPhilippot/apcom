@@ -2,6 +2,7 @@ import ButtonLink from '@components/atoms/buttons/button-link';
 import Link from '@components/atoms/links/link';
 import ResponsiveImage from '@components/molecules/images/responsive-image';
 import Sharing from '@components/organisms/widgets/sharing';
+import { getLayout } from '@components/templates/layout/layout';
 import PageLayout, {
   type PageLayoutProps,
 } from '@components/templates/page/page-layout';
@@ -11,7 +12,11 @@ import {
 } from '@services/graphql/articles';
 import { getPostComments } from '@services/graphql/comments';
 import styles from '@styles/pages/article.module.scss';
-import { type Article, type Comment } from '@ts/types/app';
+import {
+  type Article,
+  type Comment,
+  type NextPageWithLayout,
+} from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import useAddPrismClassAttr from '@utils/hooks/use-add-prism-class-attr';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
@@ -20,7 +25,7 @@ import usePrismPlugins, {
 } from '@utils/hooks/use-prism-plugins';
 import useReadingTime from '@utils/hooks/use-reading-time';
 import useSettings from '@utils/hooks/use-settings';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -39,7 +44,10 @@ type ArticlePageProps = {
 /**
  * Article page.
  */
-const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
+const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
+  comments,
+  post,
+}) => {
   const { content, id, intro, meta, slug, title } = post;
   const {
     author,
@@ -251,6 +259,8 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
     </>
   );
 };
+
+ArticlePage.getLayout = (page) => getLayout(page, { useGrid: true });
 
 interface PostParams extends ParsedUrlQuery {
   slug: string;

@@ -2,17 +2,6 @@
 @use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
-.article {
-  @extend %grid;
-
-  grid-auto-flow: column dense;
-  align-items: baseline;
-
-  &--no-comments {
-    padding-bottom: var(--spacing-lg);
-  }
-}
-
 .breadcrumb {
   @extend %grid;
 

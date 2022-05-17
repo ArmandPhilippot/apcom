@@ -2,16 +2,17 @@ import Link from '@components/atoms/links/link';
 import CardsList, {
   CardsListItem,
 } from '@components/organisms/layout/cards-list';
+import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
 import PageContent, { meta } from '@content/pages/projects.mdx';
 import styles from '@styles/pages/projects.module.scss';
-import { ProjectCard } from '@ts/types/app';
+import { type NextPageWithLayout, type ProjectCard } from '@ts/types/app';
 import { loadTranslation, Messages } from '@utils/helpers/i18n';
 import { getProjectsCard } from '@utils/helpers/projects';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
-import { GetStaticProps, NextPage } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -25,7 +26,7 @@ type ProjectsPageProps = {
 /**
  * Projects page.
  */
-const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
+const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
   const { dates, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
@@ -121,6 +122,9 @@ const ProjectsPage: NextPage<ProjectsPageProps> = ({ projects }) => {
     </>
   );
 };
+
+ProjectsPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
 export const getStaticProps: GetStaticProps<ProjectsPageProps> = async ({
   locale,

@@ -3,22 +3,24 @@ import ContactForm, {
   type ContactFormProps,
 } from '@components/organisms/forms/contact-form';
 import SocialMedia from '@components/organisms/widgets/social-media';
+import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
 import { meta } from '@content/pages/contact.mdx';
 import styles from '@styles/pages/contact.module.scss';
 import { sendMail } from '@services/graphql/contact';
+import { type NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
-import { GetStaticProps, NextPage } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 
-const ContactPage: NextPage = () => {
+const ContactPage: NextPageWithLayout = () => {
   const { dates, intro, seo, title } = meta;
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
@@ -163,6 +165,9 @@ const ContactPage: NextPage = () => {
     </>
   );
 };
+
+ContactPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translation = await loadTranslation(locale);

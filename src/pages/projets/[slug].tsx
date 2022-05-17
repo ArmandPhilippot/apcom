@@ -6,10 +6,15 @@ import Code from '@components/molecules/layout/code';
 import Gallery from '@components/organisms/images/gallery';
 import Overview, { OverviewMeta } from '@components/organisms/layout/overview';
 import Sharing from '@components/organisms/widgets/sharing';
+import { getLayout } from '@components/templates/layout/layout';
 import PageLayout, {
   PageLayoutProps,
 } from '@components/templates/page/page-layout';
-import { ProjectPreview, Repos } from '@ts/types/app';
+import {
+  type NextPageWithLayout,
+  type ProjectPreview,
+  type Repos,
+} from '@ts/types/app';
 import { loadTranslation, Messages } from '@utils/helpers/i18n';
 import { getProjectData, getProjectFilenames } from '@utils/helpers/projects';
 import { capitalize } from '@utils/helpers/strings';
@@ -17,7 +22,7 @@ import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useGithubApi, { RepoData } from '@utils/hooks/use-github-api';
 import useSettings from '@utils/hooks/use-settings';
 import { MDXComponents, NestedMDXComponents } from 'mdx/types';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -33,7 +38,7 @@ type ProjectPageProps = {
 /**
  * Project page.
  */
-const ProjectPage: NextPage<ProjectPageProps> = ({ project }) => {
+const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   const { id, intro, meta, title } = project;
   const { cover, dates, license, repos, seo, technologies } = meta;
   const intl = useIntl();
@@ -206,6 +211,9 @@ const ProjectPage: NextPage<ProjectPageProps> = ({ project }) => {
     </>
   );
 };
+
+ProjectPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
 export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
   locale,

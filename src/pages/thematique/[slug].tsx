@@ -1,6 +1,7 @@
 import Heading from '@components/atoms/headings/heading';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
+import { getLayout } from '@components/templates/layout/layout';
 import PageLayout, {
   type PageLayoutProps,
 } from '@components/templates/page/page-layout';
@@ -10,7 +11,12 @@ import {
   getThematicsPreview,
   getTotalThematics,
 } from '@services/graphql/thematics';
-import { type Article, type PageLink, type Thematic } from '@ts/types/app';
+import {
+  type Article,
+  type NextPageWithLayout,
+  type PageLink,
+  type Thematic,
+} from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import {
   getLinksListItems,
@@ -19,7 +25,7 @@ import {
 } from '@utils/helpers/pages';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -33,7 +39,7 @@ export type ThematicPageProps = {
   translation: Messages;
 };
 
-const ThematicPage: NextPage<ThematicPageProps> = ({
+const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
   currentThematic,
   thematics,
 }) => {
@@ -190,6 +196,9 @@ const ThematicPage: NextPage<ThematicPageProps> = ({
     </>
   );
 };
+
+ThematicPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
 interface ThematicParams extends ParsedUrlQuery {
   slug: string;

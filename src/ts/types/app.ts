@@ -1,3 +1,24 @@
+import { NextPage } from 'next';
+import { AppProps } from 'next/app';
+import { ReactElement, ReactNode } from 'react';
+
+export type NextPageWithLayoutOptions = {
+  withExtraPadding?: boolean;
+  isHome?: boolean;
+  useGrid?: boolean;
+};
+
+export type NextPageWithLayout<T = {}> = NextPage<T> & {
+  getLayout?: (
+    page: ReactElement,
+    options: NextPageWithLayoutOptions
+  ) => ReactNode;
+};
+
+export type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
 export type ContentKind =
   | 'article'
   | 'comment'

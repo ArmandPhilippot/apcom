@@ -2,6 +2,7 @@ import Notice from '@components/atoms/layout/notice';
 import Spinner from '@components/atoms/loaders/spinner';
 import PostsList, { type Post } from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
+import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
 import { type EdgesResponse } from '@services/graphql/api';
 import {
@@ -14,7 +15,11 @@ import {
   getTotalThematics,
 } from '@services/graphql/thematics';
 import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
-import { type Article, type Meta } from '@ts/types/app';
+import {
+  type Article,
+  type Meta,
+  type NextPageWithLayout,
+} from '@ts/types/app';
 import {
   RawThematicPreview,
   RawTopicPreview,
@@ -29,7 +34,7 @@ import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useDataFromAPI from '@utils/hooks/use-data-from-api';
 import usePagination from '@utils/hooks/use-pagination';
 import useSettings from '@utils/hooks/use-settings';
-import { GetStaticProps, NextPage } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -45,7 +50,7 @@ type SearchPageProps = {
 /**
  * Search page.
  */
-const SearchPage: NextPage<SearchPageProps> = ({
+const SearchPage: NextPageWithLayout<SearchPageProps> = ({
   thematicsList,
   topicsList,
 }) => {
@@ -282,6 +287,9 @@ const SearchPage: NextPage<SearchPageProps> = ({
     </>
   );
 };
+
+SearchPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
 export const getStaticProps: GetStaticProps<SearchPageProps> = async ({
   locale,
