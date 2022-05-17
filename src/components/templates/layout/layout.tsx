@@ -7,11 +7,12 @@ import Home from '@components/atoms/icons/home';
 import PostsStack from '@components/atoms/icons/posts-stack';
 import Main from '@components/atoms/layout/main';
 import NoScript from '@components/atoms/layout/no-script';
-import Footer, { FooterProps } from '@components/organisms/layout/footer';
+import Footer, { type FooterProps } from '@components/organisms/layout/footer';
 import Header, { type HeaderProps } from '@components/organisms/layout/header';
+import useScrollPosition from '@utils/hooks/use-scroll-position';
 import useSettings from '@utils/hooks/use-settings';
 import Script from 'next/script';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   BreadcrumbList,
@@ -162,6 +163,19 @@ const Layout: FC<LayoutProps> = ({
     subjectOf: { '@id': `${url}` },
   };
 
+  const [backToTopClassName, setBackToTopClassName] = useState<string>(
+    styles['back-to-top--hidden']
+  );
+  const updateBackToTopClassName = () => {
+    setBackToTopClassName(
+      window.scrollY > 300
+        ? styles['back-to-top--visible']
+        : styles['back-to-top--hidden']
+    );
+  };
+
+  useScrollPosition(updateBackToTopClassName);
+
   return (
     <>
       <Script
@@ -203,6 +217,7 @@ const Layout: FC<LayoutProps> = ({
         copyright={copyrightData}
         navItems={footerNav}
         topId="top"
+        backToTopClassName={backToTopClassName}
         className={styles.footer}
       />
       <noscript>

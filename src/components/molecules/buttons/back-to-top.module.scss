@@ -2,8 +2,8 @@
 
 .wrapper {
   .link {
-    width: clamp(#{fun.convert-px(44)}, 6vw, #{fun.convert-px(55)});
-    height: clamp(#{fun.convert-px(44)}, 6vw, #{fun.convert-px(55)});
+    width: clamp(#{fun.convert-px(48)}, 8vw, #{fun.convert-px(55)});
+    height: clamp(#{fun.convert-px(48)}, 8vw, #{fun.convert-px(55)});
 
     svg {
       width: 100%;

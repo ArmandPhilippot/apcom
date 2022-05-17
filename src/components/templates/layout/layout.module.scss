@@ -13,6 +13,20 @@
   border-top: fun.convert-px(3) solid var(--color-border-light);
 }
 
+.back-to-top {
+  &--hidden {
+    opacity: 0;
+    transform: translateY(calc(var(--button-size) + var(--spacing-md)));
+    visibility: hidden;
+  }
+
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
 .noscript-spacing {
   width: 100%;
   height: fun.convert-px(75);

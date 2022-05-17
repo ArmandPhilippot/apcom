@@ -1,13 +1,19 @@
 import Copyright, {
   type CopyrightProps,
 } from '@components/atoms/layout/copyright';
-import BackToTop from '@components/molecules/buttons/back-to-top';
+import BackToTop, {
+  type BackToTopProps,
+} from '@components/molecules/buttons/back-to-top';
 import Nav, { type NavItem } from '@components/molecules/nav/nav';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './footer.module.scss';
 
 export type FooterProps = {
+  /**
+   * Set additional classnames to the back to top button.
+   */
+  backToTopClassName?: BackToTopProps['className'];
   /**
    * Set additional classnames to the footer element.
    */
@@ -31,7 +37,13 @@ export type FooterProps = {
  *
  * Renders a footer with copyright and nav;
  */
-const Footer: FC<FooterProps> = ({ className, copyright, navItems, topId }) => {
+const Footer: FC<FooterProps> = ({
+  backToTopClassName,
+  className = '',
+  copyright,
+  navItems,
+  topId,
+}) => {
   const intl = useIntl();
   const ariaLabel = intl.formatMessage({
     defaultMessage: 'Footer',
@@ -54,7 +66,10 @@ const Footer: FC<FooterProps> = ({ className, copyright, navItems, topId }) => {
           className={styles.nav}
         />
       )}
-      <BackToTop target={topId} className={styles['back-to-top']} />
+      <BackToTop
+        target={topId}
+        className={`${styles['back-to-top']} ${backToTopClassName}`}
+      />
     </footer>
   );
 };

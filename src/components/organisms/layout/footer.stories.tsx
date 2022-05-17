@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import FooterComponent from './footer';
 
 /**
@@ -9,6 +8,19 @@ export default {
   title: 'Organisms/Layout',
   component: FooterComponent,
   argTypes: {
+    backToTopClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the back to top button.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     className: {
       control: {
         type: 'text',
@@ -53,13 +65,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof FooterComponent>;
 
 const Template: ComponentStory<typeof FooterComponent> = (args) => (
