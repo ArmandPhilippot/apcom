@@ -20,6 +20,10 @@ export type WidgetProps = Pick<
    * Determine if the widget body should have borders. Default: false.
    */
   withBorders?: boolean;
+  /**
+   * Determine if a vertical scrollbar should be displayed. Default: false.
+   */
+  withScroll?: boolean;
 };
 
 /**
@@ -34,16 +38,18 @@ const Widget: FC<WidgetProps> = ({
   level,
   title,
   withBorders = false,
+  withScroll = false,
 }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
   const stateClass = isExpanded ? 'widget--expanded' : 'widget--collapsed';
   const bordersClass = withBorders
     ? 'widget--has-borders'
     : 'widget--no-borders';
+  const scrollClass = withScroll ? 'widget--has-scroll' : 'widget--no-scroll';
 
   return (
     <div
-      className={`${styles.widget} ${styles[bordersClass]} ${styles[stateClass]} ${className}`}
+      className={`${styles.widget} ${styles[bordersClass]} ${styles[stateClass]} ${styles[scrollClass]} ${className}`}
     >
       <HeadingButton
         level={level}

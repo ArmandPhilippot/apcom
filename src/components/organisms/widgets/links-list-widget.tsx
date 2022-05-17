@@ -69,6 +69,7 @@ const LinksListWidget: FC<LinksListWidgetProps> = ({
       expanded={true}
       withBorders={true}
       className={styles.widget}
+      withScroll={true}
       {...props}
     >
       <List

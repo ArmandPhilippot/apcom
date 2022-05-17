@@ -1,4 +1,5 @@
 @use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
 
 .widget {
   display: flex;
@@ -29,6 +30,25 @@
       border: 0 solid transparent;
       transition: all 0.1s linear 0.3s,
         max-height 0.5s cubic-bezier(0, 1, 0, 1) 0s, margin 0.3s ease-in-out 0s;
+    }
+  }
+
+  &--expanded#{&}--has-scroll {
+    @include mix.media("screen") {
+      @include mix.dimensions("lg") {
+        max-height: 95vh;
+
+        .widget__body {
+          overflow: hidden;
+        }
+
+        &:hover,
+        &:focus-within {
+          .widget__body {
+            overflow-y: auto;
+          }
+        }
+      }
     }
   }
 
