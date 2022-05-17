@@ -86,7 +86,14 @@
 
   &__section {
     grid-column: 2;
-    margin: var(--spacing-md) 0 0;
+
+    &:first-child {
+      margin: var(--spacing-md) 0 0;
+    }
+  }
+
+  &__no-comments {
+    text-align: center;
   }
 
   &__form {

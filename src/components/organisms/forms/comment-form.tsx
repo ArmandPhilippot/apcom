@@ -1,6 +1,9 @@
 import Button from '@components/atoms/buttons/button';
 import Form, { type FormProps } from '@components/atoms/forms/form';
-import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
+import Heading, {
+  type HeadingProps,
+  type HeadingLevel,
+} from '@components/atoms/headings/heading';
 import Spinner from '@components/atoms/loaders/spinner';
 import LabelledField from '@components/molecules/forms/labelled-field';
 import { FC, ReactNode, useState } from 'react';
@@ -34,7 +37,11 @@ export type CommentFormProps = Pick<FormProps, 'className'> & {
    */
   title?: string;
   /**
-   * The title level.
+   * The form title alignment. Default: left.
+   */
+  titleAlignment?: HeadingProps['alignment'];
+  /**
+   * The title level. Default: 2.
    */
   titleLevel?: HeadingLevel;
 };
@@ -44,6 +51,7 @@ const CommentForm: FC<CommentFormProps> = ({
   parentId,
   saveComment,
   title,
+  titleAlignment,
   titleLevel = 2,
   ...props
 }) => {
@@ -117,7 +125,7 @@ const CommentForm: FC<CommentFormProps> = ({
       {...props}
     >
       {title && (
-        <Heading id={formId} level={titleLevel}>
+        <Heading id={formId} level={titleLevel} alignment={titleAlignment}>
           {title}
         </Heading>
       )}

@@ -1,6 +1,7 @@
 import Heading from '@components/atoms/headings/heading';
 import Notice, { type NoticeKind } from '@components/atoms/layout/notice';
 import Sidebar from '@components/atoms/layout/sidebar';
+import { MetaData } from '@components/molecules/layout/meta';
 import PageFooter, {
   type PageFooterProps,
 } from '@components/molecules/layout/page-footer';
@@ -118,10 +119,10 @@ const PageLayout: FC<PageLayoutProps> = ({
   const isMounted = useIsMounted(bodyRef);
 
   const hasComments = Array.isArray(comments) && comments.length > 0;
-  const hasCommentsSection = hasComments || allowComments;
-  const articleModifier = hasCommentsSection
-    ? 'article--has-comments'
-    : 'article--no-comments';
+  const articleModifier =
+    hasComments || allowComments
+      ? 'article--has-comments'
+      : 'article--no-comments';
 
   const [status, setStatus] = useState<NoticeKind>('info');
   const [statusMessage, setStatusMessage] = useState<string>('');
@@ -175,6 +176,15 @@ const PageLayout: FC<PageLayoutProps> = ({
     }
   };
 
+  /**
+   * Check if meta properties are defined.
+   *
+   * @param {MetaData} meta - The metadata.
+   */
+  const hasMeta = (meta: MetaData) => {
+    return Object.values(meta).every((value) => value === null);
+  };
+
   return (
     <Layout
       breadcrumbSchema={breadcrumbSchema}
@@ -218,7 +228,9 @@ const PageLayout: FC<PageLayoutProps> = ({
           {children}
         </div>
       )}
-      <PageFooter meta={footerMeta} className={styles.footer} />
+      {footerMeta && hasMeta(footerMeta) && (
+        <PageFooter meta={footerMeta} className={styles.footer} />
+      )}
       <Sidebar
         className={`${styles.sidebar} ${styles['sidebar--last']}`}
         aria-label={intl.formatMessage({
@@ -229,45 +241,54 @@ const PageLayout: FC<PageLayoutProps> = ({
       >
         {widgets}
       </Sidebar>
-      {hasCommentsSection && (
-        <div className={styles.comments}>
-          {hasComments && (
-            <section className={styles.comments__section}>
-              <Heading level={2}>{commentsTitle}</Heading>
+      {allowComments && (
+        <div className={styles.comments} id="comments">
+          <section className={styles.comments__section}>
+            <Heading level={2} alignment="center">
+              {commentsTitle}
+            </Heading>
+            {hasComments ? (
               <CommentsList
                 comments={comments}
                 depth={1}
                 Notice={
-                  isReplyRef.current === true ? (
+                  isReplyRef.current === true && (
                     <Notice
                       kind={status}
                       message={statusMessage}
                       className={styles.notice}
                     />
-                  ) : undefined
+                  )
                 }
                 saveComment={saveComment}
               />
-            </section>
-          )}
-          {allowComments && (
-            <section className={styles.comments__section}>
-              <CommentForm
-                className={styles.comments__form}
-                saveComment={saveComment}
-                title={commentFormTitle}
-                Notice={
-                  isReplyRef.current === false ? (
-                    <Notice
-                      kind={status}
-                      message={statusMessage}
-                      className={styles.notice}
-                    />
-                  ) : undefined
-                }
-              />
-            </section>
-          )}
+            ) : (
+              <p className={styles['comments__no-comments']}>
+                {intl.formatMessage({
+                  defaultMessage: 'No comments.',
+                  id: 'sBwfCy',
+                  description: 'PageLayout: no comments text',
+                })}
+              </p>
+            )}
+          </section>
+          <section className={styles.comments__section}>
+            <CommentForm
+              className={styles.comments__form}
+              saveComment={saveComment}
+              title={commentFormTitle}
+              titleAlignment="center"
+              Notice={
+                isReplyRef.current === false && (
+                  <Notice
+                    kind={status}
+                    message={statusMessage}
+                    className={styles.notice}
+                  />
+                )
+              }
+            />
+          </section>
         </div>
       )}
     </Layout>

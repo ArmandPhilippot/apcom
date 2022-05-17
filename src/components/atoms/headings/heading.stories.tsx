@@ -8,10 +8,26 @@ export default {
   title: 'Atoms/Typography/Headings',
   component: Heading,
   args: {
+    alignment: 'left',
     isFake: false,
     withMargin: true,
   },
   argTypes: {
+    alignment: {
+      control: {
+        type: 'select',
+      },
+      description: 'The title alignment.',
+      options: ['center', 'left'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'left' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     className: {
       control: {
         type: 'text',
@@ -30,6 +46,16 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    id: {
+      control: {
+        type: 'text',
+      },
+      description: 'An unique id.',
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     isFake: {

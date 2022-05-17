@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import { IntlProvider } from 'react-intl';
 import HeadingButtonComponent from './heading-button';
 
 /**
@@ -10,6 +9,19 @@ export default {
   title: 'Molecules/Buttons/HeadingButton',
   component: HeadingButtonComponent,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the button.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     expanded: {
       control: {
         type: null,
@@ -53,13 +65,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof HeadingButtonComponent>;
 
 const Template: ComponentStory<typeof HeadingButtonComponent> = ({
@@ -79,55 +84,21 @@ const Template: ComponentStory<typeof HeadingButtonComponent> = ({
 };
 
 /**
- * Heading Button Stories - Level 1
+ * Heading Button Stories - Expanded
  */
-export const Level1 = Template.bind({});
-Level1.args = {
-  level: 1,
-  title: 'Your title',
-};
-
-/**
- * Heading Button Stories - Level 2
- */
-export const Level2 = Template.bind({});
-Level2.args = {
+export const Expanded = Template.bind({});
+Expanded.args = {
+  expanded: true,
   level: 2,
   title: 'Your title',
 };
 
 /**
- * Heading Button Stories - Level 3
+ * Heading Button Stories - Collapsed
  */
-export const Level3 = Template.bind({});
-Level3.args = {
-  level: 3,
-  title: 'Your title',
-};
-
-/**
- * Heading Button Stories - Level 4
- */
-export const Level4 = Template.bind({});
-Level4.args = {
-  level: 4,
-  title: 'Your title',
-};
-
-/**
- * Heading Button Stories - Level 5
- */
-export const Level5 = Template.bind({});
-Level5.args = {
-  level: 5,
-  title: 'Your title',
-};
-
-/**
- * Heading Button Stories - Level 6
- */
-export const Level6 = Template.bind({});
-Level6.args = {
-  level: 6,
+export const Collapsed = Template.bind({});
+Collapsed.args = {
+  expanded: false,
+  level: 2,
   title: 'Your title',
 };

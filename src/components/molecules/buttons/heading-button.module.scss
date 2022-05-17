@@ -20,6 +20,14 @@
   border-bottom: fun.convert-px(2) solid var(--color-primary-dark);
   cursor: pointer;
 
+  .heading {
+    padding: var(--spacing-2xs) 0;
+    background: none;
+    font-size: var(--font-size-xl);
+    font-weight: 500;
+    text-align: left;
+  }
+
   &:hover,
   &:focus {
     .icon {
@@ -33,11 +41,4 @@
       }
     }
   }
-}
-
-.heading {
-  padding: var(--spacing-2xs) 0;
-  background: none;
-  font-size: var(--font-size-xl);
-  text-align: left;
 }

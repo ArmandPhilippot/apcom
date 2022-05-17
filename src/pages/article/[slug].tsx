@@ -15,7 +15,10 @@ import { type Article, type Comment } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import useAddPrismClassAttr from '@utils/hooks/use-add-prism-class-attr';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import usePrismPlugins, { PrismPlugin } from '@utils/hooks/use-prism-plugins';
+import usePrismPlugins, {
+  type PrismPlugin,
+} from '@utils/hooks/use-prism-plugins';
+import useReadingTime from '@utils/hooks/use-reading-time';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -38,7 +41,16 @@ type ArticlePageProps = {
  */
 const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
   const { content, id, intro, meta, slug, title } = post;
-  const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
+  const {
+    author,
+    commentsCount,
+    cover,
+    dates,
+    seo,
+    thematics,
+    topics,
+    wordsCount,
+  } = meta;
   const { data } = useSWR(() => id, getPostComments, {
     fallbackData: comments,
   });
@@ -46,11 +58,13 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ comments, post }) => {
     title,
     url: `/article/${slug}`,
   });
+  const readingTime = useReadingTime(wordsCount || 0, true);
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     author: author?.name,
     publication: { date: dates.publication },
     update: dates.update ? { date: dates.update } : undefined,
+    readingTime,
     thematics:
       thematics &&
       thematics.map((thematic) => (
