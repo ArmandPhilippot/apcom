@@ -218,14 +218,15 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
   const allThematics = allThematicsEdges.edges.map((edge) =>
     getPageLinkFromRawData(edge.node)
   );
+  const allThematicsLinks = allThematics.filter(
+    (thematic) => thematic.slug !== (params!.slug as ThematicParams['slug'])
+  );
   const translation = await loadTranslation(locale);
 
   return {
     props: {
       currentThematic: JSON.parse(JSON.stringify(currentThematic)),
-      thematics: allThematics.filter(
-        (thematic) => thematic.slug !== (params!.slug as ThematicParams['slug'])
-      ),
+      thematics: JSON.parse(JSON.stringify(allThematicsLinks)),
       translation,
     },
   };
