@@ -1,6 +1,6 @@
 import Logo, { type LogoProps } from '@components/atoms/images/logo';
 import Image, { type ImageProps } from 'next/image';
-import { FC } from 'react';
+import { ForwardedRef, forwardRef, ForwardRefRenderFunction } from 'react';
 import styles from './flipping-logo.module.scss';
 
 export type FlippingLogoProps = {
@@ -27,15 +27,15 @@ export type FlippingLogoProps = {
  *
  * Render a logo and a photo with a flipping effect.
  */
-const FlippingLogo: FC<FlippingLogoProps> = ({
-  className = '',
-  altText,
-  logoTitle,
-  photo,
-  ...props
-}) => {
+const FlippingLogo: ForwardRefRenderFunction<
+  HTMLDivElement,
+  FlippingLogoProps
+> = (
+  { className = '', altText, logoTitle, photo, ...props },
+  ref: ForwardedRef<HTMLDivElement>
+) => {
   return (
-    <div className={`${styles.logo} ${className}`}>
+    <div className={`${styles.logo} ${className}`} ref={ref}>
       <div className={styles.logo__front}>
         <Image
           src={photo}
@@ -52,4 +52,4 @@ const FlippingLogo: FC<FlippingLogoProps> = ({
   );
 };
 
-export default FlippingLogo;
+export default forwardRef(FlippingLogo);

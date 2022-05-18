@@ -23,6 +23,18 @@
   box-shadow: 0 fun.convert-px(-2) fun.convert-px(3) fun.convert-px(-1)
     var(--color-shadow-dark);
 
+  :global {
+    animation: slide-in-from-bottom 0.8s ease-in-out 0s 1;
+  }
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      :global {
+        animation: slide-in-from-top 1s ease-in-out 0s 1;
+      }
+    }
+  }
+
   .modal {
     &--search,
     &--settings {
@@ -52,8 +64,10 @@
       }
 
       .tooltip {
+        padding: calc(var(--title-height) / 2 + var(--spacing-2xs))
+          var(--spacing-2xs) var(--spacing-2xs);
         top: unset;
-        bottom: calc(100% + var(--spacing-xs));
+        bottom: calc(100% + var(--spacing-2xs));
         transform-origin: bottom right;
       }
     }

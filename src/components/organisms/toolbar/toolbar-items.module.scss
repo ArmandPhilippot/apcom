@@ -26,6 +26,7 @@
 
   @include mix.media("screen") {
     @include mix.dimensions(null, "sm") {
+      position: fixed;
       left: 0;
       right: 0;
     }

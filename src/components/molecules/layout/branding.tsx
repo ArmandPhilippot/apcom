@@ -1,6 +1,7 @@
 import Heading from '@components/atoms/headings/heading';
+import useStyles from '@utils/hooks/use-styles';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import FlippingLogo, { type FlippingLogoProps } from '../images/flipping-logo';
 import styles from './branding.module.scss';
@@ -37,6 +38,9 @@ const Branding: FC<BrandingProps> = ({
   withLink = false,
   ...props
 }) => {
+  const baselineRef = useRef<HTMLParagraphElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement | HTMLParagraphElement>(null);
   const intl = useIntl();
   const altText = intl.formatMessage(
     {
@@ -55,6 +59,23 @@ const Branding: FC<BrandingProps> = ({
     { website: title }
   );
 
+  useStyles({
+    property: '--typing-animation',
+    styles: 'blink 0.7s ease-in-out 0s 2, typing 4.3s linear 0s 1',
+    target: titleRef,
+  });
+  useStyles({
+    property: '--typing-animation',
+    styles:
+      'hide-text 4.25s linear 0s 1, blink 0.8s ease-in-out 4.25s 2, typing 3.8s linear 4.25s 1',
+    target: baselineRef,
+  });
+  useStyles({
+    property: 'animation',
+    styles: 'flip-logo 9s ease-in 0s 1',
+    target: logoRef,
+  });
+
   return (
     <div className={styles.wrapper}>
       <FlippingLogo
@@ -62,6 +83,7 @@ const Branding: FC<BrandingProps> = ({
         altText={altText}
         logoTitle={logoTitle}
         photo={photo}
+        ref={logoRef}
         {...props}
       />
       <Heading
@@ -69,6 +91,7 @@ const Branding: FC<BrandingProps> = ({
         level={1}
         withMargin={false}
         className={styles.title}
+        ref={titleRef}
       >
         {withLink ? (
           <Link href="/">
@@ -84,6 +107,7 @@ const Branding: FC<BrandingProps> = ({
           level={4}
           withMargin={false}
           className={styles.baseline}
+          ref={baselineRef}
         >
           {baseline}
         </Heading>
