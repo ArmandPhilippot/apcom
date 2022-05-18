@@ -54,6 +54,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
   const headerMeta: PageLayoutProps['headerMeta'] = {
     publication: { date: dates.publication },
     update: dates.update ? { date: dates.update } : undefined,
+    total: articles ? articles.length : undefined,
   };
 
   const { website } = useSettings();
