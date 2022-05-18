@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import { IntlProvider } from 'react-intl';
 import Settings from './settings';
 
 /**
@@ -57,13 +56,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof Settings>;
 
 const Template: ComponentStory<typeof Settings> = ({

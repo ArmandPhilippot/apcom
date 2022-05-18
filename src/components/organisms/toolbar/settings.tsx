@@ -1,7 +1,7 @@
 import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
 import Label from '@components/atoms/forms/label';
 import Cog from '@components/atoms/icons/cog';
-import { FC } from 'react';
+import { FC, forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import SettingsModal, {
   type SettingsModalProps,
@@ -28,12 +28,10 @@ export type SettingsProps = {
   tooltipClassName?: SettingsModalProps['tooltipClassName'];
 };
 
-const Settings: FC<SettingsProps> = ({
-  className = '',
-  isActive,
-  setIsActive,
-  tooltipClassName = '',
-}) => {
+const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
+  { className = '', isActive, setIsActive, tooltipClassName = '' },
+  ref
+) => {
   const intl = useIntl();
   const label = isActive
     ? intl.formatMessage({
@@ -48,7 +46,7 @@ const Settings: FC<SettingsProps> = ({
       });
 
   return (
-    <div className={`${sharedStyles.item} ${settingsStyles.item}`}>
+    <div className={`${sharedStyles.item} ${settingsStyles.item}`} ref={ref}>
       <Checkbox
         id="settings-button"
         name="settings-button"
@@ -71,4 +69,4 @@ const Settings: FC<SettingsProps> = ({
   );
 };
 
-export default Settings;
+export default forwardRef(Settings);

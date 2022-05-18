@@ -11,9 +11,4 @@ describe('Search', () => {
     render(<Search searchPage="#" isActive={true} setIsActive={() => null} />);
     expect(screen.getByRole('checkbox')).toHaveAccessibleName('Close search');
   });
-
-  it('renders a search form', () => {
-    render(<Search searchPage="#" isActive={true} setIsActive={() => null} />);
-    expect(screen.getByRole('searchbox')).toBeInTheDocument();
-  });
 });

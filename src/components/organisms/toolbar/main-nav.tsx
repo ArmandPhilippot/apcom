@@ -5,7 +5,7 @@ import Nav, {
   type NavProps,
   type NavItem,
 } from '@components/molecules/nav/nav';
-import { FC } from 'react';
+import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import mainNavStyles from './main-nav.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
@@ -34,12 +34,10 @@ export type MainNavProps = {
  *
  * Render the main navigation.
  */
-const MainNav: FC<MainNavProps> = ({
-  className = '',
-  isActive,
-  items,
-  setIsActive,
-}) => {
+const MainNav: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
+  { className = '', isActive, items, setIsActive },
+  ref
+) => {
   const intl = useIntl();
   const label = isActive
     ? intl.formatMessage({
@@ -54,7 +52,7 @@ const MainNav: FC<MainNavProps> = ({
       });
 
   return (
-    <div className={`${sharedStyles.item} ${mainNavStyles.item}`}>
+    <div className={`${sharedStyles.item} ${mainNavStyles.item}`} ref={ref}>
       <Checkbox
         id="main-nav-button"
         name="main-nav-button"
@@ -79,4 +77,4 @@ const MainNav: FC<MainNavProps> = ({
   );
 };
 
-export default MainNav;
+export default forwardRef(MainNav);

@@ -1,8 +1,17 @@
+import Spinner from '@components/atoms/loaders/spinner';
 import Modal, { type ModalProps } from '@components/molecules/modals/modal';
+import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import SearchForm, { SearchFormProps } from '../forms/search-form';
+import { type SearchFormProps } from '../forms/search-form';
 import styles from './search-modal.module.scss';
+
+const DynamicSearchForm = dynamic(
+  () => import('@components/organisms/forms/search-form'),
+  {
+    loading: () => <Spinner />,
+  }
+);
 
 export type SearchModalProps = Pick<SearchFormProps, 'searchPage'> & {
   /**
@@ -26,7 +35,7 @@ const SearchModal: FC<SearchModalProps> = ({ className, searchPage }) => {
 
   return (
     <Modal title={modalTitle} className={`${styles.wrapper} ${className}`}>
-      <SearchForm hideLabel={true} searchPage={searchPage} />
+      <DynamicSearchForm hideLabel={true} searchPage={searchPage} />
     </Modal>
   );
 };

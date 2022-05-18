@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SettingsModal from './settings-modal';
+import SettingsForm from './settings-form';
 
 /**
  * SettingsModal - Storybook Meta
  */
 export default {
-  title: 'Organisms/Modals',
-  component: SettingsModal,
+  title: 'Organisms/Forms',
+  component: SettingsForm,
   argTypes: {
     className: {
       control: {
@@ -35,13 +35,13 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SettingsModal>;
+} as ComponentMeta<typeof SettingsForm>;
 
-const Template: ComponentStory<typeof SettingsModal> = (args) => (
-  <SettingsModal {...args} />
+const Template: ComponentStory<typeof SettingsForm> = (args) => (
+  <SettingsForm {...args} />
 );
 
 /**
- * Modals Stories - Settings
+ * Form Stories - Settings
  */
 export const Settings = Template.bind({});

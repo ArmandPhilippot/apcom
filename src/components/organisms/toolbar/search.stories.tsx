@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import { IntlProvider } from 'react-intl';
 import Search from './search';
 
 /**

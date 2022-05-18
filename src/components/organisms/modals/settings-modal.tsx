@@ -1,25 +1,20 @@
-import Form from '@components/atoms/forms/form';
-import AckeeSelect, {
-  type AckeeSelectProps,
-} from '@components/molecules/forms/ackee-select';
-import MotionToggle from '@components/molecules/forms/motion-toggle';
-import PrismThemeToggle from '@components/molecules/forms/prism-theme-toggle';
-import ThemeToggle from '@components/molecules/forms/theme-toggle';
+import Spinner from '@components/atoms/loaders/spinner';
 import Modal, { type ModalProps } from '@components/molecules/modals/modal';
+import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import { type SettingsFormProps } from '../forms/settings-form';
 import styles from './settings-modal.module.scss';
 
-export type SettingsModalProps = {
-  /**
-   * Set additional classnames to the modal wrapper.
-   */
-  className?: ModalProps['className'];
-  /**
-   * Set additional classnames to the tooltip wrapper.
-   */
-  tooltipClassName?: AckeeSelectProps['tooltipClassName'];
-};
+const DynamicSettingsForm = dynamic(
+  () => import('@components/organisms/forms/settings-form'),
+  {
+    loading: () => <Spinner />,
+  }
+);
+
+export type SettingsModalProps = Pick<ModalProps, 'className'> &
+  Pick<SettingsFormProps, 'tooltipClassName'>;
 
 /**
  * SettingsModal component
@@ -28,7 +23,7 @@ export type SettingsModalProps = {
  */
 const SettingsModal: FC<SettingsModalProps> = ({
   className = '',
-  tooltipClassName = '',
+  ...props
 }) => {
   const intl = useIntl();
   const title = intl.formatMessage({
@@ -44,16 +39,7 @@ const SettingsModal: FC<SettingsModalProps> = ({
       className={`${styles.wrapper} ${className}`}
       headingClassName={styles.heading}
     >
-      <Form onSubmit={() => null}>
-        <ThemeToggle labelClassName={styles.label} value={false} />
-        <PrismThemeToggle labelClassName={styles.label} value={false} />
-        <MotionToggle labelClassName={styles.label} value={false} />
-        <AckeeSelect
-          initialValue="full"
-          labelClassName={styles.label}
-          tooltipClassName={tooltipClassName}
-        />
-      </Form>
+      <DynamicSettingsForm {...props} />
     </Modal>
   );
 };
