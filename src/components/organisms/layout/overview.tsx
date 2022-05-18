@@ -43,7 +43,6 @@ const Overview: FC<OverviewProps> = ({ className = '', cover, meta }) => {
     <div className={`${styles.wrapper} ${className}`}>
       {cover && (
         <ResponsiveImage
-          layout="responsive"
           objectFit="contain"
           className={styles.cover}
           {...cover}

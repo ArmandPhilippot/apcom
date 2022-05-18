@@ -1,9 +1,10 @@
 import { render, RenderOptions } from '@testing-library/react';
 import { ThemeProvider } from 'next-themes';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 
 type ProvidersConfig = {
+  children: ReactNode;
   locale?: 'en' | 'fr';
 };
 

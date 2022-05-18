@@ -107,6 +107,7 @@ describe('PageLayout', () => {
         breadcrumb={breadcrumb}
         breadcrumbSchema={breadcrumbSchema}
         title={title}
+        allowComments={true}
         comments={comments}
       >
         {children}

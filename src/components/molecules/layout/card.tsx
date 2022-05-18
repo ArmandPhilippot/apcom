@@ -87,7 +87,11 @@ const Card: FC<CardProps> = ({
               className={styles.cover}
             />
           )}
-          <Heading level={titleLevel} className={styles.title}>
+          <Heading
+            alignment="center"
+            level={titleLevel}
+            className={styles.title}
+          >
             {title}
           </Heading>
         </header>

@@ -33,7 +33,8 @@
 
   .title {
     flex: 1;
-    margin: var(--spacing-sm) 0;
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
   }
 
   h2.title {
