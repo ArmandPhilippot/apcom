@@ -3,7 +3,7 @@ import ThemeToggle from './theme-toggle';
 
 describe('ThemeToggle', () => {
   it('renders a checked toggle (dark theme choice)', () => {
-    render(<ThemeToggle value={true} />);
+    render(<ThemeToggle />);
     expect(
       screen.getByRole('checkbox', {
         name: `Theme: Light theme Dark theme`,

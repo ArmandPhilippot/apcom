@@ -1,11 +1,13 @@
-import { SelectOptions } from '@components/atoms/forms/select';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { type SelectOptions } from '@components/atoms/forms/select';
+import useLocalStorage from '@utils/hooks/use-local-storage';
+import useUpdateAckeeOptions, {
+  type AckeeOptions,
+} from '@utils/hooks/use-update-ackee-options';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useIntl } from 'react-intl';
 import SelectWithTooltip, {
   type SelectWithTooltipProps,
 } from './select-with-tooltip';
-
-export type AckeeOptions = 'full' | 'partial';
 
 export type AckeeSelectProps = Pick<
   SelectWithTooltipProps,
@@ -15,6 +17,10 @@ export type AckeeSelectProps = Pick<
    * A default value for Ackee settings.
    */
   initialValue: AckeeOptions;
+  /**
+   * The local storage key to save preference.
+   */
+  storageKey: string;
 };
 
 /**
@@ -22,9 +28,17 @@ export type AckeeSelectProps = Pick<
  *
  * Render a select to set Ackee settings.
  */
-const AckeeSelect: FC<AckeeSelectProps> = ({ initialValue, ...props }) => {
+const AckeeSelect: FC<AckeeSelectProps> = ({
+  initialValue,
+  storageKey,
+  ...props
+}) => {
   const intl = useIntl();
-  const [value, setValue] = useState<AckeeOptions>(initialValue);
+  const { value, setValue } = useLocalStorage<AckeeOptions>(
+    storageKey,
+    initialValue
+  );
+  useUpdateAckeeOptions(value);
 
   const ackeeLabel = intl.formatMessage({
     defaultMessage: 'Tracking:',

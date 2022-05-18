@@ -16,11 +16,13 @@ describe('Header', () => {
   it('renders the website title', () => {
     render(
       <Header
+        ackeeStorageKey="ackee-tracking"
+        isHome={true}
+        motionStorageKey="reduced-motion"
+        nav={nav}
+        photo={photo}
         searchPage="#"
         title={title}
-        photo={photo}
-        nav={nav}
-        isHome={true}
       />
     );
     expect(
@@ -29,7 +31,16 @@ describe('Header', () => {
   });
 
   it('renders the main nav', () => {
-    render(<Header searchPage="#" title={title} photo={photo} nav={nav} />);
+    render(
+      <Header
+        ackeeStorageKey="ackee-tracking"
+        motionStorageKey="reduced-motion"
+        nav={nav}
+        photo={photo}
+        searchPage="#"
+        title={title}
+      />
+    );
     expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 });

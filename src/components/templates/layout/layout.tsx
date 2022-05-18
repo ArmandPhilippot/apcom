@@ -193,14 +193,16 @@ const Layout: FC<LayoutProps> = ({
         {skipToContent}
       </ButtonLink>
       <Header
-        title={name}
+        ackeeStorageKey="ackee-tracking"
         baseline={baseline}
-        photo={picture}
-        nav={mainNav}
-        searchPage="/recherche"
-        isHome={isHome}
-        withLink={true}
         className={styles.header}
+        isHome={isHome}
+        motionStorageKey="reduced-motion"
+        nav={mainNav}
+        photo={picture}
+        searchPage="/recherche"
+        title={name}
+        withLink={true}
       />
       <Main id="main" className={styles.main}>
         <article

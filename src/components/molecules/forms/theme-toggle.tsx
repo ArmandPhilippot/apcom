@@ -4,19 +4,29 @@ import Toggle, {
   type ToggleChoices,
   type ToggleProps,
 } from '@components/molecules/forms/toggle';
-import { FC, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 
-export type ThemeToggleProps = Pick<ToggleProps, 'labelClassName' | 'value'>;
+export type ThemeToggleProps = Pick<ToggleProps, 'labelClassName'>;
 
 /**
  * ThemeToggle component
  *
  * Render a Toggle component to set theme.
  */
-const ThemeToggle: FC<ThemeToggleProps> = ({ value, ...props }) => {
+const ThemeToggle: FC<ThemeToggleProps> = ({ ...props }) => {
   const intl = useIntl();
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(value);
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDarkTheme = resolvedTheme === 'dark';
+
+  /**
+   * Update the theme.
+   */
+  const updateTheme = () => {
+    setTheme(isDarkTheme ? 'light' : 'dark');
+  };
+
   const themeLabel = intl.formatMessage({
     defaultMessage: 'Theme:',
     description: 'ThemeToggle: theme label',
@@ -45,7 +55,7 @@ const ThemeToggle: FC<ThemeToggleProps> = ({ value, ...props }) => {
       labelSize="medium"
       choices={themeChoices}
       value={isDarkTheme}
-      setValue={setIsDarkTheme}
+      setValue={updateTheme}
       {...props}
     />
   );

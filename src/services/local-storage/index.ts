@@ -1,15 +1,15 @@
 export const LocalStorage = {
-  get(key: string): string | null | undefined {
+  get<T>(key: string): T | undefined {
     try {
       const serialItem = localStorage.getItem(key);
       if (!serialItem) return undefined;
-      return JSON.parse(serialItem);
+      return JSON.parse(serialItem) as T;
     } catch (e) {
       console.log(e);
       return undefined;
     }
   },
-  set(key: string, value: string) {
+  set<T>(key: string, value: T) {
     try {
       const serialItem = JSON.stringify(value);
       localStorage.setItem(key, serialItem);

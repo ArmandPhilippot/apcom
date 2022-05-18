@@ -2,26 +2,33 @@ import useClickOutside from '@utils/hooks/use-click-outside';
 import { FC, useRef, useState } from 'react';
 import MainNav, { type MainNavProps } from '../toolbar/main-nav';
 import Search, { type SearchProps } from '../toolbar/search';
-import Settings from '../toolbar/settings';
+import Settings, { SettingsProps } from '../toolbar/settings';
 import styles from './toolbar.module.scss';
 
-export type ToolbarProps = Pick<SearchProps, 'searchPage'> & {
-  /**
-   * Set additional classnames to the toolbar wrapper.
-   */
-  className?: string;
-  /**
-   * The main nav items.
-   */
-  nav: MainNavProps['items'];
-};
+export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
+  Pick<SettingsProps, 'ackeeStorageKey' | 'motionStorageKey'> & {
+    /**
+     * Set additional classnames to the toolbar wrapper.
+     */
+    className?: string;
+    /**
+     * The main nav items.
+     */
+    nav: MainNavProps['items'];
+  };
 
 /**
  * Toolbar component
  *
  * Render the website toolbar.
  */
-const Toolbar: FC<ToolbarProps> = ({ className = '', nav, searchPage }) => {
+const Toolbar: FC<ToolbarProps> = ({
+  ackeeStorageKey,
+  className = '',
+  motionStorageKey,
+  nav,
+  searchPage,
+}) => {
   const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
   const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
@@ -53,11 +60,13 @@ const Toolbar: FC<ToolbarProps> = ({ className = '', nav, searchPage }) => {
         ref={searchRef}
       />
       <Settings
-        isActive={isSettingsOpened}
-        setIsActive={setIsSettingsOpened}
+        ackeeStorageKey={ackeeStorageKey}
         className={`${styles.modal} ${styles['modal--settings']}`}
-        tooltipClassName={styles.tooltip}
+        isActive={isSettingsOpened}
+        motionStorageKey={motionStorageKey}
         ref={settingsRef}
+        setIsActive={setIsSettingsOpened}
+        tooltipClassName={styles.tooltip}
       />
     </div>
   );

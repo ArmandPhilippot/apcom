@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import ThemeToggle from './theme-toggle';
 
 /**
@@ -22,24 +21,7 @@ export default {
         required: false,
       },
     },
-    value: {
-      control: {
-        type: null,
-      },
-      description: 'The theme value.',
-      type: {
-        name: 'boolean',
-        required: true,
-      },
-    },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof ThemeToggle>;
 
 const Template: ComponentStory<typeof ThemeToggle> = (args) => (
@@ -50,6 +32,3 @@ const Template: ComponentStory<typeof ThemeToggle> = (args) => (
  * Toggle Stories - Theme
  */
 export const Theme = Template.bind({});
-Theme.args = {
-  value: false,
-};

@@ -55,7 +55,7 @@ const isValidTheme = (theme: string): boolean => {
 
 const getTheme = (key: string): PrismTheme | undefined => {
   if (typeof window === 'undefined') return undefined;
-  const storageValue = LocalStorage.get(key);
+  const storageValue = LocalStorage.get<string>(key);
 
   return storageValue && isValidTheme(storageValue)
     ? (storageValue as PrismTheme)

@@ -1,7 +1,7 @@
 import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
 import Label from '@components/atoms/forms/label';
 import Cog from '@components/atoms/icons/cog';
-import { FC, forwardRef, ForwardRefRenderFunction } from 'react';
+import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import SettingsModal, {
   type SettingsModalProps,
@@ -9,7 +9,10 @@ import SettingsModal, {
 import settingsStyles from './settings.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
 
-export type SettingsProps = {
+export type SettingsProps = Pick<
+  SettingsModalProps,
+  'ackeeStorageKey' | 'motionStorageKey' | 'tooltipClassName'
+> & {
   /**
    * Set additional classnames to the modal wrapper.
    */
@@ -22,14 +25,17 @@ export type SettingsProps = {
    * A callback function to handle button state.
    */
   setIsActive: CheckboxProps['setValue'];
-  /**
-   * Set additional classnames to the tooltip wrapper.
-   */
-  tooltipClassName?: SettingsModalProps['tooltipClassName'];
 };
 
 const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
-  { className = '', isActive, setIsActive, tooltipClassName = '' },
+  {
+    ackeeStorageKey,
+    className = '',
+    isActive,
+    motionStorageKey,
+    setIsActive,
+    tooltipClassName = '',
+  },
   ref
 ) => {
   const intl = useIntl();
@@ -62,7 +68,9 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
         <Cog />
       </Label>
       <SettingsModal
+        ackeeStorageKey={ackeeStorageKey}
         className={`${sharedStyles.modal} ${settingsStyles.modal} ${className}`}
+        motionStorageKey={motionStorageKey}
         tooltipClassName={tooltipClassName}
       />
     </div>

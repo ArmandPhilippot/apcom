@@ -10,7 +10,14 @@ const nav = [
 
 describe('Toolbar', () => {
   it('renders a navigation menu', () => {
-    render(<Toolbar nav={nav} searchPage="#" />);
+    render(
+      <Toolbar
+        ackeeStorageKey="ackee-tracking"
+        motionStorageKey="reduced-motion"
+        nav={nav}
+        searchPage="#"
+      />
+    );
     expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 });

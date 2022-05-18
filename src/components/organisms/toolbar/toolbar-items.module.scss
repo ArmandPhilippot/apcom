@@ -22,7 +22,7 @@
 .modal {
   position: absolute;
   top: var(--toolbar-size, calc(var(--btn-size) + var(--spacing-2xs)));
-  transition: all 0.8s ease-in-out 0s;
+  transition: all 0.8s ease-in-out 0s, background 0s;
 
   @include mix.media("screen") {
     @include mix.dimensions(null, "sm") {

@@ -6,7 +6,10 @@ import Toolbar, { type ToolbarProps } from '../toolbar/toolbar';
 import styles from './header.module.scss';
 
 export type HeaderProps = BrandingProps &
-  Pick<ToolbarProps, 'nav' | 'searchPage'> & {
+  Pick<
+    ToolbarProps,
+    'ackeeStorageKey' | 'motionStorageKey' | 'nav' | 'searchPage'
+  > & {
     /**
      * Set additional classnames to the header element.
      */
@@ -18,12 +21,25 @@ export type HeaderProps = BrandingProps &
  *
  * Render the website header.
  */
-const Header: FC<HeaderProps> = ({ className, nav, searchPage, ...props }) => {
+const Header: FC<HeaderProps> = ({
+  ackeeStorageKey,
+  className,
+  motionStorageKey,
+  nav,
+  searchPage,
+  ...props
+}) => {
   return (
     <header className={`${styles.wrapper} ${className}`}>
       <div className={styles.body}>
         <Branding {...props} />
-        <Toolbar nav={nav} searchPage={searchPage} className={styles.toolbar} />
+        <Toolbar
+          ackeeStorageKey={ackeeStorageKey}
+          className={styles.toolbar}
+          motionStorageKey={motionStorageKey}
+          nav={nav}
+          searchPage={searchPage}
+        />
       </div>
     </header>
   );

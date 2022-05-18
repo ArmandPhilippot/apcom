@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import AckeeSelect from './ackee-select';
 
 /**
@@ -33,6 +32,16 @@ export default {
         required: false,
       },
     },
+    storageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set Ackee settings local storage key.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     tooltipClassName: {
       control: {
         type: 'text',
@@ -47,13 +56,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof AckeeSelect>;
 
 const Template: ComponentStory<typeof AckeeSelect> = (args) => (

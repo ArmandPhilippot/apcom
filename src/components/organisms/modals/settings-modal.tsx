@@ -10,11 +10,15 @@ const DynamicSettingsForm = dynamic(
   () => import('@components/organisms/forms/settings-form'),
   {
     loading: () => <Spinner />,
+    ssr: false,
   }
 );
 
 export type SettingsModalProps = Pick<ModalProps, 'className'> &
-  Pick<SettingsFormProps, 'tooltipClassName'>;
+  Pick<
+    SettingsFormProps,
+    'ackeeStorageKey' | 'motionStorageKey' | 'tooltipClassName'
+  >;
 
 /**
  * SettingsModal component

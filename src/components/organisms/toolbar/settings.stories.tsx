@@ -8,7 +8,21 @@ import Settings from './settings';
 export default {
   title: 'Organisms/Toolbar/Settings',
   component: Settings,
+  args: {
+    ackeeStorageKey: 'ackee-tracking',
+    motionStorageKey: 'reduced-motion',
+  },
   argTypes: {
+    ackeeStorageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set Ackee settings local storage key.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     className: {
       control: {
         type: 'text',
@@ -29,6 +43,16 @@ export default {
       description: 'Define the modal state: either opened or closed.',
       type: {
         name: 'boolean',
+        required: true,
+      },
+    },
+    motionStorageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set Reduced motion settings local storage key.',
+      type: {
+        name: 'string',
         required: true,
       },
     },

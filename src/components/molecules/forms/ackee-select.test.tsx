@@ -4,13 +4,13 @@ import AckeeSelect from './ackee-select';
 
 describe('Select', () => {
   it('should correctly set default option', () => {
-    render(<AckeeSelect initialValue="full" />);
+    render(<AckeeSelect storageKey="ackee-tracking" initialValue="full" />);
     expect(screen.getByRole('combobox')).toHaveValue('full');
     expect(screen.queryByRole('combobox')).not.toHaveValue('partial');
   });
 
   it('should correctly change value when user choose another option', async () => {
-    render(<AckeeSelect initialValue="full" />);
+    render(<AckeeSelect storageKey="ackee-tracking" initialValue="full" />);
 
     await act(async () => {
       await user.selectOptions(

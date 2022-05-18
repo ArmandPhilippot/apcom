@@ -4,22 +4,38 @@ import Toggle, {
   type ToggleChoices,
   type ToggleProps,
 } from '@components/molecules/forms/toggle';
-import { FC, useState } from 'react';
+import { usePrismTheme } from '@utils/providers/prism-theme';
+import { FC } from 'react';
 import { useIntl } from 'react-intl';
 
-export type PrismThemeToggleProps = Pick<
-  ToggleProps,
-  'labelClassName' | 'value'
->;
+export type PrismThemeToggleProps = Pick<ToggleProps, 'labelClassName'>;
 
 /**
  * PrismThemeToggle component
  *
  * Render a Toggle component to set code blocks theme.
  */
-const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ value, ...props }) => {
+const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ ...props }) => {
   const intl = useIntl();
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(value);
+  const { theme, setTheme, resolvedTheme } = usePrismTheme();
+
+  /**
+   * Check if the resolved or chosen theme is dark theme.
+   *
+   * @returns {boolean} True if it is dark theme.
+   */
+  const isDarkTheme = (): boolean => {
+    if (theme === 'system') return resolvedTheme === 'dark';
+    return theme === 'dark';
+  };
+
+  /**
+   * Update the theme.
+   */
+  const updateTheme = () => {
+    setTheme(isDarkTheme() ? 'light' : 'dark');
+  };
+
   const themeLabel = intl.formatMessage({
     defaultMessage: 'Code blocks:',
     description: 'PrismThemeToggle: theme label',
@@ -47,8 +63,8 @@ const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ value, ...props }) => {
       label={themeLabel}
       labelSize="medium"
       choices={themeChoices}
-      value={isDarkTheme}
-      setValue={setIsDarkTheme}
+      value={isDarkTheme()}
+      setValue={updateTheme}
       {...props}
     />
   );

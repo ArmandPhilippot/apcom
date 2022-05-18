@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import MotionToggleComponent from './motion-toggle';
 
 /**
@@ -22,6 +21,16 @@ export default {
         required: false,
       },
     },
+    storageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set local storage key.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     value: {
       control: {
         type: null,
@@ -33,13 +42,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof MotionToggleComponent>;
 
 const Template: ComponentStory<typeof MotionToggleComponent> = (args) => (

@@ -8,11 +8,23 @@ export default {
   title: 'Organisms/Layout',
   component: HeaderComponent,
   args: {
+    ackeeStorageKey: 'ackee-tracking',
     isHome: false,
+    motionStorageKey: 'reduced-motion',
     searchPage: '#',
     withLink: false,
   },
   argTypes: {
+    ackeeStorageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set Ackee settings local storage key.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     baseline: {
       control: {
         type: 'text',
@@ -50,6 +62,16 @@ export default {
       type: {
         name: 'boolean',
         required: false,
+      },
+    },
+    motionStorageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set Reduced motion settings local storage key.',
+      type: {
+        name: 'string',
+        required: true,
       },
     },
     nav: {

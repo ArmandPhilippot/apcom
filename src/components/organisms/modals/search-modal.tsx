@@ -10,6 +10,7 @@ const DynamicSearchForm = dynamic(
   () => import('@components/organisms/forms/search-form'),
   {
     loading: () => <Spinner />,
+    ssr: false,
   }
 );
 
