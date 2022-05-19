@@ -1,4 +1,6 @@
-import { LocalStorage } from '@services/local-storage';
+import useAttributes from '@utils/hooks/use-attributes';
+import useLocalStorage from '@utils/hooks/use-local-storage';
+import useQuerySelectorAll from '@utils/hooks/use-query-selector-all';
 import {
   createContext,
   FC,
@@ -10,7 +12,7 @@ import {
 } from 'react';
 
 export type PrismTheme = 'dark' | 'light' | 'system';
-export type ResolvedPrismTheme = 'dark' | 'light';
+export type ResolvedPrismTheme = Exclude<PrismTheme, 'system'>;
 
 export type UsePrismThemeProps = {
   themes: PrismTheme[];
@@ -18,7 +20,6 @@ export type UsePrismThemeProps = {
   setTheme: (theme: PrismTheme) => void;
   resolvedTheme?: ResolvedPrismTheme;
   codeBlocks?: NodeListOf<HTMLPreElement>;
-  setCodeBlocks: (codeBlocks: NodeListOf<HTMLPreElement>) => void;
 };
 
 export type PrismThemeProviderProps = {
@@ -33,14 +34,16 @@ export const PrismThemeContext = createContext<UsePrismThemeProps>({
   setTheme: (_) => {
     // This is intentional.
   },
-  setCodeBlocks: (_) => {
-    // This is intentional.
-  },
 });
 
 export const usePrismTheme = () => useContext(PrismThemeContext);
 
-const prefersDarkScheme = () => {
+/**
+ * Check if user prefers dark color scheme.
+ *
+ * @returns {boolean|undefined} True if `prefers-color-scheme` is set to `dark`.
+ */
+const prefersDarkScheme = (): boolean | undefined => {
   if (typeof window === 'undefined') return;
 
   return (
@@ -49,17 +52,14 @@ const prefersDarkScheme = () => {
   );
 };
 
+/**
+ * Check if a given string is a Prism theme name.
+ *
+ * @param {string} theme - A string.
+ * @returns {boolean} True if the given string match a Prism theme name.
+ */
 const isValidTheme = (theme: string): boolean => {
   return theme === 'dark' || theme === 'light' || theme === 'system';
-};
-
-const getTheme = (key: string): PrismTheme | undefined => {
-  if (typeof window === 'undefined') return undefined;
-  const storageValue = LocalStorage.get<string>(key);
-
-  return storageValue && isValidTheme(storageValue)
-    ? (storageValue as PrismTheme)
-    : undefined;
 };
 
 export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
@@ -68,21 +68,19 @@ export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
   themes = ['dark', 'light', 'system'],
   children,
 }) => {
+  /**
+   * Retrieve the theme to use depending on `prefers-color-scheme`.
+   */
   const getThemeFromSystem = useCallback(() => {
     return prefersDarkScheme() ? 'dark' : 'light';
   }, []);
 
-  const [prismTheme, setPrismTheme] = useState<PrismTheme>(
-    getTheme(storageKey) || 'system'
-  );
-
-  const updateTheme = (theme: PrismTheme) => {
-    setPrismTheme(theme);
-  };
+  const { value: prismTheme, setValue: setPrismTheme } =
+    useLocalStorage<PrismTheme>(storageKey, 'system');
 
   useEffect(() => {
-    LocalStorage.set(storageKey, prismTheme);
-  }, [prismTheme, storageKey]);
+    if (!isValidTheme(prismTheme)) setPrismTheme('system');
+  }, [prismTheme, setPrismTheme]);
 
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedPrismTheme>();
 
@@ -109,22 +107,12 @@ export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
         .removeEventListener('change', updateResolvedTheme);
   }, [updateResolvedTheme]);
 
-  const [preTags, setPreTags] = useState<NodeListOf<HTMLPreElement>>();
+  const preTags = useQuerySelectorAll<'pre'>('pre');
+  useAttributes({ elements: preTags, attribute, value: prismTheme });
 
-  const updatePreTags = useCallback((tags: NodeListOf<HTMLPreElement>) => {
-    setPreTags(tags);
-  }, []);
-
-  const updatePreTagsAttribute = useCallback(() => {
-    preTags?.forEach((pre) => {
-      pre.setAttribute(attribute, prismTheme);
-    });
-  }, [attribute, preTags, prismTheme]);
-
-  useEffect(() => {
-    updatePreTagsAttribute();
-  }, [updatePreTagsAttribute, prismTheme]);
-
+  /**
+   * Listen for changes on pre attributes and update theme.
+   */
   const listenAttributeChange = useCallback(
     (pre: HTMLPreElement) => {
       var observer = new MutationObserver(function (mutations) {
@@ -139,15 +127,12 @@ export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
         attributeFilter: [attribute],
       });
     },
-    [attribute]
+    [attribute, setPrismTheme]
   );
 
   useEffect(() => {
     if (!preTags) return;
-
-    preTags.forEach((pre) => {
-      listenAttributeChange(pre);
-    });
+    preTags.forEach(listenAttributeChange);
   }, [preTags, listenAttributeChange]);
 
   return (
@@ -155,9 +140,8 @@ export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
       value={{
         themes,
         theme: prismTheme,
-        setTheme: updateTheme,
+        setTheme: setPrismTheme,
         codeBlocks: preTags,
-        setCodeBlocks: updatePreTags,
         resolvedTheme,
       }}
     >

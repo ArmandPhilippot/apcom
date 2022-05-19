@@ -18,11 +18,11 @@ import {
   type NextPageWithLayout,
 } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
-import useAddPrismClassAttr from '@utils/hooks/use-add-prism-class-attr';
+import useAddClassName from '@utils/hooks/use-add-classname';
+import useAttributes from '@utils/hooks/use-attributes';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import usePrismPlugins, {
-  type PrismPlugin,
-} from '@utils/hooks/use-prism-plugins';
+import usePrism, { type OptionalPrismPlugin } from '@utils/hooks/use-prism';
+import useQuerySelectorAll from '@utils/hooks/use-query-selector-all';
 import useReadingTime from '@utils/hooks/use-reading-time';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -199,14 +199,40 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     });
   };
 
-  const prismPlugins: PrismPlugin[] = ['command-line', 'line-numbers'];
-  const { pluginsAttribute, pluginsClassName } = usePrismPlugins(prismPlugins);
-  useAddPrismClassAttr({
-    attributes: {
-      'data-filter-output': '#output#"',
-    },
-    classNames: pluginsClassName,
-  });
+  const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
+  const { attributes, className } = usePrism({ plugins: prismPlugins });
+  const lineNumbersClassName = className
+    .replace('command-line', '')
+    .replace(/\s\s+/g, ' ');
+  const commandLineClassName = className
+    .replace('line-numbers', '')
+    .replace(/\s\s+/g, ' ');
+
+  /**
+   * Replace a string with Prism classnames and attributes.
+   *
+   * @param {string} str - The found string.
+   * @returns {string} The classes and attributes.
+   */
+  const prismClassNameReplacer = (str: string): string => {
+    const wpBlockClassName = 'wp-block-code';
+    const languageArray = str.match(/language-[^\s|"]+/);
+    const languageClassName = languageArray ? `${languageArray[0]}` : '';
+
+    if (
+      str.includes('command-line') ||
+      (!str.includes('command-line') && str.includes('language-bash'))
+    ) {
+      return `class="${wpBlockClassName} ${commandLineClassName}${languageClassName}" tabindex="0" data-filter-output="#output#`;
+    }
+
+    return `class="${wpBlockClassName} ${lineNumbersClassName}${languageClassName}" tabindex="0`;
+  };
+
+  const contentWithPrismClasses = content.replaceAll(
+    /class="wp-block-code[^"]+/gm,
+    prismClassNameReplacer
+  );
 
   return (
     <>
@@ -226,7 +252,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       <PageLayout
         allowComments={true}
         bodyAttributes={{
-          ...(pluginsAttribute as HTMLAttributes<HTMLDivElement>),
+          ...(attributes as HTMLAttributes<HTMLDivElement>),
         }}
         bodyClassName={styles.body}
         breadcrumb={breadcrumbItems}
@@ -254,7 +280,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
           />,
         ]}
       >
-        {content}
+        {contentWithPrismClasses}
       </PageLayout>
     </>
   );

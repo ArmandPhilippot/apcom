@@ -1,10 +1,15 @@
-import { useEffect } from 'react';
+import { fromKebabCaseToCamelCase } from '@utils/helpers/strings';
+import { useCallback, useEffect } from 'react';
 
 export type useAttributesProps = {
   /**
    * An HTML element.
    */
   element?: HTMLElement;
+  /**
+   * A node list of HTML Element.
+   */
+  elements?: NodeListOf<HTMLElement> | HTMLElement[];
   /**
    * The attribute name.
    */
@@ -20,14 +25,28 @@ export type useAttributesProps = {
  *
  * @param props - An object with element, attribute name and value.
  */
-const useAttributes = ({ element, attribute, value }: useAttributesProps) => {
+const useAttributes = ({
+  element,
+  elements,
+  attribute,
+  value,
+}: useAttributesProps) => {
+  const setAttribute = useCallback(
+    (el: HTMLElement) => {
+      if (attribute.startsWith('data')) {
+        el.setAttribute(attribute, value);
+      } else {
+        const camelCaseAttribute = fromKebabCaseToCamelCase(attribute);
+        el.dataset[camelCaseAttribute] = value;
+      }
+    },
+    [attribute, value]
+  );
+
   useEffect(() => {
-    if (element) {
-      element.dataset[attribute] = value;
-    } else {
-      document.documentElement.dataset[attribute] = value;
-    }
-  }, [attribute, element, value]);
+    if (element) setAttribute(element);
+    if (elements && elements.length > 0) elements.forEach(setAttribute);
+  }, [element, elements, setAttribute]);
 };
 
 export default useAttributes;

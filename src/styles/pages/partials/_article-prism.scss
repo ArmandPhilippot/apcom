@@ -238,7 +238,7 @@
       > span {
         &::before {
           display: block;
-          content: "";
+          content: " ";
         }
 
         &[data-user]::before {

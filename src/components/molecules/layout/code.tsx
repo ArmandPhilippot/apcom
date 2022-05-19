@@ -1,7 +1,5 @@
-import usePrismPlugins, {
-  type PrismPlugin,
-} from '@utils/hooks/use-prism-plugins';
-import { FC } from 'react';
+import usePrism, { OptionalPrismPlugin } from '@utils/hooks/use-prism';
+import { FC, useRef } from 'react';
 import styles from './code.module.scss';
 
 export type PrismLanguage =
@@ -34,15 +32,6 @@ export type PrismLanguage =
   | 'tsx'
   | 'twig'
   | 'yaml';
-
-export type OptionalPrismPlugin = Extract<
-  PrismPlugin,
-  | 'command-line'
-  | 'diff-highlight'
-  | 'inline-color'
-  | 'line-highlight'
-  | 'line-numbers'
->;
 
 export type CodeProps = {
   /**
@@ -79,17 +68,19 @@ const Code: FC<CodeProps> = ({
   plugins = [],
   outputPattern = '#output#',
 }) => {
-  const { pluginsAttribute, pluginsClassName } = usePrismPlugins(plugins);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const { attributes, className } = usePrism({ language, plugins });
 
   const outputAttribute = filterOutput
     ? { 'data-filter-output': outputPattern }
     : {};
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={wrapperRef}>
       <pre
-        className={`language-${language} ${pluginsClassName}`}
-        {...pluginsAttribute}
+        className={className}
+        tabIndex={0}
+        {...attributes}
         {...outputAttribute}
       >
         <code className={`language-${language}`}>{children}</code>

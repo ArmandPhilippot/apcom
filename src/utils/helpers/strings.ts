@@ -27,3 +27,13 @@ export const slugify = (text: string): string => {
 export const capitalize = (text: string): string => {
   return text.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase());
 };
+
+/**
+ * Convert a text from kebab case (foo-bar) to camel case (fooBar).
+ *
+ * @param {string} text - A text to transform.
+ * @returns {string} The text in camel case.
+ */
+export const fromKebabCaseToCamelCase = (text: string): string => {
+  return text.replace(/-./g, (x) => x[1].toUpperCase());
+};

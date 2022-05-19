@@ -20,7 +20,6 @@ import CommentsList, {
 import TableOfContents from '@components/organisms/widgets/table-of-contents';
 import { type SendCommentVars } from '@services/graphql/api';
 import { sendComment } from '@services/graphql/comments';
-import useCodeBlocksTheme from '@utils/hooks/use-code-blocks-theme';
 import useIsMounted from '@utils/hooks/use-is-mounted';
 import Script from 'next/script';
 import { FC, HTMLAttributes, ReactNode, useRef, useState } from 'react';
@@ -181,10 +180,8 @@ const PageLayout: FC<PageLayoutProps> = ({
    * @param {MetaData} meta - The metadata.
    */
   const hasMeta = (meta: MetaData) => {
-    return Object.values(meta).every((value) => value === null);
+    return Object.values(meta).every((value) => value);
   };
-
-  useCodeBlocksTheme(bodyRef);
 
   return (
     <>

@@ -33,7 +33,8 @@ const MotionToggle: FC<MotionToggleProps> = ({
     value
   );
   useAttributes({
-    attribute: 'reducedMotion',
+    element: document.documentElement || undefined,
+    attribute: 'reduced-motion',
     value: `${isReduced}`,
   });
 
