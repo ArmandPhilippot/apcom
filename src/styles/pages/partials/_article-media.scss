@@ -1,11 +1,20 @@
+@use "@styles/abstracts/functions" as fun;
+
 @mixin styles {
   figure {
-    margin: var(--spacing-md) 0;
+    display: flex;
+    flex-flow: column;
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
   }
 
   figcaption {
-    margin-top: var(--spacing-xs);
-    font-size: var(--font-size-sm);
-    text-align: center;
+    margin: 0;
+    padding: fun.convert-px(4) var(--spacing-2xs);
+    background: var(--color-bg-secondary);
+    border: fun.convert-px(1) solid var(--color-border-light);
+    font-weight: 500;
   }
 }

@@ -33,12 +33,12 @@
       }
     }
   }
-}
 
-.cover {
-  width: 100%;
-  height: fun.convert-px(175);
-  margin: 0 auto var(--spacing-md);
-  padding: var(--spacing-2xs);
-  border: fun.convert-px(1) solid var(--color-border);
+  .cover {
+    width: fit-content;
+    max-height: fun.convert-px(175);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-2xs);
+    border: fun.convert-px(1) solid var(--color-border);
+  }
 }

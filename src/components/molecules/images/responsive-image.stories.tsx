@@ -7,6 +7,9 @@ import ResponsiveImage from './responsive-image';
 export default {
   title: 'Molecules/Images/ResponsiveImage',
   component: ResponsiveImage,
+  args: {
+    withBorders: false,
+  },
   argTypes: {
     alt: {
       control: {
@@ -73,6 +76,20 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    withBorders: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Add borders around the image.',
+      table: {
+        category: 'Styles',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
       },
     },
   },

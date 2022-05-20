@@ -31,6 +31,10 @@ export type ResponsiveImageProps = Omit<
    * The image width.
    */
   width: number | string;
+  /**
+   * Wrap the image with borders.
+   */
+  withBorders?: boolean;
 };
 
 /**
@@ -45,10 +49,18 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
   layout,
   objectFit,
   target,
+  withBorders,
   ...props
 }) => {
+  const bordersModifier = withBorders
+    ? 'wrapper--has-borders'
+    : 'wrapper--no-borders';
+  const linkModifier = target ? 'wrapper--has-link' : 'wrapper--no-link';
+
   return (
-    <figure className={`${styles.wrapper} ${className}`}>
+    <figure
+      className={`${styles.wrapper} ${styles[bordersModifier]} ${styles[linkModifier]} ${className}`}
+    >
       {target ? (
         <Link href={target} className={styles.link}>
           <Image
