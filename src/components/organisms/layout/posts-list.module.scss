@@ -3,6 +3,10 @@
 @use "@styles/abstracts/placeholders";
 
 .section {
+  &:not(:last-of-type) {
+    margin-bottom: var(--spacing-md);
+  }
+
   @include mix.media("screen") {
     @include mix.dimensions("md") {
       display: grid;
@@ -17,8 +21,11 @@
   @extend %reset-ordered-list;
 
   .item {
-    margin-bottom: var(--spacing-md);
     border-bottom: fun.convert-px(1) solid var(--color-border);
+
+    &:not(:last-child) {
+      margin-bottom: var(--spacing-md);
+    }
   }
 }
 

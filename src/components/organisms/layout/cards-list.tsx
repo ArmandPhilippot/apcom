@@ -77,7 +77,6 @@ const CardsList: FC<CardsListProps> = ({
     <List
       kind="flex"
       items={getCards(items)}
-      withMargin={false}
       className={`${styles.wrapper} ${styles[kindModifier]} ${className}`}
     />
   );

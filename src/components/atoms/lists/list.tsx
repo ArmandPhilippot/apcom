@@ -33,10 +33,6 @@ export type ListProps = {
    * The list kind.
    */
   kind?: 'ordered' | 'unordered' | 'flex';
-  /**
-   * Set margin between list items. Default: true.
-   */
-  withMargin?: boolean;
 };
 
 /**
@@ -49,11 +45,9 @@ const List: FC<ListProps> = ({
   items,
   itemsClassName = '',
   kind = 'unordered',
-  withMargin = true,
 }) => {
   const ListTag = kind === 'ordered' ? 'ol' : 'ul';
   const kindClass = `list--${kind}`;
-  const marginClass = withMargin ? 'list--has-margin' : 'list--no-margin';
 
   /**
    * Retrieve the list items.
@@ -66,7 +60,7 @@ const List: FC<ListProps> = ({
         {value}
         {child && (
           <ListTag
-            className={`${styles.list} ${styles[kindClass]} ${styles[marginClass]} ${className}`}
+            className={`${styles.list} ${styles[kindClass]} ${className}`}
           >
             {getItems(child)}
           </ListTag>
@@ -76,9 +70,7 @@ const List: FC<ListProps> = ({
   };
 
   return (
-    <ListTag
-      className={`${styles.list} ${styles[kindClass]} ${styles[marginClass]} ${className}`}
-    >
+    <ListTag className={`${styles.list} ${styles[kindClass]} ${className}`}>
       {getItems(items)}
     </ListTag>
   );

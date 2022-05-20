@@ -99,10 +99,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
             target={`/sujet/${topic.slug}`}
             className={styles.btn}
           >
-            {topic.logo && (
-              <ResponsiveImage className={styles.btn__icon} {...topic.logo} />
-            )}{' '}
-            {topic.name}
+            {topic.logo && <ResponsiveImage {...topic.logo} />} {topic.name}
           </ButtonLink>
         );
       }),

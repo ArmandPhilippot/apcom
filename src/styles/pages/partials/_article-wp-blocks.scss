@@ -7,13 +7,12 @@
     margin: var(--spacing-sm) 0;
     padding: var(--spacing-sm);
     position: relative;
-    border: fun.convert-px(1) solid var(--color-primary-lighter);
-    border-left: fun.convert-px(5) solid var(--color-primary-lighter);
-    box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
-      fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-        var(--color-shadow-light),
-      fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
-        var(--color-shadow-light);
+    border: fun.convert-px(1) solid var(--color-border-dark);
+    border-left: fun.convert-px(5) solid var(--color-border-dark);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+        var(--color-shadow),
+      fun.convert-px(3) fun.convert-px(3) fun.convert-px(4) 0
+        var(--color-shadow);
     font-style: italic;
 
     > *:last-child {
@@ -21,6 +20,7 @@
     }
 
     cite {
+      color: var(--color-fg-light);
       font-size: var(--font-size-sm);
       font-style: normal;
       font-weight: 600;
@@ -62,17 +62,25 @@
     }
   }
 
+  .wp-block-image,
+  .wp-block-video {
+    padding: fun.convert-px(4);
+    border: fun.convert-px(1) solid var(--color-border);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+      var(--color-shadow);
+  }
+
   .wp-block-image {
     display: flex;
     flex-flow: column;
     width: fit-content;
     margin: 0 auto;
-    padding: fun.convert-px(4);
     position: relative;
-    border: fun.convert-px(1) solid var(--color-border);
-    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
-      var(--color-shadow);
     text-align: center;
+
+    img {
+      margin: auto;
+    }
 
     figcaption {
       margin-top: fun.convert-px(4);
@@ -165,13 +173,5 @@
       height: 100%;
       object-fit: cover;
     }
-  }
-
-  .wp-block-video {
-    box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
-      fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
-        var(--color-shadow-light),
-      fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
-        var(--color-shadow-light);
   }
 }

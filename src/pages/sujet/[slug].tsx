@@ -191,7 +191,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
             : []
         }
       >
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
         {articles && (
           <>
             <Heading level={2}>

@@ -100,6 +100,8 @@ const PostsList: FC<PostsListProps> = ({
   const isMounted = useIsMounted(listRef);
   const { blog } = useSettings();
 
+  const lastPostId = posts.length ? posts[posts.length - 1].id : 0;
+
   /**
    * Retrieve the list of posts.
    *
@@ -111,8 +113,6 @@ const PostsList: FC<PostsListProps> = ({
     allPosts: Post[],
     headingLevel: HeadingLevel = 2
   ): JSX.Element => {
-    const lastPostId = allPosts[allPosts.length - 1].id;
-
     return (
       <ol className={styles.list} ref={listRef}>
         {allPosts.map(({ id, ...post }) => (

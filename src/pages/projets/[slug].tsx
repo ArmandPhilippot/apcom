@@ -10,6 +10,7 @@ import { getLayout } from '@components/templates/layout/layout';
 import PageLayout, {
   PageLayoutProps,
 } from '@components/templates/page/page-layout';
+import styles from '@styles/pages/project.module.scss';
 import {
   type NextPageWithLayout,
   type ProjectPreview,
@@ -53,7 +54,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   const components: NestedMDXComponents = {
     Code: (props) => <Code {...props} />,
     Gallery: (props) => <Gallery {...props} />,
-    Image: (props) => <ResponsiveImage {...props} />,
+    Image: (props) => <ResponsiveImage withBorders={true} {...props} />,
     Link: (props) => <Link {...props} />,
     pre: ({ children }) => <Code {...children.props} />,
   };
@@ -66,7 +67,10 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     publication: { date: dates.publication },
-    update: dates.update ? { date: dates.update } : undefined,
+    update:
+      dates.update && dates.update !== dates.publication
+        ? { date: dates.update }
+        : undefined,
   };
 
   /**
@@ -202,6 +206,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
               'linkedin',
               'twitter',
             ]}
+            className={styles.widget}
           />,
         ]}
       >

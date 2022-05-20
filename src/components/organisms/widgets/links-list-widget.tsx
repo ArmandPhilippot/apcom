@@ -75,7 +75,6 @@ const LinksListWidget: FC<LinksListWidgetProps> = ({
       <List
         items={getListItems(items)}
         kind={kind}
-        withMargin={false}
         className={`${styles.list} ${styles[listKindClass]} ${className}`}
         itemsClassName={styles.list__item}
       />
