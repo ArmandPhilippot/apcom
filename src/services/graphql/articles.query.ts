@@ -184,3 +184,15 @@ export const totalArticlesQuery = `query PostsTotal($search: String = "") {
     }
   }
 }`;
+
+/**
+ * Query the end cursor based on the queried posts number.
+ */
+export const articlesEndCursor = `query EndCursorAfter($first: Int) {
+  posts(first: $first) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}`;

@@ -250,6 +250,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
       >
         {data && (
           <PostsList
+            baseUrl="/blog/page/"
             byYear={true}
             isLoading={isLoadingMore || isLoadingInitialData}
             loadMore={loadMore}

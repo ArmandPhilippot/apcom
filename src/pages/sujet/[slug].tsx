@@ -205,6 +205,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
               )}
             </Heading>
             <PostsList
+              baseUrl="/sujet/page/"
               posts={getPosts(articles)}
               total={articles.length}
               titleLevel={3}

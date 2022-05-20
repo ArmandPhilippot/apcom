@@ -186,6 +186,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
               )}
             </Heading>
             <PostsList
+              baseUrl="/thematique/page/"
               posts={getPosts(articles)}
               total={articles.length}
               titleLevel={3}

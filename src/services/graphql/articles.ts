@@ -7,10 +7,18 @@ import {
 import { getAuthorFromRawData } from '@utils/helpers/author';
 import { getImageFromRawData } from '@utils/helpers/images';
 import { getPageLinkFromRawData } from '@utils/helpers/pages';
-import { EdgesResponse, EdgesVars, fetchAPI, getAPIUrl, PageInfo } from './api';
+import {
+  EdgesResponse,
+  EdgesVars,
+  EndCursor,
+  fetchAPI,
+  getAPIUrl,
+  PageInfo,
+} from './api';
 import {
   articleBySlugQuery,
   articlesCardQuery,
+  articlesEndCursor,
   articlesQuery,
   articlesSlugQuery,
   totalArticlesQuery,
@@ -172,4 +180,22 @@ export const getAllArticlesSlugs = async (): Promise<string[]> => {
   });
 
   return response.posts.edges.map((edge) => edge.node.slug);
+};
+
+/**
+ * Retrieve the last cursor.
+ *
+ * @param {EdgesVars} props - An object of GraphQL variables.
+ * @returns {Promise<string>} - The end cursor.
+ */
+export const getArticlesEndCursor = async (
+  props: EdgesVars
+): Promise<string> => {
+  const response = await fetchAPI<EndCursor, typeof articlesEndCursor>({
+    api: getAPIUrl(),
+    query: articlesEndCursor,
+    variables: { ...props },
+  });
+
+  return response.posts.pageInfo.endCursor;
 };

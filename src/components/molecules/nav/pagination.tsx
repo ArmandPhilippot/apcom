@@ -44,12 +44,12 @@ const Pagination: FC<PaginationProps> = ({
   className = '',
   current,
   perPage,
-  siblings = 1,
+  siblings = 2,
   total,
   ...props
 }) => {
   const intl = useIntl();
-  const totalPages = Math.ceil(total / perPage);
+  const totalPages = Math.round(total / perPage);
   const hasPreviousPage = current > 1;
   const previousPageName = intl.formatMessage(
     {
@@ -205,13 +205,13 @@ const Pagination: FC<PaginationProps> = ({
 
   return (
     <nav className={`${styles.wrapper} ${className}`} {...props}>
+      <ul className={`${styles.list} ${styles['list--pages']}`}>
+        {getPages(current, totalPages)}
+      </ul>
       <ul className={styles.list}>
         {hasPreviousPage &&
           getItem('previous', previousPageName, previousPageUrl)}
         {hasNextPage && getItem('next', nextPageName, nextPageUrl)}
-      </ul>
-      <ul className={`${styles.list} ${styles['list--pages']}`}>
-        {getPages(current, totalPages)}
       </ul>
     </nav>
   );

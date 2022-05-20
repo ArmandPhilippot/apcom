@@ -2,6 +2,11 @@ import Button from '@components/atoms/buttons/button';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
 import ProgressBar from '@components/atoms/loaders/progress-bar';
 import Spinner from '@components/atoms/loaders/spinner';
+import Pagination, {
+  PaginationProps,
+} from '@components/molecules/nav/pagination';
+import useIsMounted from '@utils/hooks/use-is-mounted';
+import useSettings from '@utils/hooks/use-settings';
 import { FC, Fragment, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './posts-list.module.scss';
@@ -18,7 +23,7 @@ export type YearCollection = {
   [key: string]: Post[];
 };
 
-export type PostsListProps = {
+export type PostsListProps = Pick<PaginationProps, 'baseUrl' | 'siblings'> & {
   /**
    * True to display the posts by year. Default: false.
    */
@@ -31,6 +36,10 @@ export type PostsListProps = {
    * Load more button handler.
    */
   loadMore?: () => void;
+  /**
+   * The current page number. Default: 1.
+   */
+  pageNumber?: number;
   /**
    * The posts data.
    */
@@ -74,16 +83,22 @@ const sortPostsByYear = (data: Post[]): YearCollection => {
  * Render a list of post summaries.
  */
 const PostsList: FC<PostsListProps> = ({
+  baseUrl,
   byYear = false,
   isLoading = false,
   loadMore,
+  pageNumber = 1,
   posts,
   showLoadMoreBtn = false,
+  siblings,
   titleLevel,
   total,
 }) => {
   const intl = useIntl();
+  const listRef = useRef<HTMLOListElement>(null);
   const lastPostRef = useRef<HTMLSpanElement>(null);
+  const isMounted = useIsMounted(listRef);
+  const { blog } = useSettings();
 
   /**
    * Retrieve the list of posts.
@@ -99,7 +114,7 @@ const PostsList: FC<PostsListProps> = ({
     const lastPostId = allPosts[allPosts.length - 1].id;
 
     return (
-      <ol className={styles.list}>
+      <ol className={styles.list} ref={listRef}>
         {allPosts.map(({ id, ...post }) => (
           <Fragment key={id}>
             <li className={styles.item}>
@@ -168,34 +183,60 @@ const PostsList: FC<PostsListProps> = ({
     loadMore && loadMore();
   };
 
-  return posts.length === 0 ? (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: 'No results found.',
-        description: 'PostsList: no results',
-        id: 'vK7Sxv',
-      })}
-    </p>
-  ) : (
+  const getProgressBar = () => {
+    return (
+      <>
+        <ProgressBar
+          min={1}
+          max={total}
+          current={posts.length}
+          info={progressInfo}
+        />
+        {showLoadMoreBtn && (
+          <Button
+            kind="tertiary"
+            onClick={loadMorePosts}
+            disabled={isLoading}
+            className={styles.btn}
+          >
+            {loadMoreBody}
+          </Button>
+        )}
+      </>
+    );
+  };
+
+  const getPagination = () => {
+    return posts.length <= blog.postsPerPage ? (
+      <Pagination
+        baseUrl={baseUrl}
+        current={pageNumber}
+        perPage={blog.postsPerPage}
+        siblings={siblings}
+        total={total}
+      />
+    ) : (
+      <></>
+    );
+  };
+
+  if (posts.length === 0) {
+    return (
+      <p>
+        {intl.formatMessage({
+          defaultMessage: 'No results found.',
+          description: 'PostsList: no results',
+          id: 'vK7Sxv',
+        })}
+      </p>
+    );
+  }
+
+  return (
     <>
       {getPosts()}
       {isLoading && <Spinner />}
-      <ProgressBar
-        min={1}
-        max={total}
-        current={posts.length}
-        info={progressInfo}
-      />
-      {showLoadMoreBtn && (
-        <Button
-          kind="tertiary"
-          onClick={loadMorePosts}
-          disabled={isLoading}
-          className={styles.btn}
-        >
-          {loadMoreBody}
-        </Button>
-      )}
+      {isMounted ? getProgressBar() : getPagination()}
     </>
   );
 };

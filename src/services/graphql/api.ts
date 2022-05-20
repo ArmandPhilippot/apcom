@@ -2,6 +2,7 @@ import { settings } from '@utils/config';
 import {
   articleBySlugQuery,
   articlesCardQuery,
+  articlesEndCursor,
   articlesQuery,
   articlesSlugQuery,
   totalArticlesQuery,
@@ -28,6 +29,7 @@ export type Queries =
   | typeof articlesQuery
   | typeof articleBySlugQuery
   | typeof articlesCardQuery
+  | typeof articlesEndCursor
   | typeof articlesSlugQuery
   | typeof commentsQuery
   | typeof thematicBySlugQuery
@@ -100,9 +102,15 @@ export type NodesResponse<T> = {
   nodes: T[];
 };
 
+export type EndCursor = Pick<
+  EdgesResponse<Pick<PageInfo, 'endCursor'>>,
+  'pageInfo'
+>;
+
 export type ResponseMap<T> = {
   [articleBySlugQuery]: ArticleResponse<T>;
   [articlesCardQuery]: ArticlesResponse<NodesResponse<T>>;
+  [articlesEndCursor]: ArticlesResponse<EndCursor>;
   [articlesQuery]: ArticlesResponse<EdgesResponse<T>>;
   [articlesSlugQuery]: ArticlesResponse<EdgesResponse<T>>;
   [commentsQuery]: CommentsResponse<NodesResponse<T>>;
@@ -213,6 +221,7 @@ export type SendMailVars = {
 export type VariablesMap = {
   [articleBySlugQuery]: BySlugVar;
   [articlesCardQuery]: EdgesVars;
+  [articlesEndCursor]: EdgesVars;
   [articlesQuery]: EdgesVars;
   [articlesSlugQuery]: EdgesVars;
   [commentsQuery]: ByContentIdVar;

@@ -40,6 +40,7 @@ const useBreadcrumb = ({
   const { website } = useSettings();
   const isArticle = url.startsWith('/article/');
   const isHome = url === '/';
+  const isPageNumber = url.includes('/page/');
   const isProject = url.startsWith('/projets/');
   const isSearch = url.startsWith('/recherche');
   const isThematic = url.startsWith('/thematique/');
@@ -62,7 +63,7 @@ const useBreadcrumb = ({
 
   if (isHome) return { items, schema };
 
-  if (isArticle || isSearch || isThematic || isTopic) {
+  if (isArticle || isPageNumber || isSearch || isThematic || isTopic) {
     const blogLabel = intl.formatMessage({
       defaultMessage: 'Blog',
       description: 'Breadcrumb: blog label',
