@@ -29,15 +29,21 @@ const SelectWithTooltip: FC<SelectWithTooltipProps> = ({
   ...props
 }) => {
   const [isTooltipOpened, setIsTooltipOpened] = useState<boolean>(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const buttonModifier = isTooltipOpened ? styles['btn--activated'] : '';
   const tooltipModifier = isTooltipOpened
     ? styles['tooltip--visible']
     : styles['tooltip--hidden'];
 
+  const closeTooltip = (target: EventTarget) => {
+    if (buttonRef.current && !buttonRef.current.contains(target as Node))
+      setIsTooltipOpened(false);
+  };
+
   useClickOutside(
     tooltipRef,
-    () => isTooltipOpened && setIsTooltipOpened(false)
+    (target) => isTooltipOpened && closeTooltip(target)
   );
 
   return (
@@ -49,8 +55,9 @@ const SelectWithTooltip: FC<SelectWithTooltipProps> = ({
         {...props}
       />
       <HelpButton
-        onClick={() => setIsTooltipOpened(!isTooltipOpened)}
         className={`${styles.btn} ${buttonModifier}`}
+        onClick={() => setIsTooltipOpened(!isTooltipOpened)}
+        ref={buttonRef}
       />
       <Tooltip
         title={title}

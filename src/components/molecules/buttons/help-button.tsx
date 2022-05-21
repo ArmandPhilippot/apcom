@@ -1,5 +1,5 @@
 import Button, { type ButtonProps } from '@components/atoms/buttons/button';
-import { FC } from 'react';
+import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './help-button.module.scss';
 
@@ -15,7 +15,10 @@ export type HelpButtonProps = Pick<ButtonProps, 'onClick'> & {
  *
  * Render a button with an interrogation mark icon.
  */
-const HelpButton: FC<HelpButtonProps> = ({ className = '', onClick }) => {
+const HelpButton: ForwardRefRenderFunction<
+  HTMLButtonElement,
+  HelpButtonProps
+> = ({ className = '', onClick }, ref) => {
   const intl = useIntl();
   const text = intl.formatMessage({
     defaultMessage: 'Help',
@@ -25,9 +28,10 @@ const HelpButton: FC<HelpButtonProps> = ({ className = '', onClick }) => {
 
   return (
     <Button
-      shape="circle"
       className={`${styles.btn} ${className}`}
       onClick={onClick}
+      ref={ref}
+      shape="circle"
     >
       <span className="screen-reader-text">{text}</span>
       <span className={styles.icon}>?</span>
@@ -35,4 +39,4 @@ const HelpButton: FC<HelpButtonProps> = ({ className = '', onClick }) => {
   );
 };
 
-export default HelpButton;
+export default forwardRef(HelpButton);

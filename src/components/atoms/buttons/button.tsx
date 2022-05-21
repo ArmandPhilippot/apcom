@@ -1,4 +1,9 @@
-import { FC, MouseEventHandler, ReactNode } from 'react';
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  MouseEventHandler,
+  ReactNode,
+} from 'react';
 import styles from './buttons.module.scss';
 
 export type ButtonProps = {
@@ -41,23 +46,27 @@ export type ButtonProps = {
  *
  * Use a button as call to action.
  */
-const Button: FC<ButtonProps> = ({
-  className = '',
-  children,
-  disabled = false,
-  kind = 'secondary',
-  shape = 'rectangle',
-  type = 'button',
-  ...props
-}) => {
+const Button: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
+  {
+    className = '',
+    children,
+    disabled = false,
+    kind = 'secondary',
+    shape = 'rectangle',
+    type = 'button',
+    ...props
+  },
+  ref
+) => {
   const kindClass = styles[`btn--${kind}`];
   const shapeClass = styles[`btn--${shape}`];
 
   return (
     <button
-      type={type}
-      disabled={disabled}
       className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
+      disabled={disabled}
+      ref={ref}
+      type={type}
       {...props}
     >
       {children}
@@ -65,4 +74,4 @@ const Button: FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default forwardRef(Button);

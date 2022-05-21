@@ -6,7 +6,10 @@ import { RefObject, useCallback, useEffect } from 'react';
  * @param el - A React reference to an element.
  * @param callback - A callback function to execute on click outside.
  */
-const useClickOutside = (el: RefObject<HTMLElement>, callback: () => void) => {
+const useClickOutside = (
+  el: RefObject<HTMLElement>,
+  callback: (target: EventTarget) => void
+) => {
   /**
    * Check if an event target is outside an element.
    *
@@ -24,7 +27,7 @@ const useClickOutside = (el: RefObject<HTMLElement>, callback: () => void) => {
 
   const handleEvent = useCallback(
     (e: MouseEvent | FocusEvent) => {
-      if (e.target && isTargetOutside(el, e.target)) callback();
+      if (e.target && isTargetOutside(el, e.target)) callback(e.target);
     },
     [el, callback]
   );
