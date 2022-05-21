@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import ImageWidget from './image-widget';
 
 /**
@@ -21,6 +20,19 @@ export default {
       table: {
         category: 'Options',
         defaultValue: { summary: 'left' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the widget wrapper.',
+      table: {
+        category: 'Styles',
       },
       type: {
         name: 'string',
@@ -107,13 +119,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof ImageWidget>;
 
 const Template: ComponentStory<typeof ImageWidget> = (args) => (

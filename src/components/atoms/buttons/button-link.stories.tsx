@@ -47,6 +47,20 @@ export default {
         required: false,
       },
     },
+    external: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Determine if the link is an external link.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
     kind: {
       control: {
         type: 'select',

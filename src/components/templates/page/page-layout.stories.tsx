@@ -33,6 +33,30 @@ export default {
         required: false,
       },
     },
+    bodyAttributes: {
+      description: 'Set additional HTML attributes to the main content body.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'object',
+        required: false,
+        value: {},
+      },
+    },
+    bodyClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the main content body.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     breadcrumb: {
       description: 'The breadcrumb items.',
       type: {

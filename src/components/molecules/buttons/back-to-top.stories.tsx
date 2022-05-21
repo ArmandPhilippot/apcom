@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import BackToTopComponent from './back-to-top';
 
 /**
@@ -33,13 +32,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof BackToTopComponent>;
 
 const Template: ComponentStory<typeof BackToTopComponent> = (args) => (

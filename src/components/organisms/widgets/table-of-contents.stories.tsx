@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import ToCWidget from './table-of-contents';
 
 /**
@@ -21,13 +20,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof ToCWidget>;
 
 const Template: ComponentStory<typeof ToCWidget> = (args) => (

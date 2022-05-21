@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import Breadcrumb from './breadcrumb';
 
 /**
@@ -44,13 +43,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof Breadcrumb>;
 
 const Template: ComponentStory<typeof Breadcrumb> = (args) => (

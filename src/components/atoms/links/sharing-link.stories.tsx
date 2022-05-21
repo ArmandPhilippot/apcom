@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SharingLinkComponent from './sharing-link';
 
 /**
@@ -41,9 +40,7 @@ export default {
 } as ComponentMeta<typeof SharingLinkComponent>;
 
 const Template: ComponentStory<typeof SharingLinkComponent> = (args) => (
-  <IntlProvider locale="en">
-    <SharingLinkComponent {...args} />
-  </IntlProvider>
+  <SharingLinkComponent {...args} />
 );
 
 /**

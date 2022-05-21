@@ -8,6 +8,16 @@ export default {
   title: 'Organisms/Forms',
   component: SettingsForm,
   argTypes: {
+    ackeeStorageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'The local storage key for Ackee setting.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     className: {
       control: {
         type: 'text',
@@ -19,6 +29,16 @@ export default {
       type: {
         name: 'string',
         required: false,
+      },
+    },
+    motionStorageKey: {
+      control: {
+        type: 'text',
+      },
+      description: 'The local storage key for reduced motion setting.',
+      type: {
+        name: 'string',
+        required: true,
       },
     },
     tooltipClassName: {

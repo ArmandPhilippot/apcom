@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SidebarComponent from './sidebar';
 
 /**
@@ -46,13 +45,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof SidebarComponent>;
 
 const Template: ComponentStory<typeof SidebarComponent> = (args) => (

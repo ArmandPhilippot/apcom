@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SpinnerComponent from './spinner';
 
 /**
@@ -23,13 +22,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof SpinnerComponent>;
 
 const Template: ComponentStory<typeof SpinnerComponent> = (args) => (

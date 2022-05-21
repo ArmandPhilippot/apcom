@@ -9,14 +9,7 @@ import SettingsModal, {
 import settingsStyles from './settings.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
 
-export type SettingsProps = Pick<
-  SettingsModalProps,
-  'ackeeStorageKey' | 'motionStorageKey' | 'tooltipClassName'
-> & {
-  /**
-   * Set additional classnames to the modal wrapper.
-   */
-  className?: string;
+export type SettingsProps = SettingsModalProps & {
   /**
    * The button state.
    */

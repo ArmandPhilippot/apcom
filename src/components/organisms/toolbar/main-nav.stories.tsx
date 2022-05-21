@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import { IntlProvider } from 'react-intl';
 import MainNav from './main-nav';
 
 /**
@@ -46,19 +45,15 @@ export default {
         type: null,
       },
       description: 'A callback function to change main nav state.',
+      table: {
+        category: 'Events',
+      },
       type: {
         name: 'function',
         required: true,
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof MainNav>;
 
 const Template: ComponentStory<typeof MainNav> = ({

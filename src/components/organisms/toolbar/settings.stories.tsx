@@ -41,6 +41,9 @@ export default {
         type: null,
       },
       description: 'Define the modal state: either opened or closed.',
+      table: {
+        category: 'Events',
+      },
       type: {
         name: 'boolean',
         required: true,

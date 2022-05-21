@@ -1,37 +1,9 @@
-import usePrism, { OptionalPrismPlugin } from '@utils/hooks/use-prism';
+import usePrism, {
+  type OptionalPrismPlugin,
+  type PrismLanguage,
+} from '@utils/hooks/use-prism';
 import { FC, useRef } from 'react';
 import styles from './code.module.scss';
-
-export type PrismLanguage =
-  | 'apacheconf'
-  | 'bash'
-  | 'css'
-  | 'diff'
-  | 'docker'
-  | 'editorconfig'
-  | 'ejs'
-  | 'git'
-  | 'graphql'
-  | 'html'
-  | 'ignore'
-  | 'ini'
-  | 'javascript'
-  | 'jsdoc'
-  | 'json'
-  | 'jsx'
-  | 'makefile'
-  | 'markup'
-  | 'php'
-  | 'phpdoc'
-  | 'regex'
-  | 'scss'
-  | 'shell-session'
-  | 'smarty'
-  | 'tcl'
-  | 'toml'
-  | 'tsx'
-  | 'twig'
-  | 'yaml';
 
 export type CodeProps = {
   /**

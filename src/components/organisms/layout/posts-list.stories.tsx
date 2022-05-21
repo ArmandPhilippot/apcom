@@ -10,10 +10,26 @@ export default {
   args: {
     byYear: false,
     isLoading: false,
+    pageNumber: 1,
     showLoadMoreBtn: false,
+    siblings: 1,
     titleLevel: 2,
   },
   argTypes: {
+    baseUrl: {
+      control: {
+        type: 'text',
+      },
+      description: 'The pagination base url.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: '/page/' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     byYear: {
       control: {
         type: 'boolean',
@@ -55,6 +71,20 @@ export default {
         required: false,
       },
     },
+    pageNumber: {
+      control: {
+        type: 'number',
+      },
+      description: 'The current page number.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 1 },
+      },
+      type: {
+        name: 'number',
+        required: false,
+      },
+    },
     posts: {
       description: 'The posts data.',
       type: {
@@ -74,6 +104,20 @@ export default {
       },
       type: {
         name: 'boolean',
+        required: false,
+      },
+    },
+    siblings: {
+      control: {
+        type: 'number',
+      },
+      description: 'The number of page siblings inside pagination.',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 1 },
+      },
+      type: {
+        name: 'number',
         required: false,
       },
     },

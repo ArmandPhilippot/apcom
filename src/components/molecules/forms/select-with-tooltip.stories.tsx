@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import { IntlProvider } from 'react-intl';
 import SelectWithTooltip from './select-with-tooltip';
 
 /**
@@ -178,13 +177,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof SelectWithTooltip>;
 
 const selectOptions = [

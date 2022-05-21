@@ -31,6 +31,19 @@ export default {
         required: false,
       },
     },
+    headingClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the modal heading.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     icon: {
       control: {
         type: 'select',

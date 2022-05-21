@@ -1,7 +1,6 @@
 import Envelop from '@components/atoms/icons/envelop';
 import Home from '@components/atoms/icons/home';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import NavComponent, { type NavItem } from './nav';
 
 /**
@@ -73,13 +72,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof NavComponent>;
 
 const Template: ComponentStory<typeof NavComponent> = (args) => (

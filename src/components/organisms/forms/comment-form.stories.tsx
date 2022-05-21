@@ -13,6 +13,8 @@ export default {
   component: CommentForm,
   args: {
     saveComment,
+    titleAlignment: 'left',
+    titleLevel: 2,
   },
   argTypes: {
     className: {
@@ -56,6 +58,9 @@ export default {
         type: null,
       },
       description: 'A callback function to process the comment form data.',
+      table: {
+        category: 'Events',
+      },
       type: {
         name: 'function',
         required: true,
@@ -74,6 +79,21 @@ export default {
         required: false,
       },
     },
+    titleAlignment: {
+      control: {
+        type: 'select',
+      },
+      description: 'The heading alignment.',
+      options: ['center', 'left'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'left' },
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     titleLevel: {
       control: {
         type: 'number',
@@ -83,6 +103,7 @@ export default {
       description: 'The title level (hn).',
       table: {
         category: 'Options',
+        defaultValue: { summary: 2 },
       },
       type: {
         name: 'number',

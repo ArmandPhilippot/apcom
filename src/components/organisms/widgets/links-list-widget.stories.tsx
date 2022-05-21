@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import LinksListWidget from './links-list-widget';
 
 /**
@@ -12,6 +11,19 @@ export default {
     kind: 'unordered',
   },
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the list wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     items: {
       description: 'The widget data.',
       type: {
@@ -58,13 +70,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof LinksListWidget>;
 
 const Template: ComponentStory<typeof LinksListWidget> = (args) => (

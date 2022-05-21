@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CommentsListComponent, { Comment } from './comments-list';
+import CommentsListComponent, { type Comment } from './comments-list';
 
 const saveComment = async () => {
   /** Do nothing. */
@@ -29,6 +29,8 @@ export default {
     depth: {
       control: {
         type: 'number',
+        min: 0,
+        max: 4,
       },
       description: 'The maximum depth. Use `0` to not display nested comments.',
       type: {

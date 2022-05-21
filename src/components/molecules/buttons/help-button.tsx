@@ -3,12 +3,7 @@ import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './help-button.module.scss';
 
-export type HelpButtonProps = Pick<ButtonProps, 'onClick'> & {
-  /**
-   * Set additional classnames to the button wrapper.
-   */
-  className?: string;
-};
+export type HelpButtonProps = Pick<ButtonProps, 'className' | 'onClick'>;
 
 /**
  * HelpButton component
@@ -18,7 +13,7 @@ export type HelpButtonProps = Pick<ButtonProps, 'onClick'> & {
 const HelpButton: ForwardRefRenderFunction<
   HTMLButtonElement,
   HelpButtonProps
-> = ({ className = '', onClick }, ref) => {
+> = ({ className = '', ...props }, ref) => {
   const intl = useIntl();
   const text = intl.formatMessage({
     defaultMessage: 'Help',
@@ -29,9 +24,9 @@ const HelpButton: ForwardRefRenderFunction<
   return (
     <Button
       className={`${styles.btn} ${className}`}
-      onClick={onClick}
       ref={ref}
       shape="circle"
+      {...props}
     >
       <span className="screen-reader-text">{text}</span>
       <span className={styles.icon}>?</span>

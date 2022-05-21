@@ -1,3 +1,5 @@
+import descriptionListItemStories from '@components/atoms/lists/description-list-item.stories';
+import descriptionListStories from '@components/atoms/lists/description-list.stories';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import MetaComponent, { MetaData } from './meta';
 
@@ -7,7 +9,12 @@ import MetaComponent, { MetaData } from './meta';
 export default {
   title: 'Molecules/Layout',
   component: MetaComponent,
+  args: {
+    itemsLayout: 'inline-values',
+    withSeparator: false,
+  },
   argTypes: {
+    className: descriptionListStories.argTypes?.className,
     data: {
       description: 'The page metadata.',
       type: {
@@ -16,33 +23,22 @@ export default {
         value: {},
       },
     },
+    groupClassName: descriptionListStories.argTypes?.groupClassName,
     itemsLayout: {
-      control: {
-        type: 'select',
-      },
-      description: 'The items layout.',
-      options: ['inline', 'inline-values', 'stacked'],
+      ...descriptionListItemStories.argTypes?.layout,
       table: {
-        category: 'Options',
+        ...descriptionListItemStories.argTypes?.layout?.table,
         defaultValue: { summary: 'inline-values' },
       },
-      type: {
-        name: 'string',
-        required: false,
-      },
     },
+    labelClassName: descriptionListStories.argTypes?.labelClassName,
+    layout: descriptionListStories.argTypes?.layout,
+    valueClassName: descriptionListStories.argTypes?.valueClassName,
     withSeparator: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Add a slash as separator between multiple values.',
+      ...descriptionListStories.argTypes?.withSeparator,
       table: {
-        category: 'Options',
+        ...descriptionListStories.argTypes?.withSeparator?.table,
         defaultValue: { summary: true },
-      },
-      type: {
-        name: 'boolean',
-        required: true,
       },
     },
   },

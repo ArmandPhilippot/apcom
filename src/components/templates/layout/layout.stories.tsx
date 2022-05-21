@@ -60,6 +60,32 @@ export default {
         required: false,
       },
     },
+    useGrid: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Use the grid layout.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
+    withExtraPadding: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Set additional padding at the bottom of the page.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
   },
   decorators: [
     (Story) => (

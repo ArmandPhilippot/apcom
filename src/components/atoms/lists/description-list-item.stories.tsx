@@ -52,7 +52,7 @@ export default {
       description: 'The item layout.',
       options: ['inline', 'inline-values', 'stacked'],
       table: {
-        category: 'Styles',
+        category: 'Options',
         defaultValue: { summary: 'stacked' },
       },
       type: {

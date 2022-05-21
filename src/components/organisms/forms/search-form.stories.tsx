@@ -39,6 +39,16 @@ export default {
         required: false,
       },
     },
+    searchPage: {
+      control: {
+        type: 'text',
+      },
+      description: 'The search results page url.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
   },
 } as ComponentMeta<typeof SearchForm>;
 

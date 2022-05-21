@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import CCBySAIcon from './cc-by-sa';
 
 /**
@@ -23,13 +22,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof CCBySAIcon>;
 
 const Template: ComponentStory<typeof CCBySAIcon> = (args) => (

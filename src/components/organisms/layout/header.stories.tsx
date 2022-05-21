@@ -92,6 +92,16 @@ export default {
         required: true,
       },
     },
+    searchPage: {
+      control: {
+        type: 'text',
+      },
+      description: 'The search results page url.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     title: {
       control: {
         type: 'text',

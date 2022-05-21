@@ -54,6 +54,16 @@ export default {
         value: {},
       },
     },
+    searchPage: {
+      control: {
+        type: 'text',
+      },
+      description: 'The search results page url.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
   },
   parameters: {
     layout: 'fullscreen',

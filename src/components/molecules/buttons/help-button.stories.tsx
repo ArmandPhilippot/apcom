@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import HelpButtonComponent from './help-button';
 
 /**
@@ -36,13 +35,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof HelpButtonComponent>;
 
 const Template: ComponentStory<typeof HelpButtonComponent> = (args) => (

@@ -34,6 +34,19 @@ export default {
         required: false,
       },
     },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the image wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     height: {
       control: {
         type: 'number',

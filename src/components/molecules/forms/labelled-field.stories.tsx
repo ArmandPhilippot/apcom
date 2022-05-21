@@ -10,6 +10,7 @@ export default {
   component: LabelledField,
   args: {
     disabled: false,
+    hideLabel: false,
     labelPosition: 'top',
     required: false,
   },

@@ -35,11 +35,24 @@ export default {
         required: true,
       },
     },
+    searchPage: {
+      control: {
+        type: 'text',
+      },
+      description: 'The search results page url.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     setIsActive: {
       control: {
         type: null,
       },
       description: 'A callback function to update modal state.',
+      table: {
+        category: 'Events',
+      },
       type: {
         name: 'function',
         required: true,

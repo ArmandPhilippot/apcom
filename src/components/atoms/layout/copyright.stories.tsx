@@ -1,6 +1,5 @@
 import CCBySA from '@components/atoms/icons/cc-by-sa';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import CopyrightComponent from './copyright';
 
 /**
@@ -39,13 +38,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof CopyrightComponent>;
 
 const Template: ComponentStory<typeof CopyrightComponent> = (args) => (

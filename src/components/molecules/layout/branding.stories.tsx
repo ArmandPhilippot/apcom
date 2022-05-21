@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import Branding from './branding';
 
 /**
@@ -10,6 +9,7 @@ export default {
   component: Branding,
   args: {
     isHome: false,
+    withLink: false,
   },
   argTypes: {
     baseline: {
@@ -72,13 +72,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof Branding>;
 
 const Template: ComponentStory<typeof Branding> = (args) => (

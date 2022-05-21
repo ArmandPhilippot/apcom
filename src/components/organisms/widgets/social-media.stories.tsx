@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import SocialMediaWidget, { Media } from './social-media';
 
 /**
@@ -40,13 +39,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof SocialMediaWidget>;
 
 const Template: ComponentStory<typeof SocialMediaWidget> = (args) => (

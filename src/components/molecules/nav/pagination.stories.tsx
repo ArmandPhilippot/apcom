@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import PaginationComponent from './pagination';
 
 /**
@@ -8,6 +7,10 @@ import PaginationComponent from './pagination';
 export default {
   title: 'Molecules/Navigation/Pagination',
   component: PaginationComponent,
+  args: {
+    baseUrl: '/page/',
+    siblings: 1,
+  },
   argTypes: {
     'aria-label': {
       control: {
@@ -95,13 +98,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof PaginationComponent>;
 
 const Template: ComponentStory<typeof PaginationComponent> = (args) => (

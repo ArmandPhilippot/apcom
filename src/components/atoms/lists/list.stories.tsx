@@ -35,6 +35,19 @@ export default {
         value: {},
       },
     },
+    itemsClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the list items.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     kind: {
       control: {
         type: 'select',

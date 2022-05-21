@@ -12,6 +12,7 @@ export default {
   title: 'Organisms/Layout',
   component: CommentComponent,
   args: {
+    canReply: true,
     saveComment,
   },
   argTypes: {

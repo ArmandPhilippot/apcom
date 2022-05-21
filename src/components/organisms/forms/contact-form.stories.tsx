@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
 import ContactForm from './contact-form';
 
 /**
@@ -40,19 +39,15 @@ export default {
         type: null,
       },
       description: 'A callback function to process the contact form data.',
+      table: {
+        category: 'Events',
+      },
       type: {
         name: 'function',
         required: true,
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof ContactForm>;
 
 const Template: ComponentStory<typeof ContactForm> = (args) => (

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { IntlProvider } from 'react-intl';
+import headingButtonStories from '../buttons/heading-button.stories';
 import Widget from './widget';
 
 /**
@@ -10,6 +10,7 @@ export default {
   component: Widget,
   args: {
     withBorders: false,
+    withScroll: false,
   },
   argTypes: {
     children: {
@@ -20,6 +21,19 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the widget wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     expanded: {
@@ -36,18 +50,7 @@ export default {
         required: false,
       },
     },
-    level: {
-      control: {
-        type: 'number',
-        min: 1,
-        max: 6,
-      },
-      description: 'The heading level.',
-      type: {
-        name: 'number',
-        required: true,
-      },
-    },
+    level: headingButtonStories.argTypes?.level,
     title: {
       control: {
         type: 'text',
@@ -72,14 +75,21 @@ export default {
         required: false,
       },
     },
+    withScroll: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Define if the widget should be scrollable',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
   },
-  decorators: [
-    (Story) => (
-      <IntlProvider locale="en">
-        <Story />
-      </IntlProvider>
-    ),
-  ],
 } as ComponentMeta<typeof Widget>;
 
 const Template: ComponentStory<typeof Widget> = (args) => <Widget {...args} />;
