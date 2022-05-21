@@ -249,7 +249,7 @@ const PageLayout: FC<PageLayoutProps> = ({
             {hasComments ? (
               <CommentsList
                 comments={comments}
-                depth={1}
+                depth={2}
                 Notice={
                   isReplyRef.current === true && (
                     <Notice
