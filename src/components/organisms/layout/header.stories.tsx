@@ -112,7 +112,6 @@ export default {
         required: true,
       },
     },
-    unoptimized: { table: { disable: true } },
     withLink: {
       control: {
         type: 'boolean',
@@ -151,6 +150,4 @@ Header.args = {
   nav,
   photo: 'http://placeimg.com/640/480/people',
   title: 'Website title',
-  // @ts-ignore - Needed because of the placeholder image.
-  unoptimized: true,
 };

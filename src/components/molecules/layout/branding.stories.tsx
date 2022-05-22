@@ -56,7 +56,6 @@ export default {
         required: true,
       },
     },
-    unoptimized: { table: { disable: true } },
     withLink: {
       control: {
         type: 'boolean',
@@ -85,8 +84,6 @@ export const Default = Template.bind({});
 Default.args = {
   title: 'Website title',
   photo: 'http://placeimg.com/640/480',
-  // @ts-ignore - Needed because of the placeholder image.
-  unoptimized: true,
 };
 
 /**
@@ -97,6 +94,4 @@ WithBaseline.args = {
   title: 'Website title',
   baseline: 'Maiores corporis qui',
   photo: 'http://placeimg.com/640/480',
-  // @ts-ignore - Needed because of the placeholder image.
-  unoptimized: true,
 };

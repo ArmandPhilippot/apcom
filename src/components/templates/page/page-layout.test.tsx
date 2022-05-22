@@ -98,8 +98,6 @@ describe('PageLayout', () => {
           'Voluptas ducimus inventore. Libero ut et doloribus. Earum nostrum ab. Aliquam rem dolores omnis voluptate. Sunt aut ut et.',
         id: 1,
         publication: '2021-04-03 18:04:11',
-        // @ts-ignore - Needed because of the placeholder image.
-        unoptimized: true,
       },
     ];
     render(

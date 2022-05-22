@@ -52,7 +52,6 @@ const cover = {
   height: 480,
   src: 'http://placeimg.com/640/480/cats',
   width: 640,
-  unoptimized: true,
 };
 
 const meta: OverviewMeta = {

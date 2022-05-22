@@ -54,7 +54,6 @@ export default {
         required: true,
       },
     },
-    unoptimized: { table: { disable: true } },
   },
 } as ComponentMeta<typeof FlippingLogoComponent>;
 
@@ -70,6 +69,4 @@ FlippingLogo.args = {
   altText: 'Website picture',
   logoTitle: 'Website logo',
   photo: 'http://placeimg.com/640/480',
-  // @ts-ignore - Needed because of the placeholder image.
-  unoptimized: true,
 };

@@ -43,10 +43,10 @@ const image = {
 
 const Template: ComponentStory<typeof Gallery> = (args) => (
   <Gallery {...args}>
-    <ResponsiveImage unoptimized {...image} />
-    <ResponsiveImage unoptimized {...image} />
-    <ResponsiveImage unoptimized {...image} />
-    <ResponsiveImage unoptimized {...image} />
+    <ResponsiveImage {...image} />
+    <ResponsiveImage {...image} />
+    <ResponsiveImage {...image} />
+    <ResponsiveImage {...image} />
   </Gallery>
 );
 

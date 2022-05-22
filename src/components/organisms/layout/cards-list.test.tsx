@@ -9,8 +9,6 @@ const items: CardsListItem[] = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
-      // @ts-ignore - Needed because of the placeholder image.
-      unoptimized: true,
     },
     meta: { thematics: ['Velit', 'Ex', 'Alias'] },
     tagline: 'Molestias ut error',
@@ -24,8 +22,6 @@ const items: CardsListItem[] = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
-      // @ts-ignore - Needed because of the placeholder image.
-      unoptimized: true,
     },
     meta: { thematics: ['Voluptas'] },
     tagline: 'Quod vel accusamus',
@@ -39,8 +35,6 @@ const items: CardsListItem[] = [
       src: 'http://placeimg.com/640/480',
       width: 640,
       height: 480,
-      // @ts-ignore - Needed because of the placeholder image.
-      unoptimized: true,
     },
     meta: {
       thematics: ['Quisquam', 'Quia', 'Sapiente', 'Perspiciatis'],

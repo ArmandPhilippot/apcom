@@ -113,7 +113,6 @@ const cover = {
   height: 480,
   src: 'http://placeimg.com/640/480',
   width: 640,
-  unoptimized: true,
 };
 
 const meta = {

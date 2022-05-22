@@ -181,8 +181,6 @@ const posts: Post[] = [
       height: 480,
       src: 'http://placeimg.com/640/480',
       width: 640,
-      // @ts-ignore - Needed because of the placeholder image.
-      unoptimized: true,
     },
   },
   {
@@ -213,8 +211,6 @@ const posts: Post[] = [
       height: 480,
       src: 'http://placeimg.com/640/480',
       width: 640,
-      // @ts-ignore - Needed because of the placeholder image.
-      unoptimized: true,
     },
   },
 ];

@@ -80,7 +80,6 @@ export default {
         required: false,
       },
     },
-    unoptimized: { table: { disable: true } },
     width: {
       control: {
         type: 'number',
@@ -121,7 +120,18 @@ Default.args = {
   src: 'http://placeimg.com/640/480/transport',
   width: 640,
   height: 480,
-  unoptimized: true,
+};
+
+/**
+ * Responsive Image Stories - With borders
+ */
+export const WithBorders = Template.bind({});
+WithBorders.args = {
+  alt: 'An example',
+  src: 'http://placeimg.com/640/480/transport',
+  width: 640,
+  height: 480,
+  withBorders: true,
 };
 
 /**
@@ -133,8 +143,20 @@ WithLink.args = {
   src: 'http://placeimg.com/640/480/transport',
   width: 640,
   height: 480,
-  unoptimized: true,
   target: '#',
+};
+
+/**
+ * Responsive Image Stories - With link and borders
+ */
+export const WithLinkAndBorders = Template.bind({});
+WithLinkAndBorders.args = {
+  alt: 'An example',
+  src: 'http://placeimg.com/640/480/transport',
+  width: 640,
+  height: 480,
+  target: '#',
+  withBorders: true,
 };
 
 /**
@@ -147,7 +169,19 @@ WithCaption.args = {
   width: 640,
   height: 480,
   caption: 'Omnis nulla labore',
-  unoptimized: true,
+};
+
+/**
+ * Responsive Image Stories - With caption and borders
+ */
+export const WithCaptionAndBorders = Template.bind({});
+WithCaptionAndBorders.args = {
+  alt: 'An example',
+  src: 'http://placeimg.com/640/480/transport',
+  width: 640,
+  height: 480,
+  caption: 'Omnis nulla labore',
+  withBorders: true,
 };
 
 /**
@@ -161,5 +195,18 @@ WithCaptionAndLink.args = {
   height: 480,
   caption: 'Omnis nulla labore',
   target: '#',
-  unoptimized: true,
+};
+
+/**
+ * Responsive Image Stories - With caption, link and borders
+ */
+export const WithCaptionLinkAndBorders = Template.bind({});
+WithCaptionLinkAndBorders.args = {
+  alt: 'An example',
+  src: 'http://placeimg.com/640/480/transport',
+  width: 640,
+  height: 480,
+  caption: 'Omnis nulla labore',
+  target: '#',
+  withBorders: true,
 };

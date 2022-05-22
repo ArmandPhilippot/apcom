@@ -179,8 +179,12 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
-      <LayoutBase {...LayoutBase.args}>
+    (Story, context) => (
+      <LayoutBase
+        useGrid={true}
+        withExtraPadding={!context.args.allowComments && !context.args.comments}
+        {...LayoutBase.args}
+      >
         <Story />
       </LayoutBase>
     ),
@@ -273,8 +277,6 @@ const comments = [
       'Voluptas ducimus inventore. Libero ut et doloribus. Earum nostrum ab. Aliquam rem dolores omnis voluptate. Sunt aut ut et.',
     id: 1,
     publication: '2021-04-03 18:04:11',
-    // @ts-ignore - Needed because of the placeholder image.
-    unoptimized: true,
   },
   {
     child: [
@@ -287,8 +289,6 @@ const comments = [
           'Vel ullam in porro tempore. Maiores quos quia magnam beatae nemo libero velit numquam. Sapiente aliquid cumque. Velit neque in adipisci aut assumenda voluptates earum. Autem esse autem provident in tempore. Aut distinctio dolor qui repellat et et adipisci velit aspernatur.',
         id: 4,
         publication: '2021-04-03 23:04:24',
-        // @ts-ignore - Needed because of the placeholder image.
-        unoptimized: true,
       },
       {
         author: {
@@ -299,8 +299,6 @@ const comments = [
           'Sed non omnis. Quam porro est. Quae tempore quae. Exercitationem eos non velit voluptatem velit voluptas iusto. Sit debitis qui ipsam quo asperiores numquam veniam praesentium ut.',
         id: 5,
         publication: '2021-04-04 08:05:14',
-        // @ts-ignore - Needed because of the placeholder image.
-        unoptimized: true,
       },
     ],
     author: {
@@ -312,8 +310,6 @@ const comments = [
       'Sit sed error quasi voluptatem velit voluptas aut. Aut debitis eveniet. Praesentium dolores quia voluptate vero quis dicta quasi vel. Aut voluptas accusantium ut aut quidem consectetur itaque laboriosam occaecati.',
     id: 2,
     publication: '2021-04-03 23:30:20',
-    // @ts-ignore - Needed because of the placeholder image.
-    unoptimized: true,
   },
   {
     author: {
@@ -324,8 +320,6 @@ const comments = [
       'Natus consequatur maiores aperiam dolore eius nesciunt ut qui et. Ab ea nobis est. Eaque dolor corrupti id aut. Impedit architecto autem qui neque rerum ab dicta dignissimos voluptates.',
     id: 3,
     publication: '2021-09-13 13:24:54',
-    // @ts-ignore - Needed because of the placeholder image.
-    unoptimized: true,
   },
 ];
 
@@ -435,8 +429,6 @@ const posts = [
       height: 480,
       src: 'http://placeimg.com/640/480',
       width: 640,
-      // @ts-ignore - Needed because of the placeholder image.
-      unoptimized: true,
     },
   },
   {
@@ -467,8 +459,6 @@ const posts = [
       height: 480,
       src: 'http://placeimg.com/640/480',
       width: 640,
-      // @ts-ignore - Needed because of the placeholder image.
-      unoptimized: true,
     },
   },
 ];

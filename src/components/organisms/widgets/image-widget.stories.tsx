@@ -130,7 +130,6 @@ const image = {
   height: 480,
   src: 'http://placeimg.com/640/480/nature',
   width: 640,
-  unoptimized: true,
 };
 
 /**
