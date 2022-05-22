@@ -105,7 +105,9 @@
 
       position: relative;
       overflow: auto;
+      background: var(--color-bg-secondary);
       border: fun.convert-px(1) solid var(--color-border-light);
+      color: var(--color-fg);
       hyphens: none;
       tab-size: 4;
       text-align: left;

@@ -24,9 +24,9 @@ export default {
     state: {
       control: {
         type: 'radio',
-        options: ['plus', 'minus'],
       },
       description: 'Which state should be displayed.',
+      options: ['plus', 'minus'],
       type: {
         name: 'enum',
         required: true,

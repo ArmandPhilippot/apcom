@@ -99,6 +99,29 @@ Default.args = {
 };
 
 /**
+ * Links Stories - Download
+ */
+export const Download = Template.bind({});
+Download.args = {
+  children: 'A link to a file',
+  href: '#',
+  download: true,
+  external: false,
+};
+
+/**
+ * Links Stories - DownloadWithLang
+ */
+export const DownloadWithLang = Template.bind({});
+DownloadWithLang.args = {
+  children: 'A link to a file',
+  href: '#',
+  download: true,
+  external: false,
+  lang: 'en',
+};
+
+/**
  * Links Stories - External
  */
 export const External = Template.bind({});
@@ -106,6 +129,17 @@ External.args = {
   children: 'A link',
   href: '#',
   download: false,
+  external: true,
+};
+
+/**
+ * Links Stories - External download
+ */
+export const ExternalDownload = Template.bind({});
+ExternalDownload.args = {
+  children: 'A link',
+  href: '#',
+  download: true,
   external: true,
 };
 
@@ -118,5 +152,29 @@ ExternalWithLang.args = {
   href: '#',
   download: false,
   external: true,
+  lang: 'en',
+};
+
+/**
+ * Links Stories - External download with lang
+ */
+export const ExternalDownloadWithLang = Template.bind({});
+ExternalDownloadWithLang.args = {
+  children: 'A link',
+  href: '#',
+  download: true,
+  external: true,
+  lang: 'en',
+};
+
+/**
+ * Links Stories - With Lang
+ */
+export const WithLang = Template.bind({});
+WithLang.args = {
+  children: 'A link',
+  href: '#',
+  download: false,
+  external: false,
   lang: 'en',
 };
