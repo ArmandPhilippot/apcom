@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Summary from './summary';
+import { cover, intro, meta } from './summary.fixture';
 
 /**
  * Summary - Storybook Meta
@@ -83,32 +84,12 @@ const Template: ComponentStory<typeof Summary> = (args) => (
   <Summary {...args} />
 );
 
-const cover = {
-  alt: 'A cover',
-  height: 480,
-  src: 'http://placeimg.com/640/480',
-  width: 640,
-};
-
-const excerpt =
-  'Perspiciatis quasi libero nemo non eligendi nam minima. Deleniti expedita tempore. Praesentium explicabo molestiae eaque consectetur vero. Quae nostrum quisquam similique. Ut hic est quas ut esse quisquam nobis.';
-
-const meta = {
-  dates: { publication: '2022-04-11' },
-  readingTime: { wordsCount: excerpt.split(' ').length },
-  thematics: [
-    { id: 'cat-1', name: 'Cat 1', url: '#' },
-    { id: 'cat-2', name: 'Cat 2', url: '#' },
-  ],
-  commentsCount: 1,
-};
-
 /**
  * Summary Stories - Default
  */
 export const Default = Template.bind({});
 Default.args = {
-  excerpt,
+  intro,
   meta,
   title: 'Odio odit necessitatibus',
   url: '#',
@@ -119,9 +100,8 @@ Default.args = {
  */
 export const WithCover = Template.bind({});
 WithCover.args = {
-  cover,
-  excerpt,
-  meta,
+  intro,
+  meta: { ...meta, cover },
   title: 'Odio odit necessitatibus',
   url: '#',
 };

@@ -1,6 +1,6 @@
 import Heading from '@components/atoms/headings/heading';
 import ResponsiveImage from '@components/molecules/images/responsive-image';
-import PostsList, { type Post } from '@components/organisms/layout/posts-list';
+import PostsList from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import { getLayout } from '@components/templates/layout/layout';
 import PageLayout, {
@@ -14,7 +14,6 @@ import {
 } from '@services/graphql/topics';
 import styles from '@styles/pages/topic.module.scss';
 import {
-  type Article,
   type NextPageWithLayout,
   type PageLink,
   type Topic,
@@ -23,7 +22,7 @@ import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import {
   getLinksListItems,
   getPageLinkFromRawData,
-  getPostMeta,
+  getPostsWithUrl,
 } from '@utils/helpers/pages';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
@@ -109,27 +108,6 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     '@graph': [webpageSchema, articleSchema],
   };
 
-  const getPosts = (array: Article[]): Post[] => {
-    return array.map((article) => {
-      const {
-        intro: articleIntro,
-        meta: articleMeta,
-        slug: articleSlug,
-        ...remainingData
-      } = article;
-
-      const { cover: articleCover, ...remainingMeta } = articleMeta;
-
-      return {
-        cover: articleCover,
-        excerpt: articleIntro,
-        meta: getPostMeta(remainingMeta),
-        url: `/article/${articleSlug}`,
-        ...remainingData,
-      };
-    });
-  };
-
   const topicsListTitle = intl.formatMessage({
     defaultMessage: 'Other topics',
     description: 'TopicPage: other topics list widget title',
@@ -206,7 +184,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
             </Heading>
             <PostsList
               baseUrl="/sujet/page/"
-              posts={getPosts(articles)}
+              posts={getPostsWithUrl(articles)}
               total={articles.length}
               titleLevel={3}
               byYear={true}

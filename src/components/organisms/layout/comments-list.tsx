@@ -1,12 +1,9 @@
 import SingleComment, {
   type CommentProps,
 } from '@components/organisms/layout/comment';
+import { Comment } from '@ts/types/app';
 import { FC } from 'react';
 import styles from './comments-list.module.scss';
-
-export type Comment = Omit<CommentProps, 'canReply' | 'saveComment'> & {
-  child?: Comment[];
-};
 
 export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
   /**
@@ -42,7 +39,7 @@ const CommentsList: FC<CommentsListProps> = ({
   ): JSX.Element[] => {
     const isLastLevel = startLevel === depth;
 
-    return commentsList.map(({ child, ...comment }) => (
+    return commentsList.map(({ replies, ...comment }) => (
       <li key={comment.id} className={styles.item}>
         <SingleComment
           canReply={!isLastLevel}
@@ -50,8 +47,8 @@ const CommentsList: FC<CommentsListProps> = ({
           saveComment={saveComment}
           {...comment}
         />
-        {child && !isLastLevel && (
-          <ol className={styles.list}>{getItems(child, startLevel + 1)}</ol>
+        {replies && !isLastLevel && (
+          <ol className={styles.list}>{getItems(replies, startLevel + 1)}</ol>
         )}
       </li>
     ));

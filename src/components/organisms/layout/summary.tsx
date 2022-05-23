@@ -6,7 +6,7 @@ import ResponsiveImage, {
   type ResponsiveImageProps,
 } from '@components/molecules/images/responsive-image';
 import Meta, { type MetaData } from '@components/molecules/layout/meta';
-import { type Dates } from '@ts/types/app';
+import { type Article, type Meta as MetaType } from '@ts/types/app';
 import useReadingTime from '@utils/hooks/use-reading-time';
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
@@ -17,43 +17,22 @@ export type Cover = Pick<
   'alt' | 'src' | 'width' | 'height'
 >;
 
-export type SummaryMetaLink = {
-  id: number | string;
-  name: string;
-  url: string;
-};
+export type SummaryMeta = Pick<
+  MetaType<'article'>,
+  | 'author'
+  | 'commentsCount'
+  | 'cover'
+  | 'dates'
+  | 'thematics'
+  | 'topics'
+  | 'wordsCount'
+>;
 
-export type SummaryMetaReadingTime = {
-  wordsCount: number;
-  onlyMinutes?: boolean;
-};
-
-export type SummaryMeta = {
-  author?: string;
-  commentsCount?: number;
-  dates: Dates;
-  readingTime: SummaryMetaReadingTime;
-  thematics?: SummaryMetaLink[];
-  topics?: SummaryMetaLink[];
-};
-
-export type SummaryProps = {
+export type SummaryProps = Pick<Article, 'intro' | 'title'> & {
   /**
-   * The post cover.
-   */
-  cover?: Cover;
-  /**
-   * The post excerpt.
-   */
-  excerpt: string;
-  /**
-   * The post meta.
+   * The post metadata.
    */
   meta: SummaryMeta;
-  /**
-   * The post title.
-   */
-  title: string;
   /**
    * The heading level (hn).
    */
@@ -70,8 +49,7 @@ export type SummaryProps = {
  * Render a page summary.
  */
 const Summary: FC<SummaryProps> = ({
-  cover,
-  excerpt,
+  intro,
   meta,
   title,
   titleLevel = 2,
@@ -91,14 +69,13 @@ const Summary: FC<SummaryProps> = ({
       ),
     }
   );
-  const { wordsCount, onlyMinutes } = meta.readingTime;
-  const readingTime = useReadingTime(wordsCount, onlyMinutes);
+  const { author, commentsCount, cover, dates, thematics, topics, wordsCount } =
+    meta;
+  const readingTime = useReadingTime(wordsCount, true);
 
-  const getMeta = (data: SummaryMeta): MetaData => {
-    const { author, commentsCount, dates, thematics, topics } = data;
-
+  const getMeta = (): MetaData => {
     return {
-      author,
+      author: author?.name,
       publication: { date: dates.publication },
       update:
         dates.update && dates.publication !== dates.update
@@ -106,12 +83,12 @@ const Summary: FC<SummaryProps> = ({
           : undefined,
       readingTime,
       thematics: thematics?.map((thematic) => (
-        <Link key={thematic.id} href={thematic.url}>
+        <Link key={thematic.id} href={thematic.slug}>
           {thematic.name}
         </Link>
       )),
       topics: topics?.map((topic) => (
-        <Link key={topic.id} href={topic.url}>
+        <Link key={topic.id} href={topic.slug}>
           {topic.name}
         </Link>
       )),
@@ -134,11 +111,7 @@ const Summary: FC<SummaryProps> = ({
         </Link>
       </header>
       <div className={styles.body}>
-        {typeof excerpt === 'string' ? (
-          <div dangerouslySetInnerHTML={{ __html: excerpt }} />
-        ) : (
-          excerpt
-        )}
+        <div dangerouslySetInnerHTML={{ __html: intro }} />
         <ButtonLink target={url} className={styles['read-more']}>
           <>
             {readMore}
@@ -148,7 +121,7 @@ const Summary: FC<SummaryProps> = ({
       </div>
       <footer className={styles.footer}>
         <Meta
-          data={getMeta(meta)}
+          data={getMeta()}
           layout="column"
           itemsLayout="stacked"
           withSeparator={false}

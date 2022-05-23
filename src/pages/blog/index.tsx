@@ -1,34 +1,27 @@
 import Notice from '@components/atoms/layout/notice';
-import PostsList, { type Post } from '@components/organisms/layout/posts-list';
+import PostsList from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
 import { type EdgesResponse } from '@services/graphql/api';
-import {
-  getArticleFromRawData,
-  getArticles,
-  getTotalArticles,
-} from '@services/graphql/articles';
+import { getArticles, getTotalArticles } from '@services/graphql/articles';
 import {
   getThematicsPreview,
   getTotalThematics,
 } from '@services/graphql/thematics';
 import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
+import { type NextPageWithLayout } from '@ts/types/app';
 import {
-  type Article,
-  type Meta,
-  type NextPageWithLayout,
-} from '@ts/types/app';
-import {
-  RawThematicPreview,
-  RawTopicPreview,
   type RawArticle,
+  type RawThematicPreview,
+  type RawTopicPreview,
 } from '@ts/types/raw-data';
 import { settings } from '@utils/config';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import {
   getLinksListItems,
   getPageLinkFromRawData,
+  getPostsList,
 } from '@utils/helpers/pages';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import usePagination from '@utils/hooks/use-pagination';
@@ -117,62 +110,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   const schemaJsonLd: Graph = {
     '@context': 'https://schema.org',
     '@graph': [webpageSchema, blogSchema],
-  };
-
-  /**
-   * Retrieve the formatted meta.
-   *
-   * @param {Meta<'article'>} meta - The article meta.
-   * @returns {Post['meta']} The formatted meta.
-   */
-  const getPostMeta = (meta: Meta<'article'>): Post['meta'] => {
-    const { commentsCount, dates, thematics, wordsCount } = meta;
-
-    return {
-      commentsCount,
-      dates,
-      readingTime: { wordsCount: wordsCount || 0, onlyMinutes: true },
-      thematics: thematics?.map((thematic) => {
-        return { ...thematic, url: `/thematique/${thematic.slug}` };
-      }),
-    };
-  };
-
-  /**
-   * Retrieve the formatted posts.
-   *
-   * @param {Article[]} posts - An array of articles.
-   * @returns {Post[]} An array of formatted posts.
-   */
-  const getPosts = (posts: Article[]): Post[] => {
-    return posts.map((post) => {
-      return {
-        ...post,
-        cover: post.meta.cover,
-        excerpt: post.intro,
-        meta: getPostMeta(post.meta),
-        url: `/article/${post.slug}`,
-      };
-    });
-  };
-
-  /**
-   * Retrieve the posts list from raw data.
-   *
-   * @param {EdgesResponse<RawArticle>[]} rawData - The raw data.
-   * @returns {Post[]} An array of posts.
-   */
-  const getPostsList = (rawData: EdgesResponse<RawArticle>[]): Post[] => {
-    const articlesList: RawArticle[] = [];
-    rawData.forEach((articleData) =>
-      articleData.edges.forEach((edge) => {
-        articlesList.push(edge.node);
-      })
-    );
-
-    return getPosts(
-      articlesList.map((article) => getArticleFromRawData(article))
-    );
   };
 
   const {

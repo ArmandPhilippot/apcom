@@ -15,13 +15,6 @@ export const thematicBySlugQuery = `query ThematicBy($slug: ID!) {
               }
             }
           }
-          author {
-            node {
-              gravatarUrl
-              name
-              url
-            }
-          }
           commentCount
           contentParts {
             beforeMore
@@ -40,7 +33,6 @@ export const thematicBySlugQuery = `query ThematicBy($slug: ID!) {
             }
           }
           info {
-            readingTime
             wordsCount
           }
           modified
@@ -67,7 +59,6 @@ export const thematicBySlugQuery = `query ThematicBy($slug: ID!) {
       }
     }
     info {
-      readingTime
       wordsCount
     }
     modified

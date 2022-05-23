@@ -1,6 +1,7 @@
 import Button from '@components/atoms/buttons/button';
 import Link from '@components/atoms/links/link';
 import Meta from '@components/molecules/layout/meta';
+import { type Comment as CommentType } from '@ts/types/app';
 import useSettings from '@utils/hooks/use-settings';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -25,32 +26,16 @@ export type CommentAuthor = {
   url?: string;
 };
 
-export type CommentProps = Pick<CommentFormProps, 'Notice' | 'saveComment'> & {
-  /**
-   * The comment author data.
-   */
-  author: CommentAuthor;
-  /**
-   * Enable or disable the reply button. Default: true.
-   */
-  canReply?: boolean;
-  /**
-   * The comment body.
-   */
-  content: string;
-  /**
-   * The comment id.
-   */
-  id: number | string;
-  /**
-   * The comment parent id.
-   */
-  parentId?: number | string;
-  /**
-   * The comment date and time separated with a space.
-   */
-  publication: string;
-};
+export type CommentProps = Pick<
+  CommentType,
+  'approved' | 'content' | 'id' | 'meta' | 'parentId'
+> &
+  Pick<CommentFormProps, 'Notice' | 'saveComment'> & {
+    /**
+     * Enable or disable the reply button. Default: true.
+     */
+    canReply?: boolean;
+  };
 
 /**
  * Comment component
@@ -58,19 +43,34 @@ export type CommentProps = Pick<CommentFormProps, 'Notice' | 'saveComment'> & {
  * Render a single comment.
  */
 const Comment: FC<CommentProps> = ({
-  author,
+  approved,
   canReply = true,
   content,
   id,
+  meta,
   Notice,
   parentId,
-  publication,
   saveComment,
   ...props
 }) => {
   const intl = useIntl();
+  const { website } = useSettings();
   const [isReplying, setIsReplying] = useState<boolean>(false);
-  const [publicationDate, publicationTime] = publication.split(' ');
+
+  if (!approved) {
+    return (
+      <div className={styles.wrapper}>
+        {intl.formatMessage({
+          defaultMessage: 'This comment is awaiting moderation...',
+          description: 'Comment: awaiting moderation',
+          id: '6a1Uo6',
+        })}
+      </div>
+    );
+  }
+
+  const { author, date } = meta;
+  const [publicationDate, publicationTime] = date.split(' ');
 
   const avatarAltText = intl.formatMessage(
     {
@@ -97,8 +97,6 @@ const Comment: FC<CommentProps> = ({
     id: '2fD5CI',
   });
 
-  const { website } = useSettings();
-
   const commentSchema: WithContext<CommentSchema> = {
     '@context': 'https://schema.org',
     '@id': `${website.url}/#comment-${id}`,
@@ -110,17 +108,17 @@ const Comment: FC<CommentProps> = ({
     author: {
       '@type': 'Person',
       name: author.name,
-      image: author.avatar,
-      url: author.url,
+      image: author.avatar?.src,
+      url: author.website,
     },
     creator: {
       '@type': 'Person',
       name: author.name,
-      image: author.avatar,
-      url: author.url,
+      image: author.avatar?.src,
+      url: author.website,
     },
-    dateCreated: publication,
-    datePublished: publication,
+    dateCreated: date,
+    datePublished: date,
     text: content,
   };
 
@@ -136,17 +134,19 @@ const Comment: FC<CommentProps> = ({
         className={`${styles.wrapper} ${styles['wrapper--comment']}`}
       >
         <header className={styles.header}>
-          <div className={styles.avatar}>
-            <Image
-              src={author.avatar}
-              alt={avatarAltText}
-              layout="fill"
-              objectFit="cover"
-              {...props}
-            />
-          </div>
-          {author.url ? (
-            <Link href={author.url} className={styles.author}>
+          {author.avatar && (
+            <div className={styles.avatar}>
+              <Image
+                src={author.avatar?.src}
+                alt={avatarAltText}
+                layout="fill"
+                objectFit="cover"
+                {...props}
+              />
+            </div>
+          )}
+          {author.website ? (
+            <Link href={author.website} className={styles.author}>
               {author.name}
             </Link>
           ) : (
@@ -181,7 +181,7 @@ const Comment: FC<CommentProps> = ({
       {isReplying && (
         <CommentForm
           Notice={Notice}
-          parentId={id as number}
+          parentId={id}
           saveComment={saveComment}
           title={formTitle}
           className={`${styles.wrapper} ${styles['wrapper--form']}`}

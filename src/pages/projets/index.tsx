@@ -1,13 +1,13 @@
 import Link from '@components/atoms/links/link';
 import CardsList, {
-  CardsListItem,
+  type CardsListItem,
 } from '@components/organisms/layout/cards-list';
 import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
 import PageContent, { meta } from '@content/pages/projects.mdx';
 import styles from '@styles/pages/projects.module.scss';
 import { type NextPageWithLayout, type ProjectCard } from '@ts/types/app';
-import { loadTranslation, Messages } from '@utils/helpers/i18n';
+import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import { getProjectsCard } from '@utils/helpers/projects';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';

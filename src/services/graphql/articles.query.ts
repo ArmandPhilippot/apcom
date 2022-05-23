@@ -56,7 +56,6 @@ export const articleBySlugQuery = `query PostBy($slug: ID!) {
       }
     }
     info {
-      readingTime
       wordsCount
     }
     modified
@@ -90,11 +89,6 @@ export const articlesQuery = `query Articles($after: String = "", $first: Int = 
             }
           }
         }
-        author {
-          node {
-            name
-          }
-        }
         commentCount
         contentParts {
           beforeMore
@@ -113,7 +107,6 @@ export const articlesQuery = `query Articles($after: String = "", $first: Int = 
           }
         }
         info {
-          readingTime
           wordsCount
         }
         modified

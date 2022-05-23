@@ -25,7 +25,6 @@ export type ContentParts = {
 };
 
 export type Info = {
-  readingTime: number;
   wordsCount: number;
 };
 
@@ -66,7 +65,7 @@ export type RawArticlePreview = Pick<
 >;
 
 export type RawPage = {
-  author: NodeResponse<RawAuthor<'page'>>;
+  author?: NodeResponse<RawAuthor<'page'>>;
   contentParts: ContentParts;
   databaseId: number;
   date: string;

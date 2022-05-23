@@ -1,30 +1,12 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
+import { type Image } from '@ts/types/app';
 import { FC } from 'react';
 import ResponsiveImage, {
   type ResponsiveImageProps,
 } from '../images/responsive-image';
 import styles from './card.module.scss';
 import Meta, { type MetaData } from './meta';
-
-export type Cover = {
-  /**
-   * The cover alternative text.
-   */
-  alt: string;
-  /**
-   * The cover height.
-   */
-  height: number;
-  /**
-   * The cover source.
-   */
-  src: string;
-  /**
-   * The cover width.
-   */
-  width: number;
-};
 
 export type CardProps = {
   /**
@@ -34,7 +16,7 @@ export type CardProps = {
   /**
    * The card cover.
    */
-  cover?: Cover;
+  cover?: Image;
   /**
    * The cover fit. Default: cover.
    */

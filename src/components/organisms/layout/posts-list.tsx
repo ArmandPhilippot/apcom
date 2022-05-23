@@ -3,7 +3,7 @@ import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
 import ProgressBar from '@components/atoms/loaders/progress-bar';
 import Spinner from '@components/atoms/loaders/spinner';
 import Pagination, {
-  PaginationProps,
+  type PaginationProps,
 } from '@components/molecules/nav/pagination';
 import useIsMounted from '@utils/hooks/use-is-mounted';
 import useSettings from '@utils/hooks/use-settings';
@@ -12,7 +12,7 @@ import { useIntl } from 'react-intl';
 import styles from './posts-list.module.scss';
 import Summary, { type SummaryProps } from './summary';
 
-export type Post = SummaryProps & {
+export type Post = Omit<SummaryProps, 'titleLevel'> & {
   /**
    * The post id.
    */

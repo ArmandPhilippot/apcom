@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CommentComponent from './comment';
+import { data } from './comment.fixture';
 
 const saveComment = async () => {
   /** Do nothing. */
@@ -9,7 +10,7 @@ const saveComment = async () => {
  * Comment - Storybook Meta
  */
 export default {
-  title: 'Organisms/Layout',
+  title: 'Organisms/Layout/Comment',
   component: CommentComponent,
   args: {
     canReply: true,
@@ -110,17 +111,18 @@ const Template: ComponentStory<typeof CommentComponent> = (args) => (
 );
 
 /**
- * Layout Stories - Comment
+ * Layout Stories - Approved
  */
-export const Comment = Template.bind({});
-Comment.args = {
-  author: {
-    avatar: 'http://placeimg.com/640/480',
-    name: 'Armand',
-    url: 'https://www.armandphilippot.com/',
-  },
-  content:
-    'Harum aut cumque iure fugit neque sequi cupiditate repudiandae laudantium. Ratione aut assumenda qui illum voluptas accusamus quis officiis exercitationem. Consectetur est harum eius perspiciatis officiis nihil. Aut corporis minima debitis adipisci possimus debitis et.',
-  id: 2,
-  publication: '2021-04-03 23:04:24',
+export const Approved = Template.bind({});
+Approved.args = {
+  ...data,
+};
+
+/**
+ * Layout Stories - Unapproved
+ */
+export const Unapproved = Template.bind({});
+Unapproved.args = {
+  ...data,
+  approved: false,
 };

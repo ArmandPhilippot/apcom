@@ -18,11 +18,8 @@ import {
   type NextPageWithLayout,
 } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
-import useAddClassName from '@utils/hooks/use-add-classname';
-import useAttributes from '@utils/hooks/use-attributes';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import usePrism, { type OptionalPrismPlugin } from '@utils/hooks/use-prism';
-import useQuerySelectorAll from '@utils/hooks/use-query-selector-all';
 import useReadingTime from '@utils/hooks/use-reading-time';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -66,12 +63,15 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     title,
     url: `/article/${slug}`,
   });
-  const readingTime = useReadingTime(wordsCount || 0, true);
+  const readingTime = useReadingTime(wordsCount, true);
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     author: author?.name,
     publication: { date: dates.publication },
-    update: dates.update ? { date: dates.update } : undefined,
+    update:
+      dates.update && dates.publication !== dates.update
+        ? { date: dates.update }
+        : undefined,
     readingTime,
     thematics:
       thematics &&
@@ -167,35 +167,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     '@graph': [webpageSchema, blogSchema, blogPostSchema],
   };
 
-  /**
-   * Convert the comments list to the right format.
-   *
-   * @param {Comment[]} list - The comments list.
-   * @returns {PageLayoutProps['comments']} - The formatted comments list.
-   */
-  const getCommentsList = (list: Comment[]): PageLayoutProps['comments'] => {
-    return list.map((comment) => {
-      const {
-        content: commentBody,
-        id: commentId,
-        meta: commentMeta,
-        parentId,
-        replies,
-      } = comment;
-      const { author: commentAuthor, date } = commentMeta;
-      const { name, avatar, website: authorUrl } = commentAuthor;
-
-      return {
-        author: { name, avatar: avatar!.src, url: authorUrl },
-        content: commentBody,
-        id: commentId,
-        publication: date,
-        child: getCommentsList(replies),
-        parentId,
-      };
-    });
-  };
-
   const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
   const { attributes, className } = usePrism({ plugins: prismPlugins });
   const lineNumbersClassName = className
@@ -254,7 +225,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         bodyClassName={styles.body}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        comments={data && getCommentsList(data)}
+        comments={data}
         footerMeta={footerMeta}
         headerMeta={headerMeta}
         id={id as number}
@@ -314,7 +285,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 

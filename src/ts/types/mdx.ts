@@ -11,10 +11,7 @@ export type MDXPageMeta = Pick<Meta<'page'>, 'cover' | 'dates' | 'seo'> & {
   title: string;
 };
 
-export type MDXProjectMeta = Omit<
-  Meta<'project'>,
-  'readingTime' | 'wordsCount'
-> & {
+export type MDXProjectMeta = Exclude<Meta<'project'>, 'wordsCount'> & {
   intro: string;
   title: string;
 };

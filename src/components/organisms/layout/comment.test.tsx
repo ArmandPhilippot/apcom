@@ -1,48 +1,31 @@
 import { render, screen } from '@test-utils';
-import { getFormattedDate, getFormattedTime } from '@utils/helpers/dates';
 import Comment from './comment';
-
-const author = {
-  avatar: 'http://placeimg.com/640/480',
-  name: 'Your name',
-  url: 'https://www.example.test/',
-};
-const content =
-  'Harum aut cumque iure fugit neque sequi cupiditate repudiandae laudantium. Ratione aut assumenda qui illum voluptas accusamus quis officiis exercitationem. Consectetur est harum eius perspiciatis officiis nihil. Aut corporis minima debitis adipisci possimus debitis et.';
-const publication = '2021-04-03 23:04:24';
-const id = 5;
-const saveComment = async () => {
-  /** Do nothing. */
-};
-const data = {
+import {
   author,
-  content,
+  data,
+  formattedDate,
+  formattedTime,
   id,
-  publication,
-  saveComment,
-};
-
-const formattedDate = getFormattedDate(publication);
-const formattedTime = getFormattedTime(publication);
+} from './comment.fixture';
 
 describe('Comment', () => {
   it('renders an avatar', () => {
-    render(<Comment {...data} />);
+    render(<Comment canReply={true} {...data} />);
     expect(
       screen.getByRole('img', { name: 'Your name avatar' })
     ).toBeInTheDocument();
   });
 
   it('renders the author website url', () => {
-    render(<Comment {...data} />);
+    render(<Comment canReply={true} {...data} />);
     expect(screen.getByRole('link', { name: author.name })).toHaveAttribute(
       'href',
-      author.url
+      author.website
     );
   });
 
   it('renders a permalink to the comment', () => {
-    render(<Comment {...data} />);
+    render(<Comment canReply={true} {...data} />);
     expect(
       screen.getByRole('link', {
         name: `${formattedDate} at ${formattedTime}`,
@@ -51,12 +34,12 @@ describe('Comment', () => {
   });
 
   it('renders a reply button', () => {
-    render(<Comment {...data} canReply={true} />);
+    render(<Comment canReply={true} {...data} />);
     expect(screen.getByRole('button', { name: 'Reply' })).toBeInTheDocument();
   });
 
   it('does not render a reply button', () => {
-    render(<Comment {...data} canReply={false} />);
+    render(<Comment canReply={false} {...data} />);
     expect(
       screen.queryByRole('button', { name: 'Reply' })
     ).not.toBeInTheDocument();

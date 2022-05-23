@@ -10,31 +10,23 @@ export type CardsListItem = Omit<
   CardProps,
   'className' | 'coverFit' | 'titleLevel'
 > & {
+  /**
+   * The card id.
+   */
   id: string;
 };
 
-export type CardsListProps = {
-  /**
-   * Set additional classnames to the list wrapper.
-   */
-  className?: string;
-  /**
-   * The cover fit.
-   */
-  coverFit?: CardProps['coverFit'];
-  /**
-   * The cards data.
-   */
-  items: CardsListItem[];
-  /**
-   * The list kind. Either ordered or unordered.
-   */
-  kind?: ListProps['kind'];
-  /**
-   * The title level (hn).
-   */
-  titleLevel: CardProps['titleLevel'];
-};
+export type CardsListProps = Pick<CardProps, 'coverFit' | 'titleLevel'> &
+  Pick<ListProps, 'kind'> & {
+    /**
+     * Set additional classnames to the list wrapper.
+     */
+    className?: string;
+    /**
+     * The cards data.
+     */
+    items: CardsListItem[];
+  };
 
 /**
  * CardsList component

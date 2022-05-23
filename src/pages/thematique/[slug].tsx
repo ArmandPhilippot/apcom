@@ -1,5 +1,5 @@
 import Heading from '@components/atoms/headings/heading';
-import PostsList, { type Post } from '@components/organisms/layout/posts-list';
+import PostsList from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import { getLayout } from '@components/templates/layout/layout';
 import PageLayout, {
@@ -12,7 +12,6 @@ import {
   getTotalThematics,
 } from '@services/graphql/thematics';
 import {
-  type Article,
   type NextPageWithLayout,
   type PageLink,
   type Thematic,
@@ -21,7 +20,7 @@ import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import {
   getLinksListItems,
   getPageLinkFromRawData,
-  getPostMeta,
+  getPostsWithUrl,
 } from '@utils/helpers/pages';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
@@ -99,27 +98,6 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     '@graph': [webpageSchema, articleSchema],
   };
 
-  const getPosts = (array: Article[]): Post[] => {
-    return array.map((article) => {
-      const {
-        intro: articleIntro,
-        meta: articleMeta,
-        slug: articleSlug,
-        ...remainingData
-      } = article;
-
-      const { cover, ...remainingMeta } = articleMeta;
-
-      return {
-        cover,
-        excerpt: articleIntro,
-        meta: getPostMeta(remainingMeta),
-        url: `/article/${articleSlug}`,
-        ...remainingData,
-      };
-    });
-  };
-
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Other thematics',
     description: 'ThematicPage: other thematics list widget title',
@@ -187,7 +165,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
             </Heading>
             <PostsList
               baseUrl="/thematique/page/"
-              posts={getPosts(articles)}
+              posts={getPostsWithUrl(articles)}
               total={articles.length}
               titleLevel={3}
               byYear={true}

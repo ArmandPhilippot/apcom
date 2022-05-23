@@ -119,7 +119,6 @@ export const getTopicFromRawData = (data: RawTopic): Topic => {
         : undefined,
       dates: { publication: date, update: modified },
       website: acfTopics.officialWebsite,
-      readingTime: info.readingTime,
       seo: {
         description: seo?.metaDesc || '',
         title: seo?.title || '',

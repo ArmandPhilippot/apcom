@@ -71,13 +71,12 @@ export const getArticleFromRawData = (data: RawArticle): Article => {
     id: databaseId,
     intro: contentParts.beforeMore,
     meta: {
-      author: getAuthorFromRawData(author.node, 'page'),
+      author: author && getAuthorFromRawData(author.node, 'page'),
       commentsCount: commentCount || 0,
       cover: featuredImage?.node
         ? getImageFromRawData(featuredImage.node)
         : undefined,
       dates: { publication: date, update: modified },
-      readingTime: info.readingTime,
       seo: {
         description: seo?.metaDesc || '',
         title: seo?.title || '',

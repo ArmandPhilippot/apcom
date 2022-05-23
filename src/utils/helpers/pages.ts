@@ -1,7 +1,10 @@
 import { type Post } from '@components/organisms/layout/posts-list';
 import { type LinksListItems } from '@components/organisms/widgets/links-list-widget';
-import { type Meta, type PageLink } from '@ts/types/app';
+import { type EdgesResponse } from '@services/graphql/api';
+import { getArticleFromRawData } from '@services/graphql/articles';
+import { type Article, type PageLink } from '@ts/types/app';
 import {
+  type RawArticle,
   type RawThematicPreview,
   type RawTopicPreview,
 } from '@ts/types/raw-data';
@@ -52,23 +55,35 @@ export const getLinksListItems = (
 };
 
 /**
- * Retrieve the formatted meta.
+ * Retrieve the posts list with the article URL.
  *
- * @param {Meta<'article'>} meta - The article meta.
- * @returns {Post['meta']} The formatted meta.
+ * @param {Article[]} posts - An array of articles.
+ * @returns {Post[]} An array of posts with full article URL.
  */
-export const getPostMeta = (meta: Meta<'article'>): Post['meta'] => {
-  const { commentsCount, dates, thematics, topics, wordsCount } = meta;
+export const getPostsWithUrl = (posts: Article[]): Post[] => {
+  return posts.map((post) => {
+    return {
+      ...post,
+      url: `/article/${post.slug}`,
+    };
+  });
+};
 
-  return {
-    commentsCount,
-    dates,
-    readingTime: { wordsCount: wordsCount || 0, onlyMinutes: true },
-    thematics: thematics?.map((thematic) => {
-      return { ...thematic, url: `/thematique/${thematic.slug}` };
-    }),
-    topics: topics?.map((topic) => {
-      return { ...topic, url: `/sujet/${topic.slug}` };
-    }),
-  };
+/**
+ * Retrieve the posts list from raw data.
+ *
+ * @param {EdgesResponse<RawArticle>[]} rawData - The raw data.
+ * @returns {Post[]} An array of posts.
+ */
+export const getPostsList = (rawData: EdgesResponse<RawArticle>[]): Post[] => {
+  const articlesList: RawArticle[] = [];
+  rawData.forEach((articleData) =>
+    articleData.edges.forEach((edge) => {
+      articlesList.push(edge.node);
+    })
+  );
+
+  return getPostsWithUrl(
+    articlesList.map((article) => getArticleFromRawData(article))
+  );
 };

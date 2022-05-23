@@ -1,3 +1,4 @@
+import { comments } from '@components/organisms/layout/comments-list.fixture';
 import { render, screen } from '@test-utils';
 import { BreadcrumbList } from 'schema-dts';
 import PageLayout from './page-layout';
@@ -88,18 +89,6 @@ describe('PageLayout', () => {
   });
 
   it('renders the comments list', () => {
-    const comments = [
-      {
-        author: {
-          avatar: 'http://placeimg.com/640/480',
-          name: 'Author 1',
-        },
-        content:
-          'Voluptas ducimus inventore. Libero ut et doloribus. Earum nostrum ab. Aliquam rem dolores omnis voluptate. Sunt aut ut et.',
-        id: 1,
-        publication: '2021-04-03 18:04:11',
-      },
-    ];
     render(
       <PageLayout
         breadcrumb={breadcrumb}

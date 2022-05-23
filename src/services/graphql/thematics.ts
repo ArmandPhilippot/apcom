@@ -117,7 +117,6 @@ export const getThematicFromRawData = (data: RawThematic): Thematic => {
         ? getImageFromRawData(featuredImage.node)
         : undefined,
       dates: { publication: date, update: modified },
-      readingTime: info.readingTime,
       seo: {
         description: seo?.metaDesc || '',
         title: seo?.title || '',

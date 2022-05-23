@@ -44,7 +44,7 @@ export type Comment = {
   content: string;
   id: number;
   meta: CommentMeta;
-  parentId: number;
+  parentId?: number;
   replies: Comment[];
 };
 
@@ -80,7 +80,6 @@ export type Meta<T extends PageKind> = {
   cover?: Image;
   dates: Dates;
   license?: T extends 'project' ? string : never;
-  readingTime?: number;
   repos?: T extends 'project' ? Repos : never;
   seo: SEO;
   tagline?: T extends 'project' ? string : never;
@@ -88,7 +87,7 @@ export type Meta<T extends PageKind> = {
   thematics?: T extends 'article' | 'topic' ? PageLink[] : never;
   topics?: T extends 'article' | 'thematic' ? PageLink[] : never;
   website?: T extends 'topic' ? string : never;
-  wordsCount?: number;
+  wordsCount: number;
 };
 
 export type Page<T extends PageKind> = {

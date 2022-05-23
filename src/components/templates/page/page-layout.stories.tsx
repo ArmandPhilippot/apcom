@@ -1,7 +1,9 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Heading from '@components/atoms/headings/heading';
 import Link from '@components/atoms/links/link';
+import { comments } from '@components/organisms/layout/comments-list.fixture';
 import PostsList from '@components/organisms/layout/posts-list';
+import { posts } from '@components/organisms/layout/posts-list.fixture';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import Sharing from '@components/organisms/widgets/sharing';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
@@ -267,62 +269,6 @@ const postBreadcrumb = [
   { id: 'post', url: '#', name: pageTitle },
 ];
 
-const comments = [
-  {
-    author: {
-      avatar: 'http://placeimg.com/640/480',
-      name: 'Author 1',
-    },
-    content:
-      'Voluptas ducimus inventore. Libero ut et doloribus. Earum nostrum ab. Aliquam rem dolores omnis voluptate. Sunt aut ut et.',
-    id: 1,
-    publication: '2021-04-03 18:04:11',
-  },
-  {
-    child: [
-      {
-        author: {
-          avatar: 'http://placeimg.com/640/480',
-          name: 'Author 4',
-        },
-        content:
-          'Vel ullam in porro tempore. Maiores quos quia magnam beatae nemo libero velit numquam. Sapiente aliquid cumque. Velit neque in adipisci aut assumenda voluptates earum. Autem esse autem provident in tempore. Aut distinctio dolor qui repellat et et adipisci velit aspernatur.',
-        id: 4,
-        publication: '2021-04-03 23:04:24',
-      },
-      {
-        author: {
-          avatar: 'http://placeimg.com/640/480',
-          name: 'Author 1',
-        },
-        content:
-          'Sed non omnis. Quam porro est. Quae tempore quae. Exercitationem eos non velit voluptatem velit voluptas iusto. Sit debitis qui ipsam quo asperiores numquam veniam praesentium ut.',
-        id: 5,
-        publication: '2021-04-04 08:05:14',
-      },
-    ],
-    author: {
-      avatar: 'http://placeimg.com/640/480',
-      name: 'Author 2',
-      url: '#',
-    },
-    content:
-      'Sit sed error quasi voluptatem velit voluptas aut. Aut debitis eveniet. Praesentium dolores quia voluptate vero quis dicta quasi vel. Aut voluptas accusantium ut aut quidem consectetur itaque laboriosam occaecati.',
-    id: 2,
-    publication: '2021-04-03 23:30:20',
-  },
-  {
-    author: {
-      avatar: 'http://placeimg.com/640/480',
-      name: 'Author 3',
-    },
-    content:
-      'Natus consequatur maiores aperiam dolore eius nesciunt ut qui et. Ab ea nobis est. Eaque dolor corrupti id aut. Impedit architecto autem qui neque rerum ab dicta dignissimos voluptates.',
-    id: 3,
-    publication: '2021-09-13 13:24:54',
-  },
-];
-
 /**
  * Page Layout Stories - Post
  */
@@ -393,74 +339,13 @@ Post.args = {
     />,
   ],
   withToC: true,
-  comments,
+  comments: comments,
   allowComments: true,
 };
 
 const postsListBreadcrumb = [
   { id: 'home', url: '#', name: 'Home' },
   { id: 'blog', url: '#', name: 'Blog' },
-];
-
-const excerpt1 =
-  'Esse et voluptas sapiente modi impedit unde et. Ducimus nulla ea impedit sit placeat nihil assumenda. Rem est fugiat amet quo hic. Corrupti fuga quod animi autem dolorem ullam corrupti vel aut.';
-const excerpt2 =
-  'Illum quae asperiores quod aut necessitatibus itaque excepturi voluptas. Incidunt exercitationem ullam saepe alias consequatur sed. Quam veniam quaerat voluptatum earum quia quisquam fugiat sed perspiciatis. Et velit saepe est recusandae facilis eos eum ipsum.';
-const excerpt3 =
-  'Sunt aperiam ut rem impedit dolor id sit. Reprehenderit ipsum iusto fugiat. Quaerat laboriosam magnam facilis. Totam sint aliquam voluptatem in quis laborum sunt eum. Enim aut debitis officiis porro iure quia nihil voluptas ipsum. Praesentium quis necessitatibus cumque quia qui velit quos dolorem.';
-
-const posts = [
-  {
-    excerpt: excerpt1,
-    id: 'post-1',
-    meta: {
-      dates: { publication: '2022-02-26' },
-      readingTime: { wordsCount: excerpt1.split(' ').length },
-      thematics: [
-        { id: 'cat-1', name: 'Cat 1', url: '#' },
-        { id: 'cat-2', name: 'Cat 2', url: '#' },
-      ],
-      commentsCount: 1,
-    },
-    title: 'Ratione velit fuga',
-    url: '#',
-    cover: {
-      alt: 'cover',
-      height: 480,
-      src: 'http://placeimg.com/640/480',
-      width: 640,
-    },
-  },
-  {
-    excerpt: excerpt2,
-    id: 'post-2',
-    meta: {
-      dates: { publication: '2022-02-20' },
-      readingTime: { wordsCount: excerpt2.split(' ').length },
-      thematics: [{ id: 'cat-2', name: 'Cat 2', url: '#' }],
-      commentsCount: 0,
-    },
-    title: 'Debitis laudantium laudantium',
-    url: '#',
-  },
-  {
-    excerpt: excerpt3,
-    id: 'post-3',
-    meta: {
-      dates: { publication: '2021-12-20' },
-      readingTime: { wordsCount: excerpt3.split(' ').length },
-      thematics: [{ id: 'cat-1', name: 'Cat 1', url: '#' }],
-      commentsCount: 3,
-    },
-    title: 'Quaerat ut corporis',
-    url: '#',
-    cover: {
-      alt: 'cover',
-      height: 480,
-      src: 'http://placeimg.com/640/480',
-      width: 640,
-    },
-  },
 ];
 
 const blogCategories = [
