@@ -9,6 +9,11 @@ import styles from '@styles/pages/projects.module.scss';
 import { type NextPageWithLayout, type ProjectCard } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import { getProjectsCard } from '@utils/helpers/projects';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
@@ -16,7 +21,6 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { Article, Graph, WebPage } from 'schema-dts';
 
 type ProjectsPageProps = {
   projects: ProjectCard[];
@@ -54,54 +58,30 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
 
   const { website } = useSettings();
   const { asPath } = useRouter();
-  const pageUrl = `${website.url}${asPath}`;
-  const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
-
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${website.url}/#breadcrumb` },
-    name: seo.title,
+  const webpageSchema = getWebPageSchema({
     description: seo.description,
-    inLanguage: website.locales.default,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    reviewedBy: { '@id': `${website.url}/#branding` },
-    url: `${pageUrl}`,
-    isPartOf: {
-      '@id': `${website.url}`,
-    },
-  };
-
-  const articleSchema: Article = {
-    '@id': `${website.url}/#projects`,
-    '@type': 'Article',
-    name: meta.title,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const articleSchema = getSinglePageSchema({
+    dates,
     description: seo.description,
-    author: { '@id': `${website.url}/#branding` },
-    copyrightYear: pagePublicationDate.getFullYear(),
-    creator: { '@id': `${website.url}/#branding` },
-    dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
-    datePublished: pagePublicationDate.toISOString(),
-    editor: { '@id': `${website.url}/#branding` },
-    headline: meta.title,
-    inLanguage: website.locales.default,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, articleSchema],
-  };
+    id: 'projects',
+    kind: 'page',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
 
   return (
     <>
       <Head>
         <title>{`${seo.title} - ${website.name}`}</title>
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={`${seo.title} - ${website.name}`} />
         <meta property="og:description" content={seo.description} />

@@ -22,6 +22,11 @@ import {
 } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import { getProjectData, getProjectFilenames } from '@utils/helpers/projects';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
 import { capitalize } from '@utils/helpers/strings';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useGithubApi, { type RepoData } from '@utils/hooks/use-github-api';
@@ -33,7 +38,6 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ComponentType } from 'react';
 import { useIntl } from 'react-intl';
-import { Article, Graph, WebPage } from 'schema-dts';
 
 type ProjectPageProps = {
   project: ProjectPreview;
@@ -66,8 +70,6 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   const { website } = useSettings();
   const { asPath } = useRouter();
   const pageUrl = `${website.url}${asPath}`;
-  const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     publication: { date: dates.publication },
@@ -137,44 +139,24 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     technologies,
   };
 
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${website.url}/#breadcrumb` },
-    name: seo.title,
+  const webpageSchema = getWebPageSchema({
     description: seo.description,
-    inLanguage: website.locales.default,
-    reviewedBy: { '@id': `${website.url}/#branding` },
-    url: `${website.url}`,
-    isPartOf: {
-      '@id': `${website.url}`,
-    },
-  };
-
-  const articleSchema: Article = {
-    '@id': `${website.url}/project`,
-    '@type': 'Article',
-    name: title,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const articleSchema = getSinglePageSchema({
+    cover: `/projects/${id}.jpg`,
+    dates,
     description: intro,
-    author: { '@id': `${website.url}/#branding` },
-    copyrightYear: pagePublicationDate.getFullYear(),
-    creator: { '@id': `${website.url}/#branding` },
-    dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
-    datePublished: pagePublicationDate.toISOString(),
-    editor: { '@id': `${website.url}/#branding` },
-    headline: title,
-    thumbnailUrl: `/projects/${id}.jpg`,
-    image: `/projects/${id}.jpg`,
-    inLanguage: website.locales.default,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, articleSchema],
-  };
+    id: 'project',
+    kind: 'page',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
 
   return (
     <>

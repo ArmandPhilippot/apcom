@@ -23,6 +23,11 @@ import {
   getPageLinkFromRawData,
   getPostsList,
 } from '@utils/helpers/pages';
+import {
+  getBlogSchema,
+  getSchemaJson,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import usePagination from '@utils/hooks/use-pagination';
 import useSettings from '@utils/hooks/use-settings';
@@ -31,7 +36,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useIntl } from 'react-intl';
-import { Blog, Graph, WebPage } from 'schema-dts';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;
@@ -80,37 +84,18 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     },
     { websiteName: website.name }
   );
-  const pageUrl = `${website.url}${asPath}`;
-
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${website.url}/#breadcrumb` },
-    name: pageTitle,
+  const webpageSchema = getWebPageSchema({
     description: pageDescription,
-    inLanguage: website.locales.default,
-    reviewedBy: { '@id': `${website.url}/#branding` },
-    url: `${website.url}`,
-    isPartOf: {
-      '@id': `${website.url}`,
-    },
-  };
-
-  const blogSchema: Blog = {
-    '@id': `${website.url}/#blog`,
-    '@type': 'Blog',
-    author: { '@id': `${website.url}/#branding` },
-    creator: { '@id': `${website.url}/#branding` },
-    editor: { '@id': `${website.url}/#branding` },
-    inLanguage: website.locales.default,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, blogSchema],
-  };
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const blogSchema = getBlogSchema({
+    isSinglePage: false,
+    locale: website.locales.default,
+    slug: asPath,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
 
   const {
     data,
@@ -149,7 +134,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={pageDescription} />

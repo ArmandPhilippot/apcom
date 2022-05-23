@@ -19,6 +19,7 @@ import { getArticlesCard } from '@services/graphql/articles';
 import styles from '@styles/pages/home.module.scss';
 import { type ArticleCard, type NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import { getSchemaJson, getWebPageSchema } from '@utils/helpers/schema-org';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
@@ -27,7 +28,6 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { ReactElement } from 'react';
 import { useIntl } from 'react-intl';
-import { Graph, WebPage } from 'schema-dts';
 
 type HomeProps = {
   recentPosts: ArticleCard[];
@@ -306,25 +306,13 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     },
     { websiteName: website.name }
   );
-
-  const webpageSchema: WebPage = {
-    '@id': `${website.url}/#home`,
-    '@type': 'WebPage',
-    name: pageTitle,
+  const webpageSchema = getWebPageSchema({
     description: pageDescription,
-    author: { '@id': `${website.url}/#branding` },
-    creator: { '@id': `${website.url}/#branding` },
-    editor: { '@id': `${website.url}/#branding` },
-    inLanguage: website.locales.default,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    reviewedBy: { '@id': `${website.url}/#branding` },
-    url: `${website.url}`,
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema],
-  };
+    locale: website.locales.default,
+    slug: '',
+    title: pageTitle,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema]);
 
   return (
     <>

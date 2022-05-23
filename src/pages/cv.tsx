@@ -11,6 +11,11 @@ import CVContent, { data, meta } from '@content/pages/cv.mdx';
 import styles from '@styles/pages/cv.module.scss';
 import { type NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
@@ -20,7 +25,6 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import React, { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { AboutPage, Graph, WebPage } from 'schema-dts';
 
 /**
  * CV page.
@@ -106,45 +110,24 @@ const CVPage: NextPageWithLayout = () => {
   ];
 
   const { asPath } = useRouter();
-  const pageUrl = `${website.url}${asPath}`;
-  const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
-
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${website.url}/#breadcrumb` },
-    name: seo.title,
+  const webpageSchema = getWebPageSchema({
     description: seo.description,
-    reviewedBy: { '@id': `${website.url}/#branding` },
-    url: `${pageUrl}`,
-    isPartOf: {
-      '@id': `${website.url}`,
-    },
-  };
-
-  const cvSchema: AboutPage = {
-    '@id': `${website.url}/#cv`,
-    '@type': 'AboutPage',
-    name: seo.title,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const cvSchema = getSinglePageSchema({
+    cover: image.src,
+    dates,
     description: intro,
-    author: { '@id': `${website.url}/#branding` },
-    creator: { '@id': `${website.url}/#branding` },
-    dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
-    datePublished: pagePublicationDate.toISOString(),
-    editor: { '@id': `${website.url}/#branding` },
-    image: image.src,
-    inLanguage: website.locales.default,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    thumbnailUrl: image.src,
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, cvSchema],
-  };
+    id: 'cv',
+    kind: 'about',
+    locale: website.locales.default,
+    slug: asPath,
+    title: title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, cvSchema]);
 
   const components: NestedMDXComponents = {
     a: (props) => <Link external={true} {...props} />,
@@ -171,7 +154,7 @@ const CVPage: NextPageWithLayout = () => {
       <Head>
         <title>{`${seo.title} - ${website.name}`}</title>
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />

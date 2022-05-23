@@ -22,6 +22,11 @@ import {
   getPageLinkFromRawData,
   getPostsWithUrl,
 } from '@utils/helpers/pages';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -30,7 +35,6 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { useIntl } from 'react-intl';
-import { Article as ArticleSchema, Graph, WebPage } from 'schema-dts';
 
 export type ThematicPageProps = {
   currentThematic: Thematic;
@@ -58,45 +62,23 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
 
   const { website } = useSettings();
   const { asPath } = useRouter();
-  const pageUrl = `${website.url}${asPath}`;
-  const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
-
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${website.url}/#breadcrumb` },
-    name: seo.title,
+  const webpageSchema = getWebPageSchema({
     description: seo.description,
-    inLanguage: website.locales.default,
-    reviewedBy: { '@id': `${website.url}/#branding` },
-    url: `${website.url}`,
-  };
-
-  const articleSchema: ArticleSchema = {
-    '@id': `${website.url}/#thematic`,
-    '@type': 'Article',
-    name: title,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const articleSchema = getSinglePageSchema({
+    dates,
     description: intro,
-    author: { '@id': `${website.url}/#branding` },
-    copyrightYear: pagePublicationDate.getFullYear(),
-    creator: { '@id': `${website.url}/#branding` },
-    dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
-    datePublished: pagePublicationDate.toISOString(),
-    editor: { '@id': `${website.url}/#branding` },
-    headline: title,
-    inLanguage: website.locales.default,
-    isPartOf: { '@id': `${website.url}/blog` },
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-    subjectOf: { '@id': `${website.url}/blog` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, articleSchema],
-  };
+    id: 'thematic',
+    kind: 'page',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
 
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Other thematics',
@@ -115,7 +97,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
       <Head>
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />

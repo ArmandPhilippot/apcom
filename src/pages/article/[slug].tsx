@@ -18,6 +18,12 @@ import {
   type NextPageWithLayout,
 } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import {
+  getBlogSchema,
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import usePrism, { type OptionalPrismPlugin } from '@utils/hooks/use-prism';
 import useReadingTime from '@utils/hooks/use-reading-time';
@@ -29,7 +35,6 @@ import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
-import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
 import useSWR from 'swr';
 
 type ArticlePageProps = {
@@ -108,64 +113,35 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 
   const { website } = useSettings();
   const { asPath } = useRouter();
-  const pageUrl = `${website.url}${asPath}`;
-  const pagePublicationDate = new Date(dates.publication);
-  const pageUpdateDate = dates.update ? new Date(dates.update) : undefined;
-
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${website.url}/#breadcrumb` },
-    lastReviewed: dates.update,
-    name: seo.title,
-    description: seo.description,
-    reviewedBy: { '@id': `${website.url}/#branding` },
-    url: `${pageUrl}`,
-    isPartOf: {
-      '@id': `${website.url}`,
-    },
-  };
-
-  const blogSchema: Blog = {
-    '@id': `${website.url}/#blog`,
-    '@type': 'Blog',
-    blogPost: { '@id': `${website.url}/#article` },
-    isPartOf: {
-      '@id': `${pageUrl}`,
-    },
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-  };
-
-  const blogPostSchema: BlogPosting = {
-    '@id': `${website.url}/#article`,
-    '@type': 'BlogPosting',
-    name: title,
+  const webpageSchema = getWebPageSchema({
     description: intro,
-    articleBody: content,
-    author: { '@id': `${website.url}/#branding` },
-    commentCount: commentsCount,
-    copyrightYear: pagePublicationDate.getFullYear(),
-    creator: { '@id': `${website.url}/#branding` },
-    dateCreated: pagePublicationDate.toISOString(),
-    dateModified: pageUpdateDate && pageUpdateDate.toISOString(),
-    datePublished: pagePublicationDate.toISOString(),
-    discussionUrl: `${pageUrl}/#comments`,
-    editor: { '@id': `${website.url}/#branding` },
-    headline: title,
-    image: cover?.src,
-    inLanguage: website.locales.default,
-    isPartOf: {
-      '@id': `${website.url}/blog`,
-    },
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-    thumbnailUrl: cover?.src,
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, blogSchema, blogPostSchema],
-  };
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+    updateDate: dates.update,
+  });
+  const blogSchema = getBlogSchema({
+    isSinglePage: true,
+    locale: website.locales.default,
+    slug: asPath,
+  });
+  const blogPostSchema = getSinglePageSchema({
+    commentsCount,
+    content,
+    cover: cover?.src,
+    dates,
+    description: intro,
+    id: 'article',
+    kind: 'post',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    blogSchema,
+    blogPostSchema,
+  ]);
 
   const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
   const { attributes, className } = usePrism({ plugins: prismPlugins });
@@ -201,6 +177,8 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     /class="wp-block-code[^"]+/gm,
     prismClassNameReplacer
   );
+
+  const pageUrl = `${website.url}${asPath}`;
 
   return (
     <>
