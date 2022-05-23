@@ -81,7 +81,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     thematics:
       thematics &&
       thematics.map((thematic) => (
-        <Link key={thematic.id} href={`/thematique/${thematic.slug}`}>
+        <Link key={thematic.id} href={thematic.url}>
           {thematic.name}
         </Link>
       )),
@@ -99,11 +99,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       label: footerMetaLabel,
       value: topics.map((topic) => {
         return (
-          <ButtonLink
-            key={topic.id}
-            target={`/sujet/${topic.slug}`}
-            className={styles.btn}
-          >
+          <ButtonLink key={topic.id} target={topic.url} className={styles.btn}>
             {topic.logo && <ResponsiveImage {...topic.logo} />} {topic.name}
           </ButtonLink>
         );

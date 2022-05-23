@@ -103,7 +103,7 @@ export type PageLink = {
   id: number;
   logo?: Image;
   name: string;
-  slug: string;
+  url: string;
 };
 
 export type Article = Page<'article'>;

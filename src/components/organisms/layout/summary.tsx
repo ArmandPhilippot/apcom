@@ -83,12 +83,12 @@ const Summary: FC<SummaryProps> = ({
           : undefined,
       readingTime,
       thematics: thematics?.map((thematic) => (
-        <Link key={thematic.id} href={thematic.slug}>
+        <Link key={thematic.id} href={thematic.url}>
           {thematic.name}
         </Link>
       )),
       topics: topics?.map((topic) => (
-        <Link key={topic.id} href={topic.slug}>
+        <Link key={topic.id} href={topic.url}>
           {topic.name}
         </Link>
       )),

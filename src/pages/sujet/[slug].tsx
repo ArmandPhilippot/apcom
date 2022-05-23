@@ -138,13 +138,13 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
             ? [
                 <LinksListWidget
                   key="related-thematics"
-                  items={getLinksListItems(thematics, 'thematic')}
+                  items={getLinksListItems(thematics)}
                   title={thematicsListTitle}
                   level={2}
                 />,
                 <LinksListWidget
                   key="topics"
-                  items={getLinksListItems(topics, 'topic')}
+                  items={getLinksListItems(topics)}
                   title={topicsListTitle}
                   level={2}
                 />,
@@ -198,10 +198,10 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
     first: totalTopics,
   });
   const allTopics = allTopicsEdges.edges.map((edge) =>
-    getPageLinkFromRawData(edge.node)
+    getPageLinkFromRawData(edge.node, 'topic')
   );
   const topicsLinks = allTopics.filter(
-    (topic) => topic.slug !== (params!.slug as TopicParams['slug'])
+    (topic) => topic.url !== `/sujet/${params!.slug as TopicParams['slug']}`
   );
   const translation = await loadTranslation(locale);
 

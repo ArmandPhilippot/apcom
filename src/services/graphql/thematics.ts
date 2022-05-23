@@ -79,7 +79,7 @@ export const getThematicFromRawData = (data: RawThematic): Thematic => {
     posts.forEach((post) => {
       if (post.acfPosts.postsInTopic) {
         post.acfPosts.postsInTopic.forEach((topic) =>
-          topics.push(getPageLinkFromRawData(topic))
+          topics.push(getPageLinkFromRawData(topic, 'topic'))
         );
       }
     });

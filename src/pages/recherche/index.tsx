@@ -165,8 +165,9 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
           <LinksListWidget
             key="thematics-list"
             items={getLinksListItems(
-              thematicsList.map(getPageLinkFromRawData),
-              'thematic'
+              thematicsList.map((thematic) =>
+                getPageLinkFromRawData(thematic, 'thematic')
+              )
             )}
             title={thematicsListTitle}
             level={2}
@@ -174,8 +175,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
           <LinksListWidget
             key="topics-list"
             items={getLinksListItems(
-              topicsList.map(getPageLinkFromRawData),
-              'topic'
+              topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
             )}
             title={topicsListTitle}
             level={2}

@@ -25,8 +25,8 @@ export const posts: Post[] = [
       dates: { publication: '2022-02-26' },
       wordsCount: introPost1.split(' ').length,
       thematics: [
-        { id: 1, name: 'Cat 1', slug: '#' },
-        { id: 2, name: 'Cat 2', slug: '#' },
+        { id: 1, name: 'Cat 1', url: '#' },
+        { id: 2, name: 'Cat 2', url: '#' },
       ],
       commentsCount: 1,
     },
@@ -39,7 +39,7 @@ export const posts: Post[] = [
     meta: {
       dates: { publication: '2022-02-20' },
       wordsCount: introPost2.split(' ').length,
-      thematics: [{ id: 2, name: 'Cat 2', slug: '#' }],
+      thematics: [{ id: 2, name: 'Cat 2', url: '#' }],
       commentsCount: 0,
     },
     title: 'Debitis laudantium laudantium',
@@ -52,7 +52,7 @@ export const posts: Post[] = [
       cover,
       dates: { publication: '2021-12-20' },
       wordsCount: introPost3.split(' ').length,
-      thematics: [{ id: 1, name: 'Cat 1', slug: '#' }],
+      thematics: [{ id: 1, name: 'Cat 1', url: '#' }],
       commentsCount: 3,
     },
     title: 'Quaerat ut corporis',

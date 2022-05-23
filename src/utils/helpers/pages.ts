@@ -21,15 +21,17 @@ import { getImageFromRawData } from './images';
  * @returns {PageLink} The link data (id, slug and title).
  */
 export const getPageLinkFromRawData = (
-  data: RawThematicPreview | RawTopicPreview
+  data: RawThematicPreview | RawTopicPreview,
+  kind: 'thematic' | 'topic'
 ): PageLink => {
   const { databaseId, featuredImage, slug, title } = data;
+  const baseUrl = kind === 'thematic' ? '/thematique/' : '/sujet/';
 
   return {
     id: databaseId,
     logo: featuredImage ? getImageFromRawData(featuredImage?.node) : undefined,
     name: title,
-    slug,
+    url: `${baseUrl}${slug}`,
   };
 };
 
@@ -37,19 +39,13 @@ export const getPageLinkFromRawData = (
  * Convert page link data to an array of links items.
  *
  * @param {PageLink[]} links - An array of page links.
- * @param {'thematic'|'topic'} kind - The page links kind.
  * @returns {LinksListItem[]} An array of links items.
  */
-export const getLinksListItems = (
-  links: PageLink[],
-  kind: 'thematic' | 'topic'
-): LinksListItems[] => {
-  const baseUrl = kind === 'thematic' ? '/thematique/' : '/sujet/';
-
+export const getLinksListItems = (links: PageLink[]): LinksListItems[] => {
   return links.map((link) => {
     return {
       name: link.name,
-      url: `${baseUrl}${link.slug}`,
+      url: link.url,
     };
   });
 };

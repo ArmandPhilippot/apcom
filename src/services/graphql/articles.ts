@@ -82,10 +82,10 @@ export const getArticleFromRawData = (data: RawArticle): Article => {
         title: seo?.title || '',
       },
       thematics: acfPosts.postsInThematic?.map((thematic) =>
-        getPageLinkFromRawData(thematic)
+        getPageLinkFromRawData(thematic, 'thematic')
       ),
       topics: acfPosts.postsInTopic?.map((topic) =>
-        getPageLinkFromRawData(topic)
+        getPageLinkFromRawData(topic, 'topic')
       ),
       wordsCount: info.wordsCount,
     },

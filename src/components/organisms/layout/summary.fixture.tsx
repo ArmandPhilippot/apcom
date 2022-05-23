@@ -14,8 +14,8 @@ export const meta: SummaryMeta = {
   dates: { publication: '2022-04-11' },
   wordsCount: intro.split(' ').length,
   thematics: [
-    { id: 1, name: 'Cat 1', slug: '#' },
-    { id: 2, name: 'Cat 2', slug: '#' },
+    { id: 1, name: 'Cat 1', url: '#' },
+    { id: 2, name: 'Cat 2', url: '#' },
   ],
   commentsCount: 1,
 };

@@ -148,8 +148,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           <LinksListWidget
             key="thematics-list"
             items={getLinksListItems(
-              thematicsList.map(getPageLinkFromRawData),
-              'thematic'
+              thematicsList.map((thematic) =>
+                getPageLinkFromRawData(thematic, 'thematic')
+              )
             )}
             title={thematicsListTitle}
             level={2}
@@ -157,8 +158,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           <LinksListWidget
             key="topics-list"
             items={getLinksListItems(
-              topicsList.map(getPageLinkFromRawData),
-              'topic'
+              topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
             )}
             title={topicsListTitle}
             level={2}

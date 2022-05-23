@@ -118,13 +118,13 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
             ? [
                 <LinksListWidget
                   key="thematics"
-                  items={getLinksListItems(thematics, 'thematic')}
+                  items={getLinksListItems(thematics)}
                   title={thematicsListTitle}
                   level={2}
                 />,
                 <LinksListWidget
                   key="related-topics"
-                  items={getLinksListItems(topics, 'topic')}
+                  items={getLinksListItems(topics)}
                   title={topicsListTitle}
                   level={2}
                 />,
@@ -178,10 +178,11 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
     first: totalThematics,
   });
   const allThematics = allThematicsEdges.edges.map((edge) =>
-    getPageLinkFromRawData(edge.node)
+    getPageLinkFromRawData(edge.node, 'thematic')
   );
   const allThematicsLinks = allThematics.filter(
-    (thematic) => thematic.slug !== (params!.slug as ThematicParams['slug'])
+    (thematic) =>
+      thematic.url !== `/thematique/${params!.slug as ThematicParams['slug']}`
   );
   const translation = await loadTranslation(locale);
 
