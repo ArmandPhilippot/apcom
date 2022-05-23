@@ -1,9 +1,11 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .list {
+  margin-top: var(--spacing-sm);
+
   @include mix.media("screen") {
     @include mix.dimensions("md") {
-      margin: 0 calc(var(--spacing-3xl) * -1) var(--spacing-md);
+      margin: var(--spacing-md) calc(var(--spacing-3xl) * -1) var(--spacing-md);
     }
   }
 }

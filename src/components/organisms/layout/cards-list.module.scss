@@ -1,3 +1,4 @@
+@use "@styles/abstracts/mixins" as mix;
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
@@ -10,6 +11,12 @@
   place-content: center;
   align-items: stretch;
   justify-items: stretch;
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "sm") {
+      gap: var(--spacing-lg);
+    }
+  }
 
   &--ordered {
     @extend %reset-ordered-list;
