@@ -1,4 +1,9 @@
-import { ChangeEvent, FC, SetStateAction } from 'react';
+import {
+  ChangeEvent,
+  forwardRef,
+  ForwardRefRenderFunction,
+  SetStateAction,
+} from 'react';
 import styles from './forms.module.scss';
 
 export type FieldType =
@@ -72,12 +77,10 @@ export type FieldProps = {
  *
  * Render either an input or a textarea.
  */
-const Field: FC<FieldProps> = ({
-  className = '',
-  setValue,
-  type,
-  ...props
-}) => {
+const Field: ForwardRefRenderFunction<HTMLInputElement, FieldProps> = (
+  { className = '', setValue, type, ...props },
+  ref
+) => {
   /**
    * Update select value when an option is selected.
    * @param e - The option change event.
@@ -96,12 +99,13 @@ const Field: FC<FieldProps> = ({
     />
   ) : (
     <input
-      type={type}
-      onChange={updateValue}
       className={`${styles.field} ${className}`}
+      onChange={updateValue}
+      ref={ref}
+      type={type}
       {...props}
     />
   );
 };
 
-export default Field;
+export default forwardRef(Field);

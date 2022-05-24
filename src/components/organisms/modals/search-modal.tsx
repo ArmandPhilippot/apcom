@@ -1,20 +1,10 @@
-import Spinner from '@components/atoms/loaders/spinner';
 import Modal, { type ModalProps } from '@components/molecules/modals/modal';
-import dynamic from 'next/dynamic';
-import { FC } from 'react';
+import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import { type SearchFormProps } from '../forms/search-form';
+import SearchForm, { type SearchFormProps } from '../forms/search-form';
 import styles from './search-modal.module.scss';
 
-const DynamicSearchForm = dynamic(
-  () => import('@components/organisms/forms/search-form'),
-  {
-    loading: () => <Spinner />,
-    ssr: false,
-  }
-);
-
-export type SearchModalProps = Pick<SearchFormProps, 'searchPage'> & {
+export type SearchModalProps = SearchFormProps & {
   /**
    * Set additional classnames to modal wrapper.
    */
@@ -26,7 +16,10 @@ export type SearchModalProps = Pick<SearchFormProps, 'searchPage'> & {
  *
  * Render a search form modal.
  */
-const SearchModal: FC<SearchModalProps> = ({ className, searchPage }) => {
+const SearchModal: ForwardRefRenderFunction<
+  HTMLInputElement,
+  SearchModalProps
+> = ({ className, searchPage }, ref) => {
   const intl = useIntl();
   const modalTitle = intl.formatMessage({
     defaultMessage: 'Search',
@@ -36,9 +29,9 @@ const SearchModal: FC<SearchModalProps> = ({ className, searchPage }) => {
 
   return (
     <Modal title={modalTitle} className={`${styles.wrapper} ${className}`}>
-      <DynamicSearchForm hideLabel={true} searchPage={searchPage} />
+      <SearchForm hideLabel={true} ref={ref} searchPage={searchPage} />
     </Modal>
   );
 };
 
-export default SearchModal;
+export default forwardRef(SearchModal);

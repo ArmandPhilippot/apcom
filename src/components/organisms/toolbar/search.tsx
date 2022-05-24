@@ -1,7 +1,8 @@
 import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
 import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
 import FlippingLabel from '@components/molecules/forms/flipping-label';
-import { forwardRef, ForwardRefRenderFunction } from 'react';
+import useInputAutofocus from '@utils/hooks/use-input-autofocus';
+import { forwardRef, ForwardRefRenderFunction, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import SearchModal, { type SearchModalProps } from '../modals/search-modal';
 import searchStyles from './search.module.scss';
@@ -43,6 +44,13 @@ const Search: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
         description: 'Search: Open label',
       });
 
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  useInputAutofocus({
+    condition: isActive,
+    delay: 360,
+    ref: searchInputRef,
+  });
+
   return (
     <div className={`${sharedStyles.item} ${searchStyles.item}`} ref={ref}>
       <Checkbox
@@ -61,8 +69,9 @@ const Search: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
         <MagnifyingGlass />
       </FlippingLabel>
       <SearchModal
-        searchPage={searchPage}
         className={`${sharedStyles.modal} ${searchStyles.modal} ${className}`}
+        ref={searchInputRef}
+        searchPage={searchPage}
       />
     </div>
   );

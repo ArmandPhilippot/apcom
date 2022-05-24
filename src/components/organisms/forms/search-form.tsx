@@ -5,7 +5,7 @@ import LabelledField, {
   type LabelledFieldProps,
 } from '@components/molecules/forms/labelled-field';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { forwardRef, ForwardRefRenderFunction, useId, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './search-form.module.scss';
 
@@ -21,7 +21,10 @@ export type SearchFormProps = Pick<LabelledFieldProps, 'hideLabel'> & {
  *
  * Render a search form.
  */
-const SearchForm: FC<SearchFormProps> = ({ hideLabel, searchPage }) => {
+const SearchForm: ForwardRefRenderFunction<
+  HTMLInputElement,
+  SearchFormProps
+> = ({ hideLabel, searchPage }, ref) => {
   const intl = useIntl();
   const fieldLabel = intl.formatMessage({
     defaultMessage: 'Search for:',
@@ -42,17 +45,20 @@ const SearchForm: FC<SearchFormProps> = ({ hideLabel, searchPage }) => {
     setValue('');
   };
 
+  const id = useId();
+
   return (
     <Form grouped={false} onSubmit={submitHandler} className={styles.wrapper}>
       <LabelledField
-        type="search"
-        id="search-form"
-        name="search-form"
-        label={fieldLabel}
-        value={value}
-        setValue={setValue}
-        hideLabel={hideLabel}
         className={styles.field}
+        hideLabel={hideLabel}
+        id={`search-form-${id}`}
+        label={fieldLabel}
+        name="search-form"
+        ref={ref}
+        setValue={setValue}
+        type="search"
+        value={value}
       />
       <Button
         type="submit"
@@ -67,4 +73,4 @@ const SearchForm: FC<SearchFormProps> = ({ hideLabel, searchPage }) => {
   );
 };
 
-export default SearchForm;
+export default forwardRef(SearchForm);
