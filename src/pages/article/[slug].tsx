@@ -1,5 +1,6 @@
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Link from '@components/atoms/links/link';
+import Spinner from '@components/atoms/loaders/spinner';
 import ResponsiveImage from '@components/molecules/images/responsive-image';
 import Sharing from '@components/organisms/widgets/sharing';
 import { getLayout } from '@components/templates/layout/layout';
@@ -40,6 +41,7 @@ import useSWR from 'swr';
 type ArticlePageProps = {
   comments: Comment[];
   post: Article;
+  slug: string;
   translation: Messages;
 };
 
@@ -49,26 +51,29 @@ type ArticlePageProps = {
 const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   comments,
   post,
+  slug,
 }) => {
-  const { content, id, intro, meta, slug, title } = post;
-  const {
-    author,
-    commentsCount,
-    cover,
-    dates,
-    seo,
-    thematics,
-    topics,
-    wordsCount,
-  } = meta;
-  const { data } = useSWR(() => id, getPostComments, {
+  const { isFallback } = useRouter();
+  const intl = useIntl();
+  const { data: article } = useSWR(() => slug, getArticleBySlug, {
+    fallbackData: post,
+  });
+  const { data: commentsData } = useSWR(() => id, getPostComments, {
     fallbackData: comments,
   });
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
+    title: article?.title || '',
     url: `/article/${slug}`,
   });
-  const readingTime = useReadingTime(wordsCount, true);
+  const readingTime = useReadingTime(article?.meta.wordsCount || 0, true);
+  const { website } = useSettings();
+  const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
+  const { attributes, className } = usePrism({ plugins: prismPlugins });
+
+  if (isFallback) return <Spinner />;
+
+  const { content, id, intro, meta, title } = article!;
+  const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
     author: author?.name,
@@ -87,7 +92,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       )),
   };
 
-  const intl = useIntl();
   const footerMetaLabel = intl.formatMessage({
     defaultMessage: 'Read more articles about:',
     description: 'ArticlePage: footer topics list label',
@@ -107,19 +111,17 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     },
   };
 
-  const { website } = useSettings();
-  const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: intro,
     locale: website.locales.default,
-    slug: asPath,
+    slug,
     title,
     updateDate: dates.update,
   });
   const blogSchema = getBlogSchema({
     isSinglePage: true,
     locale: website.locales.default,
-    slug: asPath,
+    slug,
   });
   const blogPostSchema = getSinglePageSchema({
     commentsCount,
@@ -130,7 +132,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     id: 'article',
     kind: 'post',
     locale: website.locales.default,
-    slug: asPath,
+    slug,
     title,
   });
   const schemaJsonLd = getSchemaJson([
@@ -139,8 +141,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     blogPostSchema,
   ]);
 
-  const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
-  const { attributes, className } = usePrism({ plugins: prismPlugins });
   const lineNumbersClassName = className
     .replace('command-line', '')
     .replace(/\s\s+/g, ' ');
@@ -174,7 +174,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     prismClassNameReplacer
   );
 
-  const pageUrl = `${website.url}${asPath}`;
+  const pageUrl = `${website.url}${slug}`;
 
   return (
     <>
@@ -199,7 +199,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         bodyClassName={styles.body}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        comments={data}
+        comments={commentsData}
         footerMeta={footerMeta}
         headerMeta={headerMeta}
         id={id as number}
@@ -246,6 +246,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
     props: {
       comments: JSON.parse(JSON.stringify(comments)),
       post: JSON.parse(JSON.stringify(post)),
+      slug: post.slug,
       translation,
     },
   };
@@ -259,7 +260,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
