@@ -177,6 +177,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
             isLoading={isLoadingMore || isLoadingInitialData}
             loadMore={loadMore}
             posts={getPostsList(data)}
+            searchPage="/recherche/"
             showLoadMoreBtn={hasNextPage}
             total={totalArticles}
           />

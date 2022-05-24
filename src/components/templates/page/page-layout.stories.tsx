@@ -368,7 +368,12 @@ Blog.args = {
   headerMeta: { total: posts.length },
   children: (
     <>
-      <PostsList posts={posts} byYear={true} total={posts.length} />
+      <PostsList
+        posts={posts}
+        byYear={true}
+        total={posts.length}
+        searchPage="#"
+      />
     </>
   ),
   widgets: [

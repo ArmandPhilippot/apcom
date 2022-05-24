@@ -167,10 +167,11 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
             </Heading>
             <PostsList
               baseUrl="/sujet/page/"
-              posts={getPostsWithUrl(articles)}
-              total={articles.length}
-              titleLevel={3}
               byYear={true}
+              posts={getPostsWithUrl(articles)}
+              searchPage="/recherche/"
+              titleLevel={3}
+              total={articles.length}
             />
           </>
         )}

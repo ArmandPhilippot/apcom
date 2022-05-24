@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import PostsList from './posts-list';
-import { posts } from './posts-list.fixture';
+import { posts, searchPage } from './posts-list.fixture';
 
 /**
  * PostsList - Storybook Meta
@@ -161,6 +161,7 @@ const Template: ComponentStory<typeof PostsList> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   posts,
+  searchPage,
   total: posts.length,
 };
 
@@ -171,6 +172,7 @@ export const ByYears = Template.bind({});
 ByYears.args = {
   posts,
   byYear: true,
+  searchPage,
   total: posts.length,
 };
 ByYears.decorators = [
@@ -187,5 +189,6 @@ ByYears.decorators = [
 export const NoResults = Template.bind({});
 NoResults.args = {
   posts: [],
+  searchPage,
   total: posts.length,
 };

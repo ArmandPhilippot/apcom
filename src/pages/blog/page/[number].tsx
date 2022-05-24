@@ -170,6 +170,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           byYear={true}
           pageNumber={pageNumber}
           posts={getPostsList([articles])}
+          searchPage="/recherche/"
           total={totalArticles}
         />
       </PageLayout>

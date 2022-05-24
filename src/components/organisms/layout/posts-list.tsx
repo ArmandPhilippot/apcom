@@ -9,6 +9,7 @@ import useIsMounted from '@utils/hooks/use-is-mounted';
 import useSettings from '@utils/hooks/use-settings';
 import { FC, Fragment, useRef } from 'react';
 import { useIntl } from 'react-intl';
+import NoResults, { NoResultsProps } from './no-results';
 import styles from './posts-list.module.scss';
 import Summary, { type SummaryProps } from './summary';
 
@@ -23,40 +24,41 @@ export type YearCollection = {
   [key: string]: Post[];
 };
 
-export type PostsListProps = Pick<PaginationProps, 'baseUrl' | 'siblings'> & {
-  /**
-   * True to display the posts by year. Default: false.
-   */
-  byYear?: boolean;
-  /**
-   * Determine if the data is loading.
-   */
-  isLoading?: boolean;
-  /**
-   * Load more button handler.
-   */
-  loadMore?: () => void;
-  /**
-   * The current page number. Default: 1.
-   */
-  pageNumber?: number;
-  /**
-   * The posts data.
-   */
-  posts: Post[];
-  /**
-   * Determine if the load more button should be visible.
-   */
-  showLoadMoreBtn?: boolean;
-  /**
-   * The posts heading level (hn).
-   */
-  titleLevel?: HeadingLevel;
-  /**
-   * The total posts number.
-   */
-  total: number;
-};
+export type PostsListProps = Pick<PaginationProps, 'baseUrl' | 'siblings'> &
+  Pick<NoResultsProps, 'searchPage'> & {
+    /**
+     * True to display the posts by year. Default: false.
+     */
+    byYear?: boolean;
+    /**
+     * Determine if the data is loading.
+     */
+    isLoading?: boolean;
+    /**
+     * Load more button handler.
+     */
+    loadMore?: () => void;
+    /**
+     * The current page number. Default: 1.
+     */
+    pageNumber?: number;
+    /**
+     * The posts data.
+     */
+    posts: Post[];
+    /**
+     * Determine if the load more button should be visible.
+     */
+    showLoadMoreBtn?: boolean;
+    /**
+     * The posts heading level (hn).
+     */
+    titleLevel?: HeadingLevel;
+    /**
+     * The total posts number.
+     */
+    total: number;
+  };
 
 /**
  * Create a collection of posts sorted by year.
@@ -89,6 +91,7 @@ const PostsList: FC<PostsListProps> = ({
   loadMore,
   pageNumber = 1,
   posts,
+  searchPage,
   showLoadMoreBtn = false,
   siblings,
   titleLevel,
@@ -221,15 +224,7 @@ const PostsList: FC<PostsListProps> = ({
   };
 
   if (posts.length === 0) {
-    return (
-      <p>
-        {intl.formatMessage({
-          defaultMessage: 'No results found.',
-          description: 'PostsList: no results',
-          id: 'vK7Sxv',
-        })}
-      </p>
-    );
+    return <NoResults searchPage={searchPage} />;
   }
 
   return (
