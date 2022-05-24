@@ -3,6 +3,10 @@ import styles from './label.module.scss';
 
 export type LabelProps = {
   /**
+   * An accessible name for the label.
+   */
+  'aria-label'?: string;
+  /**
    * The label body.
    */
   children: ReactNode;

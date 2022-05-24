@@ -86,3 +86,11 @@
     }
   }
 }
+
+.label {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  width: var(--btn-size, #{fun.convert-px(60)});
+  height: var(--btn-size, #{fun.convert-px(60)});
+}

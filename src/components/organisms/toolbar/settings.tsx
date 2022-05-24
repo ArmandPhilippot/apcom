@@ -1,6 +1,6 @@
 import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
-import Label from '@components/atoms/forms/label';
 import Cog from '@components/atoms/icons/cog';
+import FlippingLabel from '@components/molecules/forms/flipping-label';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import SettingsModal, {
@@ -53,13 +53,14 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
         setValue={setIsActive}
         className={`${sharedStyles.checkbox} ${settingsStyles.checkbox}`}
       />
-      <Label
+      <FlippingLabel
+        className={sharedStyles.label}
         htmlFor="settings-button"
         aria-label={label}
-        className={`${sharedStyles.label} ${settingsStyles.label}`}
+        isActive={isActive}
       >
         <Cog />
-      </Label>
+      </FlippingLabel>
       <SettingsModal
         ackeeStorageKey={ackeeStorageKey}
         className={`${sharedStyles.modal} ${settingsStyles.modal} ${className}`}

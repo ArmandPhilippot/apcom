@@ -1,6 +1,6 @@
 import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
-import Label from '@components/atoms/forms/label';
 import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
+import FlippingLabel from '@components/molecules/forms/flipping-label';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import SearchModal, { type SearchModalProps } from '../modals/search-modal';
@@ -52,13 +52,14 @@ const Search: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
         setValue={setIsActive}
         className={`${sharedStyles.checkbox} ${searchStyles.checkbox}`}
       />
-      <Label
+      <FlippingLabel
+        className={sharedStyles.label}
         htmlFor="search-button"
         aria-label={label}
-        className={`${sharedStyles.label} ${searchStyles.label}`}
+        isActive={isActive}
       >
         <MagnifyingGlass />
-      </Label>
+      </FlippingLabel>
       <SearchModal
         searchPage={searchPage}
         className={`${sharedStyles.modal} ${searchStyles.modal} ${className}`}

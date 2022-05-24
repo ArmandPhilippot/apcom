@@ -12,6 +12,19 @@ export default {
     size: 'small',
   },
   argTypes: {
+    'aria-label': {
+      control: {
+        type: 'text',
+      },
+      description: 'Define an accessible name.',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     className: {
       control: {
         type: 'text',

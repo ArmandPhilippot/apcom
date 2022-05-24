@@ -38,20 +38,14 @@
   --draw-border-color1: var(--color-primary-light);
   --draw-border-color2: var(--color-primary-lighter);
 
-  display: flex;
-  place-content: center;
-  place-items: center;
-  width: var(--btn-size);
-  height: var(--btn-size);
-  padding: var(--spacing-2xs);
-
-  &:hover,
-  &:focus {
-    @extend %draw-borders;
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      border-radius: fun.convert-px(5);
+    }
   }
 
-  &:focus {
-    color: var(--color-primary-light);
+  &:hover {
+    @extend %draw-borders;
   }
 
   &:active {
