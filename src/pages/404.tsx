@@ -1,4 +1,5 @@
 import Link from '@components/atoms/links/link';
+import SearchForm from '@components/organisms/forms/search-form';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
@@ -116,6 +117,14 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
         ]}
       >
         {body}
+        <p>
+          {intl.formatMessage({
+            defaultMessage: 'You can also try a search:',
+            description: 'Error404Page: try a search message',
+            id: 'XKy7rx',
+          })}
+        </p>
+        <SearchForm hideLabel={true} searchPage="/recherche/" />
       </PageLayout>
     </>
   );
