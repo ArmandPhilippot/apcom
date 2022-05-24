@@ -1,4 +1,5 @@
 import useClickOutside from '@utils/hooks/use-click-outside';
+import useRouteChange from '@utils/hooks/use-route-change';
 import { FC, useRef, useState } from 'react';
 import MainNav, { type MainNavProps } from '../toolbar/main-nav';
 import Search, { type SearchProps } from '../toolbar/search';
@@ -42,6 +43,7 @@ const Toolbar: FC<ToolbarProps> = ({
     settingsRef,
     () => isSettingsOpened && setIsSettingsOpened(false)
   );
+  useRouteChange(() => setIsSearchOpened(false));
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
