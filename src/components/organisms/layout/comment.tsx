@@ -11,21 +11,6 @@ import { type Comment as CommentSchema, type WithContext } from 'schema-dts';
 import CommentForm, { type CommentFormProps } from '../forms/comment-form';
 import styles from './comment.module.scss';
 
-export type CommentAuthor = {
-  /**
-   * The author avatar.
-   */
-  avatar: string;
-  /**
-   * The author name.
-   */
-  name: string;
-  /**
-   * The author website.
-   */
-  url?: string;
-};
-
 export type CommentProps = Pick<
   CommentType,
   'approved' | 'content' | 'id' | 'meta' | 'parentId'
@@ -72,14 +57,6 @@ const Comment: FC<CommentProps> = ({
   const { author, date } = meta;
   const [publicationDate, publicationTime] = date.split(' ');
 
-  const avatarAltText = intl.formatMessage(
-    {
-      defaultMessage: '{author} avatar',
-      description: 'Comment: avatar alternative text',
-      id: 'T/hUiO',
-    },
-    { author: author.name }
-  );
   const buttonLabel = isReplying
     ? intl.formatMessage({
         defaultMessage: 'Cancel reply',
@@ -137,8 +114,8 @@ const Comment: FC<CommentProps> = ({
           {author.avatar && (
             <div className={styles.avatar}>
               <Image
-                src={author.avatar?.src}
-                alt={avatarAltText}
+                src={author.avatar.src}
+                alt={author.avatar.alt}
                 layout="fill"
                 objectFit="cover"
                 {...props}

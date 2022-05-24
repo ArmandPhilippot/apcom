@@ -12,7 +12,7 @@ describe('Comment', () => {
   it('renders an avatar', () => {
     render(<Comment canReply={true} {...data} />);
     expect(
-      screen.getByRole('img', { name: 'Your name avatar' })
+      screen.getByRole('img', { name: author.avatar.alt })
     ).toBeInTheDocument();
   });
 
