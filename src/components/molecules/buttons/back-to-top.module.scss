@@ -1,0 +1,51 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  .link {
+    width: clamp(#{fun.convert-px(48)}, 8vw, #{fun.convert-px(55)});
+    height: clamp(#{fun.convert-px(48)}, 8vw, #{fun.convert-px(55)});
+
+    svg {
+      width: 100%;
+    }
+
+    :global {
+      .arrow-head {
+        transform: translateY(30%) scale(1.2);
+        transition: all 0.45s ease-in-out 0s;
+      }
+
+      .arrow-bar {
+        opacity: 0;
+        transform: translateY(30%) scaleY(0);
+        transition: transform 0.45s ease-in-out 0s, opacity 0.1s linear 0.2s;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      :global {
+        .arrow-head {
+          transform: translateY(0) scale(1);
+        }
+
+        .arrow-bar {
+          opacity: 1;
+          transform: translateY(0) scaleY(1);
+        }
+      }
+
+      svg {
+        :global {
+          animation: pulse 1.2s ease-in-out 0.6s infinite;
+        }
+      }
+    }
+
+    &:active {
+      svg {
+        animation-play-state: paused;
+      }
+    }
+  }
+}

@@ -1,214 +1,211 @@
-import { getLayout } from '@components/Layouts/Layout';
-import PostHeader from '@components/PostHeader/PostHeader';
-import PostPreview from '@components/PostPreview/PostPreview';
-import Sidebar from '@components/Sidebar/Sidebar';
-import Spinner from '@components/Spinner/Spinner';
-import { RelatedTopics, ThematicsList, ToC } from '@components/Widgets';
+import Heading from '@components/atoms/headings/heading';
+import PostsList from '@components/organisms/layout/posts-list';
+import LinksListWidget from '@components/organisms/widgets/links-list-widget';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '@components/templates/page/page-layout';
 import {
-  getAllThematics,
-  getAllThematicsSlug,
+  getAllThematicsSlugs,
   getThematicBySlug,
-} from '@services/graphql/queries';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { ArticleMeta } from '@ts/types/articles';
-import { TopicPreview, ThematicProps } from '@ts/types/taxonomies';
-import { settings } from '@utils/config';
-import { getFormattedPaths } from '@utils/helpers/format';
-import { loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+  getThematicsPreview,
+  getTotalThematics,
+} from '@services/graphql/thematics';
+import {
+  type NextPageWithLayout,
+  type PageLink,
+  type Thematic,
+} from '@ts/types/app';
+import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import {
+  getLinksListItems,
+  getPageLinkFromRawData,
+  getPostsWithUrl,
+} from '@utils/helpers/pages';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import useSettings from '@utils/hooks/use-settings';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
-import { useRef } from 'react';
 import { useIntl } from 'react-intl';
-import { Article, Graph, WebPage } from 'schema-dts';
 
-const Thematic: NextPageWithLayout<ThematicProps> = ({
-  thematic,
-  allThematics,
+export type ThematicPageProps = {
+  currentThematic: Thematic;
+  thematics: PageLink[];
+  translation: Messages;
+};
+
+const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
+  currentThematic,
+  thematics,
 }) => {
+  const { content, intro, meta, slug, title } = currentThematic;
+  const { articles, dates, seo, topics } = meta;
   const intl = useIntl();
-  const relatedTopics = useRef<TopicPreview[]>([]);
-  const router = useRouter();
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/thematique/${slug}`,
+  });
 
-  if (router.isFallback) return <Spinner />;
-
-  const updateRelatedTopics = (newTopics: TopicPreview[]) => {
-    newTopics.forEach((topic) => {
-      const topicIndex = relatedTopics.current.findIndex(
-        (relatedTopic) => relatedTopic.id === topic.id
-      );
-      const hasTopic = topicIndex === -1 ? false : true;
-
-      if (!hasTopic) relatedTopics.current.push(topic);
-    });
+  const headerMeta: PageLayoutProps['headerMeta'] = {
+    publication: { date: dates.publication },
+    update: dates.update ? { date: dates.update } : undefined,
+    total: articles ? articles.length : undefined,
   };
 
-  const getPostsList = () => {
-    return [...thematic.posts].reverse().map((post) => {
-      updateRelatedTopics(post.topics);
+  const { website } = useSettings();
+  const { asPath } = useRouter();
+  const webpageSchema = getWebPageSchema({
+    description: seo.description,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const articleSchema = getSinglePageSchema({
+    dates,
+    description: intro,
+    id: 'thematic',
+    kind: 'page',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
 
-      return (
-        <li key={post.id} className={styles.item}>
-          <PostPreview post={post} titleLevel={3} />
-        </li>
-      );
-    });
-  };
+  const thematicsListTitle = intl.formatMessage({
+    defaultMessage: 'Other thematics',
+    description: 'ThematicPage: other thematics list widget title',
+    id: 'KVSWGP',
+  });
 
-  const meta: ArticleMeta = {
-    dates: thematic.dates,
-    results: thematic.posts.length,
-  };
-  const thematicUrl = `${settings.url}${router.asPath}`;
-
-  const webpageSchema: WebPage = {
-    '@id': `${thematicUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
-    name: thematic.seo.title,
-    description: thematic.seo.metaDesc,
-    inLanguage: settings.locales.defaultLocale,
-    reviewedBy: { '@id': `${settings.url}/#branding` },
-    url: `${settings.url}`,
-  };
-
-  const publicationDate = new Date(thematic.dates.publication);
-  const updateDate = new Date(thematic.dates.update);
-
-  const articleSchema: Article = {
-    '@id': `${settings.url}/#thematic`,
-    '@type': 'Article',
-    name: thematic.title,
-    description: thematic.intro,
-    author: { '@id': `${settings.url}/#branding` },
-    copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${settings.url}/#branding` },
-    dateCreated: publicationDate.toISOString(),
-    dateModified: updateDate.toISOString(),
-    datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${settings.url}/#branding` },
-    headline: thematic.title,
-    inLanguage: settings.locales.defaultLocale,
-    isPartOf: { '@id': `${settings.url}/blog` },
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${thematicUrl}` },
-    subjectOf: { '@id': `${settings.url}/blog` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, articleSchema],
-  };
+  const topicsListTitle = intl.formatMessage({
+    defaultMessage: 'Related topics',
+    description: 'ThematicPage: related topics list widget title',
+    id: '/42Z0z',
+  });
 
   return (
     <>
       <Head>
-        <title>{thematic.seo.title}</title>
-        <meta name="description" content={thematic.seo.metaDesc} />
-        <meta property="og:url" content={`${thematic}`} />
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={thematic.title} />
-        <meta property="og:description" content={thematic.intro} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={intro} />
       </Head>
       <Script
-        id="schema-thematic"
+        id="schema-project"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <article
-        id="thematic"
-        className={`${styles.article} ${styles['article--no-comments']}`}
+      <PageLayout
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
+        title={title}
+        intro={intro}
+        headerMeta={headerMeta}
+        widgets={
+          topics
+            ? [
+                <LinksListWidget
+                  key="thematics"
+                  items={getLinksListItems(thematics)}
+                  title={thematicsListTitle}
+                  level={2}
+                />,
+                <LinksListWidget
+                  key="related-topics"
+                  items={getLinksListItems(topics)}
+                  title={topicsListTitle}
+                  level={2}
+                />,
+              ]
+            : []
+        }
       >
-        <PostHeader intro={thematic.intro} meta={meta} title={thematic.title} />
-        <Sidebar
-          position="left"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Table of Contents',
-            description: 'ThematicPage: ToC sidebar aria-label',
-            id: 'YwvYfw',
-          })}
-        >
-          <ToC />
-        </Sidebar>
-        <div className={styles.body}>
-          <div dangerouslySetInnerHTML={{ __html: thematic.content }}></div>
-          {thematic.posts.length > 0 && (
-            <section className={styles.section}>
-              <h2>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: 'All posts in {name}',
-                    description: 'ThematicPage: posts list title',
-                    id: 'P7fxX2',
-                  },
-                  { name: thematic.title }
-                )}
-              </h2>
-              <ol className={styles.list}>{getPostsList()}</ol>
-            </section>
-          )}
-        </div>
-        <Sidebar
-          position="right"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Sidebar',
-            description: 'ThematicPage: right sidebar aria-label',
-            id: 'syLgY9',
-          })}
-        >
-          <RelatedTopics topics={relatedTopics.current} />
-          <ThematicsList
-            initialData={allThematics}
-            title={intl.formatMessage({
-              defaultMessage: 'Others thematics',
-              description: 'ThematicPage: thematics list widget title',
-              id: 'norrGp',
-            })}
-          />
-        </Sidebar>
-      </article>
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+        {articles && (
+          <>
+            <Heading level={2}>
+              {intl.formatMessage(
+                {
+                  defaultMessage: 'All posts in {thematicName}',
+                  description: 'ThematicPage: posts list heading',
+                  id: 'LszkU6',
+                },
+                { thematicName: title }
+              )}
+            </Heading>
+            <PostsList
+              baseUrl="/thematique/page/"
+              byYear={true}
+              posts={getPostsWithUrl(articles)}
+              searchPage="/recherche/"
+              titleLevel={3}
+              total={articles.length}
+            />
+          </>
+        )}
+      </PageLayout>
     </>
   );
 };
 
-Thematic.getLayout = getLayout;
+ThematicPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
-interface PostParams extends ParsedUrlQuery {
+interface ThematicParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const { locale } = context;
+export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
+  locale,
+  params,
+}) => {
+  const currentThematic = await getThematicBySlug(
+    params!.slug as ThematicParams['slug']
+  );
+  const totalThematics = await getTotalThematics();
+  const allThematicsEdges = await getThematicsPreview({
+    first: totalThematics,
+  });
+  const allThematics = allThematicsEdges.edges.map((edge) =>
+    getPageLinkFromRawData(edge.node, 'thematic')
+  );
+  const allThematicsLinks = allThematics.filter(
+    (thematic) =>
+      thematic.url !== `/thematique/${params!.slug as ThematicParams['slug']}`
+  );
   const translation = await loadTranslation(locale);
-  const { slug } = context.params as PostParams;
-  const thematic = await getThematicBySlug(slug);
-  const allThematics = await getAllThematics();
-  const breadcrumbTitle = thematic.title;
 
   return {
     props: {
-      allThematics,
-      breadcrumbTitle,
-      locale,
-      thematic,
+      currentThematic: JSON.parse(JSON.stringify(currentThematic)),
+      thematics: JSON.parse(JSON.stringify(allThematicsLinks)),
       translation,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allSlugs = await getAllThematicsSlug();
-  const paths = getFormattedPaths(allSlugs);
+  const slugs = await getAllThematicsSlugs();
+  const paths = slugs.map((slug) => {
+    return { params: { slug } };
+  });
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
-export default Thematic;
+export default ThematicPage;

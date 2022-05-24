@@ -1,20 +1,35 @@
-import { getPostsTotal, getPublishedPosts } from '@services/graphql/queries';
-import { ArticlePreview } from '@ts/types/articles';
-import { PostsList } from '@ts/types/blog';
+import {
+  getArticleFromRawData,
+  getArticles,
+  getTotalArticles,
+} from '@services/graphql/articles';
+import { Article } from '@ts/types/app';
 import { settings } from '@utils/config';
 import { Feed } from 'feed';
 
-const getAllPosts = async (): Promise<ArticlePreview[]> => {
-  const totalPosts = await getPostsTotal();
-  const posts: ArticlePreview[] = [];
+/**
+ * Retrieve the data for all the articles.
+ *
+ * @returns {Promise<Article[]>} - All the articles.
+ */
+const getAllArticles = async (): Promise<Article[]> => {
+  const totalArticles = await getTotalArticles();
+  const rawArticles = await getArticles({ first: totalArticles });
+  const articles: Article[] = [];
 
-  const postsList: PostsList = await getPublishedPosts({ first: totalPosts });
-  posts.push(...postsList.posts);
+  rawArticles.edges.forEach((edge) =>
+    articles.push(getArticleFromRawData(edge.node))
+  );
 
-  return posts;
+  return articles;
 };
 
-export const generateFeed = async () => {
+/**
+ * Generate a new feed.
+ *
+ * @returns {Promise<Feed>} - The feed.
+ */
+export const generateFeed = async (): Promise<Feed> => {
   const author = {
     name: settings.name,
     email: process.env.APP_AUTHOR_EMAIL,
@@ -38,16 +53,16 @@ export const generateFeed = async () => {
     title,
   });
 
-  const posts = await getAllPosts();
+  const articles = await getAllArticles();
 
-  posts.forEach((post) => {
+  articles.forEach((article) => {
     feed.addItem({
-      content: post.intro,
-      date: new Date(post.dates.publication),
-      description: post.intro,
-      id: post.id,
-      link: `${settings.url}/article/${post.slug}`,
-      title: post.title,
+      content: article.intro,
+      date: new Date(article.meta!.dates.publication),
+      description: article.intro,
+      id: `${article.id}`,
+      link: `${settings.url}/article/${article.slug}`,
+      title: article.title,
     });
   });
 

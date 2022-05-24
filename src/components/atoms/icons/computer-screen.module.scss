@@ -1,0 +1,39 @@
+@use "@styles/abstracts/functions" as fun;
+
+.icon {
+  display: block;
+  width: var(--icon-size, #{fun.convert-px(40)});
+}
+
+.root,
+.separator,
+.cursor,
+.line,
+.text {
+  fill: var(--color-fg);
+}
+
+.stand {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-primary-dark);
+
+  &--top {
+    stroke-width: 3;
+  }
+
+  &--bottom {
+    stroke-width: 2;
+  }
+}
+
+.screen {
+  fill: var(--color-bg);
+  stroke: var(--color-primary-dark);
+  stroke-width: 3;
+}
+
+.contour {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-primary-dark);
+  stroke-width: 3;
+}

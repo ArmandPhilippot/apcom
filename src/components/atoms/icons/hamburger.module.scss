@@ -1,0 +1,42 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: var(--icon-size, #{fun.convert-px(50)});
+  height: var(--icon-size, #{fun.convert-px(50)});
+  position: relative;
+}
+
+.icon {
+  &,
+  &::before,
+  &::after {
+    display: block;
+    height: fun.convert-px(7);
+    width: 100%;
+    position: absolute;
+    background: var(--color-primary-lighter);
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-light) 0%,
+      var(--color-primary-lighter) 100%
+    );
+    border: fun.convert-px(1) solid var(--color-primary-darker);
+    border-radius: fun.convert-px(3);
+    transition: all 0.25s ease-in-out 0s, transform 0.4s ease-in 0s;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+  }
+
+  &::before {
+    top: fun.convert-px(-15);
+  }
+
+  &::after {
+    bottom: fun.convert-px(-15);
+  }
+}

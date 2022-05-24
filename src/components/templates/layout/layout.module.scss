@@ -1,0 +1,53 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
+
+.header {
+  border-bottom: fun.convert-px(3) solid var(--color-border-light);
+}
+
+.main {
+  flex: 1;
+}
+
+.article {
+  &--grid {
+    @extend %grid;
+
+    grid-auto-flow: column dense;
+    align-items: baseline;
+  }
+
+  &--padding {
+    padding-bottom: var(--spacing-lg);
+  }
+}
+
+.footer {
+  border-top: fun.convert-px(3) solid var(--color-border-light);
+}
+
+.back-to-top {
+  &--hidden {
+    opacity: 0;
+    transform: translateY(calc(var(--button-size) + var(--spacing-md)));
+    visibility: hidden;
+  }
+
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
+.noscript-spacing {
+  width: 100%;
+  height: fun.convert-px(75);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("xs") {
+      height: fun.convert-px(50);
+    }
+  }
+}

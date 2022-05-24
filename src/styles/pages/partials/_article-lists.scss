@@ -1,0 +1,65 @@
+@mixin styles {
+  ol {
+    padding: 0;
+    list-style-type: none;
+    counter-reset: li;
+
+    > li {
+      display: table;
+      counter-increment: li;
+
+      &::before {
+        content: counters(li, ".") ". ";
+        display: table-cell;
+        padding-right: var(--spacing-2xs);
+        color: var(--color-secondary);
+      }
+    }
+
+    li ol > li::before {
+      content: counters(li, ".") ". ";
+    }
+  }
+
+  ul,
+  ol {
+    li:not(:last-child) {
+      margin-bottom: var(--spacing-2xs);
+    }
+
+    ::marker {
+      color: var(--color-primary-dark);
+    }
+  }
+
+  ul {
+    padding-left: var(--spacing-sm);
+  }
+
+  dl {
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--spacing-2xs);
+    width: fit-content;
+  }
+
+  ul,
+  ol,
+  dl {
+    margin: var(--spacing-sm) 0;
+
+    & & {
+      margin: var(--spacing-2xs) 0 0;
+    }
+  }
+
+  dt {
+    color: var(--color-fg-light);
+    font-weight: 600;
+  }
+
+  dd {
+    margin: 0;
+    word-break: break-all;
+  }
+}

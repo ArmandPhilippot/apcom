@@ -6,7 +6,6 @@
  * Import each files separately to define vendors styles order.
  */
 @use "modern-normalize";
-@use "vendors/prism";
 
 /**
  * 2.0. Base
@@ -22,14 +21,7 @@
 @use "base/typography";
 
 /**
- * 3.0. Components
- *
- * Define styles for external components (like WordPress blocks).
- */
-@use "components/wp-blocks";
-
-/**
- * 4.0. Themes
+ * 3.0. Themes
  *
  * Define themes specific styles.
  */

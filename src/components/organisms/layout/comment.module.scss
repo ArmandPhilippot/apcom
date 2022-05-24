@@ -1,0 +1,91 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  border: fun.convert-px(1) solid var(--color-border);
+  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light),
+    fun.convert-px(4) fun.convert-px(4) fun.convert-px(3) fun.convert-px(-2)
+      var(--color-shadow);
+
+  &--comment {
+    @include mix.media("screen") {
+      @include mix.dimensions("sm") {
+        display: grid;
+        grid-template-columns: minmax(0, #{fun.convert-px(150)}) minmax(0, 1fr);
+        column-gap: var(--spacing-lg);
+      }
+    }
+  }
+
+  &--form {
+    display: flex;
+    flex-flow: column wrap;
+    place-content: center;
+    margin-top: var(--spacing-sm);
+  }
+
+  .header {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    row-gap: var(--spacing-sm);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("sm") {
+        grid-row: 1 / 4;
+      }
+    }
+  }
+
+  .author {
+    color: var(--color-primary-darker);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .avatar {
+    width: fun.convert-px(85);
+    height: fun.convert-px(85);
+    position: relative;
+    border-radius: fun.convert-px(3);
+    box-shadow: 0 0 0 fun.convert-px(1) var(--color-shadow-light),
+      fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1)
+        var(--color-shadow);
+
+    img {
+      border-radius: fun.convert-px(3);
+    }
+  }
+
+  .date {
+    margin: var(--spacing-sm) 0;
+    font-size: var(--font-size-sm);
+
+    &__item {
+      justify-content: center;
+    }
+
+    @include mix.media("screen") {
+      @include mix.dimensions("sm") {
+        margin: 0 0 var(--spacing-sm);
+
+        &__item {
+          justify-content: left;
+        }
+      }
+    }
+  }
+
+  .body {
+    overflow-wrap: break-word;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--spacing-md) 0 0;
+  }
+}

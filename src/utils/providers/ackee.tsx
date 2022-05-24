@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { createContext, FC, useContext, useState } from 'react';
+import { createContext, FC, ReactNode, useContext, useState } from 'react';
 import useAckee from 'use-ackee';
 
 export type AckeeProps = {
@@ -10,6 +10,7 @@ export type AckeeProps = {
 };
 
 export type AckeeProviderProps = {
+  children: ReactNode;
   domain: string;
   siteId: string;
   ignoreLocalhost?: boolean;

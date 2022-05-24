@@ -79,6 +79,23 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Then, you can make your changes.
 
+### Storybook
+
+You can search for a component or develop a new component in isolation thanks to Storybook.
+
+```bash
+yarn storybook
+```
+
+The different components are divided into 4 categories (atomic design):
+
+- Atoms
+- Molecules
+- Organisms
+- Templates
+
+But, to be honest, between _Molecules_ and _Organisms_ some components may be misclassified.
+
 ### i18n
 
 When editing strings that require translation, run:

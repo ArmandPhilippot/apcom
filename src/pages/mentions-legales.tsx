@@ -1,111 +1,86 @@
-import { getLayout } from '@components/Layouts/Layout';
-import { Link } from '@components/MDX';
-import PostHeader from '@components/PostHeader/PostHeader';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { ToC } from '@components/Widgets';
-import LegalNoticeContent, {
-  intro,
-  meta,
-} from '@content/pages/legal-notice.mdx';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { ArticleMeta } from '@ts/types/articles';
-import { settings } from '@utils/config';
+import Link from '@components/atoms/links/link';
+import ResponsiveImage from '@components/molecules/images/responsive-image';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '@components/templates/page/page-layout';
+import LegalNoticeContent, { meta } from '@content/pages/legal-notice.mdx';
+import { type NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useIntl } from 'react-intl';
-import { Article, Graph, WebPage } from 'schema-dts';
 
-const LegalNotice: NextPageWithLayout = () => {
-  const intl = useIntl();
-  const router = useRouter();
-  const dates = {
-    publication: meta.publishedOn,
-    update: meta.updatedOn,
-  };
-
-  const pageMeta: ArticleMeta = {
-    dates,
-  };
-  const pageTitle = intl.formatMessage(
-    {
-      defaultMessage: 'Legal notice - {websiteName}',
-      description: 'LegalNoticePage: SEO - Page title',
-      id: '4zAUSu',
-    },
-    { websiteName: settings.name }
-  );
-  const pageDescription = intl.formatMessage(
-    {
-      defaultMessage: "Discover the legal notice of {websiteName}'s website.",
-      description: 'LegalNoticePage: SEO - Meta description',
-      id: 'uvB+32',
-    },
-    { websiteName: settings.name }
-  );
-  const pageUrl = `${settings.url}${router.asPath}`;
-  const title = intl.formatMessage({
-    defaultMessage: 'Legal notice',
-    description: 'LegalNoticePage: page title',
-    id: '/IirIt',
+/**
+ * Legal Notice page.
+ */
+const LegalNoticePage: NextPageWithLayout = () => {
+  const { dates, intro, seo, title } = meta;
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/mentions-legales`,
   });
-  const publicationDate = new Date(dates.publication);
-  const updateDate = new Date(dates.update);
 
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
-    name: pageTitle,
-    description: pageDescription,
-    inLanguage: settings.locales.defaultLocale,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    reviewedBy: { '@id': `${settings.url}/#branding` },
-    url: `${pageUrl}`,
-    isPartOf: {
-      '@id': `${settings.url}`,
+  const headerMeta: PageLayoutProps['headerMeta'] = {
+    publication: {
+      date: dates.publication,
     },
-  };
-
-  const articleSchema: Article = {
-    '@id': `${settings.url}/#legal-notice`,
-    '@type': 'Article',
-    name: title,
-    description: intro,
-    author: { '@id': `${settings.url}/#branding` },
-    copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${settings.url}/#branding` },
-    dateCreated: publicationDate.toISOString(),
-    dateModified: updateDate.toISOString(),
-    datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${settings.url}/#branding` },
-    headline: title,
-    inLanguage: settings.locales.defaultLocale,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, articleSchema],
+    update: dates.update
+      ? {
+          date: dates.update,
+        }
+      : undefined,
   };
 
   const components: NestedMDXComponents = {
-    Link: (props) => Link(props),
+    Image: (props) => <ResponsiveImage {...props} />,
+    Link: (props) => <Link {...props} />,
   };
 
+  const { website } = useSettings();
+  const { asPath } = useRouter();
+  const webpageSchema = getWebPageSchema({
+    description: seo.description,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const articleSchema = getSinglePageSchema({
+    dates,
+    description: intro,
+    id: 'legal-notice',
+    kind: 'page',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+
   return (
-    <>
+    <PageLayout
+      breadcrumb={breadcrumbItems}
+      breadcrumbSchema={breadcrumbSchema}
+      headerMeta={headerMeta}
+      intro={intro}
+      title={title}
+      withToC={true}
+    >
       <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <title>{`${seo.title} - ${website.name}`}</title>
+        <meta name="description" content={seo.description} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={pageTitle} />
+        <meta property="og:title" content={`${seo.title} - ${website.name}`} />
         <meta property="og:description" content={intro} />
       </Head>
       <Script
@@ -113,38 +88,22 @@ const LegalNotice: NextPageWithLayout = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <article
-        id="legal-notice"
-        className={`${styles.article} ${styles['article--no-comments']}`}
-      >
-        <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
-        <Sidebar position="left">
-          <ToC />
-        </Sidebar>
-        <div className={styles.body}>
-          <LegalNoticeContent components={components} />
-        </div>
-      </article>
-    </>
+      <LegalNoticeContent components={components} />
+    </PageLayout>
   );
 };
 
-LegalNotice.getLayout = getLayout;
+LegalNoticePage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const breadcrumbTitle = meta.title;
-  const { locale } = context;
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      breadcrumbTitle,
-      locale,
       translation,
     },
   };
 };
 
-export default LegalNotice;
+export default LegalNoticePage;

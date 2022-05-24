@@ -1,0 +1,46 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  --title-height: #{fun.convert-px(40)};
+
+  margin-top: calc(var(--title-height) / 2);
+  padding: calc((var(--title-height) / 2) + var(--spacing-sm)) var(--spacing-sm)
+    var(--spacing-sm);
+  position: relative;
+  background: var(--color-bg);
+  border: fun.convert-px(2) solid var(--color-primary-dark);
+  border-radius: fun.convert-px(3);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow),
+    fun.convert-px(2) fun.convert-px(2) fun.convert-px(1) fun.convert-px(1)
+      var(--color-shadow-light);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  height: var(--title-height);
+  padding-right: var(--spacing-xs);
+  position: absolute;
+  top: calc(var(--title-height) / -2);
+  left: var(--spacing-xs);
+  background: var(--color-bg);
+  border: fun.convert-px(1) solid var(--color-primary-dark);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
+  color: var(--color-primary-darker);
+  font-size: var(--font-size-sm);
+  font-variant: small-caps;
+  font-weight: 500;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  height: var(--title-height);
+  margin-right: var(--spacing-xs);
+  padding: 0 var(--spacing-2xs);
+  background: var(--color-primary-dark);
+  border: fun.convert-px(1) solid var(--color-primary-dark);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
+  color: var(--color-fg-inverted);
+  font-weight: 600;
+}

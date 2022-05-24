@@ -1,89 +1,124 @@
-import ContactForm from '@components/ContactForm/ContactForm';
-import { getLayout } from '@components/Layouts/Layout';
-import PostHeader from '@components/PostHeader/PostHeader';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { SocialMedia } from '@components/Widgets';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { settings } from '@utils/config';
-import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import Notice, { type NoticeKind } from '@components/atoms/layout/notice';
+import ContactForm, {
+  type ContactFormProps,
+} from '@components/organisms/forms/contact-form';
+import SocialMedia from '@components/organisms/widgets/social-media';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout from '@components/templates/page/page-layout';
+import { meta } from '@content/pages/contact.mdx';
+import { sendMail } from '@services/graphql/contact';
+import styles from '@styles/pages/contact.module.scss';
+import { type NextPageWithLayout } from '@ts/types/app';
+import { loadTranslation } from '@utils/helpers/i18n';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import useSettings from '@utils/hooks/use-settings';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
-import { ContactPage as ContactPageSchema, Graph, WebPage } from 'schema-dts';
 
 const ContactPage: NextPageWithLayout = () => {
+  const { dates, intro, seo, title } = meta;
   const intl = useIntl();
-  const router = useRouter();
-
-  const pageTitle = intl.formatMessage(
-    {
-      defaultMessage: 'Contact form - {websiteName}',
-      description: 'ContactPage: SEO - Page title',
-      id: 'Y3qRib',
-    },
-    { websiteName: settings.name }
-  );
-  const pageDescription = intl.formatMessage(
-    {
-      defaultMessage:
-        "Contact {websiteName} through its website. All you need to do it's to fill the contact form.",
-      description: 'ContactPage: SEO - Meta description',
-      id: 'OIffB4',
-    },
-    { websiteName: settings.name }
-  );
-  const pageUrl = `${settings.url}${router.asPath}`;
-  const title = intl.formatMessage({
-    defaultMessage: 'Contact',
-    description: 'ContactPage: page title',
-    id: 'AN9iy7',
-  });
-  const intro = intl.formatMessage({
-    defaultMessage: 'Please fill the form to contact me.',
-    description: 'ContactPage: page introduction',
-    id: '8Ls2mD',
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/contact`,
   });
 
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
-    name: pageTitle,
-    description: pageDescription,
-    reviewedBy: { '@id': `${settings.url}/#branding` },
-    url: `${pageUrl}`,
-    isPartOf: {
-      '@id': `${settings.url}`,
-    },
-  };
+  const socialMediaTitle = intl.formatMessage({
+    defaultMessage: 'Find me elsewhere',
+    description: 'ContactPage: social media widget title',
+    id: 'Qh2CwH',
+  });
 
-  const contactSchema: ContactPageSchema = {
-    '@id': `${settings.url}/#contact`,
-    '@type': 'ContactPage',
-    name: title,
+  const { website } = useSettings();
+  const { asPath } = useRouter();
+  const webpageSchema = getWebPageSchema({
+    description: seo.description,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const contactSchema = getSinglePageSchema({
+    dates,
     description: intro,
-    author: { '@id': `${settings.url}/#branding` },
-    creator: { '@id': `${settings.url}/#branding` },
-    editor: { '@id': `${settings.url}/#branding` },
-    inLanguage: settings.locales.defaultLocale,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
+    id: 'contact',
+    kind: 'contact',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, contactSchema]);
 
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, contactSchema],
+  const widgets = [
+    <SocialMedia
+      key="social-media"
+      title={socialMediaTitle}
+      level={2}
+      media={[
+        { name: 'Github', url: 'https://github.com/ArmandPhilippot' },
+        { name: 'Gitlab', url: 'https://gitlab.com/ArmandPhilippot' },
+        {
+          name: 'LinkedIn',
+          url: 'https://www.linkedin.com/in/armandphilippot',
+        },
+      ]}
+    />,
+  ];
+
+  const [status, setStatus] = useState<NoticeKind>('info');
+  const [statusMessage, setStatusMessage] = useState<string>('');
+
+  const submitMail: ContactFormProps['sendMail'] = async (data, reset) => {
+    const { email, message, name, subject } = data;
+    const messageHTML = message.replace(/\r?\n/g, '<br />');
+    const body = `Message received from ${name} <${email}> on ${website.url}.<br /><br />${messageHTML}`;
+    const replyTo = `${name} <${email}>`;
+    const mailData = {
+      body,
+      clientMutationId: 'contact',
+      replyTo,
+      subject,
+    };
+    const { message: mutationMessage, sent } = await sendMail(mailData);
+
+    if (sent) {
+      setStatus('success');
+      setStatusMessage(
+        intl.formatMessage({
+          defaultMessage:
+            'Thanks. Your message was successfully sent. I will answer it as soon as possible.',
+          description: 'Contact: success message',
+          id: '3Pipok',
+        })
+      );
+      reset();
+    } else {
+      const errorPrefix = intl.formatMessage({
+        defaultMessage: 'An error occurred:',
+        description: 'Contact: error message',
+        id: 'TpyFZ6',
+      });
+      const error = `${errorPrefix} ${mutationMessage}`;
+      setStatus('error');
+      setStatusMessage(error);
+    }
   };
 
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <title>{`${seo.title} - ${website.name}`}</title>
+        <meta name="description" content={seo.description} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
@@ -93,56 +128,36 @@ const ContactPage: NextPageWithLayout = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <article
-        id="contact"
-        className={`${styles.article} ${styles['article--no-comments']}`}
+      <PageLayout
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
+        intro={intro}
+        title="Contact"
+        widgets={widgets}
       >
-        <PostHeader title={title} intro={intro} />
-        <div className={styles.body}>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: 'All fields marked with * are required.',
-              description: 'ContactPage: required fields text',
-              id: 'txusHd',
-            })}
-          </p>
-          <ContactForm />
-        </div>
-        <Sidebar position="right">
-          <SocialMedia
-            title={intl.formatMessage({
-              defaultMessage: 'Find me elsewhere',
-              description: 'ContactPage: social media widget title',
-              id: 'Qh2CwH',
-            })}
-            github={true}
-            gitlab={true}
-            linkedin={true}
-          />
-        </Sidebar>
-      </article>
+        <ContactForm
+          sendMail={submitMail}
+          Notice={
+            <Notice
+              kind={status}
+              message={statusMessage}
+              className={styles.notice}
+            />
+          }
+        />
+      </PageLayout>
     </>
   );
 };
 
-ContactPage.getLayout = getLayout;
+ContactPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const intl = await getIntlInstance();
-  const breadcrumbTitle = intl.formatMessage({
-    defaultMessage: 'Contact',
-    description: 'ContactPage: breadcrumb item',
-    id: 'CzTbM4',
-  });
-  const { locale } = context;
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      breadcrumbTitle,
-      locale,
       translation,
     },
   };

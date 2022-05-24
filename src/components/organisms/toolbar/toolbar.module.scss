@@ -1,0 +1,98 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
+
+.wrapper {
+  --toolbar-size: #{fun.convert-px(75)};
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: var(--toolbar-size);
+  position: relative;
+  background: var(--color-bg);
+  border-top: fun.convert-px(4) solid;
+  border-image: radial-gradient(
+      ellipse at top,
+      var(--color-primary-lighter) 20%,
+      var(--color-primary) 100%
+    )
+    1;
+  box-shadow: 0 fun.convert-px(-2) fun.convert-px(3) fun.convert-px(-1)
+    var(--color-shadow-dark);
+
+  :global {
+    animation: slide-in-from-bottom 0.8s ease-in-out 0s 1;
+  }
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      :global {
+        animation: slide-in-from-top 1s ease-in-out 0s 1;
+      }
+    }
+  }
+
+  .modal {
+    &--search,
+    &--settings {
+      @include mix.media("screen") {
+        @include mix.dimensions("sm") {
+          min-width: 35ch;
+        }
+      }
+    }
+  }
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      --toolbar-size: #{fun.convert-px(70)};
+    }
+
+    @include mix.dimensions(null, "sm") {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+
+      .modal {
+        top: unset;
+        bottom: calc(var(--toolbar-size) - #{fun.convert-px(4)});
+        max-height: calc(100vh - var(--toolbar-size));
+      }
+
+      .tooltip {
+        padding: calc(var(--title-height) / 2 + var(--spacing-2xs))
+          var(--spacing-2xs) var(--spacing-2xs);
+        top: unset;
+        bottom: calc(100% + var(--spacing-2xs));
+        transform-origin: bottom right;
+      }
+    }
+
+    @include mix.dimensions("sm", "md") {
+      .modal {
+        top: calc(var(--toolbar-size) + var(--spacing-2xs));
+        bottom: unset;
+      }
+    }
+
+    @include mix.dimensions("sm") {
+      justify-content: flex-end;
+      gap: var(--spacing-sm);
+
+      .tooltip {
+        transform-origin: top right;
+      }
+    }
+
+    @include mix.dimensions("md") {
+      .tooltip {
+        width: 120%;
+        right: -10%;
+      }
+    }
+  }
+}

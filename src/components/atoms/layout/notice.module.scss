@@ -1,0 +1,27 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  padding: var(--spacing-2xs) var(--spacing-xs);
+  border: fun.convert-px(2) solid;
+  font-weight: bold;
+
+  &--error {
+    border-color: var(--color-token-red);
+    color: var(--color-token-red);
+  }
+
+  &--info {
+    border-color: var(--color-token-blue);
+    color: var(--color-token-blue);
+  }
+
+  &--success {
+    border-color: var(--color-token-green);
+    color: var(--color-token-green);
+  }
+
+  &--warning {
+    border-color: var(--color-token-orange);
+    color: var(--color-token-orange);
+  }
+}

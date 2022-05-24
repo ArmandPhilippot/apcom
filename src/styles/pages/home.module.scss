@@ -1,0 +1,36 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.section {
+  --card-width: 25ch;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.columns {
+  margin: 0 0 var(--spacing-sm);
+}
+
+.list {
+  margin: 0 0 var(--spacing-sm);
+
+  &--cards {
+    @include mix.media("screen") {
+      @include mix.dimensions("md") {
+        margin: 0 calc(var(--spacing-sm) * -1) var(--spacing-sm);
+      }
+    }
+  }
+}
+
+.icon {
+  --icon-size: #{fun.convert-px(20)};
+
+  margin-right: var(--spacing-2xs);
+
+  &--feed {
+    width: var(--icon-size);
+  }
+}

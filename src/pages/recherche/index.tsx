@@ -1,213 +1,235 @@
-import { Button } from '@components/Buttons';
-import { getLayout } from '@components/Layouts/Layout';
-import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
-import PostHeader from '@components/PostHeader/PostHeader';
-import PostsList from '@components/PostsList/PostsList';
-import Sidebar from '@components/Sidebar/Sidebar';
-import Spinner from '@components/Spinner/Spinner';
-import { ThematicsList, TopicsList } from '@components/Widgets';
-import { getPublishedPosts } from '@services/graphql/queries';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { PostsList as PostsListData } from '@ts/types/blog';
-import { settings } from '@utils/config';
-import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import Notice from '@components/atoms/layout/notice';
+import Spinner from '@components/atoms/loaders/spinner';
+import PostsList from '@components/organisms/layout/posts-list';
+import LinksListWidget from '@components/organisms/widgets/links-list-widget';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout from '@components/templates/page/page-layout';
+import { getArticles, getTotalArticles } from '@services/graphql/articles';
+import {
+  getThematicsPreview,
+  getTotalThematics,
+} from '@services/graphql/thematics';
+import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
+import { type NextPageWithLayout } from '@ts/types/app';
+import {
+  type RawArticle,
+  type RawThematicPreview,
+  type RawTopicPreview,
+} from '@ts/types/raw-data';
+import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import {
+  getLinksListItems,
+  getPageLinkFromRawData,
+  getPostsList,
+} from '@utils/helpers/pages';
+import {
+  getBlogSchema,
+  getSchemaJson,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import useDataFromAPI from '@utils/hooks/use-data-from-api';
+import usePagination from '@utils/hooks/use-pagination';
+import useSettings from '@utils/hooks/use-settings';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 import { useIntl } from 'react-intl';
-import useSWRInfinite from 'swr/infinite';
 
-const Search: NextPageWithLayout = () => {
+type SearchPageProps = {
+  thematicsList: RawThematicPreview[];
+  topicsList: RawTopicPreview[];
+  translation: Messages;
+};
+
+/**
+ * Search page.
+ */
+const SearchPage: NextPageWithLayout<SearchPageProps> = ({
+  thematicsList,
+  topicsList,
+}) => {
   const intl = useIntl();
-  const [query, setQuery] = useState('');
-  const router = useRouter();
-  const lastPostRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (!router.isReady) return;
-
-    if (router.query?.s && typeof router.query.s === 'string') {
-      setQuery(router.query.s);
-    }
-  }, [router.isReady, router.query.s]);
-
-  const getKey = (pageIndex: number, previousData: PostsListData) => {
-    if (previousData && !previousData.posts) return null;
-
-    return pageIndex === 0
-      ? { first: settings.postsPerPage, searchQuery: query }
-      : {
-          first: settings.postsPerPage,
-          after: previousData.pageInfo.endCursor,
-          searchQuery: query,
-        };
-  };
-
-  const { data, error, size, setSize } = useSWRInfinite(
-    getKey,
-    getPublishedPosts
-  );
-  const [totalPostsCount, setTotalPostsCount] = useState<number>(0);
-
-  useEffect(() => {
-    if (data) setTotalPostsCount(data[0].pageInfo.total);
-  }, [data]);
-
-  const [loadedPostsCount, setLoadedPostsCount] = useState<number>(
-    settings.postsPerPage
-  );
-
-  useEffect(() => {
-    if (data && data.length > 0) {
-      const newCount =
-        settings.postsPerPage +
-        data[0].pageInfo.total -
-        data[data.length - 1].pageInfo.total;
-      setLoadedPostsCount(newCount);
-    }
-  }, [data]);
-
-  const isLoadingInitialData = !data && !error;
-  const isLoadingMore: boolean =
-    isLoadingInitialData ||
-    (size > 0 && data !== undefined && typeof data[size - 1] === 'undefined');
-
-  const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
-
-  const title = query
+  const { asPath, query } = useRouter();
+  const title = query.s
     ? intl.formatMessage(
         {
           defaultMessage: 'Search results for {query}',
-          description: 'SearchPage: search results text',
-          id: 'VSGuGE',
+          description: 'SearchPage: SEO - Page title',
+          id: 'ZNBhDP',
         },
-        { query }
+        { query: query.s as string }
       )
     : intl.formatMessage({
         defaultMessage: 'Search',
-        description: 'SearchPage: page title',
-        id: 'U+35YD',
+        description: 'SearchPage: SEO - Page title',
+        id: 'WDwNDl',
       });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/recherche`,
+  });
 
-  const description = query
+  const { blog, website } = useSettings();
+  const pageTitle = `${title} - ${website.name}`;
+  const pageDescription = query.s
     ? intl.formatMessage(
         {
-          defaultMessage: 'Discover search results for {query}',
-          description: 'SearchPage: meta description with query',
-          id: 'A4LTGq',
+          defaultMessage:
+            'Discover search results for {query} on {websiteName}.',
+          description: 'SearchPage: SEO - Meta description',
+          id: 'pg26sn',
         },
-        { query }
+        { query: query.s as string, websiteName: website.name }
       )
     : intl.formatMessage(
         {
-          defaultMessage: 'Search for a post on {websiteName}',
-          description: 'SearchPage: meta description without query',
-          id: 'PrIz5o',
+          defaultMessage: 'Search for a post on {websiteName}.',
+          description: 'SearchPage: SEO - Meta description',
+          id: 'npisb3',
         },
-        { websiteName: settings.name }
+        { websiteName: website.name }
       );
+  const webpageSchema = getWebPageSchema({
+    description: pageDescription,
+    locale: website.locales.default,
+    slug: asPath,
+    title: pageTitle,
+  });
+  const blogSchema = getBlogSchema({
+    isSinglePage: false,
+    locale: website.locales.default,
+    slug: asPath,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
 
-  const head = {
-    title: `${title} | ${settings.name}`,
-    description,
+  const {
+    data,
+    error,
+    isLoadingInitialData,
+    isLoadingMore,
+    hasNextPage,
+    setSize,
+  } = usePagination<RawArticle>({
+    fallbackData: [],
+    fetcher: getArticles,
+    perPage: blog.postsPerPage,
+    search: query.s as string,
+  });
+
+  const totalArticles = useDataFromAPI<number>(() =>
+    getTotalArticles(query.s as string)
+  );
+
+  /**
+   * Load more posts handler.
+   */
+  const loadMore = () => {
+    setSize((prevSize) => prevSize + 1);
   };
 
-  const loadMorePosts = () => {
-    if (lastPostRef.current) {
-      lastPostRef.current.focus();
-    }
-    setSize(size + 1);
-  };
+  const thematicsListTitle = intl.formatMessage({
+    defaultMessage: 'Thematics',
+    description: 'SearchPage: thematics list widget title',
+    id: 'Dq6+WH',
+  });
 
-  const getPostsList = () => {
-    if (error)
-      return intl.formatMessage({
-        defaultMessage: 'Failed to load.',
-        description: 'SearchPage: failed to load text',
-        id: 'fOe8rH',
-      });
-    if (!data) return <Spinner />;
-
-    return <PostsList ref={lastPostRef} data={data} showYears={false} />;
-  };
+  const topicsListTitle = intl.formatMessage({
+    defaultMessage: 'Topics',
+    description: 'SearchPage: topics list widget title',
+    id: 'N804XO',
+  });
 
   return (
     <>
       <Head>
-        <title>{head.title}</title>
-        <meta name="description" content={head.description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={pageDescription} />
       </Head>
-      <article
-        className={`${styles.article} ${styles['article--no-comments']}`}
+      <Script
+        id="schema-blog"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
+      <PageLayout
+        title={title}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
+        headerMeta={{ total: totalArticles }}
+        widgets={[
+          <LinksListWidget
+            key="thematics-list"
+            items={getLinksListItems(
+              thematicsList.map((thematic) =>
+                getPageLinkFromRawData(thematic, 'thematic')
+              )
+            )}
+            title={thematicsListTitle}
+            level={2}
+          />,
+          <LinksListWidget
+            key="topics-list"
+            items={getLinksListItems(
+              topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
+            )}
+            title={topicsListTitle}
+            level={2}
+          />,
+        ]}
       >
-        <PostHeader title={title} meta={{ results: totalPostsCount }} />
-        <div className={styles.body}>
-          {getPostsList()}
-          {hasNextPage && (
-            <>
-              <PaginationCursor
-                current={loadedPostsCount}
-                total={totalPostsCount}
-              />
-              <Button
-                isDisabled={isLoadingMore}
-                clickHandler={loadMorePosts}
-                position="center"
-                spacing={true}
-              >
-                {intl.formatMessage({
-                  defaultMessage: 'Load more?',
-                  description: 'SearchPage: load more text',
-                  id: 'pEtJik',
-                })}
-              </Button>
-            </>
-          )}
-        </div>
-        <Sidebar position="right">
-          <ThematicsList
-            title={intl.formatMessage({
-              defaultMessage: 'Thematics',
-              description: 'SearchPage: thematics list widget title',
-              id: 'Dq6+WH',
+        {data && data.length > 0 ? (
+          <PostsList
+            baseUrl="/recherche/page/"
+            byYear={true}
+            isLoading={isLoadingMore || isLoadingInitialData}
+            loadMore={loadMore}
+            posts={getPostsList(data)}
+            searchPage="/recherche/"
+            showLoadMoreBtn={hasNextPage}
+            total={totalArticles || 0}
+          />
+        ) : (
+          <Spinner />
+        )}
+        {error && (
+          <Notice
+            kind="error"
+            message={intl.formatMessage({
+              defaultMessage: 'Failed to load.',
+              description: 'SearchPage: failed to load text',
+              id: 'fOe8rH',
             })}
           />
-          <TopicsList
-            title={intl.formatMessage({
-              defaultMessage: 'Topics',
-              description: 'SearchPage: topics list widget title',
-              id: 'N804XO',
-            })}
-          />
-        </Sidebar>
-      </article>
+        )}
+      </PageLayout>
     </>
   );
 };
 
-Search.getLayout = getLayout;
+SearchPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const intl = await getIntlInstance();
-  const breadcrumbTitle = intl.formatMessage({
-    defaultMessage: 'Search',
-    description: 'SearchPage: breadcrumb item',
-    id: 'TfU6Qm',
-  });
-  const { locale } = context;
+export const getStaticProps: GetStaticProps<SearchPageProps> = async ({
+  locale,
+}) => {
+  const totalThematics = await getTotalThematics();
+  const thematics = await getThematicsPreview({ first: totalThematics });
+  const totalTopics = await getTotalTopics();
+  const topics = await getTopicsPreview({ first: totalTopics });
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      breadcrumbTitle,
-      locale,
+      thematicsList: thematics.edges.map((edge) => edge.node),
+      topicsList: topics.edges.map((edge) => edge.node),
       translation,
     },
   };
 };
 
-export default Search;
+export default SearchPage;

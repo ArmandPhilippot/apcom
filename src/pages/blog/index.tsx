@@ -1,116 +1,79 @@
-import { Button } from '@components/Buttons';
-import { getLayout } from '@components/Layouts/Layout';
-import Pagination from '@components/Pagination/Pagination';
-import PaginationCursor from '@components/PaginationCursor/PaginationCursor';
-import PostHeader from '@components/PostHeader/PostHeader';
-import PostsList from '@components/PostsList/PostsList';
-import Sidebar from '@components/Sidebar/Sidebar';
-import Spinner from '@components/Spinner/Spinner';
-import { ThematicsList, TopicsList } from '@components/Widgets';
+import Notice from '@components/atoms/layout/notice';
+import PostsList from '@components/organisms/layout/posts-list';
+import LinksListWidget from '@components/organisms/widgets/links-list-widget';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout from '@components/templates/page/page-layout';
+import { type EdgesResponse } from '@services/graphql/api';
+import { getArticles, getTotalArticles } from '@services/graphql/articles';
 import {
-  getAllThematics,
-  getAllTopics,
-  getPostsTotal,
-  getPublishedPosts,
-} from '@services/graphql/queries';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { BlogPageProps, PostsList as PostsListData } from '@ts/types/blog';
+  getThematicsPreview,
+  getTotalThematics,
+} from '@services/graphql/thematics';
+import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
+import { type NextPageWithLayout } from '@ts/types/app';
+import {
+  type RawArticle,
+  type RawThematicPreview,
+  type RawTopicPreview,
+} from '@ts/types/raw-data';
 import { settings } from '@utils/config';
-import { getIntlInstance, loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import {
+  getLinksListItems,
+  getPageLinkFromRawData,
+  getPostsList,
+} from '@utils/helpers/pages';
+import {
+  getBlogSchema,
+  getSchemaJson,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import usePagination from '@utils/hooks/use-pagination';
+import useSettings from '@utils/hooks/use-settings';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { Blog as BlogSchema, Graph, WebPage } from 'schema-dts';
-import useSWRInfinite from 'swr/infinite';
 
-const Blog: NextPageWithLayout<BlogPageProps> = ({
-  allThematics,
-  allTopics,
-  posts,
-  totalPosts,
+type BlogPageProps = {
+  articles: EdgesResponse<RawArticle>;
+  thematicsList: RawThematicPreview[];
+  topicsList: RawTopicPreview[];
+  totalArticles: number;
+  translation: Messages;
+};
+
+/**
+ * Blog index page.
+ */
+const BlogPage: NextPageWithLayout<BlogPageProps> = ({
+  articles,
+  thematicsList,
+  topicsList,
+  totalArticles,
 }) => {
   const intl = useIntl();
-  const lastPostRef = useRef<HTMLSpanElement>(null);
-  const router = useRouter();
-  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const title = intl.formatMessage({
+    defaultMessage: 'Blog',
+    description: 'BlogPage: page title',
+    id: '7TbbIk',
+  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: '/blog',
+  });
 
-  useEffect(() => {
-    if (typeof window !== undefined) setIsMounted(true);
-  }, []);
-
-  const getKey = (pageIndex: number, previousData: PostsListData) => {
-    if (previousData && !previousData.posts) return null;
-
-    return pageIndex === 0
-      ? { first: settings.postsPerPage }
-      : {
-          first: settings.postsPerPage,
-          after: previousData.pageInfo.endCursor,
-        };
-  };
-
-  const { data, error, size, setSize } = useSWRInfinite(
-    getKey,
-    getPublishedPosts,
-    { fallbackData: [posts] }
-  );
-  const [totalPostsCount, setTotalPostsCount] = useState<number>(totalPosts);
-
-  useEffect(() => {
-    if (data) setTotalPostsCount(data[0].pageInfo.total);
-  }, [data]);
-
-  const [loadedPostsCount, setLoadedPostsCount] = useState<number>(
-    settings.postsPerPage
-  );
-
-  useEffect(() => {
-    if (data && data.length > 0) {
-      const newCount =
-        settings.postsPerPage +
-        data[0].pageInfo.total -
-        data[data.length - 1].pageInfo.total;
-      setLoadedPostsCount(newCount);
-    }
-  }, [data]);
-
-  const isLoadingInitialData = !data && !error;
-  const isLoadingMore: boolean =
-    isLoadingInitialData ||
-    (size > 0 && data !== undefined && typeof data[size - 1] === 'undefined');
-
-  const hasNextPage = data && data[data.length - 1].pageInfo.hasNextPage;
-
-  const loadMorePosts = () => {
-    if (lastPostRef.current) {
-      lastPostRef.current.focus();
-    }
-    setSize(size + 1);
-  };
-
-  const getPostsList = () => {
-    if (error)
-      return intl.formatMessage({
-        defaultMessage: 'Failed to load.',
-        description: 'BlogPage: failed to load text',
-        id: 'C/XGkH',
-      });
-    if (!data) return <Spinner />;
-
-    return <PostsList ref={lastPostRef} data={data} showYears={true} />;
-  };
-
+  const { blog, website } = useSettings();
+  const { asPath } = useRouter();
   const pageTitle = intl.formatMessage(
     {
       defaultMessage: 'Blog: development, open source - {websiteName}',
       description: 'BlogPage: SEO - Page title',
       id: '+Y+tLK',
     },
-    { websiteName: settings.name }
+    { websiteName: website.name }
   );
   const pageDescription = intl.formatMessage(
     {
@@ -119,44 +82,51 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
       description: 'BlogPage: SEO - Meta description',
       id: '18h/t0',
     },
-    { websiteName: settings.name }
+    { websiteName: website.name }
   );
-  const pageUrl = `${settings.url}${router.asPath}`;
-
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
-    name: pageTitle,
+  const webpageSchema = getWebPageSchema({
     description: pageDescription,
-    inLanguage: settings.locales.defaultLocale,
-    reviewedBy: { '@id': `${settings.url}/#branding` },
-    url: `${settings.url}`,
-    isPartOf: {
-      '@id': `${settings.url}`,
-    },
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const blogSchema = getBlogSchema({
+    isSinglePage: false,
+    locale: website.locales.default,
+    slug: asPath,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
+
+  const {
+    data,
+    error,
+    isLoadingInitialData,
+    isLoadingMore,
+    hasNextPage,
+    setSize,
+  } = usePagination<RawArticle>({
+    fallbackData: [articles],
+    fetcher: getArticles,
+    perPage: blog.postsPerPage,
+  });
+
+  /**
+   * Load more posts handler.
+   */
+  const loadMore = () => {
+    setSize((prevSize) => prevSize + 1);
   };
 
-  const blogSchema: BlogSchema = {
-    '@id': `${settings.url}/#blog`,
-    '@type': 'Blog',
-    author: { '@id': `${settings.url}/#branding` },
-    creator: { '@id': `${settings.url}/#branding` },
-    editor: { '@id': `${settings.url}/#branding` },
-    inLanguage: settings.locales.defaultLocale,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
+  const thematicsListTitle = intl.formatMessage({
+    defaultMessage: 'Thematics',
+    description: 'BlogPage: thematics list widget title',
+    id: 'HriY57',
+  });
 
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, blogSchema],
-  };
-
-  const title = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'BlogPage: page title',
-    id: '7TbbIk',
+  const topicsListTitle = intl.formatMessage({
+    defaultMessage: 'Topics',
+    description: 'BlogPage: topics list widget title',
+    id: '2D9tB5',
   });
 
   return (
@@ -164,7 +134,7 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={pageDescription} />
@@ -174,96 +144,82 @@ const Blog: NextPageWithLayout<BlogPageProps> = ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <article
-        id="blog"
-        className={`${styles.article} ${styles['article--no-comments']}`}
+      <PageLayout
+        title={title}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
+        headerMeta={{ total: totalArticles }}
+        widgets={[
+          <LinksListWidget
+            key="thematics-list"
+            items={getLinksListItems(
+              thematicsList.map((thematic) =>
+                getPageLinkFromRawData(thematic, 'thematic')
+              )
+            )}
+            title={thematicsListTitle}
+            level={2}
+          />,
+          <LinksListWidget
+            key="topics-list"
+            items={getLinksListItems(
+              topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
+            )}
+            title={topicsListTitle}
+            level={2}
+          />,
+        ]}
       >
-        <PostHeader title={title} meta={{ results: totalPostsCount }} />
-        <div className={styles.body}>
-          {getPostsList()}
-          {hasNextPage &&
-            (isMounted ? (
-              <>
-                <PaginationCursor
-                  current={loadedPostsCount}
-                  total={totalPostsCount}
-                />
-                <Button
-                  isDisabled={isLoadingMore}
-                  clickHandler={loadMorePosts}
-                  position="center"
-                  spacing={true}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: 'Load more?',
-                    description: 'BlogPage: load more text',
-                    id: 'Kqq2cm',
-                  })}
-                </Button>
-              </>
-            ) : (
-              <Pagination baseUrl="/blog" total={totalPostsCount} />
-            ))}
-        </div>
-        <Sidebar
-          position="right"
-          title={intl.formatMessage({
-            defaultMessage: 'Filter by:',
-            description: 'BlogPage: sidebar title',
-            id: 'KERk7L',
-          })}
-        >
-          <ThematicsList
-            initialData={allThematics}
-            title={intl.formatMessage({
-              defaultMessage: 'Thematics',
-              description: 'BlogPage: thematics list widget title',
-              id: 'HriY57',
+        {data && (
+          <PostsList
+            baseUrl="/blog/page/"
+            byYear={true}
+            isLoading={isLoadingMore || isLoadingInitialData}
+            loadMore={loadMore}
+            posts={getPostsList(data)}
+            searchPage="/recherche/"
+            showLoadMoreBtn={hasNextPage}
+            total={totalArticles}
+          />
+        )}
+        {error && (
+          <Notice
+            kind="error"
+            message={intl.formatMessage({
+              defaultMessage: 'Failed to load.',
+              description: 'BlogPage: failed to load text',
+              id: 'C/XGkH',
             })}
           />
-          <TopicsList
-            initialData={allTopics}
-            title={intl.formatMessage({
-              defaultMessage: 'Topics',
-              description: 'BlogPage: topics list widget title',
-              id: '2D9tB5',
-            })}
-          />
-        </Sidebar>
-      </article>
+        )}
+      </PageLayout>
     </>
   );
 };
 
-Blog.getLayout = getLayout;
+BlogPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const intl = await getIntlInstance();
-  const breadcrumbTitle = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'BlogPage: breadcrumb item',
-    id: 'R0eDmw',
-  });
-  const firstPosts = await getPublishedPosts({ first: settings.postsPerPage });
-  const totalPosts = await getPostsTotal();
-  const allThematics = await getAllThematics();
-  const allTopics = await getAllTopics();
-  const { locale } = context;
+export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
+  locale,
+}) => {
+  const articles = await getArticles({ first: settings.postsPerPage });
+  const totalArticles = await getTotalArticles();
+  const totalThematics = await getTotalThematics();
+  const thematics = await getThematicsPreview({ first: totalThematics });
+  const totalTopics = await getTotalTopics();
+  const topics = await getTopicsPreview({ first: totalTopics });
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      allThematics,
-      allTopics,
-      breadcrumbTitle,
-      locale,
-      posts: firstPosts,
-      totalPosts,
+      articles: JSON.parse(JSON.stringify(articles)),
+      thematicsList: thematics.edges.map((edge) => edge.node),
+      topicsList: topics.edges.map((edge) => edge.node),
+      totalArticles,
       translation,
     },
   };
 };
 
-export default Blog;
+export default BlogPage;

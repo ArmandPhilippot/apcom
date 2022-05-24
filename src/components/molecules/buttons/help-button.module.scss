@@ -1,0 +1,21 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.btn {
+  padding: var(--spacing-xs);
+
+  &:not(:disabled) {
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  @include mix.pointer("fine") {
+    padding: var(--spacing-2xs);
+  }
+}
+
+.icon {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}

@@ -1,108 +1,164 @@
-import { getLayout } from '@components/Layouts/Layout';
-import PostHeader from '@components/PostHeader/PostHeader';
-import Sidebar from '@components/Sidebar/Sidebar';
-import { CVPreview, SocialMedia, ToC } from '@components/Widgets';
-import CVContent, { intro, meta, pdf, image } from '@content/pages/cv.mdx';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { ArticleMeta } from '@ts/types/articles';
-import { settings } from '@utils/config';
+import Heading from '@components/atoms/headings/heading';
+import Link from '@components/atoms/links/link';
+import List from '@components/atoms/lists/list';
+import ImageWidget from '@components/organisms/widgets/image-widget';
+import SocialMedia from '@components/organisms/widgets/social-media';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '@components/templates/page/page-layout';
+import CVContent, { data, meta } from '@content/pages/cv.mdx';
+import styles from '@styles/pages/cv.module.scss';
+import { type NextPageWithLayout } from '@ts/types/app';
 import { loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import useSettings from '@utils/hooks/use-settings';
+import { NestedMDXComponents } from 'mdx/types';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import React, { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { AboutPage, Graph, WebPage } from 'schema-dts';
 
-const CV: NextPageWithLayout = () => {
+/**
+ * CV page.
+ */
+const CVPage: NextPageWithLayout = () => {
   const intl = useIntl();
-  const router = useRouter();
-  const dates = {
-    publication: meta.publishedOn,
-    update: meta.updatedOn,
+  const { file, image } = data;
+  const { dates, intro, seo, title } = meta;
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/cv`,
+  });
+
+  const imageWidgetTitle = intl.formatMessage({
+    defaultMessage: 'Others formats',
+    description: 'CVPage: cv preview widget title',
+    id: 'B9OCyV',
+  });
+  const socialMediaTitle = intl.formatMessage({
+    defaultMessage: 'Open-source projects',
+    description: 'CVPage: social media widget title',
+    id: '+Dre5J',
+  });
+
+  const headerMeta: PageLayoutProps['headerMeta'] = {
+    publication: {
+      date: dates.publication,
+    },
+    update: dates.update
+      ? {
+          date: dates.update,
+        }
+      : undefined,
   };
 
-  const pageMeta: ArticleMeta = {
+  const { website } = useSettings();
+  const cvAlt = intl.formatMessage(
+    {
+      defaultMessage: '{name} CV',
+      description: 'CVPage: CV image alternative text',
+      id: 'KUowUk',
+    },
+    { name: website.name }
+  );
+  const cvCaption = intl.formatMessage(
+    {
+      defaultMessage: '<link>Download the CV in PDF</link>',
+      id: 'fN04AJ',
+      description: 'CVPage: download CV in PDF text',
+    },
+    {
+      link: (chunks: ReactNode) => (
+        <Link download={true} href={file}>
+          {chunks}
+        </Link>
+      ),
+    }
+  );
+
+  const widgets = [
+    <ImageWidget
+      key="image-widget"
+      expanded={true}
+      title={imageWidgetTitle}
+      level={2}
+      image={{ alt: cvAlt, ...image }}
+      description={cvCaption}
+      imageClassName={styles.image}
+    />,
+    <SocialMedia
+      key="social-media"
+      title={socialMediaTitle}
+      level={2}
+      media={[
+        { name: 'Github', url: 'https://github.com/ArmandPhilippot' },
+        { name: 'Gitlab', url: 'https://gitlab.com/ArmandPhilippot' },
+        {
+          name: 'LinkedIn',
+          url: 'https://www.linkedin.com/in/armandphilippot',
+        },
+      ]}
+    />,
+  ];
+
+  const { asPath } = useRouter();
+  const webpageSchema = getWebPageSchema({
+    description: seo.description,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const cvSchema = getSinglePageSchema({
+    cover: image.src,
     dates,
-  };
-  const pageUrl = `${settings.url}${router.asPath}`;
-  const pageTitle = intl.formatMessage(
-    {
-      defaultMessage: 'CV Front-end developer - {websiteName}',
-      description: 'CVPage: SEO - Page title',
-      id: 'Y1ZdJ6',
-    },
-    { websiteName: settings.name }
-  );
-  const pageDescription = intl.formatMessage(
-    {
-      defaultMessage:
-        'Discover the curriculum of {websiteName}, front-end developer located in France: skills, experiences and training.',
-      description: 'CVPage: SEO - Meta description',
-      id: 'bBdMGm',
-    },
-    { websiteName: settings.name }
-  );
-
-  const webpageSchema: WebPage = {
-    '@id': `${pageUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
-    name: pageTitle,
-    description: pageDescription,
-    reviewedBy: { '@id': `${settings.url}/#branding` },
-    url: `${pageUrl}`,
-    isPartOf: {
-      '@id': `${settings.url}`,
-    },
-  };
-
-  const publicationDate = new Date(dates.publication);
-  const updateDate = new Date(dates.update);
-
-  const cvSchema: AboutPage = {
-    '@id': `${settings.url}/#cv`,
-    '@type': 'AboutPage',
-    name: pageTitle,
     description: intro,
-    author: { '@id': `${settings.url}/#branding` },
-    creator: { '@id': `${settings.url}/#branding` },
-    dateCreated: publicationDate.toISOString(),
-    dateModified: updateDate.toISOString(),
-    datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${settings.url}/#branding` },
-    image,
-    inLanguage: settings.locales.defaultLocale,
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    thumbnailUrl: image,
-    mainEntityOfPage: { '@id': `${pageUrl}` },
-  };
+    id: 'cv',
+    kind: 'about',
+    locale: website.locales.default,
+    slug: asPath,
+    title: title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, cvSchema]);
 
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, cvSchema],
+  const components: NestedMDXComponents = {
+    a: (props) => <Link external={true} {...props} />,
+    h1: (props) => <Heading level={1} {...props} />,
+    h2: (props) => <Heading level={2} {...props} />,
+    h3: (props) => <Heading level={3} {...props} />,
+    h4: (props) => <Heading level={4} {...props} />,
+    h5: (props) => <Heading level={5} {...props} />,
+    h6: (props) => <Heading level={6} {...props} />,
+    Link: (props) => <Link {...props} />,
+    List: (props) => <List {...props} />,
   };
-
-  const title = intl.formatMessage(
-    {
-      defaultMessage: "{name}'s CV",
-      description: 'CVPage: page title',
-      id: 'Mj2BQf',
-    },
-    { name: settings.name }
-  );
 
   return (
-    <>
+    <PageLayout
+      breadcrumb={breadcrumbItems}
+      breadcrumbSchema={breadcrumbSchema}
+      headerMeta={headerMeta}
+      intro={intro}
+      title={title}
+      widgets={widgets}
+      withToC={true}
+    >
       <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <title>{`${seo.title} - ${website.name}`}</title>
+        <meta name="description" content={seo.description} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" content={image.src} />
         <meta property="og:image:alt" content={title} />
       </Head>
       <Script
@@ -110,72 +166,22 @@ const CV: NextPageWithLayout = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <article
-        id="cv"
-        className={`${styles.article} ${styles['article--no-comments']}`}
-      >
-        <PostHeader intro={intro} meta={pageMeta} title={meta.title} />
-        <Sidebar
-          position="left"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Table of Contents',
-            description: 'CVPage: ToC sidebar aria-label',
-            id: 'g4DckL',
-          })}
-        >
-          <ToC />
-        </Sidebar>
-        <div className={styles.body}>
-          <CVContent />
-        </div>
-        <Sidebar
-          position="right"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Sidebar',
-            description: 'CVPage: right sidebar aria-label',
-            id: 'QHOm5t',
-          })}
-        >
-          <CVPreview
-            title={intl.formatMessage({
-              defaultMessage: 'Others formats',
-              description: 'CVPage: cv preview widget title',
-              id: 'B9OCyV',
-            })}
-            imgSrc={image}
-            pdf={pdf}
-          />
-          <SocialMedia
-            title={intl.formatMessage({
-              defaultMessage: 'Open-source projects',
-              description: 'CVPage: social media widget title',
-              id: '+Dre5J',
-            })}
-            github={true}
-            gitlab={true}
-          />
-        </Sidebar>
-      </article>
-    </>
+      <CVContent components={components} />
+    </PageLayout>
   );
 };
 
-CV.getLayout = getLayout;
+CVPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const breadcrumbTitle = meta.title;
-  const { locale } = context;
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      breadcrumbTitle,
-      locale,
       translation,
     },
   };
 };
 
-export default CV;
+export default CVPage;

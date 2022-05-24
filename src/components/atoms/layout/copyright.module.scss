@@ -1,0 +1,32 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  --icon-size: #{fun.convert-px(70)};
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  place-content: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-md);
+  text-align: center;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      text-align: left;
+    }
+  }
+}
+
+.owner {
+  flex: 1 0 100%;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      flex: initial;
+    }
+  }
+}

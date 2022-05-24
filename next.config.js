@@ -16,7 +16,7 @@ const contentSecurityPolicy = `
   font-src 'self';
   frame-src 'self';
   img-src 'self' ${backendDomain} secure.gravatar.com data:;
-  media-src 'self' data:;
+  media-src 'self' ${backendDomain} data:;
   script-src 'self' ${ackeeDomain} 'unsafe-inline' data:;
   style-src 'self' 'unsafe-inline';
 `;
@@ -28,7 +28,7 @@ const contentSecurityPolicyDev = `
   font-src 'self';
   frame-src 'self';
   img-src 'self' ${backendDomain} secure.gravatar.com data:;
-  media-src 'self' data:;
+  media-src 'self' ${backendDomain} data:;
   object-src 'self' data:;
   script-src 'self' ${ackeeDomain} 'unsafe-inline' 'unsafe-eval' data:;
   style-src 'self' 'unsafe-inline';

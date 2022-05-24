@@ -1,0 +1,17 @@
+@use "@styles/abstracts/mixins" as mix;
+
+.list {
+  display: flex;
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-2xs);
+  margin: 0;
+
+  &--inline {
+    flex-flow: row wrap;
+    align-items: baseline;
+  }
+
+  &--column {
+    flex-flow: column wrap;
+  }
+}

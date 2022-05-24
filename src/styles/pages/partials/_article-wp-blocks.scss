@@ -1,0 +1,177 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
+
+@mixin styles {
+  .wp-block-quote {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm);
+    position: relative;
+    border: fun.convert-px(1) solid var(--color-border-dark);
+    border-left: fun.convert-px(5) solid var(--color-border-dark);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+        var(--color-shadow),
+      fun.convert-px(3) fun.convert-px(3) fun.convert-px(4) 0
+        var(--color-shadow);
+    font-style: italic;
+
+    > *:last-child {
+      margin: 0;
+    }
+
+    cite {
+      color: var(--color-fg-light);
+      font-size: var(--font-size-sm);
+      font-style: normal;
+      font-weight: 600;
+    }
+  }
+
+  .wp-block-code,
+  .wp-block-preformatted {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-bg-secondary);
+    border: fun.convert-px(1) solid var(--color-border-light);
+    color: var(--color-fg);
+  }
+
+  .wp-block-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+
+    @include mix.media("screen") {
+      @include mix.dimensions("sm") {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    &.are-vertically-aligned-center {
+      align-items: center;
+    }
+  }
+
+  .wp-block-column {
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .wp-block-image,
+  .wp-block-video {
+    padding: fun.convert-px(4);
+    border: fun.convert-px(1) solid var(--color-border);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+      var(--color-shadow);
+  }
+
+  .wp-block-image {
+    display: flex;
+    flex-flow: column;
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+
+    img {
+      margin: auto;
+    }
+
+    figcaption {
+      margin-top: fun.convert-px(4);
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  .wp-block-gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-sm);
+
+    .blocks-gallery-grid {
+      @extend %reset-list;
+
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--spacing-sm);
+    }
+
+    .blocks-gallery-item {
+      figure {
+        margin: 0;
+      }
+
+      a {
+        display: block;
+        box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
+          fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
+            var(--color-shadow-light),
+          fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
+            var(--color-shadow-light);
+
+        &:hover,
+        &:focus {
+          transform: scale(1.05);
+          box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
+            fun.convert-px(3) fun.convert-px(3) fun.convert-px(2) 0
+              var(--color-shadow-light),
+            fun.convert-px(5) fun.convert-px(5) fun.convert-px(8) 0
+              var(--color-shadow-light);
+        }
+
+        &:focus {
+          outline: solid var(--color-primary-light);
+        }
+
+        &:active {
+          transform: scale(0.95);
+          box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
+            fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
+              var(--color-shadow-light),
+            0 0 0 0 var(--color-shadow-light);
+          outline: none;
+        }
+      }
+    }
+
+    &.aligncenter {
+      .blocks-gallery-grid {
+        align-items: center;
+      }
+    }
+
+    @for $i from 0 to 6 {
+      &.columns-#{$i} {
+        @include mix.media("screen") {
+          @include mix.dimensions("xs") {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            .blocks-gallery-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+          }
+
+          @include mix.dimensions("sm") {
+            grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+
+            .blocks-gallery-grid {
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+          }
+        }
+      }
+    }
+
+    .wp-block-image img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

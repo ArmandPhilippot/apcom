@@ -1,0 +1,121 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-sm);
+  padding: var(--spacing-2xs) 0 var(--spacing-lg);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("xs") {
+      padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
+      border: fun.convert-px(1) solid var(--color-primary-dark);
+      border-radius: fun.convert-px(3);
+      box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+          var(--color-shadow),
+        fun.convert-px(3) fun.convert-px(3) fun.convert-px(3) fun.convert-px(-1)
+          var(--color-shadow-light),
+        fun.convert-px(5) fun.convert-px(5) fun.convert-px(7) fun.convert-px(-1)
+          var(--color-shadow-light);
+    }
+
+    @include mix.dimensions("sm") {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      grid-template-rows: repeat(3, max-content);
+    }
+  }
+
+  &:hover {
+    .icon {
+      --icon-size: #{fun.convert-px(35)};
+
+      :global {
+        animation: pulse 1.5s ease-in-out 0.2s infinite;
+      }
+    }
+  }
+}
+
+.cover {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: auto;
+  height: fun.convert-px(100);
+  max-width: 100%;
+  border: fun.convert-px(1) solid var(--color-border);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+}
+
+.header {
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+    }
+  }
+}
+
+.body {
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+}
+
+.footer {
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      grid-column: 2;
+      grid-row: 2 / 4;
+    }
+  }
+}
+
+.link {
+  display: block;
+  width: fit-content;
+}
+
+.title {
+  margin: 0;
+  background: none;
+  color: inherit;
+  font-size: var(--font-size-2xl);
+  text-shadow: none;
+}
+
+.read-more {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: var(--spacing-xs);
+  width: max-content;
+  margin: var(--spacing-sm) 0 0;
+}
+
+.meta {
+  flex-flow: row wrap;
+  font-size: var(--font-size-sm);
+
+  &__item {
+    flex: 1 0 min(calc(100vw - 2 * var(--spacing-md)), 14ch);
+  }
+
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      display: flex;
+      margin-top: 0;
+    }
+  }
+}

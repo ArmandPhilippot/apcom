@@ -1,0 +1,9 @@
+.label {
+  &--left {
+    margin-right: var(--spacing-2xs);
+  }
+
+  &--top {
+    display: block;
+  }
+}

@@ -1,7 +1,0 @@
-@use "@styles/abstracts/functions" as fun;
-
-.icon {
-  fill: var(--color-primary);
-  width: var(--icon-size, #{fun.convert-px(30)});
-  transition: all 0.25s ease-in-out 0s;
-}

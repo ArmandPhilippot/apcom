@@ -1,0 +1,16 @@
+@use "@styles/abstracts/placeholders";
+
+.list {
+  @extend %reset-ordered-list;
+
+  & & {
+    margin: var(--spacing-sm) 0;
+    padding-left: var(--spacing-sm);
+  }
+}
+
+.item {
+  &:not(:last-child) {
+    margin-bottom: var(--spacing-sm);
+  }
+}

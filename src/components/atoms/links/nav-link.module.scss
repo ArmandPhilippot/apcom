@@ -1,0 +1,46 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/placeholders";
+
+.link {
+  --draw-border-thickness: #{fun.convert-px(4)};
+  --draw-border-color1: var(--color-primary-light);
+  --draw-border-color2: var(--color-primary-lighter);
+  --icon-size: #{fun.convert-px(30)};
+
+  display: inline-flex;
+  flex-flow: column nowrap;
+  place-items: center;
+  place-content: center;
+  row-gap: var(--spacing-2xs);
+  min-width: var(--link-min-width, fun.convert-px(85));
+  padding: var(--spacing-xs);
+  background: inherit;
+  font-size: var(--font-size-sm);
+  font-variant: small-caps;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      border-radius: 8%;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    @extend %draw-borders;
+  }
+
+  &:focus {
+    color: var(--color-primary-light);
+  }
+
+  &:active {
+    --draw-border-color1: var(--color-primary-dark);
+    --draw-border-color2: var(--color-primary-light);
+
+    @extend %draw-borders;
+  }
+}

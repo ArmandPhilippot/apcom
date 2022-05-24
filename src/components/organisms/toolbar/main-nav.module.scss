@@ -1,0 +1,96 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.item {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      .checkbox,
+      .label {
+        display: none;
+      }
+
+      .modal {
+        position: relative;
+      }
+    }
+  }
+
+  .modal {
+    @include mix.media("screen") {
+      @include mix.dimensions(null, "md") {
+        padding: var(--spacing-2xs);
+        background: var(--color-bg-secondary);
+        border-top: fun.convert-px(4) solid;
+        border-bottom: fun.convert-px(4) solid;
+        border-image: radial-gradient(
+            ellipse at top,
+            var(--color-primary-lighter) 20%,
+            var(--color-primary) 100%
+          )
+          1;
+        box-shadow: fun.convert-px(2) fun.convert-px(-2) fun.convert-px(3)
+          fun.convert-px(-1) var(--color-shadow-dark);
+      }
+
+      @include mix.dimensions("sm", "md") {
+        border-left: fun.convert-px(4) solid;
+        border-right: fun.convert-px(4) solid;
+      }
+
+      @include mix.dimensions("md") {
+        top: unset;
+      }
+    }
+  }
+
+  .modal__list {
+    display: flex;
+
+    @include mix.media("screen") {
+      @include mix.dimensions("sm", "md") {
+        flex-flow: column;
+      }
+    }
+  }
+
+  .checkbox {
+    &:checked {
+      ~ .label .icon {
+        background: transparent;
+        border: transparent;
+
+        &::before {
+          top: 0;
+          transform-origin: 50% 50%;
+          transform: rotate(-45deg);
+        }
+
+        &::after {
+          bottom: 0;
+          transform-origin: 50% 50%;
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    &:not(:checked) {
+      @include mix.media("screen") {
+        @include mix.dimensions("md") {
+          ~ .modal {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.label {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  width: var(--btn-size, #{fun.convert-px(60)});
+  height: var(--btn-size, #{fun.convert-px(60)});
+}

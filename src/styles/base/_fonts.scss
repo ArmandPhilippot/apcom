@@ -139,32 +139,32 @@
   --font-family-mono: #{var.$font-family_mono};
   --font-size-sm: clamp(
     #{math.div(var.font-size("sm"), 1.2)},
-    1ex + 1vw,
+    2ex + 1vmin,
     #{var.font-size("sm")}
   );
   --font-size-md: clamp(
     #{var.font-size("sm")},
-    1ex + 2vw,
+    2ex + 2vmin,
     #{var.font-size("md")}
   );
   --font-size-lg: clamp(
     #{var.font-size("md")},
-    1ex + 3vw,
+    2ex + 3vmin,
     #{var.font-size("lg")}
   );
   --font-size-xl: clamp(
     #{var.font-size("lg")},
-    1ex + 4vw,
+    2ex + 4vmin,
     #{var.font-size("xl")}
   );
   --font-size-2xl: clamp(
     #{var.font-size("xl")},
-    1ex + 5vw,
+    2ex + 5vmin,
     #{var.font-size("2xl")}
   );
   --font-size-3xl: clamp(
     #{var.font-size("2xl")},
-    1ex + 6vw,
+    2ex + 6vmin,
     #{var.font-size("3xl")}
   );
   --line-height: #{var.$line-height};

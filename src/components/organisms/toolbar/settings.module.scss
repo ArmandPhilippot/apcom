@@ -1,0 +1,10 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.modal {
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      width: 120%;
+    }
+  }
+}

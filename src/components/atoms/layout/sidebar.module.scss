@@ -1,0 +1,12 @@
+@use "@styles/abstracts/functions" as fun;
+
+.wrapper {
+  > *:not(:first-child) {
+    margin-top: fun.convert-px(-2);
+  }
+}
+
+.body {
+  position: sticky;
+  top: var(--spacing-xs);
+}

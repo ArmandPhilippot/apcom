@@ -1,0 +1,30 @@
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  display: grid;
+  gap: var(--spacing-md);
+
+  &--responsive#{&} {
+    @for $i from 2 through 4 {
+      &--#{$i}-columns {
+        @include mix.media("screen") {
+          @include mix.dimensions("sm") {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          @include mix.dimensions("md") {
+            grid-template-columns: repeat($i, minmax(0, 1fr));
+          }
+        }
+      }
+    }
+  }
+
+  &--no-responsive#{&} {
+    @for $i from 2 through 4 {
+      &--#{$i}-columns {
+        grid-template-columns: repeat($i, minmax(0, 1fr));
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@use "@styles/abstracts/mixins" as mix;
+
+.label {
+  margin-right: auto;
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      font-size: var(--font-size-sm);
+    }
+  }
+}

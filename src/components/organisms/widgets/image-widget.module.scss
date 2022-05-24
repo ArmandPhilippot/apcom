@@ -1,0 +1,47 @@
+@use "@styles/abstracts/functions" as fun;
+
+.figure {
+  --scale-up: 1.02;
+  --scale-down: 0.98;
+
+  margin: 0;
+  padding: fun.convert-px(5);
+  border: fun.convert-px(1) solid var(--color-border);
+}
+
+.txt {
+  padding: var(--spacing-sm);
+}
+
+.widget {
+  &--left {
+    .figure {
+      margin-right: auto;
+    }
+
+    .txt {
+      text-align: left;
+    }
+  }
+
+  &--center {
+    .figure {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .txt {
+      text-align: center;
+    }
+  }
+
+  &--right {
+    .figure {
+      margin-left: auto;
+    }
+
+    .txt {
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,79 @@
+@use "@styles/abstracts/functions" as fun;
+
+.caption {
+  margin: 0;
+  padding: fun.convert-px(4) var(--spacing-2xs);
+  background: var(--color-bg-secondary);
+  border: fun.convert-px(1) solid var(--color-border-light);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column;
+  width: fit-content;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+
+  &--has-borders {
+    .caption {
+      margin-top: fun.convert-px(4);
+    }
+  }
+
+  &--has-borders#{&}--has-link {
+    .link {
+      padding: fun.convert-px(4);
+    }
+  }
+
+  &--has-borders#{&}--no-link {
+    padding: fun.convert-px(4);
+    border: fun.convert-px(1) solid var(--color-border);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+      var(--color-shadow);
+  }
+}
+
+.link {
+  display: flex;
+  flex-flow: column;
+  background: none;
+  border: fun.convert-px(1) solid var(--color-border);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+    var(--color-shadow);
+  text-decoration: none;
+
+  .caption {
+    color: var(--color-primary-darker);
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 fun.convert-px(2) 0 var(--color-shadow-light),
+      fun.convert-px(2) fun.convert-px(2) fun.convert-px(4) fun.convert-px(1)
+        var(--color-shadow-light),
+      fun.convert-px(4) fun.convert-px(4) fun.convert-px(8) fun.convert-px(2)
+        var(--color-shadow-light);
+    transform: scale(var(--scale-up, 1.05));
+  }
+
+  &:focus {
+    .caption {
+      text-decoration: underline solid var(--color-primary-darker)
+        fun.convert-px(3);
+    }
+  }
+
+  &:active {
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+      fun.convert-px(1) var(--color-shadow-light);
+    transform: scale(var(--scale-down, 0.95));
+
+    .caption {
+      text-decoration: none;
+    }
+  }
+}

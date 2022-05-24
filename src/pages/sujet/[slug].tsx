@@ -1,224 +1,230 @@
-import { getLayout } from '@components/Layouts/Layout';
-import PostHeader from '@components/PostHeader/PostHeader';
-import PostPreview from '@components/PostPreview/PostPreview';
-import Sidebar from '@components/Sidebar/Sidebar';
-import Spinner from '@components/Spinner/Spinner';
-import { RelatedThematics, ToC, TopicsList } from '@components/Widgets';
+import Heading from '@components/atoms/headings/heading';
+import ResponsiveImage from '@components/molecules/images/responsive-image';
+import PostsList from '@components/organisms/layout/posts-list';
+import LinksListWidget from '@components/organisms/widgets/links-list-widget';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '@components/templates/page/page-layout';
 import {
-  getAllTopics,
-  getAllTopicsSlug,
+  getAllTopicsSlugs,
   getTopicBySlug,
-} from '@services/graphql/queries';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { ArticleMeta } from '@ts/types/articles';
-import { TopicProps, ThematicPreview } from '@ts/types/taxonomies';
-import { settings } from '@utils/config';
-import { getFormattedPaths } from '@utils/helpers/format';
-import { loadTranslation } from '@utils/helpers/i18n';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+  getTopicsPreview,
+  getTotalTopics,
+} from '@services/graphql/topics';
+import styles from '@styles/pages/topic.module.scss';
+import {
+  type NextPageWithLayout,
+  type PageLink,
+  type Topic,
+} from '@ts/types/app';
+import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import {
+  getLinksListItems,
+  getPageLinkFromRawData,
+  getPostsWithUrl,
+} from '@utils/helpers/pages';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import useSettings from '@utils/hooks/use-settings';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
-import { useRef } from 'react';
 import { useIntl } from 'react-intl';
-import { Article as Article, Graph, WebPage } from 'schema-dts';
 
-const Topic: NextPageWithLayout<TopicProps> = ({ topic, allTopics }) => {
+export type TopicPageProps = {
+  currentTopic: Topic;
+  topics: PageLink[];
+  translation: Messages;
+};
+
+const TopicPage: NextPageWithLayout<TopicPageProps> = ({
+  currentTopic,
+  topics,
+}) => {
+  const { content, intro, meta, slug, title } = currentTopic;
+  const {
+    articles,
+    cover,
+    dates,
+    seo,
+    thematics,
+    website: officialWebsite,
+  } = meta;
   const intl = useIntl();
-  const relatedThematics = useRef<ThematicPreview[]>([]);
-  const router = useRouter();
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title,
+    url: `/sujet/${slug}`,
+  });
 
-  if (router.isFallback) return <Spinner />;
-
-  const updateRelatedThematics = (newThematics: ThematicPreview[]) => {
-    newThematics.forEach((thematic) => {
-      const thematicIndex = relatedThematics.current.findIndex(
-        (relatedThematic) => relatedThematic.id === thematic.id
-      );
-      const hasThematic = thematicIndex === -1 ? false : true;
-
-      if (!hasThematic) relatedThematics.current.push(thematic);
-    });
+  const headerMeta: PageLayoutProps['headerMeta'] = {
+    publication: { date: dates.publication },
+    update: dates.update ? { date: dates.update } : undefined,
+    website: officialWebsite,
+    total: articles ? articles.length : undefined,
   };
 
-  const getPostsList = () => {
-    return [...topic.posts].reverse().map((post) => {
-      updateRelatedThematics(post.thematics);
+  const { website } = useSettings();
+  const { asPath } = useRouter();
+  const webpageSchema = getWebPageSchema({
+    description: seo.description,
+    locale: website.locales.default,
+    slug: asPath,
+    title: seo.title,
+    updateDate: dates.update,
+  });
+  const articleSchema = getSinglePageSchema({
+    cover: cover?.src,
+    dates,
+    description: intro,
+    id: 'topic',
+    kind: 'page',
+    locale: website.locales.default,
+    slug: asPath,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
 
-      return (
-        <li key={post.id} className={styles.item}>
-          <PostPreview post={post} titleLevel={3} />
-        </li>
-      );
-    });
-  };
+  const topicsListTitle = intl.formatMessage({
+    defaultMessage: 'Other topics',
+    description: 'TopicPage: other topics list widget title',
+    id: 'JpC3JH',
+  });
 
-  const meta: ArticleMeta = {
-    dates: topic.dates,
-    results: topic.posts.length,
-    website: topic.officialWebsite,
-  };
-  const topicUrl = `${settings.url}${router.asPath}`;
+  const thematicsListTitle = intl.formatMessage({
+    defaultMessage: 'Related thematics',
+    description: 'TopicPage: related thematics list widget title',
+    id: '/sRqPT',
+  });
 
-  const webpageSchema: WebPage = {
-    '@id': `${topicUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
-    name: topic.seo.title,
-    description: topic.seo.metaDesc,
-    inLanguage: settings.locales.defaultLocale,
-    reviewedBy: { '@id': `${settings.url}/#branding` },
-    url: `${settings.url}`,
-    isPartOf: {
-      '@id': `${settings.url}`,
-    },
-  };
-
-  const publicationDate = new Date(topic.dates.publication);
-  const updateDate = new Date(topic.dates.update);
-
-  const articleSchema: Article = {
-    '@id': `${settings.url}/#topic`,
-    '@type': 'Article',
-    name: topic.title,
-    description: topic.intro,
-    author: { '@id': `${settings.url}/#branding` },
-    copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${settings.url}/#branding` },
-    dateCreated: publicationDate.toISOString(),
-    dateModified: updateDate.toISOString(),
-    datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${settings.url}/#branding` },
-    headline: topic.title,
-    thumbnailUrl: topic.featuredImage?.sourceUrl,
-    image: topic.featuredImage?.sourceUrl,
-    inLanguage: settings.locales.defaultLocale,
-    isPartOf: { '@id': `${settings.url}/blog` },
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${topicUrl}` },
-    subjectOf: { '@id': `${settings.url}/blog` },
-  };
-
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, articleSchema],
+  const getPageHeading = () => {
+    return (
+      <>
+        {cover && <ResponsiveImage className={styles.logo} {...cover} />}
+        {title}
+      </>
+    );
   };
 
   return (
     <>
       <Head>
-        <title>{topic.seo.title}</title>
-        <meta name="description" content={topic.seo.metaDesc} />
-        <meta property="og:url" content={`${topicUrl}`} />
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
+        <meta property="og:url" content={`${website.url}${asPath}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={topic.title} />
-        <meta property="og:description" content={topic.intro} />
-        <meta property="og:image" content={topic.featuredImage?.sourceUrl} />
-        <meta property="og:image:alt" content={topic.featuredImage?.altText} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={intro} />
       </Head>
       <Script
-        id="schema-subject"
+        id="schema-project"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <article
-        id="topic"
-        className={`${styles.article} ${styles['article--no-comments']}`}
+      <PageLayout
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
+        title={getPageHeading()}
+        intro={intro}
+        headerMeta={headerMeta}
+        widgets={
+          thematics
+            ? [
+                <LinksListWidget
+                  key="related-thematics"
+                  items={getLinksListItems(thematics)}
+                  title={thematicsListTitle}
+                  level={2}
+                />,
+                <LinksListWidget
+                  key="topics"
+                  items={getLinksListItems(topics)}
+                  title={topicsListTitle}
+                  level={2}
+                />,
+              ]
+            : []
+        }
       >
-        <PostHeader
-          cover={topic.featuredImage}
-          intro={topic.intro}
-          meta={meta}
-          title={topic.title}
-        />
-        <Sidebar
-          position="left"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Table of Contents',
-            description: 'TopicPage: ToC sidebar aria-label',
-            id: 'lsDB5G',
-          })}
-        >
-          <ToC />
-        </Sidebar>
-        <div className={styles.body}>
-          <div dangerouslySetInnerHTML={{ __html: topic.content }}></div>
-          {topic.posts.length > 0 && (
-            <section className={styles.section}>
-              <h2>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: 'All posts in {name}',
-                    description: 'TopicPage: posts list title',
-                    id: 'FLkF2R',
-                  },
-                  { name: topic.title }
-                )}
-              </h2>
-              <ol className={styles.list}>{getPostsList()}</ol>
-            </section>
-          )}
-        </div>
-        <Sidebar
-          position="right"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Sidebar',
-            description: 'TopicPage: right sidebar aria-label',
-            id: 'eu3beS',
-          })}
-        >
-          <RelatedThematics thematics={relatedThematics.current} />
-          <TopicsList
-            initialData={allTopics}
-            title={intl.formatMessage({
-              defaultMessage: 'Others topics',
-              description: 'TopicPage: topics list widget title',
-              id: '+4tiVb',
-            })}
-          />
-        </Sidebar>
-      </article>
+        {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
+        {articles && (
+          <>
+            <Heading level={2}>
+              {intl.formatMessage(
+                {
+                  defaultMessage: 'All posts in {topicName}',
+                  description: 'TopicPage: posts list heading',
+                  id: 'zEN3fd',
+                },
+                { topicName: title }
+              )}
+            </Heading>
+            <PostsList
+              baseUrl="/sujet/page/"
+              byYear={true}
+              posts={getPostsWithUrl(articles)}
+              searchPage="/recherche/"
+              titleLevel={3}
+              total={articles.length}
+            />
+          </>
+        )}
+      </PageLayout>
     </>
   );
 };
 
-Topic.getLayout = getLayout;
+TopicPage.getLayout = (page) =>
+  getLayout(page, { useGrid: true, withExtraPadding: true });
 
-interface PostParams extends ParsedUrlQuery {
+interface TopicParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const { locale } = context;
+export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
+  locale,
+  params,
+}) => {
+  const currentTopic = await getTopicBySlug(
+    params!.slug as TopicParams['slug']
+  );
+  const totalTopics = await getTotalTopics();
+  const allTopicsEdges = await getTopicsPreview({
+    first: totalTopics,
+  });
+  const allTopics = allTopicsEdges.edges.map((edge) =>
+    getPageLinkFromRawData(edge.node, 'topic')
+  );
+  const topicsLinks = allTopics.filter(
+    (topic) => topic.url !== `/sujet/${params!.slug as TopicParams['slug']}`
+  );
   const translation = await loadTranslation(locale);
-  const { slug } = context.params as PostParams;
-  const topic = await getTopicBySlug(slug);
-  const allTopics = await getAllTopics();
-  const breadcrumbTitle = topic.title;
 
   return {
     props: {
-      allTopics,
-      breadcrumbTitle,
-      locale,
-      topic,
+      currentTopic: JSON.parse(JSON.stringify(currentTopic)),
+      topics: JSON.parse(JSON.stringify(topicsLinks)),
       translation,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allTopics = await getAllTopicsSlug();
-  const paths = getFormattedPaths(allTopics);
+  const slugs = await getAllTopicsSlugs();
+  const paths = slugs.map((slug) => {
+    return { params: { slug } };
+  });
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
-export default Topic;
+export default TopicPage;

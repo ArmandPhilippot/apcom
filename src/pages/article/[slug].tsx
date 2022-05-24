@@ -1,286 +1,262 @@
-import CommentForm from '@components/CommentForm/CommentForm';
-import CommentsList from '@components/CommentsList/CommentsList';
-import { getLayout } from '@components/Layouts/Layout';
-import PostFooter from '@components/PostFooter/PostFooter';
-import PostHeader from '@components/PostHeader/PostHeader';
-import Sidebar from '@components/Sidebar/Sidebar';
-import Spinner from '@components/Spinner/Spinner';
-import { Sharing, ToC } from '@components/Widgets';
+import ButtonLink from '@components/atoms/buttons/button-link';
+import Link from '@components/atoms/links/link';
+import Spinner from '@components/atoms/loaders/spinner';
+import ResponsiveImage from '@components/molecules/images/responsive-image';
+import Sharing from '@components/organisms/widgets/sharing';
+import { getLayout } from '@components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '@components/templates/page/page-layout';
 import {
-  getAllPostsSlug,
-  getCommentsByPostId,
-  getPostBySlug,
-} from '@services/graphql/queries';
-import styles from '@styles/pages/Page.module.scss';
-import { NextPageWithLayout } from '@ts/types/app';
-import { ArticleMeta, ArticleProps } from '@ts/types/articles';
-import { PrismDefaultPlugins, PrismPlugins } from '@ts/types/prism';
-import { settings } from '@utils/config';
-import { getFormattedPaths } from '@utils/helpers/format';
-import { loadTranslation } from '@utils/helpers/i18n';
-import { addPrismClasses } from '@utils/helpers/prism';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+  getAllArticlesSlugs,
+  getArticleBySlug,
+} from '@services/graphql/articles';
+import { getPostComments } from '@services/graphql/comments';
+import styles from '@styles/pages/article.module.scss';
+import {
+  type Article,
+  type Comment,
+  type NextPageWithLayout,
+} from '@ts/types/app';
+import { loadTranslation, type Messages } from '@utils/helpers/i18n';
+import {
+  getBlogSchema,
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '@utils/helpers/schema-org';
+import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import usePrism, { type OptionalPrismPlugin } from '@utils/hooks/use-prism';
+import useReadingTime from '@utils/hooks/use-reading-time';
+import useSettings from '@utils/hooks/use-settings';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import Prism from 'prismjs';
 import { ParsedUrlQuery } from 'querystring';
-import { useCallback, useEffect, useMemo } from 'react';
+import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
-import { Blog, BlogPosting, Graph, WebPage } from 'schema-dts';
+import useSWR from 'swr';
 
-const SingleArticle: NextPageWithLayout<ArticleProps> = ({
+type ArticlePageProps = {
+  comments: Comment[];
+  post: Article;
+  slug: string;
+  translation: Messages;
+};
+
+/**
+ * Article page.
+ */
+const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   comments,
   post,
+  slug,
 }) => {
+  const { isFallback } = useRouter();
   const intl = useIntl();
-  const router = useRouter();
+  const { data: article } = useSWR(() => slug, getArticleBySlug, {
+    fallbackData: post,
+  });
+  const { data: commentsData } = useSWR(() => id, getPostComments, {
+    fallbackData: comments,
+  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title: article?.title || '',
+    url: `/article/${slug}`,
+  });
+  const readingTime = useReadingTime(article?.meta.wordsCount || 0, true);
+  const { website } = useSettings();
+  const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
+  const { attributes, className } = usePrism({ plugins: prismPlugins });
 
-  const loadPrismPlugins = useCallback(
-    async (prismPlugins: (PrismDefaultPlugins | PrismPlugins)[]) => {
-      for (const plugin of prismPlugins) {
-        try {
-          if (plugin === 'color-scheme') {
-            await import(`@utils/plugins/prism-${plugin}`);
-          } else {
-            await import(`prismjs/plugins/${plugin}/prism-${plugin}.min.js`);
+  if (isFallback) return <Spinner />;
 
-            if (plugin === 'autoloader')
-              Prism.plugins.autoloader.languages_path = '/prism/';
-          }
-        } catch (error) {
-          console.error('Article: an error occurred with Prism.');
-          console.error(error);
-        }
-      }
-    },
-    []
-  );
+  const { content, id, intro, meta, title } = article!;
+  const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
 
-  const plugins: (PrismDefaultPlugins | PrismPlugins)[] = useMemo(
-    () => [
-      'autoloader',
-      'toolbar',
-      'show-language',
-      'copy-to-clipboard',
-      'color-scheme',
-      'command-line',
-      'line-numbers',
-      'match-braces',
-      'normalize-whitespace',
-    ],
-    []
-  );
-
-  useEffect(() => {
-    loadPrismPlugins(plugins).then(() => {
-      addPrismClasses();
-      Prism.highlightAll();
-    });
-  }, [plugins, loadPrismPlugins]);
-
-  if (router.isFallback) return <Spinner />;
-
-  const {
-    author,
-    commentCount,
-    content,
-    databaseId,
-    dates,
-    featuredImage,
-    info,
-    intro,
-    seo,
-    topics,
-    thematics,
-    title,
-  } = post;
-
-  const meta: ArticleMeta = {
-    author,
-    commentCount: commentCount || undefined,
-    dates,
-    readingTime: info.readingTime,
-    thematics,
-    wordsCount: info.wordsCount,
+  const headerMeta: PageLayoutProps['headerMeta'] = {
+    author: author?.name,
+    publication: { date: dates.publication },
+    update:
+      dates.update && dates.publication !== dates.update
+        ? { date: dates.update }
+        : undefined,
+    readingTime,
+    thematics:
+      thematics &&
+      thematics.map((thematic) => (
+        <Link key={thematic.id} href={thematic.url}>
+          {thematic.name}
+        </Link>
+      )),
   };
 
-  const articleUrl = `${settings.url}${router.asPath}`;
+  const footerMetaLabel = intl.formatMessage({
+    defaultMessage: 'Read more articles about:',
+    description: 'ArticlePage: footer topics list label',
+    id: '50xc4o',
+  });
 
-  const webpageSchema: WebPage = {
-    '@id': `${articleUrl}`,
-    '@type': 'WebPage',
-    breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
-    lastReviewed: dates.update,
-    name: seo.title,
-    description: seo.metaDesc,
-    reviewedBy: { '@id': `${settings.url}/#branding` },
-    url: `${articleUrl}`,
-    isPartOf: {
-      '@id': `${settings.url}`,
+  const footerMeta: PageLayoutProps['footerMeta'] = {
+    custom: topics && {
+      label: footerMetaLabel,
+      value: topics.map((topic) => {
+        return (
+          <ButtonLink key={topic.id} target={topic.url} className={styles.btn}>
+            {topic.logo && <ResponsiveImage {...topic.logo} />} {topic.name}
+          </ButtonLink>
+        );
+      }),
     },
   };
 
-  const blogSchema: Blog = {
-    '@id': `${settings.url}/#blog`,
-    '@type': 'Blog',
-    blogPost: { '@id': `${settings.url}/#article` },
-    isPartOf: {
-      '@id': `${articleUrl}`,
-    },
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-  };
-
-  const publicationDate = new Date(dates.publication);
-  const updateDate = new Date(dates.update);
-
-  const blogPostSchema: BlogPosting = {
-    '@id': `${settings.url}/#article`,
-    '@type': 'BlogPosting',
-    name: title,
+  const webpageSchema = getWebPageSchema({
     description: intro,
-    articleBody: content,
-    author: { '@id': `${settings.url}/#branding` },
-    commentCount: commentCount || undefined,
-    copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${settings.url}/#branding` },
-    dateCreated: publicationDate.toISOString(),
-    dateModified: updateDate.toISOString(),
-    datePublished: publicationDate.toISOString(),
-    discussionUrl: `${articleUrl}/#comments`,
-    editor: { '@id': `${settings.url}/#branding` },
-    headline: title,
-    image: featuredImage?.sourceUrl,
-    inLanguage: settings.locales.defaultLocale,
-    isPartOf: {
-      '@id': `${settings.url}/blog`,
-    },
-    license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: { '@id': `${articleUrl}` },
-    thumbnailUrl: featuredImage?.sourceUrl,
+    locale: website.locales.default,
+    slug,
+    title,
+    updateDate: dates.update,
+  });
+  const blogSchema = getBlogSchema({
+    isSinglePage: true,
+    locale: website.locales.default,
+    slug,
+  });
+  const blogPostSchema = getSinglePageSchema({
+    commentsCount,
+    content,
+    cover: cover?.src,
+    dates,
+    description: intro,
+    id: 'article',
+    kind: 'post',
+    locale: website.locales.default,
+    slug,
+    title,
+  });
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    blogSchema,
+    blogPostSchema,
+  ]);
+
+  const lineNumbersClassName = className
+    .replace('command-line', '')
+    .replace(/\s\s+/g, ' ');
+  const commandLineClassName = className
+    .replace('line-numbers', '')
+    .replace(/\s\s+/g, ' ');
+
+  /**
+   * Replace a string with Prism classnames and attributes.
+   *
+   * @param {string} str - The found string.
+   * @returns {string} The classes and attributes.
+   */
+  const prismClassNameReplacer = (str: string): string => {
+    const wpBlockClassName = 'wp-block-code';
+    const languageArray = str.match(/language-[^\s|"]+/);
+    const languageClassName = languageArray ? `${languageArray[0]}` : '';
+
+    if (
+      str.includes('command-line') ||
+      (!str.includes('command-line') && str.includes('language-bash'))
+    ) {
+      return `class="${wpBlockClassName} ${commandLineClassName}${languageClassName}" tabindex="0" data-filter-output="#output#`;
+    }
+
+    return `class="${wpBlockClassName} ${lineNumbersClassName}${languageClassName}" tabindex="0`;
   };
 
-  const schemaJsonLd: Graph = {
-    '@context': 'https://schema.org',
-    '@graph': [webpageSchema, blogSchema, blogPostSchema],
-  };
+  const contentWithPrismClasses = content.replaceAll(
+    /class="wp-block-code[^"]+/gm,
+    prismClassNameReplacer
+  );
 
-  const copyText = intl.formatMessage({
-    defaultMessage: 'Copy',
-    description: 'Prism: copy button text (no clicked)',
-    id: '/ly3AC',
-  });
-  const copiedText = intl.formatMessage({
-    defaultMessage: 'Copied!',
-    description: 'Prism: copy button text (clicked)',
-    id: 'OV9r1K',
-  });
-  const errorText = intl.formatMessage({
-    defaultMessage: 'Use Ctrl+c to copy',
-    description: 'Prism: error text',
-    id: 'z9qkcQ',
-  });
-  const darkTheme = intl.formatMessage({
-    defaultMessage: 'Dark Theme 🌙',
-    description: 'Prism: toggle dark theme button text',
-    id: 'nFMdWI',
-  });
-  const lightTheme = intl.formatMessage({
-    defaultMessage: 'Light Theme 🌞',
-    description: 'Prism: toggle light theme button text',
-    id: 'Ua2g2p',
-  });
+  const pageUrl = `${website.url}${slug}`;
 
   return (
     <>
       <Head>
         <title>{seo.title}</title>
-        <meta name="description" content={seo.metaDesc} />
-        <meta property="og:url" content={`${articleUrl}`} />
+        <meta name="description" content={seo.description} />
+        <meta property="og:url" content={`${pageUrl}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
-        <meta property="og:image" content={featuredImage?.sourceUrl} />
-        <meta property="og:image:alt" content={featuredImage?.altText} />
       </Head>
       <Script
-        id="schema-article"
+        id="schema-project"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <article
-        id="article"
-        className={styles.article}
-        data-prismjs-copy={copyText}
-        data-prismjs-copy-success={copiedText}
-        data-prismjs-copy-error={errorText}
-        data-prismjs-color-scheme-dark={darkTheme}
-        data-prismjs-color-scheme-light={lightTheme}
+      <PageLayout
+        allowComments={true}
+        bodyAttributes={{
+          ...(attributes as HTMLAttributes<HTMLDivElement>),
+        }}
+        bodyClassName={styles.body}
+        breadcrumb={breadcrumbItems}
+        breadcrumbSchema={breadcrumbSchema}
+        comments={commentsData}
+        footerMeta={footerMeta}
+        headerMeta={headerMeta}
+        id={id as number}
+        intro={intro}
+        title={title}
+        withToC={true}
+        widgets={[
+          <Sharing
+            key="sharing-widget"
+            className={styles.widget}
+            data={{ excerpt: intro, title, url: pageUrl }}
+            media={[
+              'diaspora',
+              'email',
+              'facebook',
+              'journal-du-hacker',
+              'linkedin',
+              'twitter',
+            ]}
+          />,
+        ]}
       >
-        <PostHeader intro={intro} meta={meta} title={title} />
-        <Sidebar
-          position="left"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Table of Contents',
-            description: 'ArticlePage: ToC sidebar aria-label',
-            id: '9nhYRA',
-          })}
-        >
-          <ToC />
-        </Sidebar>
-        <div
-          className={styles.body}
-          dangerouslySetInnerHTML={{ __html: content }}
-        ></div>
-        <PostFooter topics={topics} />
-        <Sidebar
-          position="right"
-          ariaLabel={intl.formatMessage({
-            defaultMessage: 'Sidebar',
-            description: 'ArticlePage: right sidebar aria-label',
-            id: 'JeYOeA',
-          })}
-        >
-          <Sharing title={title} excerpt={intro} />
-        </Sidebar>
-        <section id="comments" className={styles.comments}>
-          <CommentsList articleId={databaseId} comments={comments} />
-          <CommentForm articleId={databaseId} />
-        </section>
-      </article>
+        {contentWithPrismClasses}
+      </PageLayout>
     </>
   );
 };
 
-SingleArticle.getLayout = getLayout;
+ArticlePage.getLayout = (page) => getLayout(page, { useGrid: true });
 
 interface PostParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  const { locale } = context;
+export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
+  locale,
+  params,
+}) => {
+  const post = await getArticleBySlug(params!.slug as PostParams['slug']);
+  const comments = await getPostComments(post.id as number);
   const translation = await loadTranslation(locale);
-  const { slug } = context.params as PostParams;
-  const post = await getPostBySlug(slug);
-  const comments = await getCommentsByPostId(post.databaseId);
-  const breadcrumbTitle = post.title;
 
   return {
     props: {
-      breadcrumbTitle,
-      comments,
-      post,
+      comments: JSON.parse(JSON.stringify(comments)),
+      post: JSON.parse(JSON.stringify(post)),
+      slug: post.slug,
       translation,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allSlugs = await getAllPostsSlug();
-  const paths = getFormattedPaths(allSlugs);
+  const slugs = await getAllArticlesSlugs();
+  const paths = slugs.map((slug) => {
+    return { params: { slug } };
+  });
 
   return {
     paths,
@@ -288,4 +264,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export default SingleArticle;
+export default ArticlePage;

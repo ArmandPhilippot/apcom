@@ -1,0 +1,48 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  position: relative;
+}
+
+.select {
+  width: auto;
+
+  @include mix.pointer("fine") {
+    padding: fun.convert-px(3) var(--spacing-xs);
+  }
+}
+
+.btn {
+  margin-left: var(--spacing-xs);
+
+  &--activated {
+    background: var(--color-primary);
+
+    * {
+      color: var(--color-fg-inverted);
+    }
+  }
+}
+
+.tooltip {
+  position: absolute;
+  top: calc(100% + var(--spacing-xs));
+  transform-origin: top;
+  transition: all 0.75s ease-in-out 0s;
+
+  &--hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
+  }
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+}
