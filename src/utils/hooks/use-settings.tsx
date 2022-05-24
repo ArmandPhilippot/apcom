@@ -1,4 +1,3 @@
-import photo from '@assets/images/armand-philippot.jpg';
 import { settings } from '@utils/config';
 import { useRouter } from 'next/router';
 
@@ -31,21 +30,6 @@ export type LocaleSettings = {
   supported: string[];
 };
 
-export type PictureSettings = {
-  /**
-   * The picture height.
-   */
-  height: number;
-  /**
-   * The picture url.
-   */
-  src: string;
-  /**
-   * The picture width.
-   */
-  width: number;
-};
-
 export type WebsiteSettings = {
   /**
    * The website name.
@@ -67,10 +51,6 @@ export type WebsiteSettings = {
    * The website locales.
    */
   locales: LocaleSettings;
-  /**
-   * A picture representing the website.
-   */
-  picture: PictureSettings;
   /**
    * The website url.
    */
@@ -109,7 +89,6 @@ const useSettings = (): UseSettingsReturn => {
         supported: locales.supported,
       },
       name,
-      picture: photo,
       url,
     },
   };

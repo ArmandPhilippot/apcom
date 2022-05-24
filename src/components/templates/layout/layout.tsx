@@ -1,3 +1,4 @@
+import photo from '@assets/images/armand-philippot.jpg';
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Career from '@components/atoms/icons/career';
 import CCBySA from '@components/atoms/icons/cc-by-sa';
@@ -50,7 +51,7 @@ const Layout: FC<LayoutProps> = ({
 }) => {
   const intl = useIntl();
   const { website } = useSettings();
-  const { baseline, copyright, locales, name, picture, url } = website;
+  const { baseline, copyright, locales, name, url } = website;
   const articleGridClass = useGrid ? 'article--grid' : '';
   const articleCommentsClass = withExtraPadding ? 'article--padding' : '';
 
@@ -156,7 +157,7 @@ const Layout: FC<LayoutProps> = ({
     name: name,
     url: url,
     jobTitle: baseline,
-    image: picture.src,
+    image: photo.src,
     subjectOf: { '@id': `${url}` },
   };
 
@@ -199,7 +200,7 @@ const Layout: FC<LayoutProps> = ({
         isHome={isHome}
         motionStorageKey="reduced-motion"
         nav={mainNav}
-        photo={picture}
+        photo={photo}
         searchPage="/recherche"
         title={name}
         withLink={true}
@@ -229,7 +230,7 @@ const Layout: FC<LayoutProps> = ({
  * Get the global layout.
  *
  * @param {ReactElement} page - A page.
- * @param {boolean} [isHome] - Determine if it is the homepage.
+ * @param {NextPageWithLayoutOptions} props - An object with layout options.
  * @returns A page wrapped with the global layout.
  */
 export const getLayout = (

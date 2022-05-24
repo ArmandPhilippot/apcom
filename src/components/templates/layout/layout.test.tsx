@@ -1,5 +1,4 @@
 import { render, screen } from '@test-utils';
-import { BreadcrumbList } from 'schema-dts';
 import Layout from './layout';
 
 const body =
