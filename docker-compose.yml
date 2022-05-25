@@ -12,11 +12,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.2'
-          memory: 50M
+          cpus: '0.5'
+          memory: 100M
         reservations:
-          cpus: '0.1'
-          memory: 20M
+          cpus: '0.25'
+          memory: 50M
     env_file:
       - .env
     environment:
@@ -36,11 +36,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.2'
-          memory: 50M
+          cpus: '0.5'
+          memory: 100M
         reservations:
-          cpus: '0.1'
-          memory: 20M
+          cpus: '0.25'
+          memory: 50M
     env_file:
       - .env
     environment:
