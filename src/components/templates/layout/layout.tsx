@@ -11,10 +11,11 @@ import NoScript from '@components/atoms/layout/no-script';
 import Footer, { type FooterProps } from '@components/organisms/layout/footer';
 import Header, { type HeaderProps } from '@components/organisms/layout/header';
 import { type NextPageWithLayoutOptions } from '@ts/types/app';
+import useRouteChange from '@utils/hooks/use-route-change';
 import useScrollPosition from '@utils/hooks/use-scroll-position';
 import useSettings from '@utils/hooks/use-settings';
 import Script from 'next/script';
-import { FC, ReactElement, ReactNode, useState } from 'react';
+import { FC, ReactElement, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
 import styles from './layout.module.scss';
@@ -173,6 +174,11 @@ const Layout: FC<LayoutProps> = ({
   };
 
   useScrollPosition(updateBackToTopClassName);
+  const topRef = useRef<HTMLSpanElement>(null);
+  const giveFocusToTopRef = () => {
+    if (topRef.current) topRef.current.focus();
+  };
+  useRouteChange(giveFocusToTopRef);
 
   return (
     <>
@@ -189,7 +195,7 @@ const Layout: FC<LayoutProps> = ({
       <noscript>
         <div className={styles['noscript-spacing']}></div>
       </noscript>
-      <span tabIndex={-1}></span>
+      <span ref={topRef} tabIndex={-1}></span>
       <ButtonLink target="#main" className="screen-reader-text">
         {skipToContent}
       </ButtonLink>
