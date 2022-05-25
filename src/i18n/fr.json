@@ -4,7 +4,7 @@
     "description": "CVPage: social media widget title"
   },
   "+Y+tLK": {
-    "defaultMessage": "Blog : développement, libre et open-source - {websiteName}",
+    "defaultMessage": "Blog : développement, libre et open-source - {websiteName}",
     "description": "BlogPage: SEO - Page title"
   },
   "+dJU3e": {
@@ -20,7 +20,7 @@
     "description": "ThematicPage: related topics list widget title"
   },
   "/q5csZ": {
-    "defaultMessage": "Animations :",
+    "defaultMessage": "Animations :",
     "description": "MotionToggle: reduce motion label"
   },
   "/sRqPT": {
@@ -32,15 +32,15 @@
     "description": "Meta: comments count"
   },
   "16zl9Z": {
-    "defaultMessage": "Vous êtes ici :",
+    "defaultMessage": "Vous êtes ici :",
     "description": "Breadcrumb: You are here prefix"
   },
   "18h/t0": {
-    "defaultMessage": "Découvrez les articles d'{websiteName}. Il écrit à propos de développement web, de Linux et du libre essentiellement.",
+    "defaultMessage": "Découvrez les articles d’{websiteName}. Il écrit à propos de développement web, de Linux et du libre essentiellement.",
     "description": "BlogPage: SEO - Meta description"
   },
   "1dCuCx": {
-    "defaultMessage": "Nom :",
+    "defaultMessage": "Nom :",
     "description": "ContactForm: name label"
   },
   "28GZdv": {
@@ -48,7 +48,7 @@
     "description": "Breadcrumb: projects label"
   },
   "28nnDY": {
-    "defaultMessage": "Fil d'Ariane",
+    "defaultMessage": "Fil d’Ariane",
     "description": "Breadcrumb: an accessible name for the breadcrumb nav."
   },
   "2D9tB5": {
@@ -64,15 +64,15 @@
     "description": "Comment: comment form title"
   },
   "2pmylc": {
-    "defaultMessage": "Suivi :",
+    "defaultMessage": "Suivi :",
     "description": "AckeeSelect: select label"
   },
   "310o3F": {
-    "defaultMessage": "Erreur 404 : Page non trouvée - {websiteName}",
+    "defaultMessage": "Erreur 404 : Page non trouvée - {websiteName}",
     "description": "404Page: SEO - Page title"
   },
   "3Pipok": {
-    "defaultMessage": "Merici. Votre message a été envoyé avec succès. J'y répondrais aussi rapidement que possible..",
+    "defaultMessage": "Merci. Votre message a été envoyé avec succès. J’y répondrai dès que possible.",
     "description": "Contact: success message"
   },
   "3f3PzH": {
@@ -84,7 +84,7 @@
     "description": "404Page: SEO - Meta description"
   },
   "50xc4o": {
-    "defaultMessage": "Lire plus d'articles à propos de :",
+    "defaultMessage": "Lire plus d’articles à propos de :",
     "description": "ArticlePage: footer topics list label"
   },
   "5O2vpy": {
@@ -96,7 +96,7 @@
     "description": "usePrism: copy button text (not clicked)"
   },
   "6a1Uo6": {
-    "defaultMessage": "Ce commentaire est en attente de modération...",
+    "defaultMessage": "Ce commentaire est en attente de modération…",
     "description": "Comment: awaiting moderation"
   },
   "7AnwZ7": {
@@ -108,11 +108,11 @@
     "description": "BlogPage: page title"
   },
   "7jVUT6": {
-    "defaultMessage": "Attention: Si vous souhaitez bénéficier de toutes les fonctionnalités (la recherche par exemple), veuillez activer Javascript.",
+    "defaultMessage": "Attention : Si vous souhaitez bénéficier de toutes les fonctionnalités (la recherche par exemple), veuillez activer Javascript.",
     "description": "Layout: noscript message"
   },
   "92zgdp": {
-    "defaultMessage": "Total :",
+    "defaultMessage": "Total :",
     "description": "Meta: total label"
   },
   "9MeLN3": {
@@ -120,15 +120,15 @@
     "description": "PostsList: loaded articles progress"
   },
   "9sGNKq": {
-    "defaultMessage": "Désolé, il semble que la page demandée n'existe pas. Si vous pensez que le chemin devrait exister, n'hésitez pas à <link>me contacter</link> avec les informations nécessaires pour que je puisse corriger le problème.",
+    "defaultMessage": "Désolé, il semble que la page demandée n’existe pas. Si vous pensez que le chemin devrait exister, n’hésitez pas à <link>me contacter</link> avec les informations nécessaires pour que je puisse corriger le problème.",
     "description": "Error404Page: page body"
   },
   "A8hGaK": {
-    "defaultMessage": "Commentaire :",
+    "defaultMessage": "Commentaire :",
     "description": "CommentForm: comment label"
   },
   "ADQmDF": {
-    "defaultMessage": "Technologies :",
+    "defaultMessage": "Technologies :",
     "description": "Meta: technologies label"
   },
   "AE4kCD": {
@@ -136,7 +136,7 @@
     "description": "Layout: main nav - contact link"
   },
   "AuGklx": {
-    "defaultMessage": "Licence :",
+    "defaultMessage": "Licence :",
     "description": "Meta: license label"
   },
   "B290Ph": {
@@ -148,7 +148,7 @@
     "description": "CVPage: cv preview widget title"
   },
   "Bh7z5v": {
-    "defaultMessage": "E-mail :",
+    "defaultMessage": "E-mail :",
     "description": "CommentForm: email label"
   },
   "C/XGkH": {
@@ -160,7 +160,7 @@
     "description": "Layout: main nav - blog link"
   },
   "DVBwfu": {
-    "defaultMessage": "Souhaitez-vous effectuer une nouvelle recherche ?",
+    "defaultMessage": "Souhaitez-vous effectuer une nouvelle recherche ?",
     "description": "NoResults: try a new search message"
   },
   "Dq6+WH": {
@@ -168,11 +168,11 @@
     "description": "SearchPage: thematics list widget title"
   },
   "DssFG1": {
-    "defaultMessage": "Dépôts :",
+    "defaultMessage": "Dépôts :",
     "description": "Meta: repositories label"
   },
   "EbFvsM": {
-    "defaultMessage": "Temps de lecture:",
+    "defaultMessage": "Temps de lecture :",
     "description": "Meta: reading time label"
   },
   "Es52wh": {
@@ -188,7 +188,7 @@
     "description": "SearchModal: modal title"
   },
   "GRyyfy": {
-    "defaultMessage": "Site officiel:",
+    "defaultMessage": "Site officiel :",
     "description": "Meta: official website label"
   },
   "GTbGMy": {
@@ -216,7 +216,7 @@
     "description": "BlogPage: thematics list widget title"
   },
   "IY5ew6": {
-    "defaultMessage": "En cours d'envoi...",
+    "defaultMessage": "En cours d’envoi…",
     "description": "CommentForm: spinner message on submit"
   },
   "JpC3JH": {
@@ -228,7 +228,7 @@
     "description": "Layout: Skip to content link"
   },
   "KUowUk": {
-    "defaultMessage": "CV d'{name}",
+    "defaultMessage": "CV d’{name}",
     "description": "CVPage: CV image alternative text"
   },
   "KVSWGP": {
@@ -264,7 +264,7 @@
     "description": "BlogPage: posts count meta"
   },
   "OI0N37": {
-    "defaultMessage": "Écrit par :",
+    "defaultMessage": "Écrit par :",
     "description": "Meta: author label"
   },
   "OL0Yzx": {
@@ -276,7 +276,7 @@
     "description": "useReadingTime: minutes + seconds count"
   },
   "Ogccx6": {
-    "defaultMessage": "Complet inclut toutes les informations de Partiel ainsi que des informations à propos du site référent, du système d'exploitation, de l'appareil, du navigateur, de la taille d'écran et de la langue.",
+    "defaultMessage": "Complet inclut toutes les informations de Partiel ainsi que des informations à propos du site référent, du système d’exploitation, de l’appareil, du navigateur, de la taille d’écran et de la langue.",
     "description": "AckeeSelect: tooltip message"
   },
   "PXp2hv": {
@@ -296,7 +296,7 @@
     "description": "Settings: Open label"
   },
   "QGi5uD": {
-    "defaultMessage": "Publié le :",
+    "defaultMessage": "Publié le :",
     "description": "Meta: publication date label"
   },
   "QLisK6": {
@@ -324,7 +324,7 @@
     "description": "Pagination: page number"
   },
   "TpyFZ6": {
-    "defaultMessage": "Une erreur est survenue :",
+    "defaultMessage": "Une erreur est survenue :",
     "description": "Contact: error message"
   },
   "UX9Bu8": {
@@ -332,7 +332,7 @@
     "description": "HeadingButton: title prefix (expanded state)"
   },
   "UsQske": {
-    "defaultMessage": "En lire plus ici :",
+    "defaultMessage": "En lire plus ici :",
     "description": "Sharing: content link prefix"
   },
   "VkAnvv": {
@@ -356,11 +356,11 @@
     "description": "SearchForm: button accessible name"
   },
   "X8oujO": {
-    "defaultMessage": "Rechercher :",
+    "defaultMessage": "Rechercher :",
     "description": "SearchForm: field accessible label"
   },
   "XKy7rx": {
-    "defaultMessage": "Vous pouvez également tenter une recherche :",
+    "defaultMessage": "Vous pouvez également tenter une recherche :",
     "description": "Error404Page: try a search message"
   },
   "Xj+WXB": {
@@ -372,7 +372,7 @@
     "description": "ThemeToggle: light theme label"
   },
   "ZIrTee": {
-    "defaultMessage": "Nom :",
+    "defaultMessage": "Nom :",
     "description": "CommentForm: name label"
   },
   "ZNBhDP": {
@@ -396,7 +396,7 @@
     "description": "Sharing: subject text"
   },
   "b4fdYE": {
-    "defaultMessage": "Créé le :",
+    "defaultMessage": "Créé le :",
     "description": "Meta: creation date label"
   },
   "bcyOgC": {
@@ -408,7 +408,7 @@
     "description": "Layout: main nav - home link"
   },
   "bz53Us": {
-    "defaultMessage": "Thématiques:",
+    "defaultMessage": "Thématiques :",
     "description": "Meta: thematics label"
   },
   "c556Qo": {
@@ -424,7 +424,7 @@
     "description": "Footer: an accessible name for footer nav"
   },
   "dDK5oc": {
-    "defaultMessage": "Photo d'{website}",
+    "defaultMessage": "Photo d’{website}",
     "description": "Branding: photo alternative text"
   },
   "dz2kDV": {
@@ -448,11 +448,11 @@
     "description": "Meta: publication date and time"
   },
   "fkcTGp": {
-    "defaultMessage": "Une erreur est survenue:",
+    "defaultMessage": "Une erreur est survenue :",
     "description": "PageLayout: comment form error message"
   },
   "ftXN+0": {
-    "defaultMessage": "Blocs de code :",
+    "defaultMessage": "Blocs de code :",
     "description": "PrismThemeToggle: theme label"
   },
   "g3+Ahv": {
@@ -460,7 +460,7 @@
     "description": "PageLayout: comment approved."
   },
   "gJNaBD": {
-    "defaultMessage": "Sujets :",
+    "defaultMessage": "Sujets :",
     "description": "Meta: topics label"
   },
   "gPfT/K": {
@@ -520,7 +520,7 @@
     "description": "SearchPage: SEO - Meta description"
   },
   "nsw6Th": {
-    "defaultMessage": "Copié !",
+    "defaultMessage": "Copié !",
     "description": "usePrism: copy button text (clicked)"
   },
   "nwbzKm": {
@@ -536,7 +536,7 @@
     "description": "MotionToggle: deactivate reduce motion label"
   },
   "pWTj2W": {
-    "defaultMessage": "Popularité :",
+    "defaultMessage": "Popularité :",
     "description": "Meta: popularity label"
   },
   "pg26sn": {
@@ -548,7 +548,7 @@
     "description": "Sharing: widget title"
   },
   "q9cJQe": {
-    "defaultMessage": "Chargement...",
+    "defaultMessage": "Chargement…",
     "description": "Spinner: loading text"
   },
   "qnwsWV": {
@@ -560,7 +560,7 @@
     "description": "useReadingTime: rounded minutes count"
   },
   "s8/tyz": {
-    "defaultMessage": "Sujet :",
+    "defaultMessage": "Sujet :",
     "description": "ContactForm: object label"
   },
   "sBwfCy": {
@@ -572,15 +572,15 @@
     "description": "HomePage: contact button text"
   },
   "skb4W5": {
-    "defaultMessage": "Partiel inclut seulement l'url de la page, le nombre de visites et la durée.",
+    "defaultMessage": "Partiel inclut seulement l’url de la page, le nombre de visites et la durée.",
     "description": "AckeeSelect: tooltip message"
   },
   "suXOBu": {
-    "defaultMessage": "Thème :",
+    "defaultMessage": "Thème :",
     "description": "ThemeToggle: theme label"
   },
   "tLC7bh": {
-    "defaultMessage": "Mis à jour le :",
+    "defaultMessage": "Mis à jour le :",
     "description": "Meta: update date label"
   },
   "tMuNTy": {
@@ -592,11 +592,11 @@
     "description": "PrismThemeToggle: light theme label"
   },
   "u41qSk": {
-    "defaultMessage": "Site web :",
+    "defaultMessage": "Site web :",
     "description": "CommentForm: website label"
   },
   "uaqd5F": {
-    "defaultMessage": "Charger plus d'articles ?",
+    "defaultMessage": "Charger plus d’articles ?",
     "description": "PostsList: load more button"
   },
   "ureXFw": {
@@ -612,7 +612,7 @@
     "description": "HomePage: link to web development thematic"
   },
   "w4B5PA": {
-    "defaultMessage": "E-mail :",
+    "defaultMessage": "E-mail :",
     "description": "ContactForm: email label"
   },
   "w8GrOf": {
@@ -620,23 +620,23 @@
     "description": "HomePage: link to free thematic"
   },
   "x55qsD": {
-    "defaultMessage": "Logo d'{website}",
+    "defaultMessage": "Logo d’{website}",
     "description": "Branding: logo title"
   },
   "xaqaYQ": {
-    "defaultMessage": "Mail en cours d'envoi...",
+    "defaultMessage": "Mail en cours d’envoi…",
     "description": "ContactForm: spinner message on submit"
   },
   "yE/Jdz": {
-    "defaultMessage": "Vous êtes ici :",
+    "defaultMessage": "Vous êtes ici :",
     "description": "Pagination: current page indication"
   },
   "yN5P+m": {
-    "defaultMessage": "Message :",
+    "defaultMessage": "Message :",
     "description": "ContactForm: message label"
   },
   "yfgMcl": {
-    "defaultMessage": "Introduction :",
+    "defaultMessage": "Introduction :",
     "description": "Sharing: email content prefix"
   },
   "zEN3fd": {
