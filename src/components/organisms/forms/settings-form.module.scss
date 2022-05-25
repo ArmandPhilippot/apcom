@@ -2,10 +2,25 @@
 
 .label {
   margin-right: auto;
+}
 
+.setting,
+.label--select {
   @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs") {
+      font-size: var(--font-size-sm);
+    }
+
     @include mix.dimensions(null, "2xs", "height") {
       font-size: var(--font-size-sm);
+    }
+  }
+}
+
+.items {
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      margin: var(--spacing-2xs) 0;
     }
   }
 }

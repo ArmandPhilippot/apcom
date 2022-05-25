@@ -20,6 +20,10 @@ export type ToggleProps = Pick<CheckboxProps, 'id' | 'name'> & {
    */
   choices: ToggleChoices;
   /**
+   * Set additional classnames to the toggle wrapper.
+   */
+  className?: string;
+  /**
    * The toggle label.
    */
   label: string;
@@ -48,6 +52,7 @@ export type ToggleProps = Pick<CheckboxProps, 'id' | 'name'> & {
  */
 const Toggle: FC<ToggleProps> = ({
   choices,
+  className = '',
   id,
   label,
   labelClassName = '',
@@ -65,7 +70,11 @@ const Toggle: FC<ToggleProps> = ({
         setValue={() => setValue(!value)}
         className={styles.checkbox}
       />
-      <Label size={labelSize} htmlFor={id} className={styles.label}>
+      <Label
+        size={labelSize}
+        htmlFor={id}
+        className={`${styles.label} ${className}`}
+      >
         <span className={`${styles.title} ${labelClassName}`}>{label}</span>
         {choices.left}
         <span className={styles.toggle}></span>

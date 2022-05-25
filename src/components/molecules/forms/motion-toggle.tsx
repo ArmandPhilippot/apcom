@@ -9,7 +9,7 @@ import { useIntl } from 'react-intl';
 
 export type MotionToggleProps = Pick<
   ToggleProps,
-  'labelClassName' | 'value'
+  'className' | 'labelClassName' | 'value'
 > & {
   /**
    * The local storage key to save preference.

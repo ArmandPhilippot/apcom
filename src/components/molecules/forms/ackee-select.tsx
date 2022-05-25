@@ -11,7 +11,7 @@ import SelectWithTooltip, {
 
 export type AckeeSelectProps = Pick<
   SelectWithTooltipProps,
-  'labelClassName' | 'tooltipClassName'
+  'className' | 'labelClassName' | 'tooltipClassName'
 > & {
   /**
    * A default value for Ackee settings.

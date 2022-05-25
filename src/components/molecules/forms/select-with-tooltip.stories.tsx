@@ -9,6 +9,19 @@ export default {
   title: 'Molecules/Forms/Select',
   component: SelectWithTooltip,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the select wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     content: {
       control: {
         type: 'text',

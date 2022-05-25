@@ -8,7 +8,10 @@ import { useTheme } from 'next-themes';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
 
-export type ThemeToggleProps = Pick<ToggleProps, 'labelClassName'>;
+export type ThemeToggleProps = Pick<
+  ToggleProps,
+  'className' | 'labelClassName'
+>;
 
 /**
  * ThemeToggle component

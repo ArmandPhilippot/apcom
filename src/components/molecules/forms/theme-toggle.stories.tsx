@@ -8,6 +8,19 @@ export default {
   title: 'Molecules/Forms/Toggle',
   component: ThemeToggle,
   argTypes: {
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the toggle wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     labelClassName: {
       control: {
         type: 'text',

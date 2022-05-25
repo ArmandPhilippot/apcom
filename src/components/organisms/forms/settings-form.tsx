@@ -35,17 +35,26 @@ const SettingsForm: FC<SettingsFormProps> = ({
   });
 
   return (
-    <Form aria-label={ariaLabel} onSubmit={() => null}>
-      <ThemeToggle labelClassName={styles.label} />
-      <PrismThemeToggle labelClassName={styles.label} />
+    <Form
+      aria-label={ariaLabel}
+      itemsClassName={styles.items}
+      onSubmit={() => null}
+    >
+      <ThemeToggle className={styles.setting} labelClassName={styles.label} />
+      <PrismThemeToggle
+        className={styles.setting}
+        labelClassName={styles.label}
+      />
       <MotionToggle
+        className={styles.setting}
         labelClassName={styles.label}
         storageKey={motionStorageKey}
         value={false}
       />
       <AckeeSelect
+        className={styles.setting}
         initialValue="full"
-        labelClassName={styles.label}
+        labelClassName={`${styles.label} ${styles['label--select']}`}
         tooltipClassName={tooltipClassName}
         storageKey={ackeeStorageKey}
       />

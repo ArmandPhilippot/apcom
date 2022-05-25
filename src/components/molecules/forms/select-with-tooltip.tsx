@@ -11,6 +11,10 @@ export type SelectWithTooltipProps = Omit<
 > &
   Pick<TooltipProps, 'title' | 'content'> & {
     /**
+     * Set additional classnames to the select wrapper.
+     */
+    className?: string;
+    /**
      * Set additional classnames to the tooltip wrapper.
      */
     tooltipClassName?: TooltipProps['className'];
@@ -22,9 +26,10 @@ export type SelectWithTooltipProps = Omit<
  * Render a select with a button to display a tooltip about options.
  */
 const SelectWithTooltip: FC<SelectWithTooltipProps> = ({
-  title,
+  className = '',
   content,
   id,
+  title,
   tooltipClassName = '',
   ...props
 }) => {
@@ -47,7 +52,7 @@ const SelectWithTooltip: FC<SelectWithTooltipProps> = ({
   );
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${className}`}>
       <LabelledSelect
         labelPosition="left"
         id={id}

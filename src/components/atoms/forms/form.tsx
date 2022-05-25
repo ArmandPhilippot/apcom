@@ -23,6 +23,10 @@ export type FormProps = {
    */
   grouped?: boolean;
   /**
+   * If grouped, set additional classnames to the items wrapper.
+   */
+  itemsClassName?: string;
+  /**
    * A callback function to execute on submit.
    */
   onSubmit: () => void;
@@ -36,6 +40,7 @@ export type FormProps = {
 const Form: FC<FormProps> = ({
   children,
   grouped = true,
+  itemsClassName = '',
   onSubmit,
   ...props
 }) => {
@@ -48,7 +53,10 @@ const Form: FC<FormProps> = ({
   const getFormItems = (): JSX.Element[] => {
     return arrayChildren.map((child, index) =>
       grouped ? (
-        <div key={`item-${index}`} className={styles.item}>
+        <div
+          key={`item-${index}`}
+          className={`${styles.item} ${itemsClassName}`}
+        >
           {child}
         </div>
       ) : (

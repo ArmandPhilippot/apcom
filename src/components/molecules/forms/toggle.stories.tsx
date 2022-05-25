@@ -17,6 +17,19 @@ export default {
         value: {},
       },
     },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the toggle wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     id: {
       control: {
         type: 'text',

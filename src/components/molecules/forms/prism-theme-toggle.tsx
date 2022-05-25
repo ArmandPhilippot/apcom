@@ -8,7 +8,10 @@ import { usePrismTheme } from '@utils/providers/prism-theme';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
 
-export type PrismThemeToggleProps = Pick<ToggleProps, 'labelClassName'>;
+export type PrismThemeToggleProps = Pick<
+  ToggleProps,
+  'className' | 'labelClassName'
+>;
 
 /**
  * PrismThemeToggle component
