@@ -37,7 +37,15 @@ Other contents come from WordPress as headless CMS.
 
 ## Production
 
-In any case, you need a reverse-proxy if you want to bind the live app to a domain.
+### First step
+
+Clone this repo, then:
+
+```bash
+cp .env.example .env
+```
+
+Then, in any case, you need a reverse-proxy if you want to bind the live app to a domain.
 
 ### With Docker
 
@@ -119,6 +127,24 @@ Once ready, run to update the website translation:
 ```bash
 yarn run i18n:compile
 ```
+
+## Testing
+
+This project is configured to support both [Jest](https://jestjs.io/) and [Cypress](https://docs.cypress.io/) tests with [Testing Library](https://testing-library.com/).
+
+You can run both tests with `yarn test`.
+
+### Jest
+
+The tests are located alongside components (`src/components/`).
+
+You can run Jest tests with `yarn test:unit`.
+
+### Cypress
+
+The tests are located in `tests/cypress/e2e/`. All texts (to find an element) needs to be written in French since Next.js is configured to only accept this language.
+
+You can run Cypress tests with `yarn test:e2e`.
 
 ## Licenses
 
