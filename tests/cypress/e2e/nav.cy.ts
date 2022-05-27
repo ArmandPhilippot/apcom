@@ -60,3 +60,15 @@ describe(
     });
   }
 );
+
+describe('Footer navigation', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  it('should navigate to the legal notice page', async () => {
+    cy.findByRole('link', { name: /Mentions légales/i }).click();
+    cy.url().should('include', '/mentions-legales');
+    cy.findByRole('heading', { level: 1 }).contains('Mentions légales');
+  });
+});
