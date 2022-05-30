@@ -10,14 +10,15 @@ export default {
   title: 'Molecules/Forms/Boolean',
   component: LabelledBooleanField,
   args: {
+    checked: false,
+    hidden: false,
     label,
     labelSize: 'small',
-    checked: false,
   },
   argTypes: {
     checked: {
       control: {
-        type: 'boolean',
+        type: null,
       },
       description: 'Should the option be checked?',
       type: {

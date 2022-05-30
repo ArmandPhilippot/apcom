@@ -1,0 +1,13 @@
+.option {
+  &:not(:last-of-type) {
+    margin-right: var(--spacing-xs);
+  }
+}
+
+.wrapper {
+  &--inline {
+    .option:first-of-type {
+      margin-left: var(--spacing-2xs);
+    }
+  }
+}
