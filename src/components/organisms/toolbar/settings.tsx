@@ -1,4 +1,6 @@
-import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
+import BooleanField, {
+  type BooleanFieldProps,
+} from '@components/atoms/forms/boolean-field';
 import Cog from '@components/atoms/icons/cog';
 import FlippingLabel from '@components/molecules/forms/flipping-label';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
@@ -13,11 +15,11 @@ export type SettingsProps = SettingsModalProps & {
   /**
    * The button state.
    */
-  isActive: CheckboxProps['value'];
+  isActive: BooleanFieldProps['checked'];
   /**
    * A callback function to handle button state.
    */
-  setIsActive: CheckboxProps['setValue'];
+  setIsActive: BooleanFieldProps['onChange'];
 };
 
 const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
@@ -46,12 +48,14 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
 
   return (
     <div className={`${sharedStyles.item} ${settingsStyles.item}`} ref={ref}>
-      <Checkbox
+      <BooleanField
+        checked={isActive}
+        className={`${sharedStyles.checkbox} ${settingsStyles.checkbox}`}
         id="settings-button"
         name="settings-button"
-        value={isActive}
-        setValue={setIsActive}
-        className={`${sharedStyles.checkbox} ${settingsStyles.checkbox}`}
+        onChange={setIsActive}
+        type="checkbox"
+        value="open"
       />
       <FlippingLabel
         className={sharedStyles.label}

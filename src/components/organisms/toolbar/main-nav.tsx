@@ -1,4 +1,6 @@
-import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
+import BooleanField, {
+  type BooleanFieldProps,
+} from '@components/atoms/forms/boolean-field';
 import Label from '@components/atoms/forms/label';
 import Hamburger from '@components/atoms/icons/hamburger';
 import Nav, {
@@ -18,7 +20,7 @@ export type MainNavProps = {
   /**
    * The button state.
    */
-  isActive: CheckboxProps['value'];
+  isActive: BooleanFieldProps['checked'];
   /**
    * The main nav items.
    */
@@ -26,7 +28,7 @@ export type MainNavProps = {
   /**
    * A callback function to handle button state.
    */
-  setIsActive: CheckboxProps['setValue'];
+  setIsActive: BooleanFieldProps['onChange'];
 };
 
 /**
@@ -53,12 +55,14 @@ const MainNav: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
 
   return (
     <div className={`${sharedStyles.item} ${mainNavStyles.item}`} ref={ref}>
-      <Checkbox
+      <BooleanField
+        checked={isActive}
+        className={`${sharedStyles.checkbox} ${mainNavStyles.checkbox}`}
         id="main-nav-button"
         name="main-nav-button"
-        value={isActive}
-        setValue={setIsActive}
-        className={`${sharedStyles.checkbox} ${mainNavStyles.checkbox}`}
+        onChange={setIsActive}
+        type="checkbox"
+        value="open"
       />
       <Label
         htmlFor="main-nav-button"

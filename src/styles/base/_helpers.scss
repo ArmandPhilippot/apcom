@@ -14,15 +14,7 @@
 
 /* Text meant only for screen readers. */
 .screen-reader-text {
-  width: fun.convert-px(1);
-  height: fun.convert-px(1);
-  padding: 0;
-  position: absolute !important;
-  overflow: hidden;
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  word-break: normal;
-  word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+  @include mix.visually-hidden;
 
   &:focus {
     display: block;

@@ -1,4 +1,6 @@
-import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
+import BooleanField, {
+  type BooleanFieldProps,
+} from '@components/atoms/forms/boolean-field';
 import Label, { type LabelProps } from '@components/atoms/forms/label';
 import { FC, ReactNode } from 'react';
 import styles from './toggle.module.scss';
@@ -14,7 +16,7 @@ export type ToggleChoices = {
   right: ReactNode;
 };
 
-export type ToggleProps = Pick<CheckboxProps, 'id' | 'name'> & {
+export type ToggleProps = Pick<BooleanFieldProps, 'id' | 'name'> & {
   /**
    * The toggle choices.
    */
@@ -63,12 +65,13 @@ const Toggle: FC<ToggleProps> = ({
 }) => {
   return (
     <>
-      <Checkbox
-        name={name}
-        id={id}
-        value={value}
-        setValue={() => setValue(!value)}
+      <BooleanField
+        checked={value}
         className={styles.checkbox}
+        id={id}
+        name={name}
+        onChange={() => setValue(!value)}
+        type="checkbox"
       />
       <Label
         size={labelSize}

@@ -4,7 +4,7 @@ import NoResults from './no-results';
 describe('NoResults', () => {
   it('renders a no results text', () => {
     render(<NoResults searchPage="#" />);
-    expect(screen.getByText(/No results/gi)).toBeInTheDocument();
+    expect(screen.getByText(/No results/i)).toBeInTheDocument();
   });
 
   it('renders a search form', () => {
