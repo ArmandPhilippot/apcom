@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import MotionToggleComponent from './motion-toggle';
+import { storageKey } from './motion-toggle.fixture';
 
 /**
  * MotionToggle - Storybook Meta
@@ -8,24 +9,22 @@ export default {
   title: 'Molecules/Forms/Toggle',
   component: MotionToggleComponent,
   argTypes: {
-    className: {
+    defaultValue: {
       control: {
-        type: 'text',
+        type: 'select',
       },
-      description: 'Set additional classnames to the toggle wrapper.',
-      table: {
-        category: 'Styles',
-      },
+      description: 'Set the default value.',
+      options: ['on', 'off'],
       type: {
         name: 'string',
-        required: false,
+        required: true,
       },
     },
-    labelClassName: {
+    legendClassName: {
       control: {
         type: 'text',
       },
-      description: 'Set additional classnames to the label wrapper.',
+      description: 'Set additional classnames to the legend.',
       table: {
         category: 'Styles',
       },
@@ -44,16 +43,6 @@ export default {
         required: true,
       },
     },
-    value: {
-      control: {
-        type: null,
-      },
-      description: 'The reduce motion value.',
-      type: {
-        name: 'boolean',
-        required: true,
-      },
-    },
   },
 } as ComponentMeta<typeof MotionToggleComponent>;
 
@@ -66,5 +55,6 @@ const Template: ComponentStory<typeof MotionToggleComponent> = (args) => (
  */
 export const Motion = Template.bind({});
 Motion.args = {
-  value: false,
+  defaultValue: 'on',
+  storageKey,
 };

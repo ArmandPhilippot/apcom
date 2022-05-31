@@ -1,9 +1,20 @@
 import Fieldset, { type FieldsetProps } from '@components/atoms/forms/fieldset';
-import { ChangeEvent, FC, useState } from 'react';
+import useStateChange from '@utils/hooks/use-state-change';
+import { ChangeEvent, FC, MouseEvent, SetStateAction, useState } from 'react';
 import LabelledBooleanField, {
   type LabelledBooleanFieldProps,
 } from './labelled-boolean-field';
 import styles from './radio-group.module.scss';
+
+export type RadioGroupCallbackProps = {
+  choices: {
+    new: string;
+    prev: string;
+  };
+  updateChoice: (value: SetStateAction<string>) => void;
+};
+
+export type RadioGroupCallback = (props: RadioGroupCallbackProps) => void;
 
 export type RadioGroupOption = Pick<
   LabelledBooleanFieldProps,
@@ -16,13 +27,33 @@ export type RadioGroupProps = Pick<
 > &
   Pick<LabelledBooleanFieldProps, 'labelPosition' | 'labelSize'> & {
     /**
+     * Set additional classnames to the radio group wrapper when kind is toggle.
+     */
+    groupClassName?: string;
+    /**
      * The default option value.
      */
     initialChoice: string;
     /**
+     * The radio group kind. Default: regular.
+     */
+    kind?: 'regular' | 'toggle';
+    /**
      * The legend position. Default: inline.
      */
     legendPosition?: FieldsetProps['legendPosition'];
+    /**
+     * A callback function to execute when choice is changed.
+     */
+    onChange?: RadioGroupCallback;
+    /**
+     * A callback function to execute when clicking on a choice.
+     */
+    onClick?: RadioGroupCallback;
+    /**
+     * Set additional classnames to the labelled field wrapper.
+     */
+    optionClassName?: string;
     /**
      * The options.
      */
@@ -36,23 +67,38 @@ export type RadioGroupProps = Pick<
  */
 const RadioGroup: FC<RadioGroupProps> = ({
   className,
+  groupClassName = '',
   initialChoice,
+  kind = 'regular',
   labelPosition,
   labelSize,
   legendPosition = 'inline',
+  onChange,
+  optionClassName = '',
   options,
   ...props
 }) => {
-  const [selectedChoice, setSelectedChoice] = useState<string>(initialChoice);
-  const wrapperModifier = `wrapper--${legendPosition}`;
+  const [selectedChoice, setSelectedChoice] =
+    useStateChange<string>(initialChoice);
+  const isToggle = kind === 'toggle';
+  const alignmentModifier = `wrapper--${legendPosition}`;
+  const toggleModifier = isToggle ? 'wrapper--toggle' : 'wrapper--regular';
 
   /**
-   * Update the selected choice based on the change event target.
-   *
-   * @param {ChangeEvent<HTMLInputElement>} e - The change event.
+   * Update the selected choice on click or change event.
    */
-  const updateChoice = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedChoice(e.target.value);
+  const updateChoice = (
+    e:
+      | ChangeEvent<HTMLInputElement>
+      | MouseEvent<HTMLInputElement, globalThis.MouseEvent>
+  ) => {
+    const input = e.target as HTMLInputElement;
+    onChange &&
+      onChange({
+        choices: { new: input.value, prev: selectedChoice },
+        updateChoice: setSelectedChoice,
+      });
+    if (e.type === 'change') setSelectedChoice(input.value);
   };
 
   /**
@@ -65,10 +111,14 @@ const RadioGroup: FC<RadioGroupProps> = ({
       <LabelledBooleanField
         key={option.id}
         checked={selectedChoice === option.value}
-        className={styles.option}
-        labelPosition={labelPosition}
+        className={`${styles.option} ${optionClassName}`}
+        fieldClassName={styles.radio}
+        hidden={isToggle}
+        labelClassName={styles.label}
+        labelPosition={kind === 'toggle' ? 'right' : labelPosition}
         labelSize={labelSize}
         onChange={updateChoice}
+        onClick={updateChoice}
         type="radio"
         {...option}
       />
@@ -77,11 +127,18 @@ const RadioGroup: FC<RadioGroupProps> = ({
 
   return (
     <Fieldset
-      className={`${styles.wrapper} ${styles[wrapperModifier]} ${className}`}
+      className={`${styles.wrapper} ${styles[alignmentModifier]} ${styles[toggleModifier]} ${className}`}
       legendPosition={legendPosition}
+      role="radiogroup"
       {...props}
     >
-      {getOptions()}
+      {isToggle ? (
+        <span className={`${styles.toggle} ${groupClassName}`}>
+          {getOptions()}
+        </span>
+      ) : (
+        getOptions()
+      )}
     </Fieldset>
   );
 };

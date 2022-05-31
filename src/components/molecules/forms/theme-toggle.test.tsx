@@ -5,8 +5,8 @@ describe('ThemeToggle', () => {
   it('renders a toggle component', () => {
     render(<ThemeToggle />);
     expect(
-      screen.getByRole('checkbox', {
-        name: `Theme: Light theme Dark theme`,
+      screen.getByRole('radiogroup', {
+        name: /Theme:/i,
       })
     ).toBeInTheDocument();
   });

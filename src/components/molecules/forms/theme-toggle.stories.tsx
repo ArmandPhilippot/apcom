@@ -8,24 +8,11 @@ export default {
   title: 'Molecules/Forms/Toggle',
   component: ThemeToggle,
   argTypes: {
-    className: {
+    legendClassName: {
       control: {
         type: 'text',
       },
-      description: 'Set additional classnames to the toggle wrapper.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    labelClassName: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the label wrapper.',
+      description: 'Set additional classnames to the legend.',
       table: {
         category: 'Styles',
       },

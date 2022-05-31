@@ -25,7 +25,7 @@ describe('SettingsForm', () => {
       />
     );
     expect(
-      screen.getByRole('checkbox', { name: /^Theme:/i })
+      screen.getByRole('radiogroup', { name: /^Theme:/i })
     ).toBeInTheDocument();
   });
 
@@ -37,7 +37,7 @@ describe('SettingsForm', () => {
       />
     );
     expect(
-      screen.getByRole('checkbox', { name: /^Code blocks:/i })
+      screen.getByRole('radiogroup', { name: /^Code blocks:/i })
     ).toBeInTheDocument();
   });
 
@@ -49,7 +49,7 @@ describe('SettingsForm', () => {
       />
     );
     expect(
-      screen.getByRole('checkbox', { name: /^Animations:/i })
+      screen.getByRole('radiogroup', { name: /^Animations:/i })
     ).toBeInTheDocument();
   });
 

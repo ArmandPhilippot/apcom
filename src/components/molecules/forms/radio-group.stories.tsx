@@ -9,6 +9,7 @@ export default {
   title: 'Molecules/Forms/RadioGroup',
   component: RadioGroup,
   args: {
+    kind: 'regular',
     labelSize: 'small',
   },
   argTypes: {
@@ -33,6 +34,21 @@ export default {
       type: {
         name: 'string',
         required: true,
+      },
+    },
+    kind: {
+      control: {
+        type: 'select',
+      },
+      description: 'The radio group kind.',
+      options: ['regular', 'toggle'],
+      table: {
+        category: 'Options',
+        defaultValue: { summary: 'regular' },
+      },
+      type: {
+        name: 'string',
+        required: false,
       },
     },
     labelPosition: {
@@ -102,6 +118,32 @@ export default {
         required: false,
       },
     },
+    onChange: {
+      control: {
+        type: null,
+      },
+      description: 'A callback function to handle selected option change.',
+      table: {
+        category: 'Events',
+      },
+      type: {
+        name: 'function',
+        required: false,
+      },
+    },
+    optionClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the option wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     options: {
       description: 'An array of radio option object.',
       type: {
@@ -163,4 +205,16 @@ StackedLegendRightLabel.args = {
   legend: legend,
   legendPosition: 'stacked',
   options: getOptions('group4'),
+};
+
+/**
+ * Radio Group Stories - Toggle
+ */
+export const Toggle = Template.bind({});
+Toggle.args = {
+  initialChoice: initialChoice,
+  kind: 'toggle',
+  labelPosition: 'right',
+  legend: legend,
+  options: getOptions('group5'),
 };

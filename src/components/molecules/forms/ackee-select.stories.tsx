@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import AckeeSelect from './ackee-select';
+import { storageKey } from './ackee-select.fixture';
 
 /**
  * AckeeSelect - Storybook Meta
@@ -81,4 +82,5 @@ const Template: ComponentStory<typeof AckeeSelect> = (args) => (
 export const Ackee = Template.bind({});
 Ackee.args = {
   initialValue: 'full',
+  storageKey,
 };

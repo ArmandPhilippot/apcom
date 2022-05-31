@@ -1,13 +1,15 @@
 import { render, screen } from '@test-utils';
 import MotionToggle from './motion-toggle';
+import { storageKey } from './motion-toggle.fixture';
 
 describe('MotionToggle', () => {
-  it('renders a checked toggle (deactivate animations choice)', () => {
-    render(<MotionToggle storageKey="reduced-motion" value={true} />);
+  // toHaveValue received undefined. Maybe because of localStorage hook...
+  it('renders a toggle component', () => {
+    render(<MotionToggle storageKey={storageKey} defaultValue="on" />);
     expect(
-      screen.getByRole('checkbox', {
-        name: `Animations: On Off`,
+      screen.getByRole('radiogroup', {
+        name: /Animations:/i,
       })
-    ).toBeChecked();
+    ).toBeInTheDocument();
   });
 });

@@ -3,7 +3,7 @@ import AckeeSelect, {
   type AckeeSelectProps,
 } from '@components/molecules/forms/ackee-select';
 import MotionToggle, {
-  MotionToggleProps,
+  type MotionToggleProps,
 } from '@components/molecules/forms/motion-toggle';
 import PrismThemeToggle from '@components/molecules/forms/prism-theme-toggle';
 import ThemeToggle from '@components/molecules/forms/theme-toggle';
@@ -37,25 +37,28 @@ const SettingsForm: FC<SettingsFormProps> = ({
   return (
     <Form
       aria-label={ariaLabel}
+      className={styles.wrapper}
       itemsClassName={styles.items}
       onSubmit={() => null}
     >
-      <ThemeToggle className={styles.setting} labelClassName={styles.label} />
+      <ThemeToggle
+        groupClassName={styles.group}
+        legendClassName={styles.label}
+      />
       <PrismThemeToggle
-        className={styles.setting}
-        labelClassName={styles.label}
+        groupClassName={styles.group}
+        legendClassName={styles.label}
       />
       <MotionToggle
-        className={styles.setting}
-        labelClassName={styles.label}
+        defaultValue="on"
+        groupClassName={styles.group}
+        legendClassName={styles.label}
         storageKey={motionStorageKey}
-        value={false}
       />
       <AckeeSelect
-        className={styles.setting}
         initialValue="full"
         labelClassName={`${styles.label} ${styles['label--select']}`}
-        tooltipClassName={tooltipClassName}
+        tooltipClassName={`${styles.tooltip} ${tooltipClassName}`}
         storageKey={ackeeStorageKey}
       />
     </Form>
