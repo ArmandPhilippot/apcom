@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Tooltip from './tooltip';
+import { content, icon, title } from './tooltip.fixture';
 
 /**
  * Tooltip - Storybook Meta
@@ -13,6 +14,20 @@ export default {
         type: 'text',
       },
       description: 'Set additional classnames to the tooltip.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    cloneClassName: {
+      control: {
+        type: 'text',
+      },
+      description:
+        'Set additional classnames to the tooltip when using cloneElement.',
       table: {
         category: 'Styles',
       },
@@ -63,8 +78,7 @@ const Template: ComponentStory<typeof Tooltip> = (args) => (
  */
 export const Help = Template.bind({});
 Help.args = {
-  content:
-    'Minima tempora fuga omnis ratione doloribus ut. Totam ea vitae consequatur. Fuga hic ipsum. In non debitis ex assumenda ut dicta. Sit ut maxime eligendi est.',
-  icon: '?',
-  title: 'Laborum enim vero',
+  content,
+  icon,
+  title,
 };

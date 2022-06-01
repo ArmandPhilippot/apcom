@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import MotionToggleComponent from './motion-toggle';
-import { storageKey } from './motion-toggle.fixture';
+import AckeeToggleComponent from './ackee-toggle';
+import { storageKey } from './ackee-toggle.fixture';
 
 /**
- * MotionToggle - Storybook Meta
+ * AckeeToggle - Storybook Meta
  */
 export default {
   title: 'Molecules/Forms/Toggle',
-  component: MotionToggleComponent,
+  component: AckeeToggleComponent,
   argTypes: {
     bodyClassName: {
       control: {
@@ -22,12 +22,25 @@ export default {
         required: false,
       },
     },
+    className: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the toggle wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     defaultValue: {
       control: {
         type: 'select',
       },
       description: 'Set the default value.',
-      options: ['on', 'off'],
+      options: ['full', 'partial'],
       type: {
         name: 'string',
         required: true,
@@ -69,18 +82,31 @@ export default {
         required: true,
       },
     },
+    tooltipClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the tooltip wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
   },
-} as ComponentMeta<typeof MotionToggleComponent>;
+} as ComponentMeta<typeof AckeeToggleComponent>;
 
-const Template: ComponentStory<typeof MotionToggleComponent> = (args) => (
-  <MotionToggleComponent {...args} />
+const Template: ComponentStory<typeof AckeeToggleComponent> = (args) => (
+  <AckeeToggleComponent {...args} />
 );
 
 /**
- * Toggle Stories - Motion
+ * Toggle Stories - Ackee
  */
-export const Motion = Template.bind({});
-Motion.args = {
-  defaultValue: 'on',
+export const Ackee = Template.bind({});
+Ackee.args = {
+  defaultValue: 'full',
   storageKey,
 };

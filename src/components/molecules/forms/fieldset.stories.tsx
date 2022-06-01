@@ -1,6 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { TooltipProps } from '../modals/tooltip';
+import { Help } from '../modals/tooltip.stories';
 import FieldsetComponent from './fieldset';
-import { body, legend } from './fieldset.fixture';
+import { body, legend, Tooltip } from './fieldset.fixture';
 
 /**
  * Fieldset - Storybook Meta
@@ -13,6 +15,19 @@ export default {
     role: 'group',
   },
   argTypes: {
+    bodyClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the body wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     children: {
       control: {
         type: null,
@@ -89,6 +104,19 @@ export default {
         required: false,
       },
     },
+    Tooltip: {
+      control: {
+        type: null,
+      },
+      description: 'Add an optional tooltip.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'function',
+        required: false,
+      },
+    },
   },
 } as ComponentMeta<typeof FieldsetComponent>;
 
@@ -113,4 +141,25 @@ InlinedLegend.args = {
   children: body,
   legend: legend,
   legendPosition: 'inline',
+};
+
+/**
+ * Fieldset Stories - Stacked legend with tooltip
+ */
+export const StackedLegendWithTooltip = Template.bind({});
+StackedLegendWithTooltip.args = {
+  children: body,
+  legend: legend,
+  Tooltip,
+};
+
+/**
+ * Fieldset Stories - Inlined legend with tooltip
+ */
+export const InlinedLegendWithTooltip = Template.bind({});
+InlinedLegendWithTooltip.args = {
+  children: body,
+  legend: legend,
+  legendPosition: 'inline',
+  Tooltip,
 };

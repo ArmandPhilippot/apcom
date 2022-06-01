@@ -1,7 +1,7 @@
 import Form from '@components/atoms/forms/form';
-import AckeeSelect, {
-  type AckeeSelectProps,
-} from '@components/molecules/forms/ackee-select';
+import AckeeToggle, {
+  type AckeeToggleProps,
+} from '@components/molecules/forms/ackee-toggle';
 import MotionToggle, {
   type MotionToggleProps,
 } from '@components/molecules/forms/motion-toggle';
@@ -11,11 +11,11 @@ import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './settings-form.module.scss';
 
-export type SettingsFormProps = Pick<AckeeSelectProps, 'tooltipClassName'> & {
+export type SettingsFormProps = Pick<AckeeToggleProps, 'tooltipClassName'> & {
   /**
    * The local storage key for Ackee settings.
    */
-  ackeeStorageKey: AckeeSelectProps['storageKey'];
+  ackeeStorageKey: AckeeToggleProps['storageKey'];
   /**
    * The local storage key for Reduce motion settings.
    */
@@ -42,24 +42,29 @@ const SettingsForm: FC<SettingsFormProps> = ({
       onSubmit={() => null}
     >
       <ThemeToggle
+        bodyClassName={styles.fieldset__body}
         groupClassName={styles.group}
         legendClassName={styles.label}
       />
       <PrismThemeToggle
+        bodyClassName={styles.fieldset__body}
         groupClassName={styles.group}
         legendClassName={styles.label}
       />
       <MotionToggle
         defaultValue="on"
+        bodyClassName={styles.fieldset__body}
         groupClassName={styles.group}
         legendClassName={styles.label}
         storageKey={motionStorageKey}
       />
-      <AckeeSelect
-        initialValue="full"
-        labelClassName={`${styles.label} ${styles['label--select']}`}
-        tooltipClassName={`${styles.tooltip} ${tooltipClassName}`}
+      <AckeeToggle
+        defaultValue="full"
+        bodyClassName={styles.fieldset__body}
+        groupClassName={`${styles.group} ${styles['group--ackee']}`}
+        legendClassName={`${styles.label} ${styles['label--ackee']}`}
         storageKey={ackeeStorageKey}
+        tooltipClassName={`${styles.tooltip} ${tooltipClassName}`}
       />
     </Form>
   );

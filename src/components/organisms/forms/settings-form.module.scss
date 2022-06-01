@@ -8,7 +8,8 @@
 
   @include mix.media("screen") {
     @include mix.dimensions(null, "2xs", "height") {
-      gap: var(--spacing-md);
+      column-gap: var(--spacing-lg);
+      row-gap: var(--spacing-xs);
       font-size: var(--font-size-sm);
     }
   }
@@ -16,28 +17,31 @@
   .label {
     @include mix.media("screen") {
       @include mix.dimensions(null, "2xs", "height") {
+        margin: 0 auto;
+        float: none;
         font-size: var(--font-size-sm);
-
-        &:not(.label--select) {
-          float: none;
-          margin: 0 auto;
-        }
       }
-    }
 
-    &.label--select {
-      @include mix.media("screen") {
-        @include mix.dimensions("2xs", null, "height") {
-          margin: 0 auto 0 0;
-        }
+      @include mix.dimensions(null, "2xs") {
+        //font-size: var(--font-size-sm);
       }
     }
   }
 
   .tooltip {
+    top: unset;
+    bottom: calc(100% + var(--spacing-2xs));
+    font-size: var(--font-size-sm);
+    transform-origin: bottom center;
+
     @include mix.media("screen") {
-      @include mix.dimensions(null, "2xs") {
-        font-size: var(--font-size-sm);
+      @include mix.dimensions(null, "2xs", "height") {
+        width: 250%;
+        transform-origin: bottom left;
+      }
+
+      @include mix.dimensions("sm") {
+        font-size: var(--font-size-md);
       }
     }
   }
@@ -50,19 +54,9 @@
     @include mix.dimensions(null, "2xs", "height") {
       display: flex;
       flex-flow: column wrap;
-      width: fit-content;
-
-      &:last-of-type {
-        flex: 0 0 100%;
-        margin: 0;
-      }
+      max-width: fit-content;
+      margin: 0;
     }
-  }
-}
-
-.setting {
-  &--select {
-    flex: 0 0 100%;
   }
 }
 
@@ -72,6 +66,16 @@
   @include mix.media("screen") {
     @include mix.dimensions(null, "2xs", "height") {
       margin: auto;
+    }
+  }
+}
+
+.fieldset__body {
+  margin-left: auto;
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      margin: 0 auto;
     }
   }
 }

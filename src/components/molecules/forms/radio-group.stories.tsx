@@ -13,11 +13,37 @@ export default {
     labelSize: 'small',
   },
   argTypes: {
+    bodyClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the fieldset body wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     className: {
       control: {
         type: 'text',
       },
       description: 'Set additional classnames to the fieldset.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    groupClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the radio group wrapper.',
       table: {
         category: 'Styles',
       },
@@ -131,6 +157,19 @@ export default {
         required: false,
       },
     },
+    onClick: {
+      control: {
+        type: null,
+      },
+      description: 'A callback function to handle click on a choice.',
+      table: {
+        category: 'Events',
+      },
+      type: {
+        name: 'function',
+        required: false,
+      },
+    },
     optionClassName: {
       control: {
         type: 'text',
@@ -150,6 +189,19 @@ export default {
         name: 'object',
         required: true,
         value: {},
+      },
+    },
+    Tooltip: {
+      control: {
+        type: null,
+      },
+      description: 'Add an optional tooltip.',
+      table: {
+        category: 'Options',
+      },
+      type: {
+        name: 'function',
+        required: false,
       },
     },
   },

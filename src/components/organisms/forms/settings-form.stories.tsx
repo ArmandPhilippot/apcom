@@ -1,4 +1,4 @@
-import { storageKey as ackeeStorageKey } from '@components/molecules/forms/ackee-select.fixture';
+import { storageKey as ackeeStorageKey } from '@components/molecules/forms/ackee-toggle.fixture';
 import { storageKey as motionStorageKey } from '@components/molecules/forms/motion-toggle.fixture';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import SettingsForm from './settings-form';

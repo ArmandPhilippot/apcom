@@ -1,4 +1,6 @@
-import Fieldset, { type FieldsetProps } from '@components/atoms/forms/fieldset';
+import Fieldset, {
+  type FieldsetProps,
+} from '@components/molecules/forms/fieldset';
 import useStateChange from '@utils/hooks/use-state-change';
 import { ChangeEvent, FC, MouseEvent, SetStateAction, useState } from 'react';
 import LabelledBooleanField, {
@@ -23,7 +25,7 @@ export type RadioGroupOption = Pick<
 
 export type RadioGroupProps = Pick<
   FieldsetProps,
-  'className' | 'legend' | 'legendClassName'
+  'bodyClassName' | 'className' | 'legend' | 'legendClassName' | 'Tooltip'
 > &
   Pick<LabelledBooleanFieldProps, 'labelPosition' | 'labelSize'> & {
     /**

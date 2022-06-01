@@ -8,6 +8,32 @@ export default {
   title: 'Molecules/Forms/Toggle',
   component: ThemeToggle,
   argTypes: {
+    bodyClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the fieldset body wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    groupClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the radio group wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     legendClassName: {
       control: {
         type: 'text',

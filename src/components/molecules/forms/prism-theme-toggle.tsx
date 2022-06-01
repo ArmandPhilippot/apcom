@@ -12,7 +12,7 @@ import RadioGroup, {
 
 export type PrismThemeToggleProps = Pick<
   RadioGroupProps,
-  'groupClassName' | 'legendClassName'
+  'bodyClassName' | 'groupClassName' | 'legendClassName'
 >;
 
 /**

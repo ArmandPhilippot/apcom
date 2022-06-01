@@ -13,7 +13,7 @@ export type MotionToggleValue = 'on' | 'off';
 
 export type MotionToggleProps = Pick<
   RadioGroupProps,
-  'groupClassName' | 'legendClassName'
+  'bodyClassName' | 'groupClassName' | 'legendClassName'
 > & {
   /**
    * True if motion should be reduced by default.
