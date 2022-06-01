@@ -8,11 +8,11 @@ export default {
   title: 'Molecules/Forms/Toggle',
   component: PrismThemeToggle,
   argTypes: {
-    className: {
+    bodyClassName: {
       control: {
         type: 'text',
       },
-      description: 'Set additional classnames to the toggle wrapper.',
+      description: 'Set additional classnames to the fieldset body wrapper.',
       table: {
         category: 'Styles',
       },
@@ -21,11 +21,24 @@ export default {
         required: false,
       },
     },
-    labelClassName: {
+    groupClassName: {
       control: {
         type: 'text',
       },
-      description: 'Set additional classnames to the label wrapper.',
+      description: 'Set additional classnames to the radio group wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    legendClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the legend.',
       table: {
         category: 'Styles',
       },

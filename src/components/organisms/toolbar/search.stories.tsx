@@ -68,7 +68,15 @@ const Template: ComponentStory<typeof Search> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return <Search isActive={isOpen} setIsActive={setIsOpen} {...args} />;
+  return (
+    <Search
+      isActive={isOpen}
+      setIsActive={() => {
+        setIsOpen(!isOpen);
+      }}
+      {...args}
+    />
+  );
 };
 
 /**

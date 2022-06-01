@@ -40,7 +40,7 @@
     &--settings {
       @include mix.media("screen") {
         @include mix.dimensions("sm") {
-          min-width: 35ch;
+          min-width: 32ch;
         }
       }
     }

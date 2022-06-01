@@ -1,9 +1,9 @@
 import Form from '@components/atoms/forms/form';
-import AckeeSelect, {
-  type AckeeSelectProps,
-} from '@components/molecules/forms/ackee-select';
+import AckeeToggle, {
+  type AckeeToggleProps,
+} from '@components/molecules/forms/ackee-toggle';
 import MotionToggle, {
-  MotionToggleProps,
+  type MotionToggleProps,
 } from '@components/molecules/forms/motion-toggle';
 import PrismThemeToggle from '@components/molecules/forms/prism-theme-toggle';
 import ThemeToggle from '@components/molecules/forms/theme-toggle';
@@ -11,11 +11,11 @@ import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './settings-form.module.scss';
 
-export type SettingsFormProps = Pick<AckeeSelectProps, 'tooltipClassName'> & {
+export type SettingsFormProps = Pick<AckeeToggleProps, 'tooltipClassName'> & {
   /**
    * The local storage key for Ackee settings.
    */
-  ackeeStorageKey: AckeeSelectProps['storageKey'];
+  ackeeStorageKey: AckeeToggleProps['storageKey'];
   /**
    * The local storage key for Reduce motion settings.
    */
@@ -37,26 +37,34 @@ const SettingsForm: FC<SettingsFormProps> = ({
   return (
     <Form
       aria-label={ariaLabel}
+      className={styles.wrapper}
       itemsClassName={styles.items}
       onSubmit={() => null}
     >
-      <ThemeToggle className={styles.setting} labelClassName={styles.label} />
+      <ThemeToggle
+        bodyClassName={styles.fieldset__body}
+        groupClassName={styles.group}
+        legendClassName={styles.label}
+      />
       <PrismThemeToggle
-        className={styles.setting}
-        labelClassName={styles.label}
+        bodyClassName={styles.fieldset__body}
+        groupClassName={styles.group}
+        legendClassName={styles.label}
       />
       <MotionToggle
-        className={styles.setting}
-        labelClassName={styles.label}
+        defaultValue="on"
+        bodyClassName={styles.fieldset__body}
+        groupClassName={styles.group}
+        legendClassName={styles.label}
         storageKey={motionStorageKey}
-        value={false}
       />
-      <AckeeSelect
-        className={styles.setting}
-        initialValue="full"
-        labelClassName={`${styles.label} ${styles['label--select']}`}
-        tooltipClassName={tooltipClassName}
+      <AckeeToggle
+        defaultValue="full"
+        bodyClassName={styles.fieldset__body}
+        groupClassName={`${styles.group} ${styles['group--ackee']}`}
+        legendClassName={`${styles.label} ${styles['label--ackee']}`}
         storageKey={ackeeStorageKey}
+        tooltipClassName={`${styles.tooltip} ${tooltipClassName}`}
       />
     </Form>
   );

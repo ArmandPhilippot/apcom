@@ -63,7 +63,15 @@ const Template: ComponentStory<typeof MainNav> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return <MainNav isActive={isOpen} setIsActive={setIsOpen} {...args} />;
+  return (
+    <MainNav
+      isActive={isOpen}
+      setIsActive={() => {
+        setIsOpen(!isOpen);
+      }}
+      {...args}
+    />
+  );
 };
 
 /**

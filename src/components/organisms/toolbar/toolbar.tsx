@@ -50,14 +50,14 @@ const Toolbar: FC<ToolbarProps> = ({
       <MainNav
         items={nav}
         isActive={isNavOpened}
-        setIsActive={setIsNavOpened}
+        setIsActive={() => setIsNavOpened(!isNavOpened)}
         className={styles.modal}
         ref={mainNavRef}
       />
       <Search
         searchPage={searchPage}
         isActive={isSearchOpened}
-        setIsActive={setIsSearchOpened}
+        setIsActive={() => setIsSearchOpened(!isSearchOpened)}
         className={`${styles.modal} ${styles['modal--search']}`}
         ref={searchRef}
       />
@@ -67,7 +67,7 @@ const Toolbar: FC<ToolbarProps> = ({
         isActive={isSettingsOpened}
         motionStorageKey={motionStorageKey}
         ref={settingsRef}
-        setIsActive={setIsSettingsOpened}
+        setIsActive={() => setIsSettingsOpened(!isSettingsOpened)}
         tooltipClassName={styles.tooltip}
       />
     </div>

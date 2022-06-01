@@ -1,0 +1,112 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/mixins" as mix;
+
+.wrapper {
+  &--inline#{&}--regular {
+    .option:first-of-type {
+      margin-left: var(--spacing-2xs);
+    }
+  }
+
+  &--regular {
+    .option {
+      &:not(:last-of-type) {
+        margin-right: var(--spacing-xs);
+      }
+    }
+  }
+}
+
+.toggle {
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-items: center;
+  width: fit-content;
+  position: relative;
+  background: var(--color-shadow-light);
+  border: fun.convert-px(2) solid var(--color-primary);
+  border-radius: fun.convert-px(32);
+  box-shadow: inset 0 0 fun.convert-px(1) fun.convert-px(1)
+      var(--color-shadow-dark),
+    inset 0 0 fun.convert-px(3) fun.convert-px(2) var(--color-shadow);
+
+  .label {
+    display: flex;
+    align-items: center;
+    min-height: 5ex;
+    padding: fun.convert-px(6) var(--spacing-2xs);
+    border-top: fun.convert-px(2) solid var(--color-border);
+    border-bottom: fun.convert-px(2) solid var(--color-border);
+    transition: all 0.15s linear 0s;
+
+    @include mix.pointer("fine") {
+      min-height: 3ex;
+    }
+  }
+
+  &:focus-within {
+    outline: fun.convert-px(2) solid var(--color-primary-light);
+  }
+
+  .option:first-of-type {
+    .label {
+      border-left: fun.convert-px(2) solid var(--color-border);
+      border-top-left-radius: fun.convert-px(32);
+      border-bottom-left-radius: fun.convert-px(32);
+    }
+  }
+
+  .option:last-of-type {
+    .label {
+      border-right: fun.convert-px(2) solid var(--color-border);
+      border-top-right-radius: fun.convert-px(32);
+      border-bottom-right-radius: fun.convert-px(32);
+    }
+  }
+
+  .radio {
+    &:checked + .label {
+      background: var(--color-primary);
+      box-shadow: inset 0 0 fun.convert-px(1) fun.convert-px(2)
+          var(--color-primary-dark),
+        inset 0 0 fun.convert-px(3) fun.convert-px(2)
+          var(--color-primary-darker);
+      color: var(--color-fg-inverted);
+
+      svg {
+        fill: var(--color-fg-inverted);
+        stroke: var(--color-fg-inverted);
+      }
+    }
+
+    &:not(:checked) + .label {
+      svg {
+        fill: var(--color-primary-darker);
+      }
+    }
+
+    &:checked + .label:hover {
+      background: var(--color-primary-lighter);
+      box-shadow: inset 0 0 fun.convert-px(1) fun.convert-px(2)
+          var(--color-primary-light),
+        inset 0 0 fun.convert-px(3) fun.convert-px(2) var(--color-primary);
+    }
+
+    &:not(:checked) + .label:hover {
+      background: var(--color-shadow-light);
+      box-shadow: inset 0 0 0 fun.convert-px(1) var(--color-shadow-dark),
+        inset 0 0 fun.convert-px(3) fun.convert-px(2) var(--color-shadow);
+    }
+
+    &:not(:checked):focus + .label {
+      background: var(--color-shadow-light);
+    }
+
+    &:checked:focus + .label {
+      background: var(--color-primary-lighter);
+      box-shadow: inset 0 0 fun.convert-px(1) fun.convert-px(2)
+          var(--color-primary-light),
+        inset 0 0 fun.convert-px(3) fun.convert-px(2) var(--color-primary);
+    }
+  }
+}

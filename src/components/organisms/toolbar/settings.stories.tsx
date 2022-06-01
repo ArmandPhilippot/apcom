@@ -92,7 +92,15 @@ const Template: ComponentStory<typeof Settings> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return <Settings isActive={isOpen} setIsActive={setIsOpen} {...args} />;
+  return (
+    <Settings
+      isActive={isOpen}
+      setIsActive={() => {
+        setIsOpen(!isOpen);
+      }}
+      {...args}
+    />
+  );
 };
 
 /**

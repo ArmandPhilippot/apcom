@@ -1,8 +1,7 @@
+import { storageKey as ackeeStorageKey } from '@components/molecules/forms/ackee-toggle.fixture';
+import { storageKey as motionStorageKey } from '@components/molecules/forms/motion-toggle.fixture';
 import { render, screen } from '@test-utils';
 import SettingsForm from './settings-form';
-
-const ackeeStorageKey = 'ackee-tracking';
-const motionStorageKey = 'reduce-motion';
 
 describe('SettingsForm', () => {
   it('renders a form', () => {
@@ -17,7 +16,7 @@ describe('SettingsForm', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders a theme toggle setting', () => {
+  it('renders a theme setting', () => {
     render(
       <SettingsForm
         ackeeStorageKey={ackeeStorageKey}
@@ -25,11 +24,11 @@ describe('SettingsForm', () => {
       />
     );
     expect(
-      screen.getByRole('checkbox', { name: /^Theme:/i })
+      screen.getByRole('radiogroup', { name: /^Theme:/i })
     ).toBeInTheDocument();
   });
 
-  it('renders a code blocks toggle setting', () => {
+  it('renders a code blocks setting', () => {
     render(
       <SettingsForm
         ackeeStorageKey={ackeeStorageKey}
@@ -37,7 +36,7 @@ describe('SettingsForm', () => {
       />
     );
     expect(
-      screen.getByRole('checkbox', { name: /^Code blocks:/i })
+      screen.getByRole('radiogroup', { name: /^Code blocks:/i })
     ).toBeInTheDocument();
   });
 
@@ -49,7 +48,7 @@ describe('SettingsForm', () => {
       />
     );
     expect(
-      screen.getByRole('checkbox', { name: /^Animations:/i })
+      screen.getByRole('radiogroup', { name: /^Animations:/i })
     ).toBeInTheDocument();
   });
 
@@ -61,7 +60,7 @@ describe('SettingsForm', () => {
       />
     );
     expect(
-      screen.getByRole('combobox', { name: /^Tracking:/i })
+      screen.getByRole('radiogroup', { name: /^Tracking:/i })
     ).toBeInTheDocument();
   });
 });

@@ -1,14 +1,14 @@
 import { render, screen } from '@test-utils';
-import MotionToggle from './motion-toggle';
-import { storageKey } from './motion-toggle.fixture';
+import AckeeToggle from './ackee-toggle';
+import { storageKey } from './ackee-toggle.fixture';
 
-describe('MotionToggle', () => {
+describe('AckeeToggle', () => {
   // toHaveValue received undefined. Maybe because of localStorage hook...
   it('renders a toggle component', () => {
-    render(<MotionToggle storageKey={storageKey} defaultValue="on" />);
+    render(<AckeeToggle storageKey={storageKey} defaultValue="full" />);
     expect(
       screen.getByRole('radiogroup', {
-        name: /Animations:/i,
+        name: /Tracking:/i,
       })
     ).toBeInTheDocument();
   });

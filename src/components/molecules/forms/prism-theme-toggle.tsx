@@ -1,16 +1,18 @@
 import Moon from '@components/atoms/icons/moon';
 import Sun from '@components/atoms/icons/sun';
-import Toggle, {
-  type ToggleChoices,
-  type ToggleProps,
-} from '@components/molecules/forms/toggle';
-import { usePrismTheme } from '@utils/providers/prism-theme';
+import { type PrismTheme, usePrismTheme } from '@utils/providers/prism-theme';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import RadioGroup, {
+  type RadioGroupCallback,
+  type RadioGroupCallbackProps,
+  type RadioGroupOption,
+  type RadioGroupProps,
+} from './radio-group';
 
 export type PrismThemeToggleProps = Pick<
-  ToggleProps,
-  'className' | 'labelClassName'
+  RadioGroupProps,
+  'bodyClassName' | 'groupClassName' | 'legendClassName'
 >;
 
 /**
@@ -18,7 +20,7 @@ export type PrismThemeToggleProps = Pick<
  *
  * Render a Toggle component to set code blocks theme.
  */
-const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ ...props }) => {
+const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
   const intl = useIntl();
   const { theme, setTheme, resolvedTheme } = usePrismTheme();
 
@@ -27,16 +29,36 @@ const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ ...props }) => {
    *
    * @returns {boolean} True if it is dark theme.
    */
-  const isDarkTheme = (): boolean => {
-    if (theme === 'system') return resolvedTheme === 'dark';
-    return theme === 'dark';
+  const isDarkTheme = (prismTheme?: PrismTheme): boolean => {
+    if (prismTheme === 'system') return resolvedTheme === 'dark';
+    return prismTheme === 'dark';
   };
 
   /**
    * Update the theme.
+   *
+   * @param {string} newTheme - A theme name.
    */
-  const updateTheme = () => {
-    setTheme(isDarkTheme() ? 'light' : 'dark');
+  const updateTheme = (newTheme: string) => {
+    setTheme(newTheme === 'light' ? 'light' : 'dark');
+  };
+
+  /**
+   * Handle change events.
+   *
+   * @param {RadioGroupCallbackProps} props - An object with choices.
+   */
+  const handleChange: RadioGroupCallback = ({
+    choices,
+    updateChoice,
+  }: RadioGroupCallbackProps) => {
+    if (choices.new === choices.prev) {
+      const newTheme = choices.new === 'light' ? 'dark' : 'light';
+      updateChoice(newTheme);
+      updateTheme(newTheme);
+    } else {
+      updateTheme(choices.new);
+    }
   };
 
   const themeLabel = intl.formatMessage({
@@ -54,20 +76,29 @@ const PrismThemeToggle: FC<PrismThemeToggleProps> = ({ ...props }) => {
     description: 'PrismThemeToggle: dark theme label',
     id: 'og/zWL',
   });
-  const themeChoices: ToggleChoices = {
-    left: <Sun title={lightThemeLabel} />,
-    right: <Moon title={darkThemeLabel} />,
-  };
+
+  const options: RadioGroupOption[] = [
+    {
+      id: 'code-blocks-light',
+      label: <Sun title={lightThemeLabel} />,
+      name: 'code-blocks',
+      value: 'light',
+    },
+    {
+      id: 'code-blocks-dark',
+      label: <Moon title={darkThemeLabel} />,
+      name: 'code-blocks',
+      value: 'dark',
+    },
+  ];
 
   return (
-    <Toggle
-      id="prism-theme-settings"
-      name="prism-theme-settings"
-      label={themeLabel}
-      labelSize="medium"
-      choices={themeChoices}
-      value={isDarkTheme()}
-      setValue={updateTheme}
+    <RadioGroup
+      initialChoice={isDarkTheme(theme) ? 'dark' : 'light'}
+      kind="toggle"
+      legend={themeLabel}
+      onChange={handleChange}
+      options={options}
       {...props}
     />
   );

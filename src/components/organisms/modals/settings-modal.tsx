@@ -37,12 +37,7 @@ const SettingsModal: FC<SettingsModalProps> = ({
   });
 
   return (
-    <Modal
-      title={title}
-      icon="cogs"
-      className={`${styles.wrapper} ${className}`}
-      headingClassName={styles.heading}
-    >
+    <Modal title={title} icon="cogs" className={className}>
       <DynamicSettingsForm {...props} />
     </Modal>
   );

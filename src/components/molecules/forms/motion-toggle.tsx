@@ -1,16 +1,24 @@
-import Toggle, {
-  type ToggleChoices,
-  type ToggleProps,
-} from '@components/molecules/forms/toggle';
 import useAttributes from '@utils/hooks/use-attributes';
 import useLocalStorage from '@utils/hooks/use-local-storage';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import RadioGroup, {
+  type RadioGroupCallback,
+  type RadioGroupCallbackProps,
+  type RadioGroupOption,
+  type RadioGroupProps,
+} from './radio-group';
+
+export type MotionToggleValue = 'on' | 'off';
 
 export type MotionToggleProps = Pick<
-  ToggleProps,
-  'className' | 'labelClassName' | 'value'
+  RadioGroupProps,
+  'bodyClassName' | 'groupClassName' | 'legendClassName'
 > & {
+  /**
+   * True if motion should be reduced by default.
+   */
+  defaultValue: 'on' | 'off';
   /**
    * The local storage key to save preference.
    */
@@ -23,14 +31,14 @@ export type MotionToggleProps = Pick<
  * Render a Toggle component to set reduce motion.
  */
 const MotionToggle: FC<MotionToggleProps> = ({
+  defaultValue,
   storageKey,
-  value,
   ...props
 }) => {
   const intl = useIntl();
   const { value: isReduced, setValue: setIsReduced } = useLocalStorage<boolean>(
     storageKey,
-    value
+    defaultValue === 'on' ? false : true
   );
   useAttributes({
     element: document.documentElement || undefined,
@@ -53,20 +61,56 @@ const MotionToggle: FC<MotionToggleProps> = ({
     description: 'MotionToggle: deactivate reduce motion label',
     id: 'pWKyyR',
   });
-  const reduceMotionChoices: ToggleChoices = {
-    left: onLabel,
-    right: offLabel,
+
+  const options: RadioGroupOption[] = [
+    {
+      id: 'reduced-motion-on',
+      label: onLabel,
+      name: 'reduced-motion',
+      value: 'on',
+    },
+    {
+      id: 'reduced-motion-off',
+      label: offLabel,
+      name: 'reduced-motion',
+      value: 'off',
+    },
+  ];
+
+  /**
+   * Update the current setting.
+   *
+   * @param {string} newValue - A boolean as string.
+   */
+  const updateSetting = (newValue: MotionToggleValue) => {
+    setIsReduced(newValue === 'on' ? false : true);
+  };
+
+  /**
+   * Handle change events.
+   *
+   * @param {RadioGroupCallbackProps} props - An object with choices.
+   */
+  const handleChange: RadioGroupCallback = ({
+    choices,
+    updateChoice,
+  }: RadioGroupCallbackProps) => {
+    if (choices.new === choices.prev) {
+      const newChoice = choices.new === 'on' ? 'off' : 'on';
+      updateChoice(newChoice);
+      updateSetting(newChoice);
+    } else {
+      updateSetting(choices.new as MotionToggleValue);
+    }
   };
 
   return (
-    <Toggle
-      id="reduce-motion-settings"
-      name="reduce-motion-settings"
-      label={reduceMotionLabel}
-      labelSize="medium"
-      choices={reduceMotionChoices}
-      value={isReduced}
-      setValue={setIsReduced}
+    <RadioGroup
+      initialChoice={defaultValue}
+      kind="toggle"
+      legend={reduceMotionLabel}
+      onChange={handleChange}
+      options={options}
       {...props}
     />
   );

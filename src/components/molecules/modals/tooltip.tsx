@@ -8,6 +8,10 @@ export type TooltipProps = {
    */
   className?: string;
   /**
+   * Set more additional classnames to the tooltip wrapper. Required when using React.cloneElement.
+   */
+  cloneClassName?: string;
+  /**
    * The tooltip body.
    */
   content: string | string[];
@@ -27,7 +31,7 @@ export type TooltipProps = {
  * Render a tooltip modal.
  */
 const Tooltip: ForwardRefRenderFunction<HTMLDivElement, TooltipProps> = (
-  { className = '', content, icon, title },
+  { cloneClassName = '', className = '', content, icon, title },
   ref
 ) => {
   /**
@@ -43,7 +47,10 @@ const Tooltip: ForwardRefRenderFunction<HTMLDivElement, TooltipProps> = (
   };
 
   return (
-    <div className={`${styles.wrapper} ${className}`} ref={ref}>
+    <div
+      className={`${styles.wrapper} ${cloneClassName} ${className}`}
+      ref={ref}
+    >
       <div className={styles.title}>
         <span className={styles.icon}>{icon}</span>
         {title}

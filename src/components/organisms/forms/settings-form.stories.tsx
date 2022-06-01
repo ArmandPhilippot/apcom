@@ -1,3 +1,5 @@
+import { storageKey as ackeeStorageKey } from '@components/molecules/forms/ackee-toggle.fixture';
+import { storageKey as motionStorageKey } from '@components/molecules/forms/motion-toggle.fixture';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import SettingsForm from './settings-form';
 
@@ -65,3 +67,7 @@ const Template: ComponentStory<typeof SettingsForm> = (args) => (
  * Form Stories - Settings
  */
 export const Settings = Template.bind({});
+Settings.args = {
+  ackeeStorageKey,
+  motionStorageKey,
+};

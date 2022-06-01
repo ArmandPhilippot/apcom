@@ -1,4 +1,6 @@
-import Checkbox, { type CheckboxProps } from '@components/atoms/forms/checkbox';
+import BooleanField, {
+  type BooleanFieldProps,
+} from '@components/atoms/forms/boolean-field';
 import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
 import FlippingLabel from '@components/molecules/forms/flipping-label';
 import useInputAutofocus from '@utils/hooks/use-input-autofocus';
@@ -16,7 +18,7 @@ export type SearchProps = {
   /**
    * The button state.
    */
-  isActive: CheckboxProps['value'];
+  isActive: BooleanFieldProps['checked'];
   /**
    * A callback function to execute search.
    */
@@ -24,7 +26,7 @@ export type SearchProps = {
   /**
    * A callback function to handle button state.
    */
-  setIsActive: CheckboxProps['setValue'];
+  setIsActive: BooleanFieldProps['onChange'];
 };
 
 const Search: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
@@ -53,12 +55,14 @@ const Search: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
 
   return (
     <div className={`${sharedStyles.item} ${searchStyles.item}`} ref={ref}>
-      <Checkbox
+      <BooleanField
+        checked={isActive}
+        className={`${sharedStyles.checkbox} ${searchStyles.checkbox}`}
         id="search-button"
         name="search-button"
-        value={isActive}
-        setValue={setIsActive}
-        className={`${sharedStyles.checkbox} ${searchStyles.checkbox}`}
+        onChange={setIsActive}
+        type="checkbox"
+        value="open"
       />
       <FlippingLabel
         className={sharedStyles.label}
