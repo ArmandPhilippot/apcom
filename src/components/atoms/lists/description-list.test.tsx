@@ -1,4 +1,4 @@
-import { render } from '@test-utils';
+import { render } from '@tests/utils';
 import DescriptionList, { DescriptionListItem } from './description-list';
 
 const items: DescriptionListItem[] = [

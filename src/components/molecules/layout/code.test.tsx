@@ -1,4 +1,4 @@
-import { render } from '@test-utils';
+import { render } from '@tests/utils';
 import Code from './code';
 
 const code = `

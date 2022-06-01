@@ -1,4 +1,4 @@
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import AckeeToggle from './ackee-toggle';
 import { storageKey } from './ackee-toggle.fixture';
 

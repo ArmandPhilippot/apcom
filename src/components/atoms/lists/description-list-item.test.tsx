@@ -1,4 +1,4 @@
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import DescriptionListItem from './description-list-item';
 
 const itemLabel = 'Repellendus corporis facilis';

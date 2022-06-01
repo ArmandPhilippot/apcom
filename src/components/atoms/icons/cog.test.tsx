@@ -1,4 +1,4 @@
-import { render } from '@test-utils';
+import { render } from '@tests/utils';
 import Cog from './cog';
 
 describe('Cog', () => {

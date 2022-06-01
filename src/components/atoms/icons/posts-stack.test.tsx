@@ -1,4 +1,4 @@
-import { render } from '@test-utils';
+import { render } from '@tests/utils';
 import PostsStack from './posts-stack';
 
 describe('PostsStack', () => {

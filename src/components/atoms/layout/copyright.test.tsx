@@ -1,5 +1,5 @@
 import CCBySA from '@components/atoms/icons/cc-by-sa';
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import Copyright from './copyright';
 
 const dates = {

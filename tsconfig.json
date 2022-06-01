@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["jest", "@testing-library/jest-dom"],
     "baseUrl": ".",
     "paths": {
       "@i18n/*": ["src/i18n/*"],
@@ -23,7 +24,7 @@
       "@pages/*": ["src/pages/*"],
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
-      "@test-utils": ["__tests__/utils/test-utils"],
+      "@tests/*": ["tests/*"],
       "@ts/*": ["src/ts/*"],
       "@utils/*": ["src/utils/*"]
     }
@@ -34,5 +35,5 @@
     "**/*.tsx",
     "src/utils/plugins/prism-color-scheme.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "tests/cypress/", "cypress.config.js"]
 }
