@@ -31,6 +31,10 @@
     "defaultMessage": "{commentsCount, plural, =0 {0 commentaire} one {# commentaire} other {# commentaires}}<a11y> à propos de {title}</a11y>",
     "description": "Meta: comments count"
   },
+  "0gVlI3": {
+    "defaultMessage": "Suivi :",
+    "description": "AckeeToggle: select label"
+  },
   "16zl9Z": {
     "defaultMessage": "Vous êtes ici :",
     "description": "Breadcrumb: You are here prefix"
@@ -63,10 +67,6 @@
     "defaultMessage": "Laisser une réponse",
     "description": "Comment: comment form title"
   },
-  "2pmylc": {
-    "defaultMessage": "Suivi :",
-    "description": "AckeeSelect: select label"
-  },
   "310o3F": {
     "defaultMessage": "Erreur 404 : Page non trouvée - {websiteName}",
     "description": "404Page: SEO - Page title"
@@ -91,6 +91,10 @@
     "defaultMessage": "Aucun résultat.",
     "description": "NoResults: no results"
   },
+  "5eD6y2": {
+    "defaultMessage": "Complet",
+    "description": "AckeeToggle: full option name"
+  },
   "6GySNl": {
     "defaultMessage": "Copier",
     "description": "usePrism: copy button text (not clicked)"
@@ -110,6 +114,10 @@
   "7jVUT6": {
     "defaultMessage": "Attention : Si vous souhaitez bénéficier de toutes les fonctionnalités (la recherche par exemple), veuillez activer Javascript.",
     "description": "Layout: noscript message"
+  },
+  "7zDlQo": {
+    "defaultMessage": "Complet inclut toutes les informations de Partiel ainsi que des informations à propos du site référent, du système d’exploitation, de l’appareil, du navigateur, de la taille d’écran et de la langue.",
+    "description": "AckeeToggle: tooltip message"
   },
   "92zgdp": {
     "defaultMessage": "Total :",
@@ -178,10 +186,6 @@
   "Es52wh": {
     "defaultMessage": "Blog",
     "description": "Breadcrumb: blog label"
-  },
-  "F1EQX3": {
-    "defaultMessage": "Suivi Ackee (analytique)",
-    "description": "AckeeSelect: tooltip title"
   },
   "G+Twgm": {
     "defaultMessage": "Recherche",
@@ -275,17 +279,9 @@
     "defaultMessage": "{minutesCount} minutes {secondsCount} secondes",
     "description": "useReadingTime: minutes + seconds count"
   },
-  "Ogccx6": {
-    "defaultMessage": "Complet inclut toutes les informations de Partiel ainsi que des informations à propos du site référent, du système d’exploitation, de l’appareil, du navigateur, de la taille d’écran et de la langue.",
-    "description": "AckeeSelect: tooltip message"
-  },
   "PXp2hv": {
     "defaultMessage": "{websiteName} | Intégrateur web - Développeur WordPress / React",
     "description": "HomePage: SEO - Page title"
-  },
-  "PzRpPw": {
-    "defaultMessage": "Complet",
-    "description": "AckeeSelect: full option name"
   },
   "Q+1GbT": {
     "defaultMessage": "Barre latérale de la table des matières",
@@ -371,6 +367,10 @@
     "defaultMessage": "Thème clair",
     "description": "ThemeToggle: light theme label"
   },
+  "ZB/Aw2": {
+    "defaultMessage": "Partiel inclut seulement l’url de la page, le nombre de visites et la durée.",
+    "description": "AckeeToggle: tooltip message"
+  },
   "ZIrTee": {
     "defaultMessage": "Nom :",
     "description": "CommentForm: name label"
@@ -430,10 +430,6 @@
   "dz2kDV": {
     "defaultMessage": "Formulaire des commentaires",
     "description": "CommentForm: aria label"
-  },
-  "e/8Kyj": {
-    "defaultMessage": "Partiel",
-    "description": "AckeeSelect: partial option name"
   },
   "fN04AJ": {
     "defaultMessage": "<link>Télécharger le CV au format PDF</link>",
@@ -500,7 +496,7 @@
     "description": "HomePage: link to Linux thematic"
   },
   "jTVIh8": {
-    "defaultMessage": "Commentaires:",
+    "defaultMessage": "Commentaires :",
     "description": "Meta: comments label"
   },
   "kzIYoQ": {
@@ -514,6 +510,10 @@
   "m+SUSR": {
     "defaultMessage": "Retour en haut de page",
     "description": "BackToTop: link text"
+  },
+  "nGss/j": {
+    "defaultMessage": "Suivi Ackee (analytique)",
+    "description": "AckeeToggle: tooltip title"
   },
   "npisb3": {
     "defaultMessage": "Rechercher un article sur {websiteName}.",
@@ -571,13 +571,13 @@
     "defaultMessage": "Me contacter",
     "description": "HomePage: contact button text"
   },
-  "skb4W5": {
-    "defaultMessage": "Partiel inclut seulement l’url de la page, le nombre de visites et la durée.",
-    "description": "AckeeSelect: tooltip message"
-  },
   "suXOBu": {
     "defaultMessage": "Thème :",
     "description": "ThemeToggle: theme label"
+  },
+  "tIZYpD": {
+    "defaultMessage": "Partiel",
+    "description": "AckeeToggle: partial option name"
   },
   "tLC7bh": {
     "defaultMessage": "Mis à jour le :",

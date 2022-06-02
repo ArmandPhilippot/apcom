@@ -80,13 +80,23 @@ const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
   const options: RadioGroupOption[] = [
     {
       id: 'code-blocks-light',
-      label: <Sun title={lightThemeLabel} />,
+      label: (
+        <>
+          <span className="screen-reader-text">{lightThemeLabel}</span>
+          <Sun />
+        </>
+      ),
       name: 'code-blocks',
       value: 'light',
     },
     {
       id: 'code-blocks-dark',
-      label: <Moon title={darkThemeLabel} />,
+      label: (
+        <>
+          <span className="screen-reader-text">{darkThemeLabel}</span>
+          <Moon />
+        </>
+      ),
       name: 'code-blocks',
       value: 'dark',
     },

@@ -31,6 +31,10 @@
     "defaultMessage": "{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}<a11y> about {title}</a11y>",
     "description": "Meta: comments count"
   },
+  "0gVlI3": {
+    "defaultMessage": "Tracking:",
+    "description": "AckeeToggle: select label"
+  },
   "16zl9Z": {
     "defaultMessage": "You are here:",
     "description": "Breadcrumb: You are here prefix"
@@ -63,10 +67,6 @@
     "defaultMessage": "Leave a reply",
     "description": "Comment: comment form title"
   },
-  "2pmylc": {
-    "defaultMessage": "Tracking:",
-    "description": "AckeeSelect: select label"
-  },
   "310o3F": {
     "defaultMessage": "Error 404: Page not found - {websiteName}",
     "description": "404Page: SEO - Page title"
@@ -91,6 +91,10 @@
     "defaultMessage": "No results found.",
     "description": "NoResults: no results"
   },
+  "5eD6y2": {
+    "defaultMessage": "Full",
+    "description": "AckeeToggle: full option name"
+  },
   "6GySNl": {
     "defaultMessage": "Copy",
     "description": "usePrism: copy button text (not clicked)"
@@ -110,6 +114,10 @@
   "7jVUT6": {
     "defaultMessage": "Warning: If you want to benefit from all features (search for example), please activate Javascript.",
     "description": "Layout: noscript message"
+  },
+  "7zDlQo": {
+    "defaultMessage": "Full includes all information from partial as well as information about referrer, operating system, device, browser, screen size and language.",
+    "description": "AckeeToggle: tooltip message"
   },
   "92zgdp": {
     "defaultMessage": "Total:",
@@ -178,10 +186,6 @@
   "Es52wh": {
     "defaultMessage": "Blog",
     "description": "Breadcrumb: blog label"
-  },
-  "F1EQX3": {
-    "defaultMessage": "Ackee tracking (analytics)",
-    "description": "AckeeSelect: tooltip title"
   },
   "G+Twgm": {
     "defaultMessage": "Search",
@@ -275,17 +279,9 @@
     "defaultMessage": "{minutesCount} minutes {secondsCount} seconds",
     "description": "useReadingTime: minutes + seconds count"
   },
-  "Ogccx6": {
-    "defaultMessage": "Full includes all information from partial as well as information about referrer, operating system, device, browser, screen size and language.",
-    "description": "AckeeSelect: tooltip message"
-  },
   "PXp2hv": {
     "defaultMessage": "{websiteName} | Front-end developer: WordPress/React",
     "description": "HomePage: SEO - Page title"
-  },
-  "PzRpPw": {
-    "defaultMessage": "Full",
-    "description": "AckeeSelect: full option name"
   },
   "Q+1GbT": {
     "defaultMessage": "Table of contents sidebar",
@@ -371,6 +367,10 @@
     "defaultMessage": "Light theme",
     "description": "ThemeToggle: light theme label"
   },
+  "ZB/Aw2": {
+    "defaultMessage": "Partial includes only page url, views and duration.",
+    "description": "AckeeToggle: tooltip message"
+  },
   "ZIrTee": {
     "defaultMessage": "Name:",
     "description": "CommentForm: name label"
@@ -430,10 +430,6 @@
   "dz2kDV": {
     "defaultMessage": "Comment form",
     "description": "CommentForm: aria label"
-  },
-  "e/8Kyj": {
-    "defaultMessage": "Partial",
-    "description": "AckeeSelect: partial option name"
   },
   "fN04AJ": {
     "defaultMessage": "<link>Download the CV in PDF</link>",
@@ -515,6 +511,10 @@
     "defaultMessage": "Back to top",
     "description": "BackToTop: link text"
   },
+  "nGss/j": {
+    "defaultMessage": "Ackee tracking (analytics)",
+    "description": "AckeeToggle: tooltip title"
+  },
   "npisb3": {
     "defaultMessage": "Search for a post on {websiteName}.",
     "description": "SearchPage: SEO - Meta description"
@@ -571,13 +571,13 @@
     "defaultMessage": "Contact me",
     "description": "HomePage: contact button text"
   },
-  "skb4W5": {
-    "defaultMessage": "Partial includes only page url, views and duration.",
-    "description": "AckeeSelect: tooltip message"
-  },
   "suXOBu": {
     "defaultMessage": "Theme:",
     "description": "ThemeToggle: theme label"
+  },
+  "tIZYpD": {
+    "defaultMessage": "Partial",
+    "description": "AckeeToggle: partial option name"
   },
   "tLC7bh": {
     "defaultMessage": "Updated on:",

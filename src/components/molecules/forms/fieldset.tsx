@@ -100,6 +100,7 @@ const Fieldset: FC<FieldsetProps> = ({
       {TooltipComponent && (
         <>
           <HelpButton
+            aria-pressed={isTooltipOpened}
             className={`${styles.btn} ${buttonModifier}`}
             onClick={() => setIsTooltipOpened(!isTooltipOpened)}
             ref={buttonRef}
