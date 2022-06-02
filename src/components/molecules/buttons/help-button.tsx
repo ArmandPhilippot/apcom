@@ -3,7 +3,10 @@ import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './help-button.module.scss';
 
-export type HelpButtonProps = Pick<ButtonProps, 'className' | 'onClick'>;
+export type HelpButtonProps = Pick<
+  ButtonProps,
+  'aria-pressed' | 'className' | 'onClick'
+>;
 
 /**
  * HelpButton component

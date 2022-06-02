@@ -8,6 +8,14 @@ import styles from './buttons.module.scss';
 
 export type ButtonProps = {
   /**
+   * Button accessible label.
+   */
+  'aria-label'?: string;
+  /**
+   * Indicates the current "pressed" state of a toggle button.
+   */
+  'aria-pressed'?: boolean | 'mixed';
+  /**
    * The button body.
    */
   children: ReactNode;
@@ -15,10 +23,6 @@ export type ButtonProps = {
    * Set additional classnames to the button wrapper.
    */
   className?: string;
-  /**
-   * Button accessible label.
-   */
-  'aria-label'?: string;
   /**
    * Button state. Default: false.
    */
