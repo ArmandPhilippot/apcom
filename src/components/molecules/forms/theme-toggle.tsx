@@ -71,13 +71,23 @@ const ThemeToggle: FC<ThemeToggleProps> = (props) => {
   const options: RadioGroupOption[] = [
     {
       id: 'theme-light',
-      label: <Sun title={lightThemeLabel} />,
+      label: (
+        <>
+          <span className="screen-reader-text">{lightThemeLabel}</span>
+          <Sun />
+        </>
+      ),
       name: 'theme',
       value: 'light',
     },
     {
       id: 'theme-dark',
-      label: <Moon title={darkThemeLabel} />,
+      label: (
+        <>
+          <span className="screen-reader-text">{darkThemeLabel}</span>
+          <Moon />
+        </>
+      ),
       name: 'theme',
       value: 'dark',
     },
