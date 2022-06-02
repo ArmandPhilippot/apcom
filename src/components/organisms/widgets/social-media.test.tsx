@@ -13,7 +13,9 @@ const titleLevel = 2;
  * the svg files manually.
  */
 jest.mock('@assets/images/social-media/github.svg', () => 'svg-file');
+jest.mock('@assets/images/social-media/gitlab.svg', () => 'svg-file');
 jest.mock('@assets/images/social-media/linkedin.svg', () => 'svg-file');
+jest.mock('@assets/images/social-media/twitter.svg', () => 'svg-file');
 
 describe('SocialMedia', () => {
   it('renders the widget title', () => {
