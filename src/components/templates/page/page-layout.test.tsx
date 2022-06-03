@@ -1,5 +1,5 @@
 import { comments } from '@components/organisms/layout/comments-list.fixture';
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import { BreadcrumbList } from 'schema-dts';
 import PageLayout from './page-layout';
 

@@ -1,4 +1,4 @@
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import Pagination from './pagination';
 
 const total = 50;

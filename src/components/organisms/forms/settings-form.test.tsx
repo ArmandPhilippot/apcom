@@ -1,6 +1,6 @@
 import { storageKey as ackeeStorageKey } from '@components/molecules/forms/ackee-toggle.fixture';
 import { storageKey as motionStorageKey } from '@components/molecules/forms/motion-toggle.fixture';
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import SettingsForm from './settings-form';
 
 describe('SettingsForm', () => {

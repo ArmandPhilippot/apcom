@@ -1,6 +1,6 @@
 import Envelop from '@components/atoms/icons/envelop';
 import Home from '@components/atoms/icons/home';
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import Nav, { type NavItem } from './nav';
 
 const navItems: NavItem[] = [

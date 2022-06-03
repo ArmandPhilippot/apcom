@@ -1,4 +1,4 @@
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import { getFormattedDate } from '@utils/helpers/dates';
 import Meta from './meta';
 

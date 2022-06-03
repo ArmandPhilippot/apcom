@@ -1,5 +1,5 @@
 import ResponsiveImage from '@components/molecules/images/responsive-image';
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import Gallery from './gallery';
 
 const columns = 3;

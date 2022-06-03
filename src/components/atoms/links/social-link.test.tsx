@@ -1,4 +1,4 @@
-import { render, screen } from '@test-utils';
+import { render, screen } from '@tests/utils';
 import SocialLink from './social-link';
 
 /**
@@ -6,6 +6,9 @@ import SocialLink from './social-link';
  * the svg files manually.
  */
 jest.mock('@assets/images/social-media/github.svg', () => 'svg-file');
+jest.mock('@assets/images/social-media/gitlab.svg', () => 'svg-file');
+jest.mock('@assets/images/social-media/linkedin.svg', () => 'svg-file');
+jest.mock('@assets/images/social-media/twitter.svg', () => 'svg-file');
 
 describe('SocialLink', () => {
   it('render a social link', () => {

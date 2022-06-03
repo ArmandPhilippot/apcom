@@ -1,4 +1,3 @@
-import photo from '@assets/images/armand-philippot.jpg';
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Career from '@components/atoms/icons/career';
 import CCBySA from '@components/atoms/icons/cc-by-sa';
@@ -18,6 +17,7 @@ import Script from 'next/script';
 import { FC, ReactElement, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
+import photo from '/public/armand-philippot.jpg';
 import styles from './layout.module.scss';
 
 export type QueryAction = SearchAction & {

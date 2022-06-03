@@ -49,3 +49,7 @@ lang
 # Files generated each build
 /public/sitemap*.xml
 /public/robots.txt
+
+# Cypress
+/tests/cypress/videos
+/tests/cypress/screenshots
