@@ -190,10 +190,12 @@ const PostsList: FC<PostsListProps> = ({
     return (
       <>
         <ProgressBar
+          aria-label={progressInfo}
+          current={posts.length}
+          id="loaded-posts"
+          label={progressInfo}
           min={1}
           max={total}
-          current={posts.length}
-          info={progressInfo}
         />
         {showLoadMoreBtn && (
           <Button
