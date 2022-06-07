@@ -7,6 +7,10 @@ import styles from './code.module.scss';
 
 export type CodeProps = {
   /**
+   * An accessible name.
+   */
+  'aria-label'?: string;
+  /**
    * The code to highlight.
    */
   children: string;
@@ -39,6 +43,7 @@ const Code: FC<CodeProps> = ({
   language,
   plugins = [],
   outputPattern = '#output#',
+  ...props
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { attributes, className } = usePrism({ language, plugins });
@@ -54,6 +59,7 @@ const Code: FC<CodeProps> = ({
         tabIndex={0}
         {...attributes}
         {...outputAttribute}
+        {...props}
       >
         <code className={`language-${language}`}>{children}</code>
       </pre>
