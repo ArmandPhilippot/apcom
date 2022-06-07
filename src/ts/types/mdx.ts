@@ -3,7 +3,12 @@ import { Meta } from './app';
 
 export type MDXData = {
   file: string;
-  image: StaticImageData;
+  image: MDXImage;
+};
+
+export type MDXImage = StaticImageData & {
+  alt: string;
+  title?: string;
 };
 
 export type MDXPageMeta = Pick<Meta<'page'>, 'cover' | 'dates' | 'seo'> & {

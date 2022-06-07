@@ -49,6 +49,7 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
   layout,
   objectFit,
   target,
+  title,
   withBorders,
   ...props
 }) => {
@@ -59,15 +60,17 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
 
   return (
     <figure
+      aria-label={caption ? undefined : title}
       className={`${styles.wrapper} ${styles[bordersModifier]} ${styles[linkModifier]} ${className}`}
     >
       {target ? (
         <Link href={target} className={styles.link}>
           <Image
             alt={alt}
+            className={styles.img}
             layout={layout || 'intrinsic'}
             objectFit={objectFit || 'contain'}
-            className={styles.img}
+            title={title}
             {...props}
           />
           {caption && (
@@ -78,9 +81,10 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
         <>
           <Image
             alt={alt}
+            className={styles.img}
             layout={layout || 'intrinsic'}
             objectFit={objectFit || 'contain'}
-            className={styles.img}
+            title={title}
             {...props}
           />
           {caption && (

@@ -46,6 +46,7 @@ export const getProjectData = async (
           ...cover.default,
           alt: `${title} image`,
           src: `/projects/${filename}.jpg`,
+          title,
         },
       },
       slug: filename,
