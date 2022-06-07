@@ -21,6 +21,8 @@
 
   &--square,
   &--circle {
+    min-width: fit-content;
+    min-height: fit-content;
     padding: var(--spacing-xs);
     aspect-ratio: 1 / 1;
   }

@@ -22,6 +22,10 @@ export type CardProps = {
    */
   coverFit?: ResponsiveImageProps['objectFit'];
   /**
+   * The card id.
+   */
+  id: string;
+  /**
    * The card meta.
    */
   meta?: MetaData;
@@ -52,6 +56,7 @@ const Card: FC<CardProps> = ({
   className = '',
   cover,
   coverFit = 'cover',
+  id,
   meta,
   tagline,
   title,
@@ -59,7 +64,11 @@ const Card: FC<CardProps> = ({
   url,
 }) => {
   return (
-    <ButtonLink target={url} className={`${styles.wrapper} ${className}`}>
+    <ButtonLink
+      aria-labelledby={`${id}-heading`}
+      target={url}
+      className={`${styles.wrapper} ${className}`}
+    >
       <article className={styles.article}>
         <header className={styles.header}>
           {cover && (
@@ -71,8 +80,9 @@ const Card: FC<CardProps> = ({
           )}
           <Heading
             alignment="center"
-            level={titleLevel}
             className={styles.title}
+            id={`${id}-heading`}
+            level={titleLevel}
           >
             {title}
           </Heading>

@@ -3,6 +3,10 @@ import styles from './home.module.scss';
 
 export type HomeProps = {
   /**
+   * Should the svg be hidden from assistive technologies?
+   */
+  'aria-hidden'?: boolean;
+  /**
    * Set additional classnames to the icon.
    */
   className?: string;
@@ -13,12 +17,13 @@ export type HomeProps = {
  *
  * Render a home svg icon.
  */
-const Home: FC<HomeProps> = ({ className = '' }) => {
+const Home: FC<HomeProps> = ({ className = '', ...props }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       className={`${styles.icon} ${className}`}
+      {...props}
     >
       <path
         className={styles.wall}

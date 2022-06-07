@@ -1,26 +1,14 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ProgressBarComponent from './progress-bar';
+import { current, id, label, max, min } from './progress-bar.fixture';
 
 /**
  * ProgressBar - Storybook Meta
  */
 export default {
-  title: 'Atoms/Loaders/ProgressBar',
+  title: 'Atoms/Loaders',
   component: ProgressBarComponent,
   argTypes: {
-    'aria-label': {
-      control: {
-        type: 'string',
-      },
-      description: 'An accessible name.',
-      table: {
-        category: 'Accessibility',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     current: {
       control: {
         type: 'number',
@@ -31,17 +19,24 @@ export default {
         required: true,
       },
     },
-    info: {
+    id: {
       control: {
         type: 'text',
       },
-      description: 'An additional information to display.',
-      table: {
-        category: 'Options',
-      },
+      description: 'The progress bar id.',
       type: {
         name: 'string',
-        required: false,
+        required: true,
+      },
+    },
+    label: {
+      control: {
+        type: 'text',
+      },
+      description: 'The progress bar label.',
+      type: {
+        name: 'string',
+        required: true,
       },
     },
     max: {
@@ -72,22 +67,13 @@ const Template: ComponentStory<typeof ProgressBarComponent> = (args) => (
 );
 
 /**
- * Loaders Stories - Default Progress bar
+ * Loaders Stories - Progress bar
  */
 export const ProgressBar = Template.bind({});
 ProgressBar.args = {
-  current: 10,
-  min: 0,
-  max: 50,
-};
-
-/**
- * Loaders Stories - Progress bar With Info
- */
-export const ProgressBarWithInfo = Template.bind({});
-ProgressBarWithInfo.args = {
-  current: 10,
-  info: 'Loaded: 10 / 50',
-  min: 0,
-  max: 50,
+  current,
+  id,
+  label,
+  min,
+  max,
 };

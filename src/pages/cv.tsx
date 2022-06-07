@@ -61,14 +61,6 @@ const CVPage: NextPageWithLayout = () => {
   };
 
   const { website } = useSettings();
-  const cvAlt = intl.formatMessage(
-    {
-      defaultMessage: '{name} CV',
-      description: 'CVPage: CV image alternative text',
-      id: 'KUowUk',
-    },
-    { name: website.name }
-  );
   const cvCaption = intl.formatMessage(
     {
       defaultMessage: '<link>Download the CV in PDF</link>',
@@ -90,7 +82,7 @@ const CVPage: NextPageWithLayout = () => {
       expanded={true}
       title={imageWidgetTitle}
       level={2}
-      image={{ alt: cvAlt, ...image }}
+      image={image}
       description={cvCaption}
       imageClassName={styles.image}
     />,

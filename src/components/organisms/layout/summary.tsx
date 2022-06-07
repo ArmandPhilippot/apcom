@@ -115,7 +115,11 @@ const Summary: FC<SummaryProps> = ({
         <ButtonLink target={url} className={styles['read-more']}>
           <>
             {readMore}
-            <Arrow direction="right" className={styles.icon} />
+            <Arrow
+              aria-hidden={true}
+              className={styles.icon}
+              direction="right"
+            />
           </>
         </ButtonLink>
       </div>

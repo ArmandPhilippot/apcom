@@ -104,16 +104,36 @@ const Layout: FC<LayoutProps> = ({
   });
 
   const mainNav: HeaderProps['nav'] = [
-    { id: 'home', label: homeLabel, href: '/', logo: <Home /> },
-    { id: 'blog', label: blogLabel, href: '/blog', logo: <PostsStack /> },
+    {
+      id: 'home',
+      label: homeLabel,
+      href: '/',
+      logo: <Home aria-hidden={true} />,
+    },
+    {
+      id: 'blog',
+      label: blogLabel,
+      href: '/blog',
+      logo: <PostsStack aria-hidden={true} />,
+    },
     {
       id: 'projects',
       label: projectsLabel,
       href: '/projets',
-      logo: <ComputerScreen />,
+      logo: <ComputerScreen aria-hidden={true} />,
     },
-    { id: 'cv', label: cvLabel, href: '/cv', logo: <Career /> },
-    { id: 'contact', label: contactLabel, href: '/contact', logo: <Envelop /> },
+    {
+      id: 'cv',
+      label: cvLabel,
+      href: '/cv',
+      logo: <Career aria-hidden={true} />,
+    },
+    {
+      id: 'contact',
+      label: contactLabel,
+      href: '/contact',
+      logo: <Envelop aria-hidden={true} />,
+    },
   ];
 
   const legalNoticeLabel = intl.formatMessage({

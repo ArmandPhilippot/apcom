@@ -8,6 +8,10 @@ export type ButtonLinkProps = {
    */
   'aria-label'?: string;
   /**
+   * One or more ids that refer to the accessible label.
+   */
+  'aria-labelledby'?: string;
+  /**
    * The button link body.
    */
   children: ReactNode;

@@ -3,17 +3,17 @@ import styles from './progress-bar.module.scss';
 
 export type ProgressBarProps = {
   /**
-   * Accessible progress bar name.
-   */
-  'aria-label'?: string;
-  /**
    * Current value.
    */
   current: number;
   /**
-   * Additional information to display before progress bar.
+   * The progress bar id.
    */
-  info?: string;
+  id: string;
+  /**
+   * The progress bar label.
+   */
+  label: string;
   /**
    * Minimal value.
    */
@@ -31,23 +31,27 @@ export type ProgressBarProps = {
  */
 const ProgressBar: FC<ProgressBarProps> = ({
   current,
-  info,
+  id,
+  label,
   min,
   max,
-  ...props
 }) => {
   return (
     <div className={styles.progress}>
-      {info && <div className={styles.progress__info}>{info}</div>}
+      <label htmlFor={id} className={styles.progress__info}>
+        {label}
+      </label>
       <progress
         className={styles.progress__bar}
+        id={id}
         max={max}
         value={current}
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={current}
-        {...props}
-      ></progress>
+      >
+        {current}/{max}
+      </progress>
     </div>
   );
 };

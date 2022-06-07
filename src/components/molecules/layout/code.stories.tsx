@@ -12,6 +12,19 @@ export default {
     outputPattern: '#output#',
   },
   argTypes: {
+    'aria-label': {
+      control: {
+        type: 'text',
+      },
+      description: 'An accessible name for the code sample.',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     children: {
       control: {
         type: 'text',

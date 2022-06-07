@@ -1,6 +1,7 @@
 .label {
   color: var(--color-primary-darker);
   font-weight: 600;
+  cursor: pointer;
 
   &--small {
     font-size: var(--font-size-sm);

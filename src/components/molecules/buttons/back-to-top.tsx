@@ -34,7 +34,7 @@ const BackToTop: FC<BackToTopProps> = ({ className = '', target }) => {
         aria-label={linkName}
         className={styles.link}
       >
-        <Arrow direction="top" />
+        <Arrow aria-hidden={true} direction="top" />
       </ButtonLink>
     </div>
   );

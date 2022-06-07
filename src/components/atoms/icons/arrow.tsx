@@ -5,6 +5,10 @@ export type ArrowDirection = 'top' | 'right' | 'bottom' | 'left';
 
 export type ArrowProps = {
   /**
+   * Should the svg be hidden from assistive technologies?
+   */
+  'aria-hidden'?: boolean;
+  /**
    * Set additional classnames to the icon.
    */
   className?: string;
@@ -19,7 +23,7 @@ export type ArrowProps = {
  *
  * Render a svg arrow icon.
  */
-const Arrow: FC<ArrowProps> = ({ className = '', direction }) => {
+const Arrow: FC<ArrowProps> = ({ className = '', direction, ...props }) => {
   const directionClass = styles[`icon--${direction}`];
   const classes = `${styles.icon} ${directionClass} ${className}`;
 
@@ -29,6 +33,7 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction }) => {
         className={classes}
         viewBox="0 0 23.476 64.644995"
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
       >
         <path
           className="arrow-head"
@@ -48,6 +53,7 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction }) => {
         className={classes}
         viewBox="0 0 23.476 64.644995"
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
       >
         <path
           className="arrow-head"
@@ -67,6 +73,7 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction }) => {
         className={classes}
         viewBox="0 0 64.644997 23.476001"
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
       >
         <path
           className="arrow-head"
@@ -85,6 +92,7 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction }) => {
       className={classes}
       viewBox="0 0 64.644997 23.476001"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         className="arrow-head"

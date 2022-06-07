@@ -55,9 +55,10 @@ const CardsList: FC<CardsListProps> = ({
         value: (
           <Card
             key={id}
-            coverFit={coverFit}
-            titleLevel={titleLevel}
             className={styles.card}
+            coverFit={coverFit}
+            id={id}
+            titleLevel={titleLevel}
             {...card}
           />
         ),
