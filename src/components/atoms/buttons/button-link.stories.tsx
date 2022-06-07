@@ -24,6 +24,19 @@ export default {
         required: false,
       },
     },
+    'aria-labelledby': {
+      control: {
+        type: null,
+      },
+      description: 'One or more ids that refer to an accessible label.',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     children: {
       control: {
         type: 'text',

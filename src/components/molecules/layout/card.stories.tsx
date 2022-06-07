@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Card from './card';
+import { cover, id, meta, tagline, title, url } from './card.fixture';
 
 /**
  * Card - Storybook Meta
@@ -45,6 +46,16 @@ export default {
       type: {
         name: 'string',
         required: false,
+      },
+    },
+    id: {
+      control: {
+        type: 'text',
+      },
+      description: 'The card id.',
+      type: {
+        name: 'string',
+        required: true,
       },
     },
     meta: {
@@ -108,25 +119,15 @@ export default {
 
 const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
 
-const cover = {
-  alt: 'A picture',
-  height: 480,
-  src: 'http://placeimg.com/640/480',
-  width: 640,
-};
-
-const meta = {
-  thematics: ['Autem', 'Eos'],
-};
-
 /**
  * Card Stories - Default
  */
 export const Default = Template.bind({});
 Default.args = {
-  title: 'Veritatis dicta quod',
+  id,
+  title,
   titleLevel: 2,
-  url: '#',
+  url,
 };
 
 /**
@@ -135,9 +136,10 @@ Default.args = {
 export const WithCover = Template.bind({});
 WithCover.args = {
   cover,
-  title: 'Veritatis dicta quod',
+  id,
+  title,
   titleLevel: 2,
-  url: '#',
+  url,
 };
 
 /**
@@ -145,10 +147,11 @@ WithCover.args = {
  */
 export const WithMeta = Template.bind({});
 WithMeta.args = {
+  id,
   meta,
-  title: 'Veritatis dicta quod',
+  title,
   titleLevel: 2,
-  url: '#',
+  url,
 };
 
 /**
@@ -156,10 +159,11 @@ WithMeta.args = {
  */
 export const WithTagline = Template.bind({});
 WithTagline.args = {
-  tagline: 'Ullam accusantium ipsa',
-  title: 'Veritatis dicta quod',
+  id,
+  tagline,
+  title,
   titleLevel: 2,
-  url: '#',
+  url,
 };
 
 /**
@@ -168,9 +172,10 @@ WithTagline.args = {
 export const WithAll = Template.bind({});
 WithAll.args = {
   cover,
+  id,
   meta,
-  tagline: 'Ullam accusantium ipsa',
-  title: 'Veritatis dicta quod',
+  tagline,
+  title,
   titleLevel: 2,
-  url: '#',
+  url,
 };
