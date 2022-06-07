@@ -70,7 +70,7 @@ const Search: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
         aria-label={label}
         isActive={isActive}
       >
-        <MagnifyingGlass />
+        <MagnifyingGlass aria-hidden={true} />
       </FlippingLabel>
       <SearchModal
         className={`${sharedStyles.modal} ${searchStyles.modal} ${className}`}

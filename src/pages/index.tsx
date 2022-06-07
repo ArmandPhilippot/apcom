@@ -193,7 +193,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
         id: 'contact-me',
         value: (
           <ButtonLink target="/contact">
-            <Envelop className={styles.icon} />
+            <Envelop aria-hidden={true} className={styles.icon} />
             {intl.formatMessage({
               defaultMessage: 'Contact me',
               description: 'HomePage: contact button text',
@@ -206,7 +206,10 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
         id: 'rss-feed',
         value: (
           <ButtonLink target="/feed">
-            <FeedIcon className={`${styles.icon} ${styles['icon--feed']}`} />
+            <FeedIcon
+              aria-hidden={true}
+              className={`${styles.icon} ${styles['icon--feed']}`}
+            />
             {intl.formatMessage({
               defaultMessage: 'Subscribe',
               description: 'HomePage: RSS feed subscription text',

@@ -3,6 +3,10 @@ import styles from './posts-stack.module.scss';
 
 export type PostsStackProps = {
   /**
+   * Should the svg be hidden from assistive technologies?
+   */
+  'aria-hidden'?: boolean;
+  /**
    * Set additional classnames to the icon.
    */
   className?: string;
@@ -13,12 +17,13 @@ export type PostsStackProps = {
  *
  * Render a posts stack svg icon.
  */
-const PostsStack: FC<PostsStackProps> = ({ className = '' }) => {
+const PostsStack: FC<PostsStackProps> = ({ className = '', ...props }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       className={`${styles.icon} ${className}`}
+      {...props}
     >
       <path
         className={styles.background}

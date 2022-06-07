@@ -63,7 +63,7 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
         aria-label={label}
         isActive={isActive}
       >
-        <Cog />
+        <Cog aria-hidden={true} />
       </FlippingLabel>
       <SettingsModal
         ackeeStorageKey={ackeeStorageKey}

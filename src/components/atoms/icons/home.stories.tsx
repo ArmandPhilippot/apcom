@@ -8,6 +8,19 @@ export default {
   title: 'Atoms/Illustrations/Icons',
   component: HomeIcon,
   argTypes: {
+    'aria-hidden': {
+      control: {
+        type: null,
+      },
+      description: 'Should the svg be hidden from assistive technologies?',
+      table: {
+        category: 'Accessibility',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     className: {
       control: {
         type: 'text',

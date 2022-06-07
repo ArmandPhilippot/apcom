@@ -30,7 +30,7 @@ const FlippingLabel: FC<FlippingLabelProps> = ({
       <span className={`${styles.wrapper} ${styles[wrapperModifier]}`}>
         <span className={styles.front}>{children}</span>
         <span className={styles.back}>
-          <Close />
+          <Close aria-hidden={true} />
         </span>
       </span>
     </Label>

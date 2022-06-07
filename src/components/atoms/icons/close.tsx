@@ -3,6 +3,10 @@ import styles from './close.module.scss';
 
 export type CloseProps = {
   /**
+   * Should the svg be hidden from assistive technologies?
+   */
+  'aria-hidden'?: boolean;
+  /**
    * Set additional classnames to the icon.
    */
   className?: string;
@@ -13,12 +17,13 @@ export type CloseProps = {
  *
  * Render a close svg icon.
  */
-const Close: FC<CloseProps> = ({ className = '' }) => {
+const Close: FC<CloseProps> = ({ className = '', ...props }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       className={`${styles.icon} ${className}`}
+      {...props}
     >
       <path
         className={styles.line}

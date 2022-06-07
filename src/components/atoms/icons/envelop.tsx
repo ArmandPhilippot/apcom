@@ -3,6 +3,10 @@ import styles from './envelop.module.scss';
 
 export type EnvelopProps = {
   /**
+   * Should the svg be hidden from assistive technologies?
+   */
+  'aria-hidden'?: boolean;
+  /**
    * Set additional classnames to the icon.
    */
   className?: string;
@@ -13,12 +17,13 @@ export type EnvelopProps = {
  *
  * Render an envelop svg icon.
  */
-const Envelop: FC<EnvelopProps> = ({ className = '' }) => {
+const Envelop: FC<EnvelopProps> = ({ className = '', ...props }) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       className={`${styles.icon} ${className}`}
+      {...props}
     >
       <path
         className={styles.background}

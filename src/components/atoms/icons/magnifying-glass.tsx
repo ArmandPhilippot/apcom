@@ -3,6 +3,10 @@ import styles from './magnifying-glass.module.scss';
 
 export type MagnifyingGlassProps = {
   /**
+   * Should the svg be hidden from assistive technologies?
+   */
+  'aria-hidden'?: boolean;
+  /**
    * Set additional classnames to the icon.
    */
   className?: string;
@@ -13,12 +17,16 @@ export type MagnifyingGlassProps = {
  *
  * Render a magnifying glass svg icon.
  */
-const MagnifyingGlass: FC<MagnifyingGlassProps> = ({ className = '' }) => {
+const MagnifyingGlass: FC<MagnifyingGlassProps> = ({
+  className = '',
+  ...props
+}) => {
   return (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       className={`${styles.icon} ${className}`}
+      {...props}
     >
       <path
         className={styles['small-handle']}

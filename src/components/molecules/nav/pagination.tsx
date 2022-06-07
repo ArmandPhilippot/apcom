@@ -177,7 +177,7 @@ const Pagination: FC<PaginationProps> = ({
       });
       const body =
         typeof page === 'string'
-          ? '\u2026'
+          ? page // dots
           : intl.formatMessage(
               {
                 defaultMessage: '<a11y>Page </a11y>{number}',
