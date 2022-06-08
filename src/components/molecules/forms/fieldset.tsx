@@ -1,4 +1,4 @@
-import useClickOutside from '@utils/hooks/use-click-outside';
+import useOnClickOutside from '@utils/hooks/use-on-click-outside';
 import {
   cloneElement,
   FC,
@@ -33,11 +33,15 @@ export type FieldsetProps = {
    */
   legendClassName?: string;
   /**
-   * The legend position. Default: stacked.
+   * The legend position.
+   *
+   * @default 'stacked'
    */
   legendPosition?: 'inline' | 'stacked';
   /**
-   * An accessible role. Default: group.
+   * An accessible role.
+   *
+   * @default 'group'
    */
   role?: 'group' | 'radiogroup' | 'presentation' | 'none';
   /**
@@ -63,7 +67,6 @@ const Fieldset: FC<FieldsetProps> = ({
 }) => {
   const [isTooltipOpened, setIsTooltipOpened] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
   const wrapperModifier = `wrapper--${legendPosition}`;
   const buttonModifier = isTooltipOpened ? styles['btn--activated'] : '';
   const legendModifier =
@@ -73,19 +76,17 @@ const Fieldset: FC<FieldsetProps> = ({
     : 'tooltip--hidden';
 
   /**
-   * Close the tooltip if the event target is outside.
+   * Close the tooltip if the target is not the button.
    *
-   * @param {EventTarget} target - The event target.
+   * @param {Node} target - The event target.
    */
-  const closeTooltip = (target: EventTarget) => {
-    if (buttonRef.current && !buttonRef.current.contains(target as Node))
+  const closeTooltip = (target: Node) => {
+    if (buttonRef.current && !buttonRef.current.contains(target)) {
       setIsTooltipOpened(false);
+    }
   };
 
-  useClickOutside(
-    tooltipRef,
-    (target) => isTooltipOpened && closeTooltip(target)
-  );
+  const tooltipRef = useOnClickOutside<HTMLDivElement>(closeTooltip);
 
   return (
     <fieldset
