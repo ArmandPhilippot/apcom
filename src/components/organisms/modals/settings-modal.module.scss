@@ -1,0 +1,46 @@
+@use "@styles/abstracts/functions" as fun;
+@use "@styles/abstracts/variables" as var;
+
+.wrapper {
+  width: 100%;
+
+  @media screen and (max-height: #{var.get-breakpoint("2xs")}) and (max-width: #{var.get-breakpoint("sm")}) {
+    --first-col-width: #{fun.convert-px(160)};
+    --col-gap: var(--spacing-xl);
+
+    display: grid;
+    grid-template-columns: var(--first-col-width) 1fr;
+    gap: var(--spacing-xl);
+  }
+}
+
+.form {
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: var(--spacing-lg);
+}
+
+.items {
+  margin: 0 0 var(--spacing-2xs);
+  max-width: unset;
+}
+
+.fieldset__body {
+  margin-left: auto;
+}
+
+.tooltip {
+  font-size: var(--font-size-sm);
+  z-index: 2;
+
+  @media screen and (max-height: #{var.get-breakpoint("2xs")}) {
+    width: calc(100vw - var(--spacing-md));
+    padding: var(--spacing-md) var(--spacing-2xs) var(--spacing-2xs)
+      var(--spacing-2xs);
+    right: 0;
+  }
+
+  @media screen and (min-width: #{var.get-breakpoint("sm")}) {
+    width: 100%;
+  }
+}

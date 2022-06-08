@@ -50,7 +50,7 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
     <div className={`${sharedStyles.item} ${settingsStyles.item}`} ref={ref}>
       <BooleanField
         checked={isActive}
-        className={`${sharedStyles.checkbox} ${settingsStyles.checkbox}`}
+        className={sharedStyles.checkbox}
         id="settings-button"
         name="settings-button"
         onChange={setIsActive}
@@ -67,9 +67,9 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
       </FlippingLabel>
       <SettingsModal
         ackeeStorageKey={ackeeStorageKey}
-        className={`${sharedStyles.modal} ${settingsStyles.modal} ${className}`}
+        className={`${sharedStyles.modal} ${className}`}
         motionStorageKey={motionStorageKey}
-        tooltipClassName={tooltipClassName}
+        tooltipClassName={`${settingsStyles.tooltip} ${tooltipClassName}`}
       />
     </div>
   );

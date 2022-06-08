@@ -12,7 +12,7 @@ import RadioGroup, {
 
 export type ThemeToggleProps = Pick<
   RadioGroupProps,
-  'bodyClassName' | 'groupClassName' | 'legendClassName'
+  'bodyClassName' | 'groupClassName' | 'legendClassName' | 'legendPosition'
 >;
 
 /**

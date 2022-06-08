@@ -22,6 +22,19 @@ export default {
         required: false,
       },
     },
+    buttonClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the help button.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
     className: {
       control: {
         type: 'text',

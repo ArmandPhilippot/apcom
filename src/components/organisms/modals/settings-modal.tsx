@@ -1,23 +1,28 @@
-import Spinner from '@components/atoms/loaders/spinner';
+import Form from '@components/atoms/forms/form';
+import AckeeToggle, {
+  AckeeToggleProps,
+} from '@components/molecules/forms/ackee-toggle';
+import MotionToggle, {
+  MotionToggleProps,
+} from '@components/molecules/forms/motion-toggle';
+import PrismThemeToggle from '@components/molecules/forms/prism-theme-toggle';
+import ThemeToggle from '@components/molecules/forms/theme-toggle';
 import Modal, { type ModalProps } from '@components/molecules/modals/modal';
-import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { type SettingsFormProps } from '../forms/settings-form';
-
-const DynamicSettingsForm = dynamic(
-  () => import('@components/organisms/forms/settings-form'),
-  {
-    loading: () => <Spinner />,
-    ssr: false,
-  }
-);
+import styles from './settings-modal.module.scss';
 
 export type SettingsModalProps = Pick<ModalProps, 'className'> &
-  Pick<
-    SettingsFormProps,
-    'ackeeStorageKey' | 'motionStorageKey' | 'tooltipClassName'
-  >;
+  Pick<AckeeToggleProps, 'tooltipClassName'> & {
+    /**
+     * The local storage key for Ackee settings.
+     */
+    ackeeStorageKey: AckeeToggleProps['storageKey'];
+    /**
+     * The local storage key for Reduce motion settings.
+     */
+    motionStorageKey: MotionToggleProps['storageKey'];
+  };
 
 /**
  * SettingsModal component
@@ -26,7 +31,9 @@ export type SettingsModalProps = Pick<ModalProps, 'className'> &
  */
 const SettingsModal: FC<SettingsModalProps> = ({
   className = '',
-  ...props
+  ackeeStorageKey,
+  motionStorageKey,
+  tooltipClassName,
 }) => {
   const intl = useIntl();
   const title = intl.formatMessage({
@@ -34,10 +41,51 @@ const SettingsModal: FC<SettingsModalProps> = ({
     description: 'SettingsModal: title',
     id: 'gPfT/K',
   });
+  const ariaLabel = intl.formatMessage({
+    defaultMessage: 'Settings form',
+    id: 'xYNeKX',
+    description: 'SettingsModal: an accessible form name',
+  });
 
   return (
-    <Modal title={title} icon="cogs" className={className}>
-      <DynamicSettingsForm {...props} />
+    <Modal
+      title={title}
+      icon="cogs"
+      className={`${styles.wrapper} ${className}`}
+    >
+      <Form
+        aria-label={ariaLabel}
+        className={styles.form}
+        itemsClassName={styles.items}
+        onSubmit={() => null}
+      >
+        <ThemeToggle
+          bodyClassName={styles.fieldset__body}
+          groupClassName={styles.group}
+          legendClassName={styles.label}
+        />
+        <PrismThemeToggle
+          bodyClassName={styles.fieldset__body}
+          groupClassName={styles.group}
+          legendClassName={styles.label}
+        />
+        <MotionToggle
+          defaultValue="on"
+          bodyClassName={styles.fieldset__body}
+          groupClassName={styles.group}
+          legendClassName={styles.label}
+          storageKey={motionStorageKey}
+        />
+        <AckeeToggle
+          defaultValue="full"
+          bodyClassName={styles.fieldset__body}
+          buttonClassName={styles.btn}
+          groupClassName={`${styles.group} ${styles['group--ackee']}`}
+          legendClassName={`${styles.label} ${styles['label--ackee']}`}
+          storageKey={ackeeStorageKey}
+          tooltipClassName={`${styles.tooltip} ${tooltipClassName}`}
+        />
+      </Form>
     </Modal>
   );
 };

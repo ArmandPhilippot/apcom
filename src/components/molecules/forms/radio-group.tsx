@@ -25,7 +25,12 @@ export type RadioGroupOption = Pick<
 
 export type RadioGroupProps = Pick<
   FieldsetProps,
-  'bodyClassName' | 'className' | 'legend' | 'legendClassName' | 'Tooltip'
+  | 'bodyClassName'
+  | 'buttonClassName'
+  | 'className'
+  | 'legend'
+  | 'legendClassName'
+  | 'Tooltip'
 > &
   Pick<LabelledBooleanFieldProps, 'labelPosition' | 'labelSize'> & {
     /**
@@ -78,6 +83,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
   kind = 'regular',
   labelPosition,
   labelSize,
+  legendClassName,
   legendPosition = 'inline',
   onChange,
   optionClassName = '',
@@ -134,6 +140,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
   return (
     <Fieldset
       className={`${styles.wrapper} ${styles[alignmentModifier]} ${styles[toggleModifier]} ${className}`}
+      legendClassName={`${styles.legend} ${legendClassName}`}
       legendPosition={legendPosition}
       role="radiogroup"
       {...props}

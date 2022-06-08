@@ -24,10 +24,6 @@
         margin-bottom: var(--spacing-2xs);
       }
     }
-
-    @include mix.dimensions("sm") {
-      max-width: 35ch;
-    }
   }
 }
 
