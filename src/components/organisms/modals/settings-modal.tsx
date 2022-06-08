@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import { type SettingsFormProps } from '../forms/settings-form';
-import styles from './settings-modal.module.scss';
 
 const DynamicSettingsForm = dynamic(
   () => import('@components/organisms/forms/settings-form'),

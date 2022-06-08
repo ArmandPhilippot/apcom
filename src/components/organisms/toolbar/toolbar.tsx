@@ -1,9 +1,9 @@
-import useClickOutside from '@utils/hooks/use-click-outside';
+import useOnClickOutside from '@utils/hooks/use-on-click-outside';
 import useRouteChange from '@utils/hooks/use-route-change';
-import { FC, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import MainNav, { type MainNavProps } from '../toolbar/main-nav';
 import Search, { type SearchProps } from '../toolbar/search';
-import Settings, { SettingsProps } from '../toolbar/settings';
+import Settings, { type SettingsProps } from '../toolbar/settings';
 import styles from './toolbar.module.scss';
 
 export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
@@ -33,16 +33,17 @@ const Toolbar: FC<ToolbarProps> = ({
   const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
   const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
-  const mainNavRef = useRef<HTMLDivElement>(null);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const settingsRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(mainNavRef, () => isNavOpened && setIsNavOpened(false));
-  useClickOutside(searchRef, () => isSearchOpened && setIsSearchOpened(false));
-  useClickOutside(
-    settingsRef,
+  const mainNavRef = useOnClickOutside<HTMLDivElement>(
+    () => isNavOpened && setIsNavOpened(false)
+  );
+  const searchRef = useOnClickOutside<HTMLDivElement>(
+    () => isSearchOpened && setIsSearchOpened(false)
+  );
+  const settingsRef = useOnClickOutside<HTMLDivElement>(
     () => isSettingsOpened && setIsSettingsOpened(false)
   );
+
   useRouteChange(() => setIsSearchOpened(false));
 
   return (

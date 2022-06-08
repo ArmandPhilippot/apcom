@@ -2,7 +2,7 @@ import Fieldset, {
   type FieldsetProps,
 } from '@components/molecules/forms/fieldset';
 import useStateChange from '@utils/hooks/use-state-change';
-import { ChangeEvent, FC, MouseEvent, SetStateAction, useState } from 'react';
+import { ChangeEvent, FC, MouseEvent, SetStateAction } from 'react';
 import LabelledBooleanField, {
   type LabelledBooleanFieldProps,
 } from './labelled-boolean-field';
@@ -37,11 +37,15 @@ export type RadioGroupProps = Pick<
      */
     initialChoice: string;
     /**
-     * The radio group kind. Default: regular.
+     * The radio group kind.
+     *
+     * @default 'regular
      */
     kind?: 'regular' | 'toggle';
     /**
-     * The legend position. Default: inline.
+     * The legend position.
+     *
+     * @default 'inline'
      */
     legendPosition?: FieldsetProps['legendPosition'];
     /**
