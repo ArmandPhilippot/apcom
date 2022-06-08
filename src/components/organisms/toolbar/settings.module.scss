@@ -1,10 +1,8 @@
 @use "@styles/abstracts/functions" as fun;
 @use "@styles/abstracts/mixins" as mix;
 
-.modal {
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      width: 120%;
-    }
-  }
+.item .tooltip {
+  top: unset;
+  bottom: calc(100% + var(--spacing-2xs));
+  transform-origin: bottom center;
 }

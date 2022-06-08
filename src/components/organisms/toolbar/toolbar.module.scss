@@ -1,5 +1,5 @@
 @use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
+@use "@styles/abstracts/variables" as var;
 @use "@styles/abstracts/placeholders";
 
 .wrapper {
@@ -8,7 +8,7 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: space-around;
+  gap: var(--spacing-sm);
   width: 100%;
   height: var(--toolbar-size);
   position: relative;
@@ -27,72 +27,30 @@
     animation: slide-in-from-bottom 0.8s ease-in-out 0s 1;
   }
 
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      :global {
-        animation: slide-in-from-top 1s ease-in-out 0s 1;
-      }
-    }
-  }
+  @media screen and (max-width: #{var.get-breakpoint("sm")}) {
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
 
-  .modal {
-    &--search,
-    &--settings {
-      @include mix.media("screen") {
-        @include mix.dimensions("sm") {
-          min-width: 32ch;
-        }
-      }
-    }
-  }
-
-  @include mix.media("screen") {
-    @include mix.dimensions(null, "2xs", "height") {
-      --toolbar-size: #{fun.convert-px(70)};
-    }
-
-    @include mix.dimensions(null, "sm") {
+    .modal {
+      width: 100%;
       position: fixed;
-      bottom: 0;
+      top: unset;
       left: 0;
-      z-index: 5;
-
-      .modal {
-        top: unset;
-        bottom: calc(var(--toolbar-size) - #{fun.convert-px(4)});
-        max-height: calc(100vh - var(--toolbar-size));
-      }
-
-      .tooltip {
-        padding: calc(var(--title-height) / 2 + var(--spacing-2xs))
-          var(--spacing-2xs) var(--spacing-2xs);
-        top: unset;
-        bottom: calc(100% + var(--spacing-2xs));
-        transform-origin: bottom right;
-      }
+      bottom: calc(var(--toolbar-size) - #{fun.convert-px(4)});
+      max-height: calc(100vh - var(--toolbar-size));
     }
+  }
 
-    @include mix.dimensions("sm", "md") {
-      .modal {
-        top: calc(var(--toolbar-size) + var(--spacing-2xs));
-        bottom: unset;
-      }
-    }
+  @media screen and (max-height: #{var.get-breakpoint("2xs")}) {
+    --toolbar-size: #{fun.convert-px(70)};
+  }
 
-    @include mix.dimensions("sm") {
-      justify-content: flex-end;
-      gap: var(--spacing-sm);
-
-      .tooltip {
-        transform-origin: top right;
-      }
-    }
-
-    @include mix.dimensions("md") {
-      .tooltip {
-        width: 120%;
-        right: -10%;
-      }
+  @media screen and (min-width: #{var.get-breakpoint("sm")}) {
+    .modal {
+      min-width: fun.convert-px(380);
     }
   }
 }

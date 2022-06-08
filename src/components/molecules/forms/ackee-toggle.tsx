@@ -14,7 +14,11 @@ import Tooltip, { type TooltipProps } from '../modals/tooltip';
 
 export type AckeeToggleProps = Pick<
   RadioGroupProps,
-  'bodyClassName' | 'groupClassName' | 'legendClassName'
+  | 'bodyClassName'
+  | 'buttonClassName'
+  | 'groupClassName'
+  | 'legendClassName'
+  | 'legendPosition'
 > & {
   /**
    * Set additional classnames to the toggle wrapper.

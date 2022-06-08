@@ -17,6 +17,10 @@ export type FieldsetProps = {
    */
   bodyClassName?: string;
   /**
+   * Set additional classnames to the help button.
+   */
+  buttonClassName?: string;
+  /**
    * The fieldset body.
    */
   children: ReactNode | ReactNode[];
@@ -57,6 +61,7 @@ export type FieldsetProps = {
  */
 const Fieldset: FC<FieldsetProps> = ({
   bodyClassName = '',
+  buttonClassName = '',
   children,
   className = '',
   legend,
@@ -102,7 +107,7 @@ const Fieldset: FC<FieldsetProps> = ({
         <>
           <HelpButton
             aria-pressed={isTooltipOpened}
-            className={`${styles.btn} ${buttonModifier}`}
+            className={`${styles.btn} ${buttonModifier} ${buttonClassName}`}
             onClick={() => setIsTooltipOpened(!isTooltipOpened)}
             ref={buttonRef}
           />

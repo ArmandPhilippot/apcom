@@ -2,9 +2,9 @@
 @use "@styles/abstracts/mixins" as mix;
 
 .wrapper {
-  &--inline#{&}--regular {
-    .option:first-of-type {
-      margin-left: var(--spacing-2xs);
+  &--inline {
+    .legend {
+      margin-right: var(--spacing-2xs);
     }
   }
 

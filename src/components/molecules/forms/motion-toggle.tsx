@@ -13,7 +13,7 @@ export type MotionToggleValue = 'on' | 'off';
 
 export type MotionToggleProps = Pick<
   RadioGroupProps,
-  'bodyClassName' | 'groupClassName' | 'legendClassName'
+  'bodyClassName' | 'groupClassName' | 'legendClassName' | 'legendPosition'
 > & {
   /**
    * True if motion should be reduced by default.
@@ -41,7 +41,8 @@ const MotionToggle: FC<MotionToggleProps> = ({
     defaultValue === 'on' ? false : true
   );
   useAttributes({
-    element: document.documentElement || undefined,
+    element:
+      typeof window !== 'undefined' ? document.documentElement : undefined,
     attribute: 'reduced-motion',
     value: `${isReduced}`,
   });

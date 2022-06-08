@@ -1,6 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { TooltipProps } from '../modals/tooltip';
-import { Help } from '../modals/tooltip.stories';
 import FieldsetComponent from './fieldset';
 import { body, legend, Tooltip } from './fieldset.fixture';
 
@@ -8,7 +6,7 @@ import { body, legend, Tooltip } from './fieldset.fixture';
  * Fieldset - Storybook Meta
  */
 export default {
-  title: 'Atoms/Forms/Fieldset',
+  title: 'Molecules/Forms/Fieldset',
   component: FieldsetComponent,
   args: {
     legendPosition: 'stacked',
@@ -20,6 +18,19 @@ export default {
         type: 'text',
       },
       description: 'Set additional classnames to the body wrapper.',
+      table: {
+        category: 'Styles',
+      },
+      type: {
+        name: 'string',
+        required: false,
+      },
+    },
+    buttonClassName: {
+      control: {
+        type: 'text',
+      },
+      description: 'Set additional classnames to the help button.',
       table: {
         category: 'Styles',
       },

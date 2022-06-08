@@ -45,6 +45,20 @@ $breakpoints: (
   "lg": fun.convert-px(1600, "em"),
 );
 
+// I cannot declare the following function with others functions due to module
+// loop. But, it will only be used in this file so it is not really a problem.
+
+/// Get breakpoint
+/// @param {String} $name - Breakpoint name.
+/// @return {String} The breakpoint value.
+@function get-breakpoint($breakpoint) {
+  @if type-of($breakpoint) == "string" {
+    @return map.get($breakpoints, $breakpoint);
+  } @else {
+    @error "`$breakpoint` must be a string.";
+  }
+}
+
 //===========================================================================
 // Fonts
 //===========================================================================
