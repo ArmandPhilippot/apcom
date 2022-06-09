@@ -50,7 +50,10 @@
 
   @media screen and (min-width: #{var.get-breakpoint("sm")}) {
     .modal {
-      min-width: fun.convert-px(380);
+      &--search,
+      &--settings {
+        min-width: fun.convert-px(380);
+      }
     }
   }
 }
