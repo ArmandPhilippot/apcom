@@ -25,6 +25,10 @@
 
   :global {
     animation: slide-in-from-bottom 0.8s ease-in-out 0s 1;
+
+    @media screen and (min-width: #{var.get-breakpoint("sm")}) {
+      animation: slide-in-from-top 0.8s ease-in-out 0s 1;
+    }
   }
 
   @media screen and (max-width: #{var.get-breakpoint("sm")}) {
