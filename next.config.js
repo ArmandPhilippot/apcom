@@ -75,7 +75,6 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    outputStandalone: true,
     scrollRestoration: true,
   },
   async headers() {
@@ -94,6 +93,7 @@ const nextConfig = {
   images: {
     domains: [backendDomain, 'secure.gravatar.com'],
   },
+  output: 'standalone',
   poweredByHeader: false,
   reactStrictMode: true,
   async rewrites() {
