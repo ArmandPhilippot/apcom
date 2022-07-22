@@ -26,6 +26,7 @@ import {
   getWebPageSchema,
 } from '@utils/helpers/schema-org';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
+import useComments from '@utils/hooks/use-comments';
 import usePrism, { type OptionalPrismPlugin } from '@utils/hooks/use-prism';
 import useReadingTime from '@utils/hooks/use-reading-time';
 import useSettings from '@utils/hooks/use-settings';
@@ -58,9 +59,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   const { data: article } = useSWR(() => slug, getArticleBySlug, {
     fallbackData: post,
   });
-  const { data: commentsData } = useSWR(() => id, getPostComments, {
-    fallbackData: comments,
-  });
+  const commentsData = useComments(post.id, comments);
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title: article?.title || '',
     url: `/article/${slug}`,
