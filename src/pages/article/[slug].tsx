@@ -25,6 +25,7 @@ import {
   getSinglePageSchema,
   getWebPageSchema,
 } from '@utils/helpers/schema-org';
+import useArticle from '@utils/hooks/use-article';
 import useBreadcrumb from '@utils/hooks/use-breadcrumb';
 import useComments from '@utils/hooks/use-comments';
 import usePrism, { type OptionalPrismPlugin } from '@utils/hooks/use-prism';
@@ -37,7 +38,6 @@ import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
-import useSWR from 'swr';
 
 type ArticlePageProps = {
   comments: Comment[];
@@ -56,9 +56,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 }) => {
   const { isFallback } = useRouter();
   const intl = useIntl();
-  const { data: article } = useSWR(() => slug, getArticleBySlug, {
-    fallbackData: post,
-  });
+  const article = useArticle(slug, post);
   const commentsData = useComments(post.id, comments);
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title: article?.title || '',
@@ -71,7 +69,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 
   if (isFallback) return <Spinner />;
 
-  const { content, id, intro, meta, title } = article!;
+  const { content, id, intro, meta, title } = article;
   const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
 
   const headerMeta: PageLayoutProps['headerMeta'] = {

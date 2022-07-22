@@ -10,7 +10,8 @@ import useSWR from 'swr';
 
 /**
  * Retrieve the comments of a page/article.
- * @param contentId - A page/article id.
+ *
+ * @param {string | number} contentId - A page/article id.
  * @returns {Comment[]|undefined}
  */
 const useComments = (
@@ -19,15 +20,14 @@ const useComments = (
 ): Comment[] | undefined => {
   const { data } = useSWR(
     { api: getAPIUrl(), query: commentsQuery, variables: { contentId } },
-    fetchAPI<RawComment, typeof commentsQuery>,
-    { fallback }
+    fetchAPI<RawComment, typeof commentsQuery>
   );
 
   const comments = data?.comments.nodes.map((comment) =>
     getCommentFromRawData(comment)
   );
 
-  return comments ? buildCommentsTree(comments) : undefined;
+  return comments ? buildCommentsTree(comments) : fallback;
 };
 
 export default useComments;
