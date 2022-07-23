@@ -56,8 +56,11 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 }) => {
   const { isFallback } = useRouter();
   const intl = useIntl();
-  const article = useArticle(slug, post);
-  const commentsData = useComments(post.id, comments);
+  const article = useArticle({ slug, fallback: post });
+  const commentsData = useComments({
+    contentId: article?.id,
+    fallback: comments,
+  });
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title: article?.title || '',
     url: `/article/${slug}`,
@@ -69,7 +72,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 
   if (isFallback) return <Spinner />;
 
-  const { content, id, intro, meta, title } = article;
+  const { content, id, intro, meta, title } = article!;
   const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
 
   const headerMeta: PageLayoutProps['headerMeta'] = {

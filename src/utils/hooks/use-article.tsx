@@ -5,16 +5,26 @@ import { Article } from '@ts/types/app';
 import { RawArticle } from '@ts/types/raw-data';
 import useSWR from 'swr';
 
+export type UseArticleConfig = {
+  fallback?: Article;
+  slug?: string;
+};
+
 /**
  * Retrieve an article by slug.
  *
  * @param {string} slug - The article slug.
  * @param {Article} fallback - A fallback article.
- * @returns {Article} The matching article.
+ * @returns {Article|undefined} The matching article if it exists.
  */
-const useArticle = (slug: string, fallback: Article): Article => {
+const useArticle = ({
+  slug,
+  fallback,
+}: UseArticleConfig): Article | undefined => {
   const { data } = useSWR(
-    { api: getAPIUrl(), query: articleBySlugQuery, variables: { slug } },
+    slug
+      ? { api: getAPIUrl(), query: articleBySlugQuery, variables: { slug } }
+      : null,
     fetchAPI<RawArticle, typeof articleBySlugQuery>
   );
 

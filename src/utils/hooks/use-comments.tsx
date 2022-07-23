@@ -8,18 +8,25 @@ import { Comment } from '@ts/types/app';
 import { RawComment } from '@ts/types/raw-data';
 import useSWR from 'swr';
 
+export type UseCommentsConfig = {
+  contentId?: string | number;
+  fallback?: Comment[];
+};
+
 /**
  * Retrieve the comments of a page/article.
  *
  * @param {string | number} contentId - A page/article id.
  * @returns {Comment[]|undefined}
  */
-const useComments = (
-  contentId: string | number,
-  fallback?: Comment[]
-): Comment[] | undefined => {
+const useComments = ({
+  contentId,
+  fallback,
+}: UseCommentsConfig): Comment[] | undefined => {
   const { data } = useSWR(
-    { api: getAPIUrl(), query: commentsQuery, variables: { contentId } },
+    contentId
+      ? { api: getAPIUrl(), query: commentsQuery, variables: { contentId } }
+      : null,
     fetchAPI<RawComment, typeof commentsQuery>
   );
 
