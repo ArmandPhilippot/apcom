@@ -1,4 +1,6 @@
-import { Slug, type Article, type ArticleCard } from '@ts/types/app';
+import { type Article, type ArticleCard, type Slug } from '@ts/types/app';
+import { GraphQLEdgesInput, GraphQLPageInfo } from '@ts/types/graphql/generics';
+import { EdgesResponse, EndCursorResponse } from '@ts/types/graphql/queries';
 import {
   type RawArticle,
   type RawArticlePreview,
@@ -7,18 +9,11 @@ import {
 import { getAuthorFromRawData } from '@utils/helpers/author';
 import { getImageFromRawData } from '@utils/helpers/images';
 import { getPageLinkFromRawData } from '@utils/helpers/pages';
-import {
-  EdgesResponse,
-  EdgesVars,
-  EndCursor,
-  fetchAPI,
-  getAPIUrl,
-  PageInfo,
-} from './api';
+import { fetchAPI } from './api';
 import {
   articleBySlugQuery,
   articlesCardQuery,
-  articlesEndCursor,
+  articlesEndCursorQuery,
   articlesQuery,
   articlesSlugQuery,
   totalArticlesQuery,
@@ -31,7 +26,6 @@ import {
  */
 export const getTotalArticles = async (search?: string): Promise<number> => {
   const response = await fetchAPI<TotalItems, typeof totalArticlesQuery>({
-    api: getAPIUrl(),
     query: totalArticlesQuery,
     variables: { search },
   });
@@ -41,7 +35,7 @@ export const getTotalArticles = async (search?: string): Promise<number> => {
 
 export type GetArticlesReturn = {
   articles: Article[];
-  pageInfo: PageInfo;
+  pageInfo: GraphQLPageInfo;
 };
 
 /**
@@ -97,14 +91,13 @@ export const getArticleFromRawData = (data: RawArticle): Article => {
 /**
  * Retrieve the given number of articles from API.
  *
- * @param {EdgesVars} props - An object of GraphQL variables.
+ * @param {GraphQLEdgesInput} props - An object of GraphQL variables.
  * @returns {Promise<EdgesResponse<RawArticle>>} The articles data.
  */
 export const getArticles = async (
-  props: EdgesVars
+  props: GraphQLEdgesInput
 ): Promise<EdgesResponse<RawArticle>> => {
   const response = await fetchAPI<RawArticle, typeof articlesQuery>({
-    api: getAPIUrl(),
     query: articlesQuery,
     variables: { ...props },
   });
@@ -133,15 +126,14 @@ const getArticleCardFromRawData = (data: RawArticlePreview): ArticleCard => {
 /**
  * Retrieve the given number of article cards from API.
  *
- * @param {EdgesVars} obj - An object.
+ * @param {GraphQLEdgesInput} obj - An object.
  * @param {number} obj.first - The number of articles.
  * @returns {Promise<ArticleCard[]>} - The article cards data.
  */
 export const getArticlesCard = async ({
   first,
-}: EdgesVars): Promise<ArticleCard[]> => {
+}: GraphQLEdgesInput): Promise<ArticleCard[]> => {
   const response = await fetchAPI<RawArticlePreview, typeof articlesCardQuery>({
-    api: getAPIUrl(),
     query: articlesCardQuery,
     variables: { first },
   });
@@ -157,7 +149,6 @@ export const getArticlesCard = async ({
  */
 export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const response = await fetchAPI<RawArticle, typeof articleBySlugQuery>({
-    api: getAPIUrl(),
     query: articleBySlugQuery,
     variables: { slug },
   });
@@ -173,7 +164,6 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
 export const getAllArticlesSlugs = async (): Promise<string[]> => {
   const totalArticles = await getTotalArticles();
   const response = await fetchAPI<Slug, typeof articlesSlugQuery>({
-    api: getAPIUrl(),
     query: articlesSlugQuery,
     variables: { first: totalArticles },
   });
@@ -184,15 +174,17 @@ export const getAllArticlesSlugs = async (): Promise<string[]> => {
 /**
  * Retrieve the last cursor.
  *
- * @param {EdgesVars} props - An object of GraphQL variables.
+ * @param {GraphQLEdgesInput} props - An object of GraphQL variables.
  * @returns {Promise<string>} - The end cursor.
  */
 export const getArticlesEndCursor = async (
-  props: EdgesVars
+  props: GraphQLEdgesInput
 ): Promise<string> => {
-  const response = await fetchAPI<EndCursor, typeof articlesEndCursor>({
-    api: getAPIUrl(),
-    query: articlesEndCursor,
+  const response = await fetchAPI<
+    EndCursorResponse,
+    typeof articlesEndCursorQuery
+  >({
+    query: articlesEndCursorQuery,
     variables: { ...props },
   });
 

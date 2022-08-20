@@ -1,4 +1,5 @@
-import { type EdgesResponse, type EdgesVars } from '@services/graphql/api';
+import { GraphQLEdgesInput } from '@ts/types/graphql/generics';
+import { EdgesResponse, Search } from '@ts/types/graphql/queries';
 import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite';
 
 export type UsePaginationProps<T> = {
@@ -9,7 +10,7 @@ export type UsePaginationProps<T> = {
   /**
    * A function to fetch more data.
    */
-  fetcher: (props: EdgesVars) => Promise<EdgesResponse<T>>;
+  fetcher: (props: GraphQLEdgesInput & Search) => Promise<EdgesResponse<T>>;
   /**
    * The number of results per page.
    */
@@ -74,7 +75,7 @@ const usePagination = <T extends object>({
   const getKey: SWRInfiniteKeyLoader = (
     pageIndex: number,
     previousData: EdgesResponse<T>
-  ): EdgesVars | null => {
+  ): (GraphQLEdgesInput & Search) | null => {
     // Reached the end.
     if (previousData && !previousData.edges.length) return null;
 

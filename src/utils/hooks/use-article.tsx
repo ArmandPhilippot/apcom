@@ -1,4 +1,4 @@
-import { fetchAPI, getAPIUrl } from '@services/graphql/api';
+import { fetchAPI } from '@services/graphql/api';
 import { getArticleFromRawData } from '@services/graphql/articles';
 import { articleBySlugQuery } from '@services/graphql/articles.query';
 import { Article } from '@ts/types/app';
@@ -22,9 +22,7 @@ const useArticle = ({
   fallback,
 }: UseArticleConfig): Article | undefined => {
   const { data } = useSWR(
-    slug
-      ? { api: getAPIUrl(), query: articleBySlugQuery, variables: { slug } }
-      : null,
+    slug ? { query: articleBySlugQuery, variables: { slug } } : null,
     fetchAPI<RawArticle, typeof articleBySlugQuery>
   );
 

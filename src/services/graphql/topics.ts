@@ -1,4 +1,6 @@
 import { PageLink, Slug, Topic } from '@ts/types/app';
+import { GraphQLEdgesInput } from '@ts/types/graphql/generics';
+import { EdgesResponse } from '@ts/types/graphql/queries';
 import {
   RawArticle,
   RawTopic,
@@ -6,8 +8,11 @@ import {
   TotalItems,
 } from '@ts/types/raw-data';
 import { getImageFromRawData } from '@utils/helpers/images';
-import { getPageLinkFromRawData } from '@utils/helpers/pages';
-import { EdgesResponse, EdgesVars, fetchAPI, getAPIUrl } from './api';
+import {
+  getPageLinkFromRawData,
+  sortPageLinksByName,
+} from '@utils/helpers/pages';
+import { fetchAPI } from './api';
 import { getArticleFromRawData } from './articles';
 import {
   topicBySlugQuery,
@@ -23,7 +28,6 @@ import {
  */
 export const getTotalTopics = async (): Promise<number> => {
   const response = await fetchAPI<TotalItems, typeof totalTopicsQuery>({
-    api: getAPIUrl(),
     query: totalTopicsQuery,
   });
 
@@ -33,14 +37,13 @@ export const getTotalTopics = async (): Promise<number> => {
 /**
  * Retrieve the given number of topics from API.
  *
- * @param {EdgesVars} props - An object of GraphQL variables.
+ * @param {GraphQLEdgesInput} props - An object of GraphQL variables.
  * @returns {Promise<EdgesResponse<RawTopicPreview>>} The topics data.
  */
 export const getTopicsPreview = async (
-  props: EdgesVars
+  props: GraphQLEdgesInput
 ): Promise<EdgesResponse<RawTopicPreview>> => {
   const response = await fetchAPI<RawTopicPreview, typeof topicsListQuery>({
-    api: getAPIUrl(),
     query: topicsListQuery,
     variables: props,
   });
@@ -89,21 +92,8 @@ export const getTopicFromRawData = (data: RawTopic): Topic => {
     const uniqueThematics = thematics.filter(
       ({ id }, index) => !thematicsIds.includes(id, index + 1)
     );
-    const sortThematicByName = (a: PageLink, b: PageLink) => {
-      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
 
-      // names must be equal
-      return 0;
-    };
-
-    return uniqueThematics.sort(sortThematicByName);
+    return uniqueThematics.sort(sortPageLinksByName);
   };
 
   return {
@@ -139,7 +129,6 @@ export const getTopicFromRawData = (data: RawTopic): Topic => {
  */
 export const getTopicBySlug = async (slug: string): Promise<Topic> => {
   const response = await fetchAPI<RawTopic, typeof topicBySlugQuery>({
-    api: getAPIUrl(),
     query: topicBySlugQuery,
     variables: { slug },
   });
@@ -155,7 +144,6 @@ export const getTopicBySlug = async (slug: string): Promise<Topic> => {
 export const getAllTopicsSlugs = async (): Promise<string[]> => {
   const totalTopics = await getTotalTopics();
   const response = await fetchAPI<Slug, typeof topicsSlugQuery>({
-    api: getAPIUrl(),
     query: topicsSlugQuery,
     variables: { first: totalTopics },
   });

@@ -3,7 +3,6 @@ import PostsList from '@components/organisms/layout/posts-list';
 import LinksListWidget from '@components/organisms/widgets/links-list-widget';
 import { getLayout } from '@components/templates/layout/layout';
 import PageLayout from '@components/templates/page/page-layout';
-import { type EdgesResponse } from '@services/graphql/api';
 import { getArticles, getTotalArticles } from '@services/graphql/articles';
 import {
   getThematicsPreview,
@@ -11,6 +10,7 @@ import {
 } from '@services/graphql/thematics';
 import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
 import { type NextPageWithLayout } from '@ts/types/app';
+import { EdgesResponse } from '@ts/types/graphql/queries';
 import {
   type RawArticle,
   type RawThematicPreview,

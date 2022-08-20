@@ -1,9 +1,32 @@
 import { Comment } from '@ts/types/app';
+import { GraphQLEdgesInput } from '@ts/types/graphql/generics';
+import { SendCommentInput, SentComment } from '@ts/types/graphql/mutations';
+import { ContentId } from '@ts/types/graphql/queries';
 import { RawComment } from '@ts/types/raw-data';
 import { getAuthorFromRawData } from '@utils/helpers/author';
-import { fetchAPI, getAPIUrl, SendCommentVars } from './api';
+import { fetchAPI } from './api';
 import { sendCommentMutation } from './comments.mutation';
 import { commentsQuery } from './comments.query';
+
+type FetchCommentsInput = ContentId &
+  Pick<GraphQLEdgesInput, 'after' | 'first'>;
+
+/**
+ * Retrieve the comments list from GraphQL.
+ *
+ * @param {FetchCommentsInput} variables - An object of variables.
+ * @returns {Promise<RawComment[]>} The raw comments.
+ */
+export const fetchComments = async (
+  variables: FetchCommentsInput
+): Promise<RawComment[]> => {
+  const response = await fetchAPI<RawComment, typeof commentsQuery>({
+    query: commentsQuery,
+    variables,
+  });
+
+  return response.comments.nodes;
+};
 
 /**
  * Create a comments tree with replies.
@@ -62,25 +85,10 @@ export const getCommentFromRawData = (comment: RawComment): Comment => {
  * @returns {Promise<Comment[]>} The comments list.
  */
 export const getPostComments = async (id: number): Promise<Comment[]> => {
-  const response = await fetchAPI<RawComment, typeof commentsQuery>({
-    api: getAPIUrl(),
-    query: commentsQuery,
-    variables: { contentId: id },
-  });
-
-  const comments = response.comments.nodes.map((comment) =>
-    getCommentFromRawData(comment)
-  );
+  const rawComments = await fetchComments({ contentId: id });
+  const comments = rawComments.map((comment) => getCommentFromRawData(comment));
 
   return buildCommentsTree(comments);
-};
-
-export type SentComment = {
-  clientMutationId: string;
-  success: boolean;
-  comment: {
-    approved: boolean;
-  } | null;
 };
 
 /**
@@ -90,10 +98,9 @@ export type SentComment = {
  * @returns {Promise<SentEmail>} The mutation response.
  */
 export const sendComment = async (
-  data: SendCommentVars
+  data: SendCommentInput
 ): Promise<SentComment> => {
   const response = await fetchAPI<SentComment, typeof sendCommentMutation>({
-    api: getAPIUrl(),
     query: sendCommentMutation,
     variables: { ...data },
   });

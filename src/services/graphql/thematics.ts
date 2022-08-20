@@ -1,4 +1,6 @@
 import { PageLink, Slug, Thematic } from '@ts/types/app';
+import { GraphQLEdgesInput } from '@ts/types/graphql/generics';
+import { EdgesResponse } from '@ts/types/graphql/queries';
 import {
   RawArticle,
   RawThematic,
@@ -6,8 +8,11 @@ import {
   TotalItems,
 } from '@ts/types/raw-data';
 import { getImageFromRawData } from '@utils/helpers/images';
-import { getPageLinkFromRawData } from '@utils/helpers/pages';
-import { EdgesResponse, EdgesVars, fetchAPI, getAPIUrl } from './api';
+import {
+  getPageLinkFromRawData,
+  sortPageLinksByName,
+} from '@utils/helpers/pages';
+import { fetchAPI } from './api';
 import { getArticleFromRawData } from './articles';
 import {
   thematicBySlugQuery,
@@ -23,7 +28,6 @@ import {
  */
 export const getTotalThematics = async (): Promise<number> => {
   const response = await fetchAPI<TotalItems, typeof totalThematicsQuery>({
-    api: getAPIUrl(),
     query: totalThematicsQuery,
   });
 
@@ -33,16 +37,16 @@ export const getTotalThematics = async (): Promise<number> => {
 /**
  * Retrieve the given number of thematics from API.
  *
- * @param {EdgesVars} props - An object of GraphQL variables.
+ * @param {GraphQLEdgesInput} props - An object of GraphQL variables.
  * @returns {Promise<EdgesResponse<RawThematicPreview>>} The thematics data.
  */
 export const getThematicsPreview = async (
-  props: EdgesVars
+  props: GraphQLEdgesInput
 ): Promise<EdgesResponse<RawThematicPreview>> => {
   const response = await fetchAPI<
     RawThematicPreview,
     typeof thematicsListQuery
-  >({ api: getAPIUrl(), query: thematicsListQuery, variables: props });
+  >({ query: thematicsListQuery, variables: props });
 
   return response.thematics;
 };
@@ -88,21 +92,8 @@ export const getThematicFromRawData = (data: RawThematic): Thematic => {
     const uniqueTopics = topics.filter(
       ({ id }, index) => !topicsIds.includes(id, index + 1)
     );
-    const sortTopicByName = (a: PageLink, b: PageLink) => {
-      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
 
-      // names must be equal
-      return 0;
-    };
-
-    return uniqueTopics.sort(sortTopicByName);
+    return uniqueTopics.sort(sortPageLinksByName);
   };
 
   return {
@@ -137,7 +128,6 @@ export const getThematicFromRawData = (data: RawThematic): Thematic => {
  */
 export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
   const response = await fetchAPI<RawThematic, typeof thematicBySlugQuery>({
-    api: getAPIUrl(),
     query: thematicBySlugQuery,
     variables: { slug },
   });
@@ -153,7 +143,6 @@ export const getThematicBySlug = async (slug: string): Promise<Thematic> => {
 export const getAllThematicsSlugs = async (): Promise<string[]> => {
   const totalThematics = await getTotalThematics();
   const response = await fetchAPI<Slug, typeof thematicsSlugQuery>({
-    api: getAPIUrl(),
     query: thematicsSlugQuery,
     variables: { first: totalThematics },
   });

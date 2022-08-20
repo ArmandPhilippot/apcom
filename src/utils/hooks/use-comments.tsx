@@ -1,4 +1,4 @@
-import { fetchAPI, getAPIUrl } from '@services/graphql/api';
+import { fetchAPI } from '@services/graphql/api';
 import {
   buildCommentsTree,
   getCommentFromRawData,
@@ -24,9 +24,7 @@ const useComments = ({
   fallback,
 }: UseCommentsConfig): Comment[] | undefined => {
   const { data } = useSWR(
-    contentId
-      ? { api: getAPIUrl(), query: commentsQuery, variables: { contentId } }
-      : null,
+    contentId ? { query: commentsQuery, variables: { contentId } } : null,
     fetchAPI<RawComment, typeof commentsQuery>
   );
 

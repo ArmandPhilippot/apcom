@@ -2,8 +2,8 @@
  * Types for raw data coming from GraphQL API.
  */
 
-import { NodeResponse, PageInfo } from '@services/graphql/api';
 import { ContentKind } from './app';
+import { GraphQLNode, GraphQLPageInfo } from './graphql/generics';
 
 export type ACFPosts = {
   postsInThematic?: RawThematicPreview[];
@@ -37,7 +37,7 @@ export type RawAuthor<T extends ContentKind> = {
 
 export type RawComment = {
   approved: boolean;
-  author: NodeResponse<RawAuthor<'comment'>>;
+  author: GraphQLNode<RawAuthor<'comment'>>;
   content: string;
   databaseId: number;
   date: string;
@@ -65,11 +65,11 @@ export type RawArticlePreview = Pick<
 >;
 
 export type RawPage = {
-  author?: NodeResponse<RawAuthor<'page'>>;
+  author?: GraphQLNode<RawAuthor<'page'>>;
   contentParts: ContentParts;
   databaseId: number;
   date: string;
-  featuredImage: NodeResponse<RawCover> | null;
+  featuredImage: GraphQLNode<RawCover> | null;
   info: Info;
   modified: string;
   seo?: RawSEO;
@@ -101,5 +101,5 @@ export type RawTopicPreview = Pick<
 >;
 
 export type TotalItems = {
-  pageInfo: Pick<PageInfo, 'total'>;
+  pageInfo: Pick<GraphQLPageInfo, 'total'>;
 };

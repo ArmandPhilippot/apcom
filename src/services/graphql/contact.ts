@@ -1,4 +1,5 @@
-import { fetchAPI, getAPIUrl, SendMailVars } from './api';
+import { SendMailInput } from '@ts/types/graphql/mutations';
+import { fetchAPI } from './api';
 import { sendMailMutation } from './contact.mutation';
 
 export type SentEmail = {
@@ -12,12 +13,11 @@ export type SentEmail = {
 /**
  * Send an email using GraphQL API.
  *
- * @param {sendMailVars} data - The mail data.
+ * @param {SendMailInput} data - The mail data.
  * @returns {Promise<SentEmail>} The mutation response.
  */
-export const sendMail = async (data: SendMailVars): Promise<SentEmail> => {
+export const sendMail = async (data: SendMailInput): Promise<SentEmail> => {
   const response = await fetchAPI<SentEmail, typeof sendMailMutation>({
-    api: getAPIUrl(),
     query: sendMailMutation,
     variables: { ...data },
   });

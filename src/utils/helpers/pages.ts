@@ -1,8 +1,8 @@
 import { type Post } from '@components/organisms/layout/posts-list';
 import { type LinksListItems } from '@components/organisms/widgets/links-list-widget';
-import { type EdgesResponse } from '@services/graphql/api';
 import { getArticleFromRawData } from '@services/graphql/articles';
 import { type Article, type PageLink } from '@ts/types/app';
+import { EdgesResponse } from '@ts/types/graphql/queries';
 import {
   type RawArticle,
   type RawThematicPreview,
@@ -33,6 +33,22 @@ export const getPageLinkFromRawData = (
     name: title,
     url: `${baseUrl}${slug}`,
   };
+};
+
+/**
+ * Method to sort PageLink objects by name.
+ *
+ * @param {PageLink} a - A PageLink object.
+ * @param {PageLink} b - Another PageLink object.
+ * @returns {1 | -1 | 0}
+ */
+export const sortPageLinksByName = (a: PageLink, b: PageLink) => {
+  const nameA = a.name.toUpperCase();
+  const nameB = b.name.toUpperCase();
+
+  if (nameA < nameB) return -1;
+  if (nameA > nameB) return 1;
+  return 0;
 };
 
 /**

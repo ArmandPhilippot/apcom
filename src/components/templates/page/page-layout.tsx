@@ -18,8 +18,8 @@ import CommentsList, {
   type CommentsListProps,
 } from '@components/organisms/layout/comments-list';
 import TableOfContents from '@components/organisms/widgets/table-of-contents';
-import { type SendCommentVars } from '@services/graphql/api';
 import { sendComment } from '@services/graphql/comments';
+import { SendCommentInput } from '@ts/types/graphql/mutations';
 import useIsMounted from '@utils/hooks/use-is-mounted';
 import Script from 'next/script';
 import { FC, HTMLAttributes, ReactNode, useRef, useState } from 'react';
@@ -130,7 +130,7 @@ const PageLayout: FC<PageLayoutProps> = ({
     if (!id) throw new Error('Page id missing. Cannot save comment.');
 
     const { comment: commentBody, email, name, parentId, website } = data;
-    const commentData: SendCommentVars = {
+    const commentData: SendCommentInput = {
       author: name,
       authorEmail: email,
       authorUrl: website || '',
