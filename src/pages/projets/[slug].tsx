@@ -64,7 +64,6 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     Gallery: (props) => <Gallery {...props} />,
     Image: (props) => <ResponsiveImage withBorders={true} {...props} />,
     Link: (props) => <Link {...props} />,
-    pre: ({ children }) => <Code {...children.props} />,
   };
 
   const { website } = useSettings();
