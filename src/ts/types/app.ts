@@ -39,13 +39,13 @@ export type CommentMeta = {
   date: string;
 };
 
-export type Comment = {
+export type SingleComment = {
   approved: boolean;
   content: string;
   id: number;
   meta: CommentMeta;
   parentId?: number;
-  replies: Comment[];
+  replies: SingleComment[];
 };
 
 export type Dates = {

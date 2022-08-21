@@ -11,12 +11,12 @@ import {
   getAllArticlesSlugs,
   getArticleBySlug,
 } from '@services/graphql/articles';
-import { getPostComments } from '@services/graphql/comments';
+import { getAllComments } from '@services/graphql/comments';
 import styles from '@styles/pages/article.module.scss';
 import {
   type Article,
-  type Comment,
   type NextPageWithLayout,
+  type SingleComment,
 } from '@ts/types/app';
 import { loadTranslation, type Messages } from '@utils/helpers/i18n';
 import {
@@ -40,7 +40,7 @@ import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 
 type ArticlePageProps = {
-  comments: Comment[];
+  comments: SingleComment[];
   post: Article;
   slug: string;
   translation: Messages;
@@ -239,7 +239,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
   params,
 }) => {
   const post = await getArticleBySlug(params!.slug as PostParams['slug']);
-  const comments = await getPostComments(post.id as number);
+  const comments = await getAllComments({ contentId: post.id as number });
   const translation = await loadTranslation(locale);
 
   return {

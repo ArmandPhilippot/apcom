@@ -1,6 +1,6 @@
-import { Comment } from '@ts/types/app';
+import { SingleComment } from '@ts/types/app';
 
-export const comments: Comment[] = [
+export const comments: SingleComment[] = [
   {
     approved: true,
     content:

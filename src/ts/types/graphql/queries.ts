@@ -96,7 +96,7 @@ export type QueriesResponseMap<T> = {
   [articlesEndCursorQuery]: ArticlesResponse<EndCursorResponse>;
   [articlesQuery]: ArticlesResponse<EdgesResponse<T>>;
   [articlesSlugQuery]: ArticlesResponse<EdgesResponse<T>>;
-  [commentsQuery]: CommentsResponse<GraphQLNodes<T>>;
+  [commentsQuery]: CommentsResponse<EdgesResponse<T>>;
   [thematicBySlugQuery]: ThematicResponse<T>;
   [thematicsListQuery]: ThematicsResponse<EdgesResponse<T>>;
   [thematicsSlugQuery]: ThematicsResponse<EdgesResponse<T>>;
@@ -128,7 +128,7 @@ export type QueriesInputMap = {
   [articlesEndCursorQuery]: QueryEdges & Search;
   [articlesQuery]: QueryEdges & Search;
   [articlesSlugQuery]: QueryEdges & Search;
-  [commentsQuery]: ContentId;
+  [commentsQuery]: ContentId & QueryEdges;
   [thematicBySlugQuery]: Slug;
   [thematicsListQuery]: QueryEdges & Search;
   [thematicsSlugQuery]: QueryEdges & Search;

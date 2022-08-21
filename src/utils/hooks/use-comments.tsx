@@ -1,38 +1,25 @@
-import { fetchAPI } from '@services/graphql/api';
-import {
-  buildCommentsTree,
-  getCommentFromRawData,
-} from '@services/graphql/comments';
-import { commentsQuery } from '@services/graphql/comments.query';
-import { Comment } from '@ts/types/app';
-import { RawComment } from '@ts/types/raw-data';
+import { getAllComments } from '@services/graphql/comments';
+import { SingleComment } from '@ts/types/app';
 import useSWR from 'swr';
 
 export type UseCommentsConfig = {
   contentId?: string | number;
-  fallback?: Comment[];
+  fallback?: SingleComment[];
 };
 
 /**
  * Retrieve the comments of a page/article.
  *
  * @param {string | number} contentId - A page/article id.
- * @returns {Comment[]|undefined}
+ * @returns {SingleComment[]|undefined}
  */
 const useComments = ({
   contentId,
   fallback,
-}: UseCommentsConfig): Comment[] | undefined => {
-  const { data } = useSWR(
-    contentId ? { query: commentsQuery, variables: { contentId } } : null,
-    fetchAPI<RawComment, typeof commentsQuery>
-  );
+}: UseCommentsConfig): SingleComment[] | undefined => {
+  const { data } = useSWR(contentId ? { contentId } : null, getAllComments);
 
-  const comments = data?.comments.nodes.map((comment) =>
-    getCommentFromRawData(comment)
-  );
-
-  return comments ? buildCommentsTree(comments) : fallback;
+  return data || fallback;
 };
 
 export default useComments;

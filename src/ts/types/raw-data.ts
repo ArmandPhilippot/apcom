@@ -44,6 +44,12 @@ export type RawComment = {
   parentDatabaseId: number;
 };
 
+export type RawCommentsPage = {
+  comments: RawComment[];
+  hasNextPage: boolean;
+  endCursor: string;
+};
+
 export type RawCover = {
   altText: string;
   mediaDetails: {

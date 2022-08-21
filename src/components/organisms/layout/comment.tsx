@@ -1,7 +1,7 @@
 import Button from '@components/atoms/buttons/button';
 import Link from '@components/atoms/links/link';
 import Meta from '@components/molecules/layout/meta';
-import { type Comment as CommentType } from '@ts/types/app';
+import { type SingleComment } from '@ts/types/app';
 import useSettings from '@utils/hooks/use-settings';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -12,7 +12,7 @@ import CommentForm, { type CommentFormProps } from '../forms/comment-form';
 import styles from './comment.module.scss';
 
 export type CommentProps = Pick<
-  CommentType,
+  SingleComment,
   'approved' | 'content' | 'id' | 'meta' | 'parentId'
 > &
   Pick<CommentFormProps, 'Notice' | 'saveComment'> & {

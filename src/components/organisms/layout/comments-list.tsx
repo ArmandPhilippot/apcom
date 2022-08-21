@@ -1,7 +1,7 @@
-import SingleComment, {
+import Comment, {
   type CommentProps,
 } from '@components/organisms/layout/comment';
-import { Comment } from '@ts/types/app';
+import { SingleComment } from '@ts/types/app';
 import { FC } from 'react';
 import styles from './comments-list.module.scss';
 
@@ -9,7 +9,7 @@ export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
   /**
    * An array of comments.
    */
-  comments: Comment[];
+  comments: SingleComment[];
   /**
    * The maximum depth. Use `0` to not display nested comments.
    */
@@ -30,18 +30,18 @@ const CommentsList: FC<CommentsListProps> = ({
   /**
    * Get each comment wrapped in a list item.
    *
-   * @param {Comment[]} commentsList - An array of comments.
+   * @param {SingleComment[]} commentsList - An array of comments.
    * @returns {JSX.Element[]} The list items.
    */
   const getItems = (
-    commentsList: Comment[],
+    commentsList: SingleComment[],
     startLevel: number
   ): JSX.Element[] => {
     const isLastLevel = startLevel === depth;
 
     return commentsList.map(({ replies, ...comment }) => (
       <li key={comment.id} className={styles.item}>
-        <SingleComment
+        <Comment
           canReply={!isLastLevel}
           Notice={Notice}
           saveComment={saveComment}
