@@ -1,7 +1,7 @@
 {
   "name": "apcom",
   "description": "The frontend of ArmandPhilippot.com built with Next JS.",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "license": "MIT",
   "author": {
     "name": "Armand Philippot",
@@ -28,7 +28,7 @@
     "deploy": "sh ./bin/deploy.sh",
     "i18n:compile": "formatjs compile-folder src/i18n lang/",
     "i18n:extract": "formatjs extract 'src/**/*.ts*' --out-file src/i18n/en.json",
-    "release": "standard-version -s",
+    "release": "standard-version -a -s",
     "test": "yarn run test:unit && yarn run test:e2e",
     "test:e2e": "cypress run",
     "test:e2e:ui": "cypress open",

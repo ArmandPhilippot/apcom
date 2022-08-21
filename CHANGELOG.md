@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/ArmandPhilippot/apcom/compare/v1.1.0...v2.0.0) (2022-08-21)
+
+### ⚠ BREAKING CHANGES
+
+- rewrite most of the Typescript types, so the content format (the meta in particular) needs to be updated.
+
+### Bug Fixes
+
+- **article:** prevent TypeError on build ([baac7d6](https://github.com/ArmandPhilippot/apcom/commit/baac7d6eeaf522ff5faa28906cb1200e60a19c07))
+- close Ackee tooltip on button click ([ef24078](https://github.com/ArmandPhilippot/apcom/commit/ef2407832202e5451751e26459e6bdcdbd152122))
+- **comments:** allow a depth of 2 instead of 1 ([70bd37f](https://github.com/ArmandPhilippot/apcom/commit/70bd37fe14d4e0c1538291fa97b0522ab6d20941))
+- **comments:** load all comments on a post ([a3eb518](https://github.com/ArmandPhilippot/apcom/commit/a3eb518dcccaebd0f48c708c189ad2fcb07f0f73))
+- **comments:** refresh comments on changes or new comment ([fe3922d](https://github.com/ArmandPhilippot/apcom/commit/fe3922d039bdb5d4c063bc73543abc53a57d8464))
+- convert undefined into null inside GetStaticProps ([f347cc1](https://github.com/ArmandPhilippot/apcom/commit/f347cc1e4ae32289198d698f05f84119a708b599))
+- ensure all topics/thematics have the base url ([c51b5d9](https://github.com/ArmandPhilippot/apcom/commit/c51b5d9a5f217f8aa59c4bdcb04eb3c87f5129b3))
+- ensure radio buttons are accessible ([7a87565](https://github.com/ArmandPhilippot/apcom/commit/7a875655daf9dfa0b4803e287ae59b37ffe4f342))
+- improve help button accessibility with aria-pressed ([d7fa0a1](https://github.com/ArmandPhilippot/apcom/commit/d7fa0a16bebbb58e842f28396a0973f16a060996))
+- improve settings accessibility ([#18](https://github.com/ArmandPhilippot/apcom/issues/18)) ([a8af53c](https://github.com/ArmandPhilippot/apcom/commit/a8af53c118478e6ed68975c32cc1202b7c7b798e))
+- **media-queries:** use pixel based media queries ([b9f3024](https://github.com/ArmandPhilippot/apcom/commit/b9f3024987404e3617afcb0c0ff29e0944fa945b))
+- **projects:** do not transform pre to Code component ([d0f2898](https://github.com/ArmandPhilippot/apcom/commit/d0f2898b91fe8fb2f58d96da6b52cf618b8d4e3b))
+- render all images unoptimized in Storybook ([321dae4](https://github.com/ArmandPhilippot/apcom/commit/321dae4a47594af83269fa560b375965d7f35763))
+- reset focus to top of the page on route change ([4ac14de](https://github.com/ArmandPhilippot/apcom/commit/4ac14dec8288183d930684fa07463994f561eecc))
+- **settings:** avoid cropped tooltip on small devices ([cfdddac](https://github.com/ArmandPhilippot/apcom/commit/cfdddac43f10d06a8b0e9bcf69dc0ce77ce16649))
+- **settings:** close tooltip when modal is closing ([58cb40f](https://github.com/ArmandPhilippot/apcom/commit/58cb40f031f395ca9efccff674ba0f2dae723f50))
+- **settings:** reduce font-size on small devices ([36d1294](https://github.com/ArmandPhilippot/apcom/commit/36d129414b696bd2a633d379cac1dff867f64413))
+- **storybook:** create a fake wrapper for Table of Contents story ([abdcc01](https://github.com/ArmandPhilippot/apcom/commit/abdcc01386fff0c1caa5d290cffcb0c5be906900))
+- update CSP for media src ([e305cbb](https://github.com/ArmandPhilippot/apcom/commit/e305cbbdbc49af575e25957f6ab72ccf944339ec))
+
+- use storybook and atomic design ([#16](https://github.com/ArmandPhilippot/apcom/issues/16)) ([c85ab5a](https://github.com/ArmandPhilippot/apcom/commit/c85ab5ad43ccf52881ee224672c41ec30021cf48))
+
 ## [1.1.0](https://github.com/ArmandPhilippot/apcom/compare/v1.0.0...v1.1.0) (2022-03-11)
 
 ### Features
