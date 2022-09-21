@@ -1,5 +1,6 @@
 import { slugify } from '@utils/helpers/strings';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMutationObserver } from './use-mutation-observer';
 
 export type Heading = {
   /**
@@ -32,12 +33,22 @@ const useHeadingsTree = (wrapper: HTMLElement): Heading[] => {
     useState<NodeListOf<HTMLHeadingElement>>();
   const [headingsTree, setHeadingsTree] = useState<Heading[]>([]);
 
-  useEffect(() => {
+  const getHeadingsInWrapper = useCallback(() => {
     const query = depths.join(', ');
     const result: NodeListOf<HTMLHeadingElement> =
       wrapper.querySelectorAll(query);
     setAllHeadings(result);
   }, [depths, wrapper]);
+
+  useEffect(() => {
+    getHeadingsInWrapper();
+  }, [getHeadingsInWrapper]);
+
+  useMutationObserver({
+    callback: getHeadingsInWrapper,
+    options: { childList: true },
+    nodeOrSelector: wrapper,
+  });
 
   const getDepth = useCallback(
     /**

@@ -33,6 +33,7 @@ import useGithubApi, { type RepoData } from '@utils/hooks/use-github-api';
 import useSettings from '@utils/hooks/use-settings';
 import { MDXComponents, NestedMDXComponents } from 'mdx/types';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -56,8 +57,12 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     url: `/projets/${id}`,
   });
 
-  const ProjectContent: ComponentType<MDXComponents> =
-    require(`../../content/projects/${id}.mdx`).default;
+  const ProjectContent: ComponentType<MDXComponents> = dynamic(
+    () => import(`../../content/projects/${id}.mdx`),
+    {
+      loading: () => <Spinner />,
+    }
+  );
 
   const components: NestedMDXComponents = {
     Code: (props) => <Code {...props} />,
