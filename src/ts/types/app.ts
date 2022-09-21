@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
-import { AppProps } from 'next/app';
+import { AppProps as NextAppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
+import { MessageFormatElement } from 'react-intl';
 
 export type NextPageWithLayoutOptions = {
   withExtraPadding?: boolean;
@@ -15,7 +16,16 @@ export type NextPageWithLayout<T = {}> = NextPage<T> & {
   ) => ReactNode;
 };
 
-export type AppPropsWithLayout = AppProps & {
+// modified version - allows for custom pageProps type, falling back to 'any'
+type AppProps<P = any> = {
+  pageProps: P;
+} & Omit<NextAppProps<P>, 'pageProps'>;
+
+type CustomPageProps = {
+  translation: Record<string, string> | Record<string, MessageFormatElement[]>;
+};
+
+export type AppPropsWithLayout = AppProps<CustomPageProps> & {
   Component: NextPageWithLayout;
 };
 

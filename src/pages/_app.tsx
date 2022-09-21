@@ -11,13 +11,14 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const { locale, defaultLocale } = useRouter();
   const appLocale: string = locale || settings.locales.defaultLocale;
   const getLayout = Component.getLayout ?? ((page) => page);
+  const { translation, ...componentProps } = pageProps;
 
   return (
     <AckeeProvider domain={settings.ackee.url} siteId={settings.ackee.siteId}>
       <IntlProvider
         locale={appLocale}
         defaultLocale={defaultLocale}
-        messages={pageProps.translation}
+        messages={translation}
       >
         <ThemeProvider
           defaultTheme="system"
@@ -25,7 +26,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           enableSystem={true}
         >
           <PrismThemeProvider>
-            {getLayout(<Component {...pageProps} />, {})}
+            {getLayout(<Component {...componentProps} />, {})}
           </PrismThemeProvider>
         </ThemeProvider>
       </IntlProvider>
