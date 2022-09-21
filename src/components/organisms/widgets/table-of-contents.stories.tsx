@@ -26,7 +26,7 @@ const Template: ComponentStory<typeof ToCWidget> = (args) => (
   <ToCWidget {...args} />
 );
 
-export const GetWrapper = () => {
+const GetWrapper = () => {
   const wrapper = document.createElement('div');
   const firstTitle = document.createElement('h2');
   const firstParagraph = document.createElement('p');
