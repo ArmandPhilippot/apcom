@@ -5,6 +5,6 @@ describe('BackToTop', () => {
   it('renders a BackToTop link', () => {
     render(<BackToTop target="top" />);
     expect(screen.getByRole('link')).toHaveAccessibleName('Back to top');
-    expect(screen.getByRole('link')).toHaveAttribute('href', '/#top');
+    expect(screen.getByRole('link')).toHaveAttribute('href', '#top');
   });
 });

@@ -8,6 +8,7 @@ export default {
   title: 'Atoms/Buttons/ButtonLink',
   component: ButtonLink,
   args: {
+    external: false,
     shape: 'rectangle',
   },
   argTypes: {
@@ -79,7 +80,7 @@ export default {
         type: 'select',
       },
       description: 'The link kind.',
-      options: ['primary', 'secondary'],
+      options: ['primary', 'secondary', 'tertiary'],
       table: {
         category: 'Options',
         defaultValue: { summary: 'secondary' },

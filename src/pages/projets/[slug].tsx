@@ -3,7 +3,9 @@ import SocialLink, {
   type SocialWebsite,
 } from '@components/atoms/links/social-link';
 import Spinner from '@components/atoms/loaders/spinner';
-import ResponsiveImage from '@components/molecules/images/responsive-image';
+import ResponsiveImage, {
+  ResponsiveImageProps,
+} from '@components/molecules/images/responsive-image';
 import Code from '@components/molecules/layout/code';
 import Gallery from '@components/organisms/images/gallery';
 import Overview, {
@@ -40,6 +42,10 @@ import Script from 'next/script';
 import { ComponentType } from 'react';
 import { useIntl } from 'react-intl';
 
+const BorderedImage = (props: ResponsiveImageProps) => {
+  return <ResponsiveImage withBorders={true} {...props} />;
+};
+
 type ProjectPageProps = {
   project: ProjectPreview;
   translation: Messages;
@@ -65,10 +71,10 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   );
 
   const components: NestedMDXComponents = {
-    Code: (props) => <Code {...props} />,
-    Gallery: (props) => <Gallery {...props} />,
-    Image: (props) => <ResponsiveImage withBorders={true} {...props} />,
-    Link: (props) => <Link {...props} />,
+    Code: Code,
+    Gallery: Gallery,
+    Image: BorderedImage,
+    Link: Link,
   };
 
   const { website } = useSettings();

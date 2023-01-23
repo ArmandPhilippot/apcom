@@ -42,8 +42,8 @@ const LegalNoticePage: NextPageWithLayout = () => {
   };
 
   const components: NestedMDXComponents = {
-    Image: (props) => <ResponsiveImage {...props} />,
-    Link: (props) => <Link {...props} />,
+    Image: ResponsiveImage,
+    Link: Link,
   };
 
   const { website } = useSettings();

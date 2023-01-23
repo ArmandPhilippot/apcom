@@ -24,11 +24,9 @@ export type NavLinkProps = {
  */
 const NavLink: FC<NavLinkProps> = ({ href, label, logo }) => {
   return (
-    <Link href={href}>
-      <a className={styles.link}>
-        {logo}
-        {label}
-      </a>
+    <Link className={styles.link} href={href}>
+      {logo}
+      {label}
     </Link>
   );
 };

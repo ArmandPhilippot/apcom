@@ -53,13 +53,12 @@ const Link: FC<LinkProps> = ({
       {children}
     </a>
   ) : (
-    <NextLink href={href}>
-      <a
-        hrefLang={lang}
-        className={`${styles.link} ${downloadClass} ${className}`}
-      >
-        {children}
-      </a>
+    <NextLink
+      className={`${styles.link} ${downloadClass} ${className}`}
+      href={href}
+      hrefLang={lang}
+    >
+      {children}
     </NextLink>
   );
 };

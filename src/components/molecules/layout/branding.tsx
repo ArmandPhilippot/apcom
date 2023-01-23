@@ -94,8 +94,8 @@ const Branding: FC<BrandingProps> = ({
         ref={titleRef}
       >
         {withLink ? (
-          <Link href="/">
-            <a className={styles.link}>{title}</a>
+          <Link className={styles.link} href="/">
+            {title}
           </Link>
         ) : (
           title

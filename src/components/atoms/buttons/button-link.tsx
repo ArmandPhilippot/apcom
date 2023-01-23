@@ -63,13 +63,12 @@ const ButtonLink: FC<ButtonLinkProps> = ({
       {children}
     </a>
   ) : (
-    <Link href={target}>
-      <a
-        className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
-        {...props}
-      >
-        {children}
-      </a>
+    <Link
+      {...props}
+      className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
+      href={target}
+    >
+      {children}
     </Link>
   );
 };

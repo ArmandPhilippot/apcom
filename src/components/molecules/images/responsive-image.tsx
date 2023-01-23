@@ -22,7 +22,7 @@ export type ResponsiveImageProps = Omit<
   /**
    * The image height.
    */
-  height: number | string;
+  height: number | `${number}`;
   /**
    * A link target.
    */
@@ -30,7 +30,7 @@ export type ResponsiveImageProps = Omit<
   /**
    * The image width.
    */
-  width: number | string;
+  width: number | `${number}`;
   /**
    * Wrap the image with borders.
    */
@@ -46,30 +46,27 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
   alt,
   caption,
   className = '',
-  layout,
-  objectFit,
   target,
   title,
   withBorders,
   ...props
 }) => {
-  const bordersModifier = withBorders
-    ? 'wrapper--has-borders'
-    : 'wrapper--no-borders';
-  const linkModifier = target ? 'wrapper--has-link' : 'wrapper--no-link';
+  const bordersModifier = withBorders ? styles['wrapper--has-borders'] : '';
+  const linkModifier = target
+    ? styles['wrapper--has-link']
+    : styles['wrapper--no-link'];
 
   return (
     <figure
       aria-label={caption ? undefined : title}
-      className={`${styles.wrapper} ${styles[bordersModifier]} ${styles[linkModifier]} ${className}`}
+      className={`${styles.wrapper} ${bordersModifier} ${linkModifier} ${className}`}
     >
       {target ? (
         <Link href={target} className={styles.link}>
           <Image
             alt={alt}
             className={styles.img}
-            layout={layout || 'intrinsic'}
-            objectFit={objectFit || 'contain'}
+            sizes="100vw"
             title={title}
             {...props}
           />
@@ -82,8 +79,7 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
           <Image
             alt={alt}
             className={styles.img}
-            layout={layout || 'intrinsic'}
-            objectFit={objectFit || 'contain'}
+            sizes="100vw"
             title={title}
             {...props}
           />

@@ -1,5 +1,5 @@
-import Heading from '@components/atoms/headings/heading';
-import Link from '@components/atoms/links/link';
+import Heading, { HeadingProps } from '@components/atoms/headings/heading';
+import Link, { LinkProps } from '@components/atoms/links/link';
 import List from '@components/atoms/lists/list';
 import ImageWidget from '@components/organisms/widgets/image-widget';
 import SocialMedia from '@components/organisms/widgets/social-media';
@@ -25,6 +25,32 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import React, { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
+
+const ExternalLink = (props: LinkProps) => <Link external={true} {...props} />;
+
+const H1 = (props: Omit<HeadingProps, 'level'>) => {
+  return <Heading level={1} {...props} />;
+};
+
+const H2 = (props: Omit<HeadingProps, 'level'>) => {
+  return <Heading level={2} {...props} />;
+};
+
+const H3 = (props: Omit<HeadingProps, 'level'>) => {
+  return <Heading level={3} {...props} />;
+};
+
+const H4 = (props: Omit<HeadingProps, 'level'>) => {
+  return <Heading level={4} {...props} />;
+};
+
+const H5 = (props: Omit<HeadingProps, 'level'>) => {
+  return <Heading level={5} {...props} />;
+};
+
+const H6 = (props: Omit<HeadingProps, 'level'>) => {
+  return <Heading level={6} {...props} />;
+};
 
 /**
  * CV page.
@@ -122,15 +148,15 @@ const CVPage: NextPageWithLayout = () => {
   const schemaJsonLd = getSchemaJson([webpageSchema, cvSchema]);
 
   const components: NestedMDXComponents = {
-    a: (props) => <Link external={true} {...props} />,
-    h1: (props) => <Heading level={1} {...props} />,
-    h2: (props) => <Heading level={2} {...props} />,
-    h3: (props) => <Heading level={3} {...props} />,
-    h4: (props) => <Heading level={4} {...props} />,
-    h5: (props) => <Heading level={5} {...props} />,
-    h6: (props) => <Heading level={6} {...props} />,
-    Link: (props) => <Link {...props} />,
-    List: (props) => <List {...props} />,
+    a: ExternalLink,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    Link: Link,
+    List: List,
   };
 
   return (

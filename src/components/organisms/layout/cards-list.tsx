@@ -6,17 +6,14 @@ import Card, { type CardProps } from '@components/molecules/layout/card';
 import { FC } from 'react';
 import styles from './cards-list.module.scss';
 
-export type CardsListItem = Omit<
-  CardProps,
-  'className' | 'coverFit' | 'titleLevel'
-> & {
+export type CardsListItem = Omit<CardProps, 'className' | 'titleLevel'> & {
   /**
    * The card id.
    */
   id: string;
 };
 
-export type CardsListProps = Pick<CardProps, 'coverFit' | 'titleLevel'> &
+export type CardsListProps = Pick<CardProps, 'titleLevel'> &
   Pick<ListProps, 'kind'> & {
     /**
      * Set additional classnames to the list wrapper.
@@ -35,7 +32,6 @@ export type CardsListProps = Pick<CardProps, 'coverFit' | 'titleLevel'> &
  */
 const CardsList: FC<CardsListProps> = ({
   className = '',
-  coverFit,
   items,
   kind = 'unordered',
   titleLevel,
@@ -56,7 +52,6 @@ const CardsList: FC<CardsListProps> = ({
           <Card
             key={id}
             className={styles.card}
-            coverFit={coverFit}
             id={id}
             titleLevel={titleLevel}
             {...card}

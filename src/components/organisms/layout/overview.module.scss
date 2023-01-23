@@ -36,9 +36,13 @@
 
   .cover {
     width: fit-content;
-    max-height: fun.convert-px(175);
+    height: fun.convert-px(175);
     margin-bottom: var(--spacing-sm);
     padding: var(--spacing-2xs);
     border: fun.convert-px(1) solid var(--color-border);
+
+    img {
+      object-fit: contain;
+    }
   }
 }

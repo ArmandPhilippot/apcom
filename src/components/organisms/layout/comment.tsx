@@ -5,7 +5,7 @@ import { type SingleComment } from '@ts/types/app';
 import useSettings from '@utils/hooks/use-settings';
 import Image from 'next/image';
 import Script from 'next/script';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { type Comment as CommentSchema, type WithContext } from 'schema-dts';
 import CommentForm, { type CommentFormProps } from '../forms/comment-form';
@@ -41,6 +41,11 @@ const Comment: FC<CommentProps> = ({
   const intl = useIntl();
   const { website } = useSettings();
   const [isReplying, setIsReplying] = useState<boolean>(false);
+
+  const handleReply = useCallback(
+    () => setIsReplying((prevState) => !prevState),
+    []
+  );
 
   if (!approved) {
     return (
@@ -114,11 +119,11 @@ const Comment: FC<CommentProps> = ({
           {author.avatar && (
             <div className={styles.avatar}>
               <Image
-                src={author.avatar.src}
-                alt={author.avatar.alt}
-                layout="fill"
-                objectFit="cover"
                 {...props}
+                alt={author.avatar.alt}
+                fill
+                src={author.avatar.src}
+                style={{ objectFit: 'cover' }}
               />
             </div>
           )}
@@ -149,7 +154,7 @@ const Comment: FC<CommentProps> = ({
         />
         <footer className={styles.footer}>
           {canReply && (
-            <Button kind="tertiary" onClick={() => setIsReplying(!isReplying)}>
+            <Button kind="tertiary" onClick={handleReply}>
               {buttonLabel}
             </Button>
           )}

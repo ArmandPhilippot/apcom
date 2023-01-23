@@ -30,7 +30,7 @@ describe('Comment', () => {
       screen.getByRole('link', {
         name: `${formattedDate} at ${formattedTime}`,
       })
-    ).toHaveAttribute('href', `/#comment-${id}`);
+    ).toHaveAttribute('href', `#comment-${id}`);
   });
 
   it('renders a reply button', () => {

@@ -1,12 +1,10 @@
 import FeedIcon from '@assets/images/icon-feed.svg';
 import ButtonLink from '@components/atoms/buttons/button-link';
 import Envelop from '@components/atoms/icons/envelop';
-import Column, { type ColumnProps } from '@components/atoms/layout/column';
+import Column from '@components/atoms/layout/column';
 import Section, { type SectionProps } from '@components/atoms/layout/section';
 import List, { type ListItem } from '@components/atoms/lists/list';
-import ResponsiveImage, {
-  type ResponsiveImageProps,
-} from '@components/molecules/images/responsive-image';
+import ResponsiveImage from '@components/molecules/images/responsive-image';
 import Columns, {
   type ColumnsProps,
 } from '@components/molecules/layout/columns';
@@ -29,6 +27,194 @@ import Script from 'next/script';
 import { ReactElement } from 'react';
 import { useIntl } from 'react-intl';
 
+/**
+ * Retrieve a list of coding links.
+ *
+ * @returns {JSX.Element} - A list of links.
+ */
+const CodingLinks = (): JSX.Element => {
+  const intl = useIntl();
+  const links: ListItem[] = [
+    {
+      id: 'web-development',
+      value: (
+        <ButtonLink target="/thematique/developpement-web">
+          {intl.formatMessage({
+            defaultMessage: 'Web development',
+            description: 'HomePage: link to web development thematic',
+            id: 'vkF/RP',
+          })}
+        </ButtonLink>
+      ),
+    },
+    {
+      id: 'projects',
+      value: (
+        <ButtonLink target="/projets">
+          {intl.formatMessage({
+            defaultMessage: 'Projects',
+            description: 'HomePage: link to projects',
+            id: 'N44SOc',
+          })}
+        </ButtonLink>
+      ),
+    },
+  ];
+
+  return <List kind="flex" items={links} className={styles.list} />;
+};
+
+/**
+ * Retrieve a list of Coldark repositories.
+ *
+ * @returns {JSX.Element} - A list of links.
+ */
+const ColdarkRepos = (): JSX.Element => {
+  const intl = useIntl();
+  const links: ListItem[] = [
+    {
+      id: 'coldark-github',
+      value: (
+        <ButtonLink
+          target="https://github.com/ArmandPhilippot/coldark"
+          external={true}
+        >
+          {intl.formatMessage({
+            defaultMessage: 'Github',
+            description: 'HomePage: Github link',
+            id: '3f3PzH',
+          })}
+        </ButtonLink>
+      ),
+    },
+    {
+      id: 'coldark-gitlab',
+      value: (
+        <ButtonLink
+          target="https://gitlab.com/ArmandPhilippot/coldark"
+          external={true}
+        >
+          {intl.formatMessage({
+            defaultMessage: 'Gitlab',
+            description: 'HomePage: Gitlab link',
+            id: '7AnwZ7',
+          })}
+        </ButtonLink>
+      ),
+    },
+  ];
+
+  return <List kind="flex" items={links} className={styles.list} />;
+};
+
+/**
+ * Retrieve a list of links related to Free thematic.
+ *
+ * @returns {JSX.Element} - A list of links.
+ */
+const LibreLinks = (): JSX.Element => {
+  const intl = useIntl();
+  const links: ListItem[] = [
+    {
+      id: 'free',
+      value: (
+        <ButtonLink target="/thematique/libre">
+          {intl.formatMessage({
+            defaultMessage: 'Free',
+            description: 'HomePage: link to free thematic',
+            id: 'w8GrOf',
+          })}
+        </ButtonLink>
+      ),
+    },
+    {
+      id: 'linux',
+      value: (
+        <ButtonLink target="/thematique/linux">
+          {intl.formatMessage({
+            defaultMessage: 'Linux',
+            description: 'HomePage: link to Linux thematic',
+            id: 'jASD7k',
+          })}
+        </ButtonLink>
+      ),
+    },
+  ];
+
+  return <List kind="flex" items={links} className={styles.list} />;
+};
+
+/**
+ * Retrieve the Shaarli link.
+ *
+ * @returns {JSX.Element} - A list of links
+ */
+const ShaarliLink = (): JSX.Element => {
+  const intl = useIntl();
+  const links: ListItem[] = [
+    {
+      id: 'shaarli',
+      value: (
+        <ButtonLink target="https://shaarli.armandphilippot.com/">
+          {intl.formatMessage({
+            defaultMessage: 'Shaarli',
+            description: 'HomePage: link to Shaarli',
+            id: 'i5L19t',
+          })}
+        </ButtonLink>
+      ),
+    },
+  ];
+
+  return <List kind="flex" items={links} className={styles.list} />;
+};
+
+/**
+ * Retrieve the additional links.
+ *
+ * @returns {JSX.Element} - A list of links.
+ */
+const MoreLinks = (): JSX.Element => {
+  const intl = useIntl();
+  const links: ListItem[] = [
+    {
+      id: 'contact-me',
+      value: (
+        <ButtonLink target="/contact">
+          <Envelop aria-hidden={true} className={styles.icon} />
+          {intl.formatMessage({
+            defaultMessage: 'Contact me',
+            description: 'HomePage: contact button text',
+            id: 'sO/Iwj',
+          })}
+        </ButtonLink>
+      ),
+    },
+    {
+      id: 'rss-feed',
+      value: (
+        <ButtonLink target="/feed">
+          <FeedIcon
+            aria-hidden={true}
+            className={`${styles.icon} ${styles['icon--feed']}`}
+          />
+          {intl.formatMessage({
+            defaultMessage: 'Subscribe',
+            description: 'HomePage: RSS feed subscription text',
+            id: 'T4YA64',
+          })}
+        </ButtonLink>
+      ),
+    },
+  ];
+
+  return <List kind="flex" items={links} className={styles.list} />;
+};
+
+const StyledColumns = (props: ColumnsProps) => {
+  return <Columns className={styles.columns} {...props} />;
+};
+
 type HomeProps = {
   recentPosts: ArticleCard[];
   translation?: Messages;
@@ -43,185 +229,6 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     title: '',
     url: `/`,
   });
-
-  /**
-   * Retrieve a list of coding links.
-   *
-   * @returns {JSX.Element} - A list of links.
-   */
-  const CodingLinks = (): JSX.Element => {
-    const links: ListItem[] = [
-      {
-        id: 'web-development',
-        value: (
-          <ButtonLink target="/thematique/developpement-web">
-            {intl.formatMessage({
-              defaultMessage: 'Web development',
-              description: 'HomePage: link to web development thematic',
-              id: 'vkF/RP',
-            })}
-          </ButtonLink>
-        ),
-      },
-      {
-        id: 'projects',
-        value: (
-          <ButtonLink target="/projets">
-            {intl.formatMessage({
-              defaultMessage: 'Projects',
-              description: 'HomePage: link to projects',
-              id: 'N44SOc',
-            })}
-          </ButtonLink>
-        ),
-      },
-    ];
-
-    return <List kind="flex" items={links} className={styles.list} />;
-  };
-
-  /**
-   * Retrieve a list of Coldark repositories.
-   *
-   * @returns {JSX.Element} - A list of links.
-   */
-  const ColdarkRepos = (): JSX.Element => {
-    const links: ListItem[] = [
-      {
-        id: 'coldark-github',
-        value: (
-          <ButtonLink
-            target="https://github.com/ArmandPhilippot/coldark"
-            external={true}
-          >
-            {intl.formatMessage({
-              defaultMessage: 'Github',
-              description: 'HomePage: Github link',
-              id: '3f3PzH',
-            })}
-          </ButtonLink>
-        ),
-      },
-      {
-        id: 'coldark-gitlab',
-        value: (
-          <ButtonLink
-            target="https://gitlab.com/ArmandPhilippot/coldark"
-            external={true}
-          >
-            {intl.formatMessage({
-              defaultMessage: 'Gitlab',
-              description: 'HomePage: Gitlab link',
-              id: '7AnwZ7',
-            })}
-          </ButtonLink>
-        ),
-      },
-    ];
-
-    return <List kind="flex" items={links} className={styles.list} />;
-  };
-
-  /**
-   * Retrieve a list of links related to Free thematic.
-   *
-   * @returns {JSX.Element} - A list of links.
-   */
-  const LibreLinks = (): JSX.Element => {
-    const links: ListItem[] = [
-      {
-        id: 'free',
-        value: (
-          <ButtonLink target="/thematique/libre">
-            {intl.formatMessage({
-              defaultMessage: 'Free',
-              description: 'HomePage: link to free thematic',
-              id: 'w8GrOf',
-            })}
-          </ButtonLink>
-        ),
-      },
-      {
-        id: 'linux',
-        value: (
-          <ButtonLink target="/thematique/linux">
-            {intl.formatMessage({
-              defaultMessage: 'Linux',
-              description: 'HomePage: link to Linux thematic',
-              id: 'jASD7k',
-            })}
-          </ButtonLink>
-        ),
-      },
-    ];
-
-    return <List kind="flex" items={links} className={styles.list} />;
-  };
-
-  /**
-   * Retrieve the Shaarli link.
-   *
-   * @returns {JSX.Element} - A list of links
-   */
-  const ShaarliLink = (): JSX.Element => {
-    const links: ListItem[] = [
-      {
-        id: 'shaarli',
-        value: (
-          <ButtonLink target="https://shaarli.armandphilippot.com/">
-            {intl.formatMessage({
-              defaultMessage: 'Shaarli',
-              description: 'HomePage: link to Shaarli',
-              id: 'i5L19t',
-            })}
-          </ButtonLink>
-        ),
-      },
-    ];
-
-    return <List kind="flex" items={links} className={styles.list} />;
-  };
-
-  /**
-   * Retrieve the additional links.
-   *
-   * @returns {JSX.Element} - A list of links.
-   */
-  const MoreLinks = (): JSX.Element => {
-    const links: ListItem[] = [
-      {
-        id: 'contact-me',
-        value: (
-          <ButtonLink target="/contact">
-            <Envelop aria-hidden={true} className={styles.icon} />
-            {intl.formatMessage({
-              defaultMessage: 'Contact me',
-              description: 'HomePage: contact button text',
-              id: 'sO/Iwj',
-            })}
-          </ButtonLink>
-        ),
-      },
-      {
-        id: 'rss-feed',
-        value: (
-          <ButtonLink target="/feed">
-            <FeedIcon
-              aria-hidden={true}
-              className={`${styles.icon} ${styles['icon--feed']}`}
-            />
-            {intl.formatMessage({
-              defaultMessage: 'Subscribe',
-              description: 'HomePage: RSS feed subscription text',
-              id: 'T4YA64',
-            })}
-          </ButtonLink>
-        ),
-      },
-    ];
-
-    return <List kind="flex" items={links} className={styles.list} />;
-  };
 
   /**
    * Get a cards list of recent posts.
@@ -278,11 +285,9 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
   const components: NestedMDXComponents = {
     CodingLinks: CodingLinks,
     ColdarkRepos: ColdarkRepos,
-    Column: (props: ColumnProps) => <Column {...props} />,
-    Columns: (props: ColumnsProps) => (
-      <Columns className={styles.columns} {...props} />
-    ),
-    Image: (props: ResponsiveImageProps) => <ResponsiveImage {...props} />,
+    Column: Column,
+    Columns: StyledColumns,
+    Image: ResponsiveImage,
     LibreLinks: LibreLinks,
     MoreLinks: MoreLinks,
     RecentPosts: getRecentPosts,

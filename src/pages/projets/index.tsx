@@ -53,7 +53,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
   );
 
   const components: NestedMDXComponents = {
-    Links: (props) => <Link {...props} />,
+    Links: Link,
   };
 
   const { website } = useSettings();

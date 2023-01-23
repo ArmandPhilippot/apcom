@@ -40,8 +40,9 @@ const FlippingLogo: ForwardRefRenderFunction<
         <Image
           src={photo}
           alt={altText}
-          layout="fill"
-          objectFit="cover"
+          style={{ objectFit: 'cover' }}
+          height="100"
+          width="100"
           {...props}
         />
       </div>

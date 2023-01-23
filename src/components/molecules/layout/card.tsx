@@ -2,9 +2,7 @@ import ButtonLink from '@components/atoms/buttons/button-link';
 import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
 import { type Image } from '@ts/types/app';
 import { FC } from 'react';
-import ResponsiveImage, {
-  type ResponsiveImageProps,
-} from '../images/responsive-image';
+import ResponsiveImage from '../images/responsive-image';
 import styles from './card.module.scss';
 import Meta, { type MetaData } from './meta';
 
@@ -17,10 +15,6 @@ export type CardProps = {
    * The card cover.
    */
   cover?: Image;
-  /**
-   * The cover fit. Default: cover.
-   */
-  coverFit?: ResponsiveImageProps['objectFit'];
   /**
    * The card id.
    */
@@ -55,7 +49,6 @@ export type CardProps = {
 const Card: FC<CardProps> = ({
   className = '',
   cover,
-  coverFit = 'cover',
   id,
   meta,
   tagline,
@@ -71,13 +64,7 @@ const Card: FC<CardProps> = ({
     >
       <article className={styles.article}>
         <header className={styles.header}>
-          {cover && (
-            <ResponsiveImage
-              {...cover}
-              objectFit={coverFit}
-              className={styles.cover}
-            />
-          )}
+          {cover && <ResponsiveImage {...cover} className={styles.cover} />}
           <Heading
             alignment="center"
             className={styles.title}
@@ -87,7 +74,7 @@ const Card: FC<CardProps> = ({
             {title}
           </Heading>
         </header>
-        <div className={styles.tagline}>{tagline}</div>
+        {tagline && <div className={styles.tagline}>{tagline}</div>}
         {meta && (
           <footer className={styles.footer}>
             <Meta
