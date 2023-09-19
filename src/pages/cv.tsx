@@ -1,12 +1,12 @@
-import { NestedMDXComponents } from 'mdx/types';
+import { MDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, { ReactNode } from 'react';
+import React, { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import Heading, { HeadingProps } from '../components/atoms/headings/heading';
-import Link, { LinkProps } from '../components/atoms/links/link';
+import Heading from '../components/atoms/headings/heading';
+import Link from '../components/atoms/links/link';
 import List from '../components/atoms/lists/list';
 import ImageWidget from '../components/organisms/widgets/image-widget';
 import SocialMedia from '../components/organisms/widgets/social-media';
@@ -26,30 +26,80 @@ import {
 import useBreadcrumb from '../utils/hooks/use-breadcrumb';
 import useSettings from '../utils/hooks/use-settings';
 
-const ExternalLink = (props: LinkProps) => <Link external={true} {...props} />;
+const ExternalLink = ({
+  children = '',
+  href = '',
+  ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <Link {...props} external={true} href={href}>
+    {children}
+  </Link>
+);
 
-const H1 = (props: Omit<HeadingProps, 'level'>) => {
-  return <Heading level={1} {...props} />;
+const H1 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => {
+  return (
+    <Heading {...props} level={1}>
+      {children}
+    </Heading>
+  );
 };
 
-const H2 = (props: Omit<HeadingProps, 'level'>) => {
-  return <Heading level={2} {...props} />;
+const H2 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => {
+  return (
+    <Heading {...props} level={2}>
+      {children}
+    </Heading>
+  );
 };
 
-const H3 = (props: Omit<HeadingProps, 'level'>) => {
-  return <Heading level={3} {...props} />;
+const H3 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => {
+  return (
+    <Heading {...props} level={3}>
+      {children}
+    </Heading>
+  );
 };
 
-const H4 = (props: Omit<HeadingProps, 'level'>) => {
-  return <Heading level={4} {...props} />;
+const H4 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => {
+  return (
+    <Heading {...props} level={4}>
+      {children}
+    </Heading>
+  );
 };
 
-const H5 = (props: Omit<HeadingProps, 'level'>) => {
-  return <Heading level={5} {...props} />;
+const H5 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => {
+  return (
+    <Heading {...props} level={5}>
+      {children}
+    </Heading>
+  );
 };
 
-const H6 = (props: Omit<HeadingProps, 'level'>) => {
-  return <Heading level={6} {...props} />;
+const H6 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => {
+  return (
+    <Heading {...props} level={6}>
+      {children}
+    </Heading>
+  );
 };
 
 /**
@@ -147,7 +197,7 @@ const CVPage: NextPageWithLayout = () => {
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, cvSchema]);
 
-  const components: NestedMDXComponents = {
+  const components: MDXComponents = {
     a: ExternalLink,
     h1: H1,
     h2: H2,
@@ -155,8 +205,8 @@ const CVPage: NextPageWithLayout = () => {
     h4: H4,
     h5: H5,
     h6: H6,
-    Link: Link,
-    List: List,
+    Link,
+    List,
   };
 
   return (

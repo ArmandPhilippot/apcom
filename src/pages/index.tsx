@@ -1,4 +1,4 @@
-import { NestedMDXComponents } from 'mdx/types';
+import { MDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -282,17 +282,17 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     );
   };
 
-  const components: NestedMDXComponents = {
-    CodingLinks: CodingLinks,
-    ColdarkRepos: ColdarkRepos,
-    Column: Column,
+  const components: MDXComponents = {
+    CodingLinks,
+    ColdarkRepos,
+    Column,
     Columns: StyledColumns,
     Image: ResponsiveImage,
-    LibreLinks: LibreLinks,
-    MoreLinks: MoreLinks,
+    LibreLinks,
+    MoreLinks,
     RecentPosts: getRecentPosts,
     Section: getSection,
-    ShaarliLink: ShaarliLink,
+    ShaarliLink,
   };
 
   const { website } = useSettings();

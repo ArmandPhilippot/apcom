@@ -21,6 +21,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    ".storybook/preview.tsx",
     "src/utils/plugins/prism-color-scheme.js"
   ],
   "exclude": ["node_modules", "tests/cypress/", "cypress.config.js"]

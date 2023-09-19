@@ -62,7 +62,10 @@ TitleTag.displayName = 'TitleTag';
  *
  * Render an HTML heading element or a paragraph with heading styles.
  */
-const Heading: ForwardRefRenderFunction<HTMLDivElement, HeadingProps> = (
+const Heading: ForwardRefRenderFunction<
+  HTMLHeadingElement | HTMLParagraphElement,
+  HeadingProps
+> = (
   {
     alignment = 'left',
     children,

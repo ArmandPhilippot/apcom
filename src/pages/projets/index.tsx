@@ -1,4 +1,4 @@
-import { NestedMDXComponents } from 'mdx/types';
+import { MDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -52,7 +52,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     }
   );
 
-  const components: NestedMDXComponents = {
+  const components: MDXComponents = {
     Link,
   };
 

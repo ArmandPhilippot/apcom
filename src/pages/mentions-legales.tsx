@@ -1,4 +1,4 @@
-import { NestedMDXComponents } from 'mdx/types';
+import { MDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -41,7 +41,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
       : undefined,
   };
 
-  const components: NestedMDXComponents = {
+  const components: MDXComponents = {
     Image: ResponsiveImage,
     Link,
   };

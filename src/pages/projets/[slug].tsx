@@ -1,4 +1,4 @@
-import { MDXComponents, NestedMDXComponents } from 'mdx/types';
+import { MDXComponents } from 'mdx/types';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -73,11 +73,11 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     }
   );
 
-  const components: NestedMDXComponents = {
-    Code: Code,
-    Gallery: Gallery,
+  const components: MDXComponents = {
+    Code,
+    Gallery,
     Image: BorderedImage,
-    Link: Link,
+    Link,
   };
 
   const { website } = useSettings();
