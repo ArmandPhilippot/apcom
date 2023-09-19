@@ -1,4 +1,4 @@
-import { render } from '@tests/utils';
+import { render } from '../../../../tests/utils';
 import Envelop from './envelop';
 
 describe('Envelop', () => {

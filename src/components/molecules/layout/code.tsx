@@ -1,8 +1,8 @@
+import { FC, useRef } from 'react';
 import usePrism, {
   type OptionalPrismPlugin,
   type PrismLanguage,
-} from '@utils/hooks/use-prism';
-import { FC, useRef } from 'react';
+} from '../../../utils/hooks/use-prism';
 import styles from './code.module.scss';
 
 export type CodeProps = {

@@ -1,7 +1,7 @@
-import { BreadcrumbItem } from '@components/molecules/nav/breadcrumb';
-import { slugify } from '@utils/helpers/strings';
 import { useIntl } from 'react-intl';
 import { BreadcrumbList } from 'schema-dts';
+import { BreadcrumbItem } from '../../components/molecules/nav/breadcrumb';
+import { slugify } from '../helpers/strings';
 import useSettings from './use-settings';
 
 export type useBreadcrumbProps = {

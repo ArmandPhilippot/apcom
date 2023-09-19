@@ -1,6 +1,6 @@
-import Link from '@components/atoms/links/link';
-import NavLink from '@components/atoms/links/nav-link';
 import { FC, ReactNode } from 'react';
+import Link from '../../atoms/links/link';
+import NavLink from '../../atoms/links/nav-link';
 import styles from './nav.module.scss';
 
 export type NavItem = {

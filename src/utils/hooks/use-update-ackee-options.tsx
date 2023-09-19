@@ -1,5 +1,5 @@
-import { useAckeeTracker } from '@utils/providers/ackee';
 import { useEffect } from 'react';
+import { useAckeeTracker } from '../providers/ackee';
 
 export type AckeeOptions = 'full' | 'partial';
 

@@ -1,11 +1,11 @@
+import { Feed } from 'feed';
 import {
   getArticleFromRawData,
   getArticles,
   getTotalArticles,
-} from '@services/graphql/articles';
-import { Article } from '@ts/types/app';
-import { settings } from '@utils/config';
-import { Feed } from 'feed';
+} from '../../services/graphql/articles';
+import { Article } from '../../types/app';
+import { settings } from '../../utils/config';
 
 /**
  * Retrieve the data for all the articles.

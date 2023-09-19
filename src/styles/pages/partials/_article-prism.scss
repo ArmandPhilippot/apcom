@@ -1,5 +1,5 @@
-@use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
+@use "../../abstracts/functions" as fun;
+@use "../../abstracts/mixins" as mix;
 
 @mixin styles {
   .code-toolbar {

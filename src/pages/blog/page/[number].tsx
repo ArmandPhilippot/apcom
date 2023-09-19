@@ -1,45 +1,48 @@
-import PostsList from '@components/organisms/layout/posts-list';
-import LinksListWidget from '@components/organisms/widgets/links-list-widget';
-import { getLayout } from '@components/templates/layout/layout';
-import PageLayout from '@components/templates/page/page-layout';
-import {
-  getArticles,
-  getArticlesEndCursor,
-  getTotalArticles,
-} from '@services/graphql/articles';
-import {
-  getThematicsPreview,
-  getTotalThematics,
-} from '@services/graphql/thematics';
-import { getTopicsPreview, getTotalTopics } from '@services/graphql/topics';
-import { type NextPageWithLayout } from '@ts/types/app';
-import { EdgesResponse } from '@ts/types/graphql/queries';
-import {
-  type RawArticle,
-  type RawThematicPreview,
-  type RawTopicPreview,
-} from '@ts/types/raw-data';
-import { settings } from '@utils/config';
-import { loadTranslation, type Messages } from '@utils/helpers/i18n';
-import {
-  getLinksListItems,
-  getPageLinkFromRawData,
-  getPostsList,
-} from '@utils/helpers/pages';
-import {
-  getBlogSchema,
-  getSchemaJson,
-  getWebPageSchema,
-} from '@utils/helpers/schema-org';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import useRedirection from '@utils/hooks/use-redirection';
-import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { useIntl } from 'react-intl';
+import PostsList from '../../../components/organisms/layout/posts-list';
+import LinksListWidget from '../../../components/organisms/widgets/links-list-widget';
+import { getLayout } from '../../../components/templates/layout/layout';
+import PageLayout from '../../../components/templates/page/page-layout';
+import {
+  getArticles,
+  getArticlesEndCursor,
+  getTotalArticles,
+} from '../../../services/graphql/articles';
+import {
+  getThematicsPreview,
+  getTotalThematics,
+} from '../../../services/graphql/thematics';
+import {
+  getTopicsPreview,
+  getTotalTopics,
+} from '../../../services/graphql/topics';
+import { type NextPageWithLayout } from '../../../types/app';
+import { EdgesResponse } from '../../../types/graphql/queries';
+import {
+  type RawArticle,
+  type RawThematicPreview,
+  type RawTopicPreview,
+} from '../../../types/raw-data';
+import { settings } from '../../../utils/config';
+import { loadTranslation, type Messages } from '../../../utils/helpers/i18n';
+import {
+  getLinksListItems,
+  getPageLinkFromRawData,
+  getPostsList,
+} from '../../../utils/helpers/pages';
+import {
+  getBlogSchema,
+  getSchemaJson,
+  getWebPageSchema,
+} from '../../../utils/helpers/schema-org';
+import useBreadcrumb from '../../../utils/hooks/use-breadcrumb';
+import useRedirection from '../../../utils/hooks/use-redirection';
+import useSettings from '../../../utils/hooks/use-settings';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;

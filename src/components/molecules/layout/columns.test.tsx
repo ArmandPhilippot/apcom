@@ -1,5 +1,5 @@
-import Column from '@components/atoms/layout/column';
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
+import Column from '../../atoms/layout/column';
 import Columns from './columns';
 
 const column1 =

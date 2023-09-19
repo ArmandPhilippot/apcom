@@ -1,6 +1,3 @@
-import useAttributes from '@utils/hooks/use-attributes';
-import useLocalStorage from '@utils/hooks/use-local-storage';
-import useQuerySelectorAll from '@utils/hooks/use-query-selector-all';
 import {
   createContext,
   FC,
@@ -10,6 +7,9 @@ import {
   useEffect,
   useState,
 } from 'react';
+import useAttributes from '../hooks/use-attributes';
+import useLocalStorage from '../hooks/use-local-storage';
+import useQuerySelectorAll from '../hooks/use-query-selector-all';
 
 export type PrismTheme = 'dark' | 'light' | 'system';
 export type ResolvedPrismTheme = Exclude<PrismTheme, 'system'>;

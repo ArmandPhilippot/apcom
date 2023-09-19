@@ -1,13 +1,13 @@
-import { type Post } from '@components/organisms/layout/posts-list';
-import { type LinksListItems } from '@components/organisms/widgets/links-list-widget';
-import { getArticleFromRawData } from '@services/graphql/articles';
-import { type Article, type PageLink } from '@ts/types/app';
-import { EdgesResponse } from '@ts/types/graphql/queries';
+import { type Post } from '../../components/organisms/layout/posts-list';
+import { type LinksListItems } from '../../components/organisms/widgets/links-list-widget';
+import { getArticleFromRawData } from '../../services/graphql/articles';
+import { type Article, type PageLink } from '../../types/app';
+import { EdgesResponse } from '../../types/graphql/queries';
 import {
   type RawArticle,
   type RawThematicPreview,
   type RawTopicPreview,
-} from '@ts/types/raw-data';
+} from '../../types/raw-data';
 import { getImageFromRawData } from './images';
 
 /**

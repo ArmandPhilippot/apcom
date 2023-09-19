@@ -1,8 +1,11 @@
-import Moon from '@components/atoms/icons/moon';
-import Sun from '@components/atoms/icons/sun';
-import { type PrismTheme, usePrismTheme } from '@utils/providers/prism-theme';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import {
+  type PrismTheme,
+  usePrismTheme,
+} from '../../../utils/providers/prism-theme';
+import Moon from '../../atoms/icons/moon';
+import Sun from '../../atoms/icons/sun';
 import RadioGroup, {
   type RadioGroupCallback,
   type RadioGroupCallbackProps,

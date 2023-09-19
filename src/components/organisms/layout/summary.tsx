@@ -1,15 +1,15 @@
-import ButtonLink from '@components/atoms/buttons/button-link';
-import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
-import Arrow from '@components/atoms/icons/arrow';
-import Link from '@components/atoms/links/link';
-import ResponsiveImage, {
-  type ResponsiveImageProps,
-} from '@components/molecules/images/responsive-image';
-import Meta, { type MetaData } from '@components/molecules/layout/meta';
-import { type Article, type Meta as MetaType } from '@ts/types/app';
-import useReadingTime from '@utils/hooks/use-reading-time';
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
+import { type Article, type Meta as MetaType } from '../../../types/app';
+import useReadingTime from '../../../utils/hooks/use-reading-time';
+import ButtonLink from '../../atoms/buttons/button-link';
+import Heading, { type HeadingLevel } from '../../atoms/headings/heading';
+import Arrow from '../../atoms/icons/arrow';
+import Link from '../../atoms/links/link';
+import ResponsiveImage, {
+  type ResponsiveImageProps,
+} from '../../molecules/images/responsive-image';
+import Meta, { type MetaData } from '../../molecules/layout/meta';
 import styles from './summary.module.scss';
 
 export type Cover = Pick<

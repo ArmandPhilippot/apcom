@@ -1,12 +1,12 @@
-import ButtonLink from '@components/atoms/buttons/button-link';
-import Heading from '@components/atoms/headings/heading';
-import Link from '@components/atoms/links/link';
-import { comments } from '@components/organisms/layout/comments-list.fixture';
-import PostsList from '@components/organisms/layout/posts-list';
-import { posts } from '@components/organisms/layout/posts-list.fixture';
-import LinksListWidget from '@components/organisms/widgets/links-list-widget';
-import Sharing from '@components/organisms/widgets/sharing';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import ButtonLink from '../../atoms/buttons/button-link';
+import Heading from '../../atoms/headings/heading';
+import Link from '../../atoms/links/link';
+import { comments } from '../../organisms/layout/comments-list.fixture';
+import PostsList from '../../organisms/layout/posts-list';
+import { posts } from '../../organisms/layout/posts-list.fixture';
+import LinksListWidget from '../../organisms/widgets/links-list-widget';
+import Sharing from '../../organisms/widgets/sharing';
 import { LayoutBase } from '../layout/layout.stories';
 import PageLayoutComponent from './page-layout';
 

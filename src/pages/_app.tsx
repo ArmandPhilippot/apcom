@@ -1,11 +1,11 @@
-import { type AppPropsWithLayout } from '@ts/types/app';
-import { settings } from '@utils/config';
-import { AckeeProvider } from '@utils/providers/ackee';
-import { PrismThemeProvider } from '@utils/providers/prism-theme';
 import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
 import { IntlProvider } from 'react-intl';
 import '../styles/globals.scss';
+import { type AppPropsWithLayout } from '../types/app';
+import { settings } from '../utils/config';
+import { AckeeProvider } from '../utils/providers/ackee';
+import { PrismThemeProvider } from '../utils/providers/prism-theme';
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const { locale, defaultLocale } = useRouter();

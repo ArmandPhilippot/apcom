@@ -1,14 +1,14 @@
-import Button from '@components/atoms/buttons/button';
-import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
-import ProgressBar from '@components/atoms/loaders/progress-bar';
-import Spinner from '@components/atoms/loaders/spinner';
-import Pagination, {
-  type PaginationProps,
-} from '@components/molecules/nav/pagination';
-import useIsMounted from '@utils/hooks/use-is-mounted';
-import useSettings from '@utils/hooks/use-settings';
 import { FC, Fragment, useRef } from 'react';
 import { useIntl } from 'react-intl';
+import useIsMounted from '../../../utils/hooks/use-is-mounted';
+import useSettings from '../../../utils/hooks/use-settings';
+import Button from '../../atoms/buttons/button';
+import Heading, { type HeadingLevel } from '../../atoms/headings/heading';
+import ProgressBar from '../../atoms/loaders/progress-bar';
+import Spinner from '../../atoms/loaders/spinner';
+import Pagination, {
+  type PaginationProps,
+} from '../../molecules/nav/pagination';
 import NoResults, { NoResultsProps } from './no-results';
 import styles from './posts-list.module.scss';
 import Summary, { type SummaryProps } from './summary';

@@ -1,42 +1,42 @@
-import Heading from '@components/atoms/headings/heading';
-import ResponsiveImage from '@components/molecules/images/responsive-image';
-import PostsList from '@components/organisms/layout/posts-list';
-import LinksListWidget from '@components/organisms/widgets/links-list-widget';
-import { getLayout } from '@components/templates/layout/layout';
-import PageLayout, {
-  type PageLayoutProps,
-} from '@components/templates/page/page-layout';
-import {
-  getAllTopicsSlugs,
-  getTopicBySlug,
-  getTopicsPreview,
-  getTotalTopics,
-} from '@services/graphql/topics';
-import styles from '@styles/pages/topic.module.scss';
-import {
-  type NextPageWithLayout,
-  type PageLink,
-  type Topic,
-} from '@ts/types/app';
-import { loadTranslation, type Messages } from '@utils/helpers/i18n';
-import {
-  getLinksListItems,
-  getPageLinkFromRawData,
-  getPostsWithUrl,
-} from '@utils/helpers/pages';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '@utils/helpers/schema-org';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import useSettings from '@utils/hooks/use-settings';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { useIntl } from 'react-intl';
+import Heading from '../../components/atoms/headings/heading';
+import ResponsiveImage from '../../components/molecules/images/responsive-image';
+import PostsList from '../../components/organisms/layout/posts-list';
+import LinksListWidget from '../../components/organisms/widgets/links-list-widget';
+import { getLayout } from '../../components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '../../components/templates/page/page-layout';
+import {
+  getAllTopicsSlugs,
+  getTopicBySlug,
+  getTopicsPreview,
+  getTotalTopics,
+} from '../../services/graphql/topics';
+import styles from '../../styles/pages/topic.module.scss';
+import {
+  type NextPageWithLayout,
+  type PageLink,
+  type Topic,
+} from '../../types/app';
+import { loadTranslation, type Messages } from '../../utils/helpers/i18n';
+import {
+  getLinksListItems,
+  getPageLinkFromRawData,
+  getPostsWithUrl,
+} from '../../utils/helpers/pages';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '../../utils/helpers/schema-org';
+import useBreadcrumb from '../../utils/hooks/use-breadcrumb';
+import useSettings from '../../utils/hooks/use-settings';
 
 export type TopicPageProps = {
   currentTopic: Topic;

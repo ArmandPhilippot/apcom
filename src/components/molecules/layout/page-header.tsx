@@ -1,5 +1,5 @@
-import Heading from '@components/atoms/headings/heading';
 import { FC, ReactNode } from 'react';
+import Heading from '../../atoms/headings/heading';
 import Meta, { type MetaData } from './meta';
 import styles from './page-header.module.scss';
 

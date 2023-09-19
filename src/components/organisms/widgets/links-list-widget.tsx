@@ -1,11 +1,8 @@
-import Link from '@components/atoms/links/link';
-import List, {
-  type ListProps,
-  type ListItem,
-} from '@components/atoms/lists/list';
-import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
-import { slugify } from '@utils/helpers/strings';
 import { FC } from 'react';
+import { slugify } from '../../../utils/helpers/strings';
+import Link from '../../atoms/links/link';
+import List, { type ListProps, type ListItem } from '../../atoms/lists/list';
+import Widget, { type WidgetProps } from '../../molecules/layout/widget';
 import styles from './links-list-widget.module.scss';
 
 export type LinksListItems = {

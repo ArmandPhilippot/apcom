@@ -1,5 +1,5 @@
-import { Image } from '@ts/types/app';
-import { RawCover } from '@ts/types/raw-data';
+import { Image } from '../../types/app';
+import { RawCover } from '../../types/raw-data';
 
 /**
  * Retrieve an Image object from raw data.

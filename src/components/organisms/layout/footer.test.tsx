@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import Footer, { type FooterProps } from './footer';
 
 const copyright: FooterProps['copyright'] = {

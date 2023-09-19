@@ -1,4 +1,4 @@
-@use "@styles/abstracts/mixins" as mix;
+@use "../../../styles/abstracts/mixins" as mix;
 
 .hidden {
   @include mix.visually-hidden;

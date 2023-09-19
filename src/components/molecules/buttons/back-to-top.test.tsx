@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import BackToTop from './back-to-top';
 
 describe('BackToTop', () => {

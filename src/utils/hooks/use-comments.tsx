@@ -1,6 +1,6 @@
-import { getAllComments } from '@services/graphql/comments';
-import { SingleComment } from '@ts/types/app';
 import useSWR from 'swr';
+import { getAllComments } from '../../services/graphql/comments';
+import { SingleComment } from '../../types/app';
 
 export type UseCommentsConfig = {
   contentId?: string | number;

@@ -1,15 +1,15 @@
-import Form from '@components/atoms/forms/form';
-import AckeeToggle, {
-  AckeeToggleProps,
-} from '@components/molecules/forms/ackee-toggle';
-import MotionToggle, {
-  MotionToggleProps,
-} from '@components/molecules/forms/motion-toggle';
-import PrismThemeToggle from '@components/molecules/forms/prism-theme-toggle';
-import ThemeToggle from '@components/molecules/forms/theme-toggle';
-import Modal, { type ModalProps } from '@components/molecules/modals/modal';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import Form from '../../atoms/forms/form';
+import AckeeToggle, {
+  AckeeToggleProps,
+} from '../../molecules/forms/ackee-toggle';
+import MotionToggle, {
+  MotionToggleProps,
+} from '../../molecules/forms/motion-toggle';
+import PrismThemeToggle from '../../molecules/forms/prism-theme-toggle';
+import ThemeToggle from '../../molecules/forms/theme-toggle';
+import Modal, { type ModalProps } from '../../molecules/modals/modal';
 import styles from './settings-modal.module.scss';
 
 export type SettingsModalProps = Pick<ModalProps, 'className'> &

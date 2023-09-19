@@ -17,7 +17,7 @@ const PRISM_PLUGINS = [
   'toolbar',
 ] as const;
 
-export type PrismPlugin = typeof PRISM_PLUGINS[number];
+export type PrismPlugin = (typeof PRISM_PLUGINS)[number];
 
 export type DefaultPrismPlugin = Extract<
   PrismPlugin,
@@ -90,7 +90,7 @@ const loadPrismPlugins = async (plugins: PrismPlugin[]) => {
   for (const plugin of plugins) {
     try {
       if (plugin === 'color-scheme') {
-        await import(`@utils/plugins/prism-${plugin}`);
+        await import(`../plugins/prism-${plugin}`);
       } else {
         await import(`prismjs/plugins/${plugin}/prism-${plugin}.min.js`);
       }

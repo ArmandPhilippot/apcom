@@ -1,6 +1,3 @@
-@use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
-
 .item .tooltip {
   top: unset;
   bottom: calc(100% + var(--spacing-2xs));

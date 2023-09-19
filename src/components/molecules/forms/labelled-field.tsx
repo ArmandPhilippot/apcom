@@ -1,6 +1,6 @@
-import Field, { type FieldProps } from '@components/atoms/forms/field';
-import Label from '@components/atoms/forms/label';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
+import Field, { type FieldProps } from '../../atoms/forms/field';
+import Label from '../../atoms/forms/label';
 import styles from './labelled-field.module.scss';
 
 export type LabelledFieldProps = FieldProps & {

@@ -1,5 +1,5 @@
-import Column from '@components/atoms/layout/column';
 import { FC, ReactComponentElement } from 'react';
+import Column from '../../atoms/layout/column';
 import styles from './columns.module.scss';
 
 export type ColumnsProps = {

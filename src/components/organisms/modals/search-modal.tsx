@@ -1,6 +1,6 @@
-import Modal, { type ModalProps } from '@components/molecules/modals/modal';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
+import Modal, { type ModalProps } from '../../molecules/modals/modal';
 import SearchForm, { type SearchFormProps } from '../forms/search-form';
 import styles from './search-modal.module.scss';
 

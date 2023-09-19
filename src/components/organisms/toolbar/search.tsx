@@ -1,11 +1,11 @@
-import BooleanField, {
-  type BooleanFieldProps,
-} from '@components/atoms/forms/boolean-field';
-import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
-import FlippingLabel from '@components/molecules/forms/flipping-label';
-import useInputAutofocus from '@utils/hooks/use-input-autofocus';
 import { forwardRef, ForwardRefRenderFunction, useRef } from 'react';
 import { useIntl } from 'react-intl';
+import useInputAutofocus from '../../../utils/hooks/use-input-autofocus';
+import BooleanField, {
+  type BooleanFieldProps,
+} from '../../atoms/forms/boolean-field';
+import MagnifyingGlass from '../../atoms/icons/magnifying-glass';
+import FlippingLabel from '../../molecules/forms/flipping-label';
 import SearchModal, { type SearchModalProps } from '../modals/search-modal';
 import searchStyles from './search.module.scss';
 import sharedStyles from './toolbar-items.module.scss';

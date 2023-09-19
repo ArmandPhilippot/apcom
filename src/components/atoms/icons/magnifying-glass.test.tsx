@@ -1,4 +1,4 @@
-import { render } from '@tests/utils';
+import { render } from '../../../../tests/utils';
 import MagnifyingGlass from './magnifying-glass';
 
 describe('MagnifyingGlass', () => {

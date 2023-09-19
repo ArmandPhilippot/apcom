@@ -1,5 +1,3 @@
-import { Dates } from '@ts/types/app';
-import { settings } from '@utils/config';
 import {
   AboutPage,
   Article,
@@ -9,6 +7,8 @@ import {
   Graph,
   WebPage,
 } from 'schema-dts';
+import { Dates } from '../../types/app';
+import { settings } from '../../utils/config';
 
 export type GetBlogSchemaProps = {
   /**

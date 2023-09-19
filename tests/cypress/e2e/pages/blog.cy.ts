@@ -1,4 +1,4 @@
-import { settings } from '@utils/config';
+import { settings } from '../../../../src/utils/config';
 
 describe('Blog Page', () => {
   beforeEach(() => {

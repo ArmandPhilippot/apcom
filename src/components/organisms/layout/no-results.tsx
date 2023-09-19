@@ -1,8 +1,8 @@
-import SearchForm, {
-  type SearchFormProps,
-} from '@components/organisms/forms/search-form';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import SearchForm, {
+  type SearchFormProps,
+} from '../../organisms/forms/search-form';
 
 export type NoResultsProps = Pick<SearchFormProps, 'searchPage'>;
 

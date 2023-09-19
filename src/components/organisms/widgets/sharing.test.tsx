@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import Sharing, { type SharingData } from './sharing';
 
 const postData: SharingData = {

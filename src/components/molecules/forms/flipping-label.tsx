@@ -1,6 +1,6 @@
-import Label, { LabelProps } from '@components/atoms/forms/label';
-import Close from '@components/atoms/icons/close';
 import { FC } from 'react';
+import Label, { LabelProps } from '../../atoms/forms/label';
+import Close from '../../atoms/icons/close';
 import styles from './flipping-label.module.scss';
 
 export type FlippingLabelProps = Pick<

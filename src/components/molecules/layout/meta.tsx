@@ -1,11 +1,14 @@
-import Link from '@components/atoms/links/link';
+import { FC, ReactNode } from 'react';
+import { useIntl } from 'react-intl';
+import {
+  getFormattedDate,
+  getFormattedTime,
+} from '../../../utils/helpers/dates';
+import Link from '../../atoms/links/link';
 import DescriptionList, {
   type DescriptionListProps,
   type DescriptionListItem,
-} from '@components/atoms/lists/description-list';
-import { getFormattedDate, getFormattedTime } from '@utils/helpers/dates';
-import { FC, ReactNode } from 'react';
-import { useIntl } from 'react-intl';
+} from '../../atoms/lists/description-list';
 
 export type CustomMeta = {
   label: string;

@@ -1,4 +1,7 @@
-import { getFormattedDate, getFormattedTime } from '@utils/helpers/dates';
+import {
+  getFormattedDate,
+  getFormattedTime,
+} from '../../../utils/helpers/dates';
 import { CommentProps } from './comment';
 
 export const author = {

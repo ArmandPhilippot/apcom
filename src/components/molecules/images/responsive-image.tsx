@@ -1,6 +1,6 @@
-import Link, { type LinkProps } from '@components/atoms/links/link';
 import Image, { type ImageProps } from 'next/image';
 import { FC, ReactNode } from 'react';
+import Link, { type LinkProps } from '../../atoms/links/link';
 import styles from './responsive-image.module.scss';
 
 export type ResponsiveImageProps = Omit<

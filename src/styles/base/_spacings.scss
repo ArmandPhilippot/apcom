@@ -1,7 +1,7 @@
-@use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
-@use "@styles/abstracts/variables" as var;
 @use "sass:math";
+@use "../abstracts/functions" as fun;
+@use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as var;
 
 :root {
   --spacing-2xs: clamp(

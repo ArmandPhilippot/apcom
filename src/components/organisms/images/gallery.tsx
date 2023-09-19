@@ -1,5 +1,5 @@
-import { type ResponsiveImageProps } from '@components/molecules/images/responsive-image';
 import { Children, FC, ReactElement } from 'react';
+import { type ResponsiveImageProps } from '../../molecules/images/responsive-image';
 import styles from './gallery.module.scss';
 
 export type GalleryColumn = 2 | 3 | 4;

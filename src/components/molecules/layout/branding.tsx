@@ -1,8 +1,8 @@
-import Heading from '@components/atoms/headings/heading';
-import useStyles from '@utils/hooks/use-styles';
 import Link from 'next/link';
 import { FC, useRef } from 'react';
 import { useIntl } from 'react-intl';
+import useStyles from '../../../utils/hooks/use-styles';
+import Heading from '../../atoms/headings/heading';
 import FlippingLogo, { type FlippingLogoProps } from '../images/flipping-logo';
 import styles from './branding.module.scss';
 

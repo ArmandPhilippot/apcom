@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import SocialMedia, { Media } from './social-media';
 
 const media: Media[] = [

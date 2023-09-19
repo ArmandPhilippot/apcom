@@ -1,9 +1,9 @@
-import { fetchAPI } from '@services/graphql/api';
-import { getArticleFromRawData } from '@services/graphql/articles';
-import { articleBySlugQuery } from '@services/graphql/articles.query';
-import { Article } from '@ts/types/app';
-import { RawArticle } from '@ts/types/raw-data';
 import useSWR from 'swr';
+import { fetchAPI } from '../../services/graphql/api';
+import { getArticleFromRawData } from '../../services/graphql/articles';
+import { articleBySlugQuery } from '../../services/graphql/articles.query';
+import { Article } from '../../types/app';
+import { RawArticle } from '../../types/raw-data';
 
 export type UseArticleConfig = {
   fallback?: Article;

@@ -1,5 +1,5 @@
-import List, { type ListItem } from '@components/atoms/lists/list';
 import { forwardRef, ForwardRefRenderFunction, ReactNode } from 'react';
+import List, { type ListItem } from '../../atoms/lists/list';
 import styles from './tooltip.module.scss';
 
 export type TooltipProps = {

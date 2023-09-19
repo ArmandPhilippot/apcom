@@ -1,6 +1,6 @@
-@use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
-@use "@styles/abstracts/placeholders";
+@use "../../abstracts/functions" as fun;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/placeholders";
 
 @mixin styles {
   .wp-block-quote {

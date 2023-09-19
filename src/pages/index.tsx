@@ -1,31 +1,31 @@
-import FeedIcon from '@assets/images/icon-feed.svg';
-import ButtonLink from '@components/atoms/buttons/button-link';
-import Envelop from '@components/atoms/icons/envelop';
-import Column from '@components/atoms/layout/column';
-import Section, { type SectionProps } from '@components/atoms/layout/section';
-import List, { type ListItem } from '@components/atoms/lists/list';
-import ResponsiveImage from '@components/molecules/images/responsive-image';
-import Columns, {
-  type ColumnsProps,
-} from '@components/molecules/layout/columns';
-import CardsList, {
-  type CardsListItem,
-} from '@components/organisms/layout/cards-list';
-import { getLayout } from '@components/templates/layout/layout';
-import HomePageContent from '@content/pages/homepage.mdx';
-import { getArticlesCard } from '@services/graphql/articles';
-import styles from '@styles/pages/home.module.scss';
-import { type ArticleCard, type NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation, type Messages } from '@utils/helpers/i18n';
-import { getSchemaJson, getWebPageSchema } from '@utils/helpers/schema-org';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
 import { ReactElement } from 'react';
 import { useIntl } from 'react-intl';
+import FeedIcon from '../assets/images/icon-feed.svg';
+import ButtonLink from '../components/atoms/buttons/button-link';
+import Envelop from '../components/atoms/icons/envelop';
+import Column from '../components/atoms/layout/column';
+import Section, { type SectionProps } from '../components/atoms/layout/section';
+import List, { type ListItem } from '../components/atoms/lists/list';
+import ResponsiveImage from '../components/molecules/images/responsive-image';
+import Columns, {
+  type ColumnsProps,
+} from '../components/molecules/layout/columns';
+import CardsList, {
+  type CardsListItem,
+} from '../components/organisms/layout/cards-list';
+import { getLayout } from '../components/templates/layout/layout';
+import HomePageContent from '../content/pages/homepage.mdx';
+import { getArticlesCard } from '../services/graphql/articles';
+import styles from '../styles/pages/home.module.scss';
+import { type ArticleCard, type NextPageWithLayout } from '../types/app';
+import { loadTranslation, type Messages } from '../utils/helpers/i18n';
+import { getSchemaJson, getWebPageSchema } from '../utils/helpers/schema-org';
+import useBreadcrumb from '../utils/hooks/use-breadcrumb';
+import useSettings from '../utils/hooks/use-settings';
 
 /**
  * Retrieve a list of coding links.

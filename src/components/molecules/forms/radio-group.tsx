@@ -1,8 +1,6 @@
-import Fieldset, {
-  type FieldsetProps,
-} from '@components/molecules/forms/fieldset';
-import useStateChange from '@utils/hooks/use-state-change';
 import { ChangeEvent, FC, MouseEvent, SetStateAction } from 'react';
+import useStateChange from '../../../utils/hooks/use-state-change';
+import Fieldset, { type FieldsetProps } from '../forms/fieldset';
 import LabelledBooleanField, {
   type LabelledBooleanFieldProps,
 } from './labelled-boolean-field';

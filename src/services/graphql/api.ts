@@ -2,13 +2,13 @@ import {
   Mutations,
   MutationsInputMap,
   MutationsResponseMap,
-} from '@ts/types/graphql/mutations';
+} from '../../types/graphql/mutations';
 import {
   Queries,
   QueriesInputMap,
   QueriesResponseMap,
-} from '@ts/types/graphql/queries';
-import { settings } from '@utils/config';
+} from '../../types/graphql/queries';
+import { settings } from '../../utils/config';
 
 /**
  * Retrieve the API url from settings.

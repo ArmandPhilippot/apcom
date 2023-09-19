@@ -5,20 +5,20 @@ import {
   articlesQuery,
   articlesSlugQuery,
   totalArticlesQuery,
-} from '@services/graphql/articles.query';
-import { commentsQuery } from '@services/graphql/comments.query';
+} from '../../services/graphql/articles.query';
+import { commentsQuery } from '../../services/graphql/comments.query';
 import {
   thematicBySlugQuery,
   thematicsListQuery,
   thematicsSlugQuery,
   totalThematicsQuery,
-} from '@services/graphql/thematics.query';
+} from '../../services/graphql/thematics.query';
 import {
   topicBySlugQuery,
   topicsListQuery,
   topicsSlugQuery,
   totalTopicsQuery,
-} from '@services/graphql/topics.query';
+} from '../../services/graphql/topics.query';
 import { Slug } from '../app';
 import { RawComment } from '../raw-data';
 import {

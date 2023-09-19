@@ -1,8 +1,8 @@
+import { FC } from 'react';
 import ResponsiveImage, {
   type ResponsiveImageProps,
-} from '@components/molecules/images/responsive-image';
-import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
-import { FC } from 'react';
+} from '../../molecules/images/responsive-image';
+import Widget, { type WidgetProps } from '../../molecules/layout/widget';
 import styles from './image-widget.module.scss';
 
 export type Alignment = 'left' | 'center' | 'right';

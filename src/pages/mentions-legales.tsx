@@ -1,24 +1,24 @@
-import Link from '@components/atoms/links/link';
-import ResponsiveImage from '@components/molecules/images/responsive-image';
-import { getLayout } from '@components/templates/layout/layout';
-import PageLayout, {
-  type PageLayoutProps,
-} from '@components/templates/page/page-layout';
-import LegalNoticeContent, { meta } from '@content/pages/legal-notice.mdx';
-import { type NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '@utils/helpers/schema-org';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import Link from '../components/atoms/links/link';
+import ResponsiveImage from '../components/molecules/images/responsive-image';
+import { getLayout } from '../components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '../components/templates/page/page-layout';
+import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
+import { type NextPageWithLayout } from '../types/app';
+import { loadTranslation } from '../utils/helpers/i18n';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '../utils/helpers/schema-org';
+import useBreadcrumb from '../utils/hooks/use-breadcrumb';
+import useSettings from '../utils/hooks/use-settings';
 
 /**
  * Legal Notice page.
@@ -43,7 +43,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
 
   const components: NestedMDXComponents = {
     Image: ResponsiveImage,
-    Link: Link,
+    Link,
   };
 
   const { website } = useSettings();

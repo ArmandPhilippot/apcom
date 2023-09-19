@@ -1,5 +1,5 @@
-import CCBySA from '@components/atoms/icons/cc-by-sa';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import CCBySA from '../icons/cc-by-sa';
 import CopyrightComponent from './copyright';
 
 /**

@@ -1,8 +1,8 @@
-import Moon from '@components/atoms/icons/moon';
-import Sun from '@components/atoms/icons/sun';
 import { useTheme } from 'next-themes';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import Moon from '../../atoms/icons/moon';
+import Sun from '../../atoms/icons/sun';
 import RadioGroup, {
   type RadioGroupCallback,
   type RadioGroupCallbackProps,

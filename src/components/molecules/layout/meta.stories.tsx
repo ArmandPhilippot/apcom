@@ -1,6 +1,6 @@
-import descriptionListItemStories from '@components/atoms/lists/description-list-item.stories';
-import descriptionListStories from '@components/atoms/lists/description-list.stories';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import descriptionListItemStories from '../../atoms/lists/description-list-item.stories';
+import descriptionListStories from '../../atoms/lists/description-list.stories';
 import MetaComponent, { MetaData } from './meta';
 
 /**

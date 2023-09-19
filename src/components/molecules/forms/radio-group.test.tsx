@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import RadioGroup from './radio-group';
 import { getOptions, initialChoice, legend } from './radio-group.fixture';
 

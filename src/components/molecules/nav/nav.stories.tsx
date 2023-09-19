@@ -1,6 +1,6 @@
-import Envelop from '@components/atoms/icons/envelop';
-import Home from '@components/atoms/icons/home';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import Envelop from '../../atoms/icons/envelop';
+import Home from '../../atoms/icons/home';
 import NavComponent, { type NavItem } from './nav';
 
 /**

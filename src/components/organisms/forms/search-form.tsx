@@ -1,12 +1,12 @@
-import Button from '@components/atoms/buttons/button';
-import Form from '@components/atoms/forms/form';
-import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
-import LabelledField, {
-  type LabelledFieldProps,
-} from '@components/molecules/forms/labelled-field';
 import { useRouter } from 'next/router';
 import { forwardRef, ForwardRefRenderFunction, useId, useState } from 'react';
 import { useIntl } from 'react-intl';
+import Button from '../../atoms/buttons/button';
+import Form from '../../atoms/forms/form';
+import MagnifyingGlass from '../../atoms/icons/magnifying-glass';
+import LabelledField, {
+  type LabelledFieldProps,
+} from '../../molecules/forms/labelled-field';
 import styles from './search-form.module.scss';
 
 export type SearchFormProps = Pick<LabelledFieldProps, 'hideLabel'> & {

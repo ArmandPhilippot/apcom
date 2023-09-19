@@ -1,9 +1,9 @@
-import { SingleComment } from '@ts/types/app';
-import { GraphQLEdgesInput } from '@ts/types/graphql/generics';
-import { SendCommentInput, SentComment } from '@ts/types/graphql/mutations';
-import { ContentId } from '@ts/types/graphql/queries';
-import { RawComment, RawCommentsPage } from '@ts/types/raw-data';
-import { getAuthorFromRawData } from '@utils/helpers/author';
+import { SingleComment } from '../../types/app';
+import { GraphQLEdgesInput } from '../../types/graphql/generics';
+import { SendCommentInput, SentComment } from '../../types/graphql/mutations';
+import { ContentId } from '../../types/graphql/queries';
+import { RawComment, RawCommentsPage } from '../../types/raw-data';
+import { getAuthorFromRawData } from '../../utils/helpers/author';
 import { fetchAPI } from './api';
 import { sendCommentMutation } from './comments.mutation';
 import { commentsQuery } from './comments.query';

@@ -1,6 +1,6 @@
-@use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
-@use "@styles/abstracts/placeholders";
+@use "../../../styles/abstracts/functions" as fun;
+@use "../../../styles/abstracts/mixins" as mix;
+@use "../../../styles/abstracts/placeholders";
 
 .breadcrumb {
   @extend %grid;

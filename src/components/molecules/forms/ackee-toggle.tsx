@@ -1,9 +1,9 @@
-import useLocalStorage from '@utils/hooks/use-local-storage';
-import useUpdateAckeeOptions, {
-  type AckeeOptions,
-} from '@utils/hooks/use-update-ackee-options';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import useLocalStorage from '../../../utils/hooks/use-local-storage';
+import useUpdateAckeeOptions, {
+  type AckeeOptions,
+} from '../../../utils/hooks/use-update-ackee-options';
 import RadioGroup, {
   type RadioGroupCallback,
   type RadioGroupCallbackProps,

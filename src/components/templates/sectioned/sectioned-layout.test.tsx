@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import { BreadcrumbList } from 'schema-dts';
 import SectionedLayout from './sectioned-layout';
 

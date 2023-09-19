@@ -1,9 +1,9 @@
-import Link from '@components/atoms/links/link';
-import { settings } from '@utils/config';
 import Script from 'next/script';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
+import { settings } from '../../../utils/config';
+import Link from '../../atoms/links/link';
 import styles from './breadcrumb.module.scss';
 
 export type BreadcrumbItem = {

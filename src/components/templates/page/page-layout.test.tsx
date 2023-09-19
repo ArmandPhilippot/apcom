@@ -1,6 +1,6 @@
-import { comments } from '@components/organisms/layout/comments-list.fixture';
-import { render, screen } from '@tests/utils';
 import { BreadcrumbList } from 'schema-dts';
+import { render, screen } from '../../../../tests/utils';
+import { comments } from '../../organisms/layout/comments-list.fixture';
 import PageLayout from './page-layout';
 
 const title = 'Incidunt ad earum';

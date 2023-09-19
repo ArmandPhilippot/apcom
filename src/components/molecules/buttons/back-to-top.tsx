@@ -1,9 +1,9 @@
-import ButtonLink, {
-  type ButtonLinkProps,
-} from '@components/atoms/buttons/button-link';
-import Arrow from '@components/atoms/icons/arrow';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import ButtonLink, {
+  type ButtonLinkProps,
+} from '../../atoms/buttons/button-link';
+import Arrow from '../../atoms/icons/arrow';
 import styles from './back-to-top.module.scss';
 
 export type BackToTopProps = Pick<ButtonLinkProps, 'target'> & {

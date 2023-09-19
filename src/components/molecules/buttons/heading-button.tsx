@@ -1,7 +1,7 @@
-import Heading, { type HeadingProps } from '@components/atoms/headings/heading';
-import PlusMinus from '@components/atoms/icons/plus-minus';
 import { FC, SetStateAction } from 'react';
 import { useIntl } from 'react-intl';
+import Heading, { type HeadingProps } from '../../atoms/headings/heading';
+import PlusMinus from '../../atoms/icons/plus-minus';
 import styles from './heading-button.module.scss';
 
 export type HeadingButtonProps = Pick<HeadingProps, 'level'> & {

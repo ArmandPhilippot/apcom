@@ -1,4 +1,3 @@
-import headingStories from '@components/atoms/headings/heading.stories';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import HeadingButtonComponent from './heading-button';

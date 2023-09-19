@@ -5,7 +5,7 @@ import { useDarkMode } from 'storybook-dark-mode';
 import { DocsContainer } from './overrides/docs-container';
 import dark from './themes/dark';
 import light from './themes/light';
-import '@styles/globals.scss';
+import '../src/styles/globals.scss';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

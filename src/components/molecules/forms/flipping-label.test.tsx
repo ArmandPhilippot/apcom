@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import FlippingLabel from './flipping-label';
 
 describe('FlippingLabel', () => {

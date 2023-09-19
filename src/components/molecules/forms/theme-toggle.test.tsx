@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import ThemeToggle from './theme-toggle';
 
 describe('ThemeToggle', () => {

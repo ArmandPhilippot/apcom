@@ -1,14 +1,11 @@
-import BooleanField, {
-  type BooleanFieldProps,
-} from '@components/atoms/forms/boolean-field';
-import Label from '@components/atoms/forms/label';
-import Hamburger from '@components/atoms/icons/hamburger';
-import Nav, {
-  type NavProps,
-  type NavItem,
-} from '@components/molecules/nav/nav';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
+import BooleanField, {
+  type BooleanFieldProps,
+} from '../../atoms/forms/boolean-field';
+import Label from '../../atoms/forms/label';
+import Hamburger from '../../atoms/icons/hamburger';
+import Nav, { type NavProps, type NavItem } from '../../molecules/nav/nav';
 import mainNavStyles from './main-nav.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
 

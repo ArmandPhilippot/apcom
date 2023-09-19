@@ -1,5 +1,5 @@
-import { fromKebabCaseToCamelCase } from '@utils/helpers/strings';
 import { useCallback, useEffect } from 'react';
+import { fromKebabCaseToCamelCase } from '../helpers/strings';
 
 export type useAttributesProps = {
   /**

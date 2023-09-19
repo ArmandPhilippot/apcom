@@ -1,4 +1,4 @@
-@use "@styles/abstracts/mixins" as mix;
+@use "../abstracts/mixins" as mix;
 
 .widget {
   @include mix.media("screen") {

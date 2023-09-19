@@ -1,6 +1,6 @@
-import Logo, { type LogoProps } from '@components/atoms/images/logo';
 import Image, { type ImageProps } from 'next/image';
 import { ForwardedRef, forwardRef, ForwardRefRenderFunction } from 'react';
+import Logo, { type LogoProps } from '../../atoms/images/logo';
 import styles from './flipping-logo.module.scss';
 
 export type FlippingLogoProps = {

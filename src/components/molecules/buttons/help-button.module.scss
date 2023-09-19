@@ -1,5 +1,4 @@
-@use "@styles/abstracts/functions" as fun;
-@use "@styles/abstracts/mixins" as mix;
+@use "../../../styles/abstracts/mixins" as mix;
 
 .btn {
   padding: var(--spacing-xs);

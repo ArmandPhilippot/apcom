@@ -1,7 +1,5 @@
-import Branding, {
-  type BrandingProps,
-} from '@components/molecules/layout/branding';
 import { FC } from 'react';
+import Branding, { type BrandingProps } from '../../molecules/layout/branding';
 import Toolbar, { type ToolbarProps } from '../toolbar/toolbar';
 import styles from './header.module.scss';
 

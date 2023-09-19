@@ -1,8 +1,6 @@
-import Comment, {
-  type CommentProps,
-} from '@components/organisms/layout/comment';
-import { SingleComment } from '@ts/types/app';
 import { FC } from 'react';
+import { SingleComment } from '../../../types/app';
+import Comment, { type CommentProps } from '../../organisms/layout/comment';
 import styles from './comments-list.module.scss';
 
 export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {

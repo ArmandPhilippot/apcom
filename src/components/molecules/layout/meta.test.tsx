@@ -1,5 +1,5 @@
-import { render, screen } from '@tests/utils';
-import { getFormattedDate } from '@utils/helpers/dates';
+import { render, screen } from '../../../../tests/utils';
+import { getFormattedDate } from '../../../utils/helpers/dates';
 import Meta from './meta';
 
 const data = {

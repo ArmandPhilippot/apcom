@@ -1,8 +1,8 @@
+import { FC } from 'react';
 import SocialLink, {
   type SocialLinkProps,
-} from '@components/atoms/links/social-link';
-import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
-import { FC } from 'react';
+} from '../../atoms/links/social-link';
+import Widget, { type WidgetProps } from '../../molecules/layout/widget';
 import styles from './social-media.module.scss';
 
 export type Media = SocialLinkProps;

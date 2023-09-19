@@ -1,8 +1,8 @@
-import GithubIcon from '@assets/images/social-media/github.svg';
-import GitlabIcon from '@assets/images/social-media/gitlab.svg';
-import LinkedInIcon from '@assets/images/social-media/linkedin.svg';
-import TwitterIcon from '@assets/images/social-media/twitter.svg';
 import { FC } from 'react';
+import GithubIcon from '../../../assets/images/social-media/github.svg';
+import GitlabIcon from '../../../assets/images/social-media/gitlab.svg';
+import LinkedInIcon from '../../../assets/images/social-media/linkedin.svg';
+import TwitterIcon from '../../../assets/images/social-media/twitter.svg';
 import styles from './social-link.module.scss';
 
 export type SocialWebsite = 'Github' | 'Gitlab' | 'LinkedIn' | 'Twitter';

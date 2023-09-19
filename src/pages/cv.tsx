@@ -1,23 +1,3 @@
-import Heading, { HeadingProps } from '@components/atoms/headings/heading';
-import Link, { LinkProps } from '@components/atoms/links/link';
-import List from '@components/atoms/lists/list';
-import ImageWidget from '@components/organisms/widgets/image-widget';
-import SocialMedia from '@components/organisms/widgets/social-media';
-import { getLayout } from '@components/templates/layout/layout';
-import PageLayout, {
-  type PageLayoutProps,
-} from '@components/templates/page/page-layout';
-import CVContent, { data, meta } from '@content/pages/cv.mdx';
-import styles from '@styles/pages/cv.module.scss';
-import { type NextPageWithLayout } from '@ts/types/app';
-import { loadTranslation } from '@utils/helpers/i18n';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '@utils/helpers/schema-org';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -25,6 +5,26 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import React, { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
+import Heading, { HeadingProps } from '../components/atoms/headings/heading';
+import Link, { LinkProps } from '../components/atoms/links/link';
+import List from '../components/atoms/lists/list';
+import ImageWidget from '../components/organisms/widgets/image-widget';
+import SocialMedia from '../components/organisms/widgets/social-media';
+import { getLayout } from '../components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '../components/templates/page/page-layout';
+import CVContent, { data, meta } from '../content/pages/cv.mdx';
+import styles from '../styles/pages/cv.module.scss';
+import { type NextPageWithLayout } from '../types/app';
+import { loadTranslation } from '../utils/helpers/i18n';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '../utils/helpers/schema-org';
+import useBreadcrumb from '../utils/hooks/use-breadcrumb';
+import useSettings from '../utils/hooks/use-settings';
 
 const ExternalLink = (props: LinkProps) => <Link external={true} {...props} />;
 

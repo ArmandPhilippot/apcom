@@ -1,6 +1,8 @@
-import useHeadingsTree, { type Heading } from '@utils/hooks/use-headings-tree';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import useHeadingsTree, {
+  type Heading,
+} from '../../../utils/hooks/use-headings-tree';
 import LinksListWidget, { type LinksListItems } from './links-list-widget';
 import styles from './table-of-contents.module.scss';
 

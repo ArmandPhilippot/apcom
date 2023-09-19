@@ -1,5 +1,5 @@
-import { SWRResult } from '@ts/types/swr';
 import useSWR, { Fetcher } from 'swr';
+import { SWRResult } from '../../types/swr';
 
 export type RepoData = {
   created_at: string;

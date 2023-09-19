@@ -1,7 +1,7 @@
-import ButtonLink from '@components/atoms/buttons/button-link';
-import Heading, { type HeadingLevel } from '@components/atoms/headings/heading';
-import { type Image } from '@ts/types/app';
 import { FC } from 'react';
+import { type Image } from '../../../types/app';
+import ButtonLink from '../../atoms/buttons/button-link';
+import Heading, { type HeadingLevel } from '../../atoms/headings/heading';
 import ResponsiveImage from '../images/responsive-image';
 import styles from './card.module.scss';
 import Meta, { type MetaData } from './meta';

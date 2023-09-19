@@ -1,4 +1,4 @@
-import { settings } from '@utils/config';
+import { settings } from '../config';
 
 /**
  * Format a date based on a locale.

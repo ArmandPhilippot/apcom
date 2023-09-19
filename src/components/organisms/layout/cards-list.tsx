@@ -1,9 +1,6 @@
-import List, {
-  type ListItem,
-  type ListProps,
-} from '@components/atoms/lists/list';
-import Card, { type CardProps } from '@components/molecules/layout/card';
 import { FC } from 'react';
+import List, { type ListItem, type ListProps } from '../../atoms/lists/list';
+import Card, { type CardProps } from '../../molecules/layout/card';
 import styles from './cards-list.module.scss';
 
 export type CardsListItem = Omit<CardProps, 'className' | 'titleLevel'> & {

@@ -1,4 +1,4 @@
-import { SingleComment } from '@ts/types/app';
+import { SingleComment } from '../../../types/app';
 
 export const comments: SingleComment[] = [
   {

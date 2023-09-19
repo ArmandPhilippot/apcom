@@ -1,4 +1,3 @@
-import useOnClickOutside from '@utils/hooks/use-on-click-outside';
 import {
   cloneElement,
   FC,
@@ -7,6 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import useOnClickOutside from '../../../utils/hooks/use-on-click-outside';
 import HelpButton from '../buttons/help-button';
 import Tooltip from '../modals/tooltip';
 import styles from './fieldset.module.scss';

@@ -1,5 +1,5 @@
-import Column from '@components/atoms/layout/column';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import Column from '../../atoms/layout/column';
 import Columns from './columns';
 
 export default {

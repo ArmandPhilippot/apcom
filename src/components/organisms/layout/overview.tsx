@@ -1,8 +1,8 @@
+import { FC } from 'react';
 import ResponsiveImage, {
   type ResponsiveImageProps,
-} from '@components/molecules/images/responsive-image';
-import Meta, { type MetaData } from '@components/molecules/layout/meta';
-import { FC } from 'react';
+} from '../../molecules/images/responsive-image';
+import Meta, { type MetaData } from '../../molecules/layout/meta';
 import styles from './overview.module.scss';
 
 export type OverviewMeta = Pick<

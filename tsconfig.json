@@ -15,19 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "types": ["jest", "@testing-library/jest-dom"],
-    "baseUrl": ".",
-    "paths": {
-      "@i18n/*": ["src/i18n/*"],
-      "@assets/*": ["src/assets/*"],
-      "@content/*": ["src/content/*"],
-      "@components/*": ["src/components/*"],
-      "@pages/*": ["src/pages/*"],
-      "@services/*": ["src/services/*"],
-      "@styles/*": ["src/styles/*"],
-      "@tests/*": ["tests/*"],
-      "@ts/*": ["src/ts/*"],
-      "@utils/*": ["src/utils/*"]
-    }
+    "baseUrl": "."
   },
   "include": [
     "next-env.d.ts",

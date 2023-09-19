@@ -1,5 +1,5 @@
-import { settings } from '@utils/config';
 import { useRouter } from 'next/router';
+import { settings } from '../config';
 
 export type BlogSettings = {
   /**

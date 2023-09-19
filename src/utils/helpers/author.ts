@@ -1,5 +1,5 @@
-import { type Author, type ContentKind } from '@ts/types/app';
-import { type RawAuthor } from '@ts/types/raw-data';
+import { type Author, type ContentKind } from '../../types/app';
+import { type RawAuthor } from '../../types/raw-data';
 
 /**
  * Convert author raw data to regular data.

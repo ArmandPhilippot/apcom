@@ -1,4 +1,4 @@
-@use "@styles/abstracts/variables" as var;
+@use "../abstracts/variables" as var;
 
 :root {
   --color-bg: #{var.$light-theme_white};

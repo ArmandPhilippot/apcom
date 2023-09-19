@@ -1,5 +1,5 @@
-import ResponsiveImage from '@components/molecules/images/responsive-image';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import ResponsiveImage from '../../molecules/images/responsive-image';
 import Gallery from './gallery';
 
 /**

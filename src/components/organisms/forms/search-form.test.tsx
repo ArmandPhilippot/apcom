@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import SearchForm from './search-form';
 
 describe('SearchForm', () => {

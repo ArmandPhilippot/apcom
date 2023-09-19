@@ -1,5 +1,5 @@
-import { slugify } from '@utils/helpers/strings';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { slugify } from '../helpers/strings';
 import { useMutationObserver } from './use-mutation-observer';
 
 export type Heading = {

@@ -1,6 +1,6 @@
-import useOnClickOutside from '@utils/hooks/use-on-click-outside';
-import useRouteChange from '@utils/hooks/use-route-change';
 import { FC, useState } from 'react';
+import useOnClickOutside from '../../../utils/hooks/use-on-click-outside';
+import useRouteChange from '../../../utils/hooks/use-route-change';
 import MainNav, { type MainNavProps } from '../toolbar/main-nav';
 import Search, { type SearchProps } from '../toolbar/search';
 import Settings, { type SettingsProps } from '../toolbar/settings';

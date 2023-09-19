@@ -1,13 +1,13 @@
-import Button from '@components/atoms/buttons/button';
-import Form, { type FormProps } from '@components/atoms/forms/form';
+import { FC, ReactNode, useState } from 'react';
+import { useIntl } from 'react-intl';
+import Button from '../../atoms/buttons/button';
+import Form, { type FormProps } from '../../atoms/forms/form';
 import Heading, {
   type HeadingProps,
   type HeadingLevel,
-} from '@components/atoms/headings/heading';
-import Spinner from '@components/atoms/loaders/spinner';
-import LabelledField from '@components/molecules/forms/labelled-field';
-import { FC, ReactNode, useState } from 'react';
-import { useIntl } from 'react-intl';
+} from '../../atoms/headings/heading';
+import Spinner from '../../atoms/loaders/spinner';
+import LabelledField from '../../molecules/forms/labelled-field';
 import styles from './comment-form.module.scss';
 
 export type CommentFormData = {

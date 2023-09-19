@@ -1,6 +1,6 @@
-import Button, { type ButtonProps } from '@components/atoms/buttons/button';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
+import Button, { type ButtonProps } from '../../atoms/buttons/button';
 import styles from './help-button.module.scss';
 
 export type HelpButtonProps = Pick<

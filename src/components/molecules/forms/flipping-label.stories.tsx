@@ -1,6 +1,6 @@
-import MagnifyingGlass from '@components/atoms/icons/magnifying-glass';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
+import MagnifyingGlass from '../../atoms/icons/magnifying-glass';
 import FlippingLabel from './flipping-label';
 
 export default {

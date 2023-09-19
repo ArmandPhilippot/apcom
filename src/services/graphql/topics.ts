@@ -1,17 +1,17 @@
-import { PageLink, Slug, Topic } from '@ts/types/app';
-import { GraphQLEdgesInput } from '@ts/types/graphql/generics';
-import { EdgesResponse } from '@ts/types/graphql/queries';
+import { PageLink, Slug, Topic } from '../../types/app';
+import { GraphQLEdgesInput } from '../../types/graphql/generics';
+import { EdgesResponse } from '../../types/graphql/queries';
 import {
   RawArticle,
   RawTopic,
   RawTopicPreview,
   TotalItems,
-} from '@ts/types/raw-data';
-import { getImageFromRawData } from '@utils/helpers/images';
+} from '../../types/raw-data';
+import { getImageFromRawData } from '../../utils/helpers/images';
 import {
   getPageLinkFromRawData,
   sortPageLinksByName,
-} from '@utils/helpers/pages';
+} from '../../utils/helpers/pages';
 import { fetchAPI } from './api';
 import { getArticleFromRawData } from './articles';
 import {

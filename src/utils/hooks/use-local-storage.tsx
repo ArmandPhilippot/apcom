@@ -1,4 +1,4 @@
-import { LocalStorage } from '@services/local-storage';
+import { LocalStorage } from '../../services/local-storage';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export type UseLocalStorageReturn<T> = {

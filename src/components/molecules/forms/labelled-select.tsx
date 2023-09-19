@@ -1,6 +1,6 @@
-import Label, { type LabelProps } from '@components/atoms/forms/label';
-import Select, { type SelectProps } from '@components/atoms/forms/select';
 import { FC } from 'react';
+import Label, { type LabelProps } from '../../atoms/forms/label';
+import Select, { type SelectProps } from '../../atoms/forms/select';
 import styles from './labelled-select.module.scss';
 
 export type LabelledSelectProps = Omit<

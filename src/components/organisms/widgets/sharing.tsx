@@ -1,9 +1,9 @@
-import SharingLink, {
-  type SharingMedium,
-} from '@components/atoms/links/sharing-link';
-import Widget, { type WidgetProps } from '@components/molecules/layout/widget';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import SharingLink, {
+  type SharingMedium,
+} from '../../atoms/links/sharing-link';
+import Widget, { type WidgetProps } from '../../molecules/layout/widget';
 import styles from './sharing.module.scss';
 
 export type SharingData = {

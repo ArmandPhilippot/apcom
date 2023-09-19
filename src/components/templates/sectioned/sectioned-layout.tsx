@@ -1,10 +1,10 @@
-import Section, {
-  type SectionProps,
-  type SectionVariant,
-} from '@components/atoms/layout/section';
 import Script from 'next/script';
 import { FC } from 'react';
 import { BreadcrumbList } from 'schema-dts';
+import Section, {
+  type SectionProps,
+  type SectionVariant,
+} from '../../atoms/layout/section';
 
 export type Section = Pick<SectionProps, 'content' | 'title'>;
 

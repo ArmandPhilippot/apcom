@@ -1,7 +1,7 @@
 import { createIntl, createIntlCache, IntlShape } from '@formatjs/intl';
-import { settings } from '@utils/config';
 import { readFile } from 'fs/promises';
 import path from 'path';
+import { settings } from '../config';
 
 export type Messages = { [key: string]: string };
 

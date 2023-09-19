@@ -1,12 +1,10 @@
-import Copyright, {
-  type CopyrightProps,
-} from '@components/atoms/layout/copyright';
-import BackToTop, {
-  type BackToTopProps,
-} from '@components/molecules/buttons/back-to-top';
-import Nav, { type NavItem } from '@components/molecules/nav/nav';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import Copyright, { type CopyrightProps } from '../../atoms/layout/copyright';
+import BackToTop, {
+  type BackToTopProps,
+} from '../../molecules/buttons/back-to-top';
+import Nav, { type NavItem } from '../../molecules/nav/nav';
 import styles from './footer.module.scss';
 
 export type FooterProps = {

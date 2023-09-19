@@ -1,7 +1,7 @@
-import useAttributes from '@utils/hooks/use-attributes';
-import useLocalStorage from '@utils/hooks/use-local-storage';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
+import useAttributes from '../../../utils/hooks/use-attributes';
+import useLocalStorage from '../../../utils/hooks/use-local-storage';
 import RadioGroup, {
   type RadioGroupCallback,
   type RadioGroupCallbackProps,

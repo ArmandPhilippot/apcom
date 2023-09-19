@@ -1,10 +1,10 @@
-import BooleanField, {
-  type BooleanFieldProps,
-} from '@components/atoms/forms/boolean-field';
-import Cog from '@components/atoms/icons/cog';
-import FlippingLabel from '@components/molecules/forms/flipping-label';
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
+import BooleanField, {
+  type BooleanFieldProps,
+} from '../../atoms/forms/boolean-field';
+import Cog from '../../atoms/icons/cog';
+import FlippingLabel from '../../molecules/forms/flipping-label';
 import SettingsModal, {
   type SettingsModalProps,
 } from '../modals/settings-modal';

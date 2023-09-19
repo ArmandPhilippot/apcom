@@ -1,6 +1,6 @@
-import { GraphQLEdgesInput } from '@ts/types/graphql/generics';
-import { EdgesResponse, Search } from '@ts/types/graphql/queries';
 import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite';
+import { GraphQLEdgesInput } from '../../types/graphql/generics';
+import { EdgesResponse, Search } from '../../types/graphql/queries';
 
 export type UsePaginationProps<T> = {
   /**

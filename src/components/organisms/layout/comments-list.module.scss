@@ -1,4 +1,4 @@
-@use "@styles/abstracts/placeholders";
+@use "../../../styles/abstracts/placeholders";
 
 .list {
   @extend %reset-ordered-list;

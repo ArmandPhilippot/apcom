@@ -1,4 +1,4 @@
-import { render, screen } from '@tests/utils';
+import { render, screen } from '../../../../tests/utils';
 import PostsList from './posts-list';
 import { posts, searchPage } from './posts-list.fixture';
 

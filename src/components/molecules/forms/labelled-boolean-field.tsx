@@ -1,8 +1,8 @@
+import { FC } from 'react';
 import BooleanField, {
   type BooleanFieldProps,
-} from '@components/atoms/forms/boolean-field';
-import Label, { type LabelProps } from '@components/atoms/forms/label';
-import { FC } from 'react';
+} from '../../atoms/forms/boolean-field';
+import Label, { type LabelProps } from '../../atoms/forms/label';
 import styles from './labelled-boolean-field.module.scss';
 
 export type LabelledBooleanFieldProps = Omit<

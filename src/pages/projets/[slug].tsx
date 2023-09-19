@@ -1,38 +1,3 @@
-import Link from '@components/atoms/links/link';
-import SocialLink, {
-  type SocialWebsite,
-} from '@components/atoms/links/social-link';
-import Spinner from '@components/atoms/loaders/spinner';
-import ResponsiveImage, {
-  ResponsiveImageProps,
-} from '@components/molecules/images/responsive-image';
-import Code from '@components/molecules/layout/code';
-import Gallery from '@components/organisms/images/gallery';
-import Overview, {
-  type OverviewMeta,
-} from '@components/organisms/layout/overview';
-import Sharing from '@components/organisms/widgets/sharing';
-import { getLayout } from '@components/templates/layout/layout';
-import PageLayout, {
-  type PageLayoutProps,
-} from '@components/templates/page/page-layout';
-import styles from '@styles/pages/project.module.scss';
-import {
-  type NextPageWithLayout,
-  type ProjectPreview,
-  type Repos,
-} from '@ts/types/app';
-import { loadTranslation, type Messages } from '@utils/helpers/i18n';
-import { getProjectData, getProjectFilenames } from '@utils/helpers/projects';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '@utils/helpers/schema-org';
-import { capitalize } from '@utils/helpers/strings';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import useGithubApi, { type RepoData } from '@utils/hooks/use-github-api';
-import useSettings from '@utils/hooks/use-settings';
 import { MDXComponents, NestedMDXComponents } from 'mdx/types';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
@@ -41,6 +6,44 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ComponentType } from 'react';
 import { useIntl } from 'react-intl';
+import Link from '../../components/atoms/links/link';
+import SocialLink, {
+  type SocialWebsite,
+} from '../../components/atoms/links/social-link';
+import Spinner from '../../components/atoms/loaders/spinner';
+import ResponsiveImage, {
+  ResponsiveImageProps,
+} from '../../components/molecules/images/responsive-image';
+import Code from '../../components/molecules/layout/code';
+import Gallery from '../../components/organisms/images/gallery';
+import Overview, {
+  type OverviewMeta,
+} from '../../components/organisms/layout/overview';
+import Sharing from '../../components/organisms/widgets/sharing';
+import { getLayout } from '../../components/templates/layout/layout';
+import PageLayout, {
+  type PageLayoutProps,
+} from '../../components/templates/page/page-layout';
+import styles from '../../styles/pages/project.module.scss';
+import {
+  type NextPageWithLayout,
+  type ProjectPreview,
+  type Repos,
+} from '../../types/app';
+import { loadTranslation, type Messages } from '../../utils/helpers/i18n';
+import {
+  getProjectData,
+  getProjectFilenames,
+} from '../../utils/helpers/projects';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '../../utils/helpers/schema-org';
+import { capitalize } from '../../utils/helpers/strings';
+import useBreadcrumb from '../../utils/hooks/use-breadcrumb';
+import useGithubApi, { type RepoData } from '../../utils/hooks/use-github-api';
+import useSettings from '../../utils/hooks/use-settings';
 
 const BorderedImage = (props: ResponsiveImageProps) => {
   return <ResponsiveImage withBorders={true} {...props} />;

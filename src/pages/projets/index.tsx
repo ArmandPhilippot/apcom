@@ -1,26 +1,26 @@
-import Link from '@components/atoms/links/link';
-import CardsList, {
-  type CardsListItem,
-} from '@components/organisms/layout/cards-list';
-import { getLayout } from '@components/templates/layout/layout';
-import PageLayout from '@components/templates/page/page-layout';
-import PageContent, { meta } from '@content/pages/projects.mdx';
-import styles from '@styles/pages/projects.module.scss';
-import { type NextPageWithLayout, type ProjectCard } from '@ts/types/app';
-import { loadTranslation, type Messages } from '@utils/helpers/i18n';
-import { getProjectsCard } from '@utils/helpers/projects';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '@utils/helpers/schema-org';
-import useBreadcrumb from '@utils/hooks/use-breadcrumb';
-import useSettings from '@utils/hooks/use-settings';
 import { NestedMDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import Link from '../../components/atoms/links/link';
+import CardsList, {
+  type CardsListItem,
+} from '../../components/organisms/layout/cards-list';
+import { getLayout } from '../../components/templates/layout/layout';
+import PageLayout from '../../components/templates/page/page-layout';
+import PageContent, { meta } from '../../content/pages/projects.mdx';
+import styles from '../../styles/pages/projects.module.scss';
+import { type NextPageWithLayout, type ProjectCard } from '../../types/app';
+import { loadTranslation, type Messages } from '../../utils/helpers/i18n';
+import { getProjectsCard } from '../../utils/helpers/projects';
+import {
+  getSchemaJson,
+  getSinglePageSchema,
+  getWebPageSchema,
+} from '../../utils/helpers/schema-org';
+import useBreadcrumb from '../../utils/hooks/use-breadcrumb';
+import useSettings from '../../utils/hooks/use-settings';
 
 type ProjectsPageProps = {
   projects: ProjectCard[];
@@ -53,7 +53,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
   );
 
   const components: NestedMDXComponents = {
-    Links: Link,
+    Link,
   };
 
   const { website } = useSettings();

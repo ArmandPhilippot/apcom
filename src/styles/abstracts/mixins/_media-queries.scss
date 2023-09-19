@@ -1,5 +1,5 @@
-@use "../variables" as var;
 @use "sass:map";
+@use "../variables" as var;
 
 /// Media query: media type
 /// @param {String} $type - Media type: all, screen, print, retina.

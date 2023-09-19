@@ -1,13 +1,13 @@
-import Button from '@components/atoms/buttons/button';
-import Link from '@components/atoms/links/link';
-import Meta from '@components/molecules/layout/meta';
-import { type SingleComment } from '@ts/types/app';
-import useSettings from '@utils/hooks/use-settings';
 import Image from 'next/image';
 import Script from 'next/script';
 import { FC, useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { type Comment as CommentSchema, type WithContext } from 'schema-dts';
+import { type SingleComment } from '../../../types/app';
+import useSettings from '../../../utils/hooks/use-settings';
+import Button from '../../atoms/buttons/button';
+import Link from '../../atoms/links/link';
+import Meta from '../../molecules/layout/meta';
 import CommentForm, { type CommentFormProps } from '../forms/comment-form';
 import styles from './comment.module.scss';
 

@@ -1,6 +1,6 @@
-import ButtonLink from '@components/atoms/buttons/button-link';
 import { FC, Fragment, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
+import ButtonLink from '../../atoms/buttons/button-link';
 import styles from './pagination.module.scss';
 
 export type PaginationProps = {

@@ -1,4 +1,4 @@
-import { SendMailInput } from '@ts/types/graphql/mutations';
+import { SendMailInput } from '../../types/graphql/mutations';
 import { fetchAPI } from './api';
 import { sendMailMutation } from './contact.mutation';
 

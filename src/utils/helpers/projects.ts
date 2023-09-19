@@ -1,7 +1,7 @@
-import { ProjectCard, ProjectPreview } from '@ts/types/app';
-import { MDXProjectMeta } from '@ts/types/mdx';
-import { readdirSync } from 'fs';
-import path from 'path';
+import { readdirSync } from 'node:fs';
+import path from 'node:path';
+import { ProjectCard, ProjectPreview } from '../../types/app';
+import { MDXProjectMeta } from '../../types/mdx';
 
 /**
  * Retrieve all the projects filename.

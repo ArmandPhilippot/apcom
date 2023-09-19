@@ -1,30 +1,30 @@
-import Heading from '@components/atoms/headings/heading';
-import Notice, { type NoticeKind } from '@components/atoms/layout/notice';
-import Sidebar from '@components/atoms/layout/sidebar';
-import { MetaData } from '@components/molecules/layout/meta';
-import PageFooter, {
-  type PageFooterProps,
-} from '@components/molecules/layout/page-footer';
-import PageHeader, {
-  type PageHeaderProps,
-} from '@components/molecules/layout/page-header';
-import Breadcrumb, {
-  type BreadcrumbItem,
-} from '@components/molecules/nav/breadcrumb';
-import CommentForm, {
-  type CommentFormProps,
-} from '@components/organisms/forms/comment-form';
-import CommentsList, {
-  type CommentsListProps,
-} from '@components/organisms/layout/comments-list';
-import TableOfContents from '@components/organisms/widgets/table-of-contents';
-import { sendComment } from '@services/graphql/comments';
-import { SendCommentInput } from '@ts/types/graphql/mutations';
-import useIsMounted from '@utils/hooks/use-is-mounted';
 import Script from 'next/script';
 import { FC, HTMLAttributes, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { BreadcrumbList } from 'schema-dts';
+import { sendComment } from '../../../services/graphql/comments';
+import { SendCommentInput } from '../../../types/graphql/mutations';
+import useIsMounted from '../../../utils/hooks/use-is-mounted';
+import Heading from '../../atoms/headings/heading';
+import Notice, { type NoticeKind } from '../../atoms/layout/notice';
+import Sidebar from '../../atoms/layout/sidebar';
+import { MetaData } from '../../molecules/layout/meta';
+import PageFooter, {
+  type PageFooterProps,
+} from '../../molecules/layout/page-footer';
+import PageHeader, {
+  type PageHeaderProps,
+} from '../../molecules/layout/page-header';
+import Breadcrumb, {
+  type BreadcrumbItem,
+} from '../../molecules/nav/breadcrumb';
+import CommentForm, {
+  type CommentFormProps,
+} from '../../organisms/forms/comment-form';
+import CommentsList, {
+  type CommentsListProps,
+} from '../../organisms/layout/comments-list';
+import TableOfContents from '../../organisms/widgets/table-of-contents';
 import styles from './page-layout.module.scss';
 
 export type PageLayoutProps = {
