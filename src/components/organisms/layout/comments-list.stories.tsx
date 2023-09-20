@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CommentsListComponent from './comments-list';
+import { CommentsList } from './comments-list';
 import { comments } from './comments-list.fixture';
 
 const saveComment = async () => {
@@ -11,7 +11,7 @@ const saveComment = async () => {
  */
 export default {
   title: 'Organisms/Layout/CommentsList',
-  component: CommentsListComponent,
+  component: CommentsList,
   args: {
     saveComment,
   },
@@ -66,10 +66,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof CommentsListComponent>;
+} as ComponentMeta<typeof CommentsList>;
 
-const Template: ComponentStory<typeof CommentsListComponent> = (args) => (
-  <CommentsListComponent {...args} />
+const Template: ComponentStory<typeof CommentsList> = (args) => (
+  <CommentsList {...args} />
 );
 
 /**

@@ -13,14 +13,14 @@ export type UseLocalStorageReturn<T> = {
  * @param {T} [fallbackValue] - A fallback value if local storage is empty.
  * @returns {UseLocalStorageReturn<T>} An object with value and setValue.
  */
-const useLocalStorage = <T extends unknown>(
+export const useLocalStorage = <T,>(
   key: string,
   fallbackValue: T
 ): UseLocalStorageReturn<T> => {
   const getInitialValue = () => {
     if (typeof window === 'undefined') return fallbackValue;
     const storedValue = LocalStorage.get<T>(key);
-    return storedValue || fallbackValue;
+    return storedValue ?? fallbackValue;
   };
 
   const [value, setValue] = useState<T>(getInitialValue);
@@ -31,5 +31,3 @@ const useLocalStorage = <T extends unknown>(
 
   return { value, setValue };
 };
-
-export default useLocalStorage;

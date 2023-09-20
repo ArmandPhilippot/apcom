@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
  * @param fetcher - A function to fetch data from API.
  * @returns {T | undefined} The requested data.
  */
-const useDataFromAPI = <T extends unknown>(
+export const useDataFromAPI = <T,>(
   fetcher: () => Promise<T>
 ): T | undefined => {
   const [data, setData] = useState<T>();
@@ -19,5 +19,3 @@ const useDataFromAPI = <T extends unknown>(
 
   return data;
 };
-
-export default useDataFromAPI;

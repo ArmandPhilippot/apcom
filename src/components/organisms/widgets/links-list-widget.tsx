@@ -1,8 +1,7 @@
 import { FC } from 'react';
-import { slugify } from '../../../utils/helpers/strings';
-import Link from '../../atoms/links/link';
-import List, { type ListProps, type ListItem } from '../../atoms/lists/list';
-import Widget, { type WidgetProps } from '../../molecules/layout/widget';
+import { slugify } from '../../../utils/helpers';
+import { Link, List, type ListItem, type ListProps } from '../../atoms';
+import { Widget, type WidgetProps } from '../../molecules';
 import styles from './links-list-widget.module.scss';
 
 export type LinksListItems = {
@@ -33,7 +32,7 @@ export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> &
  *
  * Render a list of links inside a widget.
  */
-const LinksListWidget: FC<LinksListWidgetProps> = ({
+export const LinksListWidget: FC<LinksListWidgetProps> = ({
   className = '',
   items,
   kind = 'unordered',
@@ -63,20 +62,18 @@ const LinksListWidget: FC<LinksListWidgetProps> = ({
 
   return (
     <Widget
+      {...props}
+      className={styles.widget}
       expanded={true}
       withBorders={true}
-      className={styles.widget}
       withScroll={true}
-      {...props}
     >
       <List
-        items={getListItems(items)}
-        kind={kind}
         className={`${styles.list} ${styles[listKindClass]} ${className}`}
+        items={getListItems(items)}
         itemsClassName={styles.list__item}
+        kind={kind}
       />
     </Widget>
   );
 };
-
-export default LinksListWidget;

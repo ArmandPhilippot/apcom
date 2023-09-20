@@ -1,6 +1,6 @@
 import { FC, Fragment, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import ButtonLink from '../../atoms/buttons/button-link';
+import { ButtonLink } from '../../atoms';
 import styles from './pagination.module.scss';
 
 export type PaginationProps = {
@@ -39,7 +39,7 @@ export type PaginationProps = {
  *
  * Render a page-based navigation.
  */
-const Pagination: FC<PaginationProps> = ({
+export const Pagination: FC<PaginationProps> = ({
   baseUrl = '/page/',
   className = '',
   current,
@@ -204,7 +204,7 @@ const Pagination: FC<PaginationProps> = ({
   };
 
   return (
-    <nav className={`${styles.wrapper} ${className}`} {...props}>
+    <nav {...props} className={`${styles.wrapper} ${className}`}>
       <ul className={`${styles.list} ${styles['list--pages']}`}>
         {getPages(current, totalPages)}
       </ul>
@@ -216,5 +216,3 @@ const Pagination: FC<PaginationProps> = ({
     </nav>
   );
 };
-
-export default Pagination;

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Summary from './summary';
+import { Summary } from './summary';
 import { cover, intro, meta, title, url } from './summary.fixture';
 
 describe('Summary', () => {

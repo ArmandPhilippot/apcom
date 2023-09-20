@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
  * @param initial - The initial value.
  * @returns The state and a setter.
  */
-const useStateChange = <T,>(initial: T) => {
+export const useStateChange = <T,>(initial: T) => {
   const [state, setState] = useState<T>(initial);
 
   useEffect(() => {
@@ -15,5 +15,3 @@ const useStateChange = <T,>(initial: T) => {
 
   return [state, setState] as const;
 };
-
-export default useStateChange;

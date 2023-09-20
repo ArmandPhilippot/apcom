@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import HomeIcon from './home';
+import { Home as HomeIcon } from './home';
 
 /**
  * Home icon - Storybook Meta

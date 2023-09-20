@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import ProgressBar from './progress-bar';
+import { ProgressBar } from './progress-bar';
 import { current, id, label, max, min } from './progress-bar.fixture';
 
 describe('ProgressBar', () => {

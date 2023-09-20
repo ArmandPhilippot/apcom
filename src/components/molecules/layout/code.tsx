@@ -1,8 +1,9 @@
 import { FC, useRef } from 'react';
-import usePrism, {
+import {
   type OptionalPrismPlugin,
   type PrismLanguage,
-} from '../../../utils/hooks/use-prism';
+  usePrism,
+} from '../../../utils/hooks';
 import styles from './code.module.scss';
 
 export type CodeProps = {
@@ -37,7 +38,7 @@ export type CodeProps = {
  *
  * Render a code block with syntax highlighting.
  */
-const Code: FC<CodeProps> = ({
+export const Code: FC<CodeProps> = ({
   children,
   filterOutput = false,
   language,
@@ -55,16 +56,14 @@ const Code: FC<CodeProps> = ({
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
       <pre
-        className={className}
-        tabIndex={0}
+        {...props}
         {...attributes}
         {...outputAttribute}
-        {...props}
+        className={className}
+        tabIndex={0}
       >
         <code className={`language-${language}`}>{children}</code>
       </pre>
     </div>
   );
 };
-
-export default Code;

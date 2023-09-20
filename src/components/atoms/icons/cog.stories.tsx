@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CogIcon from './cog';
+import { Cog as CogIcon } from './cog';
 
 /**
  * Cogs icon - Storybook Meta

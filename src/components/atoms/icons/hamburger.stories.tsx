@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import HamburgerIcon from './hamburger';
+import { Hamburger as HamburgerIcon } from './hamburger';
 
 /**
  * Hamburger icon - Storybook Meta

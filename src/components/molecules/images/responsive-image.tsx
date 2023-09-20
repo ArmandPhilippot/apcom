@@ -1,6 +1,6 @@
 import Image, { type ImageProps } from 'next/image';
 import { FC, ReactNode } from 'react';
-import Link, { type LinkProps } from '../../atoms/links/link';
+import { Link, type LinkProps } from '../../atoms';
 import styles from './responsive-image.module.scss';
 
 export type ResponsiveImageProps = Omit<
@@ -42,7 +42,7 @@ export type ResponsiveImageProps = Omit<
  *
  * Render a responsive image wrapped in a figure element.
  */
-const ResponsiveImage: FC<ResponsiveImageProps> = ({
+export const ResponsiveImage: FC<ResponsiveImageProps> = ({
   alt,
   caption,
   className = '',
@@ -55,20 +55,18 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
   const linkModifier = target
     ? styles['wrapper--has-link']
     : styles['wrapper--no-link'];
+  const figureClass = `${styles.wrapper} ${bordersModifier} ${linkModifier} ${className}`;
 
   return (
-    <figure
-      aria-label={caption ? undefined : title}
-      className={`${styles.wrapper} ${bordersModifier} ${linkModifier} ${className}`}
-    >
+    <figure aria-label={caption ? undefined : title} className={figureClass}>
       {target ? (
         <Link href={target} className={styles.link}>
           <Image
+            {...props}
             alt={alt}
             className={styles.img}
             sizes="100vw"
             title={title}
-            {...props}
           />
           {caption && (
             <figcaption className={styles.caption}>{caption}</figcaption>
@@ -77,11 +75,11 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
       ) : (
         <>
           <Image
+            {...props}
             alt={alt}
             className={styles.img}
             sizes="100vw"
             title={title}
-            {...props}
           />
           {caption && (
             <figcaption className={styles.caption}>{caption}</figcaption>
@@ -91,5 +89,3 @@ const ResponsiveImage: FC<ResponsiveImageProps> = ({
     </figure>
   );
 };
-
-export default ResponsiveImage;

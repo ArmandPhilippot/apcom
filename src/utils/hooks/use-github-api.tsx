@@ -1,5 +1,5 @@
 import useSWR, { Fetcher } from 'swr';
-import { SWRResult } from '../../types/swr';
+import { SWRResult } from '../../types';
 
 export type RepoData = {
   created_at: string;
@@ -16,7 +16,7 @@ const fetcher: Fetcher<RepoData, string> = (...args) =>
  * @param repo - The Github repo (`owner/repo-name`).
  * @returns The repository data.
  */
-const useGithubApi = (repo: string): SWRResult<RepoData> => {
+export const useGithubApi = (repo: string): SWRResult<RepoData> => {
   const apiUrl = repo ? `https://api.github.com/repos/${repo}` : null;
   const { data, error } = useSWR<RepoData>(apiUrl, fetcher);
 
@@ -26,5 +26,3 @@ const useGithubApi = (repo: string): SWRResult<RepoData> => {
     isError: error,
   };
 };
-
-export default useGithubApi;

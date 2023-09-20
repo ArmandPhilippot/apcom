@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Widget from './widget';
+import { Widget } from './widget';
 
 const children = 'Widget body';
 const title = 'Widget title';

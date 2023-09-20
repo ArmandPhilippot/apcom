@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CloseIcon from './close';
+import { Close as CloseIcon } from './close';
 
 /**
  * Close icon - Storybook Meta

@@ -1,17 +1,9 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './arrow.module.scss';
 
 export type ArrowDirection = 'top' | 'right' | 'bottom' | 'left';
 
-export type ArrowProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
+export type ArrowProps = SVGAttributes<SVGElement> & {
   /**
    * The arrow direction. Default: right.
    */
@@ -23,17 +15,21 @@ export type ArrowProps = {
  *
  * Render a svg arrow icon.
  */
-const Arrow: FC<ArrowProps> = ({ className = '', direction, ...props }) => {
+export const Arrow: FC<ArrowProps> = ({
+  className = '',
+  direction,
+  ...props
+}) => {
   const directionClass = styles[`icon--${direction}`];
   const classes = `${styles.icon} ${directionClass} ${className}`;
 
   if (direction === 'top') {
     return (
       <svg
+        {...props}
         className={classes}
         viewBox="0 0 23.476 64.644995"
         xmlns="http://www.w3.org/2000/svg"
-        {...props}
       >
         <path
           className="arrow-head"
@@ -50,10 +46,10 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction, ...props }) => {
   if (direction === 'bottom') {
     return (
       <svg
+        {...props}
         className={classes}
         viewBox="0 0 23.476 64.644995"
         xmlns="http://www.w3.org/2000/svg"
-        {...props}
       >
         <path
           className="arrow-head"
@@ -70,10 +66,10 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction, ...props }) => {
   if (direction === 'left') {
     return (
       <svg
+        {...props}
         className={classes}
         viewBox="0 0 64.644997 23.476001"
         xmlns="http://www.w3.org/2000/svg"
-        {...props}
       >
         <path
           className="arrow-head"
@@ -89,10 +85,10 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction, ...props }) => {
 
   return (
     <svg
+      {...props}
       className={classes}
       viewBox="0 0 64.644997 23.476001"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
       <path
         className="arrow-head"
@@ -105,5 +101,3 @@ const Arrow: FC<ArrowProps> = ({ className = '', direction, ...props }) => {
     </svg>
   );
 };
-
-export default Arrow;

@@ -32,7 +32,7 @@ export type CopyrightProps = {
  *
  * Renders a copyright information (owner, dates, license icon).
  */
-const Copyright: FC<CopyrightProps> = ({ owner, dates, icon }) => {
+export const Copyright: FC<CopyrightProps> = ({ owner, dates, icon }) => {
   const getFormattedDate = (date: string) => {
     const datetime = new Date(date).toISOString();
 
@@ -55,5 +55,3 @@ const Copyright: FC<CopyrightProps> = ({ owner, dates, icon }) => {
     </div>
   );
 };
-
-export default Copyright;

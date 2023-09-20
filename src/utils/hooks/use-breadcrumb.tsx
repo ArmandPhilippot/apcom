@@ -1,8 +1,8 @@
 import { useIntl } from 'react-intl';
 import { BreadcrumbList } from 'schema-dts';
-import { BreadcrumbItem } from '../../components/molecules/nav/breadcrumb';
-import { slugify } from '../helpers/strings';
-import useSettings from './use-settings';
+import { BreadcrumbItem } from '../../components';
+import { slugify } from '../helpers';
+import { useSettings } from './use-settings';
 
 export type useBreadcrumbProps = {
   /**
@@ -32,7 +32,7 @@ export type useBreadcrumbReturn = {
  * @param {useBreadcrumbProps} props - An object (the current page title & url).
  * @returns {useBreadcrumbReturn} The breadcrumb items and its JSON schema.
  */
-const useBreadcrumb = ({
+export const useBreadcrumb = ({
   title,
   url,
 }: useBreadcrumbProps): useBreadcrumbReturn => {
@@ -103,5 +103,3 @@ const useBreadcrumb = ({
 
   return { items, schema };
 };
-
-export default useBreadcrumb;

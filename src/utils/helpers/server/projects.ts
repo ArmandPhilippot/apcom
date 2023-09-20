@@ -1,7 +1,10 @@
-import { readdirSync } from 'node:fs';
-import path from 'node:path';
-import { ProjectCard, ProjectPreview } from '../../types/app';
-import { MDXProjectMeta } from '../../types/mdx';
+import { readdirSync } from 'fs';
+import path from 'path';
+import {
+  type MDXProjectMeta,
+  type ProjectCard,
+  type ProjectPreview,
+} from '../../../types';
 
 /**
  * Retrieve all the projects filename.
@@ -29,11 +32,11 @@ export const getProjectData = async (
       meta,
     }: {
       meta: MDXProjectMeta;
-    } = await import(`../../content/projects/${filename}.mdx`);
+    } = await import(`../../../content/projects/${filename}.mdx`);
 
     const { dates, intro, title, ...projectMeta } = meta;
     const { publication, update } = dates;
-    const cover = await import(`../../../public/projects/${filename}.jpg`);
+    const cover = await import(`../../../../public/projects/${filename}.jpg`);
 
     return {
       id: filename,

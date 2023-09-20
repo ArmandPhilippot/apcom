@@ -1,29 +1,20 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './career.module.scss';
 
-export type CareerProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type CareerProps = SVGAttributes<SVGElement>;
 
 /**
  * Career Component
  *
  * Render a career svg icon.
  */
-const Career: FC<CareerProps> = ({ className = '', ...props }) => {
+export const Career: FC<CareerProps> = ({ className = '', ...props }) => {
   return (
     <svg
+      {...props}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${styles.icon} ${className}`}
-      {...props}
     >
       <path
         className={styles.bottom}
@@ -72,5 +63,3 @@ const Career: FC<CareerProps> = ({ className = '', ...props }) => {
     </svg>
   );
 };
-
-export default Career;

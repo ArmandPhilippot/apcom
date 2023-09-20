@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Pagination from './pagination';
+import { Pagination } from './pagination';
 
 const total = 50;
 const perPage = 10;

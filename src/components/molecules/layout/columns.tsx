@@ -1,5 +1,5 @@
 import { FC, ReactComponentElement } from 'react';
-import Column from '../../atoms/layout/column';
+import { Column } from '../../atoms';
 import styles from './columns.module.scss';
 
 export type ColumnsProps = {
@@ -26,7 +26,7 @@ export type ColumnsProps = {
  *
  * Render some Column components as columns.
  */
-const Columns: FC<ColumnsProps> = ({
+export const Columns: FC<ColumnsProps> = ({
   children,
   className = '',
   count,
@@ -36,14 +36,7 @@ const Columns: FC<ColumnsProps> = ({
   const responsiveClass = responsive
     ? `wrapper--responsive`
     : 'wrapper--no-responsive';
+  const wrapperClass = `${styles.wrapper} ${styles[countClass]} ${styles[responsiveClass]} ${className}`;
 
-  return (
-    <div
-      className={`${styles.wrapper} ${styles[countClass]} ${styles[responsiveClass]} ${className}`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={wrapperClass}>{children}</div>;
 };
-
-export default Columns;

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Comment from './comment';
+import { Comment } from './comment';
 import {
   author,
   data,

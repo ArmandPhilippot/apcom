@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import Field from './field';
+import { Field } from './field';
 
 /**
  * Field - Storybook Meta

@@ -2,29 +2,26 @@ import Script from 'next/script';
 import { FC, HTMLAttributes, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { BreadcrumbList } from 'schema-dts';
-import { sendComment } from '../../../services/graphql/comments';
-import { SendCommentInput } from '../../../types/graphql/mutations';
-import useIsMounted from '../../../utils/hooks/use-is-mounted';
-import Heading from '../../atoms/headings/heading';
-import Notice, { type NoticeKind } from '../../atoms/layout/notice';
-import Sidebar from '../../atoms/layout/sidebar';
-import { MetaData } from '../../molecules/layout/meta';
-import PageFooter, {
-  type PageFooterProps,
-} from '../../molecules/layout/page-footer';
-import PageHeader, {
-  type PageHeaderProps,
-} from '../../molecules/layout/page-header';
-import Breadcrumb, {
+import { sendComment } from '../../../services/graphql';
+import { SendCommentInput } from '../../../types';
+import { useIsMounted } from '../../../utils/hooks';
+import { Heading, Notice, type NoticeKind, Sidebar } from '../../atoms';
+import {
+  Breadcrumb,
   type BreadcrumbItem,
-} from '../../molecules/nav/breadcrumb';
-import CommentForm, {
+  MetaData,
+  PageFooter,
+  type PageFooterProps,
+  PageHeader,
+  type PageHeaderProps,
+} from '../../molecules';
+import {
+  CommentForm,
   type CommentFormProps,
-} from '../../organisms/forms/comment-form';
-import CommentsList, {
+  CommentsList,
   type CommentsListProps,
-} from '../../organisms/layout/comments-list';
-import TableOfContents from '../../organisms/widgets/table-of-contents';
+  TableOfContents,
+} from '../../organisms';
 import styles from './page-layout.module.scss';
 
 export type PageLayoutProps = {
@@ -91,7 +88,7 @@ export type PageLayoutProps = {
  *
  * Render the pages layout.
  */
-const PageLayout: FC<PageLayoutProps> = ({
+export const PageLayout: FC<PageLayoutProps> = ({
   children,
   allowComments = false,
   bodyAttributes,
@@ -186,29 +183,29 @@ const PageLayout: FC<PageLayoutProps> = ({
   return (
     <>
       <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         id="schema-breadcrumb"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Breadcrumb
-        items={breadcrumb}
         className={styles.breadcrumb}
         itemClassName={styles.breadcrumb__items}
+        items={breadcrumb}
       />
       <PageHeader
-        title={title}
+        className={styles.header}
         intro={intro}
         meta={headerMeta}
-        className={styles.header}
+        title={title}
       />
       {withToC && (
         <Sidebar
-          className={`${styles.sidebar} ${styles['sidebar--first']}`}
           aria-label={intl.formatMessage({
             defaultMessage: 'Table of contents sidebar',
             id: 'Q+1GbT',
             description: 'PageLayout: accessible name for ToC sidebar',
           })}
+          className={`${styles.sidebar} ${styles['sidebar--first']}`}
         >
           {isMounted && bodyRef.current && (
             <TableOfContents wrapper={bodyRef.current} />
@@ -217,10 +214,10 @@ const PageLayout: FC<PageLayoutProps> = ({
       )}
       {typeof children === 'string' ? (
         <div
-          ref={bodyRef}
+          {...bodyAttributes}
           className={`${styles.body} ${bodyClassName}`}
           dangerouslySetInnerHTML={{ __html: children }}
-          {...bodyAttributes}
+          ref={bodyRef}
         />
       ) : (
         <div ref={bodyRef} className={`${styles.body} ${bodyClassName}`}>
@@ -231,12 +228,12 @@ const PageLayout: FC<PageLayoutProps> = ({
         <PageFooter meta={footerMeta} className={styles.footer} />
       )}
       <Sidebar
-        className={`${styles.sidebar} ${styles['sidebar--last']}`}
         aria-label={intl.formatMessage({
           defaultMessage: 'Sidebar',
           id: 'c556Qo',
           description: 'PageLayout: accessible name for the sidebar',
         })}
+        className={`${styles.sidebar} ${styles['sidebar--last']}`}
       >
         {widgets}
       </Sidebar>
@@ -253,9 +250,9 @@ const PageLayout: FC<PageLayoutProps> = ({
                 Notice={
                   isReplyRef.current === true && (
                     <Notice
+                      className={styles.notice}
                       kind={status}
                       message={statusMessage}
-                      className={styles.notice}
                     />
                   )
                 }
@@ -280,9 +277,9 @@ const PageLayout: FC<PageLayoutProps> = ({
               Notice={
                 isReplyRef.current === false && (
                   <Notice
+                    className={styles.notice}
                     kind={status}
                     message={statusMessage}
-                    className={styles.notice}
                   />
                 )
               }
@@ -293,5 +290,3 @@ const PageLayout: FC<PageLayoutProps> = ({
     </>
   );
 };
-
-export default PageLayout;

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import RadioGroup from './radio-group';
+import { RadioGroup } from './radio-group';
 import { getOptions, initialChoice, legend } from './radio-group.fixture';
 
 describe('RadioGroup', () => {

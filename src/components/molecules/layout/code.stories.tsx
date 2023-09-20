@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CodeComponent from './code';
+import { Code } from './code';
 
 /**
  * Code - Storybook Meta
  */
 export default {
   title: 'Molecules/Layout/Code',
-  component: CodeComponent,
+  component: Code,
   args: {
     filterOutput: false,
     outputPattern: '#output#',
@@ -82,11 +82,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof CodeComponent>;
+} as ComponentMeta<typeof Code>;
 
-const Template: ComponentStory<typeof CodeComponent> = (args) => (
-  <CodeComponent {...args} />
-);
+const Template: ComponentStory<typeof Code> = (args) => <Code {...args} />;
 
 const javascriptCodeSample = `
 const foo = () => {

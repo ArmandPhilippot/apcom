@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ButtonLink from './button-link';
+import { ButtonLink } from './button-link';
 
 /**
  * ButtonLink - Storybook Meta

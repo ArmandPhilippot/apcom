@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import BooleanField from './boolean-field';
+import { BooleanField } from './boolean-field';
 
 describe('BooleanField', () => {
   it('renders an unchecked checkbox', () => {

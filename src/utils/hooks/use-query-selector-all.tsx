@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
  * @param {string} query - A query.
  * @returns {NodeListOf<HTMLElementTagNameMap[T]|undefined>} - The node list.
  */
-const useQuerySelectorAll = <T extends keyof HTMLElementTagNameMap>(
+export const useQuerySelectorAll = <T extends keyof HTMLElementTagNameMap>(
   query: string
 ): NodeListOf<HTMLElementTagNameMap[T]> | undefined => {
   const [elements, setElements] =
@@ -20,5 +20,3 @@ const useQuerySelectorAll = <T extends keyof HTMLElementTagNameMap>(
 
   return elements;
 };
-
-export default useQuerySelectorAll;

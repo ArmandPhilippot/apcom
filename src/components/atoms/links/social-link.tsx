@@ -23,7 +23,7 @@ export type SocialLinkProps = {
  *
  * Render a social icon link.
  */
-const SocialLink: FC<SocialLinkProps> = ({ name, url }) => {
+export const SocialLink: FC<SocialLinkProps> = ({ name, url }) => {
   /**
    * Retrieve a social link icon by id.
    * @param {string} id - The social website id.
@@ -44,10 +44,8 @@ const SocialLink: FC<SocialLinkProps> = ({ name, url }) => {
   };
 
   return (
-    <a href={url} className={styles.link} aria-label={name}>
+    <a aria-label={name} className={styles.link} href={url}>
       {getIcon(name)}
     </a>
   );
 };
-
-export default SocialLink;

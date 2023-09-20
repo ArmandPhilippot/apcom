@@ -1,9 +1,9 @@
 import { FC, ReactNode, useId } from 'react';
-import styles from './description-list-item.module.scss';
+import styles from './description-list-group.module.scss';
 
 export type ItemLayout = 'inline' | 'inline-values' | 'stacked';
 
-export type DescriptionListItemProps = {
+export type DescriptionListGroupProps = {
   /**
    * Set additional classnames to the list item wrapper.
    */
@@ -39,7 +39,7 @@ export type DescriptionListItemProps = {
  *
  * Render a couple of dt/dd wrapped in a div.
  */
-const DescriptionListItem: FC<DescriptionListItemProps> = ({
+export const DescriptionListGroup: FC<DescriptionListGroupProps> = ({
   className = '',
   descriptionClassName = '',
   label,
@@ -52,16 +52,15 @@ const DescriptionListItem: FC<DescriptionListItemProps> = ({
   const layoutStyles = styles[`wrapper--${layout}`];
   const separatorStyles = withSeparator ? styles['wrapper--has-separator'] : '';
   const itemValues = Array.isArray(value) ? value : [value];
+  const groupClass = `${styles.wrapper} ${layoutStyles} ${separatorStyles} ${className}`;
 
   return (
-    <div
-      className={`${styles.wrapper} ${layoutStyles} ${separatorStyles} ${className}`}
-    >
+    <div className={groupClass}>
       <dt className={`${styles.term} ${termClassName}`}>{label}</dt>
       {itemValues.map((currentValue, index) => (
         <dd
-          key={`${id}-${index}`}
           className={`${styles.description} ${descriptionClassName}`}
+          key={`${id}-${index}`}
         >
           {currentValue}
         </dd>
@@ -69,5 +68,3 @@ const DescriptionListItem: FC<DescriptionListItemProps> = ({
     </div>
   );
 };
-
-export default DescriptionListItem;

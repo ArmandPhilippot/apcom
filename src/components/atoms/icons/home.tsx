@@ -1,29 +1,20 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './home.module.scss';
 
-export type HomeProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type HomeProps = SVGAttributes<SVGElement>;
 
 /**
  * Home component.
  *
  * Render a home svg icon.
  */
-const Home: FC<HomeProps> = ({ className = '', ...props }) => {
+export const Home: FC<HomeProps> = ({ className = '', ...props }) => {
   return (
     <svg
+      {...props}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${styles.icon} ${className}`}
-      {...props}
     >
       <path
         className={styles.wall}
@@ -56,5 +47,3 @@ const Home: FC<HomeProps> = ({ className = '', ...props }) => {
     </svg>
   );
 };
-
-export default Home;

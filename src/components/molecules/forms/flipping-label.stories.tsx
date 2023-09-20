@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import MagnifyingGlass from '../../atoms/icons/magnifying-glass';
-import FlippingLabel from './flipping-label';
+import { MagnifyingGlass } from '../../atoms';
+import { FlippingLabel } from './flipping-label';
 
 export default {
   title: 'Organisms/Forms/FlippingLabel',

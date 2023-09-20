@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
-import Heading from '../../atoms/headings/heading';
-import Meta, { type MetaData } from './meta';
+import { Heading } from '../../atoms';
+import { Meta, type MetaData } from './meta';
 import styles from './page-header.module.scss';
 
 export type PageHeaderProps = {
@@ -27,7 +27,7 @@ export type PageHeaderProps = {
  *
  * Render a header element with page title, meta and intro.
  */
-const PageHeader: FC<PageHeaderProps> = ({
+export const PageHeader: FC<PageHeaderProps> = ({
   className = '',
   intro,
   meta,
@@ -63,5 +63,3 @@ const PageHeader: FC<PageHeaderProps> = ({
     </header>
   );
 };
-
-export default PageHeader;

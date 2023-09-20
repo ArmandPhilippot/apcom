@@ -1,12 +1,8 @@
 import { useRouter } from 'next/router';
 import { forwardRef, ForwardRefRenderFunction, useId, useState } from 'react';
 import { useIntl } from 'react-intl';
-import Button from '../../atoms/buttons/button';
-import Form from '../../atoms/forms/form';
-import MagnifyingGlass from '../../atoms/icons/magnifying-glass';
-import LabelledField, {
-  type LabelledFieldProps,
-} from '../../molecules/forms/labelled-field';
+import { Button, Form, MagnifyingGlass } from '../../atoms';
+import { LabelledField, type LabelledFieldProps } from '../../molecules';
 import styles from './search-form.module.scss';
 
 export type SearchFormProps = Pick<LabelledFieldProps, 'hideLabel'> & {
@@ -16,12 +12,7 @@ export type SearchFormProps = Pick<LabelledFieldProps, 'hideLabel'> & {
   searchPage: string;
 };
 
-/**
- * SearchForm component
- *
- * Render a search form.
- */
-const SearchForm: ForwardRefRenderFunction<
+const SearchFormWithRef: ForwardRefRenderFunction<
   HTMLInputElement,
   SearchFormProps
 > = ({ hideLabel, searchPage }, ref) => {
@@ -48,7 +39,7 @@ const SearchForm: ForwardRefRenderFunction<
   const id = useId();
 
   return (
-    <Form grouped={false} onSubmit={submitHandler} className={styles.wrapper}>
+    <Form className={styles.wrapper} grouped={false} onSubmit={submitHandler}>
       <LabelledField
         className={styles.field}
         hideLabel={hideLabel}
@@ -61,11 +52,11 @@ const SearchForm: ForwardRefRenderFunction<
         value={value}
       />
       <Button
-        type="submit"
+        aria-label={buttonLabel}
+        className={styles.btn}
         kind="neutral"
         shape="initial"
-        className={styles.btn}
-        aria-label={buttonLabel}
+        type="submit"
       >
         <MagnifyingGlass className={styles.btn__icon} />
       </Button>
@@ -73,4 +64,9 @@ const SearchForm: ForwardRefRenderFunction<
   );
 };
 
-export default forwardRef(SearchForm);
+/**
+ * SearchForm component
+ *
+ * Render a search form.
+ */
+export const SearchForm = forwardRef(SearchFormWithRef);

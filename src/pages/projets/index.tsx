@@ -3,24 +3,27 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import Link from '../../components/atoms/links/link';
-import CardsList, {
+import {
+  CardsList,
   type CardsListItem,
-} from '../../components/organisms/layout/cards-list';
-import { getLayout } from '../../components/templates/layout/layout';
-import PageLayout from '../../components/templates/page/page-layout';
+  getLayout,
+  Link,
+  PageLayout,
+} from '../../components';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
 import styles from '../../styles/pages/projects.module.scss';
-import { type NextPageWithLayout, type ProjectCard } from '../../types/app';
-import { loadTranslation, type Messages } from '../../utils/helpers/i18n';
-import { getProjectsCard } from '../../utils/helpers/projects';
+import { type NextPageWithLayout, type ProjectCard } from '../../types';
 import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
-} from '../../utils/helpers/schema-org';
-import useBreadcrumb from '../../utils/hooks/use-breadcrumb';
-import useSettings from '../../utils/hooks/use-settings';
+} from '../../utils/helpers/';
+import {
+  getProjectsCard,
+  loadTranslation,
+  type Messages,
+} from '../../utils/helpers/server';
+import { useBreadcrumb, useSettings } from '../../utils/hooks';
 
 type ProjectsPageProps = {
   projects: ProjectCard[];

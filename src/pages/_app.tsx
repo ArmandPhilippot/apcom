@@ -2,10 +2,9 @@ import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
 import { IntlProvider } from 'react-intl';
 import '../styles/globals.scss';
-import { type AppPropsWithLayout } from '../types/app';
+import { type AppPropsWithLayout } from '../types';
 import { settings } from '../utils/config';
-import { AckeeProvider } from '../utils/providers/ackee';
-import { PrismThemeProvider } from '../utils/providers/prism-theme';
+import { AckeeProvider, PrismThemeProvider } from '../utils/providers';
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const { locale, defaultLocale } = useRouter();

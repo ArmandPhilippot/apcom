@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { slugify } from '../helpers/strings';
+import { slugify } from '../helpers';
 import { useMutationObserver } from './use-mutation-observer';
 
 export type Heading = {
@@ -27,7 +27,7 @@ export type Heading = {
  * @param {HTMLElement} wrapper - An HTML element that contains the headings.
  * @returns {Heading[]} The headings tree.
  */
-const useHeadingsTree = (wrapper: HTMLElement): Heading[] => {
+export const useHeadingsTree = (wrapper: HTMLElement): Heading[] => {
   const depths = useMemo(() => ['h2', 'h3', 'h4', 'h5', 'h6'], []);
   const [allHeadings, setAllHeadings] =
     useState<NodeListOf<HTMLHeadingElement>>();
@@ -160,5 +160,3 @@ const useHeadingsTree = (wrapper: HTMLElement): Heading[] => {
 
   return headingsTree;
 };
-
-export default useHeadingsTree;

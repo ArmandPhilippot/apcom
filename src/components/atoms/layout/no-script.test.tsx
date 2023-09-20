@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import NoScript from './no-script';
+import { NoScript } from './no-script';
 
 const message = 'A noscript message.';
 

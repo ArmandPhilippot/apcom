@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import ButtonLink from './button-link';
+import { ButtonLink } from './button-link';
 
 describe('ButtonLink', () => {
   it('renders a ButtonLink component', () => {

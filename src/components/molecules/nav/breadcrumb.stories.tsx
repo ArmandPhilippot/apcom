@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Breadcrumb from './breadcrumb';
+import { Breadcrumb } from './breadcrumb';
 
 /**
  * Breadcrumb - Storybook Meta

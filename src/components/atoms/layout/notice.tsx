@@ -1,13 +1,9 @@
-import { FC } from 'react';
+import { FC, HTMLAttributes } from 'react';
 import styles from './notice.module.scss';
 
 export type NoticeKind = 'error' | 'info' | 'success' | 'warning';
 
-export type NoticeProps = {
-  /**
-   * Set additional classnames to the notice wrapper.
-   */
-  className?: string;
+export type NoticeProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
   /**
    * The notice kind.
    */
@@ -23,16 +19,18 @@ export type NoticeProps = {
  *
  * Render a colored message depending on notice kind.
  */
-const Notice: FC<NoticeProps> = ({ className = '', kind, message }) => {
+export const Notice: FC<NoticeProps> = ({
+  className = '',
+  kind,
+  message,
+  ...props
+}) => {
   const kindClass = `wrapper--${kind}`;
+  const noticeClass = `${styles.wrapper} ${styles[kindClass]} ${className}`;
 
-  return message ? (
-    <div className={`${styles.wrapper} ${styles[kindClass]} ${className}`}>
+  return (
+    <div {...props} className={noticeClass}>
       {message}
     </div>
-  ) : (
-    <></>
   );
 };
-
-export default Notice;

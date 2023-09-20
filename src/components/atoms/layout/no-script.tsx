@@ -12,10 +12,11 @@ export type NoScriptProps = {
   position?: 'initial' | 'top';
 };
 
-const NoScript: FC<NoScriptProps> = ({ message, position = 'initial' }) => {
+export const NoScript: FC<NoScriptProps> = ({
+  message,
+  position = 'initial',
+}) => {
   const positionClass = styles[`noscript--${position}`];
 
   return <div className={`${styles.noscript} ${positionClass}`}>{message}</div>;
 };
-
-export default NoScript;

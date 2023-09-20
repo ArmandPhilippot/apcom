@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Label from './label';
+import { Label } from './label';
 
 describe('Label', () => {
   it('renders a field label', () => {

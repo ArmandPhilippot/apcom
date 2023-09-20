@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import MoonIcon from './moon';
+import { Moon as MoonIcon } from './moon';
 
 /**
  * Moon icon - Storybook Meta

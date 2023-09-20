@@ -1,56 +1,46 @@
 import {
+  ButtonHTMLAttributes,
   forwardRef,
   ForwardRefRenderFunction,
-  MouseEventHandler,
   ReactNode,
 } from 'react';
 import styles from './buttons.module.scss';
 
-export type ButtonProps = {
-  /**
-   * Button accessible label.
-   */
-  'aria-label'?: string;
-  /**
-   * Indicates the current "pressed" state of a toggle button.
-   */
-  'aria-pressed'?: boolean | 'mixed';
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
    * The button body.
    */
   children: ReactNode;
   /**
-   * Set additional classnames to the button wrapper.
-   */
-  className?: string;
-  /**
-   * Button state. Default: false.
+   * Button state.
+   *
+   * @default false
    */
   disabled?: boolean;
   /**
-   * Button kind. Default: secondary.
+   * Button kind.
+   *
+   * @default 'secondary'
    */
   kind?: 'primary' | 'secondary' | 'tertiary' | 'neutral';
   /**
-   * A callback function to handle click.
-   */
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-  /**
-   * Button shape. Default: rectangle.
+   * Button shape.
+   *
+   * @default 'rectangle'
    */
   shape?: 'circle' | 'rectangle' | 'square' | 'initial';
   /**
-   * Button type attribute. Default: button.
+   * Button type attribute.
+   *
+   * @default 'button'
    */
   type?: 'button' | 'reset' | 'submit';
 };
 
-/**
- * Button component
- *
- * Use a button as call to action.
- */
-const Button: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
+const ButtonWithRef: ForwardRefRenderFunction<
+  HTMLButtonElement,
+  ButtonProps
+> = (
   {
     className = '',
     children,
@@ -64,18 +54,24 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
 ) => {
   const kindClass = styles[`btn--${kind}`];
   const shapeClass = styles[`btn--${shape}`];
+  const btnClass = `${styles.btn} ${kindClass} ${shapeClass} ${className}`;
 
   return (
     <button
-      className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
+      {...props}
+      className={btnClass}
       disabled={disabled}
       ref={ref}
       type={type}
-      {...props}
     >
       {children}
     </button>
   );
 };
 
-export default forwardRef(Button);
+/**
+ * Button component
+ *
+ * Use a button as call to action.
+ */
+export const Button = forwardRef(ButtonWithRef);

@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Code from './code';
+import { Code } from './code';
 
 const code = `
 function foo() {

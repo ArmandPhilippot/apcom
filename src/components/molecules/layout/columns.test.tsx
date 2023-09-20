@@ -1,6 +1,6 @@
 import { render, screen } from '../../../../tests/utils';
-import Column from '../../atoms/layout/column';
-import Columns from './columns';
+import { Column } from '../../atoms';
+import { Columns } from './columns';
 
 const column1 =
   'Non praesentium voluptas quisquam ex est. Distinctio accusamus facilis libero in aut. Et veritatis quo impedit fugit amet sit accusantium. Ut est rerum asperiores sint libero eveniet. Molestias placeat recusandae suscipit eligendi sunt hic.';

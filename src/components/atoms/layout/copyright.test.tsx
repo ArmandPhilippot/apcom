@@ -1,6 +1,6 @@
 import { render, screen } from '../../../../tests/utils';
-import CCBySA from '../icons/cc-by-sa';
-import Copyright from './copyright';
+import { CCBySA } from '../icons';
+import { Copyright } from './copyright';
 
 const dates = {
   start: '2012',

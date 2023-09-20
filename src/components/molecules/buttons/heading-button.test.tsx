@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import HeadingButton from './heading-button';
+import { HeadingButton } from './heading-button';
 
 describe('HeadingButton', () => {
   it('renders a button to collapse.', () => {

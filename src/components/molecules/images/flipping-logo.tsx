@@ -1,6 +1,6 @@
 import Image, { type ImageProps } from 'next/image';
 import { ForwardedRef, forwardRef, ForwardRefRenderFunction } from 'react';
-import Logo, { type LogoProps } from '../../atoms/images/logo';
+import { Logo, type LogoProps } from '../../atoms';
 import styles from './flipping-logo.module.scss';
 
 export type FlippingLogoProps = {
@@ -22,12 +22,7 @@ export type FlippingLogoProps = {
   photo: ImageProps['src'];
 };
 
-/**
- * FlippingLogo component
- *
- * Render a logo and a photo with a flipping effect.
- */
-const FlippingLogo: ForwardRefRenderFunction<
+const FlippingLogoWithRef: ForwardRefRenderFunction<
   HTMLDivElement,
   FlippingLogoProps
 > = (
@@ -38,12 +33,12 @@ const FlippingLogo: ForwardRefRenderFunction<
     <div className={`${styles.logo} ${className}`} ref={ref}>
       <div className={styles.logo__front}>
         <Image
-          src={photo}
-          alt={altText}
-          style={{ objectFit: 'cover' }}
-          height="100"
-          width="100"
           {...props}
+          alt={altText}
+          height="100"
+          src={photo}
+          style={{ objectFit: 'cover' }}
+          width="100"
         />
       </div>
       <div className={styles.logo__back}>
@@ -53,4 +48,9 @@ const FlippingLogo: ForwardRefRenderFunction<
   );
 };
 
-export default forwardRef(FlippingLogo);
+/**
+ * FlippingLogo component
+ *
+ * Render a logo and a photo with a flipping effect.
+ */
+export const FlippingLogo = forwardRef(FlippingLogoWithRef);

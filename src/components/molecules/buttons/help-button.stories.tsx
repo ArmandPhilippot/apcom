@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import HelpButtonComponent from './help-button';
+import { HelpButton as HelpButtonComponent } from './help-button';
 
 /**
  * HelpButton - Storybook Meta

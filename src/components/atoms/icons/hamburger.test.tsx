@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Hamburger from './hamburger';
+import { Hamburger } from './hamburger';
 
 describe('Hamburger', () => {
   it('renders a Hamburger icon', () => {

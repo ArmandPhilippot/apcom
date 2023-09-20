@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import useAttributes from '../../../utils/hooks/use-attributes';
-import useLocalStorage from '../../../utils/hooks/use-local-storage';
-import RadioGroup, {
+import { useAttributes, useLocalStorage } from '../../../utils/hooks';
+import {
+  RadioGroup,
   type RadioGroupCallback,
   type RadioGroupCallbackProps,
   type RadioGroupOption,
@@ -30,7 +30,7 @@ export type MotionToggleProps = Pick<
  *
  * Render a Toggle component to set reduce motion.
  */
-const MotionToggle: FC<MotionToggleProps> = ({
+export const MotionToggle: FC<MotionToggleProps> = ({
   defaultValue,
   storageKey,
   ...props
@@ -107,14 +107,12 @@ const MotionToggle: FC<MotionToggleProps> = ({
 
   return (
     <RadioGroup
+      {...props}
       initialChoice={defaultValue}
       kind="toggle"
       legend={reduceMotionLabel}
       onChange={handleChange}
       options={options}
-      {...props}
     />
   );
 };
-
-export default MotionToggle;

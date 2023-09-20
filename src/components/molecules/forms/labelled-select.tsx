@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import Label, { type LabelProps } from '../../atoms/forms/label';
-import Select, { type SelectProps } from '../../atoms/forms/select';
+import { Label, type LabelProps, Select, type SelectProps } from '../../atoms';
 import styles from './labelled-select.module.scss';
 
 export type LabelledSelectProps = Omit<
@@ -34,7 +33,7 @@ export type LabelledSelectProps = Omit<
  *
  * Render a select with a label.
  */
-const LabelledSelect: FC<LabelledSelectProps> = ({
+export const LabelledSelect: FC<LabelledSelectProps> = ({
   id,
   label,
   labelClassName = '',
@@ -49,21 +48,19 @@ const LabelledSelect: FC<LabelledSelectProps> = ({
   return (
     <>
       <Label
+        className={`${styles[positionModifier]} ${labelClassName}`}
         htmlFor={id}
         required={required}
         size={labelSize}
-        className={`${styles[positionModifier]} ${labelClassName}`}
       >
         {label}
       </Label>
       <Select
-        id={id}
-        required={required}
         {...props}
         className={selectClassName}
+        id={id}
+        required={required}
       />
     </>
   );
 };
-
-export default LabelledSelect;

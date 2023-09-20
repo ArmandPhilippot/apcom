@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Branding from './branding';
+import { Branding } from './branding';
 
 describe('Branding', () => {
   it('renders a photo', () => {

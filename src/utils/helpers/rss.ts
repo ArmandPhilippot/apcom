@@ -3,8 +3,8 @@ import {
   getArticleFromRawData,
   getArticles,
   getTotalArticles,
-} from '../../services/graphql/articles';
-import { Article } from '../../types/app';
+} from '../../services/graphql';
+import { type Article } from '../../types';
 import { settings } from '../../utils/config';
 
 /**

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Field from './field';
+import { Field } from './field';
 
 describe('Field', () => {
   it('renders a text input', () => {

@@ -1,9 +1,9 @@
 import { useTheme } from 'next-themes';
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import Moon from '../../atoms/icons/moon';
-import Sun from '../../atoms/icons/sun';
-import RadioGroup, {
+import { Moon, Sun } from '../../atoms';
+import {
+  RadioGroup,
   type RadioGroupCallback,
   type RadioGroupCallbackProps,
   type RadioGroupOption,
@@ -20,7 +20,7 @@ export type ThemeToggleProps = Pick<
  *
  * Render a Toggle component to set theme.
  */
-const ThemeToggle: FC<ThemeToggleProps> = (props) => {
+export const ThemeToggle: FC<ThemeToggleProps> = (props) => {
   const intl = useIntl();
   const { resolvedTheme, setTheme } = useTheme();
   const isDarkTheme = resolvedTheme === 'dark';
@@ -95,14 +95,12 @@ const ThemeToggle: FC<ThemeToggleProps> = (props) => {
 
   return (
     <RadioGroup
+      {...props}
       initialChoice={isDarkTheme ? 'dark' : 'light'}
       kind="toggle"
       legend={themeLabel}
       onChange={handleChange}
       options={options}
-      {...props}
     />
   );
 };
-
-export default ThemeToggle;

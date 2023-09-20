@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ResponsiveImage from './responsive-image';
+import { ResponsiveImage } from './responsive-image';
 
 /**
  * ResponsiveImage - Storybook Meta

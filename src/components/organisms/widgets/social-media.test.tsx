@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import SocialMedia, { Media } from './social-media';
+import { SocialMedia, Media } from './social-media';
 
 const media: Media[] = [
   { name: 'Github', url: '#' },

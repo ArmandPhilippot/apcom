@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SpinnerComponent from './spinner';
+import { Spinner as SpinnerComponent } from './spinner';
 
 /**
  * Spinner - Storybook Meta

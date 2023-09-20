@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { FC, useRef } from 'react';
 import { useIntl } from 'react-intl';
-import useStyles from '../../../utils/hooks/use-styles';
-import Heading from '../../atoms/headings/heading';
-import FlippingLogo, { type FlippingLogoProps } from '../images/flipping-logo';
+import { useStyles } from '../../../utils/hooks';
+import { Heading } from '../../atoms';
+import { FlippingLogo, type FlippingLogoProps } from '../images';
 import styles from './branding.module.scss';
 
 export type BrandingProps = Pick<FlippingLogoProps, 'photo'> & {
@@ -30,7 +30,7 @@ export type BrandingProps = Pick<FlippingLogoProps, 'photo'> & {
  *
  * Render the branding logo, title and optional baseline.
  */
-const Branding: FC<BrandingProps> = ({
+export const Branding: FC<BrandingProps> = ({
   baseline,
   isHome = false,
   photo,
@@ -79,18 +79,18 @@ const Branding: FC<BrandingProps> = ({
   return (
     <div className={styles.wrapper}>
       <FlippingLogo
-        className={styles.logo}
+        {...props}
         altText={altText}
+        className={styles.logo}
         logoTitle={logoTitle}
         photo={photo}
         ref={logoRef}
-        {...props}
       />
       <Heading
+        className={styles.title}
         isFake={!isHome}
         level={1}
         withMargin={false}
-        className={styles.title}
         ref={titleRef}
       >
         {withLink ? (
@@ -103,10 +103,10 @@ const Branding: FC<BrandingProps> = ({
       </Heading>
       {baseline && (
         <Heading
+          className={styles.baseline}
           isFake={true}
           level={4}
           withMargin={false}
-          className={styles.baseline}
           ref={baselineRef}
         >
           {baseline}
@@ -115,5 +115,3 @@ const Branding: FC<BrandingProps> = ({
     </div>
   );
 };
-
-export default Branding;

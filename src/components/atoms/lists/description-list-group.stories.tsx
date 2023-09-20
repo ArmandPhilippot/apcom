@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import DescriptionListItemComponent from './description-list-item';
+import { DescriptionListGroup } from './description-list-group';
 
 export default {
   title: 'Atoms/Typography/Lists/DescriptionList/Item',
-  component: DescriptionListItemComponent,
+  component: DescriptionListGroup,
   args: {
     layout: 'stacked',
     withSeparator: false,
@@ -96,11 +96,11 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof DescriptionListItemComponent>;
+} as ComponentMeta<typeof DescriptionListGroup>;
 
-const Template: ComponentStory<typeof DescriptionListItemComponent> = (
-  args
-) => <DescriptionListItemComponent {...args} />;
+const Template: ComponentStory<typeof DescriptionListGroup> = (args) => (
+  <DescriptionListGroup {...args} />
+);
 
 export const SingleValueStacked = Template.bind({});
 SingleValueStacked.args = {

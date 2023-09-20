@@ -1,5 +1,4 @@
-import { Image } from '../../types/app';
-import { RawCover } from '../../types/raw-data';
+import { type Image, type RawCover } from '../../types';
 
 /**
  * Retrieve an Image object from raw data.

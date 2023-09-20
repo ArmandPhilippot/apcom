@@ -1,17 +1,20 @@
-import { type Article, type ArticleCard, type Slug } from '../../types/app';
 import {
-  GraphQLEdgesInput,
-  GraphQLPageInfo,
-} from '../../types/graphql/generics';
-import { EdgesResponse, EndCursorResponse } from '../../types/graphql/queries';
-import {
+  type Article,
+  type ArticleCard,
+  type EdgesResponse,
+  type EndCursorResponse,
+  type GraphQLEdgesInput,
+  type GraphQLPageInfo,
   type RawArticle,
   type RawArticlePreview,
+  type Slug,
   type TotalItems,
-} from '../../types/raw-data';
-import { getAuthorFromRawData } from '../../utils/helpers/author';
-import { getImageFromRawData } from '../../utils/helpers/images';
-import { getPageLinkFromRawData } from '../../utils/helpers/pages';
+} from '../../types';
+import {
+  getAuthorFromRawData,
+  getImageFromRawData,
+  getPageLinkFromRawData,
+} from '../../utils/helpers';
 import { fetchAPI } from './api';
 import {
   articleBySlugQuery,

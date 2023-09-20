@@ -111,7 +111,10 @@ const loadPrismPlugins = async (plugins: PrismPlugin[]) => {
  * @param {UsePrismProps} props - An object of options.
  * @returns {UsePrismReturn} An object of data.
  */
-const usePrism = ({ language, plugins }: UsePrismProps): UsePrismReturn => {
+export const usePrism = ({
+  language,
+  plugins,
+}: UsePrismProps): UsePrismReturn => {
   /**
    * The order matter. Toolbar must be loaded before some other plugins.
    */
@@ -178,5 +181,3 @@ const usePrism = ({ language, plugins }: UsePrismProps): UsePrismReturn => {
     className,
   };
 };
-
-export default usePrism;

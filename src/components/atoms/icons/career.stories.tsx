@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CareerIcon from './career';
+import { Career as CareerIcon } from './career';
 
 /**
  * Career icon - Storybook Meta

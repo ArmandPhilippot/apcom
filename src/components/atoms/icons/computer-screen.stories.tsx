@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ComputerScreenIcon from './computer-screen';
+import { ComputerScreen as ComputerScreenIcon } from './computer-screen';
 
 /**
  * Computer Screen icon - Storybook Meta

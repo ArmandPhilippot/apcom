@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import MainNav from './main-nav';
+import { MainNav } from './main-nav';
 
 /**
  * MainNav - Storybook Meta

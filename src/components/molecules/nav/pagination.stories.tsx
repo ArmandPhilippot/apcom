@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import PaginationComponent from './pagination';
+import { Pagination } from './pagination';
 
 /**
  * Pagination - Storybook Meta
  */
 export default {
   title: 'Molecules/Navigation/Pagination',
-  component: PaginationComponent,
+  component: Pagination,
   args: {
     baseUrl: '/page/',
     siblings: 1,
@@ -98,10 +98,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof PaginationComponent>;
+} as ComponentMeta<typeof Pagination>;
 
-const Template: ComponentStory<typeof PaginationComponent> = (args) => (
-  <PaginationComponent {...args} />
+const Template: ComponentStory<typeof Pagination> = (args) => (
+  <Pagination {...args} />
 );
 
 /**

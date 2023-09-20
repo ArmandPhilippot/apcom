@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import ThemeToggle from './theme-toggle';
+import { ThemeToggle } from './theme-toggle';
 
 describe('ThemeToggle', () => {
   it('renders a toggle component', () => {

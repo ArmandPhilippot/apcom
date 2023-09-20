@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Notice from './notice';
+import { Notice } from './notice';
 
 const message = 'Tenetur consequuntur tempore.';
 

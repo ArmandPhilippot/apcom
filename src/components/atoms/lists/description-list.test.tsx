@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import DescriptionList, { DescriptionListItem } from './description-list';
+import { DescriptionList, DescriptionListItem } from './description-list';
 
 const items: DescriptionListItem[] = [
   { id: 'term-1', label: 'Term 1:', value: ['Value for term 1'] },

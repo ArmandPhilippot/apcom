@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SidebarComponent from './sidebar';
+import { Sidebar as SidebarComponent } from './sidebar';
 
 /**
  * Sidebar - Storybook Meta

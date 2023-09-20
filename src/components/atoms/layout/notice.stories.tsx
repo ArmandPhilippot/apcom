@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import NoticeComponent from './notice';
+import { Notice as NoticeComponent } from './notice';
 
 /**
  * Notice - Storybook Meta

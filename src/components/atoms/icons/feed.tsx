@@ -1,29 +1,20 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './feed.module.scss';
 
-export type FeedProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type FeedProps = SVGAttributes<SVGElement>;
 
 /**
  * Feed Component
  *
  * Render a feed svg icon.
  */
-const Feed: FC<FeedProps> = ({ className = '', ...props }) => {
+export const Feed: FC<FeedProps> = ({ className = '', ...props }) => {
   return (
     <svg
+      {...props}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 256 256"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${styles.icon} ${className}`}
-      {...props}
     >
       <defs>
         <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="RSSg">
@@ -75,5 +66,3 @@ const Feed: FC<FeedProps> = ({ className = '', ...props }) => {
     </svg>
   );
 };
-
-export default Feed;

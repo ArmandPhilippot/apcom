@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SharingLinkComponent from './sharing-link';
+import { SharingLink } from './sharing-link';
 
 /**
  * SharingLink - Storybook Meta
  */
 export default {
   title: 'Atoms/Buttons/Sharing',
-  component: SharingLinkComponent,
+  component: SharingLink,
   argTypes: {
     medium: {
       control: {
@@ -37,10 +37,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof SharingLinkComponent>;
+} as ComponentMeta<typeof SharingLink>;
 
-const Template: ComponentStory<typeof SharingLinkComponent> = (args) => (
-  <SharingLinkComponent {...args} />
+const Template: ComponentStory<typeof SharingLink> = (args) => (
+  <SharingLink {...args} />
 );
 
 /**

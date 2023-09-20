@@ -6,9 +6,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import useOnClickOutside from '../../../utils/hooks/use-on-click-outside';
-import HelpButton from '../buttons/help-button';
-import Tooltip from '../modals/tooltip';
+import { useOnClickOutside } from '../../../utils/hooks';
+import { HelpButton } from '../buttons';
+import { Tooltip } from '../modals';
 import styles from './fieldset.module.scss';
 
 export type FieldsetProps = {
@@ -59,7 +59,7 @@ export type FieldsetProps = {
  *
  * Render a fieldset with a legend.
  */
-const Fieldset: FC<FieldsetProps> = ({
+export const Fieldset: FC<FieldsetProps> = ({
   bodyClassName = '',
   buttonClassName = '',
   children,
@@ -92,17 +92,12 @@ const Fieldset: FC<FieldsetProps> = ({
   };
 
   const tooltipRef = useOnClickOutside<HTMLDivElement>(closeTooltip);
+  const fieldsetClass = `${styles.wrapper} ${styles[wrapperModifier]} ${className}`;
+  const legendClass = `${styles.legend} ${styles[legendModifier]} ${legendClassName}`;
 
   return (
-    <fieldset
-      className={`${styles.wrapper} ${styles[wrapperModifier]} ${className}`}
-      {...props}
-    >
-      <legend
-        className={`${styles.legend} ${styles[legendModifier]} ${legendClassName}`}
-      >
-        {legend}
-      </legend>
+    <fieldset {...props} className={fieldsetClass}>
+      <legend className={legendClass}>{legend}</legend>
       {TooltipComponent && (
         <>
           <HelpButton
@@ -121,5 +116,3 @@ const Fieldset: FC<FieldsetProps> = ({
     </fieldset>
   );
 };
-
-export default Fieldset;

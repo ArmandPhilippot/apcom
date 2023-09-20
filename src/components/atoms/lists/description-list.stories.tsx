@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import DescriptionList, { DescriptionListItem } from './description-list';
+import { DescriptionList, DescriptionListItem } from './description-list';
 
 /**
  * DescriptionList - Storybook Meta

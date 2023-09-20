@@ -4,25 +4,26 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
-import Notice, { type NoticeKind } from '../components/atoms/layout/notice';
-import ContactForm, {
+import {
+  ContactForm,
   type ContactFormProps,
-} from '../components/organisms/forms/contact-form';
-import SocialMedia from '../components/organisms/widgets/social-media';
-import { getLayout } from '../components/templates/layout/layout';
-import PageLayout from '../components/templates/page/page-layout';
+  getLayout,
+  Notice,
+  type NoticeKind,
+  PageLayout,
+  SocialMedia,
+} from '../components';
 import { meta } from '../content/pages/contact.mdx';
-import { sendMail } from '../services/graphql/contact';
+import { sendMail } from '../services/graphql';
 import styles from '../styles/pages/contact.module.scss';
-import { type NextPageWithLayout } from '../types/app';
-import { loadTranslation } from '../utils/helpers/i18n';
+import { type NextPageWithLayout } from '../types';
 import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
-} from '../utils/helpers/schema-org';
-import useBreadcrumb from '../utils/hooks/use-breadcrumb';
-import useSettings from '../utils/hooks/use-settings';
+} from '../utils/helpers';
+import { loadTranslation } from '../utils/helpers/server';
+import { useBreadcrumb, useSettings } from '../utils/hooks';
 
 const ContactPage: NextPageWithLayout = () => {
   const { dates, intro, seo, title } = meta;

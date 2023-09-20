@@ -1,9 +1,7 @@
 import { FC, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
-import Button from '../../atoms/buttons/button';
-import Form from '../../atoms/forms/form';
-import Spinner from '../../atoms/loaders/spinner';
-import LabelledField from '../../molecules/forms/labelled-field';
+import { Button, Form, Spinner } from '../../atoms';
+import { LabelledField } from '../../molecules';
 import styles from './contact-form.module.scss';
 
 export type ContactFormData = {
@@ -33,7 +31,7 @@ export type ContactFormProps = {
  *
  * Render a contact form.
  */
-const ContactForm: FC<ContactFormProps> = ({
+export const ContactForm: FC<ContactFormProps> = ({
   className = '',
   Notice,
   sendMail,
@@ -94,45 +92,45 @@ const ContactForm: FC<ContactFormProps> = ({
   };
 
   return (
-    <Form aria-label={formName} onSubmit={submitHandler} className={className}>
+    <Form aria-label={formName} className={className} onSubmit={submitHandler}>
       <LabelledField
-        type="text"
+        className={styles.field}
         id="contact-name"
-        name="contact-name"
         label={nameLabel}
+        name="contact-name"
         required={true}
-        value={name}
         setValue={setName}
-        className={styles.field}
-      />
-      <LabelledField
-        type="email"
-        id="contact-email"
-        name="contact-email"
-        label={emailLabel}
-        required={true}
-        value={email}
-        setValue={setEmail}
-        className={styles.field}
-      />
-      <LabelledField
         type="text"
-        id="contact-object"
-        name="contact-object"
-        label={objectLabel}
-        value={object}
-        setValue={setObject}
-        className={styles.field}
+        value={name}
       />
       <LabelledField
-        type="textarea"
-        id="contact-message"
-        name="contact-message"
-        label={messageLabel}
-        required={true}
-        value={message}
-        setValue={setMessage}
         className={styles.field}
+        id="contact-email"
+        label={emailLabel}
+        name="contact-email"
+        required={true}
+        setValue={setEmail}
+        type="email"
+        value={email}
+      />
+      <LabelledField
+        className={styles.field}
+        id="contact-object"
+        label={objectLabel}
+        name="contact-object"
+        setValue={setObject}
+        type="text"
+        value={object}
+      />
+      <LabelledField
+        className={styles.field}
+        id="contact-message"
+        label={messageLabel}
+        name="contact-message"
+        required={true}
+        setValue={setMessage}
+        type="textarea"
+        value={message}
       />
       <Button type="submit" kind="primary" className={styles.button}>
         {intl.formatMessage({
@@ -154,5 +152,3 @@ const ContactForm: FC<ContactFormProps> = ({
     </Form>
   );
 };
-
-export default ContactForm;

@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { fromKebabCaseToCamelCase } from '../helpers/strings';
+import { fromKebabCaseToCamelCase } from '../helpers';
 
 export type useAttributesProps = {
   /**
@@ -25,7 +25,7 @@ export type useAttributesProps = {
  *
  * @param props - An object with element, attribute name and value.
  */
-const useAttributes = ({
+export const useAttributes = ({
   element,
   elements,
   attribute,
@@ -48,5 +48,3 @@ const useAttributes = ({
     if (elements && elements.length > 0) elements.forEach(setAttribute);
   }, [element, elements, setAttribute]);
 };
-
-export default useAttributes;

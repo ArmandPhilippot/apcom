@@ -1,8 +1,10 @@
 import { FC } from 'react';
-import ResponsiveImage, {
+import {
+  Meta,
+  type MetaData,
+  ResponsiveImage,
   type ResponsiveImageProps,
-} from '../../molecules/images/responsive-image';
-import Meta, { type MetaData } from '../../molecules/layout/meta';
+} from '../../molecules';
 import styles from './overview.module.scss';
 
 export type OverviewMeta = Pick<
@@ -35,7 +37,11 @@ export type OverviewProps = {
  *
  * Render an overview.
  */
-const Overview: FC<OverviewProps> = ({ className = '', cover, meta }) => {
+export const Overview: FC<OverviewProps> = ({
+  className = '',
+  cover,
+  meta,
+}) => {
   const { technologies, ...remainingMeta } = meta;
   const metaModifier = technologies ? styles['meta--has-techno'] : '';
 
@@ -43,13 +49,11 @@ const Overview: FC<OverviewProps> = ({ className = '', cover, meta }) => {
     <div className={`${styles.wrapper} ${className}`}>
       {cover && <ResponsiveImage className={styles.cover} {...cover} />}
       <Meta
+        className={`${styles.meta} ${metaModifier}`}
         data={{ ...remainingMeta, technologies }}
         layout="inline"
-        className={`${styles.meta} ${metaModifier}`}
         withSeparator={false}
       />
     </div>
   );
 };
-
-export default Overview;

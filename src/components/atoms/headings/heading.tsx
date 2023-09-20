@@ -3,13 +3,14 @@ import {
   ForwardedRef,
   forwardRef,
   ForwardRefRenderFunction,
+  HTMLAttributes,
   ReactNode,
 } from 'react';
 import styles from './heading.module.scss';
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
-export type HeadingProps = {
+export type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
   /**
    * The title alignment. Default: left;
    */
@@ -18,14 +19,6 @@ export type HeadingProps = {
    * The heading body.
    */
   children: ReactNode;
-  /**
-   * Set additional classnames.
-   */
-  className?: string;
-  /**
-   * The heading id.
-   */
-  id?: string;
   /**
    * Use an heading element or only its styles. Default: false.
    */
@@ -57,23 +50,19 @@ const TitleTag = forwardRef<
 );
 TitleTag.displayName = 'TitleTag';
 
-/**
- * Heading component.
- *
- * Render an HTML heading element or a paragraph with heading styles.
- */
-const Heading: ForwardRefRenderFunction<
+const HeadingWithRef: ForwardRefRenderFunction<
   HTMLHeadingElement | HTMLParagraphElement,
   HeadingProps
 > = (
   {
     alignment = 'left',
     children,
-    className,
+    className = '',
     id,
     isFake = false,
     level,
     withMargin = true,
+    ...props
   },
   ref: ForwardedRef<HTMLHeadingElement | HTMLParagraphElement>
 ) => {
@@ -81,17 +70,24 @@ const Heading: ForwardRefRenderFunction<
   const levelClass = `heading--${level}`;
   const alignmentClass = `heading--${alignment}`;
   const marginClass = withMargin ? 'heading--margin' : 'heading--regular';
+  const headingClass = `${styles.heading} ${styles[levelClass]} ${styles[alignmentClass]} ${styles[marginClass]} ${className}`;
 
   return (
     <TitleTag
-      tagName={tagName}
-      className={`${styles.heading} ${styles[levelClass]} ${styles[alignmentClass]} ${styles[marginClass]} ${className}`}
+      {...props}
+      className={headingClass}
       id={id}
       ref={ref}
+      tagName={tagName}
     >
       {children}
     </TitleTag>
   );
 };
 
-export default forwardRef(Heading);
+/**
+ * Heading component.
+ *
+ * Render an HTML heading element or a paragraph with heading styles.
+ */
+export const Heading = forwardRef(HeadingWithRef);

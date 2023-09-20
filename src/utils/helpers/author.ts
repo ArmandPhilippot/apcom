@@ -1,5 +1,4 @@
-import { type Author, type ContentKind } from '../../types/app';
-import { type RawAuthor } from '../../types/raw-data';
+import { type Author, type ContentKind, type RawAuthor } from '../../types';
 
 /**
  * Convert author raw data to regular data.

@@ -2,12 +2,10 @@ import {
   Mutations,
   MutationsInputMap,
   MutationsResponseMap,
-} from '../../types/graphql/mutations';
-import {
   Queries,
   QueriesInputMap,
   QueriesResponseMap,
-} from '../../types/graphql/queries';
+} from '../../types';
 import { settings } from '../../utils/config';
 
 /**

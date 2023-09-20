@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Footer, { type FooterProps } from './footer';
+import { Footer, type FooterProps } from './footer';
 
 const copyright: FooterProps['copyright'] = {
   dates: { start: '2017', end: '2022' },

@@ -1,32 +1,23 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './magnifying-glass.module.scss';
 
-export type MagnifyingGlassProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type MagnifyingGlassProps = SVGAttributes<SVGElement>;
 
 /**
  * MagnifyingGlass component
  *
  * Render a magnifying glass svg icon.
  */
-const MagnifyingGlass: FC<MagnifyingGlassProps> = ({
+export const MagnifyingGlass: FC<MagnifyingGlassProps> = ({
   className = '',
   ...props
 }) => {
   return (
     <svg
+      {...props}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${styles.icon} ${className}`}
-      {...props}
     >
       <path
         className={styles['small-handle']}
@@ -47,5 +38,3 @@ const MagnifyingGlass: FC<MagnifyingGlassProps> = ({
     </svg>
   );
 };
-
-export default MagnifyingGlass;

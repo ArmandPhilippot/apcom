@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ImageWidget from './image-widget';
+import { ImageWidget } from './image-widget';
 
 /**
  * ImageWidget - Storybook Meta

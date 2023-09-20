@@ -26,7 +26,7 @@ export type SharingLinkProps = {
  *
  * Render a sharing link.
  */
-const SharingLink: FC<SharingLinkProps> = ({ medium, url }) => {
+export const SharingLink: FC<SharingLinkProps> = ({ medium, url }) => {
   const intl = useIntl();
   const text = intl.formatMessage(
     {
@@ -37,12 +37,11 @@ const SharingLink: FC<SharingLinkProps> = ({ medium, url }) => {
     { name: medium }
   );
   const mediumClass = `link--${medium}`;
+  const linkClass = `${styles.link} ${styles[mediumClass]}`;
 
   return (
-    <a href={url} className={`${styles.link} ${styles[mediumClass]}`}>
+    <a className={linkClass} href={url}>
       <span className="screen-reader-text">{text}</span>
     </a>
   );
 };
-
-export default SharingLink;

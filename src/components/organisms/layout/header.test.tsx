@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Header from './header';
+import { Header } from './header';
 
 const nav = [
   { id: 'home-link', href: '#', label: 'Home' },

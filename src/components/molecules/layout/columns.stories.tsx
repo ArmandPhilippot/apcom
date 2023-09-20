@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Column from '../../atoms/layout/column';
-import Columns from './columns';
+import { Column } from '../../atoms';
+import { Columns } from './columns';
 
 export default {
   title: 'Molecules/Layout/Columns',

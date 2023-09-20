@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Home from './home';
+import { Home } from './home';
 
 describe('Home', () => {
   it('renders a home icon', () => {

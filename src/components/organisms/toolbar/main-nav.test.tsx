@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import MainNav from './main-nav';
+import { MainNav } from './main-nav';
 
 const items = [
   { id: 'home', label: 'Home', href: '/' },

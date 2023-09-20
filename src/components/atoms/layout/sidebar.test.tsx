@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Sidebar from './sidebar';
+import { Sidebar } from './sidebar';
 
 const children = 'A widget';
 

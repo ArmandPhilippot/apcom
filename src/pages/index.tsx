@@ -2,30 +2,31 @@ import { MDXComponents } from 'mdx/types';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
-import { ReactElement } from 'react';
+import { ReactNode, isValidElement } from 'react';
 import { useIntl } from 'react-intl';
 import FeedIcon from '../assets/images/icon-feed.svg';
-import ButtonLink from '../components/atoms/buttons/button-link';
-import Envelop from '../components/atoms/icons/envelop';
-import Column from '../components/atoms/layout/column';
-import Section, { type SectionProps } from '../components/atoms/layout/section';
-import List, { type ListItem } from '../components/atoms/lists/list';
-import ResponsiveImage from '../components/molecules/images/responsive-image';
-import Columns, {
-  type ColumnsProps,
-} from '../components/molecules/layout/columns';
-import CardsList, {
+import {
+  ButtonLink,
+  CardsList,
   type CardsListItem,
-} from '../components/organisms/layout/cards-list';
-import { getLayout } from '../components/templates/layout/layout';
+  Column,
+  Columns,
+  type ColumnsProps,
+  Envelop,
+  getLayout,
+  List,
+  type ListItem,
+  ResponsiveImage,
+  Section,
+  type SectionProps,
+} from '../components';
 import HomePageContent from '../content/pages/homepage.mdx';
-import { getArticlesCard } from '../services/graphql/articles';
+import { getArticlesCard } from '../services/graphql';
 import styles from '../styles/pages/home.module.scss';
-import { type ArticleCard, type NextPageWithLayout } from '../types/app';
-import { loadTranslation, type Messages } from '../utils/helpers/i18n';
-import { getSchemaJson, getWebPageSchema } from '../utils/helpers/schema-org';
-import useBreadcrumb from '../utils/hooks/use-breadcrumb';
-import useSettings from '../utils/hooks/use-settings';
+import { type ArticleCard, type NextPageWithLayout } from '../types';
+import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
+import { loadTranslation, type Messages } from '../utils/helpers/server';
+import { useBreadcrumb, useSettings } from '../utils/hooks';
 
 /**
  * Retrieve a list of coding links.
@@ -259,25 +260,24 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
    * Create the page sections.
    *
    * @param {object} obj - An object containing the section body.
-   * @param {ReactElement[]} obj.children - The section body.
+   * @param {ReactNode[]} obj.children - The section body.
    * @returns {JSX.Element} A section element.
    */
   const getSection = ({
     children,
     variant,
   }: {
-    children: ReactElement[];
+    children: ReactNode[];
     variant: SectionProps['variant'];
   }): JSX.Element => {
     const [headingEl, ...content] = children;
-    const title = headingEl.props.children;
 
     return (
       <Section
-        title={title}
-        content={content}
-        variant={variant}
         className={styles.section}
+        content={content}
+        title={isValidElement(headingEl) ? headingEl.props.children : ''}
+        variant={variant}
       />
     );
   };

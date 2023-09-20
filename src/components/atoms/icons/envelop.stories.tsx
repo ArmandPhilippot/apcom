@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import EnvelopIcon from './envelop';
+import { Envelop as EnvelopIcon } from './envelop';
 
 /**
  * Envelop icon - Storybook Meta

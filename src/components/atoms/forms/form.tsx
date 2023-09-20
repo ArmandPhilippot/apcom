@@ -1,23 +1,21 @@
-import { Children, FC, FormEvent, Fragment, ReactNode } from 'react';
+import {
+  Children,
+  FC,
+  FormEvent,
+  FormHTMLAttributes,
+  Fragment,
+  ReactNode,
+} from 'react';
 import styles from './forms.module.scss';
 
-export type FormProps = {
-  /**
-   * An accessible name.
-   */
-  'aria-label'?: string;
-  /**
-   * One or more ids that refers to the form name.
-   */
-  'aria-labelledby'?: string;
+export type FormProps = Omit<
+  FormHTMLAttributes<HTMLFormElement>,
+  'onSubmit'
+> & {
   /**
    * The form body.
    */
   children: ReactNode;
-  /**
-   * Set additional classnames to the form wrapper.
-   */
-  className?: string;
   /**
    * Wrap each items with a div. Default: true.
    */
@@ -37,7 +35,7 @@ export type FormProps = {
  *
  * Render children wrapped in a form element.
  */
-const Form: FC<FormProps> = ({
+export const Form: FC<FormProps> = ({
   children,
   grouped = true,
   itemsClassName = '',
@@ -75,10 +73,8 @@ const Form: FC<FormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} {...props}>
+    <form {...props} onSubmit={handleSubmit}>
       {getFormItems()}
     </form>
   );
 };
-
-export default Form;

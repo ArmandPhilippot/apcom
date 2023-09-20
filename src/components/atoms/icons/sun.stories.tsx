@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SunIcon from './sun';
+import { Sun as SunIcon } from './sun';
 
 /**
  * Sun icon - Storybook Meta

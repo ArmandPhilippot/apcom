@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import List, { type ListItem, type ListProps } from '../../atoms/lists/list';
-import Card, { type CardProps } from '../../molecules/layout/card';
+import { List, type ListItem, type ListProps } from '../../atoms';
+import { Card, type CardProps } from '../../molecules';
 import styles from './cards-list.module.scss';
 
 export type CardsListItem = Omit<CardProps, 'className' | 'titleLevel'> & {
@@ -27,7 +27,7 @@ export type CardsListProps = Pick<CardProps, 'titleLevel'> &
  *
  * Return a list of Card components.
  */
-const CardsList: FC<CardsListProps> = ({
+export const CardsList: FC<CardsListProps> = ({
   className = '',
   items,
   kind = 'unordered',
@@ -47,11 +47,11 @@ const CardsList: FC<CardsListProps> = ({
         id,
         value: (
           <Card
-            key={id}
+            {...card}
             className={styles.card}
+            key={id}
             id={id}
             titleLevel={titleLevel}
-            {...card}
           />
         ),
       };
@@ -60,11 +60,9 @@ const CardsList: FC<CardsListProps> = ({
 
   return (
     <List
+      className={`${styles.wrapper} ${styles[kindModifier]} ${className}`}
       kind="flex"
       items={getCards(items)}
-      className={`${styles.wrapper} ${styles[kindModifier]} ${className}`}
     />
   );
 };
-
-export default CardsList;

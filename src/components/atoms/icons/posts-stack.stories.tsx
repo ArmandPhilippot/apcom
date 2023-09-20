@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import PostsStackIcon from './posts-stack';
+import { PostsStack as PostsStackIcon } from './posts-stack';
 
 /**
  * Posts Stack icon - Storybook Meta

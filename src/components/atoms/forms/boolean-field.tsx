@@ -1,23 +1,14 @@
-import { ChangeEventHandler, FC, MouseEventHandler } from 'react';
+import { FC, InputHTMLAttributes } from 'react';
 import styles from './boolean-field.module.scss';
 
-export type BooleanFieldProps = {
-  /**
-   * One or more ids that refers to the checkbox name.
-   */
-  'aria-labelledby'?: string;
+export type BooleanFieldProps = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'checked' | 'hidden' | 'name' | 'type' | 'value'
+> & {
   /**
    * True if the field should be checked.
    */
   checked: boolean;
-  /**
-   * Add classnames to the checkbox.
-   */
-  className?: string;
-  /**
-   * Field id attribute.
-   */
-  id: string;
   /**
    * True if the field should be visually hidden. Default: false.
    */
@@ -26,14 +17,6 @@ export type BooleanFieldProps = {
    * Field name attribute.
    */
   name: string;
-  /**
-   * Callback function to handle state change.
-   */
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  /**
-   * A callback function to handle click.
-   */
-  onClick?: MouseEventHandler<HTMLInputElement>;
   /**
    * The input type.
    */
@@ -49,14 +32,13 @@ export type BooleanFieldProps = {
  *
  * Render a checkbox or a radio input type.
  */
-const BooleanField: FC<BooleanFieldProps> = ({
+export const BooleanField: FC<BooleanFieldProps> = ({
   className = '',
   hidden = false,
   ...props
 }) => {
   const modifier = hidden ? 'hidden' : '';
+  const inputClass = `${styles[modifier]} ${className}`;
 
-  return <input className={`${styles[modifier]} ${className}`} {...props} />;
+  return <input {...props} className={inputClass} />;
 };
-
-export default BooleanField;

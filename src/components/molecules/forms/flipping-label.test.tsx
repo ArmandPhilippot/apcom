@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import FlippingLabel from './flipping-label';
+import { FlippingLabel } from './flipping-label';
 
 describe('FlippingLabel', () => {
   it('renders a label', () => {

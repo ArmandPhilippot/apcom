@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import Settings from './settings';
+import { Settings } from './settings';
 
 /**
  * Settings - Storybook Meta

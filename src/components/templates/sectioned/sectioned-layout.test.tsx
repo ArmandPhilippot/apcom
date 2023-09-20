@@ -1,6 +1,6 @@
 import { render, screen } from '../../../../tests/utils';
 import { BreadcrumbList } from 'schema-dts';
-import SectionedLayout from './sectioned-layout';
+import { SectionedLayout } from './sectioned-layout';
 
 const breadcrumbSchema: BreadcrumbList['itemListElement'][] = [];
 const sections = [

@@ -7,9 +7,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import useAttributes from '../hooks/use-attributes';
-import useLocalStorage from '../hooks/use-local-storage';
-import useQuerySelectorAll from '../hooks/use-query-selector-all';
+import { useAttributes, useLocalStorage, useQuerySelectorAll } from '../hooks';
 
 export type PrismTheme = 'dark' | 'light' | 'system';
 export type ResolvedPrismTheme = Exclude<PrismTheme, 'system'>;

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Settings from './settings';
+import { Settings } from './settings';
 
 describe('Settings', () => {
   it('renders a button to open settings modal', () => {

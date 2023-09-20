@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import descriptionListItemStories from '../../atoms/lists/description-list-item.stories';
+import descriptionListItemStories from '../../atoms/lists/description-list-group.stories';
 import descriptionListStories from '../../atoms/lists/description-list.stories';
-import MetaComponent, { MetaData } from './meta';
+import { Meta as MetaComponent, MetaData } from './meta';
 
 /**
  * Meta - Storybook Meta

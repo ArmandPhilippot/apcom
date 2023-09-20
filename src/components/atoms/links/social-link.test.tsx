@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import SocialLink from './social-link';
+import { SocialLink } from './social-link';
 
 /**
  * Next.js mock images to use next/image component. So for now, I need to mock

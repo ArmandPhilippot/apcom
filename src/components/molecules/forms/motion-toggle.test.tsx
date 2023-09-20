@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import MotionToggle from './motion-toggle';
+import { MotionToggle } from './motion-toggle';
 import { storageKey } from './motion-toggle.fixture';
 
 describe('MotionToggle', () => {

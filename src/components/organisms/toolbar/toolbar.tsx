@@ -1,9 +1,8 @@
 import { FC, useState } from 'react';
-import useOnClickOutside from '../../../utils/hooks/use-on-click-outside';
-import useRouteChange from '../../../utils/hooks/use-route-change';
-import MainNav, { type MainNavProps } from '../toolbar/main-nav';
-import Search, { type SearchProps } from '../toolbar/search';
-import Settings, { type SettingsProps } from '../toolbar/settings';
+import { useOnClickOutside, useRouteChange } from '../../../utils/hooks';
+import { MainNav, type MainNavProps } from './main-nav';
+import { Search, type SearchProps } from './search';
+import { Settings, type SettingsProps } from './settings';
 import styles from './toolbar.module.scss';
 
 export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
@@ -23,7 +22,7 @@ export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
  *
  * Render the website toolbar.
  */
-const Toolbar: FC<ToolbarProps> = ({
+export const Toolbar: FC<ToolbarProps> = ({
   ackeeStorageKey,
   className = '',
   motionStorageKey,
@@ -49,18 +48,18 @@ const Toolbar: FC<ToolbarProps> = ({
   return (
     <div className={`${styles.wrapper} ${className}`}>
       <MainNav
-        items={nav}
-        isActive={isNavOpened}
-        setIsActive={() => setIsNavOpened(!isNavOpened)}
         className={styles.modal}
+        isActive={isNavOpened}
+        items={nav}
         ref={mainNavRef}
+        setIsActive={() => setIsNavOpened(!isNavOpened)}
       />
       <Search
-        searchPage={searchPage}
-        isActive={isSearchOpened}
-        setIsActive={() => setIsSearchOpened(!isSearchOpened)}
         className={`${styles.modal} ${styles['modal--search']}`}
+        isActive={isSearchOpened}
         ref={searchRef}
+        searchPage={searchPage}
+        setIsActive={() => setIsSearchOpened(!isSearchOpened)}
       />
       <Settings
         ackeeStorageKey={ackeeStorageKey}
@@ -74,5 +73,3 @@ const Toolbar: FC<ToolbarProps> = ({
     </div>
   );
 };
-
-export default Toolbar;

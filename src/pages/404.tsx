@@ -2,28 +2,27 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import Link from '../components/atoms/links/link';
-import SearchForm from '../components/organisms/forms/search-form';
-import LinksListWidget from '../components/organisms/widgets/links-list-widget';
-import { getLayout } from '../components/templates/layout/layout';
-import PageLayout from '../components/templates/page/page-layout';
+import {
+  getLayout,
+  Link,
+  LinksListWidget,
+  PageLayout,
+  SearchForm,
+} from '../components';
 import {
   getThematicsPreview,
+  getTopicsPreview,
   getTotalThematics,
-} from '../services/graphql/thematics';
-import { getTopicsPreview, getTotalTopics } from '../services/graphql/topics';
-import { type NextPageWithLayout } from '../types/app';
+  getTotalTopics,
+} from '../services/graphql';
 import {
+  type NextPageWithLayout,
   type RawThematicPreview,
   type RawTopicPreview,
-} from '../types/raw-data';
-import { loadTranslation, type Messages } from '../utils/helpers/i18n';
-import {
-  getLinksListItems,
-  getPageLinkFromRawData,
-} from '../utils/helpers/pages';
-import useBreadcrumb from '../utils/hooks/use-breadcrumb';
-import useSettings from '../utils/hooks/use-settings';
+} from '../types';
+import { getLinksListItems, getPageLinkFromRawData } from '../utils/helpers';
+import { loadTranslation, type Messages } from '../utils/helpers/server';
+import { useBreadcrumb, useSettings } from '../utils/hooks';
 
 type Error404PageProps = {
   thematicsList: RawThematicPreview[];

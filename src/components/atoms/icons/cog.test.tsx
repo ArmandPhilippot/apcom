@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Cog from './cog';
+import { Cog } from './cog';
 
 describe('Cog', () => {
   it('renders a Cog icon', () => {

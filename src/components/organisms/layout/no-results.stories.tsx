@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import NoResultsComponent from './no-results';
+import { NoResults as NoResultsComponent } from './no-results';
 
 export default {
   title: 'Organisms/Layout',

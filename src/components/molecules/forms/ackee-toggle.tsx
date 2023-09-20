@@ -1,16 +1,18 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import useLocalStorage from '../../../utils/hooks/use-local-storage';
-import useUpdateAckeeOptions, {
+import {
   type AckeeOptions,
-} from '../../../utils/hooks/use-update-ackee-options';
-import RadioGroup, {
+  useLocalStorage,
+  useUpdateAckeeOptions,
+} from '../../../utils/hooks';
+import {
+  RadioGroup,
   type RadioGroupCallback,
   type RadioGroupCallbackProps,
   type RadioGroupOption,
   type RadioGroupProps,
 } from './radio-group';
-import Tooltip, { type TooltipProps } from '../modals/tooltip';
+import { Tooltip, type TooltipProps } from '../modals/tooltip';
 
 export type AckeeToggleProps = Pick<
   RadioGroupProps,
@@ -43,7 +45,7 @@ export type AckeeToggleProps = Pick<
  *
  * Render a Toggle component to set reduce motion.
  */
-const AckeeToggle: FC<AckeeToggleProps> = ({
+export const AckeeToggle: FC<AckeeToggleProps> = ({
   defaultValue,
   storageKey,
   tooltipClassName,
@@ -126,8 +128,9 @@ const AckeeToggle: FC<AckeeToggleProps> = ({
 
   return (
     <RadioGroup
-      initialChoice={value}
+      {...props}
       kind="toggle"
+      initialChoice={value}
       legend={ackeeLabel}
       onChange={handleChange}
       options={options}
@@ -139,9 +142,6 @@ const AckeeToggle: FC<AckeeToggleProps> = ({
           className={tooltipClassName}
         />
       }
-      {...props}
     />
   );
 };
-
-export default AckeeToggle;

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Section from './section';
+import { Section } from './section';
 
 /**
  * Section - Storybook Meta

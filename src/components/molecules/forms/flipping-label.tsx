@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import Label, { LabelProps } from '../../atoms/forms/label';
-import Close from '../../atoms/icons/close';
+import { Close, Label, type LabelProps } from '../../atoms';
 import styles from './flipping-label.module.scss';
 
 export type FlippingLabelProps = Pick<
@@ -17,7 +16,7 @@ export type FlippingLabelProps = Pick<
   isActive: boolean;
 };
 
-const FlippingLabel: FC<FlippingLabelProps> = ({
+export const FlippingLabel: FC<FlippingLabelProps> = ({
   children,
   className = '',
   isActive,
@@ -26,7 +25,7 @@ const FlippingLabel: FC<FlippingLabelProps> = ({
   const wrapperModifier = isActive ? 'wrapper--active' : 'wrapper--inactive';
 
   return (
-    <Label className={`${styles.label} ${className}`} {...props}>
+    <Label {...props} className={`${styles.label} ${className}`}>
       <span className={`${styles.wrapper} ${styles[wrapperModifier]}`}>
         <span className={styles.front}>{children}</span>
         <span className={styles.back}>
@@ -36,5 +35,3 @@ const FlippingLabel: FC<FlippingLabelProps> = ({
     </Label>
   );
 };
-
-export default FlippingLabel;

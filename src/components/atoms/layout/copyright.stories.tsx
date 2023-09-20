@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CCBySA from '../icons/cc-by-sa';
-import CopyrightComponent from './copyright';
+import { CCBySA } from '../icons';
+import { Copyright as CopyrightComponent } from './copyright';
 
 /**
  * Copyright - Storybook Meta

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Heading from './heading';
+import { Heading } from './heading';
 
 describe('Heading', () => {
   it('renders a h1', () => {

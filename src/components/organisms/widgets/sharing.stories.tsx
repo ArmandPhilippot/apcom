@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SharingWidget from './sharing';
+import { Sharing as SharingWidget } from './sharing';
 
 /**
  * Sharing - Storybook Meta

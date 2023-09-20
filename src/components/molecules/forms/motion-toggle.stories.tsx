@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import MotionToggleComponent from './motion-toggle';
+import { MotionToggle } from './motion-toggle';
 import { storageKey } from './motion-toggle.fixture';
 
 /**
@@ -7,7 +7,7 @@ import { storageKey } from './motion-toggle.fixture';
  */
 export default {
   title: 'Molecules/Forms/Toggle',
-  component: MotionToggleComponent,
+  component: MotionToggle,
   argTypes: {
     bodyClassName: {
       control: {
@@ -70,10 +70,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof MotionToggleComponent>;
+} as ComponentMeta<typeof MotionToggle>;
 
-const Template: ComponentStory<typeof MotionToggleComponent> = (args) => (
-  <MotionToggleComponent {...args} />
+const Template: ComponentStory<typeof MotionToggle> = (args) => (
+  <MotionToggle {...args} />
 );
 
 /**

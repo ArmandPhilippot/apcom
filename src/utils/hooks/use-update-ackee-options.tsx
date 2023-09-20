@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAckeeTracker } from '../providers/ackee';
+import { useAckeeTracker } from '../providers';
 
 export type AckeeOptions = 'full' | 'partial';
 
@@ -8,12 +8,10 @@ export type AckeeOptions = 'full' | 'partial';
  *
  * @param {AckeeOptions} value - Either `full` or `partial`.
  */
-const useUpdateAckeeOptions = (value: AckeeOptions) => {
+export const useUpdateAckeeOptions = (value: AckeeOptions) => {
   const { setDetailed } = useAckeeTracker();
 
   useEffect(() => {
     setDetailed(value === 'full');
   }, [value, setDetailed]);
 };
-
-export default useUpdateAckeeOptions;

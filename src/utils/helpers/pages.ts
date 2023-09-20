@@ -1,13 +1,13 @@
-import { type Post } from '../../components/organisms/layout/posts-list';
-import { type LinksListItems } from '../../components/organisms/widgets/links-list-widget';
-import { getArticleFromRawData } from '../../services/graphql/articles';
-import { type Article, type PageLink } from '../../types/app';
-import { EdgesResponse } from '../../types/graphql/queries';
+import { type LinksListItems, type Post } from '../../components';
+import { getArticleFromRawData } from '../../services/graphql';
 import {
+  type Article,
+  type EdgesResponse,
+  type PageLink,
   type RawArticle,
   type RawThematicPreview,
   type RawTopicPreview,
-} from '../../types/raw-data';
+} from '../../types';
 import { getImageFromRawData } from './images';
 
 /**

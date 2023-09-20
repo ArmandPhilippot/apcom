@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import AckeeToggleComponent from './ackee-toggle';
+import { AckeeToggle } from './ackee-toggle';
 import { storageKey } from './ackee-toggle.fixture';
 
 /**
@@ -7,7 +7,7 @@ import { storageKey } from './ackee-toggle.fixture';
  */
 export default {
   title: 'Molecules/Forms/Toggle',
-  component: AckeeToggleComponent,
+  component: AckeeToggle,
   argTypes: {
     bodyClassName: {
       control: {
@@ -109,10 +109,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof AckeeToggleComponent>;
+} as ComponentMeta<typeof AckeeToggle>;
 
-const Template: ComponentStory<typeof AckeeToggleComponent> = (args) => (
-  <AckeeToggleComponent {...args} />
+const Template: ComponentStory<typeof AckeeToggle> = (args) => (
+  <AckeeToggle {...args} />
 );
 
 /**

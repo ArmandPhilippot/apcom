@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import Branding, { type BrandingProps } from '../../molecules/layout/branding';
-import Toolbar, { type ToolbarProps } from '../toolbar/toolbar';
+import { Branding, type BrandingProps } from '../../molecules';
+import { Toolbar, type ToolbarProps } from '../toolbar';
 import styles from './header.module.scss';
 
 export type HeaderProps = BrandingProps &
@@ -19,7 +19,7 @@ export type HeaderProps = BrandingProps &
  *
  * Render the website header.
  */
-const Header: FC<HeaderProps> = ({
+export const Header: FC<HeaderProps> = ({
   ackeeStorageKey,
   className,
   motionStorageKey,
@@ -42,5 +42,3 @@ const Header: FC<HeaderProps> = ({
     </header>
   );
 };
-
-export default Header;

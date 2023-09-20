@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Tooltip from './tooltip';
+import { Tooltip } from './tooltip';
 import { content, icon, title } from './tooltip.fixture';
 
 describe('Tooltip', () => {

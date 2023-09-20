@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ProgressBarComponent from './progress-bar';
+import { ProgressBar as ProgressBarComponent } from './progress-bar';
 import { current, id, label, max, min } from './progress-bar.fixture';
 
 /**

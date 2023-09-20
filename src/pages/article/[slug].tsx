@@ -5,41 +5,43 @@ import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
-import ButtonLink from '../../components/atoms/buttons/button-link';
-import Link from '../../components/atoms/links/link';
-import Spinner from '../../components/atoms/loaders/spinner';
-import ResponsiveImage from '../../components/molecules/images/responsive-image';
-import Sharing from '../../components/organisms/widgets/sharing';
-import { getLayout } from '../../components/templates/layout/layout';
-import PageLayout, {
+import {
+  ButtonLink,
+  getLayout,
+  Link,
+  PageLayout,
   type PageLayoutProps,
-} from '../../components/templates/page/page-layout';
+  ResponsiveImage,
+  Sharing,
+  Spinner,
+} from '../../components';
 import {
   getAllArticlesSlugs,
+  getAllComments,
   getArticleBySlug,
-} from '../../services/graphql/articles';
-import { getAllComments } from '../../services/graphql/comments';
+} from '../../services/graphql';
 import styles from '../../styles/pages/article.module.scss';
 import {
   type Article,
   type NextPageWithLayout,
   type SingleComment,
-} from '../../types/app';
-import { loadTranslation, type Messages } from '../../utils/helpers/i18n';
+} from '../../types';
 import {
   getBlogSchema,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
-} from '../../utils/helpers/schema-org';
-import useArticle from '../../utils/hooks/use-article';
-import useBreadcrumb from '../../utils/hooks/use-breadcrumb';
-import useComments from '../../utils/hooks/use-comments';
-import usePrism, {
+} from '../../utils/helpers';
+import { loadTranslation, type Messages } from '../../utils/helpers/server';
+import {
   type OptionalPrismPlugin,
-} from '../../utils/hooks/use-prism';
-import useReadingTime from '../../utils/hooks/use-reading-time';
-import useSettings from '../../utils/hooks/use-settings';
+  useArticle,
+  useBreadcrumb,
+  useComments,
+  usePrism,
+  useReadingTime,
+  useSettings,
+} from '../../utils/hooks';
 
 type ArticlePageProps = {
   comments: SingleComment[];

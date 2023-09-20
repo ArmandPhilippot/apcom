@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import BackToTop from './back-to-top';
+import { BackToTop } from './back-to-top';
 
 describe('BackToTop', () => {
   it('renders a BackToTop link', () => {

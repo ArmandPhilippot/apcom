@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import SelectComponent from './select';
+import { Select as SelectComponent } from './select';
 
 const selectOptions = [
   { id: 'option1', name: 'Option 1', value: 'option1' },

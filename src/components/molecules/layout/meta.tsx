@@ -1,14 +1,12 @@
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
+import { getFormattedDate, getFormattedTime } from '../../../utils/helpers';
 import {
-  getFormattedDate,
-  getFormattedTime,
-} from '../../../utils/helpers/dates';
-import Link from '../../atoms/links/link';
-import DescriptionList, {
+  DescriptionList,
   type DescriptionListProps,
   type DescriptionListItem,
-} from '../../atoms/lists/description-list';
+  Link,
+} from '../../atoms';
 
 export type CustomMeta = {
   label: string;
@@ -133,7 +131,7 @@ export type MetaProps = Omit<
  *
  * Renders the given metadata.
  */
-const Meta: FC<MetaProps> = ({
+export const Meta: FC<MetaProps> = ({
   data,
   itemsLayout = 'inline-values',
   withSeparator = true,
@@ -384,11 +382,9 @@ const Meta: FC<MetaProps> = ({
 
   return (
     <DescriptionList
+      {...props}
       items={getItems(data)}
       withSeparator={withSeparator}
-      {...props}
     />
   );
 };
-
-export default Meta;

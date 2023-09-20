@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import CCBySA from './cc-by-sa';
+import { CCBySA } from './cc-by-sa';
 
 describe('CCBySA', () => {
   it('renders a CC BY SA icon', () => {

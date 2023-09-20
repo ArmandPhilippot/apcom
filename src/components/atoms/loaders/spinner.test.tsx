@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Spinner from './spinner';
+import { Spinner } from './spinner';
 
 describe('Spinner', () => {
   it('renders a spinner loader', () => {

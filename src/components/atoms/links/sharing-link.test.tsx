@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import SharingLink from './sharing-link';
+import { SharingLink } from './sharing-link';
 
 describe('SharingLink', () => {
   it('render a Diaspora sharing link', () => {

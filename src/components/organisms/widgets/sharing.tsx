@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import SharingLink, {
-  type SharingMedium,
-} from '../../atoms/links/sharing-link';
-import Widget, { type WidgetProps } from '../../molecules/layout/widget';
+import { SharingLink, type SharingMedium } from '../../atoms';
+import { Widget, type WidgetProps } from '../../molecules';
 import styles from './sharing.module.scss';
 
 export type SharingData = {
@@ -49,7 +47,7 @@ export type SharingProps = {
  *
  * Render a list of sharing links inside a widget.
  */
-const Sharing: FC<SharingProps> = ({
+export const Sharing: FC<SharingProps> = ({
   className = '',
   data,
   media,
@@ -205,10 +203,8 @@ const Sharing: FC<SharingProps> = ({
   };
 
   return (
-    <Widget expanded={expanded} level={level} title={widgetTitle} {...props}>
+    <Widget {...props} expanded={expanded} level={level} title={widgetTitle}>
       <ul className={`${styles.list} ${className}`}>{getItems()}</ul>
     </Widget>
   );
 };
-
-export default Sharing;

@@ -1,8 +1,6 @@
 import { FC } from 'react';
-import SocialLink, {
-  type SocialLinkProps,
-} from '../../atoms/links/social-link';
-import Widget, { type WidgetProps } from '../../molecules/layout/widget';
+import { SocialLink, type SocialLinkProps } from '../../atoms';
+import { Widget, type WidgetProps } from '../../molecules';
 import styles from './social-media.module.scss';
 
 export type Media = SocialLinkProps;
@@ -16,7 +14,7 @@ export type SocialMediaProps = Pick<WidgetProps, 'level' | 'title'> & {
  *
  * Render a social media list with links.
  */
-const SocialMedia: FC<SocialMediaProps> = ({ media, ...props }) => {
+export const SocialMedia: FC<SocialMediaProps> = ({ media, ...props }) => {
   /**
    * Retrieve the social media items.
    *
@@ -37,5 +35,3 @@ const SocialMedia: FC<SocialMediaProps> = ({ media, ...props }) => {
     </Widget>
   );
 };
-
-export default SocialMedia;

@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Close from './close';
+import { Close } from './close';
 
 describe('Close', () => {
   it('renders a Close icon', () => {

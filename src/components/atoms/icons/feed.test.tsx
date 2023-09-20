@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Feed from './feed';
+import { Feed } from './feed';
 
 describe('Feed', () => {
   it('renders a feed icon', () => {

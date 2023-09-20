@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import useHeadingsTree, {
-  type Heading,
-} from '../../../utils/hooks/use-headings-tree';
-import LinksListWidget, { type LinksListItems } from './links-list-widget';
+import { useHeadingsTree, type Heading } from '../../../utils/hooks';
+import { type LinksListItems, LinksListWidget } from './links-list-widget';
 import styles from './table-of-contents.module.scss';
 
 type TableOfContentsProps = {
@@ -18,7 +16,7 @@ type TableOfContentsProps = {
  *
  * Render a table of contents.
  */
-const TableOfContents: FC<TableOfContentsProps> = ({ wrapper }) => {
+export const TableOfContents: FC<TableOfContentsProps> = ({ wrapper }) => {
   const intl = useIntl();
   const headingsTree = useHeadingsTree(wrapper);
   const title = intl.formatMessage({
@@ -45,13 +43,11 @@ const TableOfContents: FC<TableOfContentsProps> = ({ wrapper }) => {
 
   return (
     <LinksListWidget
-      kind="ordered"
-      title={title}
-      level={2}
-      items={getItems(headingsTree)}
       className={styles.list}
+      items={getItems(headingsTree)}
+      kind="ordered"
+      level={2}
+      title={title}
     />
   );
 };
-
-export default TableOfContents;

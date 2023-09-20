@@ -20,10 +20,8 @@ export type UseStylesProps = {
  *
  * @param {UseStylesProps} props - An object with property, styles and target.
  */
-const useStyles = ({ property, styles, target }: UseStylesProps) => {
+export const useStyles = ({ property, styles, target }: UseStylesProps) => {
   useEffect(() => {
     if (target.current) target.current.style.setProperty(property, styles);
   }, [property, styles, target]);
 };
-
-export default useStyles;

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Card from './card';
+import { Card } from './card';
 import { cover, id, meta, tagline, title, url } from './card.fixture';
 
 /**

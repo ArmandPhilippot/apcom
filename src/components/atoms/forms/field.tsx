@@ -72,12 +72,7 @@ export type FieldProps = {
   value: string;
 };
 
-/**
- * Field component.
- *
- * Render either an input or a textarea.
- */
-const Field: ForwardRefRenderFunction<HTMLInputElement, FieldProps> = (
+const FieldWithRef: ForwardRefRenderFunction<HTMLInputElement, FieldProps> = (
   { className = '', setValue, type, ...props },
   ref
 ) => {
@@ -93,19 +88,24 @@ const Field: ForwardRefRenderFunction<HTMLInputElement, FieldProps> = (
 
   return type === 'textarea' ? (
     <textarea
-      onChange={updateValue}
-      className={`${styles.field} ${styles['field--textarea']} ${className}`}
       {...props}
+      className={`${styles.field} ${styles['field--textarea']} ${className}`}
+      onChange={updateValue}
     />
   ) : (
     <input
+      {...props}
       className={`${styles.field} ${className}`}
       onChange={updateValue}
       ref={ref}
       type={type}
-      {...props}
     />
   );
 };
 
-export default forwardRef(Field);
+/**
+ * Field component.
+ *
+ * Render either an input or a textarea.
+ */
+export const Field = forwardRef(FieldWithRef);

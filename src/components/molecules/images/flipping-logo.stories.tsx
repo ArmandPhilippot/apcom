@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import FlippingLogoComponent from './flipping-logo';
+import { FlippingLogo as FlippingLogoComponent } from './flipping-logo';
 
 /**
  * FlippingLogo - Storybook Meta

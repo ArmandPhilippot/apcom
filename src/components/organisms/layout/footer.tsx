@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import Copyright, { type CopyrightProps } from '../../atoms/layout/copyright';
-import BackToTop, {
+import { Copyright, type CopyrightProps } from '../../atoms';
+import {
+  BackToTop,
   type BackToTopProps,
-} from '../../molecules/buttons/back-to-top';
-import Nav, { type NavItem } from '../../molecules/nav/nav';
+  Nav,
+  type NavItem,
+} from '../../molecules';
 import styles from './footer.module.scss';
 
 export type FooterProps = {
@@ -35,7 +37,7 @@ export type FooterProps = {
  *
  * Renders a footer with copyright and nav;
  */
-const Footer: FC<FooterProps> = ({
+export const Footer: FC<FooterProps> = ({
   backToTopClassName,
   className = '',
   copyright,
@@ -53,23 +55,21 @@ const Footer: FC<FooterProps> = ({
     <footer className={`${styles.wrapper} ${className}`}>
       <Copyright
         dates={copyright.dates}
-        owner={copyright.owner}
         icon={copyright.icon}
+        owner={copyright.owner}
       />
       {navItems && (
         <Nav
           aria-label={ariaLabel}
-          kind="footer"
-          items={navItems}
           className={styles.nav}
+          items={navItems}
+          kind="footer"
         />
       )}
       <BackToTop
-        target={topId}
         className={`${styles['back-to-top']} ${backToTopClassName}`}
+        target={topId}
       />
     </footer>
   );
 };
-
-export default Footer;

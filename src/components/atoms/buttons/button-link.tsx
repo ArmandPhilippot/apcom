@@ -1,24 +1,12 @@
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import { AnchorHTMLAttributes, FC, ReactNode } from 'react';
 import styles from './buttons.module.scss';
 
-export type ButtonLinkProps = {
-  /**
-   * ButtonLink accessible label.
-   */
-  'aria-label'?: string;
-  /**
-   * One or more ids that refer to the accessible label.
-   */
-  'aria-labelledby'?: string;
+export type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   /**
    * The button link body.
    */
   children: ReactNode;
-  /**
-   * Set additional classnames to the button link.
-   */
-  className?: string;
   /**
    * True if it is an external link. Default: false.
    */
@@ -42,7 +30,7 @@ export type ButtonLinkProps = {
  *
  * Use a button-like link as call to action.
  */
-const ButtonLink: FC<ButtonLinkProps> = ({
+export const ButtonLink: FC<ButtonLinkProps> = ({
   children,
   className,
   target,
@@ -53,24 +41,15 @@ const ButtonLink: FC<ButtonLinkProps> = ({
 }) => {
   const kindClass = styles[`btn--${kind}`];
   const shapeClass = styles[`btn--${shape}`];
+  const btnClass = `${styles.btn} ${kindClass} ${shapeClass} ${className}`;
 
   return external ? (
-    <a
-      href={target}
-      className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
-      {...props}
-    >
+    <a {...props} className={btnClass} href={target}>
       {children}
     </a>
   ) : (
-    <Link
-      {...props}
-      className={`${styles.btn} ${kindClass} ${shapeClass} ${className}`}
-      href={target}
-    >
+    <Link {...props} className={btnClass} href={target}>
       {children}
     </Link>
   );
 };
-
-export default ButtonLink;

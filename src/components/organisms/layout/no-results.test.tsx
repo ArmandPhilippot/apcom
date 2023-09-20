@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import NoResults from './no-results';
+import { NoResults } from './no-results';
 
 describe('NoResults', () => {
   it('renders a no results text', () => {

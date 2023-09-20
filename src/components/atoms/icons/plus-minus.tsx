@@ -17,15 +17,13 @@ export type PlusMinusProps = {
  *
  * Render a plus or a minus icon.
  */
-const PlusMinus: FC<PlusMinusProps> = ({ className, state }) => {
+export const PlusMinus: FC<PlusMinusProps> = ({ className = '', state }) => {
   const stateClass = `icon--${state}`;
 
   return (
     <div
-      className={`${styles.icon} ${styles[stateClass]} ${className}`}
       aria-hidden={true}
-    ></div>
+      className={`${styles.icon} ${styles[stateClass]} ${className}`}
+    />
   );
 };
-
-export default PlusMinus;

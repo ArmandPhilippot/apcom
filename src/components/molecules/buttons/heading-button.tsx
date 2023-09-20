@@ -1,7 +1,6 @@
 import { FC, SetStateAction } from 'react';
 import { useIntl } from 'react-intl';
-import Heading, { type HeadingProps } from '../../atoms/headings/heading';
-import PlusMinus from '../../atoms/icons/plus-minus';
+import { Heading, type HeadingProps, PlusMinus } from '../../atoms';
 import styles from './heading-button.module.scss';
 
 export type HeadingButtonProps = Pick<HeadingProps, 'level'> & {
@@ -28,7 +27,7 @@ export type HeadingButtonProps = Pick<HeadingProps, 'level'> & {
  *
  * Render a button as accordion title to toggle body.
  */
-const HeadingButton: FC<HeadingButtonProps> = ({
+export const HeadingButton: FC<HeadingButtonProps> = ({
   className = '',
   expanded,
   level,
@@ -51,9 +50,9 @@ const HeadingButton: FC<HeadingButtonProps> = ({
 
   return (
     <button
-      type="button"
       className={`${styles.wrapper} ${className}`}
       onClick={() => setExpanded(!expanded)}
+      type="button"
     >
       <Heading level={level} withMargin={false} className={styles.heading}>
         <span className="screen-reader-text">{titlePrefix} </span>
@@ -63,5 +62,3 @@ const HeadingButton: FC<HeadingButtonProps> = ({
     </button>
   );
 };
-
-export default HeadingButton;

@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction, ReactNode } from 'react';
-import List, { type ListItem } from '../../atoms/lists/list';
+import { List, type ListItem } from '../../atoms';
 import styles from './tooltip.module.scss';
 
 export type TooltipProps = {
@@ -25,12 +25,7 @@ export type TooltipProps = {
   title: string;
 };
 
-/**
- * Tooltip component
- *
- * Render a tooltip modal.
- */
-const Tooltip: ForwardRefRenderFunction<HTMLDivElement, TooltipProps> = (
+const TooltipWithRef: ForwardRefRenderFunction<HTMLDivElement, TooltipProps> = (
   { cloneClassName = '', className = '', content, icon, title },
   ref
 ) => {
@@ -64,4 +59,9 @@ const Tooltip: ForwardRefRenderFunction<HTMLDivElement, TooltipProps> = (
   );
 };
 
-export default forwardRef(Tooltip);
+/**
+ * Tooltip component
+ *
+ * Render a tooltip modal.
+ */
+export const Tooltip = forwardRef(TooltipWithRef);

@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, MouseEvent, SetStateAction } from 'react';
-import useStateChange from '../../../utils/hooks/use-state-change';
-import Fieldset, { type FieldsetProps } from '../forms/fieldset';
-import LabelledBooleanField, {
+import { useStateChange } from '../../../utils/hooks';
+import { Fieldset, type FieldsetProps } from './fieldset';
+import {
+  LabelledBooleanField,
   type LabelledBooleanFieldProps,
 } from './labelled-boolean-field';
 import styles from './radio-group.module.scss';
@@ -74,7 +75,7 @@ export type RadioGroupProps = Pick<
  *
  * Render a group of labelled radio buttons.
  */
-const RadioGroup: FC<RadioGroupProps> = ({
+export const RadioGroup: FC<RadioGroupProps> = ({
   className,
   groupClassName = '',
   initialChoice,
@@ -93,6 +94,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
   const isToggle = kind === 'toggle';
   const alignmentModifier = `wrapper--${legendPosition}`;
   const toggleModifier = isToggle ? 'wrapper--toggle' : 'wrapper--regular';
+  const fieldsetClass = `${styles.wrapper} ${styles[alignmentModifier]} ${styles[toggleModifier]} ${className}`;
 
   /**
    * Update the selected choice on click or change event.
@@ -119,6 +121,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
   const getOptions = (): JSX.Element[] => {
     return options.map((option) => (
       <LabelledBooleanField
+        {...option}
         key={option.id}
         checked={selectedChoice === option.value}
         className={`${styles.option} ${optionClassName}`}
@@ -130,18 +133,17 @@ const RadioGroup: FC<RadioGroupProps> = ({
         onChange={updateChoice}
         onClick={updateChoice}
         type="radio"
-        {...option}
       />
     ));
   };
 
   return (
     <Fieldset
-      className={`${styles.wrapper} ${styles[alignmentModifier]} ${styles[toggleModifier]} ${className}`}
+      {...props}
+      className={fieldsetClass}
       legendClassName={`${styles.legend} ${legendClassName}`}
       legendPosition={legendPosition}
       role="radiogroup"
-      {...props}
     >
       {isToggle ? (
         <span className={`${styles.toggle} ${groupClassName}`}>
@@ -153,5 +155,3 @@ const RadioGroup: FC<RadioGroupProps> = ({
     </Fieldset>
   );
 };
-
-export default RadioGroup;

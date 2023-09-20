@@ -1,6 +1,6 @@
 import { render, screen } from '../../../../tests/utils';
-import { getFormattedDate } from '../../../utils/helpers/dates';
-import Meta from './meta';
+import { getFormattedDate } from '../../../utils/helpers';
+import { Meta } from './meta';
 
 const data = {
   publication: { date: '2022-04-09' },

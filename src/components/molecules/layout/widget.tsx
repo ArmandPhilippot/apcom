@@ -1,7 +1,5 @@
 import { FC, ReactNode, useState } from 'react';
-import HeadingButton, {
-  type HeadingButtonProps,
-} from '../buttons/heading-button';
+import { HeadingButton, type HeadingButtonProps } from '../buttons';
 import styles from './widget.module.scss';
 
 export type WidgetProps = Pick<
@@ -31,7 +29,7 @@ export type WidgetProps = Pick<
  *
  * Render an expandable widget.
  */
-const Widget: FC<WidgetProps> = ({
+export const Widget: FC<WidgetProps> = ({
   children,
   className = '',
   expanded = true,
@@ -46,11 +44,10 @@ const Widget: FC<WidgetProps> = ({
     ? 'widget--has-borders'
     : 'widget--no-borders';
   const scrollClass = withScroll ? 'widget--has-scroll' : 'widget--no-scroll';
+  const widgetClass = `${styles.widget} ${styles[bordersClass]} ${styles[stateClass]} ${styles[scrollClass]} ${className}`;
 
   return (
-    <div
-      className={`${styles.widget} ${styles[bordersClass]} ${styles[stateClass]} ${styles[scrollClass]} ${className}`}
-    >
+    <div className={widgetClass}>
       <HeadingButton
         level={level}
         title={title}
@@ -62,5 +59,3 @@ const Widget: FC<WidgetProps> = ({
     </div>
   );
 };
-
-export default Widget;

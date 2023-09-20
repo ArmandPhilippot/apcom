@@ -11,7 +11,7 @@ export type UseAddClassNameProps = {
  *
  * @param {UseAddClassNameProps} props - An object with classnames and one or more elements.
  */
-const useAddClassName = ({
+export const useAddClassName = ({
   className,
   element,
   elements,
@@ -30,5 +30,3 @@ const useAddClassName = ({
     if (elements && elements.length > 0) elements.forEach(setClassName);
   }, [element, elements, setClassName]);
 };
-
-export default useAddClassName;

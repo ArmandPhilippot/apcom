@@ -1,17 +1,17 @@
 import { FC, Fragment, useRef } from 'react';
 import { useIntl } from 'react-intl';
-import useIsMounted from '../../../utils/hooks/use-is-mounted';
-import useSettings from '../../../utils/hooks/use-settings';
-import Button from '../../atoms/buttons/button';
-import Heading, { type HeadingLevel } from '../../atoms/headings/heading';
-import ProgressBar from '../../atoms/loaders/progress-bar';
-import Spinner from '../../atoms/loaders/spinner';
-import Pagination, {
-  type PaginationProps,
-} from '../../molecules/nav/pagination';
-import NoResults, { NoResultsProps } from './no-results';
+import { useIsMounted, useSettings } from '../../../utils/hooks';
+import {
+  Button,
+  Heading,
+  type HeadingLevel,
+  ProgressBar,
+  Spinner,
+} from '../../atoms';
+import { Pagination, type PaginationProps } from '../../molecules';
+import { NoResults, type NoResultsProps } from './no-results';
 import styles from './posts-list.module.scss';
-import Summary, { type SummaryProps } from './summary';
+import { Summary, type SummaryProps } from './summary';
 
 export type Post = Omit<SummaryProps, 'titleLevel'> & {
   /**
@@ -84,7 +84,7 @@ const sortPostsByYear = (data: Post[]): YearCollection => {
  *
  * Render a list of post summaries.
  */
-const PostsList: FC<PostsListProps> = ({
+export const PostsList: FC<PostsListProps> = ({
   baseUrl,
   byYear = false,
   isLoading = false,
@@ -237,5 +237,3 @@ const PostsList: FC<PostsListProps> = ({
     </>
   );
 };
-
-export default PostsList;

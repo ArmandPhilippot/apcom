@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import MagnifyingGlass from './magnifying-glass';
+import { MagnifyingGlass } from './magnifying-glass';
 
 describe('MagnifyingGlass', () => {
   it('renders a magnifying glass icon', () => {

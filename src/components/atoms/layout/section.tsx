@@ -1,18 +1,17 @@
-import { FC, ReactNode } from 'react';
-import Heading from '../headings/heading';
+import { FC, HTMLAttributes, ReactNode } from 'react';
+import { Heading } from '../headings';
 import styles from './section.module.scss';
 
 export type SectionVariant = 'dark' | 'light';
 
-export type SectionProps = {
-  /**
-   * Set additional classnames to the section element.
-   */
-  className?: string;
+export type SectionProps = Omit<
+  HTMLAttributes<HTMLElement>,
+  'children' | 'content'
+> & {
   /**
    * The section content.
    */
-  content: ReactNode;
+  content: ReactNode | ReactNode[];
   /**
    * The section title.
    */
@@ -32,20 +31,20 @@ export type SectionProps = {
  *
  * Render a section element.
  */
-const Section: FC<SectionProps> = ({
+export const Section: FC<SectionProps> = ({
   className = '',
   content,
   title,
   variant = 'dark',
   withBorder = true,
+  ...props
 }) => {
   const borderClass = withBorder ? styles[`wrapper--borders`] : '';
   const variantClass = styles[`wrapper--${variant}`];
+  const sectionClass = `${styles.wrapper} ${borderClass} ${variantClass} ${className}`;
 
   return (
-    <section
-      className={`${styles.wrapper} ${borderClass} ${variantClass} ${className}`}
-    >
+    <section {...props} className={sectionClass}>
       <Heading level={2} className={styles.title}>
         {title}
       </Heading>
@@ -53,5 +52,3 @@ const Section: FC<SectionProps> = ({
     </section>
   );
 };
-
-export default Section;

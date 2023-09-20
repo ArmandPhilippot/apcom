@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CCBySAIcon from './cc-by-sa';
+import { CCBySA as CCBySAIcon } from './cc-by-sa';
 
 /**
  * CC BY SA icon - Storybook Meta

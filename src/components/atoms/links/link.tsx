@@ -1,16 +1,12 @@
 import NextLink from 'next/link';
-import { FC, ReactNode } from 'react';
+import { AnchorHTMLAttributes, FC, ReactNode } from 'react';
 import styles from './link.module.scss';
 
-export type LinkProps = {
+export type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   /**
    * The link body.
    */
   children: ReactNode;
-  /**
-   * Set additional classnames to the link.
-   */
-  className?: string;
   /**
    * True if it is a download link. Default: false.
    */
@@ -34,33 +30,26 @@ export type LinkProps = {
  *
  * Render a link.
  */
-const Link: FC<LinkProps> = ({
+export const Link: FC<LinkProps> = ({
   children,
   className = '',
   download = false,
   external = false,
   href,
   lang,
+  ...props
 }) => {
   const downloadClass = download ? styles['link--download'] : '';
+  const linkClass = `${styles.link} ${downloadClass} ${className}`;
+  const externalLinkClass = `${linkClass} ${styles['link--external']}`;
 
   return external ? (
-    <a
-      href={href}
-      hrefLang={lang}
-      className={`${styles.link} ${styles['link--external']} ${downloadClass} ${className}`}
-    >
+    <a {...props} className={externalLinkClass} href={href} hrefLang={lang}>
       {children}
     </a>
   ) : (
-    <NextLink
-      className={`${styles.link} ${downloadClass} ${className}`}
-      href={href}
-      hrefLang={lang}
-    >
+    <NextLink {...props} className={linkClass} href={href} hrefLang={lang}>
       {children}
     </NextLink>
   );
 };
-
-export default Link;

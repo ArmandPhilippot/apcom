@@ -4,21 +4,17 @@ import {
   articlesEndCursorQuery,
   articlesQuery,
   articlesSlugQuery,
-  totalArticlesQuery,
-} from '../../services/graphql/articles.query';
-import { commentsQuery } from '../../services/graphql/comments.query';
-import {
+  commentsQuery,
   thematicBySlugQuery,
   thematicsListQuery,
   thematicsSlugQuery,
-  totalThematicsQuery,
-} from '../../services/graphql/thematics.query';
-import {
   topicBySlugQuery,
   topicsListQuery,
   topicsSlugQuery,
+  totalArticlesQuery,
+  totalThematicsQuery,
   totalTopicsQuery,
-} from '../../services/graphql/topics.query';
+} from '../../services/graphql';
 import { Slug } from '../app';
 import { RawComment } from '../raw-data';
 import {

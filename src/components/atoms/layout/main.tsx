@@ -1,18 +1,10 @@
-import { FC, ReactNode } from 'react';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
-export type MainProps = {
+export type MainProps = HTMLAttributes<HTMLElement> & {
   /**
    * The main body.
    */
   children: ReactNode;
-  /**
-   * Set additional classnames to the main element.
-   */
-  className?: string;
-  /**
-   * The main wrapper id.
-   */
-  id: string;
 };
 
 /**
@@ -20,8 +12,6 @@ export type MainProps = {
  *
  * Render a main element.
  */
-const Main: FC<MainProps> = ({ children, ...props }) => {
+export const Main: FC<MainProps> = ({ children, ...props }) => {
   return <main {...props}>{children}</main>;
 };
-
-export default Main;

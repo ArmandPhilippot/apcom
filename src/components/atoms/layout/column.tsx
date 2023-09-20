@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
-export type ColumnProps = {
-  children: ReactNode | ReactNode[];
+export type ColumnProps = HTMLAttributes<HTMLDivElement> & {
+  children: ReactNode;
 };
 
 /**
@@ -9,8 +9,6 @@ export type ColumnProps = {
  *
  * Render the body as a column.
  */
-const Column: FC<ColumnProps> = ({ children }) => {
-  return <div>{children}</div>;
+export const Column: FC<ColumnProps> = ({ children, ...props }) => {
+  return <div {...props}>{children}</div>;
 };
-
-export default Column;

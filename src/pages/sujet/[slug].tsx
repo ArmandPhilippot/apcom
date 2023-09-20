@@ -4,39 +4,37 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ParsedUrlQuery } from 'querystring';
 import { useIntl } from 'react-intl';
-import Heading from '../../components/atoms/headings/heading';
-import ResponsiveImage from '../../components/molecules/images/responsive-image';
-import PostsList from '../../components/organisms/layout/posts-list';
-import LinksListWidget from '../../components/organisms/widgets/links-list-widget';
-import { getLayout } from '../../components/templates/layout/layout';
-import PageLayout, {
+import {
+  getLayout,
+  Heading,
+  LinksListWidget,
+  PageLayout,
   type PageLayoutProps,
-} from '../../components/templates/page/page-layout';
+  PostsList,
+  ResponsiveImage,
+} from '../../components';
 import {
   getAllTopicsSlugs,
   getTopicBySlug,
   getTopicsPreview,
   getTotalTopics,
-} from '../../services/graphql/topics';
+} from '../../services/graphql';
 import styles from '../../styles/pages/topic.module.scss';
 import {
   type NextPageWithLayout,
   type PageLink,
   type Topic,
-} from '../../types/app';
-import { loadTranslation, type Messages } from '../../utils/helpers/i18n';
+} from '../../types';
 import {
   getLinksListItems,
   getPageLinkFromRawData,
   getPostsWithUrl,
-} from '../../utils/helpers/pages';
-import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
-} from '../../utils/helpers/schema-org';
-import useBreadcrumb from '../../utils/hooks/use-breadcrumb';
-import useSettings from '../../utils/hooks/use-settings';
+} from '../../utils/helpers';
+import { loadTranslation, type Messages } from '../../utils/helpers/server';
+import { useBreadcrumb, useSettings } from '../../utils/hooks';
 
 export type TopicPageProps = {
   currentTopic: Topic;

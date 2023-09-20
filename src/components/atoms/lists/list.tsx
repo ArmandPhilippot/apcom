@@ -40,7 +40,7 @@ export type ListProps = {
  *
  * Render either an ordered or an unordered list.
  */
-const List: FC<ListProps> = ({
+export const List: FC<ListProps> = ({
   className = '',
   items,
   itemsClassName = '',
@@ -48,6 +48,7 @@ const List: FC<ListProps> = ({
 }) => {
   const ListTag = kind === 'ordered' ? 'ol' : 'ul';
   const kindClass = `list--${kind}`;
+  const listClass = `${styles.list} ${styles[kindClass]} ${className}`;
 
   /**
    * Retrieve the list items.
@@ -69,11 +70,5 @@ const List: FC<ListProps> = ({
     ));
   };
 
-  return (
-    <ListTag className={`${styles.list} ${styles[kindClass]} ${className}`}>
-      {getItems(items)}
-    </ListTag>
-  );
+  return <ListTag className={listClass}>{getItems(items)}</ListTag>;
 };
-
-export default List;

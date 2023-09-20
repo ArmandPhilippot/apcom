@@ -67,11 +67,11 @@ export type UseSettingsReturn = {
  *
  * @returns {UseSettingsReturn} - An object describing settings.
  */
-const useSettings = (): UseSettingsReturn => {
+export const useSettings = (): UseSettingsReturn => {
   const { baseline, copyright, email, locales, name, postsPerPage, url } =
     settings;
   const router = useRouter();
-  const locale = router.locale || locales.defaultLocale;
+  const locale = router.locale ?? locales.defaultLocale;
 
   return {
     blog: {
@@ -93,5 +93,3 @@ const useSettings = (): UseSettingsReturn => {
     },
   };
 };
-
-export default useSettings;

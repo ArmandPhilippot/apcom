@@ -1,6 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
-import Field, { type FieldProps } from '../../atoms/forms/field';
-import Label from '../../atoms/forms/label';
+import { Field, type FieldProps, Label } from '../../atoms';
 import styles from './labelled-field.module.scss';
 
 export type LabelledFieldProps = FieldProps & {
@@ -18,12 +17,7 @@ export type LabelledFieldProps = FieldProps & {
   labelPosition?: 'left' | 'top';
 };
 
-/**
- * LabelledField component
- *
- * Render a field tied to a label.
- */
-const LabelledField: ForwardRefRenderFunction<
+const LabelledFieldWithRef: ForwardRefRenderFunction<
   HTMLInputElement,
   LabelledFieldProps
 > = (
@@ -47,4 +41,9 @@ const LabelledField: ForwardRefRenderFunction<
   );
 };
 
-export default forwardRef(LabelledField);
+/**
+ * LabelledField component
+ *
+ * Render a field tied to a label.
+ */
+export const LabelledField = forwardRef(LabelledFieldWithRef);

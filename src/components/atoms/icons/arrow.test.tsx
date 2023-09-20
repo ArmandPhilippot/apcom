@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Arrow from './arrow';
+import { Arrow } from './arrow';
 
 describe('Arrow', () => {
   it('renders an arrow icon oriented to the right', () => {

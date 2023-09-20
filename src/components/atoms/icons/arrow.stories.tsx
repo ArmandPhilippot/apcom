@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ArrowIcon from './arrow';
+import { Arrow as ArrowIcon } from './arrow';
 
 /**
  * Arrow icon - Storybook Meta

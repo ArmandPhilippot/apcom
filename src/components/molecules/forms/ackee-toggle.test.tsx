@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import AckeeToggle from './ackee-toggle';
+import { AckeeToggle } from './ackee-toggle';
 import { storageKey } from './ackee-toggle.fixture';
 
 describe('AckeeToggle', () => {

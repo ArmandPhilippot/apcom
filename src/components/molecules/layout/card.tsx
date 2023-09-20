@@ -1,10 +1,9 @@
 import { FC } from 'react';
-import { type Image } from '../../../types/app';
-import ButtonLink from '../../atoms/buttons/button-link';
-import Heading, { type HeadingLevel } from '../../atoms/headings/heading';
-import ResponsiveImage from '../images/responsive-image';
+import { type Image } from '../../../types';
+import { ButtonLink, Heading, type HeadingLevel } from '../../atoms';
+import { ResponsiveImage } from '../images';
+import { Meta, type MetaData } from './meta';
 import styles from './card.module.scss';
-import Meta, { type MetaData } from './meta';
 
 export type CardProps = {
   /**
@@ -46,7 +45,7 @@ export type CardProps = {
  *
  * Render a link with minimal information about its content.
  */
-const Card: FC<CardProps> = ({
+export const Card: FC<CardProps> = ({
   className = '',
   cover,
   id,
@@ -59,8 +58,8 @@ const Card: FC<CardProps> = ({
   return (
     <ButtonLink
       aria-labelledby={`${id}-heading`}
-      target={url}
       className={`${styles.wrapper} ${className}`}
+      target={url}
     >
       <article className={styles.article}>
         <header className={styles.header}>
@@ -91,5 +90,3 @@ const Card: FC<CardProps> = ({
     </ButtonLink>
   );
 };
-
-export default Card;

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Search from './search';
+import { Search } from './search';
 
 describe('Search', () => {
   it('renders a button to open search modal', () => {

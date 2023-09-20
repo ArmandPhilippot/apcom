@@ -18,7 +18,7 @@ export type UseInputAutofocusProps = {
 /**
  * Set focus on an input with an optional delay.
  */
-const useInputAutofocus = ({
+export const useInputAutofocus = ({
   condition,
   delay = 0,
   ref,
@@ -35,5 +35,3 @@ const useInputAutofocus = ({
     };
   }, [condition, delay, ref]);
 };
-
-export default useInputAutofocus;

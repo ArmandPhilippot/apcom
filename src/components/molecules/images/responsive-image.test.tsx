@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import ResponsiveImage from './responsive-image';
+import { ResponsiveImage } from './responsive-image';
 
 describe('ResponsiveImage', () => {
   it('renders a responsive image', () => {

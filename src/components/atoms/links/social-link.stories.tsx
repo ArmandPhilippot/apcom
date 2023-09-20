@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SocialLink from './social-link';
+import { SocialLink } from './social-link';
 
 /**
  * SocialLink - Storybook Meta

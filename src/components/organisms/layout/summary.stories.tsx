@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Summary from './summary';
+import { Summary } from './summary';
 import { cover, intro, meta } from './summary.fixture';
 
 /**

@@ -1,9 +1,13 @@
-import { SingleComment } from '../../types/app';
-import { GraphQLEdgesInput } from '../../types/graphql/generics';
-import { SendCommentInput, SentComment } from '../../types/graphql/mutations';
-import { ContentId } from '../../types/graphql/queries';
-import { RawComment, RawCommentsPage } from '../../types/raw-data';
-import { getAuthorFromRawData } from '../../utils/helpers/author';
+import {
+  type ContentId,
+  type GraphQLEdgesInput,
+  type RawComment,
+  type RawCommentsPage,
+  type SendCommentInput,
+  type SentComment,
+  type SingleComment,
+} from '../../types';
+import { getAuthorFromRawData } from '../../utils/helpers';
 import { fetchAPI } from './api';
 import { sendCommentMutation } from './comments.mutation';
 import { commentsQuery } from './comments.query';

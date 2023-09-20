@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SearchForm from './search-form';
+import { SearchForm } from './search-form';
 
 /**
  * SearchForm - Storybook Meta

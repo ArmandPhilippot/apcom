@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import PrismThemeToggle from './prism-theme-toggle';
+import { PrismThemeToggle } from './prism-theme-toggle';
 
 describe('PrismThemeToggle', () => {
   it('renders a toggle component', () => {

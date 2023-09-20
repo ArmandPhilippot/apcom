@@ -9,7 +9,7 @@ export type UseOnClickOutsideCallback = (target: Node) => void;
  * @param {boolean} useCapture - Define event propagation method. Default: true.
  * @returns {RefObject} A React reference object.
  */
-const useOnClickOutside = <T extends HTMLElement>(
+export const useOnClickOutside = <T extends HTMLElement>(
   callback: UseOnClickOutsideCallback,
   useCapture: boolean = true
 ): RefObject<T> => {
@@ -48,5 +48,3 @@ const useOnClickOutside = <T extends HTMLElement>(
 
   return ref;
 };
-
-export default useOnClickOutside;

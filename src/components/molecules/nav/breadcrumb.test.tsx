@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Breadcrumb, { type BreadcrumbItem } from './breadcrumb';
+import { Breadcrumb, type BreadcrumbItem } from './breadcrumb';
 
 const items: BreadcrumbItem[] = [
   { id: 'home', url: '#', name: 'Home' },

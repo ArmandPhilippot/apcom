@@ -4,9 +4,9 @@ import {
   type PrismTheme,
   usePrismTheme,
 } from '../../../utils/providers/prism-theme';
-import Moon from '../../atoms/icons/moon';
-import Sun from '../../atoms/icons/sun';
-import RadioGroup, {
+import { Moon, Sun } from '../../atoms';
+import {
+  RadioGroup,
   type RadioGroupCallback,
   type RadioGroupCallbackProps,
   type RadioGroupOption,
@@ -23,7 +23,7 @@ export type PrismThemeToggleProps = Pick<
  *
  * Render a Toggle component to set code blocks theme.
  */
-const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
+export const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
   const intl = useIntl();
   const { theme, setTheme, resolvedTheme } = usePrismTheme();
 
@@ -107,14 +107,12 @@ const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
 
   return (
     <RadioGroup
+      {...props}
       initialChoice={isDarkTheme(theme) ? 'dark' : 'light'}
       kind="toggle"
       legend={themeLabel}
       onChange={handleChange}
       options={options}
-      {...props}
     />
   );
 };
-
-export default PrismThemeToggle;

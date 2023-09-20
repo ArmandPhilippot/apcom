@@ -1,24 +1,20 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import styles from './cc-by-sa.module.scss';
 
-export type CCBySAProps = {
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type CCBySAProps = SVGAttributes<SVGElement>;
 
 /**
  * CCBySA component
  *
  * Render a CC BY SA svg icon.
  */
-const CCBySA: FC<CCBySAProps> = ({ className = '' }) => {
+export const CCBySA: FC<CCBySAProps> = ({ className = '', ...props }) => {
   const intl = useIntl();
 
   return (
     <svg
+      {...props}
       className={`${styles.icon} ${className}`}
       viewBox="0 0 211.99811 63.999996"
       xmlns="http://www.w3.org/2000/svg"
@@ -41,5 +37,3 @@ const CCBySA: FC<CCBySAProps> = ({ className = '' }) => {
     </svg>
   );
 };
-
-export default CCBySA;

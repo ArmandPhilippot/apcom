@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import PostsList from './posts-list';
+import { PostsList } from './posts-list';
 import { posts, searchPage } from './posts-list.fixture';
 
 /**

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import List, { type ListItem } from './list';
+import { List, type ListItem } from './list';
 
 const items: ListItem[] = [
   { id: 'item-1', value: 'Item 1' },

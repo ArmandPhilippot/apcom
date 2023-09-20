@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ToCWidget from './table-of-contents';
+import { TableOfContents as ToCWidget } from './table-of-contents';
 
 /**
  * TableOfContents - Storybook Meta

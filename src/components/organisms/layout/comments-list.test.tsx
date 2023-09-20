@@ -1,6 +1,6 @@
 import { render } from '../../../../tests/utils';
 import { saveComment } from './comment.fixture';
-import CommentsList from './comments-list';
+import { CommentsList } from './comments-list';
 import { comments } from './comments-list.fixture';
 
 describe('CommentsList', () => {

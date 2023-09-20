@@ -1,6 +1,5 @@
 import { FC, ReactNode } from 'react';
-import Link from '../../atoms/links/link';
-import NavLink from '../../atoms/links/nav-link';
+import { Link, NavLink } from '../../atoms';
 import styles from './nav.module.scss';
 
 export type NavItem = {
@@ -50,7 +49,7 @@ export type NavProps = {
  *
  * Render the nav links.
  */
-const Nav: FC<NavProps> = ({
+export const Nav: FC<NavProps> = ({
   className = '',
   items,
   kind,
@@ -76,10 +75,8 @@ const Nav: FC<NavProps> = ({
   };
 
   return (
-    <nav className={`${styles[kindClass]} ${className}`} {...props}>
+    <nav {...props} className={`${styles[kindClass]} ${className}`}>
       <ul className={`${styles.nav__list} ${listClassName}`}>{getItems()}</ul>
     </nav>
   );
 };
-
-export default Nav;

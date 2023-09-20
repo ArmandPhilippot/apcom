@@ -22,7 +22,7 @@ export type NavLinkProps = {
  *
  * Render a navigation link.
  */
-const NavLink: FC<NavLinkProps> = ({ href, label, logo }) => {
+export const NavLink: FC<NavLinkProps> = ({ href, label, logo }) => {
   return (
     <Link className={styles.link} href={href}>
       {logo}
@@ -30,5 +30,3 @@ const NavLink: FC<NavLinkProps> = ({ href, label, logo }) => {
     </Link>
   );
 };
-
-export default NavLink;

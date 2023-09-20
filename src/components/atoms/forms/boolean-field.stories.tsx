@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import BooleanFieldComponent from './boolean-field';
+import { BooleanField } from './boolean-field';
 
 /**
  * BooleanField - Storybook Meta
  */
 export default {
   title: 'Atoms/Forms',
-  component: BooleanFieldComponent,
+  component: BooleanField,
   args: {
     hidden: false,
   },
@@ -130,9 +130,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof BooleanFieldComponent>;
+} as ComponentMeta<typeof BooleanField>;
 
-const Template: ComponentStory<typeof BooleanFieldComponent> = ({
+const Template: ComponentStory<typeof BooleanField> = ({
   checked,
   onChange: _onChange,
   ...args
@@ -140,7 +140,7 @@ const Template: ComponentStory<typeof BooleanFieldComponent> = ({
   const [isChecked, setIsChecked] = useState<boolean>(checked);
 
   return (
-    <BooleanFieldComponent
+    <BooleanField
       checked={isChecked}
       onChange={() => {
         setIsChecked(!isChecked);

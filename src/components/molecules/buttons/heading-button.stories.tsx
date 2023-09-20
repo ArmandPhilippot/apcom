@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import HeadingButtonComponent from './heading-button';
+import { HeadingButton as HeadingButtonComponent } from './heading-button';
 
 /**
  * HeadingButton - Storybook Meta

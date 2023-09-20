@@ -2,21 +2,29 @@ import Script from 'next/script';
 import { FC, ReactElement, ReactNode, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
-import { type NextPageWithLayoutOptions } from '../../../types/app';
-import useRouteChange from '../../../utils/hooks/use-route-change';
-import useScrollPosition from '../../../utils/hooks/use-scroll-position';
-import useSettings from '../../../utils/hooks/use-settings';
-import ButtonLink from '../../atoms/buttons/button-link';
-import Career from '../../atoms/icons/career';
-import CCBySA from '../../atoms/icons/cc-by-sa';
-import ComputerScreen from '../../atoms/icons/computer-screen';
-import Envelop from '../../atoms/icons/envelop';
-import Home from '../../atoms/icons/home';
-import PostsStack from '../../atoms/icons/posts-stack';
-import Main from '../../atoms/layout/main';
-import NoScript from '../../atoms/layout/no-script';
-import Footer, { type FooterProps } from '../../organisms/layout/footer';
-import Header, { type HeaderProps } from '../../organisms/layout/header';
+import { type NextPageWithLayoutOptions } from '../../../types';
+import {
+  useRouteChange,
+  useScrollPosition,
+  useSettings,
+} from '../../../utils/hooks';
+import {
+  ButtonLink,
+  Career,
+  CCBySA,
+  ComputerScreen,
+  Envelop,
+  Home,
+  Main,
+  NoScript,
+  PostsStack,
+} from '../../atoms';
+import {
+  Footer,
+  type FooterProps,
+  Header,
+  type HeaderProps,
+} from '../../organisms';
 import photo from '/public/armand-philippot.jpg';
 import styles from './layout.module.scss';
 
@@ -44,7 +52,7 @@ export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
  *
  * Render the base layout used by all pages.
  */
-const Layout: FC<LayoutProps> = ({
+export const Layout: FC<LayoutProps> = ({
   children,
   withExtraPadding = false,
   isHome,
@@ -203,14 +211,14 @@ const Layout: FC<LayoutProps> = ({
   return (
     <>
       <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
         id="schema-layout"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(brandingSchema) }}
         id="schema-branding"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(brandingSchema) }}
       />
       <noscript>
         <div className={styles['noscript-spacing']}></div>
@@ -239,11 +247,11 @@ const Layout: FC<LayoutProps> = ({
         </article>
       </Main>
       <Footer
+        backToTopClassName={backToTopClassName}
+        className={styles.footer}
         copyright={copyrightData}
         navItems={footerNav}
         topId="top"
-        backToTopClassName={backToTopClassName}
-        className={styles.footer}
       />
       <noscript>
         <NoScript message={noScript} position="top" />
@@ -265,5 +273,3 @@ export const getLayout = (
 ) => {
   return <Layout {...props}>{page}</Layout>;
 };
-
-export default Layout;

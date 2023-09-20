@@ -1,15 +1,16 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import Form from '../../atoms/forms/form';
-import AckeeToggle, {
-  AckeeToggleProps,
-} from '../../molecules/forms/ackee-toggle';
-import MotionToggle, {
-  MotionToggleProps,
-} from '../../molecules/forms/motion-toggle';
-import PrismThemeToggle from '../../molecules/forms/prism-theme-toggle';
-import ThemeToggle from '../../molecules/forms/theme-toggle';
-import Modal, { type ModalProps } from '../../molecules/modals/modal';
+import { Form } from '../../atoms';
+import {
+  AckeeToggle,
+  type AckeeToggleProps,
+  Modal,
+  type ModalProps,
+  MotionToggle,
+  type MotionToggleProps,
+  PrismThemeToggle,
+  ThemeToggle,
+} from '../../molecules';
 import styles from './settings-modal.module.scss';
 
 export type SettingsModalProps = Pick<ModalProps, 'className'> &
@@ -29,7 +30,7 @@ export type SettingsModalProps = Pick<ModalProps, 'className'> &
  *
  * Render a modal with settings options.
  */
-const SettingsModal: FC<SettingsModalProps> = ({
+export const SettingsModal: FC<SettingsModalProps> = ({
   className = '',
   ackeeStorageKey,
   motionStorageKey,
@@ -49,9 +50,9 @@ const SettingsModal: FC<SettingsModalProps> = ({
 
   return (
     <Modal
-      title={title}
-      icon="cogs"
       className={`${styles.wrapper} ${className}`}
+      icon="cogs"
+      title={title}
     >
       <Form
         aria-label={ariaLabel}
@@ -70,16 +71,16 @@ const SettingsModal: FC<SettingsModalProps> = ({
           legendClassName={styles.label}
         />
         <MotionToggle
-          defaultValue="on"
           bodyClassName={styles.fieldset__body}
+          defaultValue="on"
           groupClassName={styles.group}
           legendClassName={styles.label}
           storageKey={motionStorageKey}
         />
         <AckeeToggle
-          defaultValue="full"
           bodyClassName={styles.fieldset__body}
           buttonClassName={styles.btn}
+          defaultValue="full"
           groupClassName={`${styles.group} ${styles['group--ackee']}`}
           legendClassName={`${styles.label} ${styles['label--ackee']}`}
           storageKey={ackeeStorageKey}
@@ -89,5 +90,3 @@ const SettingsModal: FC<SettingsModalProps> = ({
     </Modal>
   );
 };
-
-export default SettingsModal;

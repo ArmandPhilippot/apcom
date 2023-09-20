@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Section from './section';
+import { Section } from './section';
 
 const title = 'Section title';
 const content = 'Section content.';

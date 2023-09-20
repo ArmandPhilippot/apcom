@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import NavLinkComponent from './nav-link';
+import { NavLink as NavLinkComponent } from './nav-link';
 
 /**
  * NavLink - Storybook Meta

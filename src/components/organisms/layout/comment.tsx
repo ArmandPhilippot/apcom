@@ -3,12 +3,11 @@ import Script from 'next/script';
 import { FC, useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { type Comment as CommentSchema, type WithContext } from 'schema-dts';
-import { type SingleComment } from '../../../types/app';
-import useSettings from '../../../utils/hooks/use-settings';
-import Button from '../../atoms/buttons/button';
-import Link from '../../atoms/links/link';
-import Meta from '../../molecules/layout/meta';
-import CommentForm, { type CommentFormProps } from '../forms/comment-form';
+import { type SingleComment } from '../../../types';
+import { useSettings } from '../../../utils/hooks';
+import { Button, Link } from '../../atoms';
+import { Meta } from '../../molecules';
+import { CommentForm, type CommentFormProps } from '../forms';
 import styles from './comment.module.scss';
 
 export type CommentProps = Pick<
@@ -27,7 +26,7 @@ export type CommentProps = Pick<
  *
  * Render a single comment.
  */
-const Comment: FC<CommentProps> = ({
+export const Comment: FC<CommentProps> = ({
   approved,
   canReply = true,
   content,
@@ -107,13 +106,13 @@ const Comment: FC<CommentProps> = ({
   return (
     <>
       <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(commentSchema) }}
         id="schema-comments"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(commentSchema) }}
       />
       <article
-        id={`comment-${id}`}
         className={`${styles.wrapper} ${styles['wrapper--comment']}`}
+        id={`comment-${id}`}
       >
         <header className={styles.header}>
           {author.avatar && (
@@ -136,6 +135,7 @@ const Comment: FC<CommentProps> = ({
           )}
         </header>
         <Meta
+          className={styles.date}
           data={{
             publication: {
               date: publicationDate,
@@ -143,10 +143,9 @@ const Comment: FC<CommentProps> = ({
               target: `#comment-${id}`,
             },
           }}
-          layout="inline"
-          itemsLayout="inline"
-          className={styles.date}
           groupClassName={styles.date__item}
+          itemsLayout="inline"
+          layout="inline"
         />
         <div
           className={styles.body}
@@ -162,15 +161,13 @@ const Comment: FC<CommentProps> = ({
       </article>
       {isReplying && (
         <CommentForm
+          className={`${styles.wrapper} ${styles['wrapper--form']}`}
           Notice={Notice}
           parentId={id}
           saveComment={saveComment}
           title={formTitle}
-          className={`${styles.wrapper} ${styles['wrapper--form']}`}
         />
       )}
     </>
   );
 };
-
-export default Comment;

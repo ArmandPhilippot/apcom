@@ -22,12 +22,10 @@ export type UseRedirectionProps = {
  *
  * @param {UseRedirectionProps} props - The redirection parameters.
  */
-const useRedirection = ({ query, redirectTo }: UseRedirectionProps) => {
+export const useRedirection = ({ query, redirectTo }: UseRedirectionProps) => {
   const router = useRouter();
 
   useEffect(() => {
     if (router.query[query.param] === query.value) router.push(redirectTo);
   }, [query, redirectTo, router]);
 };
-
-export default useRedirection;

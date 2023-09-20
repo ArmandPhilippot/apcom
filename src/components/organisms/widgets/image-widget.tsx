@@ -1,8 +1,10 @@
 import { FC } from 'react';
-import ResponsiveImage, {
+import {
+  ResponsiveImage,
   type ResponsiveImageProps,
-} from '../../molecules/images/responsive-image';
-import Widget, { type WidgetProps } from '../../molecules/layout/widget';
+  Widget,
+  type WidgetProps,
+} from '../../molecules';
 import styles from './image-widget.module.scss';
 
 export type Alignment = 'left' | 'center' | 'right';
@@ -43,7 +45,7 @@ export type ImageWidgetProps = Pick<
  *
  * Renders a widget that print an image and an optional text.
  */
-const ImageWidget: FC<ImageWidgetProps> = ({
+export const ImageWidget: FC<ImageWidgetProps> = ({
   alignment = 'left',
   className = '',
   description,
@@ -57,13 +59,11 @@ const ImageWidget: FC<ImageWidgetProps> = ({
   return (
     <Widget className={`${styles[alignmentClass]} ${className}`} {...props}>
       <ResponsiveImage
-        target={url}
+        {...image}
         caption={description}
         className={`${styles.figure} ${imageClassName}`}
-        {...image}
+        target={url}
       />
     </Widget>
   );
 };
-
-export default ImageWidget;

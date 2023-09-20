@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import LayoutComponent from './layout';
+import { Layout as LayoutComponent } from './layout';
 
 /**
  * Layout - Storybook Meta

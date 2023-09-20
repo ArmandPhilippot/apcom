@@ -1,14 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ButtonLink from '../../atoms/buttons/button-link';
-import Heading from '../../atoms/headings/heading';
-import Link from '../../atoms/links/link';
+import { ButtonLink, Heading, Link } from '../../atoms';
+import { LinksListWidget, PostsList, Sharing } from '../../organisms';
 import { comments } from '../../organisms/layout/comments-list.fixture';
-import PostsList from '../../organisms/layout/posts-list';
 import { posts } from '../../organisms/layout/posts-list.fixture';
-import LinksListWidget from '../../organisms/widgets/links-list-widget';
-import Sharing from '../../organisms/widgets/sharing';
 import { LayoutBase } from '../layout/layout.stories';
-import PageLayoutComponent from './page-layout';
+import { PageLayout as PageLayoutComponent } from './page-layout';
 
 /**
  * PageLayout - Storybook Meta

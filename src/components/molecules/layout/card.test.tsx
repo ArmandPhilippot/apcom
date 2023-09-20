@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Card from './card';
+import { Card } from './card';
 import { cover, id, meta, tagline, title, url } from './card.fixture';
 
 describe('Card', () => {

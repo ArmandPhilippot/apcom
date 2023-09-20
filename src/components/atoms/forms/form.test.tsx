@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Form from './form';
+import { Form } from './form';
 
 describe('Form', () => {
   it('renders a form', () => {

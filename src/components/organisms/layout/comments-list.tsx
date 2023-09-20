@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { SingleComment } from '../../../types/app';
-import Comment, { type CommentProps } from '../../organisms/layout/comment';
+import { type SingleComment } from '../../../types';
+import { Comment, type CommentProps } from './comment';
 import styles from './comments-list.module.scss';
 
 export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
@@ -19,7 +19,7 @@ export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
  *
  * Render a comments list.
  */
-const CommentsList: FC<CommentsListProps> = ({
+export const CommentsList: FC<CommentsListProps> = ({
   comments,
   depth,
   Notice,
@@ -54,5 +54,3 @@ const CommentsList: FC<CommentsListProps> = ({
 
   return <ol className={styles.list}>{getItems(comments, 0)}</ol>;
 };
-
-export default CommentsList;

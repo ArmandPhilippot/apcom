@@ -1,5 +1,5 @@
 import { Children, FC, ReactElement } from 'react';
-import { type ResponsiveImageProps } from '../../molecules/images/responsive-image';
+import { type ResponsiveImageProps } from '../../molecules';
 import styles from './gallery.module.scss';
 
 export type GalleryColumn = 2 | 3 | 4;
@@ -20,7 +20,7 @@ export type GalleryProps = {
  *
  * Render a gallery of images.
  */
-const Gallery: FC<GalleryProps> = ({ children, columns }) => {
+export const Gallery: FC<GalleryProps> = ({ children, columns }) => {
   const columnsClass = `wrapper--${columns}-columns`;
 
   return (
@@ -31,5 +31,3 @@ const Gallery: FC<GalleryProps> = ({ children, columns }) => {
     </ul>
   );
 };
-
-export default Gallery;

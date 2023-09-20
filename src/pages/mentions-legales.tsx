@@ -3,22 +3,22 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import Link from '../components/atoms/links/link';
-import ResponsiveImage from '../components/molecules/images/responsive-image';
-import { getLayout } from '../components/templates/layout/layout';
-import PageLayout, {
+import {
+  getLayout,
+  Link,
+  PageLayout,
   type PageLayoutProps,
-} from '../components/templates/page/page-layout';
+  ResponsiveImage,
+} from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
-import { type NextPageWithLayout } from '../types/app';
-import { loadTranslation } from '../utils/helpers/i18n';
+import { type NextPageWithLayout } from '../types';
 import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
-} from '../utils/helpers/schema-org';
-import useBreadcrumb from '../utils/hooks/use-breadcrumb';
-import useSettings from '../utils/hooks/use-settings';
+} from '../utils/helpers';
+import { loadTranslation } from '../utils/helpers/server';
+import { useBreadcrumb, useSettings } from '../utils/hooks';
 
 /**
  * Legal Notice page.

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import HeaderComponent from './header';
+import { Header as HeaderComponent } from './header';
 
 /**
  * Header - Storybook Meta

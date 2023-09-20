@@ -1,23 +1,11 @@
-import { FC, ReactNode } from 'react';
+import { FC, LabelHTMLAttributes, ReactNode } from 'react';
 import styles from './label.module.scss';
 
-export type LabelProps = {
-  /**
-   * An accessible name for the label.
-   */
-  'aria-label'?: string;
+export type LabelProps = LabelHTMLAttributes<HTMLLabelElement> & {
   /**
    * The label body.
    */
   children: ReactNode;
-  /**
-   * Add classnames to the label.
-   */
-  className?: string;
-  /**
-   * The field id.
-   */
-  htmlFor?: string;
   /**
    * Is the field required? Default: false.
    */
@@ -33,7 +21,7 @@ export type LabelProps = {
  *
  * Render a HTML label element.
  */
-const Label: FC<LabelProps> = ({
+export const Label: FC<LabelProps> = ({
   children,
   className = '',
   required = false,
@@ -41,13 +29,12 @@ const Label: FC<LabelProps> = ({
   ...props
 }) => {
   const sizeClass = styles[`label--${size}`];
+  const labelClass = `${styles.label} ${sizeClass} ${className}`;
 
   return (
-    <label className={`${styles.label} ${sizeClass} ${className}`} {...props}>
+    <label {...props} className={labelClass}>
       {children}
       {required && <span className={styles.required}> *</span>}
     </label>
   );
 };
-
-export default Label;

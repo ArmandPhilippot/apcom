@@ -1,7 +1,7 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import Modal, { type ModalProps } from '../../molecules/modals/modal';
-import SearchForm, { type SearchFormProps } from '../forms/search-form';
+import { Modal, type ModalProps } from '../../molecules';
+import { SearchForm, type SearchFormProps } from '../forms';
 import styles from './search-modal.module.scss';
 
 export type SearchModalProps = SearchFormProps & {
@@ -11,12 +11,7 @@ export type SearchModalProps = SearchFormProps & {
   className?: ModalProps['className'];
 };
 
-/**
- * SearchModal
- *
- * Render a search form modal.
- */
-const SearchModal: ForwardRefRenderFunction<
+const SearchModalWithRef: ForwardRefRenderFunction<
   HTMLInputElement,
   SearchModalProps
 > = ({ className, searchPage }, ref) => {
@@ -28,10 +23,15 @@ const SearchModal: ForwardRefRenderFunction<
   });
 
   return (
-    <Modal title={modalTitle} className={`${styles.wrapper} ${className}`}>
+    <Modal className={`${styles.wrapper} ${className}`} title={modalTitle}>
       <SearchForm hideLabel={true} ref={ref} searchPage={searchPage} />
     </Modal>
   );
 };
 
-export default forwardRef(SearchModal);
+/**
+ * SearchModal
+ *
+ * Render a search form modal.
+ */
+export const SearchModal = forwardRef(SearchModalWithRef);

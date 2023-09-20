@@ -1,8 +1,10 @@
 import { FC } from 'react';
-import BooleanField, {
+import {
+  BooleanField,
   type BooleanFieldProps,
-} from '../../atoms/forms/boolean-field';
-import Label, { type LabelProps } from '../../atoms/forms/label';
+  Label,
+  type LabelProps,
+} from '../../atoms';
 import styles from './labelled-boolean-field.module.scss';
 
 export type LabelledBooleanFieldProps = Omit<
@@ -40,7 +42,7 @@ export type LabelledBooleanFieldProps = Omit<
  *
  * Render a checkbox or radio button with a label.
  */
-const LabelledBooleanField: FC<LabelledBooleanFieldProps> = ({
+export const LabelledBooleanField: FC<LabelledBooleanFieldProps> = ({
   className = '',
   fieldClassName,
   hidden,
@@ -53,40 +55,31 @@ const LabelledBooleanField: FC<LabelledBooleanFieldProps> = ({
 }) => {
   const labelHiddenModifier = hidden ? 'label--hidden' : 'label--visible';
   const labelPositionModifier = `label--${labelPosition}`;
+  const labelClass = `${styles[labelPositionModifier]} ${styles[labelHiddenModifier]} ${labelClassName}`;
 
   return labelPosition === 'left' ? (
     <span className={`${styles.wrapper} ${className}`}>
-      <Label
-        className={`${styles[labelPositionModifier]} ${styles[labelHiddenModifier]} ${labelClassName}`}
-        htmlFor={id}
-        size={labelSize}
-      >
+      <Label className={labelClass} htmlFor={id} size={labelSize}>
         {label}
       </Label>
       <BooleanField
+        {...props}
         className={fieldClassName}
         hidden={hidden}
         id={id}
-        {...props}
       />
     </span>
   ) : (
     <span className={`${styles.wrapper} ${className}`}>
       <BooleanField
+        {...props}
         className={fieldClassName}
         hidden={hidden}
         id={id}
-        {...props}
       />
-      <Label
-        className={`${styles[labelPositionModifier]} ${styles[labelHiddenModifier]} ${labelClassName}`}
-        htmlFor={id}
-        size={labelSize}
-      >
+      <Label className={labelClass} htmlFor={id} size={labelSize}>
         {label}
       </Label>
     </span>
   );
 };
-
-export default LabelledBooleanField;

@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import PageHeader from './page-header';
+import { PageHeader } from './page-header';
 
 const title = 'Non nemo amet';
 const intro =

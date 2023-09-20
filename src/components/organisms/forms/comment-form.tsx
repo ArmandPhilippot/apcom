@@ -1,13 +1,15 @@
 import { FC, ReactNode, useState } from 'react';
 import { useIntl } from 'react-intl';
-import Button from '../../atoms/buttons/button';
-import Form, { type FormProps } from '../../atoms/forms/form';
-import Heading, {
-  type HeadingProps,
+import {
+  Button,
+  Form,
+  type FormProps,
+  Heading,
   type HeadingLevel,
-} from '../../atoms/headings/heading';
-import Spinner from '../../atoms/loaders/spinner';
-import LabelledField from '../../molecules/forms/labelled-field';
+  type HeadingProps,
+  Spinner,
+} from '../../atoms';
+import { LabelledField } from '../../molecules';
 import styles from './comment-form.module.scss';
 
 export type CommentFormData = {
@@ -46,7 +48,7 @@ export type CommentFormProps = Pick<FormProps, 'className'> & {
   titleLevel?: HeadingLevel;
 };
 
-const CommentForm: FC<CommentFormProps> = ({
+export const CommentForm: FC<CommentFormProps> = ({
   Notice,
   parentId,
   saveComment,
@@ -119,55 +121,55 @@ const CommentForm: FC<CommentFormProps> = ({
 
   return (
     <Form
-      onSubmit={submitHandler}
+      {...props}
       aria-label={formAriaLabel}
       aria-labelledby={formLabelledBy}
-      {...props}
+      onSubmit={submitHandler}
     >
       {title && (
-        <Heading id={formId} level={titleLevel} alignment={titleAlignment}>
+        <Heading alignment={titleAlignment} id={formId} level={titleLevel}>
           {title}
         </Heading>
       )}
       <LabelledField
-        type="text"
+        className={styles.field}
         id="commenter-name"
-        name="commenter-name"
         label={nameLabel}
+        name="commenter-name"
         required={true}
-        value={name}
         setValue={setName}
-        className={styles.field}
-      />
-      <LabelledField
-        type="email"
-        id="commenter-email"
-        name="commenter-email"
-        label={emailLabel}
-        required={true}
-        value={email}
-        setValue={setEmail}
-        className={styles.field}
-      />
-      <LabelledField
         type="text"
-        id="commenter-website"
-        name="commenter-website"
-        label={websiteLabel}
-        required={false}
-        value={website}
-        setValue={setWebsite}
-        className={styles.field}
+        value={name}
       />
       <LabelledField
-        type="textarea"
-        id="commenter-comment"
-        name="commenter-comment"
-        label={commentLabel}
-        required={true}
-        value={comment}
-        setValue={setComment}
         className={styles.field}
+        id="commenter-email"
+        label={emailLabel}
+        name="commenter-email"
+        required={true}
+        setValue={setEmail}
+        type="email"
+        value={email}
+      />
+      <LabelledField
+        className={styles.field}
+        id="commenter-website"
+        label={websiteLabel}
+        name="commenter-website"
+        required={false}
+        setValue={setWebsite}
+        type="text"
+        value={website}
+      />
+      <LabelledField
+        className={styles.field}
+        id="commenter-comment"
+        label={commentLabel}
+        name="commenter-comment"
+        required={true}
+        setValue={setComment}
+        type="textarea"
+        value={comment}
       />
       <Button type="submit" kind="primary" className={styles.button}>
         {intl.formatMessage({
@@ -189,5 +191,3 @@ const CommentForm: FC<CommentFormProps> = ({
     </Form>
   );
 };
-
-export default CommentForm;

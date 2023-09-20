@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Layout from './layout';
+import { Layout } from './layout';
 
 const body =
   'Sit dolorem eveniet. Sit sit odio nemo vitae corrupti modi sint est rerum. Pariatur quidem maiores distinctio. Quia et illum aspernatur est cum.';

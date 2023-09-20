@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import SearchForm from './search-form';
+import { SearchForm } from './search-form';
 
 describe('SearchForm', () => {
   it('renders a search input', () => {

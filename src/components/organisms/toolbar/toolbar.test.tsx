@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Toolbar from './toolbar';
+import { Toolbar } from './toolbar';
 
 const nav = [
   { id: 'home-link', href: '/', label: 'Home' },

@@ -1,5 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CardsListComponent, { type CardsListItem } from './cards-list';
+import {
+  CardsList as CardsListComponent,
+  type CardsListItem,
+} from './cards-list';
 
 /**
  * CardsList - Storybook Meta

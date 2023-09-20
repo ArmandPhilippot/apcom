@@ -1,7 +1,6 @@
-import { createIntl, createIntlCache, IntlShape } from '@formatjs/intl';
 import { readFile } from 'fs/promises';
 import path from 'path';
-import { settings } from '../config';
+import { settings } from '../../config';
 
 export type Messages = { [key: string]: string };
 
@@ -16,7 +15,7 @@ export const defaultLocale = settings.locales.defaultLocale;
 export async function loadTranslation(
   currentLocale: string | undefined
 ): Promise<Messages> {
-  const locale: string = currentLocale || defaultLocale;
+  const locale: string = currentLocale ?? defaultLocale;
 
   const languagePath = path.join(process.cwd(), `lang/${locale}.json`);
 
@@ -27,23 +26,6 @@ export async function loadTranslation(
     console.error(
       'Error: Could not load compiled language files. Please run `yarn run i18n:compile` first."'
     );
-    throw error;
-  }
-}
-
-/**
- * Create an Intl object to be used outside components.
- *
- * @returns {<Promise<IntlShape<string>>} The Intl object.
- */
-export async function getIntlInstance(): Promise<IntlShape<string>> {
-  try {
-    const cache = createIntlCache();
-    const messages = await loadTranslation(defaultLocale);
-
-    return createIntl({ locale: defaultLocale, messages }, cache);
-  } catch (error) {
-    console.error('Error: Could not create an Intl instance.');
     throw error;
   }
 }

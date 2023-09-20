@@ -1,5 +1,5 @@
 import { render } from '../../../../tests/utils';
-import Envelop from './envelop';
+import { Envelop } from './envelop';
 
 describe('Envelop', () => {
   it('renders an envelop icon', () => {

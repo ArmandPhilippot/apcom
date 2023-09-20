@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ResponsiveImage from '../../molecules/images/responsive-image';
-import Gallery from './gallery';
+import { ResponsiveImage } from '../../molecules';
+import { Gallery } from './gallery';
 
 /**
  * Gallery - Storybook Meta

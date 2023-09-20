@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Meta, { MetaData } from './meta';
+import { Meta, MetaData } from './meta';
 
 export type PageFooterProps = {
   /**
@@ -17,12 +17,10 @@ export type PageFooterProps = {
  *
  * Render a footer element to display page meta.
  */
-const PageFooter: FC<PageFooterProps> = ({ meta, ...props }) => {
+export const PageFooter: FC<PageFooterProps> = ({ meta, ...props }) => {
   return (
     <footer {...props}>
       {meta && <Meta data={meta} withSeparator={false} />}
     </footer>
   );
 };
-
-export default PageFooter;

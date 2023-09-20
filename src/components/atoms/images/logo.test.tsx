@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Logo from './logo';
+import { Logo } from './logo';
 
 describe('Logo', () => {
   it('renders a logo with a title', () => {

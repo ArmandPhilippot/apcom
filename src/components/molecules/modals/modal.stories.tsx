@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Modal from './modal';
+import { Modal } from './modal';
 
 /**
  * Widget - Storybook Meta

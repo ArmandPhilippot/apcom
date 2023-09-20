@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import PrismThemeToggle from './prism-theme-toggle';
+import { PrismThemeToggle } from './prism-theme-toggle';
 
 /**
  * PrismThemeToggle - Storybook Meta

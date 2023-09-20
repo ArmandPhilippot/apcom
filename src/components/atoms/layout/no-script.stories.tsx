@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import NoScript from './no-script';
+import { NoScript } from './no-script';
 
 /**
  * NoScript - Storybook Meta

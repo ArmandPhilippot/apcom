@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './logo.module.scss';
 
-export type LogoProps = {
+export type LogoProps = SVGAttributes<SVGElement> & {
   /**
    * SVG Image title.
    */
@@ -13,14 +13,15 @@ export type LogoProps = {
  *
  * Render a SVG logo.
  */
-const Logo: FC<LogoProps> = ({ title }) => {
+export const Logo: FC<LogoProps> = ({ title, ...props }) => {
   return (
     <svg
+      {...props}
+      className={styles.wrapper}
       viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
-      className={styles.wrapper}
     >
-      {title && <title>{title}</title>}
+      {title ? <title>{title}</title> : null}
       <path className={styles['bg-left']} d="M 0,0 H 506 L 0,506 Z" />
       <path className={styles['bg-right']} d="M 512,512 H 6 L 512,6 Z" />
       <path
@@ -42,5 +43,3 @@ const Logo: FC<LogoProps> = ({ title }) => {
     </svg>
   );
 };
-
-export default Logo;

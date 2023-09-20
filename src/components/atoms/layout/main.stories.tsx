@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import MainComponent from './main';
+import { Main as MainComponent } from './main';
 
 /**
  * Main - Storybook Meta

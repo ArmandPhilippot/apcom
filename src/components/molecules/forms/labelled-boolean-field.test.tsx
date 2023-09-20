@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import LabelledBooleanField from './labelled-boolean-field';
+import { LabelledBooleanField } from './labelled-boolean-field';
 import { label } from './labelled-boolean-field.fixture';
 
 describe('LabelledBooleanField', () => {

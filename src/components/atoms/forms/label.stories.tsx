@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import LabelComponent from './label';
+import { Label as LabelComponent } from './label';
 
 /**
  * Label - Storybook Meta

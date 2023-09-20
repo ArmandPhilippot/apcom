@@ -1,8 +1,6 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import SearchForm, {
-  type SearchFormProps,
-} from '../../organisms/forms/search-form';
+import { SearchForm, type SearchFormProps } from '../forms';
 
 export type NoResultsProps = Pick<SearchFormProps, 'searchPage'>;
 
@@ -11,7 +9,7 @@ export type NoResultsProps = Pick<SearchFormProps, 'searchPage'>;
  *
  * Renders a no results text with a search form.
  */
-const NoResults: FC<NoResultsProps> = ({ searchPage }) => {
+export const NoResults: FC<NoResultsProps> = ({ searchPage }) => {
   const intl = useIntl();
 
   return (
@@ -34,5 +32,3 @@ const NoResults: FC<NoResultsProps> = ({ searchPage }) => {
     </>
   );
 };
-
-export default NoResults;

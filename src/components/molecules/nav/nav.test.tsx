@@ -1,7 +1,6 @@
 import { render, screen } from '../../../../tests/utils';
-import Envelop from '../../atoms/icons/envelop';
-import Home from '../../atoms/icons/home';
-import Nav, { type NavItem } from './nav';
+import { Envelop, Home } from '../../atoms';
+import { Nav, type NavItem } from './nav';
 
 const navItems: NavItem[] = [
   { id: 'homeLink', href: '/', label: 'Home', logo: <Home /> },

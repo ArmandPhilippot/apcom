@@ -1,9 +1,6 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import ButtonLink, {
-  type ButtonLinkProps,
-} from '../../atoms/buttons/button-link';
-import Arrow from '../../atoms/icons/arrow';
+import { Arrow, ButtonLink, type ButtonLinkProps } from '../../atoms';
 import styles from './back-to-top.module.scss';
 
 export type BackToTopProps = Pick<ButtonLinkProps, 'target'> & {
@@ -18,7 +15,7 @@ export type BackToTopProps = Pick<ButtonLinkProps, 'target'> & {
  *
  * Render a back to top link.
  */
-const BackToTop: FC<BackToTopProps> = ({ className = '', target }) => {
+export const BackToTop: FC<BackToTopProps> = ({ className = '', target }) => {
   const intl = useIntl();
   const linkName = intl.formatMessage({
     defaultMessage: 'Back to top',
@@ -39,5 +36,3 @@ const BackToTop: FC<BackToTopProps> = ({ className = '', target }) => {
     </div>
   );
 };
-
-export default BackToTop;

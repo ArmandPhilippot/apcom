@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import FooterComponent from './footer';
+import { Footer as FooterComponent } from './footer';
 
 /**
  * Footer - Storybook Meta

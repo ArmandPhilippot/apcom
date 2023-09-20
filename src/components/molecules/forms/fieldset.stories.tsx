@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import FieldsetComponent from './fieldset';
+import { Fieldset as FieldsetComponent } from './fieldset';
 import { body, legend, Tooltip } from './fieldset.fixture';
 
 /**

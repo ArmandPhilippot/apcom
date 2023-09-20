@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl';
  * @param {number} wordsCount - The number of words.
  * @returns {string} The estimated reading time.
  */
-const useReadingTime = (
+export const useReadingTime = (
   wordsCount: number,
   onlyMinutes: boolean = false
 ): string => {
@@ -54,5 +54,3 @@ const useReadingTime = (
     );
   }
 };
-
-export default useReadingTime;

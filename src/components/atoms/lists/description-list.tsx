@@ -1,7 +1,8 @@
-import { FC } from 'react';
-import DescriptionListItem, {
-  type DescriptionListItemProps,
-} from './description-list-item';
+import { FC, HTMLAttributes } from 'react';
+import {
+  DescriptionListGroup,
+  type DescriptionListGroupProps,
+} from './description-list-group';
 import styles from './description-list.module.scss';
 
 export type DescriptionListItem = {
@@ -12,22 +13,21 @@ export type DescriptionListItem = {
   /**
    * The list item layout.
    */
-  layout?: DescriptionListItemProps['layout'];
+  layout?: DescriptionListGroupProps['layout'];
   /**
    * A list label.
    */
-  label: DescriptionListItemProps['label'];
+  label: DescriptionListGroupProps['label'];
   /**
    * An array of values for the list item.
    */
-  value: DescriptionListItemProps['value'];
+  value: DescriptionListGroupProps['value'];
 };
 
-export type DescriptionListProps = {
-  /**
-   * Set additional classnames to the list wrapper.
-   */
-  className?: string;
+export type DescriptionListProps = Omit<
+  HTMLAttributes<HTMLDListElement>,
+  'children'
+> & {
   /**
    * Set additional classnames to the `dt`/`dd` couple wrapper.
    */
@@ -51,7 +51,7 @@ export type DescriptionListProps = {
   /**
    * If true, use a slash to delimitate multiple values.
    */
-  withSeparator?: DescriptionListItemProps['withSeparator'];
+  withSeparator?: DescriptionListGroupProps['withSeparator'];
 };
 
 /**
@@ -59,7 +59,7 @@ export type DescriptionListProps = {
  *
  * Render a description list.
  */
-const DescriptionList: FC<DescriptionListProps> = ({
+export const DescriptionList: FC<DescriptionListProps> = ({
   className = '',
   groupClassName = '',
   items,
@@ -67,19 +67,21 @@ const DescriptionList: FC<DescriptionListProps> = ({
   layout = 'column',
   valueClassName = '',
   withSeparator,
+  ...props
 }) => {
   const layoutModifier = `list--${layout}`;
+  const listClass = `${styles.list} ${styles[layoutModifier]} ${className}`;
 
   /**
    * Retrieve the description list items.
    *
-   * @param {DescriptionListItem[]} listItems - An array of items.
+   * @param {DescriptionListGroup[]} listItems - An array of items.
    * @returns {JSX.Element[]} The description list items.
    */
   const getItems = (listItems: DescriptionListItem[]): JSX.Element[] => {
     return listItems.map(({ id, layout: itemLayout, label, value }) => {
       return (
-        <DescriptionListItem
+        <DescriptionListGroup
           key={id}
           label={label}
           value={value}
@@ -94,10 +96,8 @@ const DescriptionList: FC<DescriptionListProps> = ({
   };
 
   return (
-    <dl className={`${styles.list} ${styles[layoutModifier]} ${className}`}>
+    <dl {...props} className={listClass}>
       {getItems(items)}
     </dl>
   );
 };
-
-export default DescriptionList;

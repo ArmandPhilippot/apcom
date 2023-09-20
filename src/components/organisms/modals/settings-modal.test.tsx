@@ -1,7 +1,7 @@
 import { render, screen } from '../../../../tests/utils';
 import { storageKey as ackeeStorageKey } from '../../molecules/forms/ackee-toggle.fixture';
 import { storageKey as motionStorageKey } from '../../molecules/forms/motion-toggle.fixture';
-import SettingsModal from './settings-modal';
+import { SettingsModal } from './settings-modal';
 
 describe('SettingsModal', () => {
   it('renders the modal heading', () => {

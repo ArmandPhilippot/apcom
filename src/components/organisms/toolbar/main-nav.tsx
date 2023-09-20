@@ -1,11 +1,12 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import BooleanField, {
+import {
+  BooleanField,
   type BooleanFieldProps,
-} from '../../atoms/forms/boolean-field';
-import Label from '../../atoms/forms/label';
-import Hamburger from '../../atoms/icons/hamburger';
-import Nav, { type NavProps, type NavItem } from '../../molecules/nav/nav';
+  Hamburger,
+  Label,
+} from '../../atoms';
+import { Nav, type NavProps, type NavItem } from '../../molecules';
 import mainNavStyles from './main-nav.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
 
@@ -28,12 +29,7 @@ export type MainNavProps = {
   setIsActive: BooleanFieldProps['onChange'];
 };
 
-/**
- * MainNav component
- *
- * Render the main navigation.
- */
-const MainNav: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
+const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
   { className = '', isActive, items, setIsActive },
   ref
 ) => {
@@ -62,20 +58,25 @@ const MainNav: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
         value="open"
       />
       <Label
-        htmlFor="main-nav-button"
         aria-label={label}
         className={`${sharedStyles.label} ${mainNavStyles.label}`}
+        htmlFor="main-nav-button"
       >
         <Hamburger iconClassName={mainNavStyles.icon} />
       </Label>
       <Nav
-        kind="main"
-        items={items}
         className={`${sharedStyles.modal} ${mainNavStyles.modal} ${className}`}
+        items={items}
+        kind="main"
         listClassName={mainNavStyles.modal__list}
       />
     </div>
   );
 };
 
-export default forwardRef(MainNav);
+/**
+ * MainNav component
+ *
+ * Render the main navigation.
+ */
+export const MainNav = forwardRef(MainNavWithRef);

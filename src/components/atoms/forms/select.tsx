@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, SetStateAction } from 'react';
+import { ChangeEvent, FC, SelectHTMLAttributes, SetStateAction } from 'react';
 import styles from './forms.module.scss';
 
 export type SelectOptions = {
@@ -16,19 +16,7 @@ export type SelectOptions = {
   value: string;
 };
 
-export type SelectProps = {
-  /**
-   * One or more ids that refers to the select field name.
-   */
-  'aria-labelledby'?: string;
-  /**
-   * Add classnames to the select field.
-   */
-  className?: string;
-  /**
-   * Field state. Either enabled (false) or disabled (true).
-   */
-  disabled?: boolean;
+export type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   /**
    * Field id attribute.
    */
@@ -41,10 +29,6 @@ export type SelectProps = {
    * True if the field is required. Default: false.
    */
   options: SelectOptions[];
-  /**
-   * True if the field is required. Default: false.
-   */
-  required?: boolean;
   /**
    * Callback function to set field value.
    */
@@ -60,12 +44,14 @@ export type SelectProps = {
  *
  * Render a HTML select element.
  */
-const Select: FC<SelectProps> = ({
+export const Select: FC<SelectProps> = ({
   className = '',
   options,
   setValue,
   ...props
 }) => {
+  const selectClass = `${styles.field} ${styles['field--select']} ${className}`;
+
   /**
    * Update select value when an option is selected.
    * @param e - The option change event.
@@ -86,14 +72,8 @@ const Select: FC<SelectProps> = ({
     ));
 
   return (
-    <select
-      className={`${styles.field} ${styles['field--select']} ${className}`}
-      onChange={updateValue}
-      {...props}
-    >
+    <select {...props} className={selectClass} onChange={updateValue}>
       {getOptions()}
     </select>
   );
 };
-
-export default Select;

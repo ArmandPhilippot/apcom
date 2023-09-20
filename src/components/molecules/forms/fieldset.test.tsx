@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Fieldset from './fieldset';
+import { Fieldset } from './fieldset';
 import { body, legend, Tooltip } from './fieldset.fixture';
 
 describe('Fieldset', () => {

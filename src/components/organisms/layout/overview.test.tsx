@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Overview, { type OverviewMeta } from './overview';
+import { Overview, type OverviewMeta } from './overview';
 
 const cover = {
   alt: 'Incidunt unde quam',

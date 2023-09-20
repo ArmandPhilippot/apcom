@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ColumnComponent from './column';
+import { Column as ColumnComponent } from './column';
 
 export default {
   title: 'Atoms/Layout/Column',

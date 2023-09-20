@@ -14,7 +14,7 @@ export type SpinnerProps = {
  *
  * Render a loading message with animation.
  */
-const Spinner: FC<SpinnerProps> = ({ message }) => {
+export const Spinner: FC<SpinnerProps> = ({ message }) => {
   const intl = useIntl();
 
   return (
@@ -23,7 +23,7 @@ const Spinner: FC<SpinnerProps> = ({ message }) => {
       <div className={styles.ball}></div>
       <div className={styles.ball}></div>
       <div className={styles.text}>
-        {message ||
+        {message ??
           intl.formatMessage({
             defaultMessage: 'Loading...',
             description: 'Spinner: loading text',
@@ -33,5 +33,3 @@ const Spinner: FC<SpinnerProps> = ({ message }) => {
     </div>
   );
 };
-
-export default Spinner;

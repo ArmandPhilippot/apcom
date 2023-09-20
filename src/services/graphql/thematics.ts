@@ -1,17 +1,19 @@
-import { PageLink, Slug, Thematic } from '../../types/app';
-import { GraphQLEdgesInput } from '../../types/graphql/generics';
-import { EdgesResponse } from '../../types/graphql/queries';
 import {
-  RawArticle,
-  RawThematic,
-  RawThematicPreview,
-  TotalItems,
-} from '../../types/raw-data';
-import { getImageFromRawData } from '../../utils/helpers/images';
+  type EdgesResponse,
+  type GraphQLEdgesInput,
+  type PageLink,
+  type RawArticle,
+  type RawThematic,
+  type RawThematicPreview,
+  type Slug,
+  type Thematic,
+  type TotalItems,
+} from '../../types';
 import {
+  getImageFromRawData,
   getPageLinkFromRawData,
   sortPageLinksByName,
-} from '../../utils/helpers/pages';
+} from '../../utils/helpers';
 import { fetchAPI } from './api';
 import { getArticleFromRawData } from './articles';
 import {

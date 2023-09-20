@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CommentForm from './comment-form';
+import { CommentForm } from './comment-form';
 
 const saveComment = async () => {
   /** Do nothing. */

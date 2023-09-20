@@ -7,7 +7,7 @@ import {
   Graph,
   WebPage,
 } from 'schema-dts';
-import { Dates } from '../../types/app';
+import { type Dates } from '../../types';
 import { settings } from '../../utils/config';
 
 export type GetBlogSchemaProps = {

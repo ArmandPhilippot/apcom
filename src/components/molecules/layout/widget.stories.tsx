@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import headingButtonStories from '../buttons/heading-button.stories';
-import Widget from './widget';
+import { Widget } from './widget';
 
 /**
  * Widget - Storybook Meta

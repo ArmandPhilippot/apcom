@@ -1,32 +1,23 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './computer-screen.module.scss';
 
-export type ComputerScreenProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type ComputerScreenProps = SVGAttributes<SVGElement>;
 
 /**
  * ComputerScreen component
  *
  * Render a computer screen svg icon.
  */
-const ComputerScreen: FC<ComputerScreenProps> = ({
+export const ComputerScreen: FC<ComputerScreenProps> = ({
   className = '',
   ...props
 }) => {
   return (
     <svg
+      {...props}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${styles.icon} ${className}`}
-      {...props}
     >
       <path
         d="M 1.0206528,11.991149 H 98.979347 V 78.466748 H 1.0206528 Z"
@@ -83,5 +74,3 @@ const ComputerScreen: FC<ComputerScreenProps> = ({
     </svg>
   );
 };
-
-export default ComputerScreen;

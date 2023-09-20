@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ToolbarComponent from './toolbar';
+import { Toolbar as ToolbarComponent } from './toolbar';
 
 /**
  * Toolbar - Storybook Meta

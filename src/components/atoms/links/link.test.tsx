@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Link from './link';
+import { Link } from './link';
 
 describe('Link', () => {
   it('render a link', () => {

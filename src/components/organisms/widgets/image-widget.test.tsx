@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import ImageWidget from './image-widget';
+import { ImageWidget } from './image-widget';
 
 const description = 'Ut vitae sit';
 

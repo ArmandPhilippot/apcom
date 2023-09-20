@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import PageHeader from './page-header';
+import { PageHeader } from './page-header';
 
 /**
  * Page Header - Storybook Meta

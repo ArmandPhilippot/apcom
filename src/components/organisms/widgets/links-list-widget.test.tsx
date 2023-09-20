@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import LinksListWidget from './links-list-widget';
+import { LinksListWidget } from './links-list-widget';
 
 const title = 'Voluptatem minus autem';
 

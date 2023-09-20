@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ThemeToggle from './theme-toggle';
+import { ThemeToggle } from './theme-toggle';
 
 /**
  * ThemeToggle - Storybook Meta

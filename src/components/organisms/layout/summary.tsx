@@ -1,15 +1,20 @@
 import { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { type Article, type Meta as MetaType } from '../../../types/app';
-import useReadingTime from '../../../utils/hooks/use-reading-time';
-import ButtonLink from '../../atoms/buttons/button-link';
-import Heading, { type HeadingLevel } from '../../atoms/headings/heading';
-import Arrow from '../../atoms/icons/arrow';
-import Link from '../../atoms/links/link';
-import ResponsiveImage, {
+import { type Article, type Meta as MetaType } from '../../../types';
+import { useReadingTime } from '../../../utils/hooks';
+import {
+  Arrow,
+  ButtonLink,
+  Heading,
+  type HeadingLevel,
+  Link,
+} from '../../atoms';
+import {
+  Meta,
+  type MetaData,
+  ResponsiveImage,
   type ResponsiveImageProps,
-} from '../../molecules/images/responsive-image';
-import Meta, { type MetaData } from '../../molecules/layout/meta';
+} from '../../molecules';
 import styles from './summary.module.scss';
 
 export type Cover = Pick<
@@ -48,7 +53,7 @@ export type SummaryProps = Pick<Article, 'intro' | 'title'> & {
  *
  * Render a page summary.
  */
-const Summary: FC<SummaryProps> = ({
+export const Summary: FC<SummaryProps> = ({
   intro,
   meta,
   title,
@@ -125,16 +130,14 @@ const Summary: FC<SummaryProps> = ({
       </div>
       <footer className={styles.footer}>
         <Meta
-          data={getMeta()}
-          layout="column"
-          itemsLayout="stacked"
-          withSeparator={false}
           className={styles.meta}
+          data={getMeta()}
           groupClassName={styles.meta__item}
+          itemsLayout="stacked"
+          layout="column"
+          withSeparator={false}
         />
       </footer>
     </article>
   );
 };
-
-export default Summary;

@@ -1,5 +1,4 @@
-import { sendCommentMutation } from '../../services/graphql/comments.mutation';
-import { sendMailMutation } from '../../services/graphql/contact.mutation';
+import { sendCommentMutation, sendMailMutation } from '../../services/graphql';
 
 //===========================================================================
 // Existing mutations list

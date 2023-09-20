@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ContactForm from './contact-form';
+import { ContactForm } from './contact-form';
 
 /**
  * ContactForm - Storybook Meta

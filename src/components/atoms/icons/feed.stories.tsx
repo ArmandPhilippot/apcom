@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import FeedIcon from './feed';
+import { Feed as FeedIcon } from './feed';
 
 /**
  * Feed icon - Storybook Meta

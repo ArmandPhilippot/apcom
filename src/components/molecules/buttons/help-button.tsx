@@ -1,6 +1,6 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import Button, { type ButtonProps } from '../../atoms/buttons/button';
+import { Button, type ButtonProps } from '../../atoms';
 import styles from './help-button.module.scss';
 
 export type HelpButtonProps = Pick<
@@ -8,12 +8,7 @@ export type HelpButtonProps = Pick<
   'aria-pressed' | 'className' | 'onClick'
 >;
 
-/**
- * HelpButton component
- *
- * Render a button with an interrogation mark icon.
- */
-const HelpButton: ForwardRefRenderFunction<
+const HelpButtonWithRef: ForwardRefRenderFunction<
   HTMLButtonElement,
   HelpButtonProps
 > = ({ className = '', ...props }, ref) => {
@@ -37,4 +32,9 @@ const HelpButton: ForwardRefRenderFunction<
   );
 };
 
-export default forwardRef(HelpButton);
+/**
+ * HelpButton component
+ *
+ * Render a button with an interrogation mark icon.
+ */
+export const HelpButton = forwardRef(HelpButtonWithRef);

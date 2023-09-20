@@ -6,7 +6,6 @@ export type HamburgerProps = {
    * Set additional classnames to the icon wrapper.
    */
   className?: string;
-
   /**
    * Set additional classnames to the icon.
    */
@@ -18,7 +17,7 @@ export type HamburgerProps = {
  *
  * Render a Hamburger icon.
  */
-const Hamburger: FC<HamburgerProps> = ({
+export const Hamburger: FC<HamburgerProps> = ({
   className = '',
   iconClassName = '',
 }) => {
@@ -28,5 +27,3 @@ const Hamburger: FC<HamburgerProps> = ({
     </span>
   );
 };
-
-export default Hamburger;

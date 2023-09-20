@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import FlippingLogo from './flipping-logo';
+import { FlippingLogo } from './flipping-logo';
 
 describe('FlippingLogo', () => {
   it('renders a photo', () => {

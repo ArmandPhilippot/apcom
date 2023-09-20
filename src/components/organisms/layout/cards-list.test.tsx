@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import CardsList, { type CardsListItem } from './cards-list';
+import { CardsList, type CardsListItem } from './cards-list';
 
 const items: CardsListItem[] = [
   {

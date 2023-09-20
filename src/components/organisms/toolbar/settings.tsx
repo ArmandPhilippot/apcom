@@ -1,13 +1,8 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import BooleanField, {
-  type BooleanFieldProps,
-} from '../../atoms/forms/boolean-field';
-import Cog from '../../atoms/icons/cog';
-import FlippingLabel from '../../molecules/forms/flipping-label';
-import SettingsModal, {
-  type SettingsModalProps,
-} from '../modals/settings-modal';
+import { BooleanField, type BooleanFieldProps, Cog } from '../../atoms';
+import { FlippingLabel } from '../../molecules';
+import { SettingsModal, type SettingsModalProps } from '../modals';
 import settingsStyles from './settings.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
 
@@ -22,7 +17,10 @@ export type SettingsProps = SettingsModalProps & {
   setIsActive: BooleanFieldProps['onChange'];
 };
 
-const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
+const SettingsWithRef: ForwardRefRenderFunction<
+  HTMLDivElement,
+  SettingsProps
+> = (
   {
     ackeeStorageKey,
     className = '',
@@ -58,9 +56,9 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
         value="open"
       />
       <FlippingLabel
+        aria-label={label}
         className={sharedStyles.label}
         htmlFor="settings-button"
-        aria-label={label}
         isActive={isActive}
       >
         <Cog aria-hidden={true} />
@@ -75,4 +73,4 @@ const Settings: ForwardRefRenderFunction<HTMLDivElement, SettingsProps> = (
   );
 };
 
-export default forwardRef(Settings);
+export const Settings = forwardRef(SettingsWithRef);

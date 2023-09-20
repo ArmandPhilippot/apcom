@@ -1,23 +1,29 @@
 import useSWR from 'swr';
-import { fetchAPI } from '../../services/graphql/api';
-import { getArticleFromRawData } from '../../services/graphql/articles';
-import { articleBySlugQuery } from '../../services/graphql/articles.query';
-import { Article } from '../../types/app';
-import { RawArticle } from '../../types/raw-data';
+import {
+  articleBySlugQuery,
+  fetchAPI,
+  getArticleFromRawData,
+} from '../../services/graphql';
+import { type Article, type RawArticle } from '../../types';
 
 export type UseArticleConfig = {
+  /**
+   * A fallback article
+   */
   fallback?: Article;
+  /**
+   * The article slug
+   */
   slug?: string;
 };
 
 /**
  * Retrieve an article by slug.
  *
- * @param {string} slug - The article slug.
- * @param {Article} fallback - A fallback article.
+ * @param {UseArticleConfig} config - The config.
  * @returns {Article|undefined} The matching article if it exists.
  */
-const useArticle = ({
+export const useArticle = ({
   slug,
   fallback,
 }: UseArticleConfig): Article | undefined => {
@@ -28,5 +34,3 @@ const useArticle = ({
 
   return data ? getArticleFromRawData(data.post) : fallback;
 };
-
-export default useArticle;

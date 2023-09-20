@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Select from './select';
+import { Select } from './select';
 
 const selectOptions = [
   { id: 'option1', name: 'Option 1', value: 'option1' },

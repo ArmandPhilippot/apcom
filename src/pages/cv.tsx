@@ -5,26 +5,26 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import React, { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import Heading from '../components/atoms/headings/heading';
-import Link from '../components/atoms/links/link';
-import List from '../components/atoms/lists/list';
-import ImageWidget from '../components/organisms/widgets/image-widget';
-import SocialMedia from '../components/organisms/widgets/social-media';
-import { getLayout } from '../components/templates/layout/layout';
-import PageLayout, {
+import {
+  getLayout,
+  Heading,
+  ImageWidget,
+  Link,
+  List,
+  PageLayout,
   type PageLayoutProps,
-} from '../components/templates/page/page-layout';
+  SocialMedia,
+} from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import styles from '../styles/pages/cv.module.scss';
-import { type NextPageWithLayout } from '../types/app';
-import { loadTranslation } from '../utils/helpers/i18n';
+import { type NextPageWithLayout } from '../types';
 import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
-} from '../utils/helpers/schema-org';
-import useBreadcrumb from '../utils/hooks/use-breadcrumb';
-import useSettings from '../utils/hooks/use-settings';
+} from '../utils/helpers';
+import { loadTranslation } from '../utils/helpers/server';
+import { useBreadcrumb, useSettings } from '../utils/hooks';
 
 const ExternalLink = ({
   children = '',

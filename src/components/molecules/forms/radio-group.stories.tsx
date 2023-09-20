@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import RadioGroup from './radio-group';
+import { RadioGroup } from './radio-group';
 import { getOptions, initialChoice, legend } from './radio-group.fixture';
 
 /**

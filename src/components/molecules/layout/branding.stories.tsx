@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Branding from './branding';
+import { Branding } from './branding';
 
 /**
  * Branding - Storybook Meta

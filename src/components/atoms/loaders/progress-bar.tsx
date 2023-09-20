@@ -29,7 +29,7 @@ export type ProgressBarProps = {
  *
  * Render a progress bar.
  */
-const ProgressBar: FC<ProgressBarProps> = ({
+export const ProgressBar: FC<ProgressBarProps> = ({
   current,
   id,
   label,
@@ -42,18 +42,16 @@ const ProgressBar: FC<ProgressBarProps> = ({
         {label}
       </label>
       <progress
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={current}
         className={styles.progress__bar}
         id={id}
         max={max}
         value={current}
-        aria-valuemin={min}
-        aria-valuemax={max}
-        aria-valuenow={current}
       >
         {current}/{max}
       </progress>
     </div>
   );
 };
-
-export default ProgressBar;

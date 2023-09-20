@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import MagnifyingGlassIcon from './magnifying-glass';
+import { MagnifyingGlass as MagnifyingGlassIcon } from './magnifying-glass';
 
 /**
  * Magnifying Glass icon - Storybook Meta

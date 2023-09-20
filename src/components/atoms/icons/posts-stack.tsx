@@ -1,29 +1,23 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './posts-stack.module.scss';
 
-export type PostsStackProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type PostsStackProps = SVGAttributes<SVGElement>;
 
 /**
  * Posts stack component.
  *
  * Render a posts stack svg icon.
  */
-const PostsStack: FC<PostsStackProps> = ({ className = '', ...props }) => {
+export const PostsStack: FC<PostsStackProps> = ({
+  className = '',
+  ...props
+}) => {
   return (
     <svg
+      {...props}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${styles.icon} ${className}`}
-      {...props}
     >
       <path
         className={styles.background}
@@ -76,5 +70,3 @@ const PostsStack: FC<PostsStackProps> = ({ className = '', ...props }) => {
     </svg>
   );
 };
-
-export default PostsStack;

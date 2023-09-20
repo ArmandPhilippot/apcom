@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { LayoutBase } from '../layout/layout.stories';
-import SectionedLayoutComponent from './sectioned-layout';
+import { SectionedLayout as SectionedLayoutComponent } from './sectioned-layout';
 
 /**
  * SectionedLayout - Storybook Meta

@@ -1,29 +1,20 @@
-import { FC } from 'react';
+import { FC, SVGAttributes } from 'react';
 import styles from './close.module.scss';
 
-export type CloseProps = {
-  /**
-   * Should the svg be hidden from assistive technologies?
-   */
-  'aria-hidden'?: boolean;
-  /**
-   * Set additional classnames to the icon.
-   */
-  className?: string;
-};
+export type CloseProps = SVGAttributes<SVGElement>;
 
 /**
  * Close component
  *
  * Render a close svg icon.
  */
-const Close: FC<CloseProps> = ({ className = '', ...props }) => {
+export const Close: FC<CloseProps> = ({ className = '', ...props }) => {
   return (
     <svg
+      {...props}
+      className={`${styles.icon} ${className}`}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${styles.icon} ${className}`}
-      {...props}
     >
       <path
         className={styles.line}
@@ -36,5 +27,3 @@ const Close: FC<CloseProps> = ({ className = '', ...props }) => {
     </svg>
   );
 };
-
-export default Close;

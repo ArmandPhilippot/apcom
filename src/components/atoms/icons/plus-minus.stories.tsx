@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import PlusMinusIcon from './plus-minus';
+import { PlusMinus as PlusMinusIcon } from './plus-minus';
 
 /**
  * Plus/Minus icon - Storybook Meta

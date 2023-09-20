@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
-import LabelledBooleanField from './labelled-boolean-field';
+import { LabelledBooleanField } from './labelled-boolean-field';
 import { label } from './labelled-boolean-field.fixture';
 
 /**

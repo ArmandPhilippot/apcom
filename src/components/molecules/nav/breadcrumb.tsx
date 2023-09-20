@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useIntl } from 'react-intl';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import { settings } from '../../../utils/config';
-import Link from '../../atoms/links/link';
+import { Link } from '../../atoms';
 import styles from './breadcrumb.module.scss';
 
 export type BreadcrumbItem = {
@@ -41,7 +41,7 @@ export type BreadcrumbProps = {
  *
  * Render a breadcrumb navigation.
  */
-const Breadcrumb: FC<BreadcrumbProps> = ({
+export const Breadcrumb: FC<BreadcrumbProps> = ({
   itemClassName = '',
   items,
   ...props
@@ -106,9 +106,9 @@ const Breadcrumb: FC<BreadcrumbProps> = ({
   return (
     <>
       <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
         id="schema-breadcrumb"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <nav aria-label={ariaLabel} {...props}>
         <span className="screen-reader-text">
@@ -123,5 +123,3 @@ const Breadcrumb: FC<BreadcrumbProps> = ({
     </>
   );
 };
-
-export default Breadcrumb;

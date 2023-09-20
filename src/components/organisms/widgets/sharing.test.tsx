@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Sharing, { type SharingData } from './sharing';
+import { Sharing, type SharingData } from './sharing';
 
 const postData: SharingData = {
   excerpt: 'A post excerpt',

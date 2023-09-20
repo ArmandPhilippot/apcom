@@ -1,6 +1,9 @@
 import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite';
-import { GraphQLEdgesInput } from '../../types/graphql/generics';
-import { EdgesResponse, Search } from '../../types/graphql/queries';
+import {
+  type EdgesResponse,
+  type GraphQLEdgesInput,
+  type Search,
+} from '../../types';
 
 export type UsePaginationProps<T> = {
   /**
@@ -66,7 +69,7 @@ export type UsePaginationReturn<T> = {
  * @param {UsePaginationProps} props - The pagination configuration.
  * @returns {UsePaginationReturn} An object with pagination data and helpers.
  */
-const usePagination = <T extends object>({
+export const usePagination = <T extends object>({
   fallbackData,
   fetcher,
   perPage,
@@ -114,5 +117,3 @@ const usePagination = <T extends object>({
     setSize,
   };
 };
-
-export default usePagination;

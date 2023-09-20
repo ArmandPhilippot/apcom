@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import ContactForm from './contact-form';
+import { ContactForm } from './contact-form';
 
 const props = {
   sendMail: async () => {

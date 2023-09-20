@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import BackToTopComponent from './back-to-top';
+import { BackToTop as BackToTopComponent } from './back-to-top';
 
 /**
  * BackToTop - Storybook Meta

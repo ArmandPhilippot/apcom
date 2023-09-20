@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import LinksListWidget from './links-list-widget';
+import { LinksListWidget } from './links-list-widget';
 
 /**
  * LinksListWidget - Storybook Meta

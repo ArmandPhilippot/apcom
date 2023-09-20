@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { generateFeed } from '../utils/helpers/rss';
+import { generateFeed } from '../utils/helpers';
 
 const Feed = () => null;
 

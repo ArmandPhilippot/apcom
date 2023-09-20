@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SocialMediaWidget, { Media } from './social-media';
+import { SocialMedia as SocialMediaWidget, Media } from './social-media';
 
 /**
  * SocialMedia - Storybook Meta

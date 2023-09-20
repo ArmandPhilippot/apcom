@@ -1,5 +1,5 @@
 import { render, screen } from '../../../../tests/utils';
-import Main from './main';
+import { Main } from './main';
 
 const id = 'main';
 const children = 'The main content.';

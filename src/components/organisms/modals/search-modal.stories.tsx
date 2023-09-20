@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import SearchModal from './search-modal';
+import { SearchModal } from './search-modal';
 
 /**
  * SearchModal - Storybook Meta

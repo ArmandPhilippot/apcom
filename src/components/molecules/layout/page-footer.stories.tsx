@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { MetaData } from './meta';
-import PageFooterComponent from './page-footer';
+import { PageFooter as PageFooterComponent } from './page-footer';
 
 /**
  * Page Footer - Storybook Meta

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Overview, { OverviewMeta } from './overview';
+import { Overview, OverviewMeta } from './overview';
 
 /**
  * Overview - Storybook Meta
