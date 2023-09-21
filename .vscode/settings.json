@@ -1,23 +1,4 @@
 {
   "css.lint.validProperties": ["composes"],
-  "scss.lint.validProperties": ["composes"],
-  "cSpell.words": [
-    "Ackee",
-    "aligncenter",
-    "developpement",
-    "hexcode",
-    "hreflang",
-    "legales",
-    "Matomo",
-    "Noindex",
-    "opengraph",
-    "parens",
-    "prismjs",
-    "projet",
-    "projets",
-    "rehype",
-    "sujet",
-    "thematics",
-    "thematique"
-  ]
+  "scss.lint.validProperties": ["composes"]
 }

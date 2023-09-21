@@ -1,0 +1,60 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "dictionaryDefinitions": [
+    {
+      "name": "project-words",
+      "path": "./.cspell/project-words.txt",
+      "noSuggest": true
+    },
+    {
+      "name": "collaborators-name",
+      "path": "./.cspell/collaborators-name.txt",
+      "noSuggest": true
+    },
+    {
+      "name": "french-contents",
+      "path": "./.cspell/french-contents.txt",
+      "noSuggest": true
+    }
+  ],
+  "dictionaries": [
+    "collaborators-name",
+    "companies",
+    "css",
+    "fonts",
+    "html",
+    "node",
+    "project-words",
+    "softwareTerms",
+    "typescript",
+    "lorem-ipsum"
+  ],
+  "gitignoreRoot": ".",
+  "useGitignore": true,
+  "ignorePaths": [
+    ".husky",
+    ".vscode",
+    "bin",
+    "CHANGELOG.md",
+    "Dockerfile",
+    "node_modules",
+    "public",
+    "src/assets",
+    "src/i18n",
+    "yarn.lock"
+  ],
+  "ignoreRegExpList": ["Email", "Urls", "#[\\w-]*", "/id: '.*'/g"],
+  "import": ["@cspell/dict-fr-fr/cspell-ext.json"],
+  "overrides": [
+    {
+      "filename": [
+        ".cspell/french-contents.txt",
+        "src/content/**",
+        "tests/cypress/e2e/**"
+      ],
+      "language": "en,fr",
+      "dictionaries": ["french-contents", "companies"]
+    }
+  ]
+}

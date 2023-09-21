@@ -3,4 +3,5 @@ module.exports = {
   '**/*.(ts|tsx|js|jsx)': ['eslint --cache --fix', 'prettier --write'],
   '**/*.(md|json)': 'prettier --write',
   '**/*.scss': ['stylelint --fix', 'prettier --write'],
+  '*': ['cspell --no-must-find-files --no-progress'],
 };
