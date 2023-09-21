@@ -29,6 +29,7 @@
     "deploy": "sh ./bin/deploy.sh",
     "i18n:compile": "formatjs compile-folder src/i18n lang/",
     "i18n:extract": "formatjs extract 'src/**/*.ts*' --out-file src/i18n/en.json",
+    "prepare": "husky install",
     "release": "commit-and-tag-version -s --no-verify",
     "test": "yarn run test:unit && yarn run test:e2e",
     "test:e2e": "cypress run",
