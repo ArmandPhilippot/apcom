@@ -10,7 +10,6 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@storybook/addon-onboarding',
     'storybook-dark-mode',
   ],
   framework: {
