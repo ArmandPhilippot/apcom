@@ -1,0 +1,18 @@
+.label {
+  color: var(--color-primary-darker);
+  font-weight: 600;
+  cursor: pointer;
+
+  &--sm {
+    font-size: var(--font-size-sm);
+    font-variant: small-caps;
+  }
+
+  &--md {
+    font-size: var(--font-size-md);
+  }
+}
+
+.required {
+  color: var(--color-secondary);
+}

@@ -1,0 +1,17 @@
+.fieldset {
+  display: flex;
+  gap: var(--spacing-2xs);
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  &--inline {
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  &--stack {
+    flex-flow: column wrap;
+  }
+}

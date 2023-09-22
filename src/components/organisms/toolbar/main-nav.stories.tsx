@@ -57,7 +57,7 @@ export default {
 } as ComponentMeta<typeof MainNav>;
 
 const Template: ComponentStory<typeof MainNav> = ({
-  isActive,
+  isActive = false,
   setIsActive: _setIsActive,
   ...args
 }) => {

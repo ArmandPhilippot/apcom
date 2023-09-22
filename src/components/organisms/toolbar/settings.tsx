@@ -3,14 +3,13 @@ import { useIntl } from 'react-intl';
 import { BooleanField, type BooleanFieldProps, Cog } from '../../atoms';
 import { FlippingLabel } from '../../molecules';
 import { SettingsModal, type SettingsModalProps } from '../modals';
-import settingsStyles from './settings.module.scss';
-import sharedStyles from './toolbar-items.module.scss';
+import styles from './toolbar-items.module.scss';
 
 export type SettingsProps = SettingsModalProps & {
   /**
    * The button state.
    */
-  isActive: BooleanFieldProps['checked'];
+  isActive: BooleanFieldProps['isChecked'];
   /**
    * A callback function to handle button state.
    */
@@ -24,10 +23,9 @@ const SettingsWithRef: ForwardRefRenderFunction<
   {
     ackeeStorageKey,
     className = '',
-    isActive,
+    isActive = false,
     motionStorageKey,
     setIsActive,
-    tooltipClassName = '',
   },
   ref
 ) => {
@@ -45,11 +43,11 @@ const SettingsWithRef: ForwardRefRenderFunction<
       });
 
   return (
-    <div className={`${sharedStyles.item} ${settingsStyles.item}`} ref={ref}>
+    <div className={styles.item} ref={ref}>
       <BooleanField
-        checked={isActive}
-        className={sharedStyles.checkbox}
+        className={styles.checkbox}
         id="settings-button"
+        isChecked={isActive}
         name="settings-button"
         onChange={setIsActive}
         type="checkbox"
@@ -57,7 +55,7 @@ const SettingsWithRef: ForwardRefRenderFunction<
       />
       <FlippingLabel
         aria-label={label}
-        className={sharedStyles.label}
+        className={styles.label}
         htmlFor="settings-button"
         isActive={isActive}
       >
@@ -65,9 +63,8 @@ const SettingsWithRef: ForwardRefRenderFunction<
       </FlippingLabel>
       <SettingsModal
         ackeeStorageKey={ackeeStorageKey}
-        className={`${sharedStyles.modal} ${className}`}
+        className={`${styles.modal} ${className}`}
         motionStorageKey={motionStorageKey}
-        tooltipClassName={`${settingsStyles.tooltip} ${tooltipClassName}`}
       />
     </div>
   );

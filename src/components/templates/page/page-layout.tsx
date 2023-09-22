@@ -126,11 +126,11 @@ export const PageLayout: FC<PageLayoutProps> = ({
   const saveComment: CommentFormProps['saveComment'] = async (data, reset) => {
     if (!id) throw new Error('Page id missing. Cannot save comment.');
 
-    const { comment: commentBody, email, name, parentId, website } = data;
+    const { author, comment: commentBody, email, parentId, website } = data;
     const commentData: SendCommentInput = {
-      author: name,
+      author,
       authorEmail: email,
-      authorUrl: website || '',
+      authorUrl: website ?? '',
       clientMutationId: 'contact',
       commentOn: id,
       content: commentBody,
@@ -248,13 +248,13 @@ export const PageLayout: FC<PageLayoutProps> = ({
                 comments={comments}
                 depth={2}
                 Notice={
-                  isReplyRef.current === true && (
+                  isReplyRef.current === true && statusMessage ? (
                     <Notice
                       className={styles.notice}
                       kind={status}
                       message={statusMessage}
                     />
-                  )
+                  ) : null
                 }
                 saveComment={saveComment}
               />
@@ -275,13 +275,13 @@ export const PageLayout: FC<PageLayoutProps> = ({
               title={commentFormTitle}
               titleAlignment="center"
               Notice={
-                isReplyRef.current === false && (
+                isReplyRef.current === false && statusMessage ? (
                   <Notice
                     className={styles.notice}
                     kind={status}
                     message={statusMessage}
                   />
-                )
+                ) : null
               }
             />
           </section>

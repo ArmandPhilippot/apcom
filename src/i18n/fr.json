@@ -231,10 +231,6 @@
     "defaultMessage": "Aller au contenu",
     "description": "Layout: Skip to content link"
   },
-  "KUowUk": {
-    "defaultMessage": "CV d’{name}",
-    "description": "CVPage: CV image alternative text"
-  },
   "KVSWGP": {
     "defaultMessage": "Autres thématiques",
     "description": "ThematicPage: other thematics list widget title"
@@ -463,10 +459,6 @@
     "defaultMessage": "Réglages",
     "description": "SettingsModal: title"
   },
-  "gX+YVy": {
-    "defaultMessage": "Formulaire des réglages",
-    "description": "SettingsForm: an accessible form name"
-  },
   "hHVgW3": {
     "defaultMessage": "Thème clair 🌞",
     "description": "usePrism: toggle light theme button text"
@@ -622,6 +614,10 @@
   "x55qsD": {
     "defaultMessage": "Logo d’{website}",
     "description": "Branding: logo title"
+  },
+  "xYNeKX": {
+    "defaultMessage": "Formulaire des réglages",
+    "description": "SettingsModal: an accessible form name"
   },
   "xaqaYQ": {
     "defaultMessage": "Mail en cours d’envoi…",

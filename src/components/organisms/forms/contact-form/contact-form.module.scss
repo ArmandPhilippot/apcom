@@ -1,0 +1,15 @@
+.form {
+  display: flex;
+  flex-flow: column wrap;
+  gap: var(--spacing-xs);
+  max-width: 45ch;
+}
+
+.field {
+  width: 100%;
+}
+
+.button {
+  display: block;
+  margin: var(--spacing-sm) auto 0;
+}

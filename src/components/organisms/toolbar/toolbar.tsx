@@ -68,7 +68,6 @@ export const Toolbar: FC<ToolbarProps> = ({
         motionStorageKey={motionStorageKey}
         ref={settingsRef}
         setIsActive={() => setIsSettingsOpened(!isSettingsOpened)}
-        tooltipClassName={styles.tooltip}
       />
     </div>
   );

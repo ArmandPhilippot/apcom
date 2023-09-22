@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  gap: var(--spacing-2xs);
+  width: fit-content;
+
+  &--inline {
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  &--inline#{&}--reverse {
+    flex-flow: row-reverse wrap;
+  }
+
+  &--stack {
+    flex-flow: column wrap;
+  }
+
+  &--stack#{&}--reverse {
+    flex-flow: column-reverse wrap;
+  }
+}

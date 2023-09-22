@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { storageKey as ackeeStorageKey } from '../../molecules/forms/ackee-toggle.fixture';
-import { storageKey as motionStorageKey } from '../../molecules/forms/motion-toggle.fixture';
+import { storageKey as ackeeStorageKey } from '../../organisms/forms/ackee-toggle/ackee-toggle.fixture';
+import { storageKey as motionStorageKey } from '../../organisms/forms/motion-toggle/motion-toggle.fixture';
 import { SettingsModal } from './settings-modal';
 
 /**

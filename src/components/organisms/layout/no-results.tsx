@@ -28,7 +28,7 @@ export const NoResults: FC<NoResultsProps> = ({ searchPage }) => {
           id: 'DVBwfu',
         })}
       </p>
-      <SearchForm hideLabel={true} searchPage={searchPage} />
+      <SearchForm isLabelHidden searchPage={searchPage} />
     </>
   );
 };

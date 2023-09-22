@@ -1,0 +1,72 @@
+@use "../../../styles/abstracts/functions" as fun;
+@use "../../../styles/abstracts/mixins" as mix;
+@use "../../../styles/abstracts/variables" as var;
+
+.btn {
+  margin-right: var(--spacing-xs);
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  font-size: var(--font-size-sm);
+  transition: all 0.75s ease-in-out 0s;
+
+  @media screen and (max-height: #{var.get-breakpoint("2xs")}) {
+    width: calc(97.5vw - var(--spacing-md));
+    right: 0;
+  }
+
+  &--down {
+    top: calc(100% + var(--spacing-xs));
+    transform-origin: top;
+  }
+
+  &--up {
+    bottom: calc(100% + var(--spacing-2xs));
+    transform-origin: bottom;
+  }
+
+  &--hidden {
+    flex: 0 0 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
+  }
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+
+    & ~ .btn {
+      background: var(--color-primary);
+
+      * {
+        color: var(--color-fg-inverted);
+      }
+    }
+  }
+}
+
+.heading {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 100%;
+  margin-left: calc(var(--spacing-xs) * -1.1);
+  font-size: var(--font-size-sm);
+}
+
+.icon {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-right: var(--spacing-xs);
+  padding: 0 var(--spacing-2xs);
+  background: var(--color-primary-dark);
+  border: fun.convert-px(1) solid var(--color-primary-dark);
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
+  color: var(--color-fg-inverted);
+  font-weight: 600;
+}

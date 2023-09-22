@@ -79,7 +79,7 @@ const ContactPage: NextPageWithLayout = () => {
   const [statusMessage, setStatusMessage] = useState<string>('');
 
   const submitMail: ContactFormProps['sendMail'] = async (data, reset) => {
-    const { email, message, name, subject } = data;
+    const { email, message, name, object } = data;
     const messageHTML = message.replace(/\r?\n/g, '<br />');
     const body = `Message received from ${name} <${email}> on ${website.url}.<br /><br />${messageHTML}`;
     const replyTo = `${name} <${email}>`;
@@ -87,7 +87,7 @@ const ContactPage: NextPageWithLayout = () => {
       body,
       clientMutationId: 'contact',
       replyTo,
-      subject,
+      subject: object,
     };
     const { message: mutationMessage, sent } = await sendMail(mailData);
 
@@ -139,11 +139,13 @@ const ContactPage: NextPageWithLayout = () => {
         <ContactForm
           sendMail={submitMail}
           Notice={
-            <Notice
-              kind={status}
-              message={statusMessage}
-              className={styles.notice}
-            />
+            statusMessage ? (
+              <Notice
+                kind={status}
+                message={statusMessage}
+                className={styles.notice}
+              />
+            ) : undefined
           }
         />
       </PageLayout>

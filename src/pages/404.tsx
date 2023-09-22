@@ -123,7 +123,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
             id: 'XKy7rx',
           })}
         </p>
-        <SearchForm hideLabel={true} searchPage="/recherche/" />
+        <SearchForm isLabelHidden searchPage="/recherche/" />
       </PageLayout>
     </>
   );

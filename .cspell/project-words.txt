@@ -16,3 +16,4 @@ rehype
 SAMEORIGIN
 stylelint
 svgr
+thematics

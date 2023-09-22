@@ -1,6 +1,6 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import { Modal, type ModalProps } from '../../molecules';
+import { Heading, Modal, type ModalProps } from '../../atoms';
 import { SearchForm, type SearchFormProps } from '../forms';
 import styles from './search-modal.module.scss';
 
@@ -23,8 +23,15 @@ const SearchModalWithRef: ForwardRefRenderFunction<
   });
 
   return (
-    <Modal className={`${styles.wrapper} ${className}`} title={modalTitle}>
-      <SearchForm hideLabel={true} ref={ref} searchPage={searchPage} />
+    <Modal
+      className={`${styles.wrapper} ${className}`}
+      heading={
+        <Heading isFake level={3}>
+          {modalTitle}
+        </Heading>
+      }
+    >
+      <SearchForm isLabelHidden ref={ref} searchPage={searchPage} />
     </Modal>
   );
 };

@@ -18,7 +18,7 @@ export type MainNavProps = {
   /**
    * The button state.
    */
-  isActive: BooleanFieldProps['checked'];
+  isActive: BooleanFieldProps['isChecked'];
   /**
    * The main nav items.
    */
@@ -30,7 +30,7 @@ export type MainNavProps = {
 };
 
 const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
-  { className = '', isActive, items, setIsActive },
+  { className = '', isActive = false, items, setIsActive },
   ref
 ) => {
   const intl = useIntl();
@@ -49,9 +49,9 @@ const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
   return (
     <div className={`${sharedStyles.item} ${mainNavStyles.item}`} ref={ref}>
       <BooleanField
-        checked={isActive}
         className={`${sharedStyles.checkbox} ${mainNavStyles.checkbox}`}
         id="main-nav-button"
+        isChecked={isActive}
         name="main-nav-button"
         onChange={setIsActive}
         type="checkbox"

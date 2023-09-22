@@ -1,0 +1,7 @@
+@use "../../../../../styles/abstracts/mixins" as mix;
+
+.field {
+  &--hidden {
+    @include mix.visually-hidden;
+  }
+}

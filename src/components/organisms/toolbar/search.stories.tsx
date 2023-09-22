@@ -62,7 +62,7 @@ export default {
 } as ComponentMeta<typeof Search>;
 
 const Template: ComponentStory<typeof Search> = ({
-  isActive,
+  isActive = false,
   setIsActive: _setIsActive,
   ...args
 }) => {

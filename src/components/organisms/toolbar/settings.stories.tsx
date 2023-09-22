@@ -86,7 +86,7 @@ export default {
 } as ComponentMeta<typeof Settings>;
 
 const Template: ComponentStory<typeof Settings> = ({
-  isActive,
+  isActive = false,
   setIsActive: _setIsActive,
   ...args
 }) => {

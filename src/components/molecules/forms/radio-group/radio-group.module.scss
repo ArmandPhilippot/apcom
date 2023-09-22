@@ -1,0 +1,9 @@
+.group {
+  &--inline {
+    .option {
+      &:not(:last-of-type) {
+        margin-right: var(--spacing-xs);
+      }
+    }
+  }
+}

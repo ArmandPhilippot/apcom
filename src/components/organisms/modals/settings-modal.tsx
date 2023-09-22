@@ -1,29 +1,26 @@
 import { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { Form } from '../../atoms';
+import { Cog, Form, Heading, Modal, type ModalProps } from '../../atoms';
 import {
   AckeeToggle,
   type AckeeToggleProps,
-  Modal,
-  type ModalProps,
   MotionToggle,
   type MotionToggleProps,
   PrismThemeToggle,
   ThemeToggle,
-} from '../../molecules';
+} from '../../organisms';
 import styles from './settings-modal.module.scss';
 
-export type SettingsModalProps = Pick<ModalProps, 'className'> &
-  Pick<AckeeToggleProps, 'tooltipClassName'> & {
-    /**
-     * The local storage key for Ackee settings.
-     */
-    ackeeStorageKey: AckeeToggleProps['storageKey'];
-    /**
-     * The local storage key for Reduce motion settings.
-     */
-    motionStorageKey: MotionToggleProps['storageKey'];
-  };
+export type SettingsModalProps = Pick<ModalProps, 'className'> & {
+  /**
+   * The local storage key for Ackee settings.
+   */
+  ackeeStorageKey: AckeeToggleProps['storageKey'];
+  /**
+   * The local storage key for Reduce motion settings.
+   */
+  motionStorageKey: MotionToggleProps['storageKey'];
+};
 
 /**
  * SettingsModal component
@@ -34,7 +31,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   className = '',
   ackeeStorageKey,
   motionStorageKey,
-  tooltipClassName,
 }) => {
   const intl = useIntl();
   const title = intl.formatMessage({
@@ -51,40 +47,30 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   return (
     <Modal
       className={`${styles.wrapper} ${className}`}
-      icon="cogs"
-      title={title}
+      heading={
+        <Heading isFake level={3}>
+          <Cog className={styles.icon} />
+          {title}
+        </Heading>
+      }
     >
       <Form
         aria-label={ariaLabel}
         className={styles.form}
-        itemsClassName={styles.items}
         onSubmit={() => null}
       >
-        <ThemeToggle
-          bodyClassName={styles.fieldset__body}
-          groupClassName={styles.group}
-          legendClassName={styles.label}
-        />
-        <PrismThemeToggle
-          bodyClassName={styles.fieldset__body}
-          groupClassName={styles.group}
-          legendClassName={styles.label}
-        />
+        <ThemeToggle className={styles.item} />
+        <PrismThemeToggle className={styles.item} />
         <MotionToggle
-          bodyClassName={styles.fieldset__body}
+          className={styles.item}
           defaultValue="on"
-          groupClassName={styles.group}
-          legendClassName={styles.label}
           storageKey={motionStorageKey}
         />
         <AckeeToggle
-          bodyClassName={styles.fieldset__body}
-          buttonClassName={styles.btn}
+          className={styles.item}
+          direction="upwards"
           defaultValue="full"
-          groupClassName={`${styles.group} ${styles['group--ackee']}`}
-          legendClassName={`${styles.label} ${styles['label--ackee']}`}
           storageKey={ackeeStorageKey}
-          tooltipClassName={`${styles.tooltip} ${tooltipClassName}`}
         />
       </Form>
     </Modal>

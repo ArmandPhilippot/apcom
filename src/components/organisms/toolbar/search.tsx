@@ -19,7 +19,7 @@ export type SearchProps = {
   /**
    * The button state.
    */
-  isActive: BooleanFieldProps['checked'];
+  isActive: BooleanFieldProps['isChecked'];
   /**
    * A callback function to execute search.
    */
@@ -31,7 +31,7 @@ export type SearchProps = {
 };
 
 const SearchWithRef: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
-  { className = '', isActive, searchPage, setIsActive },
+  { className = '', isActive = false, searchPage, setIsActive },
   ref
 ) => {
   const intl = useIntl();
@@ -57,9 +57,9 @@ const SearchWithRef: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
   return (
     <div className={`${sharedStyles.item} ${searchStyles.item}`} ref={ref}>
       <BooleanField
-        checked={isActive}
         className={`${sharedStyles.checkbox} ${searchStyles.checkbox}`}
         id="search-button"
+        isChecked={isActive}
         name="search-button"
         onChange={setIsActive}
         type="checkbox"
