@@ -71,9 +71,9 @@ const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value:
-      process.env.NODE_ENV !== 'development'
-        ? contentSecurityPolicy.replace(/\s{2,}/g, ' ').trim()
-        : contentSecurityPolicyDev.replace(/\s{2,}/g, ' ').trim(),
+      process.env.NODE_ENV === 'development'
+        ? contentSecurityPolicyDev.replace(/\s{2,}/g, ' ').trim()
+        : contentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
   },
 ];
 
@@ -82,7 +82,7 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  async headers() {
+  headers() {
     return [
       {
         // Apply these headers to all routes in your application.
@@ -101,7 +101,7 @@ const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
   reactStrictMode: true,
-  async rewrites() {
+  rewrites() {
     return [
       {
         source: '/feed',
