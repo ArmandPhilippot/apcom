@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { render, screen } from '../../../../tests/utils';
 import { Column } from '../../atoms';
 import { Columns } from './columns';
@@ -6,7 +7,7 @@ const column1 =
   'Non praesentium voluptas quisquam ex est. Distinctio accusamus facilis libero in aut. Et veritatis quo impedit fugit amet sit accusantium. Ut est rerum asperiores sint libero eveniet. Molestias placeat recusandae suscipit eligendi sunt hic.';
 
 const column2 =
-  'Occaecati consectetur ad similique itaque rem doloremque commodi voluptate porro. Nam quo voluptas commodi qui rerum qui. Explicabo quis adipisci rerum. Culpa alias laboriosam temporibus iusto harum at placeat.';
+  'Quo perspiciatis mollitia non et. Modi voluptatem molestias. Facere ut molestiae exercitationem non nesciunt unde adipisci. Non cupiditate provident repudiandae. Natus quia necessitatibus libero enim earum quam et.';
 
 const column3 =
   'Libero aut ab neque voluptatem commodi. Quam quia voluptatem iusto dolorum. Enim ipsa totam corrupti qui cum quidem ea. Eos sed aliquam porro consequatur officia sed.';

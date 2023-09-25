@@ -1,7 +1,6 @@
-/** @type {import('next-sitemap').IConfig} */
-
 const isStaging = process.env.APP_ENV === 'staging';
 
+/** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: isStaging
     ? process.env.NEXT_PUBLIC_STAGING_APP_URL

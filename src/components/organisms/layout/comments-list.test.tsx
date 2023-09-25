@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { render } from '../../../../tests/utils';
 import { saveComment } from './comment.fixture';
 import { CommentsList } from './comments-list';

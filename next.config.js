@@ -1,4 +1,9 @@
-const path = require('path');
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import bundleAnalyzer from '@next/bundle-analyzer';
+import nextMDX from '@next/mdx';
+
+const currentDir = dirname(fileURLToPath(import.meta.url));
 
 const isStaging = process.env.NEXT_PUBLIC_APP_ENV === 'staging';
 const backendDomain = isStaging
@@ -106,8 +111,8 @@ const nextConfig = {
   },
   sassOptions: {
     includePaths: [
-      path.join(__dirname, 'styles'),
-      path.join(__dirname, 'node_modules'),
+      join(currentDir, 'styles'),
+      join(currentDir, 'node_modules'),
     ],
   },
   webpack: (config) => {
@@ -146,11 +151,11 @@ const nextConfig = {
   },
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const withMDX = require('@next/mdx')({
+const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
@@ -158,4 +163,4 @@ const withMDX = require('@next/mdx')({
   },
 });
 
-module.exports = withBundleAnalyzer(withMDX(nextConfig));
+export default withBundleAnalyzer(withMDX(nextConfig));

@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { render, screen } from '../../../../tests/utils';
 import { CCBySA } from '../icons';
 import { Copyright } from './copyright';

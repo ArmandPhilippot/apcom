@@ -17,6 +17,7 @@
     "url": "https://github.com/ArmandPhilippot/apcom/issues"
   },
   "private": true,
+  "type": "module",
   "scripts": {
     "predev": "yarn run i18n:compile",
     "dev": "next dev",
@@ -34,13 +35,12 @@
     "test": "yarn run test:unit && yarn run test:e2e",
     "test:e2e": "cypress run",
     "test:e2e:ui": "cypress open",
-    "test:unit": "jest",
-    "test:unit:ci": "jest --ci",
-    "test:unit:coverage": "jest --coverage",
-    "test:unit:watch": "jest --watch",
+    "test:unit": "yarn node --experimental-vm-modules $(yarn bin jest)",
+    "test:unit:ci": "yarn node --experimental-vm-modules $(yarn bin jest) --ci",
+    "test:unit:coverage": "yarn node --experimental-vm-modules $(yarn bin jest) --coverage",
+    "test:unit:watch": "yarn node --experimental-vm-modules $(yarn bin jest) --watch",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "build-storybook",
-    "build-storybook": "storybook build"
+    "storybook:build": "storybook build"
   },
   "dependencies": {
     "@formatjs/swc-plugin": "^1.5.5",
@@ -69,6 +69,7 @@
     "@commitlint/config-conventional": "^17.7.0",
     "@cspell/dict-fr-fr": "^2.2.2",
     "@formatjs/cli": "^6.2.0",
+    "@jest/globals": "^29.7.0",
     "@storybook/addon-essentials": "^7.4.2",
     "@storybook/addon-interactions": "^7.4.2",
     "@storybook/addon-links": "^7.4.2",

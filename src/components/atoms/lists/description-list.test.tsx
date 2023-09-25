@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { render } from '../../../../tests/utils';
 import { DescriptionList, DescriptionListItem } from './description-list';
 

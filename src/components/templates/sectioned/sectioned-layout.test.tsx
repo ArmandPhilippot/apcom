@@ -1,5 +1,6 @@
-import { render, screen } from '../../../../tests/utils';
+import { describe, expect, it } from '@jest/globals';
 import { BreadcrumbList } from 'schema-dts';
+import { render, screen } from '../../../../tests/utils';
 import { SectionedLayout } from './sectioned-layout';
 
 const breadcrumbSchema: BreadcrumbList['itemListElement'][] = [];

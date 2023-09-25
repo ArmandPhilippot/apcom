@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { render, screen } from '../../../../tests/utils';
 import { ResponsiveImage } from '../../molecules';
 import { Gallery } from './gallery';
