@@ -1,8 +1,9 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { ParsedUrlQuery } from 'querystring';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ParsedUrlQuery } from 'querystring';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -19,12 +20,12 @@ import {
   getTotalThematics,
   getTotalTopics,
 } from '../../../services/graphql';
-import {
-  type EdgesResponse,
-  type NextPageWithLayout,
-  type RawArticle,
-  type RawThematicPreview,
-  type RawTopicPreview,
+import type {
+  EdgesResponse,
+  NextPageWithLayout,
+  RawArticle,
+  RawThematicPreview,
+  RawTopicPreview,
 } from '../../../types';
 import { settings } from '../../../utils/config';
 import {
@@ -41,6 +42,7 @@ import {
   useRedirection,
   useSettings,
 } from '../../../utils/hooks';
+import { ROUTES } from 'src/utils/constants';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;
@@ -63,7 +65,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
 }) => {
   useRedirection({
     query: { param: 'number', value: '1' },
-    redirectTo: '/blog',
+    redirectTo: ROUTES.BLOG,
   });
 
   const intl = useIntl();
@@ -85,12 +87,15 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   const pageTitleWithPageNumber = `${title} - ${pageNumberTitle}`;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title: pageNumberTitle,
-    url: `/blog/page/${pageNumber}`,
+    url: `${ROUTES.BLOG}/page/${pageNumber}`,
   });
 
   const { website } = useSettings();
   const { asPath } = useRouter();
-  const pageTitle = `${pageTitleWithPageNumber} - ${website.name}`;
+  const page = {
+    title: `${pageTitleWithPageNumber} - ${website.name}`,
+    url: `${website.url}${asPath}`,
+  };
   const pageDescription = intl.formatMessage(
     {
       defaultMessage:
@@ -124,20 +129,25 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     description: 'BlogPage: topics list widget title',
     id: '2D9tB5',
   });
+  const postsListBaseUrl = `${ROUTES.BLOG}/page/`;
 
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
+        <title>{page.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={page.url} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={pageTitleWithPageNumber} />
         <meta property="og:description" content={pageDescription} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-blog"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
@@ -147,6 +157,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         headerMeta={{ total: totalArticles }}
         widgets={[
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="thematics-list"
             items={getLinksListItems(
               thematicsList.map((thematic) =>
@@ -157,6 +168,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
             level={2}
           />,
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="topics-list"
             items={getLinksListItems(
               topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
@@ -167,11 +179,11 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         ]}
       >
         <PostsList
-          baseUrl="/blog/page/"
+          baseUrl={postsListBaseUrl}
           byYear={true}
           pageNumber={pageNumber}
           posts={getPostsList([articles])}
-          searchPage="/recherche/"
+          searchPage={ROUTES.SEARCH}
           total={totalArticles}
         />
       </PageLayout>
@@ -182,18 +194,17 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
 BlogPage.getLayout = (page) =>
   getLayout(page, { useGrid: true, withExtraPadding: true });
 
-interface BlogPageParams extends ParsedUrlQuery {
+type BlogPageParams = {
   number: string;
-}
+} & ParsedUrlQuery;
 
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
   locale,
   params,
 }) => {
-  const pageNumber = Number(params!.number as BlogPageParams['number']);
-  const queriedPostsNumber = settings.postsPerPage * pageNumber;
+  const pageNumber = Number((params as BlogPageParams).number);
   const lastCursor = await getArticlesEndCursor({
-    first: queriedPostsNumber,
+    first: settings.postsPerPage * pageNumber,
   });
   const articles = await getArticles({
     first: settings.postsPerPage,

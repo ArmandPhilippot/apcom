@@ -1,5 +1,5 @@
-import { MDXComponents } from 'mdx/types';
-import { GetStaticProps } from 'next';
+import type { MDXComponents } from 'mdx/types';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -12,18 +12,23 @@ import {
 } from '../../components';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
 import styles from '../../styles/pages/projects.module.scss';
-import { type NextPageWithLayout, type ProjectCard } from '../../types';
+import type { NextPageWithLayout, ProjectCard } from '../../types';
+import { ROUTES } from '../../utils/constants';
 import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
-} from '../../utils/helpers/';
+} from '../../utils/helpers';
 import {
   getProjectsCard,
   loadTranslation,
   type Messages,
 } from '../../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../../utils/hooks';
+
+const components: MDXComponents = {
+  Link,
+};
 
 type ProjectsPageProps = {
   projects: ProjectCard[];
@@ -37,7 +42,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
   const { dates, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/projets`,
+    url: ROUTES.PROJECTS,
   });
 
   const items: CardsListItem[] = projects.map(
@@ -47,17 +52,13 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
       return {
         cover,
         id: id as string,
-        meta: { technologies: technologies },
+        meta: { technologies },
         tagline,
         title: projectTitle,
-        url: `/projets/${slug}`,
+        url: `${ROUTES.PROJECTS}/${slug}`,
       };
     }
   );
-
-  const components: MDXComponents = {
-    Link,
-  };
 
   const { website } = useSettings();
   const { asPath } = useRouter();
@@ -78,20 +79,28 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const page = {
+    title: `${seo.title} - ${website.name}`,
+    url: `${website.url}${asPath}`,
+  };
 
   return (
     <>
       <Head>
-        <title>{`${seo.title} - ${website.name}`}</title>
+        <title>{page.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={page.url} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={`${seo.title} - ${website.name}`} />
+        <meta property="og:title" content={page.title} />
         <meta property="og:description" content={seo.description} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-projects"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout

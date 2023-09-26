@@ -1,5 +1,5 @@
-import { MDXComponents } from 'mdx/types';
-import { GetStaticProps } from 'next';
+import type { MDXComponents } from 'mdx/types';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -7,11 +7,12 @@ import {
   getLayout,
   Link,
   PageLayout,
-  type PageLayoutProps,
   ResponsiveImage,
+  type MetaData,
 } from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
-import { type NextPageWithLayout } from '../types';
+import type { NextPageWithLayout } from '../types';
+import { ROUTES } from '../utils/constants';
 import {
   getSchemaJson,
   getSinglePageSchema,
@@ -20,6 +21,11 @@ import {
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
 
+const components: MDXComponents = {
+  Image: ResponsiveImage,
+  Link,
+};
+
 /**
  * Legal Notice page.
  */
@@ -27,10 +33,10 @@ const LegalNoticePage: NextPageWithLayout = () => {
   const { dates, intro, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/mentions-legales`,
+    url: ROUTES.LEGAL_NOTICE,
   });
 
-  const headerMeta: PageLayoutProps['headerMeta'] = {
+  const headerMeta: MetaData = {
     publication: {
       date: dates.publication,
     },
@@ -39,11 +45,6 @@ const LegalNoticePage: NextPageWithLayout = () => {
           date: dates.update,
         }
       : undefined,
-  };
-
-  const components: MDXComponents = {
-    Image: ResponsiveImage,
-    Link,
   };
 
   const { website } = useSettings();
@@ -65,6 +66,10 @@ const LegalNoticePage: NextPageWithLayout = () => {
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const page = {
+    title: `${seo.title} - ${website.name}`,
+    url: `${website.url}${asPath}`,
+  };
 
   return (
     <PageLayout
@@ -76,14 +81,17 @@ const LegalNoticePage: NextPageWithLayout = () => {
       withToC={true}
     >
       <Head>
-        <title>{`${seo.title} - ${website.name}`}</title>
+        <title>{page.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={page.url} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={`${seo.title} - ${website.name}`} />
+        <meta property="og:title" content={page.title} />
         <meta property="og:description" content={intro} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-legal-notice"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

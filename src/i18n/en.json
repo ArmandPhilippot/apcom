@@ -143,6 +143,10 @@
     "defaultMessage": "Contact",
     "description": "Layout: main nav - contact link"
   },
+  "AN9iy7": {
+    "defaultMessage": "Contact",
+    "description": "ContactPage: page title"
+  },
   "AuGklx": {
     "defaultMessage": "License:",
     "description": "Meta: license label"
@@ -202,10 +206,6 @@
   "GVpTIl": {
     "defaultMessage": "Topics",
     "description": "Error404Page: topics list widget title"
-  },
-  "Gnf1Si": {
-    "defaultMessage": "{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}",
-    "description": "Projets: Github stars count"
   },
   "HFdzae": {
     "defaultMessage": "Contact form",
@@ -558,6 +558,10 @@
   "sBwfCy": {
     "defaultMessage": "No comments.",
     "description": "PageLayout: no comments text"
+  },
+  "sI7gJK": {
+    "defaultMessage": "{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}",
+    "description": "ProjectsPage: Github stars count"
   },
   "sO/Iwj": {
     "defaultMessage": "Contact me",

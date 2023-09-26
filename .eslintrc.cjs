@@ -353,7 +353,18 @@ module.exports = {
     'react/jsx-no-literals': [
       'warn',
       {
-        allowedStrings: ['button', 'reset', 'submit'],
+        allowedStrings: [
+          'application/ld+json',
+          'button',
+          'og:description',
+          'og:image',
+          'og:image:alt',
+          'og:title',
+          'og:type',
+          'og:url',
+          'reset',
+          'submit',
+        ],
         ignoreProps: false,
         noAttributeStrings: true,
         noStrings: true,

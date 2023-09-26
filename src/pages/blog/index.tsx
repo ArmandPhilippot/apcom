@@ -1,7 +1,9 @@
-import { GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -18,14 +20,15 @@ import {
   getTotalThematics,
   getTotalTopics,
 } from '../../services/graphql';
-import {
-  type EdgesResponse,
-  type NextPageWithLayout,
-  type RawArticle,
-  type RawThematicPreview,
-  type RawTopicPreview,
+import type {
+  EdgesResponse,
+  NextPageWithLayout,
+  RawArticle,
+  RawThematicPreview,
+  RawTopicPreview,
 } from '../../types';
 import { settings } from '../../utils/config';
+import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
   getLinksListItems,
@@ -62,19 +65,22 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   });
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: '/blog',
+    url: ROUTES.BLOG,
   });
 
   const { blog, website } = useSettings();
   const { asPath } = useRouter();
-  const pageTitle = intl.formatMessage(
-    {
-      defaultMessage: 'Blog: development, open source - {websiteName}',
-      description: 'BlogPage: SEO - Page title',
-      id: '+Y+tLK',
-    },
-    { websiteName: website.name }
-  );
+  const page = {
+    title: intl.formatMessage(
+      {
+        defaultMessage: 'Blog: development, open source - {websiteName}',
+        description: 'BlogPage: SEO - Page title',
+        id: '+Y+tLK',
+      },
+      { websiteName: website.name }
+    ),
+    url: `${website.url}${asPath}`,
+  };
   const pageDescription = intl.formatMessage(
     {
       defaultMessage:
@@ -110,12 +116,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     perPage: blog.postsPerPage,
   });
 
-  /**
-   * Load more posts handler.
-   */
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     setSize((prevSize) => prevSize + 1);
-  };
+  }, [setSize]);
 
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Thematics',
@@ -128,20 +131,25 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     description: 'BlogPage: topics list widget title',
     id: '2D9tB5',
   });
+  const postsListBaseUrl = `${ROUTES.BLOG}/page/`;
 
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
+        <title>{page.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={page.url} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={pageDescription} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-blog"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
@@ -151,6 +159,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         headerMeta={{ total: totalArticles }}
         widgets={[
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="thematics-list"
             items={getLinksListItems(
               thematicsList.map((thematic) =>
@@ -161,6 +170,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
             level={2}
           />,
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="topics-list"
             items={getLinksListItems(
               topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
@@ -170,20 +180,21 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           />,
         ]}
       >
-        {data && (
+        {data ? (
           <PostsList
-            baseUrl="/blog/page/"
+            baseUrl={postsListBaseUrl}
             byYear={true}
-            isLoading={isLoadingMore || isLoadingInitialData}
+            isLoading={isLoadingMore ?? isLoadingInitialData}
             loadMore={loadMore}
             posts={getPostsList(data)}
-            searchPage="/recherche/"
+            searchPage={ROUTES.SEARCH}
             showLoadMoreBtn={hasNextPage}
             total={totalArticles}
           />
-        )}
-        {error && (
+        ) : null}
+        {error ? (
           <Notice
+            // eslint-disable-next-line react/jsx-no-literals -- Kind allowed
             kind="error"
             message={intl.formatMessage({
               defaultMessage: 'Failed to load.',
@@ -191,7 +202,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
               id: 'C/XGkH',
             })}
           />
-        )}
+        ) : null}
       </PageLayout>
     </>
   );

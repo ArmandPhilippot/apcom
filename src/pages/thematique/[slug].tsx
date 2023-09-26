@@ -1,16 +1,17 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { ParsedUrlQuery } from 'querystring';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ParsedUrlQuery } from 'querystring';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
   Heading,
   LinksListWidget,
   PageLayout,
-  type PageLayoutProps,
   PostsList,
+  type MetaData,
 } from '../../components';
 import {
   getAllThematicsSlugs,
@@ -18,11 +19,8 @@ import {
   getThematicsPreview,
   getTotalThematics,
 } from '../../services/graphql';
-import {
-  type NextPageWithLayout,
-  type PageLink,
-  type Thematic,
-} from '../../types';
+import type { NextPageWithLayout, PageLink, Thematic } from '../../types';
+import { ROUTES } from '../../utils/constants';
 import {
   getLinksListItems,
   getPageLinkFromRawData,
@@ -49,10 +47,10 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/thematique/${slug}`,
+    url: `${ROUTES.THEMATICS.INDEX}/${slug}`,
   });
 
-  const headerMeta: PageLayoutProps['headerMeta'] = {
+  const headerMeta: MetaData = {
     publication: { date: dates.publication },
     update: dates.update ? { date: dates.update } : undefined,
     total: articles ? articles.length : undefined,
@@ -89,20 +87,26 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     description: 'ThematicPage: related topics list widget title',
     id: '/42Z0z',
   });
+  const pageUrl = `${website.url}${asPath}`;
+  const postsListBaseUrl = `${ROUTES.THEMATICS.INDEX}/page/`;
 
   return (
     <>
       <Head>
         <title>{seo.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={pageUrl} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-project"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
@@ -115,12 +119,14 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
           topics
             ? [
                 <LinksListWidget
+                  // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="thematics"
                   items={getLinksListItems(thematics)}
                   title={thematicsListTitle}
                   level={2}
                 />,
                 <LinksListWidget
+                  // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="related-topics"
                   items={getLinksListItems(topics)}
                   title={topicsListTitle}
@@ -130,8 +136,9 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
             : []
         }
       >
+        {/*eslint-disable-next-line react/no-danger -- Necessary for content*/}
         <div dangerouslySetInnerHTML={{ __html: content }} />
-        {articles && (
+        {articles ? (
           <>
             <Heading level={2}>
               {intl.formatMessage(
@@ -144,15 +151,15 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
               )}
             </Heading>
             <PostsList
-              baseUrl="/thematique/page/"
+              baseUrl={postsListBaseUrl}
               byYear={true}
               posts={getPostsWithUrl(articles)}
-              searchPage="/recherche/"
+              searchPage={ROUTES.SEARCH}
               titleLevel={3}
               total={articles.length}
             />
           </>
-        )}
+        ) : null}
       </PageLayout>
     </>
   );
@@ -161,16 +168,16 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
 ThematicPage.getLayout = (page) =>
   getLayout(page, { useGrid: true, withExtraPadding: true });
 
-interface ThematicParams extends ParsedUrlQuery {
+type ThematicParams = {
   slug: string;
-}
+} & ParsedUrlQuery;
 
 export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
   locale,
   params,
 }) => {
   const currentThematic = await getThematicBySlug(
-    params!.slug as ThematicParams['slug']
+    (params as ThematicParams).slug
   );
   const totalThematics = await getTotalThematics();
   const allThematicsEdges = await getThematicsPreview({
@@ -181,7 +188,8 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
   );
   const allThematicsLinks = allThematics.filter(
     (thematic) =>
-      thematic.url !== `/thematique/${params!.slug as ThematicParams['slug']}`
+      thematic.url !==
+      `${ROUTES.THEMATICS.INDEX}/${(params as ThematicParams).slug}`
   );
   const translation = await loadTranslation(locale);
 

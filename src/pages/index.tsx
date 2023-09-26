@@ -1,8 +1,8 @@
-import { MDXComponents } from 'mdx/types';
-import { GetStaticProps } from 'next';
+import type { MDXComponents } from 'mdx/types';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
-import { ReactNode, isValidElement } from 'react';
+import { type FC, type ReactNode, isValidElement } from 'react';
 import { useIntl } from 'react-intl';
 import FeedIcon from '../assets/images/icon-feed.svg';
 import {
@@ -23,7 +23,8 @@ import {
 import HomePageContent from '../content/pages/homepage.mdx';
 import { getArticlesCard } from '../services/graphql';
 import styles from '../styles/pages/home.module.scss';
-import { type ArticleCard, type NextPageWithLayout } from '../types';
+import type { ArticleCard, NextPageWithLayout } from '../types';
+import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
@@ -33,13 +34,13 @@ import { useBreadcrumb, useSettings } from '../utils/hooks';
  *
  * @returns {JSX.Element} - A list of links.
  */
-const CodingLinks = (): JSX.Element => {
+const CodingLinks: FC = () => {
   const intl = useIntl();
   const links: ListItem[] = [
     {
       id: 'web-development',
       value: (
-        <ButtonLink target="/thematique/developpement-web">
+        <ButtonLink target={ROUTES.THEMATICS.WEB_DEV}>
           {intl.formatMessage({
             defaultMessage: 'Web development',
             description: 'HomePage: link to web development thematic',
@@ -51,7 +52,7 @@ const CodingLinks = (): JSX.Element => {
     {
       id: 'projects',
       value: (
-        <ButtonLink target="/projets">
+        <ButtonLink target={ROUTES.PROJECTS}>
           {intl.formatMessage({
             defaultMessage: 'Projects',
             description: 'HomePage: link to projects',
@@ -62,6 +63,7 @@ const CodingLinks = (): JSX.Element => {
     },
   ];
 
+  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
   return <List kind="flex" items={links} className={styles.list} />;
 };
 
@@ -70,16 +72,17 @@ const CodingLinks = (): JSX.Element => {
  *
  * @returns {JSX.Element} - A list of links.
  */
-const ColdarkRepos = (): JSX.Element => {
+const ColdarkRepos: FC = () => {
   const intl = useIntl();
+  const repo = {
+    github: 'https://github.com/ArmandPhilippot/coldark',
+    gitlab: 'https://gitlab.com/ArmandPhilippot/coldark',
+  };
   const links: ListItem[] = [
     {
       id: 'coldark-github',
       value: (
-        <ButtonLink
-          target="https://github.com/ArmandPhilippot/coldark"
-          external={true}
-        >
+        <ButtonLink target={repo.github} external={true}>
           {intl.formatMessage({
             defaultMessage: 'Github',
             description: 'HomePage: Github link',
@@ -91,10 +94,7 @@ const ColdarkRepos = (): JSX.Element => {
     {
       id: 'coldark-gitlab',
       value: (
-        <ButtonLink
-          target="https://gitlab.com/ArmandPhilippot/coldark"
-          external={true}
-        >
+        <ButtonLink target={repo.gitlab} external={true}>
           {intl.formatMessage({
             defaultMessage: 'Gitlab',
             description: 'HomePage: Gitlab link',
@@ -105,6 +105,7 @@ const ColdarkRepos = (): JSX.Element => {
     },
   ];
 
+  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
   return <List kind="flex" items={links} className={styles.list} />;
 };
 
@@ -113,13 +114,13 @@ const ColdarkRepos = (): JSX.Element => {
  *
  * @returns {JSX.Element} - A list of links.
  */
-const LibreLinks = (): JSX.Element => {
+const LibreLinks: FC = () => {
   const intl = useIntl();
   const links: ListItem[] = [
     {
       id: 'free',
       value: (
-        <ButtonLink target="/thematique/libre">
+        <ButtonLink target={ROUTES.THEMATICS.FREE}>
           {intl.formatMessage({
             defaultMessage: 'Free',
             description: 'HomePage: link to free thematic',
@@ -131,7 +132,7 @@ const LibreLinks = (): JSX.Element => {
     {
       id: 'linux',
       value: (
-        <ButtonLink target="/thematique/linux">
+        <ButtonLink target={ROUTES.THEMATICS.LINUX}>
           {intl.formatMessage({
             defaultMessage: 'Linux',
             description: 'HomePage: link to Linux thematic',
@@ -142,6 +143,7 @@ const LibreLinks = (): JSX.Element => {
     },
   ];
 
+  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
   return <List kind="flex" items={links} className={styles.list} />;
 };
 
@@ -150,13 +152,14 @@ const LibreLinks = (): JSX.Element => {
  *
  * @returns {JSX.Element} - A list of links
  */
-const ShaarliLink = (): JSX.Element => {
+const ShaarliLink: FC = () => {
   const intl = useIntl();
+  const shaarliUrl = PERSONAL_LINKS.SHAARLI;
   const links: ListItem[] = [
     {
       id: 'shaarli',
       value: (
-        <ButtonLink target="https://shaarli.armandphilippot.com/">
+        <ButtonLink target={shaarliUrl}>
           {intl.formatMessage({
             defaultMessage: 'Shaarli',
             description: 'HomePage: link to Shaarli',
@@ -167,6 +170,7 @@ const ShaarliLink = (): JSX.Element => {
     },
   ];
 
+  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
   return <List kind="flex" items={links} className={styles.list} />;
 };
 
@@ -175,13 +179,14 @@ const ShaarliLink = (): JSX.Element => {
  *
  * @returns {JSX.Element} - A list of links.
  */
-const MoreLinks = (): JSX.Element => {
+const MoreLinks: FC = () => {
   const intl = useIntl();
+  const feedIconClass = `${styles.icon} ${styles['icon--feed']}`;
   const links: ListItem[] = [
     {
       id: 'contact-me',
       value: (
-        <ButtonLink target="/contact">
+        <ButtonLink target={ROUTES.CONTACT}>
           <Envelop aria-hidden={true} className={styles.icon} />
           {intl.formatMessage({
             defaultMessage: 'Contact me',
@@ -194,11 +199,8 @@ const MoreLinks = (): JSX.Element => {
     {
       id: 'rss-feed',
       value: (
-        <ButtonLink target="/feed">
-          <FeedIcon
-            aria-hidden={true}
-            className={`${styles.icon} ${styles['icon--feed']}`}
-          />
+        <ButtonLink target={ROUTES.RSS}>
+          <FeedIcon aria-hidden={true} className={feedIconClass} />
           {intl.formatMessage({
             defaultMessage: 'Subscribe',
             description: 'HomePage: RSS feed subscription text',
@@ -209,11 +211,38 @@ const MoreLinks = (): JSX.Element => {
     },
   ];
 
+  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
   return <List kind="flex" items={links} className={styles.list} />;
 };
 
-const StyledColumns = (props: ColumnsProps) => {
-  return <Columns className={styles.columns} {...props} />;
+const StyledColumns = (props: ColumnsProps) => (
+  <Columns className={styles.columns} {...props} />
+);
+
+/**
+ * Create the page sections.
+ *
+ * @param {object} obj - An object containing the section body.
+ * @param {ReactNode[]} obj.children - The section body.
+ * @returns {JSX.Element} A section element.
+ */
+const getSection = ({
+  children,
+  variant,
+}: {
+  children: ReactNode[];
+  variant: SectionProps['variant'];
+}): JSX.Element => {
+  const [headingEl, ...content] = children;
+
+  return (
+    <Section
+      className={styles.section}
+      content={content}
+      title={isValidElement(headingEl) ? headingEl.props.children : ''}
+      variant={variant}
+    />
+  );
 };
 
 type HomeProps = {
@@ -243,43 +272,12 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
         id: post.slug,
         meta: { publication: { date: post.dates.publication } },
         title: post.title,
-        url: `/article/${post.slug}`,
+        url: `${ROUTES.ARTICLE}/${post.slug}`,
       };
     });
+    const listClass = `${styles.list} ${styles['list--cards']}`;
 
-    return (
-      <CardsList
-        items={posts}
-        titleLevel={3}
-        className={`${styles.list} ${styles['list--cards']}`}
-      />
-    );
-  };
-
-  /**
-   * Create the page sections.
-   *
-   * @param {object} obj - An object containing the section body.
-   * @param {ReactNode[]} obj.children - The section body.
-   * @returns {JSX.Element} A section element.
-   */
-  const getSection = ({
-    children,
-    variant,
-  }: {
-    children: ReactNode[];
-    variant: SectionProps['variant'];
-  }): JSX.Element => {
-    const [headingEl, ...content] = children;
-
-    return (
-      <Section
-        className={styles.section}
-        content={content}
-        title={isValidElement(headingEl) ? headingEl.props.children : ''}
-        variant={variant}
-      />
-    );
+    return <CardsList items={posts} titleLevel={3} className={listClass} />;
   };
 
   const components: MDXComponents = {
@@ -326,17 +324,20 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     <>
       <Head>
         <title>{pageTitle}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={pageDescription} />
         <meta property="og:url" content={website.url} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-homepage"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

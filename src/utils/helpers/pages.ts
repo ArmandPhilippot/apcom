@@ -1,13 +1,14 @@
-import { type LinksListItems, type Post } from '../../components';
+import type { LinksListItems, Post } from '../../components';
 import { getArticleFromRawData } from '../../services/graphql';
-import {
-  type Article,
-  type EdgesResponse,
-  type PageLink,
-  type RawArticle,
-  type RawThematicPreview,
-  type RawTopicPreview,
+import type {
+  Article,
+  EdgesResponse,
+  PageLink,
+  RawArticle,
+  RawThematicPreview,
+  RawTopicPreview,
 } from '../../types';
+import { ROUTES } from '../constants';
 import { getImageFromRawData } from './images';
 
 /**
@@ -25,11 +26,13 @@ export const getPageLinkFromRawData = (
   kind: 'thematic' | 'topic'
 ): PageLink => {
   const { databaseId, featuredImage, slug, title } = data;
-  const baseUrl = kind === 'thematic' ? '/thematique/' : '/sujet/';
+  const baseUrl = `${
+    kind === 'thematic' ? ROUTES.THEMATICS.INDEX : ROUTES.TOPICS
+  }/`;
 
   return {
     id: databaseId,
-    logo: featuredImage ? getImageFromRawData(featuredImage?.node) : undefined,
+    logo: featuredImage ? getImageFromRawData(featuredImage.node) : undefined,
     name: title,
     url: `${baseUrl}${slug}`,
   };
@@ -57,14 +60,13 @@ export const sortPageLinksByName = (a: PageLink, b: PageLink) => {
  * @param {PageLink[]} links - An array of page links.
  * @returns {LinksListItem[]} An array of links items.
  */
-export const getLinksListItems = (links: PageLink[]): LinksListItems[] => {
-  return links.map((link) => {
+export const getLinksListItems = (links: PageLink[]): LinksListItems[] =>
+  links.map((link) => {
     return {
       name: link.name,
       url: link.url,
     };
   });
-};
 
 /**
  * Retrieve the posts list with the article URL.
@@ -72,14 +74,13 @@ export const getLinksListItems = (links: PageLink[]): LinksListItems[] => {
  * @param {Article[]} posts - An array of articles.
  * @returns {Post[]} An array of posts with full article URL.
  */
-export const getPostsWithUrl = (posts: Article[]): Post[] => {
-  return posts.map((post) => {
+export const getPostsWithUrl = (posts: Article[]): Post[] =>
+  posts.map((post) => {
     return {
       ...post,
       url: `/article/${post.slug}`,
     };
   });
-};
 
 /**
  * Retrieve the posts list from raw data.
@@ -89,11 +90,11 @@ export const getPostsWithUrl = (posts: Article[]): Post[] => {
  */
 export const getPostsList = (rawData: EdgesResponse<RawArticle>[]): Post[] => {
   const articlesList: RawArticle[] = [];
-  rawData.forEach((articleData) =>
+  rawData.forEach((articleData) => {
     articleData.edges.forEach((edge) => {
       articlesList.push(edge.node);
-    })
-  );
+    });
+  });
 
   return getPostsWithUrl(
     articlesList.map((article) => getArticleFromRawData(article))

@@ -1,8 +1,16 @@
+/* eslint-disable max-statements */
 import Script from 'next/script';
-import { FC, ReactElement, ReactNode, useRef, useState } from 'react';
+import {
+  type FC,
+  type ReactElement,
+  type ReactNode,
+  useRef,
+  useState,
+} from 'react';
 import { useIntl } from 'react-intl';
-import { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
-import { type NextPageWithLayoutOptions } from '../../../types';
+import type { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
+import type { NextPageWithLayoutOptions } from '../../../types';
+import { ROUTES } from '../../../utils/constants';
 import {
   useRouteChange,
   useScrollPosition,
@@ -25,7 +33,6 @@ import {
   Header,
   type HeaderProps,
 } from '../../organisms';
-import photo from '/public/armand-philippot.jpg';
 import styles from './layout.module.scss';
 
 export type QueryAction = SearchAction & {
@@ -121,25 +128,25 @@ export const Layout: FC<LayoutProps> = ({
     {
       id: 'blog',
       label: blogLabel,
-      href: '/blog',
+      href: ROUTES.BLOG,
       logo: <PostsStack aria-hidden={true} />,
     },
     {
       id: 'projects',
       label: projectsLabel,
-      href: '/projets',
+      href: ROUTES.PROJECTS,
       logo: <ComputerScreen aria-hidden={true} />,
     },
     {
       id: 'cv',
       label: cvLabel,
-      href: '/cv',
+      href: ROUTES.CV,
       logo: <Career aria-hidden={true} />,
     },
     {
       id: 'contact',
       label: contactLabel,
-      href: '/contact',
+      href: ROUTES.CONTACT,
       logo: <Envelop aria-hidden={true} />,
     },
   ];
@@ -151,14 +158,14 @@ export const Layout: FC<LayoutProps> = ({
   });
 
   const footerNav: FooterProps['navItems'] = [
-    { id: 'legal-notice', label: legalNoticeLabel, href: '/mentions-legales' },
+    { id: 'legal-notice', label: legalNoticeLabel, href: ROUTES.LEGAL_NOTICE },
   ];
 
   const searchActionSchema: QueryAction = {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: `${url}/recherche?s={search_term_string}`,
+      urlTemplate: `${url}${ROUTES.SEARCH}?s={search_term_string}`,
     },
     query: 'required',
     'query-input': 'required name=search_term_string',
@@ -168,9 +175,9 @@ export const Layout: FC<LayoutProps> = ({
     '@context': 'https://schema.org',
     '@id': `${url}`,
     '@type': 'WebSite',
-    name: name,
+    name,
     description: baseline,
-    url: url,
+    url,
     author: { '@id': `${url}/#branding` },
     copyrightYear: Number(copyright.start),
     creator: { '@id': `${url}/#branding` },
@@ -183,10 +190,10 @@ export const Layout: FC<LayoutProps> = ({
     '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': `${url}/#branding`,
-    name: name,
-    url: url,
+    name,
+    url,
     jobTitle: baseline,
-    image: photo.src,
+    image: '/armand-philippot.jpg',
     subjectOf: { '@id': `${url}` },
   };
 
@@ -194,48 +201,56 @@ export const Layout: FC<LayoutProps> = ({
     styles['back-to-top--hidden']
   );
   const updateBackToTopClassName = () => {
+    const visibleBreakpoint = 300;
     setBackToTopClassName(
-      window.scrollY > 300
+      window.scrollY > visibleBreakpoint
         ? styles['back-to-top--visible']
         : styles['back-to-top--hidden']
     );
   };
 
   useScrollPosition(updateBackToTopClassName);
+
   const topRef = useRef<HTMLSpanElement>(null);
   const giveFocusToTopRef = () => {
     if (topRef.current) topRef.current.focus();
   };
+
   useRouteChange(giveFocusToTopRef);
 
   return (
     <>
       <Script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-layout"
         type="application/ld+json"
       />
       <Script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brandingSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-branding"
         type="application/ld+json"
       />
       <noscript>
-        <div className={styles['noscript-spacing']}></div>
+        <div className={styles['noscript-spacing']} />
       </noscript>
-      <span ref={topRef} tabIndex={-1}></span>
+      <span ref={topRef} tabIndex={-1} />
       <ButtonLink target="#main" className="screen-reader-text">
         {skipToContent}
       </ButtonLink>
       <Header
+        // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
         ackeeStorageKey="ackee-tracking"
         baseline={baseline}
         className={styles.header}
         isHome={isHome}
+        // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
         motionStorageKey="reduced-motion"
         nav={mainNav}
-        photo={photo}
-        searchPage="/recherche"
+        // eslint-disable-next-line react/jsx-no-literals -- Photo allowed
+        photo="/armand-philippot.jpg"
+        searchPage={ROUTES.SEARCH}
         title={name}
         withLink={true}
       />
@@ -254,6 +269,7 @@ export const Layout: FC<LayoutProps> = ({
         topId="top"
       />
       <noscript>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Position allowed*/}
         <NoScript message={noScript} position="top" />
       </noscript>
     </>
@@ -270,6 +286,4 @@ export const Layout: FC<LayoutProps> = ({
 export const getLayout = (
   page: ReactElement,
   props: NextPageWithLayoutOptions
-) => {
-  return <Layout {...props}>{page}</Layout>;
-};
+) => <Layout {...props}>{page}</Layout>;

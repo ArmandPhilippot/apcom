@@ -1,17 +1,18 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { ParsedUrlQuery } from 'querystring';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ParsedUrlQuery } from 'querystring';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
   Heading,
   LinksListWidget,
   PageLayout,
-  type PageLayoutProps,
   PostsList,
   ResponsiveImage,
+  type MetaData,
 } from '../../components';
 import {
   getAllTopicsSlugs,
@@ -20,11 +21,8 @@ import {
   getTotalTopics,
 } from '../../services/graphql';
 import styles from '../../styles/pages/topic.module.scss';
-import {
-  type NextPageWithLayout,
-  type PageLink,
-  type Topic,
-} from '../../types';
+import type { NextPageWithLayout, PageLink, Topic } from '../../types';
+import { ROUTES } from '../../utils/constants';
 import {
   getLinksListItems,
   getPageLinkFromRawData,
@@ -58,10 +56,10 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/sujet/${slug}`,
+    url: `${ROUTES.TOPICS}/${slug}`,
   });
 
-  const headerMeta: PageLayoutProps['headerMeta'] = {
+  const headerMeta: MetaData = {
     publication: { date: dates.publication },
     update: dates.update ? { date: dates.update } : undefined,
     website: officialWebsite,
@@ -101,28 +99,32 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     id: '/sRqPT',
   });
 
-  const getPageHeading = () => {
-    return (
-      <>
-        {cover && <ResponsiveImage className={styles.logo} {...cover} />}
-        {title}
-      </>
-    );
-  };
+  const getPageHeading = () => (
+    <>
+      {cover ? <ResponsiveImage className={styles.logo} {...cover} /> : null}
+      {title}
+    </>
+  );
+  const pageUrl = `${website.url}${asPath}`;
+  const postsListBaseUrl = `${ROUTES.TOPICS}/page/`;
 
   return (
     <>
       <Head>
         <title>{seo.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={pageUrl} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-project"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
@@ -135,12 +137,14 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
           thematics
             ? [
                 <LinksListWidget
+                  // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="related-thematics"
                   items={getLinksListItems(thematics)}
                   title={thematicsListTitle}
                   level={2}
                 />,
                 <LinksListWidget
+                  // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="topics"
                   items={getLinksListItems(topics)}
                   title={topicsListTitle}
@@ -150,8 +154,9 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
             : []
         }
       >
-        {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
-        {articles && (
+        {/*eslint-disable-next-line react/no-danger -- Necessary for content*/}
+        {content ? <div dangerouslySetInnerHTML={{ __html: content }} /> : null}
+        {articles ? (
           <>
             <Heading level={2}>
               {intl.formatMessage(
@@ -164,15 +169,15 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
               )}
             </Heading>
             <PostsList
-              baseUrl="/sujet/page/"
+              baseUrl={postsListBaseUrl}
               byYear={true}
               posts={getPostsWithUrl(articles)}
-              searchPage="/recherche/"
+              searchPage={ROUTES.SEARCH}
               titleLevel={3}
               total={articles.length}
             />
           </>
-        )}
+        ) : null}
       </PageLayout>
     </>
   );
@@ -181,17 +186,15 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
 TopicPage.getLayout = (page) =>
   getLayout(page, { useGrid: true, withExtraPadding: true });
 
-interface TopicParams extends ParsedUrlQuery {
+type TopicParams = {
   slug: string;
-}
+} & ParsedUrlQuery;
 
 export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
   locale,
   params,
 }) => {
-  const currentTopic = await getTopicBySlug(
-    params!.slug as TopicParams['slug']
-  );
+  const currentTopic = await getTopicBySlug((params as TopicParams).slug);
   const totalTopics = await getTotalTopics();
   const allTopicsEdges = await getTopicsPreview({
     first: totalTopics,
@@ -200,7 +203,7 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
     getPageLinkFromRawData(edge.node, 'topic')
   );
   const topicsLinks = allTopics.filter(
-    (topic) => topic.url !== `/sujet/${params!.slug as TopicParams['slug']}`
+    (topic) => topic.url !== `${ROUTES.TOPICS}/${(params as TopicParams).slug}`
   );
   const translation = await loadTranslation(locale);
 

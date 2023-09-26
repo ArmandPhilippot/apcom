@@ -143,6 +143,10 @@
     "defaultMessage": "Contact",
     "description": "Layout: main nav - contact link"
   },
+  "AN9iy7": {
+    "defaultMessage": "Contact",
+    "description": "ContactPage: page title"
+  },
   "AuGklx": {
     "defaultMessage": "Licence :",
     "description": "Meta: license label"
@@ -202,10 +206,6 @@
   "GVpTIl": {
     "defaultMessage": "Sujets",
     "description": "Error404Page: topics list widget title"
-  },
-  "Gnf1Si": {
-    "defaultMessage": "{starsCount, plural, =0 {0 étoile sur Github} one {# étoile sur Github} other {# étoiles sur Github}}",
-    "description": "Projets: Github stars count"
   },
   "HFdzae": {
     "defaultMessage": "Formulaire de contact",
@@ -558,6 +558,10 @@
   "sBwfCy": {
     "defaultMessage": "Aucun commentaire.",
     "description": "PageLayout: no comments text"
+  },
+  "sI7gJK": {
+    "defaultMessage": "{starsCount, plural, =0 {0 étoile sur Github} one {# étoile sur Github} other {# étoiles sur Github}}",
+    "description": "ProjectsPage: Github stars count"
   },
   "sO/Iwj": {
     "defaultMessage": "Me contacter",

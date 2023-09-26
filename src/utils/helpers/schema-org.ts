@@ -1,4 +1,4 @@
-import {
+import type {
   AboutPage,
   Article,
   Blog,
@@ -7,8 +7,9 @@ import {
   Graph,
   WebPage,
 } from 'schema-dts';
-import { type Dates } from '../../types';
-import { settings } from '../../utils/config';
+import type { Dates } from '../../types';
+import { settings } from '../config';
+import { ROUTES } from '../constants';
 
 export type GetBlogSchemaProps = {
   /**
@@ -146,7 +147,7 @@ export const getSinglePageSchema = <T extends SinglePageSchemaKind>({
     copyrightYear: publicationDate.getFullYear(),
     creator: { '@id': `${settings.url}/#branding` },
     dateCreated: publicationDate.toISOString(),
-    dateModified: updateDate && updateDate.toISOString(),
+    dateModified: updateDate?.toISOString(),
     datePublished: publicationDate.toISOString(),
     editor: { '@id': `${settings.url}/#branding` },
     headline: title,
@@ -157,7 +158,7 @@ export const getSinglePageSchema = <T extends SinglePageSchemaKind>({
     isPartOf:
       kind === 'post'
         ? {
-            '@id': `${settings.url}/blog`,
+            '@id': `${settings.url}${ROUTES.BLOG}`,
           }
         : undefined,
     mainEntityOfPage: { '@id': `${settings.url}${slug}` },
@@ -206,7 +207,7 @@ export const getWebPageSchema = ({
     breadcrumb: { '@id': `${settings.url}/#breadcrumb` },
     lastReviewed: updateDate,
     name: title,
-    description: description,
+    description,
     inLanguage: locale,
     reviewedBy: { '@id': `${settings.url}/#branding` },
     url: `${settings.url}${slug}`,

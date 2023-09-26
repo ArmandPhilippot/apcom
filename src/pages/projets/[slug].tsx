@@ -1,10 +1,11 @@
-import { MDXComponents } from 'mdx/types';
-import { GetStaticPaths, GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { MDXComponents } from 'mdx/types';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Code,
@@ -14,20 +15,17 @@ import {
   Overview,
   type OverviewMeta,
   PageLayout,
-  type PageLayoutProps,
   ResponsiveImage,
   type ResponsiveImageProps,
   Sharing,
   SocialLink,
   type SocialWebsite,
   Spinner,
+  type MetaData,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
-import {
-  type NextPageWithLayout,
-  type ProjectPreview,
-  type Repos,
-} from '../../types';
+import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
+import { ROUTES } from '../../utils/constants';
 import {
   capitalize,
   getSchemaJson,
@@ -40,15 +38,17 @@ import {
   loadTranslation,
   type Messages,
 } from '../../utils/helpers/server';
-import {
-  type RepoData,
-  useBreadcrumb,
-  useGithubApi,
-  useSettings,
-} from '../../utils/hooks';
+import { useBreadcrumb, useGithubApi, useSettings } from '../../utils/hooks';
 
-const BorderedImage = (props: ResponsiveImageProps) => {
-  return <ResponsiveImage withBorders={true} {...props} />;
+const BorderedImage = (props: ResponsiveImageProps) => (
+  <ResponsiveImage withBorders={true} {...props} />
+);
+
+const components: MDXComponents = {
+  Code,
+  Gallery,
+  Image: BorderedImage,
+  Link,
 };
 
 type ProjectPageProps = {
@@ -65,28 +65,24 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/projets/${id}`,
+    url: `${ROUTES.PROJECTS}/${id}`,
   });
 
   const ProjectContent: ComponentType<MDXComponents> = dynamic(
-    () => import(`../../content/projects/${id}.mdx`),
+    async () => import(`../../content/projects/${id}.mdx`),
     {
       loading: () => <Spinner />,
     }
   );
 
-  const components: MDXComponents = {
-    Code,
-    Gallery,
-    Image: BorderedImage,
-    Link,
-  };
-
   const { website } = useSettings();
   const { asPath } = useRouter();
-  const pageUrl = `${website.url}${asPath}`;
+  const page = {
+    title: `${seo.title} - ${website.name}`,
+    url: `${website.url}${asPath}`,
+  };
 
-  const headerMeta: PageLayoutProps['headerMeta'] = {
+  const headerMeta: MetaData = {
     publication: { date: dates.publication },
     update:
       dates.update && dates.update !== dates.publication
@@ -97,7 +93,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   /**
    * Retrieve the repositories links.
    *
-   * @param {Repos} repos - A repositories object.
+   * @param {Repos} repositories - A repositories object.
    * @returns {JSX.Element[]} - An array of SocialLink.
    */
   const getReposLinks = (repositories: Repos): JSX.Element[] => {
@@ -113,43 +109,45 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     return links;
   };
 
-  const { isError, isLoading, data } = useGithubApi(meta.repos!.github!);
+  const { isError, isLoading, data } = useGithubApi(
+    /*
+     * Repo should be defined for each project so for now it is safe for my
+     * use-case. However, I should refactored it to handle cases where it is
+     * not defined. The logic should be extracted in another component I think.
+     *
+     * TODO: fix this hardly readable argument
+     */
+    meta.repos ? meta.repos.github ?? '' : ''
+  );
 
-  const getGithubData = (key: keyof RepoData) => {
-    if (isError) return 'Error';
-    if (isLoading || !data) return <Spinner />;
+  if (isError) return 'Error';
+  if (isLoading || !data) return <Spinner />;
 
-    switch (key) {
-      case 'created_at':
-        return data.created_at;
-      case 'updated_at':
-        return data.updated_at;
-      case 'stargazers_count':
-        const stars = intl.formatMessage(
-          {
-            defaultMessage:
-              '{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}',
-            id: 'Gnf1Si',
-            description: 'Projets: Github stars count',
-          },
-          { starsCount: data.stargazers_count }
-        );
-        return (
-          <>
-            ⭐&nbsp;
-            <Link href={`https://github.com/${repos!.github}/stargazers`}>
-              {stars}
-            </Link>
-          </>
-        );
-    }
+  const getRepoPopularity = (repo: string) => {
+    const stars = intl.formatMessage(
+      {
+        defaultMessage:
+          '{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}',
+        description: 'ProjectsPage: Github stars count',
+        id: 'sI7gJK',
+      },
+      { starsCount: data.stargazers_count }
+    );
+    const popularityUrl = `https://github.com/${repo}/stargazers`;
+
+    return (
+      <>
+        ⭐&nbsp;
+        <Link href={popularityUrl}>{stars}</Link>
+      </>
+    );
   };
 
   const overviewData: OverviewMeta = {
-    creation: data && { date: getGithubData('created_at') as string },
-    update: data && { date: getGithubData('updated_at') as string },
+    creation: { date: data.created_at },
+    update: { date: data.updated_at },
     license,
-    popularity: data && getGithubData('stargazers_count'),
+    popularity: repos?.github && getRepoPopularity(repos.github),
     repositories: repos ? getReposLinks(repos) : undefined,
     technologies,
   };
@@ -176,16 +174,20 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   return (
     <>
       <Head>
-        <title>{`${seo.title} - ${website.name}`}</title>
+        <title>{page.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:url" content={page.url} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-project"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
@@ -197,8 +199,9 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         withToC={true}
         widgets={[
           <Sharing
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="sharing-widget"
-            data={{ excerpt: intro, title, url: pageUrl }}
+            data={{ excerpt: intro, title, url: page.url }}
             media={[
               'diaspora',
               'email',
@@ -226,8 +229,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
   params,
 }) => {
   const translation = await loadTranslation(locale);
-  const { slug } = params!;
-  const project = await getProjectData(slug as string);
+  const project = await getProjectData(params ? (params.slug as string) : '');
 
   return {
     props: {
@@ -237,7 +239,7 @@ export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = () => {
   const filenames = getProjectFilenames();
   const paths = filenames.map((filename) => {
     return {

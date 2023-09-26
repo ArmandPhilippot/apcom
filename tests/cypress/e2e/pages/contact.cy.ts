@@ -1,3 +1,5 @@
+import { ROUTES } from '../../../../src/utils/constants';
+
 const userName = 'Cypress Test';
 const userEmail = 'cypress@testing.com';
 const object = '[Cypress] quos aperiam culpa';
@@ -6,7 +8,7 @@ const message =
 
 describe('Contact Page', () => {
   beforeEach(() => {
-    cy.visit('/contact');
+    cy.visit(ROUTES.CONTACT);
   });
 
   it('shows a heading and a contact form', () => {
@@ -14,7 +16,7 @@ describe('Contact Page', () => {
     cy.findByRole('form', { name: /Formulaire de contact/i });
   });
 
-  it('submits the form', async () => {
+  it('submits the form', () => {
     cy.findByRole('textbox', { name: /Nom/i })
       .type(userName)
       .should('have.value', userName);
@@ -31,7 +33,7 @@ describe('Contact Page', () => {
     cy.findByText(/E-mail en cours d'envoi/i).should('be.visible');
   });
 
-  it('prevents the form to submit if some fields are missing', async () => {
+  it('prevents the form to submit if some fields are missing', () => {
     cy.findByRole('textbox', { name: /E-mail/i })
       .type(userEmail)
       .should('have.value', userEmail);

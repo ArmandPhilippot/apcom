@@ -1,7 +1,9 @@
-import { GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -19,12 +21,13 @@ import {
   getTotalThematics,
   getTotalTopics,
 } from '../../services/graphql';
-import {
-  type NextPageWithLayout,
-  type RawArticle,
-  type RawThematicPreview,
-  type RawTopicPreview,
+import type {
+  NextPageWithLayout,
+  RawArticle,
+  RawThematicPreview,
+  RawTopicPreview,
 } from '../../types';
+import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
   getLinksListItems,
@@ -72,11 +75,14 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
       });
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/recherche`,
+    url: ROUTES.SEARCH,
   });
 
   const { blog, website } = useSettings();
-  const pageTitle = `${title} - ${website.name}`;
+  const page = {
+    title: `${title} - ${website.name}`,
+    url: `${website.url}${asPath}`,
+  };
   const pageDescription = query.s
     ? intl.formatMessage(
         {
@@ -99,7 +105,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     description: pageDescription,
     locale: website.locales.default,
     slug: asPath,
-    title: pageTitle,
+    title: page.title,
   });
   const blogSchema = getBlogSchema({
     isSinglePage: false,
@@ -122,16 +128,16 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     search: query.s as string,
   });
 
-  const totalArticles = useDataFromAPI<number>(() =>
+  const totalArticles = useDataFromAPI<number>(async () =>
     getTotalArticles(query.s as string)
   );
 
   /**
    * Load more posts handler.
    */
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     setSize((prevSize) => prevSize + 1);
-  };
+  }, [setSize]);
 
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Thematics',
@@ -144,20 +150,25 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     description: 'SearchPage: topics list widget title',
     id: 'N804XO',
   });
+  const postsListBaseUrl = `${ROUTES.SEARCH}/page/`;
 
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
+        <title>{page.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={page.url} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={pageDescription} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-blog"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
@@ -167,6 +178,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
         headerMeta={{ total: totalArticles }}
         widgets={[
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="thematics-list"
             items={getLinksListItems(
               thematicsList.map((thematic) =>
@@ -177,6 +189,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
             level={2}
           />,
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="topics-list"
             items={getLinksListItems(
               topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
@@ -188,20 +201,21 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
       >
         {data && data.length > 0 ? (
           <PostsList
-            baseUrl="/recherche/page/"
+            baseUrl={postsListBaseUrl}
             byYear={true}
-            isLoading={isLoadingMore || isLoadingInitialData}
+            isLoading={isLoadingMore ?? isLoadingInitialData}
             loadMore={loadMore}
             posts={getPostsList(data)}
-            searchPage="/recherche/"
+            searchPage={ROUTES.SEARCH}
             showLoadMoreBtn={hasNextPage}
-            total={totalArticles || 0}
+            total={totalArticles ?? 0}
           />
         ) : (
           <Spinner />
         )}
-        {error && (
+        {error ? (
           <Notice
+            // eslint-disable-next-line react/jsx-no-literals -- Kind allowed
             kind="error"
             message={intl.formatMessage({
               defaultMessage: 'Failed to load.',
@@ -209,7 +223,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
               id: 'fOe8rH',
             })}
           />
-        )}
+        ) : null}
       </PageLayout>
     </>
   );

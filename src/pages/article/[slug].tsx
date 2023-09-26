@@ -1,9 +1,10 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { ParsedUrlQuery } from 'querystring';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ParsedUrlQuery } from 'querystring';
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import {
   ButtonLink,
@@ -21,11 +22,8 @@ import {
   getArticleBySlug,
 } from '../../services/graphql';
 import styles from '../../styles/pages/article.module.scss';
-import {
-  type Article,
-  type NextPageWithLayout,
-  type SingleComment,
-} from '../../types';
+import type { Article, NextPageWithLayout, SingleComment } from '../../types';
+import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
   getSchemaJson,
@@ -66,17 +64,17 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     fallback: comments,
   });
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: article?.title || '',
-    url: `/article/${slug}`,
+    title: article?.title ?? '',
+    url: `${ROUTES.ARTICLE}/${slug}`,
   });
-  const readingTime = useReadingTime(article?.meta.wordsCount || 0, true);
+  const readingTime = useReadingTime(article?.meta.wordsCount ?? 0, true);
   const { website } = useSettings();
   const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
   const { attributes, className } = usePrism({ plugins: prismPlugins });
 
-  if (isFallback) return <Spinner />;
+  if (isFallback || !article) return <Spinner />;
 
-  const { content, id, intro, meta, title } = article!;
+  const { content, id, intro, meta, title } = article;
   const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
 
   const headerMeta: PageLayoutProps['headerMeta'] = {
@@ -87,13 +85,13 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         ? { date: dates.update }
         : undefined,
     readingTime,
-    thematics:
-      thematics &&
-      thematics.map((thematic) => (
-        <Link key={thematic.id} href={thematic.url}>
-          {thematic.name}
-        </Link>
-      )),
+    thematics: thematics
+      ? thematics.map((thematic) => (
+          <Link key={thematic.id} href={thematic.url}>
+            {thematic.name}
+          </Link>
+        ))
+      : undefined,
   };
 
   const footerMetaLabel = intl.formatMessage({
@@ -105,13 +103,11 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   const footerMeta: PageLayoutProps['footerMeta'] = {
     custom: topics && {
       label: footerMetaLabel,
-      value: topics.map((topic) => {
-        return (
-          <ButtonLink key={topic.id} target={topic.url} className={styles.btn}>
-            {topic.logo && <ResponsiveImage {...topic.logo} />} {topic.name}
-          </ButtonLink>
-        );
-      }),
+      value: topics.map((topic) => (
+        <ButtonLink key={topic.id} target={topic.url} className={styles.btn}>
+          {topic.logo ? <ResponsiveImage {...topic.logo} /> : null} {topic.name}
+        </ButtonLink>
+      )),
     },
   };
 
@@ -160,7 +156,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
    */
   const prismClassNameReplacer = (str: string): string => {
     const wpBlockClassName = 'wp-block-code';
-    const languageArray = str.match(/language-[^\s|"]+/);
+    const languageArray = /language-[^\s|"]+/.exec(str);
     const languageClassName = languageArray ? `${languageArray[0]}` : '';
 
     if (
@@ -184,15 +180,19 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     <>
       <Head>
         <title>{seo.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${pageUrl}`} />
+        <meta property="og:url" content={pageUrl} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-project"
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <PageLayout
@@ -212,6 +212,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         withToC={true}
         widgets={[
           <Sharing
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="sharing-widget"
             className={styles.widget}
             data={{ excerpt: intro, title, url: pageUrl }}
@@ -234,15 +235,15 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 
 ArticlePage.getLayout = (page) => getLayout(page, { useGrid: true });
 
-interface PostParams extends ParsedUrlQuery {
+type PostParams = {
   slug: string;
-}
+} & ParsedUrlQuery;
 
 export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
   locale,
   params,
 }) => {
-  const post = await getArticleBySlug(params!.slug as PostParams['slug']);
+  const post = await getArticleBySlug((params as PostParams).slug);
   const comments = await getAllComments({ contentId: post.id as number });
   const translation = await loadTranslation(locale);
 

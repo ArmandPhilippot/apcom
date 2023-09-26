@@ -1,6 +1,8 @@
+/* eslint-disable max-statements */
 import { useIntl } from 'react-intl';
-import { BreadcrumbList } from 'schema-dts';
-import { BreadcrumbItem } from '../../components';
+import type { BreadcrumbList } from 'schema-dts';
+import type { BreadcrumbItem } from '../../components';
+import { ROUTES } from '../constants';
 import { slugify } from '../helpers';
 import { useSettings } from './use-settings';
 
@@ -38,13 +40,13 @@ export const useBreadcrumb = ({
 }: useBreadcrumbProps): useBreadcrumbReturn => {
   const intl = useIntl();
   const { website } = useSettings();
-  const isArticle = url.startsWith('/article/');
+  const isArticle = url.startsWith(`${ROUTES.ARTICLE}/`);
   const isHome = url === '/';
   const isPageNumber = url.includes('/page/');
-  const isProject = url.startsWith('/projets/');
-  const isSearch = url.startsWith('/recherche');
-  const isThematic = url.startsWith('/thematique/');
-  const isTopic = url.startsWith('/sujet/');
+  const isProject = url.startsWith(`${ROUTES.PROJECTS}/`);
+  const isSearch = url.startsWith(ROUTES.SEARCH);
+  const isThematic = url.startsWith(`${ROUTES.THEMATICS.INDEX}/`);
+  const isTopic = url.startsWith(`${ROUTES.TOPICS}/`);
 
   const homeLabel = intl.formatMessage({
     defaultMessage: 'Home',
@@ -69,12 +71,12 @@ export const useBreadcrumb = ({
       description: 'Breadcrumb: blog label',
       id: 'Es52wh',
     });
-    items.push({ id: 'blog', name: blogLabel, url: '/blog' });
+    items.push({ id: 'blog', name: blogLabel, url: ROUTES.BLOG });
     schema.push({
       '@type': 'ListItem',
       position: 2,
       name: blogLabel,
-      item: `${website.url}/blog`,
+      item: `${website.url}${ROUTES.BLOG}`,
     });
   }
 
@@ -84,12 +86,12 @@ export const useBreadcrumb = ({
       description: 'Breadcrumb: projects label',
       id: '28GZdv',
     });
-    items.push({ id: 'blog', name: projectsLabel, url: '/projets' });
+    items.push({ id: 'projects', name: projectsLabel, url: ROUTES.PROJECTS });
     schema.push({
       '@type': 'ListItem',
       position: 2,
       name: projectsLabel,
-      item: `${website.url}/projets`,
+      item: `${website.url}${ROUTES.PROJECTS}`,
     });
   }
 

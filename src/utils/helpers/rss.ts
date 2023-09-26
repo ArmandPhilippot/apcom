@@ -4,8 +4,9 @@ import {
   getArticles,
   getTotalArticles,
 } from '../../services/graphql';
-import { type Article } from '../../types';
-import { settings } from '../../utils/config';
+import type { Article } from '../../types';
+import { settings } from '../config';
+import { ROUTES } from '../constants';
 
 /**
  * Retrieve the data for all the articles.
@@ -17,9 +18,9 @@ const getAllArticles = async (): Promise<Article[]> => {
   const rawArticles = await getArticles({ first: totalArticles });
   const articles: Article[] = [];
 
-  rawArticles.edges.forEach((edge) =>
-    articles.push(getArticleFromRawData(edge.node))
-  );
+  rawArticles.edges.forEach((edge) => {
+    articles.push(getArticleFromRawData(edge.node));
+  });
 
   return articles;
 };
@@ -43,8 +44,8 @@ export const generateFeed = async (): Promise<Feed> => {
     copyright,
     description: process.env.APP_FEED_DESCRIPTION,
     feedLinks: {
-      json: `${settings.url}/feed/json`,
-      atom: `${settings.url}/feed/atom`,
+      json: `${settings.url}${ROUTES.RSS}/json`,
+      atom: `${settings.url}${ROUTES.RSS}/atom`,
     },
     generator: 'Feed & NextJS',
     id: settings.url,
@@ -58,10 +59,10 @@ export const generateFeed = async (): Promise<Feed> => {
   articles.forEach((article) => {
     feed.addItem({
       content: article.intro,
-      date: new Date(article.meta!.dates.publication),
+      date: new Date(article.meta.dates.publication),
       description: article.intro,
       id: `${article.id}`,
-      link: `${settings.url}/article/${article.slug}`,
+      link: `${settings.url}${ROUTES.ARTICLE}/${article.slug}`,
       title: article.title,
     });
   });

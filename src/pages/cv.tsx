@@ -1,9 +1,14 @@
-import { MDXComponents } from 'mdx/types';
-import { GetStaticProps } from 'next';
+/* eslint-disable max-statements */
+import type { MDXComponents } from 'mdx/types';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
+import React, {
+  type AnchorHTMLAttributes,
+  type HTMLAttributes,
+  type ReactNode,
+} from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -12,12 +17,13 @@ import {
   Link,
   List,
   PageLayout,
-  type PageLayoutProps,
   SocialMedia,
+  type MetaData,
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import styles from '../styles/pages/cv.module.scss';
-import { type NextPageWithLayout } from '../types';
+import type { NextPageWithLayout } from '../types';
+import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import {
   getSchemaJson,
   getSinglePageSchema,
@@ -39,67 +45,67 @@ const ExternalLink = ({
 const H1 = ({
   children = '',
   ...props
-}: HTMLAttributes<HTMLHeadingElement>) => {
-  return (
-    <Heading {...props} level={1}>
-      {children}
-    </Heading>
-  );
-};
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={1}>
+    {children}
+  </Heading>
+);
 
 const H2 = ({
   children = '',
   ...props
-}: HTMLAttributes<HTMLHeadingElement>) => {
-  return (
-    <Heading {...props} level={2}>
-      {children}
-    </Heading>
-  );
-};
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={2}>
+    {children}
+  </Heading>
+);
 
 const H3 = ({
   children = '',
   ...props
-}: HTMLAttributes<HTMLHeadingElement>) => {
-  return (
-    <Heading {...props} level={3}>
-      {children}
-    </Heading>
-  );
-};
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={3}>
+    {children}
+  </Heading>
+);
 
 const H4 = ({
   children = '',
   ...props
-}: HTMLAttributes<HTMLHeadingElement>) => {
-  return (
-    <Heading {...props} level={4}>
-      {children}
-    </Heading>
-  );
-};
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={4}>
+    {children}
+  </Heading>
+);
 
 const H5 = ({
   children = '',
   ...props
-}: HTMLAttributes<HTMLHeadingElement>) => {
-  return (
-    <Heading {...props} level={5}>
-      {children}
-    </Heading>
-  );
-};
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={5}>
+    {children}
+  </Heading>
+);
 
 const H6 = ({
   children = '',
   ...props
-}: HTMLAttributes<HTMLHeadingElement>) => {
-  return (
-    <Heading {...props} level={6}>
-      {children}
-    </Heading>
-  );
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={6}>
+    {children}
+  </Heading>
+);
+
+const components: MDXComponents = {
+  a: ExternalLink,
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  h6: H6,
+  Link,
+  List,
 };
 
 /**
@@ -111,7 +117,7 @@ const CVPage: NextPageWithLayout = () => {
   const { dates, intro, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/cv`,
+    url: ROUTES.CV,
   });
 
   const imageWidgetTitle = intl.formatMessage({
@@ -125,7 +131,7 @@ const CVPage: NextPageWithLayout = () => {
     id: '+Dre5J',
   });
 
-  const headerMeta: PageLayoutProps['headerMeta'] = {
+  const headerMeta: MetaData = {
     publication: {
       date: dates.publication,
     },
@@ -154,6 +160,7 @@ const CVPage: NextPageWithLayout = () => {
 
   const widgets = [
     <ImageWidget
+      // eslint-disable-next-line react/jsx-no-literals -- Key allowed
       key="image-widget"
       expanded={true}
       title={imageWidgetTitle}
@@ -163,15 +170,16 @@ const CVPage: NextPageWithLayout = () => {
       imageClassName={styles.image}
     />,
     <SocialMedia
+      // eslint-disable-next-line react/jsx-no-literals -- Key allowed
       key="social-media"
       title={socialMediaTitle}
       level={2}
       media={[
-        { name: 'Github', url: 'https://github.com/ArmandPhilippot' },
-        { name: 'Gitlab', url: 'https://gitlab.com/ArmandPhilippot' },
+        { name: 'Github', url: PERSONAL_LINKS.GITHUB },
+        { name: 'Gitlab', url: PERSONAL_LINKS.GITLAB },
         {
           name: 'LinkedIn',
-          url: 'https://www.linkedin.com/in/armandphilippot',
+          url: PERSONAL_LINKS.LINKEDIN,
         },
       ]}
     />,
@@ -193,20 +201,12 @@ const CVPage: NextPageWithLayout = () => {
     kind: 'about',
     locale: website.locales.default,
     slug: asPath,
-    title: title,
+    title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, cvSchema]);
-
-  const components: MDXComponents = {
-    a: ExternalLink,
-    h1: H1,
-    h2: H2,
-    h3: H3,
-    h4: H4,
-    h5: H5,
-    h6: H6,
-    Link,
-    List,
+  const page = {
+    title: `${seo.title} - ${website.name}`,
+    url: `${website.url}${asPath}`,
   };
 
   return (
@@ -220,9 +220,11 @@ const CVPage: NextPageWithLayout = () => {
       withToC={true}
     >
       <Head>
-        <title>{`${seo.title} - ${website.name}`}</title>
+        <title>{page.title}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={seo.description} />
-        <meta property="og:url" content={`${website.url}${asPath}`} />
+        <meta property="og:url" content={page.url} />
+        {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
@@ -230,6 +232,7 @@ const CVPage: NextPageWithLayout = () => {
         <meta property="og:image:alt" content={title} />
       </Head>
       <Script
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
         id="schema-cv"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

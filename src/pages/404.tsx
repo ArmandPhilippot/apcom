@@ -1,6 +1,6 @@
-import { GetStaticProps } from 'next';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -15,11 +15,12 @@ import {
   getTotalThematics,
   getTotalTopics,
 } from '../services/graphql';
-import {
-  type NextPageWithLayout,
-  type RawThematicPreview,
-  type RawTopicPreview,
+import type {
+  NextPageWithLayout,
+  RawThematicPreview,
+  RawTopicPreview,
 } from '../types';
+import { ROUTES } from '../utils/constants';
 import { getLinksListItems, getPageLinkFromRawData } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
@@ -52,12 +53,12 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
       description: 'Error404Page: page body',
     },
     {
-      link: (chunks: ReactNode) => <Link href="/contact">{chunks}</Link>,
+      link: (chunks: ReactNode) => <Link href={ROUTES.CONTACT}>{chunks}</Link>,
     }
   );
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `/404`,
+    url: ROUTES.NOT_FOUND,
   });
   const pageTitle = intl.formatMessage(
     {
@@ -88,6 +89,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
     <>
       <Head>
         <title>{pageTitle}</title>
+        {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={pageDescription} />
       </Head>
       <PageLayout
@@ -96,6 +98,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
         breadcrumbSchema={breadcrumbSchema}
         widgets={[
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="thematics-list"
             items={getLinksListItems(
               thematicsList.map((thematic) =>
@@ -106,6 +109,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
             level={2}
           />,
           <LinksListWidget
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="topics-list"
             items={getLinksListItems(
               topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
@@ -123,7 +127,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
             id: 'XKy7rx',
           })}
         </p>
-        <SearchForm isLabelHidden searchPage="/recherche/" />
+        <SearchForm isLabelHidden searchPage={ROUTES.SEARCH} />
       </PageLayout>
     </>
   );
