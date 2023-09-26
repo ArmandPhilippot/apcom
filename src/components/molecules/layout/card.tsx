@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import { type Image } from '../../../types';
+import type { FC } from 'react';
+import type { Image as Img } from '../../../types';
 import { ButtonLink, Heading, type HeadingLevel } from '../../atoms';
 import { ResponsiveImage } from '../images';
-import { Meta, type MetaData } from './meta';
 import styles from './card.module.scss';
+import { Meta, type MetaData } from './meta';
 
 export type CardProps = {
   /**
@@ -13,7 +13,7 @@ export type CardProps = {
   /**
    * The card cover.
    */
-  cover?: Image;
+  cover?: Img;
   /**
    * The card id.
    */
@@ -55,29 +55,32 @@ export const Card: FC<CardProps> = ({
   titleLevel,
   url,
 }) => {
+  const cardClass = `${styles.wrapper} ${className}`;
+  const headingId = `${id}-heading`;
+
   return (
-    <ButtonLink
-      aria-labelledby={`${id}-heading`}
-      className={`${styles.wrapper} ${className}`}
-      target={url}
-    >
+    <ButtonLink aria-labelledby={headingId} className={cardClass} to={url}>
       <article className={styles.article}>
         <header className={styles.header}>
-          {cover && <ResponsiveImage {...cover} className={styles.cover} />}
+          {cover ? (
+            <ResponsiveImage {...cover} className={styles.cover} />
+          ) : null}
           <Heading
+            // eslint-disable-next-line react/jsx-no-literals -- Hardcoded config
             alignment="center"
             className={styles.title}
-            id={`${id}-heading`}
+            id={headingId}
             level={titleLevel}
           >
             {title}
           </Heading>
         </header>
-        {tagline && <div className={styles.tagline}>{tagline}</div>}
-        {meta && (
+        {tagline ? <div className={styles.tagline}>{tagline}</div> : null}
+        {meta ? (
           <footer className={styles.footer}>
             <Meta
               data={meta}
+              // eslint-disable-next-line react/jsx-no-literals -- Hardcoded config
               layout="inline"
               className={styles.list}
               groupClassName={styles.meta__item}
@@ -85,7 +88,7 @@ export const Card: FC<CardProps> = ({
               valueClassName={styles.meta__value}
             />
           </footer>
-        )}
+        ) : null}
       </article>
     </ButtonLink>
   );

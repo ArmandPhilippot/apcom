@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { type Article, type Meta as MetaType } from '../../../types';
+import type { Article, Meta as MetaType } from '../../../types';
 import { useReadingTime } from '../../../utils/hooks';
 import {
   Arrow,
@@ -70,6 +70,7 @@ export const Summary: FC<SummaryProps> = ({
     {
       title,
       a11y: (chunks: ReactNode) => (
+        // eslint-disable-next-line react/jsx-no-literals -- SR class allowed
         <span className="screen-reader-text">{chunks}</span>
       ),
     }
@@ -99,7 +100,7 @@ export const Summary: FC<SummaryProps> = ({
       )),
       comments: {
         about: title,
-        count: commentsCount || 0,
+        count: commentsCount ?? 0,
         target: `${url}#comments`,
       },
     };
@@ -107,7 +108,7 @@ export const Summary: FC<SummaryProps> = ({
 
   return (
     <article className={styles.wrapper}>
-      {cover && <ResponsiveImage className={styles.cover} {...cover} />}
+      {cover ? <ResponsiveImage className={styles.cover} {...cover} /> : null}
       <header className={styles.header}>
         <Link href={url} className={styles.link}>
           <Heading level={titleLevel} className={styles.title}>
@@ -116,13 +117,16 @@ export const Summary: FC<SummaryProps> = ({
         </Link>
       </header>
       <div className={styles.body}>
+        {/* eslint-disable-next-line react/no-danger -- Not safe but intro can
+         * contains links or formatting so we need it. */}
         <div dangerouslySetInnerHTML={{ __html: intro }} />
-        <ButtonLink target={url} className={styles['read-more']}>
+        <ButtonLink className={styles['read-more']} to={url}>
           <>
             {readMore}
             <Arrow
               aria-hidden={true}
               className={styles.icon}
+              // eslint-disable-next-line react/jsx-no-literals -- Direction allowed
               direction="right"
             />
           </>
@@ -133,7 +137,9 @@ export const Summary: FC<SummaryProps> = ({
           className={styles.meta}
           data={getMeta()}
           groupClassName={styles.meta__item}
+          // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
           itemsLayout="stacked"
+          // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
           layout="column"
           withSeparator={false}
         />

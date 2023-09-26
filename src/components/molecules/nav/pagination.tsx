@@ -1,4 +1,5 @@
-import { FC, Fragment, ReactNode } from 'react';
+/* eslint-disable max-statements */
+import { type FC, Fragment, type ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import { ButtonLink } from '../../atoms';
 import styles from './pagination.module.scss';
@@ -78,11 +79,8 @@ export const Pagination: FC<PaginationProps> = ({
    * @param {number} end - The last value.
    * @returns {number[]} An array from start value to end value.
    */
-  const range = (start: number, end: number): number[] => {
-    const length = end - start + 1;
-
-    return Array.from({ length }, (_, index) => index + start);
-  };
+  const range = (start: number, end: number): number[] =>
+    Array.from({ length: end - start + 1 }, (_, index) => index + start);
 
   /**
    * Get the pagination range.
@@ -138,21 +136,17 @@ export const Pagination: FC<PaginationProps> = ({
   const getItem = (id: string, body: ReactNode, link?: string): JSX.Element => {
     const linkModifier = id.startsWith('page') ? 'link--number' : '';
     const kind = id === 'previous' || id === 'next' ? 'tertiary' : 'secondary';
+    const linkClass = `${styles.link} ${styles[linkModifier]}`;
+    const disabledLinkClass = `${styles.link} ${styles['link--disabled']}`;
 
     return (
       <li className={styles.item}>
         {link ? (
-          <ButtonLink
-            kind={kind}
-            target={link}
-            className={`${styles.link} ${styles[linkModifier]}`}
-          >
+          <ButtonLink className={linkClass} kind={kind} to={link}>
             {body}
           </ButtonLink>
         ) : (
-          <span className={`${styles.link} ${styles['link--disabled']}`}>
-            {body}
-          </span>
+          <span className={disabledLinkClass}>{body}</span>
         )}
       </li>
     );
@@ -187,6 +181,7 @@ export const Pagination: FC<PaginationProps> = ({
               {
                 number: page,
                 a11y: (chunks: ReactNode) => (
+                  // eslint-disable-next-line react/jsx-no-literals
                   <span className="screen-reader-text">
                     {page === currentPage && currentPagePrefix}
                     {chunks}
@@ -199,19 +194,20 @@ export const Pagination: FC<PaginationProps> = ({
           ? undefined
           : `${baseUrl}${page}`;
 
-      return <Fragment key={`item-${id}`}>{getItem(id, body, url)}</Fragment>;
+      return <Fragment key={id}>{getItem(id, body, url)}</Fragment>;
     });
   };
+  const navClass = `${styles.wrapper} ${className}`;
+  const listClass = `${styles.list} ${styles['list--pages']}`;
 
   return (
-    <nav {...props} className={`${styles.wrapper} ${className}`}>
-      <ul className={`${styles.list} ${styles['list--pages']}`}>
-        {getPages(current, totalPages)}
-      </ul>
+    <nav {...props} className={navClass}>
+      <ul className={listClass}>{getPages(current, totalPages)}</ul>
       <ul className={styles.list}>
-        {hasPreviousPage &&
-          getItem('previous', previousPageName, previousPageUrl)}
-        {hasNextPage && getItem('next', nextPageName, nextPageUrl)}
+        {hasPreviousPage
+          ? getItem('previous', previousPageName, previousPageUrl)
+          : null}
+        {hasNextPage ? getItem('next', nextPageName, nextPageUrl) : null}
       </ul>
     </nav>
   );

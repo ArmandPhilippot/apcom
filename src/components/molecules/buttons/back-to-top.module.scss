@@ -4,6 +4,7 @@
   .link {
     width: clamp(#{fun.convert-px(48)}, 8vw, #{fun.convert-px(55)});
     height: clamp(#{fun.convert-px(48)}, 8vw, #{fun.convert-px(55)});
+    padding: 0;
 
     svg {
       width: 100%;
@@ -18,7 +19,9 @@
       .arrow-bar {
         opacity: 0;
         transform: translateY(30%) scaleY(0);
-        transition: transform 0.45s ease-in-out 0s, opacity 0.1s linear 0.2s;
+        transition:
+          transform 0.45s ease-in-out 0s,
+          opacity 0.1s linear 0.2s;
       }
     }
 

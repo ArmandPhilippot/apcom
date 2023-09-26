@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ButtonLink } from './button-link';
 
 /**
@@ -8,36 +8,10 @@ export default {
   title: 'Atoms/Buttons/ButtonLink',
   component: ButtonLink,
   args: {
-    external: false,
+    isExternal: false,
     shape: 'rectangle',
   },
   argTypes: {
-    'aria-label': {
-      control: {
-        type: 'text',
-      },
-      description: 'An accessible label.',
-      table: {
-        category: 'Accessibility',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    'aria-labelledby': {
-      control: {
-        type: null,
-      },
-      description: 'One or more ids that refer to an accessible label.',
-      table: {
-        category: 'Accessibility',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     children: {
       control: {
         type: 'text',
@@ -48,20 +22,7 @@ export default {
         required: true,
       },
     },
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the button link.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    external: {
+    isExternal: {
       control: {
         type: 'boolean',
       },
@@ -95,7 +56,7 @@ export default {
         type: 'select',
       },
       description: 'The link shape.',
-      options: ['rectangle', 'square'],
+      options: ['circle', 'rectangle', 'square'],
       table: {
         category: 'Options',
         defaultValue: { summary: 'rectangle' },
@@ -105,9 +66,9 @@ export default {
         required: false,
       },
     },
-    target: {
+    to: {
       control: {
-        type: null,
+        type: 'text',
       },
       description: 'The link target.',
       type: {
@@ -129,7 +90,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   children: 'Link',
   kind: 'primary',
-  target: '#',
+  to: '#',
 };
 
 /**
@@ -139,7 +100,7 @@ export const Secondary = Template.bind({});
 Secondary.args = {
   children: 'Link',
   kind: 'secondary',
-  target: '#',
+  to: '#',
 };
 
 /**
@@ -149,5 +110,5 @@ export const Tertiary = Template.bind({});
 Tertiary.args = {
   children: 'Link',
   kind: 'tertiary',
-  target: '#',
+  to: '#',
 };

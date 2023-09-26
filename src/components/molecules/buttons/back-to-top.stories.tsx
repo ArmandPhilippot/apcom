@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BackToTop as BackToTopComponent } from './back-to-top';
 
 /**
@@ -21,7 +21,7 @@ export default {
         required: false,
       },
     },
-    target: {
+    to: {
       control: {
         type: 'text',
       },
@@ -43,5 +43,5 @@ const Template: ComponentStory<typeof BackToTopComponent> = (args) => (
  */
 export const BackToTop = Template.bind({});
 BackToTop.args = {
-  target: 'top',
+  to: 'top',
 };

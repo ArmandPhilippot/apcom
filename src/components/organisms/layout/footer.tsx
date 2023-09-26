@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
 import { Copyright, type CopyrightProps } from '../../atoms';
 import {
@@ -50,26 +50,26 @@ export const Footer: FC<FooterProps> = ({
     description: 'Footer: an accessible name for footer nav',
     id: 'd4N8nD',
   });
+  const footerClass = `${styles.wrapper} ${className}`;
+  const btnClass = `${styles['back-to-top']} ${backToTopClassName}`;
 
   return (
-    <footer className={`${styles.wrapper} ${className}`}>
+    <footer className={footerClass}>
       <Copyright
         dates={copyright.dates}
         icon={copyright.icon}
         owner={copyright.owner}
       />
-      {navItems && (
+      {navItems ? (
         <Nav
           aria-label={ariaLabel}
           className={styles.nav}
           items={navItems}
+          // eslint-disable-next-line react/jsx-no-literals -- Hardcoded config
           kind="footer"
         />
-      )}
-      <BackToTop
-        className={`${styles['back-to-top']} ${backToTopClassName}`}
-        target={topId}
-      />
+      ) : null}
+      <BackToTop className={btnClass} to={topId} />
     </footer>
   );
 };

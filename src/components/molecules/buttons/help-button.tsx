@@ -1,11 +1,11 @@
-import { forwardRef, ForwardRefRenderFunction } from 'react';
+import { forwardRef, type ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import { Button, type ButtonProps } from '../../atoms';
 import styles from './help-button.module.scss';
 
 export type HelpButtonProps = Pick<
   ButtonProps,
-  'aria-pressed' | 'className' | 'onClick'
+  'className' | 'isPressed' | 'onClick'
 >;
 
 const HelpButtonWithRef: ForwardRefRenderFunction<

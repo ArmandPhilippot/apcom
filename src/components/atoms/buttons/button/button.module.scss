@@ -1,0 +1,37 @@
+@use "../../../../styles/abstracts/placeholders";
+
+.btn {
+  @extend %button;
+
+  &--initial {
+    border-radius: 0;
+  }
+
+  &--circle {
+    @extend %circle-button;
+  }
+
+  &--rectangle {
+    @extend %rectangle-button;
+  }
+
+  &--square {
+    @extend %square-button;
+  }
+
+  &--neutral {
+    background: inherit;
+  }
+
+  &--primary {
+    @extend %primary-button;
+  }
+
+  &--secondary {
+    @extend %secondary-button;
+  }
+
+  &--tertiary {
+    @extend %tertiary-button;
+  }
+}

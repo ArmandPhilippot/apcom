@@ -1,0 +1,193 @@
+@use "../functions" as fun;
+
+%button {
+  display: inline-flex;
+  place-content: center;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  border: none;
+  border-radius: fun.convert-px(5);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out 0s;
+
+  &[aria-busy="true"] {
+    cursor: wait;
+  }
+
+  &[aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
+%primary-button {
+  background: var(--color-primary);
+  border: fun.convert-px(2) solid var(--color-bg);
+  box-shadow:
+    0 0 0 fun.convert-px(2) var(--color-primary),
+    0 0 0 fun.convert-px(3) var(--color-primary-darker),
+    fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(3)
+      var(--color-primary-dark);
+  color: var(--color-fg-inverted);
+  text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-shadow);
+
+  &:disabled {
+    background: var(--color-primary-darker);
+  }
+
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      background: var(--color-primary-light);
+      box-shadow:
+        0 0 0 fun.convert-px(2) var(--color-primary-light),
+        0 0 0 fun.convert-px(3) var(--color-primary-darker),
+        fun.convert-px(7) fun.convert-px(7) 0 fun.convert-px(2)
+          var(--color-primary-dark);
+      color: var(--color-fg-inverted);
+      transform: translateX(#{fun.convert-px(-4)})
+        translateY(#{fun.convert-px(-4)});
+    }
+
+    &:focus:not(:hover) {
+      text-decoration: underline solid var(--color-fg-inverted)
+        fun.convert-px(2);
+    }
+
+    &:active,
+    &[aria-pressed="true"] {
+      box-shadow:
+        0 0 0 fun.convert-px(2) var(--color-primary),
+        0 0 0 fun.convert-px(3) var(--color-primary-darker),
+        0 0 0 0 var(--color-primary-dark);
+      transform: translateX(#{fun.convert-px(4)})
+        translateY(#{fun.convert-px(4)});
+
+      &:not(:hover, :focus) {
+        background: var(--color-primary-dark);
+      }
+    }
+  }
+}
+
+%secondary-button {
+  background: var(--color-bg);
+  border: fun.convert-px(3) solid var(--color-primary);
+  box-shadow:
+    fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) var(--color-shadow),
+    fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+      var(--color-shadow),
+    fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+      var(--color-shadow);
+  color: var(--color-primary);
+
+  &:disabled {
+    border-color: var(--color-border-dark);
+    color: var(--color-fg-light);
+  }
+
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      border-color: var(--color-primary-light);
+      color: var(--color-primary-light);
+      box-shadow:
+        fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+          var(--color-shadow-light),
+        fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+          var(--color-shadow-light),
+        fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+          var(--color-shadow-light),
+        fun.convert-px(7) fun.convert-px(10) fun.convert-px(12)
+          fun.convert-px(-3) var(--color-shadow-light);
+      transform: scale(var(--scale-up, 1.1));
+    }
+
+    &:focus:not(:hover) {
+      text-decoration: underline var(--color-primary-light) fun.convert-px(3);
+    }
+
+    &:active,
+    &[aria-pressed="true"] {
+      box-shadow: 0 0 0 0 var(--color-shadow);
+      transform: scale(var(--scale-down, 0.94));
+
+      &:not(:hover, :focus) {
+        border-color: var(--color-primary-dark);
+        color: var(--color-primary-dark);
+      }
+    }
+  }
+}
+
+%tertiary-button {
+  background: var(--color-bg);
+  border: fun.convert-px(3) solid var(--color-primary);
+  box-shadow:
+    fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-bg),
+    fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-dark),
+    fun.convert-px(5) fun.convert-px(5) 0 0 var(--color-bg),
+    fun.convert-px(6) fun.convert-px(6) 0 0 var(--color-primary-dark);
+  color: var(--color-primary);
+
+  &:disabled {
+    color: var(--color-fg-light);
+    border-color: var(--color-border-dark);
+    box-shadow:
+      fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-bg),
+      fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-darker),
+      fun.convert-px(5) fun.convert-px(5) 0 0 var(--color-bg),
+      fun.convert-px(6) fun.convert-px(6) 0 0 var(--color-primary-darker);
+  }
+
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      border-color: var(--color-primary-light);
+      box-shadow:
+        fun.convert-px(2) fun.convert-px(3) 0 0 var(--color-bg),
+        fun.convert-px(4) fun.convert-px(5) 0 0 var(--color-primary),
+        fun.convert-px(6) fun.convert-px(8) 0 0 var(--color-bg),
+        fun.convert-px(8) fun.convert-px(10) 0 0 var(--color-primary),
+        fun.convert-px(10) fun.convert-px(12) fun.convert-px(1) 0
+          var(--color-shadow-light),
+        fun.convert-px(10) fun.convert-px(12) fun.convert-px(5)
+          fun.convert-px(1) var(--color-shadow-light);
+      color: var(--color-primary-light);
+      transform: translateX(#{fun.convert-px(-3)})
+        translateY(#{fun.convert-px(-5)});
+    }
+
+    &:focus:not(:hover) {
+      text-decoration: underline var(--color-primary) fun.convert-px(2);
+    }
+
+    &:active,
+    &[aria-pressed="true"] {
+      box-shadow: 0 0 0 0 var(--color-shadow);
+      transform: translateX(#{fun.convert-px(5)})
+        translateY(#{fun.convert-px(6)});
+    }
+  }
+}
+
+%circle-or-square-button {
+  width: min-content;
+  padding: var(--spacing-md);
+  aspect-ratio: 1 / 1;
+}
+
+%circle-button {
+  @extend %circle-or-square-button;
+
+  border-radius: 50%;
+}
+
+%rectangle-button {
+  padding: var(--spacing-2xs) var(--spacing-sm);
+}
+
+%square-button {
+  @extend %circle-or-square-button;
+}

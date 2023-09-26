@@ -85,13 +85,11 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         ? { date: dates.update }
         : undefined,
     readingTime,
-    thematics: thematics
-      ? thematics.map((thematic) => (
-          <Link key={thematic.id} href={thematic.url}>
-            {thematic.name}
-          </Link>
-        ))
-      : undefined,
+    thematics: thematics?.map((thematic) => (
+      <Link key={thematic.id} href={thematic.url}>
+        {thematic.name}
+      </Link>
+    )),
   };
 
   const footerMetaLabel = intl.formatMessage({
@@ -104,7 +102,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     custom: topics && {
       label: footerMetaLabel,
       value: topics.map((topic) => (
-        <ButtonLink key={topic.id} target={topic.url} className={styles.btn}>
+        <ButtonLink className={styles.btn} key={topic.id} to={topic.url}>
           {topic.logo ? <ResponsiveImage {...topic.logo} /> : null} {topic.name}
         </ButtonLink>
       )),

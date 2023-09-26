@@ -40,7 +40,7 @@ const CodingLinks: FC = () => {
     {
       id: 'web-development',
       value: (
-        <ButtonLink target={ROUTES.THEMATICS.WEB_DEV}>
+        <ButtonLink to={ROUTES.THEMATICS.WEB_DEV}>
           {intl.formatMessage({
             defaultMessage: 'Web development',
             description: 'HomePage: link to web development thematic',
@@ -52,7 +52,7 @@ const CodingLinks: FC = () => {
     {
       id: 'projects',
       value: (
-        <ButtonLink target={ROUTES.PROJECTS}>
+        <ButtonLink to={ROUTES.PROJECTS}>
           {intl.formatMessage({
             defaultMessage: 'Projects',
             description: 'HomePage: link to projects',
@@ -82,7 +82,7 @@ const ColdarkRepos: FC = () => {
     {
       id: 'coldark-github',
       value: (
-        <ButtonLink target={repo.github} external={true}>
+        <ButtonLink isExternal to={repo.github}>
           {intl.formatMessage({
             defaultMessage: 'Github',
             description: 'HomePage: Github link',
@@ -94,7 +94,7 @@ const ColdarkRepos: FC = () => {
     {
       id: 'coldark-gitlab',
       value: (
-        <ButtonLink target={repo.gitlab} external={true}>
+        <ButtonLink isExternal to={repo.gitlab}>
           {intl.formatMessage({
             defaultMessage: 'Gitlab',
             description: 'HomePage: Gitlab link',
@@ -120,7 +120,7 @@ const LibreLinks: FC = () => {
     {
       id: 'free',
       value: (
-        <ButtonLink target={ROUTES.THEMATICS.FREE}>
+        <ButtonLink to={ROUTES.THEMATICS.FREE}>
           {intl.formatMessage({
             defaultMessage: 'Free',
             description: 'HomePage: link to free thematic',
@@ -132,7 +132,7 @@ const LibreLinks: FC = () => {
     {
       id: 'linux',
       value: (
-        <ButtonLink target={ROUTES.THEMATICS.LINUX}>
+        <ButtonLink to={ROUTES.THEMATICS.LINUX}>
           {intl.formatMessage({
             defaultMessage: 'Linux',
             description: 'HomePage: link to Linux thematic',
@@ -159,7 +159,7 @@ const ShaarliLink: FC = () => {
     {
       id: 'shaarli',
       value: (
-        <ButtonLink target={shaarliUrl}>
+        <ButtonLink isExternal to={shaarliUrl}>
           {intl.formatMessage({
             defaultMessage: 'Shaarli',
             description: 'HomePage: link to Shaarli',
@@ -186,7 +186,7 @@ const MoreLinks: FC = () => {
     {
       id: 'contact-me',
       value: (
-        <ButtonLink target={ROUTES.CONTACT}>
+        <ButtonLink to={ROUTES.CONTACT}>
           <Envelop aria-hidden={true} className={styles.icon} />
           {intl.formatMessage({
             defaultMessage: 'Contact me',
@@ -199,7 +199,7 @@ const MoreLinks: FC = () => {
     {
       id: 'rss-feed',
       value: (
-        <ButtonLink target={ROUTES.RSS}>
+        <ButtonLink to={ROUTES.RSS}>
           <FeedIcon aria-hidden={true} className={feedIconClass} />
           {intl.formatMessage({
             defaultMessage: 'Subscribe',

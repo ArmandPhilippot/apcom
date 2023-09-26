@@ -236,7 +236,7 @@ export const Layout: FC<LayoutProps> = ({
         <div className={styles['noscript-spacing']} />
       </noscript>
       <span ref={topRef} tabIndex={-1} />
-      <ButtonLink target="#main" className="screen-reader-text">
+      <ButtonLink className="screen-reader-text" to="#main">
         {skipToContent}
       </ButtonLink>
       <Header

@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Button } from './button';
 
 /**
@@ -8,23 +8,9 @@ export default {
   title: 'Atoms/Buttons/Button',
   component: Button,
   args: {
-    disabled: false,
     type: 'button',
   },
   argTypes: {
-    'aria-label': {
-      control: {
-        type: 'text',
-      },
-      description: 'An accessible label.',
-      table: {
-        category: 'Accessibility',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     children: {
       control: {
         type: 'text',
@@ -35,24 +21,40 @@ export default {
         required: true,
       },
     },
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the button wrapper.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    disabled: {
+    isDisabled: {
       control: {
         type: 'boolean',
       },
-      description: 'Render button as disabled.',
+      description: 'Should the button be disabled?',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
+    isLoading: {
+      control: {
+        type: 'boolean',
+      },
+      description:
+        'Should the button be disabled because it is loading something?',
+      table: {
+        category: 'Options',
+        defaultValue: { summary: false },
+      },
+      type: {
+        name: 'boolean',
+        required: false,
+      },
+    },
+    isPressed: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Define if the button is currently pressed.',
       table: {
         category: 'Options',
         defaultValue: { summary: false },
@@ -123,28 +125,10 @@ export default {
   },
 } as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = (args) => {
-  const { children, type, ...props } = args;
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-  const getBody = () => {
-    if (children) return children;
-
-    switch (type) {
-      case 'reset':
-        return 'Reset';
-      case 'submit':
-        return 'Submit';
-      case 'button':
-      default:
-        return 'Button';
-    }
-  };
-
-  return (
-    <Button type={type} {...props}>
-      {getBody()}
-    </Button>
-  );
+const logClick = () => {
+  console.log('Button has been clicked!');
 };
 
 /**
@@ -152,7 +136,9 @@ const Template: ComponentStory<typeof Button> = (args) => {
  */
 export const Primary = Template.bind({});
 Primary.args = {
+  children: 'Click on the button',
   kind: 'primary',
+  onClick: logClick,
 };
 
 /**
@@ -160,7 +146,9 @@ Primary.args = {
  */
 export const Secondary = Template.bind({});
 Secondary.args = {
+  children: 'Click on the button',
   kind: 'secondary',
+  onClick: logClick,
 };
 
 /**
@@ -168,5 +156,17 @@ Secondary.args = {
  */
 export const Tertiary = Template.bind({});
 Tertiary.args = {
+  children: 'Click on the button',
   kind: 'tertiary',
+  onClick: logClick,
+};
+
+/**
+ * Button Story - Neutral
+ */
+export const Neutral = Template.bind({});
+Neutral.args = {
+  children: 'Click on the button',
+  kind: 'neutral',
+  onClick: logClick,
 };

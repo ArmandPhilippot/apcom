@@ -1,22 +1,37 @@
 import {
-  ButtonHTMLAttributes,
+  type ButtonHTMLAttributes,
   forwardRef,
-  ForwardRefRenderFunction,
-  ReactNode,
+  type ForwardRefRenderFunction,
+  type ReactNode,
 } from 'react';
-import styles from './buttons.module.scss';
+import styles from './button.module.scss';
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'aria-busy' | 'aria-disabled' | 'aria-pressed' | 'aria-selected' | 'disabled'
+> & {
   /**
    * The button body.
    */
   children: ReactNode;
   /**
-   * Button state.
+   * Should the button be disabled?
    *
-   * @default false
+   * @default undefined
    */
-  disabled?: boolean;
+  isDisabled?: boolean;
+  /**
+   * Is the button already executing some action?
+   *
+   * @default undefined
+   */
+  isLoading?: boolean;
+  /**
+   * Is the button a toggle and is it currently pressed?
+   *
+   * @default undefined
+   */
+  isPressed?: boolean;
   /**
    * Button kind.
    *
@@ -44,7 +59,9 @@ const ButtonWithRef: ForwardRefRenderFunction<
   {
     className = '',
     children,
-    disabled = false,
+    isPressed,
+    isDisabled,
+    isLoading,
     kind = 'secondary',
     shape = 'rectangle',
     type = 'button',
@@ -59,9 +76,13 @@ const ButtonWithRef: ForwardRefRenderFunction<
   return (
     <button
       {...props}
+      aria-busy={isLoading}
+      aria-disabled={isDisabled}
+      aria-pressed={isPressed}
       className={btnClass}
-      disabled={disabled}
+      disabled={isDisabled ?? isLoading}
       ref={ref}
+      // eslint-disable-next-line react/button-has-type -- Default value is set.
       type={type}
     >
       {children}

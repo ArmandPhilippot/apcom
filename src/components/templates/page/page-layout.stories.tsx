@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ButtonLink, Heading, Link } from '../../atoms';
 import { LinksListWidget, PostsList, Sharing } from '../../organisms';
 import { comments } from '../../organisms/layout/comments-list.fixture';
@@ -287,7 +287,7 @@ Post.args = {
   footerMeta: {
     custom: {
       label: 'Read more about:',
-      value: <ButtonLink target="#">Topic 1</ButtonLink>,
+      value: <ButtonLink to="#">Topic 1</ButtonLink>,
     },
   },
   children: (
@@ -335,7 +335,7 @@ Post.args = {
     />,
   ],
   withToC: true,
-  comments: comments,
+  comments,
   allowComments: true,
 };
 
@@ -363,14 +363,12 @@ Blog.args = {
   title: 'Blog',
   headerMeta: { total: posts.length },
   children: (
-    <>
-      <PostsList
-        posts={posts}
-        byYear={true}
-        total={posts.length}
-        searchPage="#"
-      />
-    </>
+    <PostsList
+      posts={posts}
+      byYear={true}
+      total={posts.length}
+      searchPage="#"
+    />
   ),
   widgets: [
     <LinksListWidget

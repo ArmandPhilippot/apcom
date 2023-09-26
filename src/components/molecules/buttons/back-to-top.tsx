@@ -1,13 +1,13 @@
-import { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
-import { Arrow, ButtonLink, type ButtonLinkProps } from '../../atoms';
+import { Arrow, ButtonLink } from '../../atoms';
 import styles from './back-to-top.module.scss';
 
-export type BackToTopProps = Pick<ButtonLinkProps, 'target'> & {
+export type BackToTopProps = HTMLAttributes<HTMLDivElement> & {
   /**
-   * Set additional classnames to the button wrapper.
+   * Define the element id to us as anchor.
    */
-  className?: string;
+  to: string;
 };
 
 /**
@@ -15,23 +15,31 @@ export type BackToTopProps = Pick<ButtonLinkProps, 'target'> & {
  *
  * Render a back to top link.
  */
-export const BackToTop: FC<BackToTopProps> = ({ className = '', target }) => {
+export const BackToTop: FC<BackToTopProps> = ({
+  className = '',
+  to,
+  ...props
+}) => {
   const intl = useIntl();
   const linkName = intl.formatMessage({
     defaultMessage: 'Back to top',
     description: 'BackToTop: link text',
     id: 'm+SUSR',
   });
+  const btnClass = `${styles.wrapper} ${className}`;
+  const anchor = `#${to}`;
 
   return (
-    <div className={`${styles.wrapper} ${className}`}>
+    <div {...props} className={btnClass}>
       <ButtonLink
-        shape="square"
-        target={`#${target}`}
         aria-label={linkName}
         className={styles.link}
+        // eslint-disable-next-line react/jsx-no-literals -- Shape allowed
+        shape="square"
+        to={anchor}
       >
-        <Arrow aria-hidden={true} direction="top" />
+        {/* eslint-disable-next-line react/jsx-no-literals -- Direction allowed */}
+        <Arrow aria-hidden direction="top" />
       </ButtonLink>
     </div>
   );

@@ -1,4 +1,5 @@
-import { FC, Fragment, useRef } from 'react';
+/* eslint-disable max-statements */
+import { type FC, Fragment, useRef, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { useIsMounted, useSettings } from '../../../utils/hooks';
 import {
@@ -20,9 +21,7 @@ export type Post = Omit<SummaryProps, 'titleLevel'> & {
   id: string | number;
 };
 
-export type YearCollection = {
-  [key: string]: Post[];
-};
+export type YearCollection = Record<string, Post[]>;
 
 export type PostsListProps = Pick<PaginationProps, 'baseUrl' | 'siblings'> &
   Pick<NoResultsProps, 'searchPage'> & {
@@ -67,16 +66,16 @@ export type PostsListProps = Pick<PaginationProps, 'baseUrl' | 'siblings'> &
  * @returns {YearCollection} The posts sorted by year.
  */
 const sortPostsByYear = (data: Post[]): YearCollection => {
-  const yearCollection: YearCollection = {};
+  const yearCollection: Partial<YearCollection> = {};
 
   data.forEach((post) => {
     const postYear = new Date(post.meta.dates.publication)
       .getFullYear()
       .toString();
-    yearCollection[postYear] = [...(yearCollection[postYear] || []), post];
+    yearCollection[postYear] = [...(yearCollection[postYear] ?? []), post];
   });
 
-  return yearCollection;
+  return yearCollection as YearCollection;
 };
 
 /**
@@ -102,7 +101,6 @@ export const PostsList: FC<PostsListProps> = ({
   const lastPostRef = useRef<HTMLSpanElement>(null);
   const isMounted = useIsMounted(listRef);
   const { blog } = useSettings();
-
   const lastPostId = posts.length ? posts[posts.length - 1].id : 0;
 
   /**
@@ -115,24 +113,22 @@ export const PostsList: FC<PostsListProps> = ({
   const getList = (
     allPosts: Post[],
     headingLevel: HeadingLevel = 2
-  ): JSX.Element => {
-    return (
-      <ol className={styles.list} ref={listRef}>
-        {allPosts.map(({ id, ...post }) => (
-          <Fragment key={id}>
-            <li className={styles.item}>
-              <Summary {...post} titleLevel={headingLevel} />
+  ): JSX.Element => (
+    <ol className={styles.list} ref={listRef}>
+      {allPosts.map(({ id, ...post }) => (
+        <Fragment key={id}>
+          <li className={styles.item}>
+            <Summary {...post} titleLevel={headingLevel} />
+          </li>
+          {id === lastPostId && (
+            <li>
+              <span ref={lastPostRef} tabIndex={-1} />
             </li>
-            {id === lastPostId && (
-              <li>
-                <span ref={lastPostRef} tabIndex={-1} />
-              </li>
-            )}
-          </Fragment>
-        ))}
-      </ol>
-    );
-  };
+          )}
+        </Fragment>
+      ))}
+    </ol>
+  );
 
   /**
    * Retrieve the list of posts.
@@ -140,23 +136,21 @@ export const PostsList: FC<PostsListProps> = ({
    * @returns {JSX.Element | JSX.Element[]} The posts list.
    */
   const getPosts = (): JSX.Element | JSX.Element[] => {
-    const firstLevel = titleLevel || 2;
+    const firstLevel = titleLevel ?? 2;
     if (!byYear) return getList(posts, firstLevel);
 
     const postsPerYear = sortPostsByYear(posts);
     const years = Object.keys(postsPerYear).reverse();
     const nextLevel = (firstLevel + 1) as HeadingLevel;
 
-    return years.map((year) => {
-      return (
-        <section key={year} className={styles.section}>
-          <Heading level={firstLevel} className={styles.year}>
-            {year}
-          </Heading>
-          {getList(postsPerYear[year], nextLevel)}
-        </section>
-      );
-    });
+    return years.map((year) => (
+      <section key={year} className={styles.section}>
+        <Heading level={firstLevel} className={styles.year}>
+          {year}
+        </Heading>
+        {getList(postsPerYear[year], nextLevel)}
+      </section>
+    ));
   };
 
   const progressInfo = intl.formatMessage(
@@ -166,7 +160,7 @@ export const PostsList: FC<PostsListProps> = ({
       description: 'PostsList: loaded articles progress',
       id: '9MeLN3',
     },
-    { articlesCount: posts.length, total: total }
+    { articlesCount: posts.length, total }
   );
 
   const loadMoreBody = intl.formatMessage({
@@ -178,41 +172,43 @@ export const PostsList: FC<PostsListProps> = ({
   /**
    * Load more posts handler.
    */
-  const loadMorePosts = () => {
+  const loadMorePosts = useCallback(() => {
     if (lastPostRef.current) {
       lastPostRef.current.focus();
     }
 
-    loadMore && loadMore();
-  };
+    if (loadMore) loadMore();
+  }, [loadMore]);
 
-  const getProgressBar = () => {
-    return (
-      <>
-        <ProgressBar
-          aria-label={progressInfo}
-          current={posts.length}
-          id="loaded-posts"
-          label={progressInfo}
-          min={1}
-          max={total}
-        />
-        {showLoadMoreBtn && (
-          <Button
-            kind="tertiary"
-            onClick={loadMorePosts}
-            disabled={isLoading}
-            className={styles.btn}
-          >
-            {loadMoreBody}
-          </Button>
-        )}
-      </>
-    );
-  };
+  const getProgressBar = () => (
+    <>
+      <ProgressBar
+        aria-label={progressInfo}
+        current={posts.length}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed.
+        id="loaded-posts"
+        label={progressInfo}
+        min={1}
+        max={total}
+      />
+      {showLoadMoreBtn ? (
+        <Button
+          className={styles.btn}
+          isDisabled={isLoading}
+          // eslint-disable-next-line react/jsx-no-literals -- Kind allowed.
+          kind="tertiary"
+          onClick={loadMorePosts}
+        >
+          {loadMoreBody}
+        </Button>
+      ) : null}
+    </>
+  );
 
   const getPagination = () => {
-    return posts.length <= blog.postsPerPage ? (
+    if (posts.length < blog.postsPerPage) return null;
+
+    return (
       <Pagination
         baseUrl={baseUrl}
         current={pageNumber}
@@ -220,19 +216,15 @@ export const PostsList: FC<PostsListProps> = ({
         siblings={siblings}
         total={total}
       />
-    ) : (
-      <></>
     );
   };
 
-  if (posts.length === 0) {
-    return <NoResults searchPage={searchPage} />;
-  }
+  if (posts.length === 0) return <NoResults searchPage={searchPage} />;
 
   return (
     <>
       {getPosts()}
-      {isLoading && <Spinner />}
+      {isLoading ? <Spinner /> : null}
       {isMounted ? getProgressBar() : getPagination()}
     </>
   );
