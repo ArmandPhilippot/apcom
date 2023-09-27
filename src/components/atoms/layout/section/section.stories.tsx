@@ -1,4 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Heading } from '../../headings';
 import { Section } from './section';
 
 /**
@@ -8,41 +9,29 @@ export default {
   title: 'Atoms/Layout/Section',
   component: Section,
   args: {
-    variant: 'dark',
-    withBorder: true,
+    hasBorder: true,
+    variant: 'light',
   },
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the section element.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    content: {
-      control: {
-        type: 'text',
-      },
+    children: {
       description: 'The section content.',
       type: {
-        name: 'string',
+        name: 'function',
         required: true,
       },
     },
-    title: {
+    hasBorder: {
       control: {
-        type: 'text',
+        type: 'boolean',
       },
-      description: 'The section title.',
+      description: 'Add a border at the bottom of the section.',
+      table: {
+        category: 'Styles',
+        defaultValue: { summary: false },
+      },
       type: {
-        name: 'string',
-        required: true,
+        name: 'boolean',
+        required: false,
       },
     },
     variant: {
@@ -60,20 +49,6 @@ export default {
         required: false,
       },
     },
-    withBorder: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Add a border at the bottom of the section.',
-      table: {
-        category: 'Styles',
-        defaultValue: { summary: true },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
   },
 } as ComponentMeta<typeof Section>;
 
@@ -86,8 +61,12 @@ const Template: ComponentStory<typeof Section> = (args) => (
  */
 export const Light = Template.bind({});
 Light.args = {
-  title: 'A title',
-  content: 'The content.',
+  children: (
+    <>
+      <Heading level={2}>A section title</Heading>
+      <div>The body</div>
+    </>
+  ),
   variant: 'light',
 };
 
@@ -96,7 +75,11 @@ Light.args = {
  */
 export const Dark = Template.bind({});
 Dark.args = {
-  title: 'A title',
-  content: 'The content.',
+  children: (
+    <>
+      <Heading level={2}>A section title</Heading>
+      <div>The body</div>
+    </>
+  ),
   variant: 'dark',
 };

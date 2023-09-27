@@ -2,7 +2,7 @@ import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
-import { type FC, type ReactNode, isValidElement } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
 import FeedIcon from '../assets/images/icon-feed.svg';
 import {
@@ -226,24 +226,15 @@ const StyledColumns = (props: ColumnsProps) => (
  * @param {ReactNode[]} obj.children - The section body.
  * @returns {JSX.Element} A section element.
  */
-const getSection = ({
+const HomePageSection: FC<SectionProps> = ({
   children,
+  hasBorder = true,
   variant,
-}: {
-  children: ReactNode[];
-  variant: SectionProps['variant'];
-}): JSX.Element => {
-  const [headingEl, ...content] = children;
-
-  return (
-    <Section
-      className={styles.section}
-      content={content}
-      title={isValidElement(headingEl) ? headingEl.props.children : ''}
-      variant={variant}
-    />
-  );
-};
+}) => (
+  <Section className={styles.section} hasBorder={hasBorder} variant={variant}>
+    {children}
+  </Section>
+);
 
 type HomeProps = {
   recentPosts: ArticleCard[];
@@ -277,7 +268,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     });
     const listClass = `${styles.list} ${styles['list--cards']}`;
 
-    return <CardsList items={posts} titleLevel={3} className={listClass} />;
+    return <CardsList className={listClass} items={posts} titleLevel={3} />;
   };
 
   const components: MDXComponents = {
@@ -289,7 +280,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     LibreLinks,
     MoreLinks,
     RecentPosts: getRecentPosts,
-    Section: getSection,
+    Section: HomePageSection,
     ShaarliLink,
   };
 
