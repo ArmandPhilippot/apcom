@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
 import { Envelop, Home } from '../../atoms';
-import { Nav, type NavItem } from './nav';
+import { NavList, type NavItem } from './nav-list';
 
 const navItems: NavItem[] = [
   { id: 'homeLink', href: '/', label: 'Home', logo: <Home /> },
@@ -10,19 +10,19 @@ const navItems: NavItem[] = [
 
 describe('Nav', () => {
   it('renders a main navigation', () => {
-    render(<Nav kind="main" items={navItems} />);
-    expect(screen.getByRole('navigation')).toHaveClass('nav--main');
+    render(<NavList kind="main" items={navItems} />);
+    expect(rtlScreen.getByRole('navigation')).toHaveClass('nav--main');
   });
 
   it('renders a footer navigation', () => {
-    render(<Nav kind="footer" items={navItems} />);
-    expect(screen.getByRole('navigation')).toHaveClass('nav--footer');
+    render(<NavList kind="footer" items={navItems} />);
+    expect(rtlScreen.getByRole('navigation')).toHaveClass('nav--footer');
   });
 
   it('renders navigation links', () => {
-    render(<Nav kind="main" items={navItems} />);
+    render(<NavList kind="main" items={navItems} />);
     expect(
-      screen.getByRole('link', { name: navItems[0].label })
+      rtlScreen.getByRole('link', { name: navItems[0].label })
     ).toHaveAttribute('href', navItems[0].href);
   });
 });

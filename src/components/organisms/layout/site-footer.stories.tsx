@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Footer as FooterComponent } from './footer';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { SiteFooter as SiteFooterComponent } from './site-footer';
 
 /**
- * Footer - Storybook Meta
+ * SiteFooter - Storybook Meta
  */
 export default {
   title: 'Organisms/Layout',
-  component: FooterComponent,
+  component: SiteFooterComponent,
   argTypes: {
     backToTopClassName: {
       control: {
@@ -65,10 +65,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof FooterComponent>;
+} as ComponentMeta<typeof SiteFooterComponent>;
 
-const Template: ComponentStory<typeof FooterComponent> = (args) => (
-  <FooterComponent {...args} />
+const Template: ComponentStory<typeof SiteFooterComponent> = (args) => (
+  <SiteFooterComponent {...args} />
 );
 
 const copyright = {
@@ -80,10 +80,10 @@ const copyright = {
 const navItems = [{ id: 'legal-notice', href: '#', label: 'Legal notice' }];
 
 /**
- * Layout Stories - Footer
+ * Layout Stories - SiteFooter
  */
-export const Footer = Template.bind({});
-Footer.args = {
+export const SiteFooter = Template.bind({});
+SiteFooter.args = {
   copyright,
   navItems,
   topId: 'top',

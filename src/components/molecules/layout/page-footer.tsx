@@ -1,11 +1,8 @@
-import { FC } from 'react';
-import { Meta, MetaData } from './meta';
+import type { FC } from 'react';
+import { Footer, type FooterProps } from '../../atoms';
+import { Meta, type MetaData } from './meta';
 
-export type PageFooterProps = {
-  /**
-   * Set additional classnames to the footer element.
-   */
-  className?: string;
+export type PageFooterProps = Omit<FooterProps, 'children'> & {
   /**
    * The footer metadata.
    */
@@ -15,12 +12,10 @@ export type PageFooterProps = {
 /**
  * PageFooter component
  *
- * Render a footer element to display page meta.
+ * Render a footer to display page meta.
  */
-export const PageFooter: FC<PageFooterProps> = ({ meta, ...props }) => {
-  return (
-    <footer {...props}>
-      {meta && <Meta data={meta} withSeparator={false} />}
-    </footer>
-  );
-};
+export const PageFooter: FC<PageFooterProps> = ({ meta, ...props }) => (
+  <Footer {...props}>
+    {meta ? <Meta data={meta} withSeparator={false} /> : null}
+  </Footer>
+);

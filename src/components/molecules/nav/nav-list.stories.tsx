@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Envelop, Home } from '../../atoms';
-import { Nav, type NavItem } from './nav';
+import { NavList, type NavItem } from './nav-list';
 
 /**
  * Nav - Storybook Meta
  */
 export default {
   title: 'Molecules/Navigation/Nav',
-  component: Nav,
+  component: NavList,
   argTypes: {
     'aria-label': {
       control: {
@@ -71,9 +71,11 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Nav>;
+} as ComponentMeta<typeof NavList>;
 
-const Template: ComponentStory<typeof Nav> = (args) => <Nav {...args} />;
+const Template: ComponentStory<typeof NavList> = (args) => (
+  <NavList {...args} />
+);
 
 const MainNavItems: NavItem[] = [
   { id: 'homeLink', href: '/', label: 'Home', logo: <Home /> },

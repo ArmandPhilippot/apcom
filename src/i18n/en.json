@@ -415,10 +415,6 @@
     "defaultMessage": "CC BY SA",
     "description": "CCBySA: icon title"
   },
-  "d4N8nD": {
-    "defaultMessage": "Footer",
-    "description": "Footer: an accessible name for footer nav"
-  },
   "dDK5oc": {
     "defaultMessage": "{website} picture",
     "description": "Branding: photo alternative text"
@@ -522,6 +518,10 @@
   "og/zWL": {
     "defaultMessage": "Dark theme",
     "description": "PrismThemeToggle: dark theme label"
+  },
+  "pRzkFR": {
+    "defaultMessage": "Footer",
+    "description": "SiteFooter: an accessible name for the footer nav"
   },
   "pWKyyR": {
     "defaultMessage": "Off",

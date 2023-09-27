@@ -28,10 +28,10 @@ import {
   PostsStack,
 } from '../../atoms';
 import {
-  Footer,
-  type FooterProps,
-  Header,
-  type HeaderProps,
+  SiteFooter,
+  type SiteFooterProps,
+  SiteHeader,
+  type SiteHeaderProps,
 } from '../../organisms';
 import styles from './layout.module.scss';
 
@@ -39,7 +39,7 @@ export type QueryAction = SearchAction & {
   'query-input': string;
 };
 
-export type LayoutProps = Pick<HeaderProps, 'isHome'> & {
+export type LayoutProps = Pick<SiteHeaderProps, 'isHome'> & {
   /**
    * The layout main content.
    */
@@ -118,7 +118,7 @@ export const Layout: FC<LayoutProps> = ({
     id: 'AE4kCD',
   });
 
-  const mainNav: HeaderProps['nav'] = [
+  const mainNav: SiteHeaderProps['nav'] = [
     {
       id: 'home',
       label: homeLabel,
@@ -157,7 +157,7 @@ export const Layout: FC<LayoutProps> = ({
     id: 'nwbzKm',
   });
 
-  const footerNav: FooterProps['navItems'] = [
+  const footerNav: SiteFooterProps['navItems'] = [
     { id: 'legal-notice', label: legalNoticeLabel, href: ROUTES.LEGAL_NOTICE },
   ];
 
@@ -239,7 +239,7 @@ export const Layout: FC<LayoutProps> = ({
       <ButtonLink className="screen-reader-text" to="#main">
         {skipToContent}
       </ButtonLink>
-      <Header
+      <SiteHeader
         // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
         ackeeStorageKey="ackee-tracking"
         baseline={baseline}
@@ -261,7 +261,7 @@ export const Layout: FC<LayoutProps> = ({
           {children}
         </article>
       </Main>
-      <Footer
+      <SiteFooter
         backToTopClassName={backToTopClassName}
         className={styles.footer}
         copyright={copyrightData}

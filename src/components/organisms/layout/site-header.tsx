@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import type { FC } from 'react';
+import { Header } from '../../atoms';
 import { Branding, type BrandingProps } from '../../molecules';
 import { Toolbar, type ToolbarProps } from '../toolbar';
-import styles from './header.module.scss';
+import styles from './site-header.module.scss';
 
-export type HeaderProps = BrandingProps &
+export type SiteHeaderProps = BrandingProps &
   Pick<
     ToolbarProps,
     'ackeeStorageKey' | 'motionStorageKey' | 'nav' | 'searchPage'
@@ -15,11 +16,11 @@ export type HeaderProps = BrandingProps &
   };
 
 /**
- * Header component
+ * SiteHeader component
  *
  * Render the website header.
  */
-export const Header: FC<HeaderProps> = ({
+export const SiteHeader: FC<SiteHeaderProps> = ({
   ackeeStorageKey,
   className,
   motionStorageKey,
@@ -27,8 +28,10 @@ export const Header: FC<HeaderProps> = ({
   searchPage,
   ...props
 }) => {
+  const headerClass = `${styles.wrapper} ${className}`;
+
   return (
-    <header className={`${styles.wrapper} ${className}`}>
+    <Header className={headerClass}>
       <div className={styles.body}>
         <Branding {...props} />
         <Toolbar
@@ -39,6 +42,6 @@ export const Header: FC<HeaderProps> = ({
           searchPage={searchPage}
         />
       </div>
-    </header>
+    </Header>
   );
 };

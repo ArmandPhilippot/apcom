@@ -1,3 +1,3 @@
 export * from './breadcrumb';
-export * from './nav';
+export * from './nav-list';
 export * from './pagination';

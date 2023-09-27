@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Main as MainComponent } from './main';
 
 /**
@@ -54,5 +54,4 @@ const Template: ComponentStory<typeof MainComponent> = (args) => (
 export const Main = Template.bind({});
 Main.args = {
   children: 'The main content.',
-  id: '#main',
 };

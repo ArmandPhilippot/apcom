@@ -8,3 +8,4 @@ export * from './links';
 export * from './lists';
 export * from './loaders';
 export * from './modal';
+export * from './sidebar';

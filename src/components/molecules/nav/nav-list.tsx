@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
-import { Link, NavLink } from '../../atoms';
-import styles from './nav.module.scss';
+import type { FC, ReactNode } from 'react';
+import { Link, Nav, NavLink, type NavProps } from '../../atoms';
+import styles from './nav-list.module.scss';
 
 export type NavItem = {
   /**
@@ -21,15 +21,7 @@ export type NavItem = {
   logo?: ReactNode;
 };
 
-export type NavProps = {
-  /**
-   * An accessible name.
-   */
-  'aria-label'?: string;
-  /**
-   * Set additional classnames to the navigation wrapper.
-   */
-  className?: string;
+export type NavListProps = Omit<NavProps, 'children'> & {
   /**
    * The navigation items.
    */
@@ -49,7 +41,7 @@ export type NavProps = {
  *
  * Render the nav links.
  */
-export const Nav: FC<NavProps> = ({
+export const NavList: FC<NavListProps> = ({
   className = '',
   items,
   kind,
@@ -57,13 +49,15 @@ export const Nav: FC<NavProps> = ({
   ...props
 }) => {
   const kindClass = `nav--${kind}`;
+  const navClass = `${styles[kindClass]} ${className}`;
+  const listClass = `${styles.nav__list} ${listClassName}`;
 
   /**
    * Get the nav items.
    * @returns {JSX.Element[]} An array of nav items.
    */
-  const getItems = (): JSX.Element[] => {
-    return items.map(({ id, href, label, logo }) => (
+  const getItems = (): JSX.Element[] =>
+    items.map(({ id, href, label, logo }) => (
       <li key={id} className={styles.nav__item}>
         {kind === 'main' ? (
           <NavLink href={href} label={label} logo={logo} />
@@ -72,11 +66,10 @@ export const Nav: FC<NavProps> = ({
         )}
       </li>
     ));
-  };
 
   return (
-    <nav {...props} className={`${styles[kindClass]} ${className}`}>
-      <ul className={`${styles.nav__list} ${listClassName}`}>{getItems()}</ul>
-    </nav>
+    <Nav {...props} className={navClass}>
+      <ul className={listClass}>{getItems()}</ul>
+    </Nav>
   );
 };

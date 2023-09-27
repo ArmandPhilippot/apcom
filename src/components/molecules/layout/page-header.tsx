@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { Heading } from '../../atoms';
+import { Header, Heading } from '../../atoms';
 import { Meta, type MetaData } from './meta';
 import styles from './page-header.module.scss';
 
@@ -50,7 +50,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   };
 
   return (
-    <header className={headerClass}>
+    <Header className={headerClass}>
       <div className={styles.body}>
         <Heading className={styles.title} level={1}>
           {title}
@@ -67,6 +67,6 @@ export const PageHeader: FC<PageHeaderProps> = ({
         ) : null}
         {intro ? getIntro() : null}
       </div>
-    </header>
+    </Header>
   );
 };

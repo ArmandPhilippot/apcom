@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
-import { Header } from './header';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { SiteHeader } from './site-header';
 
 const nav = [
   { id: 'home-link', href: '#', label: 'Home' },
@@ -13,10 +13,10 @@ const photo = 'http://placeimg.com/640/480/nightlife';
 
 const title = 'Assumenda quis quod';
 
-describe('Header', () => {
+describe('SiteHeader', () => {
   it('renders the website title', () => {
     render(
-      <Header
+      <SiteHeader
         ackeeStorageKey="ackee-tracking"
         isHome={true}
         motionStorageKey="reduced-motion"
@@ -27,13 +27,13 @@ describe('Header', () => {
       />
     );
     expect(
-      screen.getByRole('heading', { level: 1, name: title })
+      rtlScreen.getByRole('heading', { level: 1, name: title })
     ).toBeInTheDocument();
   });
 
   it('renders the main nav', () => {
     render(
-      <Header
+      <SiteHeader
         ackeeStorageKey="ackee-tracking"
         motionStorageKey="reduced-motion"
         nav={nav}
@@ -42,6 +42,6 @@ describe('Header', () => {
         title={title}
       />
     );
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('navigation')).toBeInTheDocument();
   });
 });

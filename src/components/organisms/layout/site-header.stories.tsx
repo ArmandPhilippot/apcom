@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Header as HeaderComponent } from './header';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { SiteHeader as SiteHeaderComponent } from './site-header';
 
 /**
- * Header - Storybook Meta
+ * SiteHeader - Storybook Meta
  */
 export default {
   title: 'Organisms/Layout',
-  component: HeaderComponent,
+  component: SiteHeaderComponent,
   args: {
     ackeeStorageKey: 'ackee-tracking',
     isHome: false,
@@ -129,10 +129,10 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof HeaderComponent>;
+} as ComponentMeta<typeof SiteHeaderComponent>;
 
-const Template: ComponentStory<typeof HeaderComponent> = (args) => (
-  <HeaderComponent {...args} />
+const Template: ComponentStory<typeof SiteHeaderComponent> = (args) => (
+  <SiteHeaderComponent {...args} />
 );
 
 const nav = [
@@ -143,10 +143,10 @@ const nav = [
 ];
 
 /**
- * Layout Stories - Header
+ * Layout Stories - SiteHeader
  */
-export const Header = Template.bind({});
-Header.args = {
+export const SiteHeader = Template.bind({});
+SiteHeader.args = {
   nav,
   photo: 'http://placeimg.com/640/480/people',
   title: 'Website title',

@@ -1,4 +1,4 @@
-import { forwardRef, ForwardRefRenderFunction } from 'react';
+import { forwardRef, type ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
 import {
   BooleanField,
@@ -6,7 +6,7 @@ import {
   Hamburger,
   Label,
 } from '../../atoms';
-import { Nav, type NavProps, type NavItem } from '../../molecules';
+import { NavList, type NavListProps, type NavItem } from '../../molecules';
 import mainNavStyles from './main-nav.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
 
@@ -14,7 +14,7 @@ export type MainNavProps = {
   /**
    * Set additional classnames to the nav element.
    */
-  className?: NavProps['className'];
+  className?: NavListProps['className'];
   /**
    * The button state.
    */
@@ -64,7 +64,7 @@ const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
       >
         <Hamburger iconClassName={mainNavStyles.icon} />
       </Label>
-      <Nav
+      <NavList
         className={`${sharedStyles.modal} ${mainNavStyles.modal} ${className}`}
         items={items}
         kind="main"
