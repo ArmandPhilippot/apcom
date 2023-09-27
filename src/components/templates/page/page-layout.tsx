@@ -1,15 +1,22 @@
 import Script from 'next/script';
-import { FC, HTMLAttributes, ReactNode, useRef, useState } from 'react';
+import {
+  type FC,
+  type HTMLAttributes,
+  type ReactNode,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
 import { useIntl } from 'react-intl';
-import { BreadcrumbList } from 'schema-dts';
+import type { BreadcrumbList } from 'schema-dts';
 import { sendComment } from '../../../services/graphql';
-import { SendCommentInput } from '../../../types';
+import type { Approved, SendCommentInput, SingleComment } from '../../../types';
 import { useIsMounted } from '../../../utils/hooks';
 import { Heading, Notice, type NoticeKind, Sidebar } from '../../atoms';
 import {
   Breadcrumb,
   type BreadcrumbItem,
-  MetaData,
+  type MetaData,
   PageFooter,
   type PageFooterProps,
   PageHeader,
@@ -23,6 +30,29 @@ import {
   TableOfContents,
 } from '../../organisms';
 import styles from './page-layout.module.scss';
+
+/**
+ * Check if there is at least one comment.
+ *
+ * @param {SingleComment[] | undefined} comments - The comments.
+ */
+const hasComments = (
+  comments: SingleComment[] | undefined
+): comments is SingleComment[] =>
+  Array.isArray(comments) && comments.length > 0;
+
+/**
+ * Check if meta properties are defined.
+ *
+ * @param {MetaData} meta - The metadata.
+ */
+const hasMeta = (meta: MetaData) => Object.values(meta).every((value) => value);
+
+type CommentStatus = {
+  isReply: boolean;
+  kind: NoticeKind;
+  message: string;
+};
 
 export type PageLayoutProps = {
   /**
@@ -118,67 +148,69 @@ export const PageLayout: FC<PageLayoutProps> = ({
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const isMounted = useIsMounted(bodyRef);
-  const hasComments = Array.isArray(comments) && comments.length > 0;
-  const [status, setStatus] = useState<NoticeKind>('info');
-  const [statusMessage, setStatusMessage] = useState<string>('');
-  const isReplyRef = useRef<boolean>(false);
+  const [commentStatus, setCommentStatus] = useState<CommentStatus | undefined>(
+    undefined
+  );
 
-  const saveComment: CommentFormProps['saveComment'] = async (data, reset) => {
-    if (!id) throw new Error('Page id missing. Cannot save comment.');
+  const isSuccessStatus = useCallback(
+    (comment: Approved | null, isReply: boolean, isSuccess: boolean) => {
+      if (isSuccess) {
+        const successPrefix = intl.formatMessage({
+          defaultMessage: 'Thanks, your comment was successfully sent.',
+          description: 'PageLayout: comment form success message',
+          id: 'B290Ph',
+        });
+        const successMessage = comment?.approved
+          ? intl.formatMessage({
+              defaultMessage: 'It has been approved.',
+              id: 'g3+Ahv',
+              description: 'PageLayout: comment approved.',
+            })
+          : intl.formatMessage({
+              defaultMessage: 'It is now awaiting moderation.',
+              id: 'Vmj5cw',
+              description: 'PageLayout: comment awaiting moderation',
+            });
+        setCommentStatus({
+          isReply,
+          kind: 'success',
+          message: `${successPrefix} ${successMessage}`,
+        });
+        return true;
+      }
 
-    const { author, comment: commentBody, email, parentId, website } = data;
-    const commentData: SendCommentInput = {
-      author,
-      authorEmail: email,
-      authorUrl: website ?? '',
-      clientMutationId: 'contact',
-      commentOn: id,
-      content: commentBody,
-      parent: parentId,
-    };
-    const { comment, success } = await sendComment(commentData);
-
-    isReplyRef.current = !!parentId;
-
-    if (success) {
-      setStatus('success');
-      const successPrefix = intl.formatMessage({
-        defaultMessage: 'Thanks, your comment was successfully sent.',
-        description: 'PageLayout: comment form success message',
-        id: 'B290Ph',
-      });
-      const successMessage = comment?.approved
-        ? intl.formatMessage({
-            defaultMessage: 'It has been approved.',
-            id: 'g3+Ahv',
-            description: 'PageLayout: comment approved.',
-          })
-        : intl.formatMessage({
-            defaultMessage: 'It is now awaiting moderation.',
-            id: 'Vmj5cw',
-            description: 'PageLayout: comment awaiting moderation',
-          });
-      setStatusMessage(`${successPrefix} ${successMessage}`);
-      reset();
-    } else {
       const error = intl.formatMessage({
         defaultMessage: 'An error occurred:',
         description: 'PageLayout: comment form error message',
         id: 'fkcTGp',
       });
-      setStatus('error');
-      setStatusMessage(error);
-    }
-  };
+      setCommentStatus({ isReply, kind: 'error', message: error });
+      return false;
+    },
+    [intl]
+  );
 
-  /**
-   * Check if meta properties are defined.
-   *
-   * @param {MetaData} meta - The metadata.
-   */
-  const hasMeta = (meta: MetaData) => {
-    return Object.values(meta).every((value) => value);
-  };
+  const saveComment: CommentFormProps['saveComment'] = useCallback(
+    async (data, reset) => {
+      if (!id) throw new Error('Page id missing. Cannot save comment.');
+
+      const { author, comment: commentBody, email, parentId, website } = data;
+      const isReply = !!parentId;
+      const commentData: SendCommentInput = {
+        author,
+        authorEmail: email,
+        authorUrl: website ?? '',
+        clientMutationId: 'comment',
+        commentOn: id,
+        content: commentBody,
+        parent: parentId,
+      };
+      const { comment, success } = await sendComment(commentData);
+
+      if (isSuccessStatus(comment, isReply, success)) reset();
+    },
+    [id, isSuccessStatus]
+  );
 
   return (
     <>
@@ -198,7 +230,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
         meta={headerMeta}
         title={title}
       />
-      {withToC && (
+      {withToC ? (
         <Sidebar
           aria-label={intl.formatMessage({
             defaultMessage: 'Table of contents sidebar',
@@ -207,11 +239,11 @@ export const PageLayout: FC<PageLayoutProps> = ({
           })}
           className={`${styles.sidebar} ${styles['sidebar--first']}`}
         >
-          {isMounted && bodyRef.current && (
+          {isMounted && bodyRef.current ? (
             <TableOfContents wrapper={bodyRef.current} />
-          )}
+          ) : null}
         </Sidebar>
-      )}
+      ) : null}
       {typeof children === 'string' ? (
         <div
           {...bodyAttributes}
@@ -224,9 +256,9 @@ export const PageLayout: FC<PageLayoutProps> = ({
           {children}
         </div>
       )}
-      {footerMeta && hasMeta(footerMeta) && (
+      {footerMeta && hasMeta(footerMeta) ? (
         <PageFooter meta={footerMeta} className={styles.footer} />
-      )}
+      ) : null}
       <Sidebar
         aria-label={intl.formatMessage({
           defaultMessage: 'Sidebar',
@@ -237,22 +269,22 @@ export const PageLayout: FC<PageLayoutProps> = ({
       >
         {widgets}
       </Sidebar>
-      {allowComments && (
+      {allowComments ? (
         <div className={styles.comments} id="comments">
           <section className={styles.comments__section}>
-            <Heading level={2} alignment="center">
+            <Heading className={styles.comments__title} level={2}>
               {commentsTitle}
             </Heading>
-            {hasComments ? (
+            {hasComments(comments) ? (
               <CommentsList
                 comments={comments}
                 depth={2}
                 Notice={
-                  isReplyRef.current === true && statusMessage ? (
+                  commentStatus?.isReply ? (
                     <Notice
                       className={styles.notice}
-                      kind={status}
-                      message={statusMessage}
+                      kind={commentStatus.kind}
+                      message={commentStatus.message}
                     />
                   ) : null
                 }
@@ -273,20 +305,19 @@ export const PageLayout: FC<PageLayoutProps> = ({
               className={styles.comments__form}
               saveComment={saveComment}
               title={commentFormTitle}
-              titleAlignment="center"
               Notice={
-                isReplyRef.current === false && statusMessage ? (
+                commentStatus && !commentStatus.isReply ? (
                   <Notice
                     className={styles.notice}
-                    kind={status}
-                    message={statusMessage}
+                    kind={commentStatus.kind}
+                    message={commentStatus.message}
                   />
                 ) : null
               }
             />
           </section>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

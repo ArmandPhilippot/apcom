@@ -1,5 +1,6 @@
 @use "../abstracts/functions" as fun;
 @use "../abstracts/mixins" as mix;
+@use "partials/article-headings";
 @use "partials/article-links";
 @use "partials/article-lists";
 @use "partials/article-media";
@@ -18,6 +19,7 @@
 
 .body {
   :global {
+    @include article-headings.styles;
     @include article-links.styles;
     @include article-lists.styles;
     @include article-media.styles;

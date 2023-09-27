@@ -1,6 +1,6 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Heading } from '../heading';
 import { Modal } from './modal';
-import { Heading } from '../headings';
 
 /**
  * Switch - Storybook Meta

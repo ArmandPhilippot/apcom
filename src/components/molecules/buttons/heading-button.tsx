@@ -1,4 +1,4 @@
-import { FC, SetStateAction } from 'react';
+import { useCallback, type FC, type SetStateAction } from 'react';
 import { useIntl } from 'react-intl';
 import { Heading, type HeadingProps, PlusMinus } from '../../atoms';
 import styles from './heading-button.module.scss';
@@ -35,6 +35,7 @@ export const HeadingButton: FC<HeadingButtonProps> = ({
   title,
 }) => {
   const intl = useIntl();
+  const btnClass = `${styles.wrapper} ${className}`;
   const iconState = expanded ? 'minus' : 'plus';
   const titlePrefix = expanded
     ? intl.formatMessage({
@@ -48,13 +49,15 @@ export const HeadingButton: FC<HeadingButtonProps> = ({
         id: 'bcyOgC',
       });
 
+  const toggleExpand = useCallback(
+    () => setExpanded((prev) => !prev),
+    [setExpanded]
+  );
+
   return (
-    <button
-      className={`${styles.wrapper} ${className}`}
-      onClick={() => setExpanded(!expanded)}
-      type="button"
-    >
-      <Heading level={level} withMargin={false} className={styles.heading}>
+    <button className={btnClass} onClick={toggleExpand} type="button">
+      <Heading className={styles.heading} level={level}>
+        {/* eslint-disable-next-line react/jsx-no-literals -- SR class allowed */}
         <span className="screen-reader-text">{titlePrefix} </span>
         {title}
       </Heading>

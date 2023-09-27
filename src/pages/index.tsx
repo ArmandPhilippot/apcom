@@ -2,7 +2,7 @@ import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import FeedIcon from '../assets/images/icon-feed.svg';
 import {
@@ -19,6 +19,7 @@ import {
   ResponsiveImage,
   Section,
   type SectionProps,
+  Heading,
 } from '../components';
 import HomePageContent from '../content/pages/homepage.mdx';
 import { getArticlesCard } from '../services/graphql';
@@ -28,6 +29,60 @@ import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
+
+const H1 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={1}>
+    {children}
+  </Heading>
+);
+
+const H2 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={2}>
+    {children}
+  </Heading>
+);
+
+const H3 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={3}>
+    {children}
+  </Heading>
+);
+
+const H4 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={4}>
+    {children}
+  </Heading>
+);
+
+const H5 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={5}>
+    {children}
+  </Heading>
+);
+
+const H6 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={6}>
+    {children}
+  </Heading>
+);
 
 /**
  * Retrieve a list of coding links.
@@ -276,6 +331,12 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     ColdarkRepos,
     Column,
     Columns: StyledColumns,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
     Image: ResponsiveImage,
     LibreLinks,
     MoreLinks,

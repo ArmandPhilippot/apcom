@@ -1,4 +1,14 @@
-import { ChangeEvent, FC, FormEvent, ReactNode, useState } from 'react';
+/* eslint-disable max-statements */
+import {
+  type ChangeEvent,
+  type FC,
+  type FormEvent,
+  type ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+  useId,
+} from 'react';
 import { useIntl } from 'react-intl';
 import {
   Button,
@@ -6,7 +16,6 @@ import {
   type FormProps,
   Heading,
   type HeadingLevel,
-  type HeadingProps,
   Spinner,
   Input,
   TextArea,
@@ -42,10 +51,6 @@ export type CommentFormProps = Pick<FormProps, 'className'> & {
    */
   title?: string;
   /**
-   * The form title alignment. Default: left.
-   */
-  titleAlignment?: HeadingProps['alignment'];
-  /**
    * The title level. Default: 2.
    */
   titleLevel?: HeadingLevel;
@@ -57,29 +62,30 @@ export const CommentForm: FC<CommentFormProps> = ({
   parentId,
   saveComment,
   title,
-  titleAlignment,
   titleLevel = 2,
   ...props
 }) => {
   const formClass = `${styles.form} ${className}`;
   const intl = useIntl();
-  const emptyForm: CommentFormData = {
-    author: '',
-    comment: '',
-    email: '',
-    parentId,
-    website: '',
-  };
+  const emptyForm: CommentFormData = useMemo(() => {
+    return {
+      author: '',
+      comment: '',
+      email: '',
+      parentId,
+      website: '',
+    };
+  }, [parentId]);
   const [data, setData] = useState(emptyForm);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   /**
    * Reset all the form fields.
    */
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setData(emptyForm);
     setIsSubmitting(false);
-  };
+  }, [emptyForm]);
 
   const nameLabel = intl.formatMessage({
     defaultMessage: 'Name:',
@@ -112,43 +118,47 @@ export const CommentForm: FC<CommentFormProps> = ({
   });
 
   const formAriaLabel = title ? undefined : formTitle;
-  const formId = 'comment-form-title';
+  const formId = useId();
   const formLabelledBy = title ? formId : undefined;
 
-  const updateForm = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    switch (e.target.name) {
-      case 'author':
-        setData((prevData) => {
-          return { ...prevData, author: e.target.value };
-        });
-        break;
-      case 'comment':
-        setData((prevData) => {
-          return { ...prevData, comment: e.target.value };
-        });
-        break;
-      case 'email':
-        setData((prevData) => {
-          return { ...prevData, email: e.target.value };
-        });
-        break;
-      case 'website':
-        setData((prevData) => {
-          return { ...prevData, website: e.target.value };
-        });
-        break;
-      default:
-        break;
-    }
-  };
+  const updateForm = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      switch (e.target.name) {
+        case 'author':
+          setData((prevData) => {
+            return { ...prevData, author: e.target.value };
+          });
+          break;
+        case 'comment':
+          setData((prevData) => {
+            return { ...prevData, comment: e.target.value };
+          });
+          break;
+        case 'email':
+          setData((prevData) => {
+            return { ...prevData, email: e.target.value };
+          });
+          break;
+        case 'website':
+          setData((prevData) => {
+            return { ...prevData, website: e.target.value };
+          });
+          break;
+        default:
+          break;
+      }
+    },
+    []
+  );
 
-  const submitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    saveComment(data, resetForm).then(() => setIsSubmitting(false));
-  };
+  const sendForm = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+      saveComment(data, resetForm).then(() => setIsSubmitting(false));
+    },
+    [data, resetForm, saveComment]
+  );
 
   return (
     <Form
@@ -156,13 +166,13 @@ export const CommentForm: FC<CommentFormProps> = ({
       aria-label={formAriaLabel}
       aria-labelledby={formLabelledBy}
       className={formClass}
-      onSubmit={submitHandler}
+      onSubmit={sendForm}
     >
-      {title && (
-        <Heading alignment={titleAlignment} id={formId} level={titleLevel}>
+      {title ? (
+        <Heading className={styles.title} id={formId} level={titleLevel}>
           {title}
         </Heading>
-      )}
+      ) : null}
       <LabelledField
         className={styles.field}
         field={
@@ -236,7 +246,7 @@ export const CommentForm: FC<CommentFormProps> = ({
           id: 'OL0Yzx',
         })}
       </Button>
-      {isSubmitting && (
+      {isSubmitting ? (
         <Spinner
           message={intl.formatMessage({
             defaultMessage: 'Submitting...',
@@ -244,7 +254,7 @@ export const CommentForm: FC<CommentFormProps> = ({
             id: 'IY5ew6',
           })}
         />
-      )}
+      ) : null}
       {Notice}
     </Form>
   );

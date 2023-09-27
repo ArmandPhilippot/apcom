@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
-import { Heading } from '../headings';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { Heading } from '../heading';
 import { Modal } from './modal';
 
 const title = 'A custom title';
@@ -16,11 +16,11 @@ describe('Modal', () => {
         {children}
       </Modal>
     );
-    expect(screen.getByRole('heading', { level })).toHaveTextContent(title);
+    expect(rtlScreen.getByRole('heading', { level })).toHaveTextContent(title);
   });
 
   it('renders the modal body', () => {
     render(<Modal>{children}</Modal>);
-    expect(screen.getByText(children)).toBeInTheDocument();
+    expect(rtlScreen.getByText(children)).toBeInTheDocument();
   });
 });

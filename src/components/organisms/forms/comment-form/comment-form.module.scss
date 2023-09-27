@@ -8,6 +8,12 @@
   }
 }
 
+.title {
+  width: fit-content;
+  margin-inline: auto;
+  margin-bottom: var(--spacing-sm);
+}
+
 .field {
   width: 100%;
 }

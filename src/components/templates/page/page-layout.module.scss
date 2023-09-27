@@ -81,6 +81,12 @@
     }
   }
 
+  &__title {
+    width: fit-content;
+    margin-bottom: var(--spacing-md);
+    margin-inline: auto;
+  }
+
   &__no-comments {
     text-align: center;
   }
@@ -89,4 +95,8 @@
     max-width: 40ch;
     margin: auto;
   }
+}
+
+.notice {
+  margin-top: var(--spacing-sm);
 }

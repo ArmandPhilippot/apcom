@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import type { ComponentType } from 'react';
+import type { ComponentType, HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Code,
@@ -22,6 +22,7 @@ import {
   type SocialWebsite,
   Spinner,
   type MetaData,
+  Heading,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
@@ -44,9 +45,69 @@ const BorderedImage = (props: ResponsiveImageProps) => (
   <ResponsiveImage withBorders={true} {...props} />
 );
 
+const H1 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={1}>
+    {children}
+  </Heading>
+);
+
+const H2 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={2}>
+    {children}
+  </Heading>
+);
+
+const H3 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={3}>
+    {children}
+  </Heading>
+);
+
+const H4 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={4}>
+    {children}
+  </Heading>
+);
+
+const H5 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={5}>
+    {children}
+  </Heading>
+);
+
+const H6 = ({
+  children = '',
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <Heading {...props} level={6}>
+    {children}
+  </Heading>
+);
+
 const components: MDXComponents = {
   Code,
   Gallery,
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  h6: H6,
   Image: BorderedImage,
   Link,
 };

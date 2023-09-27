@@ -1,11 +1,11 @@
 import {
-  ForwardRefRenderFunction,
-  HTMLAttributes,
-  ReactElement,
-  ReactNode,
+  type ForwardRefRenderFunction,
+  type HTMLAttributes,
+  type ReactElement,
+  type ReactNode,
   forwardRef,
 } from 'react';
-import { HeadingProps } from '../headings';
+import type { HeadingProps } from '../heading';
 import styles from './modal.module.scss';
 
 export type ModalProps = HTMLAttributes<HTMLDivElement> & {

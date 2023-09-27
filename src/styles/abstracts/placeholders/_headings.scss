@@ -1,0 +1,54 @@
+@use "../functions" as fun;
+
+%heading {
+  margin: 0;
+  color: var(--color-primary-dark);
+  font-family: var(--font-family-secondary);
+  font-weight: 500;
+  letter-spacing: 0.01ex;
+}
+
+%h1 {
+  @extend %heading;
+
+  font-size: var(--font-size-3xl);
+}
+
+%h2 {
+  @extend %heading;
+
+  padding-bottom: fun.convert-px(3);
+  background: linear-gradient(
+      to top,
+      var(--color-primary-dark) 0.3rem,
+      transparent 0.3rem
+    )
+    0 0 / 3rem 100% no-repeat;
+  font-size: var(--font-size-2xl);
+  text-shadow: fun.convert-px(1) fun.convert-px(1) 0 var(--color-shadow-light);
+}
+
+%h3 {
+  @extend %heading;
+
+  font-size: var(--font-size-xl);
+}
+
+%h4 {
+  @extend %heading;
+
+  font-size: var(--font-size-lg);
+}
+
+%h5 {
+  @extend %heading;
+
+  font-size: var(--font-size-md);
+  font-weight: 600;
+}
+
+%h6 {
+  @extend %heading;
+
+  font-size: var(--font-size-md);
+}

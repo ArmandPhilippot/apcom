@@ -65,13 +65,7 @@ export const Card: FC<CardProps> = ({
           {cover ? (
             <ResponsiveImage {...cover} className={styles.cover} />
           ) : null}
-          <Heading
-            // eslint-disable-next-line react/jsx-no-literals -- Hardcoded config
-            alignment="center"
-            className={styles.title}
-            id={headingId}
-            level={titleLevel}
-          >
+          <Heading className={styles.title} id={headingId} level={titleLevel}>
             {title}
           </Heading>
         </header>

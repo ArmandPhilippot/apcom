@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { Heading } from '../../atoms';
 import { Meta, type MetaData } from './meta';
 import styles from './page-header.module.scss';
@@ -11,7 +11,7 @@ export type PageHeaderProps = {
   /**
    * The page introduction.
    */
-  intro?: string | JSX.Element;
+  intro?: string | ReactNode;
   /**
    * The page metadata.
    */
@@ -33,32 +33,39 @@ export const PageHeader: FC<PageHeaderProps> = ({
   meta,
   title,
 }) => {
+  const headerClass = `${styles.wrapper} ${className}`;
+
   const getIntro = () => {
-    return typeof intro === 'string' ? (
-      <div
-        className={styles.intro}
-        dangerouslySetInnerHTML={{ __html: intro }}
-      />
-    ) : (
-      <div className={styles.intro}>{intro}</div>
-    );
+    if (typeof intro === 'string')
+      return (
+        <div
+          className={styles.intro}
+          /* eslint-disable-next-line react/no-danger -- Not safe but intro can
+           * contains links or formatting so we need it. */
+          dangerouslySetInnerHTML={{ __html: intro }}
+        />
+      );
+
+    return <div className={styles.intro}>{intro}</div>;
   };
 
   return (
-    <header className={`${styles.wrapper} ${className}`}>
+    <header className={headerClass}>
       <div className={styles.body}>
-        <Heading level={1} className={styles.title} withMargin={false}>
+        <Heading className={styles.title} level={1}>
           {title}
         </Heading>
-        {meta && (
+        {meta ? (
           <Meta
-            data={meta}
             className={styles.meta}
-            layout="column"
+            data={meta}
+            // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
             itemsLayout="inline"
+            // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
+            layout="column"
           />
-        )}
-        {intro && getIntro()}
+        ) : null}
+        {intro ? getIntro() : null}
       </div>
     </header>
   );

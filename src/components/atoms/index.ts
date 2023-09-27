@@ -1,6 +1,6 @@
 export * from './buttons';
 export * from './forms';
-export * from './headings';
+export * from './heading';
 export * from './icons';
 export * from './images';
 export * from './layout';

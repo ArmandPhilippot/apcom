@@ -31,9 +31,8 @@
   }
 
   .title {
-    flex: 1;
-    margin-top: var(--spacing-sm);
-    margin-bottom: var(--spacing-sm);
+    width: fit-content;
+    margin: var(--spacing-sm) auto;
   }
 
   h2.title {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FC, useRef } from 'react';
+import { type FC, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useStyles } from '../../../utils/hooks';
 import { Heading } from '../../atoms';
@@ -90,7 +90,6 @@ export const Branding: FC<BrandingProps> = ({
         className={styles.title}
         isFake={!isHome}
         level={1}
-        withMargin={false}
         ref={titleRef}
       >
         {withLink ? (
@@ -101,17 +100,11 @@ export const Branding: FC<BrandingProps> = ({
           title
         )}
       </Heading>
-      {baseline && (
-        <Heading
-          className={styles.baseline}
-          isFake={true}
-          level={4}
-          withMargin={false}
-          ref={baselineRef}
-        >
+      {baseline ? (
+        <Heading className={styles.baseline} isFake level={4} ref={baselineRef}>
           {baseline}
         </Heading>
-      )}
+      ) : null}
     </div>
   );
 };

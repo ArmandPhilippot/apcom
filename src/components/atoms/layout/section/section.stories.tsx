@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Heading } from '../../headings';
+import { Heading } from '../../heading';
 import { Section } from './section';
 
 /**

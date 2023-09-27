@@ -1,61 +1,21 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Heading } from './heading';
 
 /**
  * Heading - Storybook Meta
  */
 export default {
-  title: 'Atoms/Typography/Headings',
+  title: 'Atoms/Headings',
   component: Heading,
   args: {
-    alignment: 'left',
     isFake: false,
-    withMargin: true,
   },
   argTypes: {
-    alignment: {
-      control: {
-        type: 'select',
-      },
-      description: 'The title alignment.',
-      options: ['center', 'left'],
-      table: {
-        category: 'Options',
-        defaultValue: { summary: 'left' },
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     children: {
       description: 'Heading body.',
       type: {
         name: 'string',
         required: true,
-      },
-    },
-    id: {
-      control: {
-        type: 'text',
-      },
-      description: 'An unique id.',
-      type: {
-        name: 'string',
-        required: false,
       },
     },
     isFake: {
@@ -82,20 +42,6 @@ export default {
       type: {
         name: 'number',
         required: true,
-      },
-    },
-    withMargin: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Adds margin.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: true },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
       },
     },
   },
