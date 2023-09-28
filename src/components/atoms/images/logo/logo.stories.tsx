@@ -1,14 +1,14 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Logo as LogoComponent } from './logo';
 
 /**
  * Logo - Storybook Meta
  */
 export default {
-  title: 'Atoms/Illustrations/Images',
+  title: 'Atoms/Images',
   component: LogoComponent,
   argTypes: {
-    title: {
+    heading: {
       control: {
         type: 'text',
       },

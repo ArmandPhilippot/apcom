@@ -1,5 +1,9 @@
-import Image, { type ImageProps } from 'next/image';
-import { ForwardedRef, forwardRef, ForwardRefRenderFunction } from 'react';
+import NextImage, { type ImageProps } from 'next/image';
+import {
+  type ForwardedRef,
+  forwardRef,
+  type ForwardRefRenderFunction,
+} from 'react';
 import { Logo, type LogoProps } from '../../atoms';
 import styles from './flipping-logo.module.scss';
 
@@ -15,7 +19,7 @@ export type FlippingLogoProps = {
   /**
    * Logo image title.
    */
-  logoTitle?: LogoProps['title'];
+  logoTitle?: LogoProps['heading'];
   /**
    * Photo url.
    */
@@ -29,20 +33,23 @@ const FlippingLogoWithRef: ForwardRefRenderFunction<
   { className = '', altText, logoTitle, photo, ...props },
   ref: ForwardedRef<HTMLDivElement>
 ) => {
+  const wrapperClass = `${styles.logo} ${className}`;
+  const size = 100;
+
   return (
-    <div className={`${styles.logo} ${className}`} ref={ref}>
+    <div className={wrapperClass} ref={ref}>
       <div className={styles.logo__front}>
-        <Image
+        <NextImage
           {...props}
           alt={altText}
-          height="100"
+          height={size}
           src={photo}
           style={{ objectFit: 'cover' }}
-          width="100"
+          width={size}
         />
       </div>
       <div className={styles.logo__back}>
-        <Logo title={logoTitle} />
+        <Logo heading={logoTitle} />
       </div>
     </div>
   );
