@@ -1,6 +1,6 @@
 import { useCallback, type FC, type SetStateAction } from 'react';
 import { useIntl } from 'react-intl';
-import { Heading, type HeadingProps, PlusMinus } from '../../atoms';
+import { Heading, type HeadingProps, Icon } from '../../atoms';
 import styles from './heading-button.module.scss';
 
 export type HeadingButtonProps = Pick<HeadingProps, 'level'> & {
@@ -61,7 +61,7 @@ export const HeadingButton: FC<HeadingButtonProps> = ({
         <span className="screen-reader-text">{titlePrefix} </span>
         {title}
       </Heading>
-      <PlusMinus state={iconState} className={styles.icon} />
+      <Icon className={styles.icon} shape={iconState} />
     </button>
   );
 };

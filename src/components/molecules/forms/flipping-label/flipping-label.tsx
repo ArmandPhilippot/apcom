@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Close, Label, type LabelProps } from '../../../atoms';
+import type { FC } from 'react';
+import { Icon, Label, type LabelProps } from '../../../atoms';
 import styles from './flipping-label.module.scss';
 
 export type FlippingLabelProps = Pick<
@@ -29,7 +29,7 @@ export const FlippingLabel: FC<FlippingLabelProps> = ({
       <span className={`${styles.wrapper} ${styles[wrapperModifier]}`}>
         <span className={styles.front}>{children}</span>
         <span className={styles.back}>
-          <Close aria-hidden={true} />
+          <Icon aria-hidden={true} shape="cross" />
         </span>
       </span>
     </Label>

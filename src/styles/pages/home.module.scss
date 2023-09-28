@@ -26,8 +26,6 @@
 }
 
 .icon {
-  --icon-size: #{fun.convert-px(20)};
-
   margin-right: var(--spacing-2xs);
 
   &--feed {

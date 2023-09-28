@@ -1,0 +1,25 @@
+.chimney,
+.door,
+.indoor,
+.roof,
+.wall {
+  stroke: var(--color-primary-darker);
+}
+
+.door,
+.roof {
+  fill: var(--color-primary-lighter);
+}
+
+.indoor {
+  fill: var(--color-shadow-dark);
+}
+
+.chimney,
+.wall {
+  fill: var(--color-bg);
+}
+
+.lines {
+  fill: var(--color-primary-darker);
+}

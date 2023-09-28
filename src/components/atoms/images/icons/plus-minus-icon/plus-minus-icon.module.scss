@@ -1,0 +1,38 @@
+@use "../../../../../styles/abstracts/functions" as fun;
+
+.icon {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  aspect-ratio: 1/1;
+  position: relative;
+  background: var(--color-bg);
+  border: fun.convert-px(1) solid var(--color-primary);
+  border-radius: fun.convert-px(3);
+  color: var(--color-primary);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background: var(--color-primary);
+    transition: transform 0.4s ease-out 0s;
+  }
+
+  &::after {
+    height: fun.convert-px(3);
+    width: 60%;
+  }
+
+  &::before {
+    height: 55%;
+    width: fun.convert-px(3);
+    transform: scaleY(1);
+  }
+
+  &--minus {
+    &::before {
+      transform: scaleY(0);
+    }
+  }
+}

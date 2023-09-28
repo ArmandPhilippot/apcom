@@ -6,7 +6,6 @@
   --draw-border-thickness: #{fun.convert-px(4)};
   --draw-border-color1: var(--color-primary-light);
   --draw-border-color2: var(--color-primary-lighter);
-  --icon-size: #{fun.convert-px(30)};
 
   display: inline-flex;
   flex-flow: column nowrap;

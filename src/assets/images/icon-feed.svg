@@ -1,18 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="128px" height="128px" id="RSSicon" viewBox="0 0 256 256">
-<defs>
-<linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="RSSg">
-<stop offset="0.0" stop-color="#E3702D"/><stop offset="0.1071" stop-color="#EA7D31"/>
-<stop offset="0.3503" stop-color="#F69537"/><stop offset="0.5" stop-color="#FB9E3A"/>
-<stop offset="0.7016" stop-color="#EA7C31"/><stop offset="0.8866" stop-color="#DE642B"/>
-<stop offset="1.0" stop-color="#D95B29"/>
-</linearGradient>
-</defs>
-<rect width="256" height="256" rx="55" ry="55" x="0" y="0" fill="#CC5D15"/>
-<rect width="246" height="246" rx="50" ry="50" x="5" y="5" fill="#F49C52"/>
-<rect width="236" height="236" rx="47" ry="47" x="10" y="10" fill="url(#RSSg)"/>
-<circle cx="68" cy="189" r="24" fill="#FFF"/>
-<path d="M160 213h-34a82 82 0 0 0 -82 -82v-34a116 116 0 0 1 116 116z" fill="#FFF"/>
-<path d="M184 213A140 140 0 0 0 44 73 V 38a175 175 0 0 1 175 175z" fill="#FFF"/>
-<script xmlns=""/></svg>
+<svg
+   version="1.1"
+   width="100"
+   height="100"
+   id="RSSicon"
+   viewBox="0 0 100 100"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs7">
+    <linearGradient
+       x1="30.059999"
+       y1="30.059999"
+       x2="225.94"
+       y2="225.94"
+       id="RSSg"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(0.390625)">
+      <stop
+         offset="0.0"
+         stop-color="#E3702D"
+         id="stop1" />
+      <stop
+         offset="0.1071"
+         stop-color="#EA7D31"
+         id="stop2" />
+      <stop
+         offset="0.3503"
+         stop-color="#F69537"
+         id="stop3" />
+      <stop
+         offset="0.5"
+         stop-color="#FB9E3A"
+         id="stop4" />
+      <stop
+         offset="0.7016"
+         stop-color="#EA7C31"
+         id="stop5" />
+      <stop
+         offset="0.8866"
+         stop-color="#DE642B"
+         id="stop6" />
+      <stop
+         offset="1.0"
+         stop-color="#D95B29"
+         id="stop7" />
+    </linearGradient>
+  </defs>
+  <path
+     id="rect7"
+     style="fill:#cc5d15;stroke-width:0.390625"
+     d="m 21.484375,0 h 57.03125 C 90.41797,0 100,9.582031 100,21.484375 v 57.03125 C 100,90.41797 90.41797,100 78.515625,100 H 21.484375 C 9.582031,100 0,90.41797 0,78.515625 V 21.484375 C 0,9.582031 9.582031,0 21.484375,0 Z" />
+  <path
+     id="rect8"
+     style="fill:#f49c52;stroke-width:0.390625"
+     d="m 21.484375,1.953125 h 57.03125 c 10.82031,0 19.53125,8.710938 19.53125,19.53125 v 57.03125 c 0,10.82031 -8.71094,19.53125 -19.53125,19.53125 h -57.03125 c -10.820312,0 -19.53125,-8.71094 -19.53125,-19.53125 v -57.03125 c 0,-10.820312 8.710938,-19.53125 19.53125,-19.53125 z" />
+  <path
+     id="rect9"
+     style="fill:url(#RSSg);stroke-width:0.390625"
+     d="m 22.265625,3.90625 h 55.46875 c 10.171095,0 18.359375,8.188281 18.359375,18.359375 v 55.46875 c 0,10.171095 -8.18828,18.359375 -18.359375,18.359375 H 22.265625 C 12.094531,96.09375 3.90625,87.90547 3.90625,77.734375 v -55.46875 c 0,-10.171094 8.188281,-18.359375 18.359375,-18.359375 z" />
+  <path
+     id="circle9"
+     style="fill:#ffffff;stroke-width:0.390625"
+     d="m 35.9375,73.828125 a 9.375,9.375 0 0 1 -9.375,9.375 9.375,9.375 0 0 1 -9.375,-9.375 9.375,9.375 0 0 1 9.375,-9.375 9.375,9.375 0 0 1 9.375,9.375 z" />
+  <path
+     d="M 62.5,83.203125 H 49.21875 A 32.03125,32.03125 0 0 0 17.1875,51.171875 V 37.890625 A 45.3125,45.3125 0 0 1 62.5,83.203125 Z"
+     fill="#ffffff"
+     id="path9"
+     style="stroke-width:0.390625" />
+  <path
+     d="M 71.875,83.203125 A 54.6875,54.6875 0 0 0 17.1875,28.515625 V 14.84375 a 68.359375,68.359375 0 0 1 68.359375,68.359375 z"
+     fill="#ffffff"
+     id="path10"
+     style="stroke-width:0.390625" />
+  <script />
+</svg>

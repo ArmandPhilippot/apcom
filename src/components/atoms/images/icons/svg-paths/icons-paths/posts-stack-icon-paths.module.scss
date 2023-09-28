@@ -1,0 +1,21 @@
+.bg,
+.lines {
+  stroke-width: 4;
+}
+
+.bg,
+.picture {
+  stroke: var(--color-primary-darker);
+}
+
+.bg {
+  fill: var(--color-bg);
+}
+
+.lines {
+  fill: var(--color-fg);
+}
+
+.picture {
+  fill: var(--color-primary-lighter);
+}

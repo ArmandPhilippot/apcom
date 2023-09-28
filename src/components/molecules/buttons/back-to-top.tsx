@@ -1,6 +1,6 @@
 import type { FC, HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
-import { Arrow, ButtonLink } from '../../atoms';
+import { ButtonLink, Icon } from '../../atoms';
 import styles from './back-to-top.module.scss';
 
 export type BackToTopProps = HTMLAttributes<HTMLDivElement> & {
@@ -38,8 +38,8 @@ export const BackToTop: FC<BackToTopProps> = ({
         shape="square"
         to={anchor}
       >
-        {/* eslint-disable-next-line react/jsx-no-literals -- Direction allowed */}
-        <Arrow aria-hidden direction="top" />
+        {/* eslint-disable-next-line react/jsx-no-literals -- Config allowed */}
+        <Icon aria-hidden={true} orientation="top" shape="arrow" />
       </ButtonLink>
     </div>
   );

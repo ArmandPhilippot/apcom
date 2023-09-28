@@ -411,10 +411,6 @@
     "defaultMessage": "Sidebar",
     "description": "PageLayout: accessible name for the sidebar"
   },
-  "cl7YNU": {
-    "defaultMessage": "CC BY SA",
-    "description": "CCBySA: icon title"
-  },
   "dDK5oc": {
     "defaultMessage": "{website} picture",
     "description": "Branding: photo alternative text"
@@ -626,6 +622,10 @@
   "xaqaYQ": {
     "defaultMessage": "Sending mail...",
     "description": "ContactForm: spinner message on submit"
+  },
+  "yB1SPF": {
+    "defaultMessage": "CC BY SA",
+    "description": "Layout: copyright title"
   },
   "yE/Jdz": {
     "defaultMessage": "You are here:",

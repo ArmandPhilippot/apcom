@@ -1,6 +1,6 @@
-import { forwardRef, ForwardRefRenderFunction } from 'react';
+import { forwardRef, type ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import { BooleanField, type BooleanFieldProps, Cog } from '../../atoms';
+import { BooleanField, type BooleanFieldProps, Icon } from '../../atoms';
 import { FlippingLabel } from '../../molecules';
 import { SettingsModal, type SettingsModalProps } from '../modals';
 import styles from './toolbar-items.module.scss';
@@ -59,7 +59,7 @@ const SettingsWithRef: ForwardRefRenderFunction<
         htmlFor="settings-button"
         isActive={isActive}
       >
-        <Cog aria-hidden={true} />
+        <Icon aria-hidden={true} shape="cog" size="lg" />
       </FlippingLabel>
       <SettingsModal
         ackeeStorageKey={ackeeStorageKey}

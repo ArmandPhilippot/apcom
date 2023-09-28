@@ -1,0 +1,45 @@
+@use "../../../../../styles/abstracts/functions" as fun;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+
+.icon {
+  width: 100%;
+
+  &,
+  &::before,
+  &::after {
+    display: block;
+    height: 20%;
+    background: var(--color-primary-lighter);
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-light) 0%,
+      var(--color-primary-lighter) 100%
+    );
+    border: fun.convert-px(1) solid var(--color-primary-darker);
+    border-radius: fun.convert-px(4);
+    transition:
+      all 0.25s ease-in-out 0s,
+      transform 0.4s ease-in 0s;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+  }
+
+  &::before {
+    top: 3%;
+  }
+
+  &::after {
+    bottom: 3%;
+  }
+}

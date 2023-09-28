@@ -121,6 +121,43 @@ $font-sizes: ();
 }
 
 //============================================================================
+// Icons
+//============================================================================
+
+$icon_ratio: get-ratio("perfect-fourth");
+$icon-size_base: fun.convert-px(32);
+
+$icon-size_levels: "xs", "sm", "md", "lg", "xl";
+
+// We start with xs icon, so it needs to be less than the base.
+$icon-size_current: math.div($icon-size_base, $icon_ratio * 2);
+
+/// Icons map ('sm', 'md', 'lg'...)
+/// @prop {String} keys - Size as key is mapped to a given icon
+/// @prop {Map} value - Value is actual icon
+$icon-sizes: ();
+
+/// We fill our icon-sizes map.
+@each $level in $icon-size_levels {
+  $icon-size_current: $icon-size_current * $icon_ratio;
+  $icon-sizes: map.merge(
+    $icon-sizes,
+    (
+      $level: $icon-size_current,
+    )
+  );
+}
+
+// We cannot declare this function with others functions due to module loop.
+
+/// Get icon-size.
+/// @param {String} $name - Icon size ('sm', 'md', 'lg'...).
+/// @return {Integer} The icon value.
+@function icon-size($key) {
+  @return map.get($icon-sizes, $key);
+}
+
+//============================================================================
 // Spacings
 //============================================================================
 

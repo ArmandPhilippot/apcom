@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Script from 'next/script';
 import type { FC, HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
-import FeedIcon from '../assets/images/icon-feed.svg';
 import {
   ButtonLink,
   CardsList,
@@ -12,8 +11,8 @@ import {
   Column,
   Columns,
   type ColumnsProps,
-  Envelop,
   getLayout,
+  Icon,
   List,
   type ListItem,
   ResponsiveImage,
@@ -236,13 +235,12 @@ const ShaarliLink: FC = () => {
  */
 const MoreLinks: FC = () => {
   const intl = useIntl();
-  const feedIconClass = `${styles.icon} ${styles['icon--feed']}`;
   const links: ListItem[] = [
     {
       id: 'contact-me',
       value: (
         <ButtonLink to={ROUTES.CONTACT}>
-          <Envelop aria-hidden={true} className={styles.icon} />
+          <Icon aria-hidden={true} shape="envelop" />
           {intl.formatMessage({
             defaultMessage: 'Contact me',
             description: 'HomePage: contact button text',
@@ -255,7 +253,7 @@ const MoreLinks: FC = () => {
       id: 'rss-feed',
       value: (
         <ButtonLink to={ROUTES.RSS}>
-          <FeedIcon aria-hidden={true} className={feedIconClass} />
+          <Icon aria-hidden={true} shape="feed" />
           {intl.formatMessage({
             defaultMessage: 'Subscribe',
             description: 'HomePage: RSS feed subscription text',

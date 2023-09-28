@@ -3,10 +3,10 @@ import { useIntl } from 'react-intl';
 import type { Article, Meta as MetaType } from '../../../types';
 import { useReadingTime } from '../../../utils/hooks';
 import {
-  Arrow,
   ButtonLink,
   Heading,
   type HeadingLevel,
+  Icon,
   Link,
 } from '../../atoms';
 import {
@@ -123,11 +123,13 @@ export const Summary: FC<SummaryProps> = ({
         <ButtonLink className={styles['read-more']} to={url}>
           <>
             {readMore}
-            <Arrow
+            <Icon
               aria-hidden={true}
               className={styles.icon}
               // eslint-disable-next-line react/jsx-no-literals -- Direction allowed
-              direction="right"
+              orientation="right"
+              // eslint-disable-next-line react/jsx-no-literals -- Shape allowed
+              shape="arrow"
             />
           </>
         </ButtonLink>

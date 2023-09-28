@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import { useCallback, type FC, type FormEvent } from 'react';
 import { useIntl } from 'react-intl';
-import { Cog, Form, Heading, Modal, type ModalProps } from '../../atoms';
+import { Form, Heading, Icon, Modal, type ModalProps } from '../../atoms';
 import {
   AckeeToggle,
   type AckeeToggleProps,
@@ -8,7 +8,7 @@ import {
   type MotionToggleProps,
   PrismThemeToggle,
   ThemeToggle,
-} from '../../organisms';
+} from '../forms';
 import styles from './settings-modal.module.scss';
 
 export type SettingsModalProps = Pick<ModalProps, 'className'> & {
@@ -44,12 +44,16 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     description: 'SettingsModal: an accessible form name',
   });
 
+  const submitHandler = useCallback((e: FormEvent) => {
+    e.preventDefault();
+  }, []);
+
   return (
     <Modal
       className={`${styles.wrapper} ${className}`}
       heading={
         <Heading isFake level={3}>
-          <Cog className={styles.icon} />
+          <Icon className={styles.icon} shape="cog" />
           {title}
         </Heading>
       }
@@ -57,7 +61,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
       <Form
         aria-label={ariaLabel}
         className={styles.form}
-        onSubmit={() => null}
+        onSubmit={submitHandler}
       >
         <ThemeToggle className={styles.item} />
         <PrismThemeToggle className={styles.item} />

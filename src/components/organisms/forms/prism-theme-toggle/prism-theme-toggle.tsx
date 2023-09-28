@@ -1,8 +1,12 @@
-import { ChangeEvent, FC } from 'react';
+import { useCallback, type ChangeEvent, type FC } from 'react';
 import { useIntl } from 'react-intl';
 import { type PrismTheme, usePrismTheme } from '../../../../utils/providers';
-import { Legend, Moon, Sun } from '../../../atoms';
-import { Switch, SwitchOption, SwitchProps } from '../../../molecules';
+import { Icon, Legend } from '../../../atoms';
+import {
+  Switch,
+  type SwitchOption,
+  type SwitchProps,
+} from '../../../molecules';
 
 export type PrismThemeToggleProps = Omit<
   SwitchProps,
@@ -28,9 +32,12 @@ export const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
     return prismTheme === 'dark';
   };
 
-  const updateTheme = (e: ChangeEvent<HTMLInputElement>) => {
-    setTheme(e.target.value === 'light' ? 'light' : 'dark');
-  };
+  const updateTheme = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setTheme(e.target.value === 'light' ? 'light' : 'dark');
+    },
+    [setTheme]
+  );
 
   const themeLabel = intl.formatMessage({
     defaultMessage: 'Code blocks:',
@@ -54,7 +61,7 @@ export const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
       label: (
         <>
           <span className="screen-reader-text">{lightThemeLabel}</span>
-          <Sun />
+          <Icon shape="sun" />
         </>
       ),
       value: 'light',
@@ -64,7 +71,7 @@ export const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
       label: (
         <>
           <span className="screen-reader-text">{darkThemeLabel}</span>
-          <Moon />
+          <Icon shape="moon" />
         </>
       ),
       value: 'dark',

@@ -1,0 +1,43 @@
+.bottom,
+.diploma,
+.lines,
+.top {
+  stroke-width: 4;
+}
+
+.bottom,
+.diploma,
+.handle,
+.lock,
+.seal,
+.top {
+  stroke: var(--color-primary-darker);
+}
+
+.bottom {
+  fill: var(--color-primary);
+}
+
+.diploma,
+.lock {
+  fill: var(--color-bg);
+}
+
+.handle,
+.seal,
+.top {
+  fill: var(--color-primary-lighter);
+}
+
+.handle,
+.lock {
+  stroke-width: 3;
+}
+
+.lines {
+  fill: var(--color-fg);
+}
+
+.seal {
+  stroke-width: 2;
+}

@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CCBySA } from '../icons';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Icon } from '../images';
 import { Copyright as CopyrightComponent } from './copyright';
 
 /**
@@ -53,6 +53,6 @@ Copyright.args = {
     start: '2012',
     end: '2022',
   },
-  icon: <CCBySA />,
+  icon: <Icon shape="cc-by-sa" />,
   owner: 'Your name',
 };

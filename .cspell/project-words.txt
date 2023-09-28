@@ -4,6 +4,7 @@ autodocs
 changefreq
 coldark
 commitlint
+Eckles
 formatjs
 Gitlab
 Jamstack

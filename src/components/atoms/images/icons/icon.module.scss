@@ -1,0 +1,53 @@
+@use "../../../../styles/abstracts/functions" as fun;
+
+.icon {
+  width: var(--icon-size);
+  transition: all 0.25s ease-in-out 0s;
+
+  &--arrow {
+    fill: var(--color-primary);
+  }
+
+  &--cc-by-sa {
+    width: calc(var(--icon-size) * 2);
+    fill: var(--color-fg);
+  }
+
+  &--cog,
+  &--home,
+  &--moon,
+  &--sun {
+    stroke-width: 4;
+  }
+
+  &--cog,
+  &--moon,
+  &--sun {
+    fill: var(--color-primary-lighter);
+    stroke: var(--color-primary-darker);
+  }
+
+  &--stroke {
+    stroke: var(--color-primary);
+  }
+
+  &--xs {
+    --icon-size: var(--icon-size-xs);
+  }
+
+  &--sm {
+    --icon-size: var(--icon-size-sm);
+  }
+
+  &--md {
+    --icon-size: var(--icon-size-md);
+  }
+
+  &--lg {
+    --icon-size: var(--icon-size-lg);
+  }
+
+  &--xl {
+    --icon-size: var(--icon-size-xl);
+  }
+}

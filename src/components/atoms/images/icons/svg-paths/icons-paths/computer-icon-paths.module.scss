@@ -1,0 +1,37 @@
+.cursor,
+.lines,
+.root,
+.separator,
+.text {
+  fill: var(--color-fg);
+}
+
+.contour,
+.stand,
+.screen {
+  stroke: var(--color-primary-dark);
+}
+
+.contour,
+.screen {
+  stroke-width: 3;
+}
+
+.contour,
+.stand {
+  fill: var(--color-primary-lighter);
+}
+
+.screen {
+  fill: var(--color-bg);
+}
+
+.stand {
+  &--top {
+    stroke-width: 3;
+  }
+
+  &--bottom {
+    stroke-width: 2;
+  }
+}

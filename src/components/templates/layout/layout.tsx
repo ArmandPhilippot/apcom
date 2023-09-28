@@ -16,17 +16,7 @@ import {
   useScrollPosition,
   useSettings,
 } from '../../../utils/hooks';
-import {
-  ButtonLink,
-  Career,
-  CCBySA,
-  ComputerScreen,
-  Envelop,
-  Home,
-  Main,
-  NoScript,
-  PostsStack,
-} from '../../atoms';
+import { ButtonLink, Icon, Main, NoScript } from '../../atoms';
 import {
   SiteFooter,
   type SiteFooterProps,
@@ -82,6 +72,11 @@ export const Layout: FC<LayoutProps> = ({
     description: 'Layout: noscript message',
     id: '7jVUT6',
   });
+  const copyrightTitle = intl.formatMessage({
+    defaultMessage: 'CC BY SA',
+    description: 'Layout: copyright title',
+    id: 'yB1SPF',
+  });
 
   const copyrightData = {
     dates: {
@@ -89,7 +84,7 @@ export const Layout: FC<LayoutProps> = ({
       end: copyright.end,
     },
     owner: name,
-    icon: <CCBySA />,
+    icon: <Icon heading={copyrightTitle} shape="cc-by-sa" size="lg" />,
   };
 
   const homeLabel = intl.formatMessage({
@@ -123,31 +118,31 @@ export const Layout: FC<LayoutProps> = ({
       id: 'home',
       label: homeLabel,
       href: '/',
-      logo: <Home aria-hidden={true} />,
+      logo: <Icon aria-hidden={true} shape="home" />,
     },
     {
       id: 'blog',
       label: blogLabel,
       href: ROUTES.BLOG,
-      logo: <PostsStack aria-hidden={true} />,
+      logo: <Icon aria-hidden={true} shape="posts-stack" />,
     },
     {
       id: 'projects',
       label: projectsLabel,
       href: ROUTES.PROJECTS,
-      logo: <ComputerScreen aria-hidden={true} />,
+      logo: <Icon aria-hidden={true} shape="computer" />,
     },
     {
       id: 'cv',
       label: cvLabel,
       href: ROUTES.CV,
-      logo: <Career aria-hidden={true} />,
+      logo: <Icon aria-hidden={true} shape="career" />,
     },
     {
       id: 'contact',
       label: contactLabel,
       href: ROUTES.CONTACT,
-      logo: <Envelop aria-hidden={true} />,
+      logo: <Icon aria-hidden={true} shape="envelop" />,
     },
   ];
 

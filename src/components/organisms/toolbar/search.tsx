@@ -1,11 +1,7 @@
-import { forwardRef, ForwardRefRenderFunction, useRef } from 'react';
+import { forwardRef, type ForwardRefRenderFunction, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useInputAutofocus } from '../../../utils/hooks';
-import {
-  BooleanField,
-  type BooleanFieldProps,
-  MagnifyingGlass,
-} from '../../atoms';
+import { BooleanField, type BooleanFieldProps, Icon } from '../../atoms';
 import { FlippingLabel } from '../../molecules';
 import { SearchModal, type SearchModalProps } from '../modals';
 import searchStyles from './search.module.scss';
@@ -71,7 +67,7 @@ const SearchWithRef: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
         htmlFor="search-button"
         isActive={isActive}
       >
-        <MagnifyingGlass aria-hidden={true} />
+        <Icon aria-hidden={true} shape="magnifying-glass" size="lg" />
       </FlippingLabel>
       <SearchModal
         className={`${sharedStyles.modal} ${searchStyles.modal} ${className}`}

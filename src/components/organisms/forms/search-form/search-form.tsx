@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router';
 import {
-  ChangeEvent,
-  FormEvent,
+  type ChangeEvent,
+  type FormEvent,
   forwardRef,
-  ForwardRefRenderFunction,
+  type ForwardRefRenderFunction,
   useId,
   useState,
+  useCallback,
 } from 'react';
 import { useIntl } from 'react-intl';
-import { Button, Form, Input, Label, MagnifyingGlass } from '../../../atoms';
+import { Button, Form, Icon, Input, Label } from '../../../atoms';
 import { LabelledField } from '../../../molecules';
 import styles from './search-form.module.scss';
 
@@ -44,15 +45,18 @@ const SearchFormWithRef: ForwardRefRenderFunction<
   const router = useRouter();
   const [value, setValue] = useState<string>('');
 
-  const submitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    router.push({ pathname: searchPage, query: { s: value } });
-    setValue('');
-  };
+  const submitHandler = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      router.push({ pathname: searchPage, query: { s: value } });
+      setValue('');
+    },
+    [router, searchPage, value]
+  );
 
-  const updateForm = (e: ChangeEvent<HTMLInputElement>) => {
+  const updateForm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  };
+  }, []);
 
   const id = useId();
 
@@ -84,7 +88,7 @@ const SearchFormWithRef: ForwardRefRenderFunction<
         shape="initial"
         type="submit"
       >
-        <MagnifyingGlass className={styles.btn__icon} />
+        <Icon className={styles.btn__icon} shape="magnifying-glass" />
       </Button>
     </Form>
   );

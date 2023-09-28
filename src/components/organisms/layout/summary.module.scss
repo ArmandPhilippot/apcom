@@ -13,7 +13,8 @@
       padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
       border: fun.convert-px(1) solid var(--color-primary-dark);
       border-radius: fun.convert-px(3);
-      box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+      box-shadow:
+        fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
           var(--color-shadow),
         fun.convert-px(3) fun.convert-px(3) fun.convert-px(3) fun.convert-px(-1)
           var(--color-shadow-light),
@@ -29,8 +30,6 @@
 
   &:hover {
     .icon {
-      --icon-size: #{fun.convert-px(35)};
-
       :global {
         animation: pulse 1.5s ease-in-out 0.2s infinite;
       }

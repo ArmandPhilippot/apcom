@@ -1,6 +1,6 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useState } from 'react';
-import { MagnifyingGlass } from '../../../atoms';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useCallback, useState } from 'react';
+import { Icon } from '../../../atoms';
 import { FlippingLabel } from './flipping-label';
 
 export default {
@@ -75,22 +75,23 @@ const Template: ComponentStory<typeof FlippingLabel> = ({
   ...args
 }) => {
   const [active, setActive] = useState<boolean>(isActive);
+  const updateState = useCallback(() => setActive((prev) => !prev), []);
 
   return (
-    <div onClick={() => setActive(!active)}>
-      <FlippingLabel isActive={active} {...args} />
-    </div>
+    <button onClick={updateState} type="button">
+      <FlippingLabel {...args} isActive={active} />
+    </button>
   );
 };
 
 export const Active = Template.bind({});
 Active.args = {
-  children: <MagnifyingGlass />,
+  children: <Icon shape="magnifying-glass" />,
   isActive: true,
 };
 
 export const Inactive = Template.bind({});
 Inactive.args = {
-  children: <MagnifyingGlass />,
+  children: <Icon shape="magnifying-glass" />,
   isActive: false,
 };

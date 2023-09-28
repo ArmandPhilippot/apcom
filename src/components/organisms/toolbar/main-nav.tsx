@@ -1,11 +1,6 @@
 import { forwardRef, type ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import {
-  BooleanField,
-  type BooleanFieldProps,
-  Hamburger,
-  Label,
-} from '../../atoms';
+import { BooleanField, type BooleanFieldProps, Icon, Label } from '../../atoms';
 import { NavList, type NavListProps, type NavItem } from '../../molecules';
 import mainNavStyles from './main-nav.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
@@ -62,7 +57,7 @@ const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
         className={`${sharedStyles.label} ${mainNavStyles.label}`}
         htmlFor="main-nav-button"
       >
-        <Hamburger iconClassName={mainNavStyles.icon} />
+        <Icon shape="hamburger" />
       </Label>
       <NavList
         className={`${sharedStyles.modal} ${mainNavStyles.modal} ${className}`}

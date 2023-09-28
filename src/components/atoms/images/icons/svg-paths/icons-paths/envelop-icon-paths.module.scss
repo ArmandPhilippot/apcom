@@ -1,0 +1,22 @@
+.bg,
+.envelop,
+.paper {
+  stroke: var(--color-primary-darker);
+  stroke-width: 4;
+}
+
+.bg {
+  fill: var(--color-shadow-dark);
+}
+
+.envelop {
+  fill: var(--color-primary-lighter);
+}
+
+.lines {
+  fill: var(--color-fg);
+}
+
+.paper {
+  fill: var(--color-bg);
+}

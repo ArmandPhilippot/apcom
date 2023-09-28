@@ -2,8 +2,6 @@
 @use "../../../styles/abstracts/mixins" as mix;
 
 .wrapper {
-  --icon-size: #{fun.convert-px(70)};
-
   display: flex;
   flex-flow: row wrap;
   align-items: center;

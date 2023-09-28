@@ -6,13 +6,9 @@
     height: clamp(#{fun.convert-px(48)}, 8vw, #{fun.convert-px(55)});
     padding: 0;
 
-    svg {
-      width: 100%;
-    }
-
     :global {
       .arrow-head {
-        transform: translateY(30%) scale(1.2);
+        transform: translateX(-9%) translateY(30%) scale(1.2);
         transition: all 0.45s ease-in-out 0s;
       }
 

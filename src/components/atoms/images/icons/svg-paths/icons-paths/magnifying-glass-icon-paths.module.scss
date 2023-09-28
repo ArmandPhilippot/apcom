@@ -1,0 +1,20 @@
+.big-handle,
+.upright {
+  fill: var(--color-primary-lighter);
+  stroke: var(--color-primary-darker);
+  stroke-width: 3;
+}
+
+.glass,
+.small-handle {
+  stroke: var(--color-primary-darker);
+  stroke-width: 2;
+}
+
+.glass {
+  fill: var(--color-bg-opacity);
+}
+
+.small-handle {
+  fill: var(--color-primary);
+}

@@ -1,33 +1,34 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
-import { CCBySA } from '../icons';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { Icon } from '../images';
 import { Copyright } from './copyright';
 
 const dates = {
   start: '2012',
   end: '2022',
 };
-const icon = <CCBySA />;
+const iconHeading = 'CC BY SA';
+const icon = <Icon heading={iconHeading} shape="cc-by-sa" />;
 const owner = 'Your name';
 
 describe('Copyright', () => {
   it('renders the copyright owner', () => {
     render(<Copyright dates={dates} icon={icon} owner={owner} />);
-    expect(screen.getByText(owner)).toBeInTheDocument();
+    expect(rtlScreen.getByText(owner)).toBeInTheDocument();
   });
 
   it('renders the copyright start date', () => {
     render(<Copyright dates={dates} icon={icon} owner={owner} />);
-    expect(screen.getByText(dates.start)).toBeInTheDocument();
+    expect(rtlScreen.getByText(dates.start)).toBeInTheDocument();
   });
 
   it('renders the copyright end date', () => {
     render(<Copyright dates={dates} icon={icon} owner={owner} />);
-    expect(screen.getByText(dates.end)).toBeInTheDocument();
+    expect(rtlScreen.getByText(dates.end)).toBeInTheDocument();
   });
 
   it('renders the copyright icon', () => {
     render(<Copyright dates={dates} icon={icon} owner={owner} />);
-    expect(screen.getByTitle('CC BY SA')).toBeInTheDocument();
+    expect(rtlScreen.getByTitle(iconHeading)).toBeInTheDocument();
   });
 });

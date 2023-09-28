@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Envelop, Home } from '../../atoms';
+import { Icon } from '../../atoms';
 import { NavList, type NavItem } from './nav-list';
 
 /**
@@ -78,8 +78,13 @@ const Template: ComponentStory<typeof NavList> = (args) => (
 );
 
 const MainNavItems: NavItem[] = [
-  { id: 'homeLink', href: '/', label: 'Home', logo: <Home /> },
-  { id: 'contactLink', href: '/contact', label: 'Contact', logo: <Envelop /> },
+  { id: 'homeLink', href: '/', label: 'Home', logo: <Icon shape="home" /> },
+  {
+    id: 'contactLink',
+    href: '/contact',
+    label: 'Contact',
+    logo: <Icon shape="envelop" />,
+  },
 ];
 
 const FooterNavItems: NavItem[] = [
