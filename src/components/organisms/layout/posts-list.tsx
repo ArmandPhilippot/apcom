@@ -1,5 +1,5 @@
 /* eslint-disable max-statements */
-import { type FC, Fragment, useRef, useCallback } from 'react';
+import { type FC, Fragment, useRef, useCallback, useId } from 'react';
 import { useIntl } from 'react-intl';
 import { useIsMounted, useSettings } from '../../../utils/hooks';
 import {
@@ -102,6 +102,7 @@ export const PostsList: FC<PostsListProps> = ({
   const isMounted = useIsMounted(listRef);
   const { blog } = useSettings();
   const lastPostId = posts.length ? posts[posts.length - 1].id : 0;
+  const progressBarId = useId();
 
   /**
    * Retrieve the list of posts.
@@ -114,7 +115,12 @@ export const PostsList: FC<PostsListProps> = ({
     allPosts: Post[],
     headingLevel: HeadingLevel = 2
   ): JSX.Element => (
-    <ol className={styles.list} ref={listRef}>
+    <ol
+      aria-busy={isLoading}
+      aria-describedby={progressBarId}
+      className={styles.list}
+      ref={listRef}
+    >
       {allPosts.map(({ id, ...post }) => (
         <Fragment key={id}>
           <li className={styles.item}>
@@ -190,11 +196,12 @@ export const PostsList: FC<PostsListProps> = ({
     <>
       <ProgressBar
         aria-label={progressInfo}
+        className={styles.progress}
         current={posts.length}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed.
-        id="loaded-posts"
+        id={progressBarId}
+        isCentered
+        isLoading={isLoading}
         label={progressInfo}
-        min={1}
         max={total}
       />
       {showLoadMoreBtn ? (

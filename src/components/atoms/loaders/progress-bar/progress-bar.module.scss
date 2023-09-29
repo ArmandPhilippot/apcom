@@ -1,0 +1,85 @@
+@use "../../../../styles/abstracts/functions" as fun;
+
+.wrapper {
+  width: fit-content;
+  text-align: center;
+
+  &--centered {
+    margin-inline: auto;
+  }
+}
+
+.label {
+  margin-bottom: var(--spacing-2xs);
+  font-size: var(--font-size-sm);
+  cursor: default;
+}
+
+.progress {
+  width: clamp(25ch, 20vw, 30ch);
+  height: fun.convert-px(13);
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-tertiary);
+  border: fun.convert-px(1) solid var(--color-primary-darker);
+  border-radius: 1em;
+  box-shadow: inset 0 0 fun.convert-px(4) fun.convert-px(1)
+    var(--color-shadow-light);
+  container-type: inline-size;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 15%;
+    left: 0;
+  }
+
+  &::before,
+  &__bar {
+    background-color: var(--color-primary-dark);
+    border-radius: 1em;
+  }
+
+  &::before,
+  progress {
+    height: 100%;
+    opacity: 0;
+  }
+
+  &__bar,
+  progress {
+    width: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  &__bar {
+    transform: translateX(var(--currentProgress));
+    transition: all 0.25s linear 0s;
+  }
+
+  progress {
+    appearance: none;
+  }
+
+  &--loading {
+    &::before {
+      opacity: 1;
+      animation: move 1s linear 0s infinite alternate both;
+    }
+  }
+
+  &--loading &__bar {
+    opacity: 0;
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(100cqw - 100%));
+  }
+}
