@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-no-literals */
 import type { FC } from 'react';
+import type { Position } from '../../../../../types';
 
-export type ArrowOrientation = 'top' | 'right' | 'bottom' | 'left';
+export type ArrowOrientation = Exclude<Position, 'center'>;
 
 const getArrowBarPathFrom = (orientation: ArrowOrientation) => {
   switch (orientation) {

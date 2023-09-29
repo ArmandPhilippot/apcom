@@ -1,14 +1,14 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Spinner as SpinnerComponent } from './spinner';
 
 /**
  * Spinner - Storybook Meta
  */
 export default {
-  title: 'Atoms/Loaders/Spinner',
+  title: 'Atoms/Loaders',
   component: SpinnerComponent,
   argTypes: {
-    message: {
+    children: {
       control: {
         type: 'text',
       },
@@ -29,14 +29,9 @@ const Template: ComponentStory<typeof SpinnerComponent> = (args) => (
 );
 
 /**
- * Loaders Stories - Default Spinner
+ * Loaders Stories - Spinner
  */
 export const Spinner = Template.bind({});
-
-/**
- * Loaders Stories - Spinner with custom message
- */
-export const SpinnerCustomMessage = Template.bind({});
-SpinnerCustomMessage.args = {
-  message: 'Submitting...',
+Spinner.args = {
+  children: 'Submitting...',
 };

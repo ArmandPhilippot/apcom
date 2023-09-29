@@ -71,8 +71,13 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   const { website } = useSettings();
   const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
   const { attributes, className } = usePrism({ plugins: prismPlugins });
+  const loadingArticle = intl.formatMessage({
+    defaultMessage: 'Loading the requested article...',
+    description: 'ArticlePage: loading article message',
+    id: '4iYISO',
+  });
 
-  if (isFallback || !article) return <Spinner />;
+  if (isFallback || !article) return <Spinner>{loadingArticle}</Spinner>;
 
   const { content, id, intro, meta, title } = article;
   const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;

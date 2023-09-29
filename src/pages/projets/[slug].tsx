@@ -170,6 +170,12 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     return links;
   };
 
+  const loadingRepoPopularity = intl.formatMessage({
+    defaultMessage: 'Loading the repository popularity...',
+    description: 'ProjectsPage: loading repository popularity',
+    id: 'RwI3B9',
+  });
+
   const { isError, isLoading, data } = useGithubApi(
     /*
      * Repo should be defined for each project so for now it is safe for my
@@ -182,7 +188,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   );
 
   if (isError) return 'Error';
-  if (isLoading || !data) return <Spinner />;
+  if (isLoading || !data) return <Spinner aria-label={loadingRepoPopularity} />;
 
   const getRepoPopularity = (repo: string) => {
     const stars = intl.formatMessage(

@@ -165,8 +165,14 @@ export const PostsList: FC<PostsListProps> = ({
 
   const loadMoreBody = intl.formatMessage({
     defaultMessage: 'Load more articles?',
-    id: 'uaqd5F',
     description: 'PostsList: load more button',
+    id: 'uaqd5F',
+  });
+
+  const loadingMoreArticles = intl.formatMessage({
+    defaultMessage: 'Loading more articles...',
+    description: 'PostsList: loading more articles message',
+    id: 'xYemkP',
   });
 
   /**
@@ -224,7 +230,7 @@ export const PostsList: FC<PostsListProps> = ({
   return (
     <>
       {getPosts()}
-      {isLoading ? <Spinner /> : null}
+      {isLoading ? <Spinner>{loadingMoreArticles}</Spinner> : null}
       {isMounted ? getProgressBar() : getPagination()}
     </>
   );

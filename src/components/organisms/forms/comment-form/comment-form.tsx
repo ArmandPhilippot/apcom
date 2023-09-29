@@ -117,6 +117,12 @@ export const CommentForm: FC<CommentFormProps> = ({
     id: 'dz2kDV',
   });
 
+  const loadingMsg = intl.formatMessage({
+    defaultMessage: 'Submitting...',
+    description: 'CommentForm: spinner message on submit',
+    id: 'IY5ew6',
+  });
+
   const formAriaLabel = title ? undefined : formTitle;
   const formId = useId();
   const formLabelledBy = title ? formId : undefined;
@@ -246,15 +252,7 @@ export const CommentForm: FC<CommentFormProps> = ({
           id: 'OL0Yzx',
         })}
       </Button>
-      {isSubmitting ? (
-        <Spinner
-          message={intl.formatMessage({
-            defaultMessage: 'Submitting...',
-            description: 'CommentForm: spinner message on submit',
-            id: 'IY5ew6',
-          })}
-        />
-      ) : null}
+      {isSubmitting ? <Spinner>{loadingMsg}</Spinner> : null}
       {Notice}
     </Form>
   );

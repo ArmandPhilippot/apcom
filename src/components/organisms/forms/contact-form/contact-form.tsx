@@ -1,4 +1,13 @@
-import { ChangeEvent, FC, FormEvent, ReactNode, useState } from 'react';
+/* eslint-disable max-statements */
+import {
+  type ChangeEvent,
+  type FC,
+  type FormEvent,
+  type ReactNode,
+  useState,
+  useCallback,
+  useMemo,
+} from 'react';
 import { useIntl } from 'react-intl';
 import { Button, Form, Input, Label, Spinner, TextArea } from '../../../atoms';
 import { LabelledField } from '../../../molecules';
@@ -38,51 +47,54 @@ export const ContactForm: FC<ContactFormProps> = ({
 }) => {
   const formClass = `${styles.form} ${className}`;
   const intl = useIntl();
-  const emptyForm: ContactFormData = {
-    email: '',
-    message: '',
-    name: '',
-    object: '',
-  };
+  const emptyForm: ContactFormData = useMemo(() => {
+    return {
+      email: '',
+      message: '',
+      name: '',
+      object: '',
+    };
+  }, []);
   const [data, setData] = useState(emptyForm);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   /**
    * Reset all the form fields.
    */
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setData(emptyForm);
     setIsSubmitting(false);
-  };
+  }, [emptyForm]);
 
-  const updateForm = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    switch (e.target.name) {
-      case 'email':
-        setData((prevData) => {
-          return { ...prevData, email: e.target.value };
-        });
-        break;
-      case 'message':
-        setData((prevData) => {
-          return { ...prevData, message: e.target.value };
-        });
-        break;
-      case 'name':
-        setData((prevData) => {
-          return { ...prevData, name: e.target.value };
-        });
-        break;
-      case 'object':
-        setData((prevData) => {
-          return { ...prevData, object: e.target.value };
-        });
-        break;
-      default:
-        break;
-    }
-  };
+  const updateForm = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      switch (e.target.name) {
+        case 'email':
+          setData((prevData) => {
+            return { ...prevData, email: e.target.value };
+          });
+          break;
+        case 'message':
+          setData((prevData) => {
+            return { ...prevData, message: e.target.value };
+          });
+          break;
+        case 'name':
+          setData((prevData) => {
+            return { ...prevData, name: e.target.value };
+          });
+          break;
+        case 'object':
+          setData((prevData) => {
+            return { ...prevData, object: e.target.value };
+          });
+          break;
+        default:
+          break;
+      }
+    },
+    []
+  );
 
   const formName = intl.formatMessage({
     defaultMessage: 'Contact form',
@@ -114,11 +126,20 @@ export const ContactForm: FC<ContactFormProps> = ({
     id: 'yN5P+m',
   });
 
-  const submitHandler = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    sendMail(data, resetForm).then(() => setIsSubmitting(false));
-  };
+  const loadingMsg = intl.formatMessage({
+    defaultMessage: 'Sending mail...',
+    description: 'ContactForm: spinner message on submit',
+    id: 'xaqaYQ',
+  });
+
+  const submitHandler = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+      await sendMail(data, resetForm).then(() => setIsSubmitting(false));
+    },
+    [data, resetForm, sendMail]
+  );
 
   return (
     <Form aria-label={formName} className={formClass} onSubmit={submitHandler}>
@@ -195,15 +216,7 @@ export const ContactForm: FC<ContactFormProps> = ({
           id: 'VkAnvv',
         })}
       </Button>
-      {isSubmitting && (
-        <Spinner
-          message={intl.formatMessage({
-            defaultMessage: 'Sending mail...',
-            description: 'ContactForm: spinner message on submit',
-            id: 'xaqaYQ',
-          })}
-        />
-      )}
+      {isSubmitting ? <Spinner>{loadingMsg}</Spinner> : null}
       {Notice}
     </Form>
   );

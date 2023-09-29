@@ -1,7 +1,7 @@
-import { NextPage } from 'next';
-import { AppProps as NextAppProps } from 'next/app';
-import { ReactElement, ReactNode } from 'react';
-import { MessageFormatElement } from 'react-intl';
+import type { NextPage } from 'next';
+import type { AppProps as NextAppProps } from 'next/app';
+import type { ReactElement, ReactNode } from 'react';
+import type { MessageFormatElement } from 'react-intl';
 
 export type NextPageWithLayoutOptions = {
   withExtraPadding?: boolean;
@@ -9,15 +9,15 @@ export type NextPageWithLayoutOptions = {
   useGrid?: boolean;
 };
 
-export type NextPageWithLayout<T = {}> = NextPage<T> & {
+export type NextPageWithLayout<T = object> = NextPage<T> & {
   getLayout?: (
     page: ReactElement,
     options: NextPageWithLayoutOptions
   ) => ReactNode;
 };
 
-// modified version - allows for custom pageProps type, falling back to 'any'
-type AppProps<P = any> = {
+// modified version - allows custom pageProps type, falling back to 'unknown'
+type AppProps<P = unknown> = {
   pageProps: P;
 } & Omit<NextAppProps<P>, 'pageProps'>;
 
@@ -130,3 +130,5 @@ export type Topic = Page<'topic'>;
 export type Slug = {
   slug: string;
 };
+
+export type Position = 'bottom' | 'center' | 'left' | 'right' | 'top';

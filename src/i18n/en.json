@@ -83,6 +83,10 @@
     "defaultMessage": "Page not found.",
     "description": "404Page: SEO - Meta description"
   },
+  "4iYISO": {
+    "defaultMessage": "Loading the requested article...",
+    "description": "ArticlePage: loading article message"
+  },
   "50xc4o": {
     "defaultMessage": "Read more articles about:",
     "description": "ArticlePage: footer topics list label"
@@ -186,6 +190,10 @@
   "EbFvsM": {
     "defaultMessage": "Reading time:",
     "description": "Meta: reading time label"
+  },
+  "EeCqAE": {
+    "defaultMessage": "Loading the search results...",
+    "description": "SearchPage: loading search results message"
   },
   "Es52wh": {
     "defaultMessage": "Blog",
@@ -306,6 +314,10 @@
   "R895yC": {
     "defaultMessage": "CV",
     "description": "Layout: main nav - cv link"
+  },
+  "RwI3B9": {
+    "defaultMessage": "Loading the repository popularity...",
+    "description": "ProjectsPage: loading repository popularity"
   },
   "T4YA64": {
     "defaultMessage": "Subscribe",
@@ -535,10 +547,6 @@
     "defaultMessage": "Share",
     "description": "Sharing: widget title"
   },
-  "q9cJQe": {
-    "defaultMessage": "Loading...",
-    "description": "Spinner: loading text"
-  },
   "qnwsWV": {
     "defaultMessage": "Projects",
     "description": "Layout: main nav - projects link"
@@ -618,6 +626,10 @@
   "xYNeKX": {
     "defaultMessage": "Settings form",
     "description": "SettingsModal: an accessible form name"
+  },
+  "xYemkP": {
+    "defaultMessage": "Loading more articles...",
+    "description": "PostsList: loading more articles message"
   },
   "xaqaYQ": {
     "defaultMessage": "Sending mail...",

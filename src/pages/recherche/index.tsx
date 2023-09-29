@@ -151,6 +151,11 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     id: 'N804XO',
   });
   const postsListBaseUrl = `${ROUTES.SEARCH}/page/`;
+  const loadingResults = intl.formatMessage({
+    defaultMessage: 'Loading the search results...',
+    description: 'SearchPage: loading search results message',
+    id: 'EeCqAE',
+  });
 
   return (
     <>
@@ -211,7 +216,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
             total={totalArticles ?? 0}
           />
         ) : (
-          <Spinner />
+          <Spinner>{loadingResults}</Spinner>
         )}
         {error ? (
           <Notice
