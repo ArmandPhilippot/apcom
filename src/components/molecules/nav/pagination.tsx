@@ -1,7 +1,7 @@
 /* eslint-disable max-statements */
 import { type FC, Fragment, type ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { ButtonLink } from '../../atoms';
+import { ButtonLink, List, ListItem } from '../../atoms';
 import styles from './pagination.module.scss';
 
 export type PaginationProps = {
@@ -140,7 +140,7 @@ export const Pagination: FC<PaginationProps> = ({
     const disabledLinkClass = `${styles.link} ${styles['link--disabled']}`;
 
     return (
-      <li className={styles.item}>
+      <ListItem className={styles.item}>
         {link ? (
           <ButtonLink className={linkClass} kind={kind} to={link}>
             {body}
@@ -148,7 +148,7 @@ export const Pagination: FC<PaginationProps> = ({
         ) : (
           <span className={disabledLinkClass}>{body}</span>
         )}
-      </li>
+      </ListItem>
     );
   };
 
@@ -202,13 +202,15 @@ export const Pagination: FC<PaginationProps> = ({
 
   return (
     <nav {...props} className={navClass}>
-      <ul className={listClass}>{getPages(current, totalPages)}</ul>
-      <ul className={styles.list}>
+      <List className={listClass} hideMarker isInline spacing="2xs">
+        {getPages(current, totalPages)}
+      </List>
+      <List className={styles.list} hideMarker isInline spacing="xs">
         {hasPreviousPage
           ? getItem('previous', previousPageName, previousPageUrl)
           : null}
         {hasNextPage ? getItem('next', nextPageName, nextPageUrl) : null}
-      </ul>
+      </List>
     </nav>
   );
 };

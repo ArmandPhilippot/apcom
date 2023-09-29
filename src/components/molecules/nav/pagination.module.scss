@@ -1,18 +1,10 @@
 @use "../../../styles/abstracts/functions" as fun;
-@use "../../../styles/abstracts/placeholders";
 
 .wrapper {
   .list {
-    @extend %flex-list;
-
-    align-items: stretch;
     justify-content: center;
-    position: relative;
-    row-gap: var(--spacing-xs);
-    column-gap: var(--spacing-sm);
 
     &--pages {
-      column-gap: var(--spacing-2xs);
       margin-bottom: var(--spacing-sm);
     }
   }

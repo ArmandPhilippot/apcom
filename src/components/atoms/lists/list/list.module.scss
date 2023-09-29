@@ -1,0 +1,28 @@
+@use "../../../../styles/abstracts/placeholders";
+
+.list {
+  &--hierarchical {
+    @extend %hierarchical-list;
+  }
+
+  &--inline {
+    @extend %inline-list;
+  }
+
+  &--stack {
+    .item {
+      @extend %list-item;
+    }
+  }
+
+  &--stack#{&} {
+    &--ordered,
+    &--unordered {
+      @extend %regular-list;
+    }
+  }
+
+  &--no-marker {
+    list-style-type: none;
+  }
+}

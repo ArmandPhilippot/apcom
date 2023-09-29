@@ -1,4 +1,4 @@
-import { SingleComment } from '../../../types/app';
+import type { SingleComment } from '../../../types/app';
 
 export const comments: SingleComment[] = [
   {
@@ -11,7 +11,7 @@ export const comments: SingleComment[] = [
         avatar: {
           alt: 'Author 1 avatar',
           height: 480,
-          src: 'http://placeimg.com/640/480',
+          src: 'http://picsum.photos/640/480',
           width: 640,
         },
         name: 'Author 1',
@@ -24,14 +24,14 @@ export const comments: SingleComment[] = [
   {
     approved: true,
     content:
-      'Sit sed error quasi voluptatem velit voluptas aut. Aut debitis eveniet. Praesentium dolores quia voluptate vero quis dicta quasi vel. Aut voluptas accusantium ut aut quidem consectetur itaque laboriosam occaecati.',
+      'Sit sed error quasi voluptatem velit voluptas aut. Aut debitis eveniet. Praesentium dolores quia voluptate vero quis dicta quasi vel. Aut voluptas accusantium ut aut quidem consectetur itaque laboriosam rerum.',
     id: 2,
     meta: {
       author: {
         avatar: {
           alt: 'Author 2 avatar',
           height: 480,
-          src: 'http://placeimg.com/640/480',
+          src: 'http://picsum.photos/640/480',
           width: 640,
         },
         name: 'Author 2',
@@ -51,7 +51,7 @@ export const comments: SingleComment[] = [
             avatar: {
               alt: 'Author 4 avatar',
               height: 480,
-              src: 'http://placeimg.com/640/480',
+              src: 'http://picsum.photos/640/480',
               width: 640,
             },
             name: 'Author 4',
@@ -71,7 +71,7 @@ export const comments: SingleComment[] = [
             avatar: {
               alt: 'Author 1 avatar',
               height: 480,
-              src: 'http://placeimg.com/640/480',
+              src: 'http://picsum.photos/640/480',
               width: 640,
             },
             name: 'Author 1',
@@ -93,7 +93,7 @@ export const comments: SingleComment[] = [
         avatar: {
           alt: 'Author 3',
           height: 480,
-          src: 'http://placeimg.com/640/480',
+          src: 'http://picsum.photos/640/480',
           width: 640,
         },
         name: 'Author 3',

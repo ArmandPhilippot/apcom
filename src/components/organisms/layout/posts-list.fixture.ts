@@ -1,4 +1,4 @@
-import { type Post } from './posts-list';
+import type { Post } from './posts-list';
 
 export const introPost1 =
   'Esse et voluptas sapiente modi impedit unde et. Ducimus nulla ea impedit sit placeat nihil assumenda. Rem est fugiat amet quo hic. Corrupti fuga quod animi autem dolorem ullam corrupti vel aut.';
@@ -12,7 +12,7 @@ export const introPost3 =
 export const cover = {
   alt: 'cover',
   height: 480,
-  src: 'http://placeimg.com/640/480',
+  src: 'http://picsum.photos/640/480',
   width: 640,
 };
 

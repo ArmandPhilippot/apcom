@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { SocialLink, type SocialLinkProps } from '../../atoms';
+import type { FC } from 'react';
+import { List, ListItem, SocialLink, type SocialLinkProps } from '../../atoms';
 import { Widget, type WidgetProps } from '../../molecules';
 import styles from './social-media.module.scss';
 
@@ -21,17 +21,18 @@ export const SocialMedia: FC<SocialMediaProps> = ({ media, ...props }) => {
    * @param {SocialMedia[]} links - An array of social media name and url.
    * @returns {JSX.Element[]} The social links.
    */
-  const getItems = (links: Media[]): JSX.Element[] => {
-    return links.map((link, index) => (
-      <li key={`media-${index}`}>
+  const getItems = (links: Media[]): JSX.Element[] =>
+    links.map((link, index) => (
+      <ListItem key={`media-${index}`}>
         <SocialLink name={link.name} url={link.url} />
-      </li>
+      </ListItem>
     ));
-  };
 
   return (
     <Widget expanded={true} {...props}>
-      <ul className={styles.list}>{getItems(media)}</ul>
+      <List className={styles.list} hideMarker isInline spacing="xs">
+        {getItems(media)}
+      </List>
     </Widget>
   );
 };

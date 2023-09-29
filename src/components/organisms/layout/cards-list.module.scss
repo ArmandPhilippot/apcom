@@ -17,14 +17,6 @@
       gap: var(--spacing-lg);
     }
   }
-
-  &--ordered {
-    @extend %reset-ordered-list;
-  }
-
-  &--unordered {
-    @extend %reset-list;
-  }
 }
 
 .card {

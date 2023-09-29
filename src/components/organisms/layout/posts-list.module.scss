@@ -18,14 +18,8 @@
 }
 
 .list {
-  @extend %reset-ordered-list;
-
   .item {
     border-bottom: fun.convert-px(1) solid var(--color-border);
-
-    &:not(:last-child) {
-      margin-bottom: var(--spacing-md);
-    }
   }
 }
 

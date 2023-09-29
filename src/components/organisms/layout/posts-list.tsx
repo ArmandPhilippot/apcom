@@ -8,6 +8,8 @@ import {
   type HeadingLevel,
   ProgressBar,
   Spinner,
+  List,
+  ListItem,
 } from '../../atoms';
 import { Pagination, type PaginationProps } from '../../molecules';
 import { NoResults, type NoResultsProps } from './no-results';
@@ -115,25 +117,28 @@ export const PostsList: FC<PostsListProps> = ({
     allPosts: Post[],
     headingLevel: HeadingLevel = 2
   ): JSX.Element => (
-    <ol
+    <List
       aria-busy={isLoading}
       aria-describedby={progressBarId}
       className={styles.list}
+      hideMarker
+      isOrdered
       ref={listRef}
+      spacing="md"
     >
       {allPosts.map(({ id, ...post }) => (
         <Fragment key={id}>
-          <li className={styles.item}>
+          <ListItem className={styles.item}>
             <Summary {...post} titleLevel={headingLevel} />
-          </li>
+          </ListItem>
           {id === lastPostId && (
-            <li>
+            <ListItem>
               <span ref={lastPostRef} tabIndex={-1} />
-            </li>
+            </ListItem>
           )}
         </Fragment>
       ))}
-    </ol>
+    </List>
   );
 
   /**

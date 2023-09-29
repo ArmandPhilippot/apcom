@@ -164,7 +164,7 @@ $icon-sizes: ();
 $spacing_ratio: get-ratio("golden-number");
 $spacing_base: $spacing_ratio * 1rem;
 
-$spacing_levels: "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl";
+$spacing_levels: "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl";
 
 // We start with 2xs spacing, so it needs to be less than the base.
 $spacing_current: math.div($spacing_base, $spacing_ratio * 3);

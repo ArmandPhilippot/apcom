@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-literals */
 import type { FC } from 'react';
-import type { Position } from '../../../../../types';
+import type { Position } from '../../../../../../types';
 
 export type ArrowOrientation = Exclude<Position, 'center'>;
 

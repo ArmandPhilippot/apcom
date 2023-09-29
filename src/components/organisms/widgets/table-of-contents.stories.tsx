@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { TableOfContents as ToCWidget } from './table-of-contents';
 
 /**
@@ -26,7 +26,8 @@ const Template: ComponentStory<typeof ToCWidget> = (args) => (
   <ToCWidget {...args} />
 );
 
-const GetWrapper = () => {
+/* eslint-disable max-statements */
+const getWrapper = () => {
   const wrapper = document.createElement('div');
   const firstTitle = document.createElement('h2');
   const firstParagraph = document.createElement('p');
@@ -50,5 +51,5 @@ const GetWrapper = () => {
  */
 export const TableOfContents = Template.bind({});
 TableOfContents.args = {
-  wrapper: GetWrapper(),
+  wrapper: getWrapper(),
 };

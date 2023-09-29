@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { Link, Nav, NavLink, type NavProps } from '../../atoms';
+import { Link, List, ListItem, Nav, NavLink, type NavProps } from '../../atoms';
 import styles from './nav-list.module.scss';
 
 export type NavItem = {
@@ -50,7 +50,6 @@ export const NavList: FC<NavListProps> = ({
 }) => {
   const kindClass = `nav--${kind}`;
   const navClass = `${styles[kindClass]} ${className}`;
-  const listClass = `${styles.nav__list} ${listClassName}`;
 
   /**
    * Get the nav items.
@@ -58,18 +57,20 @@ export const NavList: FC<NavListProps> = ({
    */
   const getItems = (): JSX.Element[] =>
     items.map(({ id, href, label, logo }) => (
-      <li key={id} className={styles.nav__item}>
+      <ListItem key={id} className={styles.nav__item}>
         {kind === 'main' ? (
           <NavLink href={href} label={label} logo={logo} />
         ) : (
           <Link href={href}>{label}</Link>
         )}
-      </li>
+      </ListItem>
     ));
 
   return (
     <Nav {...props} className={navClass}>
-      <ul className={listClass}>{getItems()}</ul>
+      <List className={listClassName} hideMarker isInline spacing="2xs">
+        {getItems()}
+      </List>
     </Nav>
   );
 };

@@ -9,7 +9,8 @@
     position: relative;
     border: fun.convert-px(1) solid var(--color-border-dark);
     border-left: fun.convert-px(5) solid var(--color-border-dark);
-    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+    box-shadow:
+      fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
         var(--color-shadow),
       fun.convert-px(3) fun.convert-px(3) fun.convert-px(4) 0
         var(--color-shadow);
@@ -94,8 +95,6 @@
     gap: var(--spacing-sm);
 
     .blocks-gallery-grid {
-      @extend %reset-list;
-
       grid-column: 1 / -1;
       grid-row: 1 / -1;
       display: grid;
@@ -110,7 +109,8 @@
 
       a {
         display: block;
-        box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
+        box-shadow:
+          0 0 fun.convert-px(1) 0 var(--color-shadow),
           fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
             var(--color-shadow-light),
           fun.convert-px(3) fun.convert-px(3) fun.convert-px(6) 0
@@ -119,7 +119,8 @@
         &:hover,
         &:focus {
           transform: scale(1.05);
-          box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
+          box-shadow:
+            0 0 fun.convert-px(1) 0 var(--color-shadow),
             fun.convert-px(3) fun.convert-px(3) fun.convert-px(2) 0
               var(--color-shadow-light),
             fun.convert-px(5) fun.convert-px(5) fun.convert-px(8) 0
@@ -132,7 +133,8 @@
 
         &:active {
           transform: scale(0.95);
-          box-shadow: 0 0 fun.convert-px(1) 0 var(--color-shadow),
+          box-shadow:
+            0 0 fun.convert-px(1) 0 var(--color-shadow),
             fun.convert-px(2) fun.convert-px(2) fun.convert-px(2) 0
               var(--color-shadow-light),
             0 0 0 0 var(--color-shadow-light);
@@ -141,6 +143,7 @@
       }
     }
 
+    // cSpell:ignore aligncenter
     &.aligncenter {
       .blocks-gallery-grid {
         align-items: center;

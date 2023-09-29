@@ -1,14 +1,5 @@
 @use "../../../styles/abstracts/placeholders";
 
-.list {
-  @extend %reset-ordered-list;
-
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  gap: var(--spacing-2xs);
-}
-
 .item {
   &:not(:last-of-type) {
     &::after {

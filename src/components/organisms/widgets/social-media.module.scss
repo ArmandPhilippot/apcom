@@ -1,10 +1,5 @@
 @use "../../../styles/abstracts/placeholders";
 
 .list {
-  @extend %reset-list;
-
-  display: flex;
-  flex-flow: row wrap;
-  gap: var(--spacing-xs);
   padding: 0 var(--spacing-2xs);
 }

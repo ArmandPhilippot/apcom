@@ -23,6 +23,8 @@ import {
   Spinner,
   type MetaData,
   Heading,
+  List,
+  ListItem,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
@@ -99,6 +101,24 @@ const H6 = ({
   </Heading>
 );
 
+const OrderedList = ({
+  children,
+  ...props
+}: HTMLAttributes<HTMLUListElement>) => (
+  <List {...props} isOrdered spacing="2xs">
+    {children}
+  </List>
+);
+
+const UnorderedList = ({
+  children,
+  ...props
+}: HTMLAttributes<HTMLUListElement>) => (
+  <List {...props} spacing="2xs">
+    {children}
+  </List>
+);
+
 const components: MDXComponents = {
   Code,
   Gallery,
@@ -109,7 +129,10 @@ const components: MDXComponents = {
   h5: H5,
   h6: H6,
   Image: BorderedImage,
+  li: ListItem,
   Link,
+  ol: OrderedList,
+  ul: UnorderedList,
 };
 
 type ProjectPageProps = {

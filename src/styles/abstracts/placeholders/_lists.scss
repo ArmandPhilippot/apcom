@@ -1,0 +1,53 @@
+%reset-list {
+  margin: 0;
+  padding: 0;
+
+  ::marker {
+    color: var(--color-primary-dark);
+  }
+}
+
+%regular-list {
+  @extend %reset-list;
+
+  list-style-position: inside;
+
+  ul,
+  ol {
+    margin-block-start: var(--itemSpacing);
+    padding-inline-start: var(--spacing-sm);
+  }
+}
+
+%hierarchical-list {
+  @extend %reset-list;
+
+  counter-reset: item;
+
+  > li {
+    display: table;
+    counter-increment: item;
+
+    &::before {
+      content: counters(item, ".") ". ";
+      display: table-cell;
+      padding-inline-end: var(--spacing-2xs);
+      color: var(--color-secondary);
+    }
+  }
+}
+
+%inline-list {
+  @extend %reset-list;
+
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--itemSpacing, 0);
+  list-style-position: inside;
+}
+
+%list-item {
+  &:not(:last-child) {
+    margin-block-end: var(--itemSpacing);
+  }
+}

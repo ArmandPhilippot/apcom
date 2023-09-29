@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ResponsiveImage } from '../../molecules';
 import { Gallery } from './gallery';
 
@@ -37,7 +37,7 @@ export default {
 const image = {
   alt: 'Modi provident omnis',
   height: 480,
-  src: 'http://placeimg.com/640/480/fashion',
+  src: 'http://picsum.photos/640/480',
   width: 640,
 };
 

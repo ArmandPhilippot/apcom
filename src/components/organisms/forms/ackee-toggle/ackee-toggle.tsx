@@ -1,17 +1,18 @@
-import { ChangeEvent, FC, useState } from 'react';
+/* eslint-disable max-statements */
+import { type ChangeEvent, type FC, useState, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   type AckeeOptions,
   useLocalStorage,
   useUpdateAckeeOptions,
 } from '../../../../utils/hooks';
-import { Legend, List } from '../../../atoms';
+import { Legend, List, ListItem } from '../../../atoms';
 import {
   Switch,
-  SwitchOption,
-  SwitchProps,
+  type SwitchOption,
+  type SwitchProps,
   Tooltip,
-  TooltipProps,
+  type TooltipProps,
 } from '../../../molecules';
 
 export type AckeeToggleProps = Omit<
@@ -85,29 +86,24 @@ export const AckeeToggle: FC<AckeeToggleProps> = ({
     id: '7zDlQo',
   });
 
-  const options: [SwitchOption, SwitchOption] = [
-    {
-      id: 'ackee-full',
-      label: fullLabel,
-      value: 'full',
-    },
-    {
-      id: 'ackee-partial',
-      label: partialLabel,
-      value: 'partial',
-    },
-  ];
+  const options = [
+    { id: 'ackee-full' as const, label: fullLabel, value: 'full' },
+    { id: 'ackee-partial' as const, label: partialLabel, value: 'partial' },
+  ] satisfies [SwitchOption, SwitchOption];
 
-  const updateSetting = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value === 'full' ? 'full' : 'partial');
-  };
+  const updateSetting = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setValue(e.target.value === 'full' ? 'full' : 'partial');
+    },
+    [setValue]
+  );
 
-  const closeTooltip = () => {
+  const closeTooltip = useCallback(() => {
     setIsTooltipOpened(false);
-  };
-  const toggleTooltip = () => {
+  }, []);
+  const toggleTooltip = useCallback(() => {
     setIsTooltipOpened((prev) => !prev);
-  };
+  }, []);
 
   return (
     <Switch
@@ -125,12 +121,13 @@ export const AckeeToggle: FC<AckeeToggleProps> = ({
           onClickOutside={closeTooltip}
           onToggle={toggleTooltip}
         >
-          <List
-            items={[
-              { id: 'partial', value: tooltipPartial },
-              { id: 'full', value: tooltipFull },
-            ]}
-          />
+          <List>
+            {options.map((option) => (
+              <ListItem key={option.id}>
+                {option.id === 'ackee-full' ? tooltipFull : tooltipPartial}
+              </ListItem>
+            ))}
+          </List>
         </Tooltip>
       }
       value={value}

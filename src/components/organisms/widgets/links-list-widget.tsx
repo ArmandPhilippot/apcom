@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { slugify } from '../../../utils/helpers';
-import { Link, List, type ListItem, type ListProps } from '../../atoms';
+import { Link, List, ListItem } from '../../atoms';
 import { Widget, type WidgetProps } from '../../molecules';
 import styles from './links-list-widget.module.scss';
 
@@ -19,13 +19,19 @@ export type LinksListItems = {
   url: string;
 };
 
-export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> &
-  Pick<ListProps, 'className' | 'kind'> & {
-    /**
-     * An array of name/url couple.
-     */
-    items: LinksListItems[];
-  };
+export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> & {
+  className?: string;
+  /**
+   * Should the links be ordered?
+   *
+   * @default false
+   */
+  isOrdered?: boolean;
+  /**
+   * An array of name/url couple.
+   */
+  items: LinksListItems[];
+};
 
 /**
  * LinksListWidget component
@@ -34,11 +40,11 @@ export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> &
  */
 export const LinksListWidget: FC<LinksListWidgetProps> = ({
   className = '',
+  isOrdered = false,
   items,
-  kind = 'unordered',
   ...props
 }) => {
-  const listKindClass = `list--${kind}`;
+  const listKindClass = `list--${isOrdered ? 'ordered' : 'unordered'}`;
 
   /**
    * Format the widget data to be used as List items.
@@ -46,19 +52,23 @@ export const LinksListWidget: FC<LinksListWidgetProps> = ({
    * @param {LinksListItems[]} data - The widget data.
    * @returns {ListItem[]} The list items data.
    */
-  const getListItems = (data: LinksListItems[]): ListItem[] => {
-    return data.map((item) => {
-      return {
-        id: slugify(item.name),
-        child: item.child && getListItems(item.child),
-        value: (
-          <Link href={item.url} className={styles.list__link}>
-            {item.name}
-          </Link>
-        ),
-      };
-    });
-  };
+  const getListItems = (data: LinksListItems[]) =>
+    data.map((item) => (
+      <ListItem className={styles.list__item} key={slugify(item.name)}>
+        <Link className={styles.list__link} href={item.url}>
+          {item.name}
+        </Link>
+        {item.child?.length ? (
+          <List
+            className={`${styles.list} ${styles[listKindClass]} ${className}`}
+            hideMarker
+            isOrdered={isOrdered}
+          >
+            {getListItems(item.child)}
+          </List>
+        ) : null}
+      </ListItem>
+    ));
 
   return (
     <Widget
@@ -70,10 +80,11 @@ export const LinksListWidget: FC<LinksListWidgetProps> = ({
     >
       <List
         className={`${styles.list} ${styles[listKindClass]} ${className}`}
-        items={getListItems(items)}
-        itemsClassName={styles.list__item}
-        kind={kind}
-      />
+        hideMarker
+        isOrdered={isOrdered}
+      >
+        {getListItems(items)}
+      </List>
     </Widget>
   );
 };

@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
   CardsList as CardsListComponent,
   type CardsListItem,
@@ -90,7 +90,7 @@ const items: CardsListItem[] = [
     id: 'card-1',
     cover: {
       alt: 'card 1 picture',
-      src: 'http://placeimg.com/640/480',
+      src: 'http://picsum.photos/640/480',
       width: 640,
       height: 480,
     },
@@ -103,7 +103,7 @@ const items: CardsListItem[] = [
     id: 'card-2',
     cover: {
       alt: 'card 2 picture',
-      src: 'http://placeimg.com/640/480',
+      src: 'http://picsum.photos/640/480',
       width: 640,
       height: 480,
     },
@@ -116,7 +116,7 @@ const items: CardsListItem[] = [
     id: 'card-3',
     cover: {
       alt: 'card 3 picture',
-      src: 'http://placeimg.com/640/480',
+      src: 'http://picsum.photos/640/480',
       width: 640,
       height: 480,
     },

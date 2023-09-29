@@ -1,39 +1,15 @@
+@use "../../../styles/abstracts/placeholders";
+
 @mixin styles {
-  ol {
-    padding: 0;
-    list-style-type: none;
-    counter-reset: li;
-
-    > li {
-      display: table;
-      counter-increment: li;
-
-      &::before {
-        content: counters(li, ".") ". ";
-        display: table-cell;
-        padding-right: var(--spacing-2xs);
-        color: var(--color-secondary);
-      }
-    }
-
-    li ol > li::before {
-      content: counters(li, ".") ". ";
-    }
-  }
-
-  ul,
-  ol {
-    li:not(:last-child) {
-      margin-bottom: var(--spacing-2xs);
-    }
-
-    ::marker {
-      color: var(--color-primary-dark);
-    }
-  }
-
+  ol,
   ul {
-    padding-left: var(--spacing-sm);
+    @extend %regular-list;
+
+    margin: var(--spacing-sm) 0;
+  }
+
+  li {
+    @extend %list-item;
   }
 
   dl {
@@ -41,11 +17,6 @@
     flex-flow: row wrap;
     gap: var(--spacing-2xs);
     width: fit-content;
-  }
-
-  ul,
-  ol,
-  dl {
     margin: var(--spacing-sm) 0;
 
     & & {

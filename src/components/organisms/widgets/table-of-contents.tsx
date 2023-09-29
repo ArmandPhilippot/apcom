@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
 import { useHeadingsTree, type Heading } from '../../../utils/hooks';
 import { type LinksListItems, LinksListWidget } from './links-list-widget';
@@ -31,21 +31,20 @@ export const TableOfContents: FC<TableOfContentsProps> = ({ wrapper }) => {
    * @param {Heading[]} tree - The headings tree.
    * @returns {LinksListItems[]} The list items.
    */
-  const getItems = (tree: Heading[]): LinksListItems[] => {
-    return tree.map((heading) => {
+  const getItems = (tree: Heading[]): LinksListItems[] =>
+    tree.map((heading) => {
       return {
         name: heading.title,
         url: `#${heading.id}`,
         child: getItems(heading.children),
       };
     });
-  };
 
   return (
     <LinksListWidget
       className={styles.list}
+      isOrdered
       items={getItems(headingsTree)}
-      kind="ordered"
       level={2}
       title={title}
     />

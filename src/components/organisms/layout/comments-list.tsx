@@ -1,7 +1,12 @@
-import { FC } from 'react';
-import { type SingleComment } from '../../../types';
+import type { FC } from 'react';
+import type { SingleComment } from '../../../types';
+import { List, ListItem } from '../../atoms';
+
+// eslint-disable-next-line @typescript-eslint/no-shadow
 import { Comment, type CommentProps } from './comment';
-import styles from './comments-list.module.scss';
+
+// eslint-disable-next-line @typescript-eslint/no-magic-numbers
+export type CommentsListDepth = 0 | 1 | 2 | 3 | 4;
 
 export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
   /**
@@ -11,7 +16,7 @@ export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
   /**
    * The maximum depth. Use `0` to not display nested comments.
    */
-  depth: 0 | 1 | 2 | 3 | 4;
+  depth: CommentsListDepth;
 };
 
 /**
@@ -38,19 +43,25 @@ export const CommentsList: FC<CommentsListProps> = ({
     const isLastLevel = startLevel === depth;
 
     return commentsList.map(({ replies, ...comment }) => (
-      <li key={comment.id} className={styles.item}>
+      <ListItem key={comment.id}>
         <Comment
           canReply={!isLastLevel}
           Notice={Notice}
           saveComment={saveComment}
           {...comment}
         />
-        {replies && !isLastLevel && (
-          <ol className={styles.list}>{getItems(replies, startLevel + 1)}</ol>
-        )}
-      </li>
+        {replies.length && !isLastLevel ? (
+          <List hideMarker isOrdered spacing="sm">
+            {getItems(replies, startLevel + 1)}
+          </List>
+        ) : null}
+      </ListItem>
     ));
   };
 
-  return <ol className={styles.list}>{getItems(comments, 0)}</ol>;
+  return (
+    <List hideMarker isOrdered spacing="sm">
+      {getItems(comments, 0)}
+    </List>
+  );
 };

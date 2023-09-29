@@ -14,7 +14,7 @@ import {
   getLayout,
   Icon,
   List,
-  type ListItem,
+  ListItem,
   ResponsiveImage,
   Section,
   type SectionProps,
@@ -90,10 +90,10 @@ const H6 = ({
  */
 const CodingLinks: FC = () => {
   const intl = useIntl();
-  const links: ListItem[] = [
-    {
-      id: 'web-development',
-      value: (
+
+  return (
+    <List className={styles.list} hideMarker isInline spacing="sm">
+      <ListItem>
         <ButtonLink to={ROUTES.THEMATICS.WEB_DEV}>
           {intl.formatMessage({
             defaultMessage: 'Web development',
@@ -101,11 +101,8 @@ const CodingLinks: FC = () => {
             id: 'vkF/RP',
           })}
         </ButtonLink>
-      ),
-    },
-    {
-      id: 'projects',
-      value: (
+      </ListItem>
+      <ListItem>
         <ButtonLink to={ROUTES.PROJECTS}>
           {intl.formatMessage({
             defaultMessage: 'Projects',
@@ -113,12 +110,9 @@ const CodingLinks: FC = () => {
             id: 'N44SOc',
           })}
         </ButtonLink>
-      ),
-    },
-  ];
-
-  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
-  return <List kind="flex" items={links} className={styles.list} />;
+      </ListItem>
+    </List>
+  );
 };
 
 /**
@@ -132,10 +126,10 @@ const ColdarkRepos: FC = () => {
     github: 'https://github.com/ArmandPhilippot/coldark',
     gitlab: 'https://gitlab.com/ArmandPhilippot/coldark',
   };
-  const links: ListItem[] = [
-    {
-      id: 'coldark-github',
-      value: (
+
+  return (
+    <List className={styles.list} hideMarker isInline spacing="sm">
+      <ListItem>
         <ButtonLink isExternal to={repo.github}>
           {intl.formatMessage({
             defaultMessage: 'Github',
@@ -143,11 +137,8 @@ const ColdarkRepos: FC = () => {
             id: '3f3PzH',
           })}
         </ButtonLink>
-      ),
-    },
-    {
-      id: 'coldark-gitlab',
-      value: (
+      </ListItem>
+      <ListItem>
         <ButtonLink isExternal to={repo.gitlab}>
           {intl.formatMessage({
             defaultMessage: 'Gitlab',
@@ -155,12 +146,9 @@ const ColdarkRepos: FC = () => {
             id: '7AnwZ7',
           })}
         </ButtonLink>
-      ),
-    },
-  ];
-
-  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
-  return <List kind="flex" items={links} className={styles.list} />;
+      </ListItem>
+    </List>
+  );
 };
 
 /**
@@ -170,10 +158,10 @@ const ColdarkRepos: FC = () => {
  */
 const LibreLinks: FC = () => {
   const intl = useIntl();
-  const links: ListItem[] = [
-    {
-      id: 'free',
-      value: (
+
+  return (
+    <List className={styles.list} hideMarker isInline spacing="sm">
+      <ListItem>
         <ButtonLink to={ROUTES.THEMATICS.FREE}>
           {intl.formatMessage({
             defaultMessage: 'Free',
@@ -181,11 +169,8 @@ const LibreLinks: FC = () => {
             id: 'w8GrOf',
           })}
         </ButtonLink>
-      ),
-    },
-    {
-      id: 'linux',
-      value: (
+      </ListItem>
+      <ListItem>
         <ButtonLink to={ROUTES.THEMATICS.LINUX}>
           {intl.formatMessage({
             defaultMessage: 'Linux',
@@ -193,12 +178,9 @@ const LibreLinks: FC = () => {
             id: 'jASD7k',
           })}
         </ButtonLink>
-      ),
-    },
-  ];
-
-  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
-  return <List kind="flex" items={links} className={styles.list} />;
+      </ListItem>
+    </List>
+  );
 };
 
 /**
@@ -209,10 +191,10 @@ const LibreLinks: FC = () => {
 const ShaarliLink: FC = () => {
   const intl = useIntl();
   const shaarliUrl = PERSONAL_LINKS.SHAARLI;
-  const links: ListItem[] = [
-    {
-      id: 'shaarli',
-      value: (
+
+  return (
+    <List className={styles.list} hideMarker isInline spacing="sm">
+      <ListItem>
         <ButtonLink isExternal to={shaarliUrl}>
           {intl.formatMessage({
             defaultMessage: 'Shaarli',
@@ -220,12 +202,9 @@ const ShaarliLink: FC = () => {
             id: 'i5L19t',
           })}
         </ButtonLink>
-      ),
-    },
-  ];
-
-  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
-  return <List kind="flex" items={links} className={styles.list} />;
+      </ListItem>
+    </List>
+  );
 };
 
 /**
@@ -235,10 +214,10 @@ const ShaarliLink: FC = () => {
  */
 const MoreLinks: FC = () => {
   const intl = useIntl();
-  const links: ListItem[] = [
-    {
-      id: 'contact-me',
-      value: (
+
+  return (
+    <List className={styles.list} hideMarker isInline spacing="sm">
+      <ListItem>
         <ButtonLink to={ROUTES.CONTACT}>
           <Icon aria-hidden={true} shape="envelop" />
           {intl.formatMessage({
@@ -247,11 +226,8 @@ const MoreLinks: FC = () => {
             id: 'sO/Iwj',
           })}
         </ButtonLink>
-      ),
-    },
-    {
-      id: 'rss-feed',
-      value: (
+      </ListItem>
+      <ListItem>
         <ButtonLink to={ROUTES.RSS}>
           <Icon aria-hidden={true} shape="feed" />
           {intl.formatMessage({
@@ -260,12 +236,9 @@ const MoreLinks: FC = () => {
             id: 'T4YA64',
           })}
         </ButtonLink>
-      ),
-    },
-  ];
-
-  // eslint-disable-next-line react/jsx-no-literals -- Kind config allowed
-  return <List kind="flex" items={links} className={styles.list} />;
+      </ListItem>
+    </List>
+  );
 };
 
 const StyledColumns = (props: ColumnsProps) => (

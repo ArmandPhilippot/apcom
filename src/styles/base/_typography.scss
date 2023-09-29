@@ -9,67 +9,6 @@ small {
   font-size: var(--font-size-sm);
 }
 
-ol {
-  list-style-type: none;
-  counter-reset: li;
-  padding: 0;
-
-  > li {
-    display: table;
-    counter-increment: li;
-
-    &::before {
-      content: counters(li, ".") ". ";
-      color: var(--color-secondary);
-      display: table-cell;
-      padding-right: var(--spacing-2xs);
-    }
-  }
-
-  li ol > li::before {
-    content: counters(li, ".") ". ";
-  }
-}
-
-ul,
-ol {
-  li {
-    margin-bottom: var(--spacing-2xs);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  ::marker {
-    color: var(--color-primary-dark);
-  }
-}
-
-ul {
-  padding-left: var(--spacing-sm);
-}
-
-dl {
-  display: flex;
-  flex-flow: row wrap;
-  gap: var(--spacing-2xs);
-}
-
-ul,
-ol,
-dl {
-  margin: var(--spacing-sm) 0;
-
-  & & {
-    margin: var(--spacing-2xs) 0 0;
-  }
-
-  ::marker {
-    color: var(--color-primary-dark);
-  }
-}
-
 a {
   background: linear-gradient(to top, var(--color-primary) 50%, transparent 50%)
     0 0 / 100% 201% no-repeat;

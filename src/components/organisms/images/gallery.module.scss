@@ -2,8 +2,6 @@
 @use "../../../styles/abstracts/placeholders";
 
 .wrapper {
-  @extend %reset-list;
-
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--spacing-sm);

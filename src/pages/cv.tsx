@@ -19,6 +19,7 @@ import {
   PageLayout,
   SocialMedia,
   type MetaData,
+  ListItem,
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import styles from '../styles/pages/cv.module.scss';
@@ -96,6 +97,24 @@ const H6 = ({
   </Heading>
 );
 
+const OrderedList = ({
+  children,
+  ...props
+}: HTMLAttributes<HTMLUListElement>) => (
+  <List {...props} isOrdered spacing="2xs">
+    {children}
+  </List>
+);
+
+const UnorderedList = ({
+  children,
+  ...props
+}: HTMLAttributes<HTMLUListElement>) => (
+  <List {...props} spacing="2xs">
+    {children}
+  </List>
+);
+
 const components: MDXComponents = {
   a: ExternalLink,
   h1: H1,
@@ -104,8 +123,10 @@ const components: MDXComponents = {
   h4: H4,
   h5: H5,
   h6: H6,
+  li: ListItem,
   Link,
-  List,
+  ol: OrderedList,
+  ul: UnorderedList,
 };
 
 /**

@@ -25,10 +25,6 @@
   text-align: center;
 }
 
-.list {
-  @extend %reset-ordered-list;
-}
-
 li.item {
   margin: 0 0 var(--spacing-md) 0;
   border-bottom: fun.convert-px(1) solid var(--color-border);

@@ -1,9 +1,13 @@
 import Script from 'next/script';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
+import type {
+  BreadcrumbList,
+  ListItem as ListItemType,
+  WithContext,
+} from 'schema-dts';
 import { settings } from '../../../utils/config';
-import { Link } from '../../atoms';
+import { Link, List, ListItem } from '../../atoms';
 import styles from './breadcrumb.module.scss';
 
 export type BreadcrumbItem = {
@@ -60,29 +64,28 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
    * @param {BreadcrumbItem[]} list - The breadcrumb items.
    * @returns {JSX.Element[]} The list items.
    */
-  const getListItems = (list: BreadcrumbItem[]): JSX.Element[] => {
-    return list.map((item, index) => {
+  const getListItems = (list: BreadcrumbItem[]): JSX.Element[] =>
+    list.map((item, index) => {
       const isLastItem = index === list.length - 1;
       const itemStyles = isLastItem
         ? `${styles.item} screen-reader-text`
         : styles.item;
 
       return (
-        <li key={item.id} className={`${itemStyles} ${itemClassName}`}>
+        <ListItem key={item.id} className={`${itemStyles} ${itemClassName}`}>
           {isLastItem ? item.name : <Link href={item.url}>{item.name}</Link>}
-        </li>
+        </ListItem>
       );
     });
-  };
 
   /**
    * Retrieve the breadcrumb list items with Schema.org format.
    *
    * @param {BreadcrumbItem[]} list - The breadcrumb items.
-   * @returns {ListItem[]} An array of list items using Schema.org format.
+   * @returns {ListItemType[]} An array of list items using Schema.org format.
    */
-  const getSchemaItems = (list: BreadcrumbItem[]): ListItem[] => {
-    const schemaItems: ListItem[] = [];
+  const getSchemaItems = (list: BreadcrumbItem[]): ListItemType[] => {
+    const schemaItems: ListItemType[] = [];
 
     list.forEach((item, index) => {
       schemaItems.push({
@@ -118,7 +121,9 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
             id: '16zl9Z',
           })}
         </span>
-        <ol className={styles.list}>{getListItems(items)}</ol>
+        <List hideMarker isInline isOrdered spacing="2xs">
+          {getListItems(items)}
+        </List>
       </nav>
     </>
   );

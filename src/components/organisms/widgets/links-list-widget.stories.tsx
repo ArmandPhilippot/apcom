@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { LinksListWidget } from './links-list-widget';
 
 /**
@@ -8,7 +8,7 @@ export default {
   title: 'Organisms/Widgets/LinksList',
   component: LinksListWidget,
   args: {
-    kind: 'unordered',
+    isOrdered: false,
   },
   argTypes: {
     className: {
@@ -30,21 +30,6 @@ export default {
         name: 'object',
         required: true,
         value: {},
-      },
-    },
-    kind: {
-      control: {
-        type: 'select',
-      },
-      description: 'The list kind: either ordered or unordered.',
-      options: ['ordered', 'unordered'],
-      table: {
-        category: 'Options',
-        defaultValue: { summary: 'unordered' },
-      },
-      type: {
-        name: 'string',
-        required: false,
       },
     },
     level: {
@@ -105,7 +90,6 @@ const items = [
 export const Unordered = Template.bind({});
 Unordered.args = {
   items,
-  kind: 'unordered',
   level: 2,
   title: 'A list of links',
 };
@@ -115,8 +99,8 @@ Unordered.args = {
  */
 export const Ordered = Template.bind({});
 Ordered.args = {
+  isOrdered: true,
   items,
-  kind: 'ordered',
   level: 2,
   title: 'A list of links',
 };
