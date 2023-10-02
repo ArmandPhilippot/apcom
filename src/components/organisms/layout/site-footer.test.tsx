@@ -16,6 +16,7 @@ describe('SiteFooter', () => {
   it('renders the website copyright', () => {
     render(<SiteFooter copyright={copyright} topId="top" />);
     expect(rtlScreen.getByText(copyright.owner)).toBeInTheDocument();
+    expect(rtlScreen.getByText(copyright.dates.start)).toBeInTheDocument();
   });
 
   it('renders a back to top link', () => {

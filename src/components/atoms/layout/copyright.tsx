@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import styles from './copyright.module.scss';
 
 export type CopyrightDates = {

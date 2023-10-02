@@ -1,4 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Icon } from '../../atoms';
 import { SiteFooter as SiteFooterComponent } from './site-footer';
 
 /**
@@ -74,7 +75,7 @@ const Template: ComponentStory<typeof SiteFooterComponent> = (args) => (
 const copyright = {
   dates: { start: '2017', end: '2022' },
   owner: 'Lorem ipsum',
-  icon: 'CC',
+  icon: <Icon shape="cc-by-sa" />,
 };
 
 const navItems = [{ id: 'legal-notice', href: '#', label: 'Legal notice' }];

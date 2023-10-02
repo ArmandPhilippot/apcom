@@ -16,7 +16,7 @@ import {
   useScrollPosition,
   useSettings,
 } from '../../../utils/hooks';
-import { ButtonLink, Icon, Main, NoScript } from '../../atoms';
+import { ButtonLink, Icon, Main } from '../../atoms';
 import {
   SiteFooter,
   type SiteFooterProps,
@@ -264,8 +264,7 @@ export const Layout: FC<LayoutProps> = ({
         topId="top"
       />
       <noscript>
-        {/*eslint-disable-next-line react/jsx-no-literals -- Position allowed*/}
-        <NoScript message={noScript} position="top" />
+        <div className={styles.noscript}>{noScript}</div>
       </noscript>
     </>
   );

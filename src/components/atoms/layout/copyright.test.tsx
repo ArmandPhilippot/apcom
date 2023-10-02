@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { render, screen as rtlScreen } from '../../../../tests/utils';
-import { Icon } from '../images';
+import { Icon } from '../images/icons';
 import { Copyright } from './copyright';
 
 const dates = {
@@ -29,6 +29,6 @@ describe('Copyright', () => {
 
   it('renders the copyright icon', () => {
     render(<Copyright dates={dates} icon={icon} owner={owner} />);
-    expect(rtlScreen.getByTitle(iconHeading)).toBeInTheDocument();
+    expect(rtlScreen.getByTitle('CC BY SA')).toBeInTheDocument();
   });
 });

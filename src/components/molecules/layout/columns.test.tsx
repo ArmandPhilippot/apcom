@@ -1,7 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
-import { Column } from '../../atoms';
-import { Columns } from './columns';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { Column, Columns } from './columns';
 
 const column1 =
   'Non praesentium voluptas quisquam ex est. Distinctio accusamus facilis libero in aut. Et veritatis quo impedit fugit amet sit accusantium. Ut est rerum asperiores sint libero eveniet. Molestias placeat recusandae suscipit eligendi sunt hic.';
@@ -26,10 +25,10 @@ describe('Columns', () => {
       </Columns>
     );
 
-    expect(screen.getByText(column1)).toBeInTheDocument();
-    expect(screen.getByText(column2)).toBeInTheDocument();
-    expect(screen.getByText(column3)).toBeInTheDocument();
-    expect(screen.getByText(column4)).toBeInTheDocument();
+    expect(rtlScreen.getByText(column1)).toBeInTheDocument();
+    expect(rtlScreen.getByText(column2)).toBeInTheDocument();
+    expect(rtlScreen.getByText(column3)).toBeInTheDocument();
+    expect(rtlScreen.getByText(column4)).toBeInTheDocument();
   });
 
   it('renders the right number of columns', () => {
@@ -42,7 +41,7 @@ describe('Columns', () => {
       </Columns>
     );
 
-    const container = screen.getByText(column1).parentElement;
+    const container = rtlScreen.getByText(column1).parentElement;
 
     expect(container).toHaveClass('wrapper--3-columns');
   });

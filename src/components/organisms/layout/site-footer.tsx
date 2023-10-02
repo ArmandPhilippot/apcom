@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { Copyright, Footer, type CopyrightProps } from '../../atoms';
+import { Copyright, type CopyrightProps, Footer } from '../../atoms';
 import {
   BackToTop,
   type BackToTopProps,

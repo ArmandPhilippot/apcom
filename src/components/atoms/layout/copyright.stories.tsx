@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Icon } from '../images';
+import { Icon } from '../images/icons';
 import { Copyright as CopyrightComponent } from './copyright';
 
 /**

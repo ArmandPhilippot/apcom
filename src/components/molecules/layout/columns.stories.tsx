@@ -1,6 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Column } from '../../atoms';
-import { Columns } from './columns';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Column, Columns } from './columns';
 
 export default {
   title: 'Molecules/Layout/Columns',
@@ -66,7 +65,7 @@ const column1 =
   'Non praesentium voluptas quisquam ex est. Distinctio accusamus facilis libero in aut. Et veritatis quo impedit fugit amet sit accusantium. Ut est rerum asperiores sint libero eveniet. Molestias placeat recusandae suscipit eligendi sunt hic.';
 
 const column2 =
-  'Occaecati consectetur ad similique itaque rem doloremque commodi voluptate porro. Nam quo voluptas commodi qui rerum qui. Explicabo quis adipisci rerum. Culpa alias laboriosam temporibus iusto harum at placeat.';
+  'Quaerat eum dignissimos tempore ab enim. Iusto inventore nemo. Veritatis voluptas quod maxime earum soluta illo atque vel. Nam et corrupti. Dolorem qui cum dolorem. Aut ut nobis. Mollitia qui voluptas rerum et quibusdam.';
 
 const column3 =
   'Libero aut ab neque voluptatem commodi. Quam quia voluptatem iusto dolorum. Enim ipsa totam corrupti qui cum quidem ea. Eos sed aliquam porro consequatur officia sed.';
