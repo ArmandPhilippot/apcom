@@ -1,8 +1,9 @@
 @use "../../../styles/abstracts/functions" as fun;
 
-.wrapper {
+.notice {
   padding: var(--spacing-2xs) var(--spacing-xs);
   border: fun.convert-px(2) solid;
+  border-radius: fun.convert-px(4);
   font-weight: bold;
 
   &--error {

@@ -5,5 +5,4 @@ export * from './footer';
 export * from './header';
 export * from './main';
 export * from './nav';
-export * from './notice';
 export * from './section';

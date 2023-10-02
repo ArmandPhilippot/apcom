@@ -158,11 +158,9 @@ const ContactPage: NextPageWithLayout = () => {
           sendMail={submitMail}
           Notice={
             statusMessage ? (
-              <Notice
-                kind={statusKind}
-                message={statusMessage}
-                className={styles.notice}
-              />
+              <Notice className={styles.notice} kind={statusKind}>
+                {statusMessage}
+              </Notice>
             ) : undefined
           }
         />

@@ -281,11 +281,9 @@ export const PageLayout: FC<PageLayoutProps> = ({
                 depth={2}
                 Notice={
                   commentStatus?.isReply ? (
-                    <Notice
-                      className={styles.notice}
-                      kind={commentStatus.kind}
-                      message={commentStatus.message}
-                    />
+                    <Notice className={styles.notice} kind={commentStatus.kind}>
+                      {commentStatus.message}
+                    </Notice>
                   ) : null
                 }
                 saveComment={saveComment}
@@ -307,11 +305,9 @@ export const PageLayout: FC<PageLayoutProps> = ({
               title={commentFormTitle}
               Notice={
                 commentStatus && !commentStatus.isReply ? (
-                  <Notice
-                    className={styles.notice}
-                    kind={commentStatus.kind}
-                    message={commentStatus.message}
-                  />
+                  <Notice className={styles.notice} kind={commentStatus.kind}>
+                    {commentStatus.message}
+                  </Notice>
                 ) : null
               }
             />

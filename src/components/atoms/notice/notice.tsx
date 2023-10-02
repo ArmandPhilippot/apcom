@@ -1,17 +1,17 @@
-import { FC, HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 import styles from './notice.module.scss';
 
 export type NoticeKind = 'error' | 'info' | 'success' | 'warning';
 
 export type NoticeProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
   /**
+   * The notice body.
+   */
+  children: ReactNode;
+  /**
    * The notice kind.
    */
   kind: NoticeKind;
-  /**
-   * The notice body.
-   */
-  message: string;
 };
 
 /**
@@ -21,16 +21,16 @@ export type NoticeProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
  */
 export const Notice: FC<NoticeProps> = ({
   className = '',
+  children,
   kind,
-  message,
   ...props
 }) => {
-  const kindClass = `wrapper--${kind}`;
-  const noticeClass = `${styles.wrapper} ${styles[kindClass]} ${className}`;
+  const kindClass = styles[`notice--${kind}`];
+  const noticeClass = `${styles.notice} ${kindClass} ${className}`;
 
   return (
     <div {...props} className={noticeClass}>
-      {message}
+      {children}
     </div>
   );
 };

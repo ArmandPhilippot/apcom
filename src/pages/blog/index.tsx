@@ -196,12 +196,13 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           <Notice
             // eslint-disable-next-line react/jsx-no-literals -- Kind allowed
             kind="error"
-            message={intl.formatMessage({
+          >
+            {intl.formatMessage({
               defaultMessage: 'Failed to load.',
               description: 'BlogPage: failed to load text',
               id: 'C/XGkH',
             })}
-          />
+          </Notice>
         ) : null}
       </PageLayout>
     </>

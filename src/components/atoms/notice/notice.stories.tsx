@@ -1,11 +1,11 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Notice as NoticeComponent } from './notice';
 
 /**
  * Notice - Storybook Meta
  */
 export default {
-  title: 'Atoms/Layout/Notice',
+  title: 'Atoms/Notice',
   component: NoticeComponent,
   argTypes: {
     className: {
@@ -32,7 +32,7 @@ export default {
         required: true,
       },
     },
-    message: {
+    children: {
       control: {
         type: 'text',
       },
@@ -52,35 +52,35 @@ const Template: ComponentStory<typeof NoticeComponent> = (args) => (
 /**
  * Notice stories - Error
  */
-export const Error = Template.bind({});
-Error.args = {
+export const ErrorKind = Template.bind({});
+ErrorKind.args = {
+  children: 'Nisi provident sapiente.',
   kind: 'error',
-  message: 'Nisi provident sapiente.',
 };
 
 /**
  * Notice stories - Info
  */
-export const Info = Template.bind({});
-Info.args = {
+export const InfoKind = Template.bind({});
+InfoKind.args = {
+  children: 'Nisi provident sapiente.',
   kind: 'info',
-  message: 'Nisi provident sapiente.',
 };
 
 /**
  * Notice stories - Success
  */
-export const Success = Template.bind({});
-Success.args = {
+export const SuccessKind = Template.bind({});
+SuccessKind.args = {
+  children: 'Nisi provident sapiente.',
   kind: 'success',
-  message: 'Nisi provident sapiente.',
 };
 
 /**
  * Notice stories - Warning
  */
-export const Warning = Template.bind({});
-Warning.args = {
+export const WarningKind = Template.bind({});
+WarningKind.args = {
+  children: 'Nisi provident sapiente.',
   kind: 'warning',
-  message: 'Nisi provident sapiente.',
 };

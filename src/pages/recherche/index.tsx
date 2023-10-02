@@ -222,12 +222,13 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
           <Notice
             // eslint-disable-next-line react/jsx-no-literals -- Kind allowed
             kind="error"
-            message={intl.formatMessage({
+          >
+            {intl.formatMessage({
               defaultMessage: 'Failed to load.',
               description: 'SearchPage: failed to load text',
               id: 'fOe8rH',
             })}
-          />
+          </Notice>
         ) : null}
       </PageLayout>
     </>
