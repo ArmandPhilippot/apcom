@@ -56,14 +56,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
           {title}
         </Heading>
         {meta ? (
-          <Meta
-            className={styles.meta}
-            data={meta}
-            // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
-            itemsLayout="inline"
-            // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
-            layout="column"
-          />
+          <Meta className={styles.meta} data={meta} isInline spacing="xs" />
         ) : null}
         {intro ? getIntro() : null}
       </div>

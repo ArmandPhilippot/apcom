@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Comment } from './comment';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { UserComment } from './comment';
 import { data } from './comment.fixture';
 
 const saveComment = async () => {
@@ -11,7 +11,7 @@ const saveComment = async () => {
  */
 export default {
   title: 'Organisms/Layout/Comment',
-  component: Comment,
+  component: UserComment,
   args: {
     canReply: true,
     saveComment,
@@ -104,10 +104,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Comment>;
+} as ComponentMeta<typeof UserComment>;
 
-const Template: ComponentStory<typeof Comment> = (args) => (
-  <Comment {...args} />
+const Template: ComponentStory<typeof UserComment> = (args) => (
+  <UserComment {...args} />
 );
 
 /**

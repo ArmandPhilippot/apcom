@@ -1,0 +1,28 @@
+@use "../../../../styles/abstracts/placeholders";
+
+.term {
+  @extend %term;
+}
+
+.description {
+  @extend %description;
+}
+
+.group {
+  width: fit-content;
+}
+
+.list {
+  margin: 0;
+}
+
+.group,
+.list {
+  &--inline {
+    @extend %inline-description-list;
+  }
+
+  &--stack {
+    @extend %stack-description-list;
+  }
+}

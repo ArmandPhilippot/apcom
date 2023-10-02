@@ -1,5 +1,5 @@
 import { getFormattedDate, getFormattedTime } from '../../../utils/helpers';
-import { CommentProps } from './comment';
+import type { UserCommentProps } from './comment';
 
 export const author = {
   avatar: {
@@ -28,7 +28,7 @@ export const saveComment = async () => {
   /** Do nothing. */
 };
 
-export const data: CommentProps = {
+export const data: UserCommentProps = {
   approved: true,
   content,
   id,

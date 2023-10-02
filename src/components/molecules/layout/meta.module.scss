@@ -1,3 +1,16 @@
-.value {
-  word-break: break-all;
+.list {
+  .description:not(:first-of-type) {
+    &::before {
+      display: inline;
+      float: left;
+      content: "/";
+      margin-right: var(--itemSpacing);
+    }
+  }
+
+  &--stack {
+    .term {
+      flex: 0 0 100%;
+    }
+  }
 }

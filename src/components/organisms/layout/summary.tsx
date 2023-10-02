@@ -135,16 +135,7 @@ export const Summary: FC<SummaryProps> = ({
         </ButtonLink>
       </div>
       <footer className={styles.footer}>
-        <Meta
-          className={styles.meta}
-          data={getMeta()}
-          groupClassName={styles.meta__item}
-          // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
-          itemsLayout="stacked"
-          // eslint-disable-next-line react/jsx-no-literals -- Layout allowed
-          layout="column"
-          withSeparator={false}
-        />
+        <Meta className={styles.meta} data={getMeta()} spacing="xs" />
       </footer>
     </article>
   );

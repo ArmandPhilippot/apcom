@@ -1,7 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import descriptionListItemStories from '../../atoms/lists/description-list-group.stories';
-import descriptionListStories from '../../atoms/lists/description-list.stories';
-import { Meta as MetaComponent, MetaData } from './meta';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta as MetaComponent, type MetaData } from './meta';
 
 /**
  * Meta - Storybook Meta
@@ -9,36 +7,14 @@ import { Meta as MetaComponent, MetaData } from './meta';
 export default {
   title: 'Molecules/Layout',
   component: MetaComponent,
-  args: {
-    itemsLayout: 'inline-values',
-    withSeparator: false,
-  },
+  args: {},
   argTypes: {
-    className: descriptionListStories.argTypes?.className,
     data: {
       description: 'The page metadata.',
       type: {
         name: 'object',
         required: true,
         value: {},
-      },
-    },
-    groupClassName: descriptionListStories.argTypes?.groupClassName,
-    itemsLayout: {
-      ...descriptionListItemStories.argTypes?.layout,
-      table: {
-        ...descriptionListItemStories.argTypes?.layout?.table,
-        defaultValue: { summary: 'inline-values' },
-      },
-    },
-    labelClassName: descriptionListStories.argTypes?.labelClassName,
-    layout: descriptionListStories.argTypes?.layout,
-    valueClassName: descriptionListStories.argTypes?.valueClassName,
-    withSeparator: {
-      ...descriptionListStories.argTypes?.withSeparator,
-      table: {
-        ...descriptionListStories.argTypes?.withSeparator?.table,
-        defaultValue: { summary: true },
       },
     },
   },
@@ -51,10 +27,10 @@ const Template: ComponentStory<typeof MetaComponent> = (args) => (
 const data: MetaData = {
   publication: { date: '2022-04-09', time: '01:04:00' },
   thematics: [
-    <a key="category1" href="#">
+    <a key="category1" href="#a">
       Category 1
     </a>,
-    <a key="category2" href="#">
+    <a key="category2" href="#b">
       Category 2
     </a>,
   ],

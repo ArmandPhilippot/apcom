@@ -1,14 +1,15 @@
 import type { FC } from 'react';
 import type { SingleComment } from '../../../types';
 import { List, ListItem } from '../../atoms';
-
-// eslint-disable-next-line @typescript-eslint/no-shadow
-import { Comment, type CommentProps } from './comment';
+import { UserComment, type UserCommentProps } from './comment';
 
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
 export type CommentsListDepth = 0 | 1 | 2 | 3 | 4;
 
-export type CommentsListProps = Pick<CommentProps, 'Notice' | 'saveComment'> & {
+export type CommentsListProps = Pick<
+  UserCommentProps,
+  'Notice' | 'saveComment'
+> & {
   /**
    * An array of comments.
    */
@@ -44,7 +45,7 @@ export const CommentsList: FC<CommentsListProps> = ({
 
     return commentsList.map(({ replies, ...comment }) => (
       <ListItem key={comment.id}>
-        <Comment
+        <UserComment
           canReply={!isLastLevel}
           Notice={Notice}
           saveComment={saveComment}

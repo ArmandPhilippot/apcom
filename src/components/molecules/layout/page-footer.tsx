@@ -15,7 +15,5 @@ export type PageFooterProps = Omit<FooterProps, 'children'> & {
  * Render a footer to display page meta.
  */
 export const PageFooter: FC<PageFooterProps> = ({ meta, ...props }) => (
-  <Footer {...props}>
-    {meta ? <Meta data={meta} withSeparator={false} /> : null}
-  </Footer>
+  <Footer {...props}>{meta ? <Meta data={meta} /> : null}</Footer>
 );

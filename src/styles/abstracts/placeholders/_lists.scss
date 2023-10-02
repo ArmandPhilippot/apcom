@@ -37,12 +37,16 @@
   }
 }
 
+%flex-list {
+  display: flex;
+  gap: var(--itemSpacing, 0);
+}
+
 %inline-list {
   @extend %reset-list;
+  @extend %flex-list;
 
-  display: flex;
   flex-flow: row wrap;
-  gap: var(--itemSpacing, 0);
   list-style-position: inside;
 }
 
@@ -50,4 +54,26 @@
   &:not(:last-child) {
     margin-block-end: var(--itemSpacing);
   }
+}
+
+%inline-description-list {
+  @extend %flex-list;
+
+  flex-flow: row wrap;
+}
+
+%stack-description-list {
+  @extend %flex-list;
+
+  flex-flow: column wrap;
+}
+
+%term {
+  color: var(--color-fg-light);
+  font-weight: 600;
+}
+
+%description {
+  margin: 0;
+  word-break: break-all;
 }

@@ -72,15 +72,7 @@ export const Card: FC<CardProps> = ({
         {tagline ? <div className={styles.tagline}>{tagline}</div> : null}
         {meta ? (
           <footer className={styles.footer}>
-            <Meta
-              data={meta}
-              // eslint-disable-next-line react/jsx-no-literals -- Hardcoded config
-              layout="inline"
-              className={styles.list}
-              groupClassName={styles.meta__item}
-              labelClassName={styles.meta__label}
-              valueClassName={styles.meta__value}
-            />
+            <Meta className={styles.list} data={meta} spacing="sm" />
           </footer>
         ) : null}
       </article>

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import {
   Meta,
   type MetaData,
@@ -47,12 +47,10 @@ export const Overview: FC<OverviewProps> = ({
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
-      {cover && <ResponsiveImage className={styles.cover} {...cover} />}
+      {cover ? <ResponsiveImage className={styles.cover} {...cover} /> : null}
       <Meta
         className={`${styles.meta} ${metaModifier}`}
         data={{ ...remainingMeta, technologies }}
-        layout="inline"
-        withSeparator={false}
       />
     </div>
   );

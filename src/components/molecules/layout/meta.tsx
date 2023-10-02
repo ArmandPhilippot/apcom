@@ -1,16 +1,19 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import { getFormattedDate, getFormattedTime } from '../../../utils/helpers';
 import {
   DescriptionList,
   type DescriptionListProps,
-  type DescriptionListItem,
   Link,
+  Group,
+  Term,
+  Description,
 } from '../../atoms';
+import styles from './meta.module.scss';
 
 export type CustomMeta = {
   label: string;
-  value: ReactNode | ReactNode[];
+  value: ReactNode;
 };
 
 export type MetaComments = {
@@ -106,24 +109,16 @@ export type MetaData = {
   website?: string;
 };
 
-export type MetaKey = keyof MetaData;
+const isCustomMeta = (
+  key: keyof MetaData,
+  _value: unknown
+): _value is MetaData['custom'] => key === 'custom';
 
-export type MetaProps = Omit<
-  DescriptionListProps,
-  'items' | 'withSeparator'
-> & {
+export type MetaProps = Omit<DescriptionListProps, 'children'> & {
   /**
    * The meta data.
    */
   data: MetaData;
-  /**
-   * The items layout.
-   */
-  itemsLayout?: DescriptionListItem['layout'];
-  /**
-   * If true, use a slash to delimitate multiple values. Default: true.
-   */
-  withSeparator?: DescriptionListProps['withSeparator'];
 };
 
 /**
@@ -132,11 +127,13 @@ export type MetaProps = Omit<
  * Renders the given metadata.
  */
 export const Meta: FC<MetaProps> = ({
+  className = '',
   data,
-  itemsLayout = 'inline-values',
-  withSeparator = true,
+  isInline = false,
   ...props
 }) => {
+  const layoutClass = styles[isInline ? 'list--inline' : 'list--stack'];
+  const listClass = `${styles.list} ${layoutClass} ${className}`;
   const intl = useIntl();
 
   /**
@@ -316,7 +313,7 @@ export const Meta: FC<MetaProps> = ({
    * @param {ValueOf<MetaData>} value - The meta value.
    * @returns {string|ReactNode|ReactNode[]} - The formatted value.
    */
-  const getValue = <T extends MetaKey>(
+  const getValue = <T extends keyof MetaData>(
     key: T,
     value: MetaData[T]
   ): string | ReactNode | ReactNode[] => {
@@ -338,12 +335,11 @@ export const Meta: FC<MetaProps> = ({
           { postsCount: value as number }
         );
       case 'website':
-        const url = value as string;
-        return (
-          <Link href={url} external={true}>
-            {url}
+        return typeof value === 'string' ? (
+          <Link href={value} external={true}>
+            {value}
           </Link>
-        );
+        ) : null;
       default:
         return value as string | ReactNode | ReactNode[];
     }
@@ -355,36 +351,45 @@ export const Meta: FC<MetaProps> = ({
    * @param {MetaData} items - The meta.
    * @returns {DescriptionListItem[]} The formatted description list items.
    */
-  const getItems = (items: MetaData): DescriptionListItem[] => {
-    const listItems: DescriptionListItem[] = Object.entries(items)
-      .map(([key, value]) => {
-        if (!key || !value) return;
+  const getItems = (items: MetaData) => {
+    const entries = Object.entries(items) as [
+      keyof MetaData,
+      MetaData[keyof MetaData],
+    ][];
+    const listItems = entries.map(([key, meta]) => {
+      if (!meta) return null;
 
-        const metaKey = key as MetaKey;
-
-        return {
-          id: metaKey,
-          label:
-            metaKey === 'custom'
-              ? (value as CustomMeta).label
-              : getLabel(metaKey),
-          layout: itemsLayout,
-          value:
-            metaKey === 'custom' && (value as CustomMeta)
-              ? (value as CustomMeta).value
-              : getValue(metaKey, value),
-        } as DescriptionListItem;
-      })
-      .filter((item): item is DescriptionListItem => !!item);
+      return (
+        <Group isInline key={key} spacing="2xs">
+          <Term className={styles.term}>
+            {isCustomMeta(key, meta) ? meta.label : getLabel(key)}
+          </Term>
+          {Array.isArray(meta) ? (
+            meta.map((singleMeta, index) => (
+              /* eslint-disable-next-line react/no-array-index-key -- Unsafe,
+               * but also temporary. This component should be removed or
+               * refactored. */
+              <Description className={styles.description} key={index}>
+                {isCustomMeta(key, singleMeta)
+                  ? singleMeta
+                  : getValue(key, singleMeta)}
+              </Description>
+            ))
+          ) : (
+            <Description className={styles.description}>
+              {isCustomMeta(key, meta) ? meta.value : getValue(key, meta)}
+            </Description>
+          )}
+        </Group>
+      );
+    });
 
     return listItems;
   };
 
   return (
-    <DescriptionList
-      {...props}
-      items={getItems(data)}
-      withSeparator={withSeparator}
-    />
+    <DescriptionList {...props} className={listClass} isInline={isInline}>
+      {getItems(data)}
+    </DescriptionList>
   );
 };

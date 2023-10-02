@@ -29,6 +29,10 @@
         dd {
           padding: 0 var(--spacing-2xs);
           border: fun.convert-px(1) solid var(--color-border-dark);
+
+          &::before {
+            display: none;
+          }
         }
       }
     }

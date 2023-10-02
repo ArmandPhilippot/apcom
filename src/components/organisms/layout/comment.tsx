@@ -1,16 +1,17 @@
-import Image from 'next/image';
+/* eslint-disable max-statements */
+import NextImage from 'next/image';
 import Script from 'next/script';
-import { FC, useCallback, useState } from 'react';
+import { type FC, useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { type Comment as CommentSchema, type WithContext } from 'schema-dts';
-import { type SingleComment } from '../../../types';
+import type { Comment as CommentSchema, WithContext } from 'schema-dts';
+import type { SingleComment } from '../../../types';
 import { useSettings } from '../../../utils/hooks';
 import { Button, Link } from '../../atoms';
 import { Meta } from '../../molecules';
 import { CommentForm, type CommentFormProps } from '../forms';
 import styles from './comment.module.scss';
 
-export type CommentProps = Pick<
+export type UserCommentProps = Pick<
   SingleComment,
   'approved' | 'content' | 'id' | 'meta' | 'parentId'
 > &
@@ -22,11 +23,11 @@ export type CommentProps = Pick<
   };
 
 /**
- * Comment component
+ * UserComment component
  *
  * Render a single comment.
  */
-export const Comment: FC<CommentProps> = ({
+export const UserComment: FC<UserCommentProps> = ({
   approved,
   canReply = true,
   content,
@@ -103,6 +104,9 @@ export const Comment: FC<CommentProps> = ({
     text: content,
   };
 
+  const commentWrapperClass = `${styles.wrapper} ${styles['wrapper--comment']}`;
+  const formWrapperClass = `${styles.wrapper} ${styles['wrapper--form']}`;
+
   return (
     <>
       <Script
@@ -110,14 +114,11 @@ export const Comment: FC<CommentProps> = ({
         id="schema-comments"
         type="application/ld+json"
       />
-      <article
-        className={`${styles.wrapper} ${styles['wrapper--comment']}`}
-        id={`comment-${id}`}
-      >
+      <article className={commentWrapperClass} id={`comment-${id}`}>
         <header className={styles.header}>
-          {author.avatar && (
+          {author.avatar ? (
             <div className={styles.avatar}>
-              <Image
+              <NextImage
                 {...props}
                 alt={author.avatar.alt}
                 fill
@@ -125,7 +126,7 @@ export const Comment: FC<CommentProps> = ({
                 style={{ objectFit: 'cover' }}
               />
             </div>
-          )}
+          ) : null}
           {author.website ? (
             <Link href={author.website} className={styles.author}>
               {author.name}
@@ -143,31 +144,29 @@ export const Comment: FC<CommentProps> = ({
               target: `#comment-${id}`,
             },
           }}
-          groupClassName={styles.date__item}
-          itemsLayout="inline"
-          layout="inline"
+          isInline
         />
         <div
           className={styles.body}
           dangerouslySetInnerHTML={{ __html: content }}
         />
         <footer className={styles.footer}>
-          {canReply && (
+          {canReply ? (
             <Button kind="tertiary" onClick={handleReply}>
               {buttonLabel}
             </Button>
-          )}
+          ) : null}
         </footer>
       </article>
-      {isReplying && (
+      {isReplying ? (
         <CommentForm
-          className={`${styles.wrapper} ${styles['wrapper--form']}`}
+          className={formWrapperClass}
           Notice={Notice}
           parentId={id}
           saveComment={saveComment}
           title={formTitle}
         />
-      )}
+      ) : null}
     </>
   );
 };
