@@ -1,11 +1,11 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Link } from './link';
 
 /**
  * Link - Storybook Meta
  */
 export default {
-  title: 'Atoms/Typography/Links',
+  title: 'Atoms/Links/Link',
   component: Link,
   argTypes: {
     children: {
@@ -31,7 +31,17 @@ export default {
         required: false,
       },
     },
-    download: {
+    href: {
+      control: {
+        type: 'text',
+      },
+      description: 'The link target.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
+    isDownload: {
       control: {
         type: 'boolean',
       },
@@ -45,7 +55,7 @@ export default {
         required: false,
       },
     },
-    external: {
+    isExternal: {
       control: {
         type: 'boolean',
       },
@@ -57,16 +67,6 @@ export default {
       type: {
         name: 'boolean',
         required: false,
-      },
-    },
-    href: {
-      control: {
-        type: 'text',
-      },
-      description: 'The link target.',
-      type: {
-        name: 'string',
-        required: true,
       },
     },
     lang: {
@@ -94,64 +94,62 @@ export const Default = Template.bind({});
 Default.args = {
   children: 'A link',
   href: '#',
-  download: false,
-  external: false,
 };
 
 /**
  * Links Stories - Download
  */
-export const Download = Template.bind({});
-Download.args = {
+export const DownloadLink = Template.bind({});
+DownloadLink.args = {
   children: 'A link to a file',
   href: '#',
-  download: true,
-  external: false,
+  isDownload: true,
+  isExternal: false,
 };
 
 /**
- * Links Stories - DownloadWithLang
+ * Links Stories - Download link with lang
  */
-export const DownloadWithLang = Template.bind({});
-DownloadWithLang.args = {
+export const DownloadLinkWithLang = Template.bind({});
+DownloadLinkWithLang.args = {
   children: 'A link to a file',
   href: '#',
-  download: true,
-  external: false,
+  isDownload: true,
+  isExternal: false,
   lang: 'en',
 };
 
 /**
  * Links Stories - External
  */
-export const External = Template.bind({});
-External.args = {
+export const ExternalLink = Template.bind({});
+ExternalLink.args = {
   children: 'A link',
   href: '#',
-  download: false,
-  external: true,
+  isDownload: false,
+  isExternal: true,
 };
 
 /**
- * Links Stories - External download
+ * Links Stories - External download link
  */
 export const ExternalDownload = Template.bind({});
 ExternalDownload.args = {
   children: 'A link',
   href: '#',
-  download: true,
-  external: true,
+  isDownload: true,
+  isExternal: true,
 };
 
 /**
- * Links Stories - External With Lang
+ * Links Stories - External link with Lang
  */
-export const ExternalWithLang = Template.bind({});
-ExternalWithLang.args = {
+export const ExternalLinkWithLang = Template.bind({});
+ExternalLinkWithLang.args = {
   children: 'A link',
   href: '#',
-  download: false,
-  external: true,
+  isDownload: false,
+  isExternal: true,
   lang: 'en',
 };
 
@@ -162,19 +160,19 @@ export const ExternalDownloadWithLang = Template.bind({});
 ExternalDownloadWithLang.args = {
   children: 'A link',
   href: '#',
-  download: true,
-  external: true,
+  isDownload: true,
+  isExternal: true,
   lang: 'en',
 };
 
 /**
  * Links Stories - With Lang
  */
-export const WithLang = Template.bind({});
-WithLang.args = {
+export const LinkLang = Template.bind({});
+LinkLang.args = {
   children: 'A link',
   href: '#',
-  download: false,
-  external: false,
+  isDownload: false,
+  isExternal: false,
   lang: 'en',
 };

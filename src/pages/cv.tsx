@@ -38,7 +38,7 @@ const ExternalLink = ({
   href = '',
   ...props
 }: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-  <Link {...props} external={true} href={href}>
+  <Link {...props} isExternal href={href}>
     {children}
   </Link>
 );
@@ -172,7 +172,7 @@ const CVPage: NextPageWithLayout = () => {
     },
     {
       link: (chunks: ReactNode) => (
-        <Link download={true} href={file}>
+        <Link href={file} isDownload>
           {chunks}
         </Link>
       ),

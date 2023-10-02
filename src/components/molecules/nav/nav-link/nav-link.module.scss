@@ -1,35 +1,49 @@
-@use "../../../styles/abstracts/functions" as fun;
-@use "../../../styles/abstracts/mixins" as mix;
-@use "../../../styles/abstracts/placeholders";
+@use "../../../../styles/abstracts/functions" as fun;
+@use "../../../../styles/abstracts/placeholders";
 
 .link {
   --draw-border-thickness: #{fun.convert-px(4)};
   --draw-border-color1: var(--color-primary-light);
   --draw-border-color2: var(--color-primary-lighter);
 
-  display: inline-flex;
-  flex-flow: column nowrap;
+  display: flex;
+  flex-flow: row wrap;
   place-items: center;
   place-content: center;
   row-gap: var(--spacing-2xs);
-  min-width: var(--link-min-width, fun.convert-px(85));
-  padding: var(--spacing-xs);
-  background: inherit;
+  min-width: var(--link-min-width, fun.convert-px(80));
+  padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-2xs);
+  background: none;
+  border-radius: 8%;
   font-size: var(--font-size-sm);
   font-variant: small-caps;
   font-weight: 600;
-  line-height: 1;
+  text-align: center;
   text-decoration: none;
 
-  @include mix.media("screen") {
-    @include mix.dimensions("md") {
-      border-radius: 8%;
+  &--inline {
+    width: fit-content;
+
+    .logo {
+      margin-right: var(--spacing-xs);
+    }
+  }
+
+  &--stack {
+    .logo {
+      flex: 0 0 100%;
+      display: flex;
+      place-content: center;
     }
   }
 
   &:hover,
   &:focus {
     @extend %draw-borders;
+  }
+
+  &:hover {
+    color: var(--color-primary-light);
   }
 
   &:focus {
@@ -39,6 +53,8 @@
   &:active {
     --draw-border-color1: var(--color-primary-dark);
     --draw-border-color2: var(--color-primary-light);
+
+    color: var(--color-primary-dark);
 
     @extend %draw-borders;
   }

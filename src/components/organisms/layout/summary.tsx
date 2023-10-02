@@ -117,9 +117,11 @@ export const Summary: FC<SummaryProps> = ({
         </Link>
       </header>
       <div className={styles.body}>
-        {/* eslint-disable-next-line react/no-danger -- Not safe but intro can
-         * contains links or formatting so we need it. */}
-        <div dangerouslySetInnerHTML={{ __html: intro }} />
+        <div
+          className={styles.intro}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: intro }}
+        />
         <ButtonLink className={styles['read-more']} to={url}>
           <>
             {readMore}

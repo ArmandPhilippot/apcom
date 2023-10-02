@@ -1,5 +1,6 @@
 @use "../abstracts/functions" as fun;
 @use "../abstracts/mixins" as mix;
+@use "../abstracts/placeholders";
 @use "partials/article-headings";
 @use "partials/article-links";
 @use "partials/article-lists";
@@ -25,6 +26,42 @@
     @include article-media.styles;
     @include article-prism.styles;
     @include article-wp-blocks.styles;
+  }
+}
+
+:global([data-theme="light"]) {
+  :local {
+    .body {
+      :global {
+        a {
+          &.download {
+            @extend %light-download-link;
+          }
+
+          &.external {
+            @extend %light-external-link;
+          }
+        }
+      }
+    }
+  }
+}
+
+:global([data-theme="dark"]) {
+  :local {
+    .body {
+      :global {
+        a {
+          &.download {
+            @extend %dark-download-link;
+          }
+
+          &.external {
+            @extend %dark-external-link;
+          }
+        }
+      }
+    }
   }
 }
 

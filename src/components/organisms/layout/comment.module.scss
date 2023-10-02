@@ -1,11 +1,13 @@
 @use "../../../styles/abstracts/functions" as fun;
 @use "../../../styles/abstracts/mixins" as mix;
+@use "../../../styles/abstracts/placeholders";
 
 .wrapper {
   padding: var(--spacing-md);
   background: var(--color-bg);
   border: fun.convert-px(1) solid var(--color-border);
-  box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light),
+  box-shadow:
+    fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light),
     fun.convert-px(4) fun.convert-px(4) fun.convert-px(3) fun.convert-px(-2)
       var(--color-shadow);
 
@@ -50,7 +52,8 @@
     height: fun.convert-px(85);
     position: relative;
     border-radius: fun.convert-px(3);
-    box-shadow: 0 0 0 fun.convert-px(1) var(--color-shadow-light),
+    box-shadow:
+      0 0 0 fun.convert-px(1) var(--color-shadow-light),
       fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1)
         var(--color-shadow);
 
@@ -80,6 +83,45 @@
 
   .body {
     overflow-wrap: break-word;
+
+    :global {
+      a {
+        @extend %link;
+
+        &[hreflang],
+        &.download,
+        &.external {
+          @extend %link-with-icon;
+        }
+
+        &[hreflang] {
+          @extend %link-with-lang;
+        }
+
+        &[hreflang]:not(.download, .external) {
+          --is-icon-hidden: "";
+        }
+
+        &.download {
+          @extend %download-link;
+        }
+
+        &.external {
+          @extend %external-link;
+        }
+
+        &.download,
+        &.external {
+          &:not([hreflang]) {
+            --is-lang-hidden: "";
+          }
+        }
+
+        &.external.download {
+          @extend %external-download-link;
+        }
+      }
+    }
   }
 
   .footer {

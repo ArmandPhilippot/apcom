@@ -1,6 +1,10 @@
 Adwords
 Auxseo
+Coreutils
+dotfiles
+dotig
 GIDO
+htdocs
 Jasson
 Londe
 Massena
@@ -12,3 +16,4 @@ référenceur
 Superdoc
 Symfony
 webmarketing
+webroot

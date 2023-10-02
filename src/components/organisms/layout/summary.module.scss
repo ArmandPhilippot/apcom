@@ -1,5 +1,6 @@
 @use "../../../styles/abstracts/functions" as fun;
 @use "../../../styles/abstracts/mixins" as mix;
+@use "../../../styles/abstracts/placeholders";
 
 .wrapper {
   display: grid;
@@ -115,6 +116,83 @@
     @include mix.dimensions("sm") {
       display: flex;
       margin-top: 0;
+    }
+  }
+}
+
+.intro {
+  :global {
+    a {
+      @extend %link;
+
+      &[hreflang],
+      &.download,
+      &.external {
+        @extend %link-with-icon;
+      }
+
+      &[hreflang] {
+        @extend %link-with-lang;
+      }
+
+      &[hreflang]:not(.download, .external) {
+        --is-icon-hidden: "";
+      }
+
+      &.download {
+        @extend %download-link;
+      }
+
+      &.external {
+        @extend %external-link;
+      }
+
+      &.download,
+      &.external {
+        &:not([hreflang]) {
+          --is-lang-hidden: "";
+        }
+      }
+
+      &.external.download {
+        @extend %external-download-link;
+      }
+    }
+  }
+}
+
+:global([data-theme="light"]) {
+  :local {
+    .intro {
+      :global {
+        a {
+          &.download {
+            @extend %light-download-link;
+          }
+
+          &.external {
+            @extend %light-external-link;
+          }
+        }
+      }
+    }
+  }
+}
+
+:global([data-theme="dark"]) {
+  :local {
+    .intro {
+      :global {
+        a {
+          &.download {
+            @extend %dark-download-link;
+          }
+
+          &.external {
+            @extend %dark-external-link;
+          }
+        }
+      }
     }
   }
 }

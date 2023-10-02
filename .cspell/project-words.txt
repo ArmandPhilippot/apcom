@@ -4,8 +4,10 @@ autodocs
 changefreq
 coldark
 commitlint
+creativecommons
 Eckles
 formatjs
+gitlab
 Gitlab
 Jamstack
 LINKEDIN

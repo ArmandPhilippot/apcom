@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react';
-import { Link, List, ListItem, Nav, NavLink, type NavProps } from '../../atoms';
+import { Link, List, ListItem, Nav, type NavProps } from '../../atoms';
+import { NavLink } from './nav-link';
 import styles from './nav-list.module.scss';
 
 export type NavItem = {
@@ -49,7 +50,7 @@ export const NavList: FC<NavListProps> = ({
   ...props
 }) => {
   const kindClass = `nav--${kind}`;
-  const navClass = `${styles[kindClass]} ${className}`;
+  const navClass = `${styles.nav} ${styles[kindClass]} ${className}`;
 
   /**
    * Get the nav items.

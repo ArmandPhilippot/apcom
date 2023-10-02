@@ -1,11 +1,12 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Icon } from '../../../atoms';
 import { NavLink as NavLinkComponent } from './nav-link';
 
 /**
  * NavLink - Storybook Meta
  */
 export default {
-  title: 'Atoms/Typography/Links',
+  title: 'Molecules/Nav/NavLink',
   component: NavLinkComponent,
   argTypes: {
     href: {
@@ -42,14 +43,37 @@ export default {
 } as ComponentMeta<typeof NavLinkComponent>;
 
 const Template: ComponentStory<typeof NavLinkComponent> = (args) => (
-  <NavLinkComponent {...args} />
+  <div style={{ width: 'fit-content' }}>
+    <NavLinkComponent {...args} />
+  </div>
 );
 
 /**
- * Links Stories - Nav Link
+ * NavLink Stories - Default
  */
-export const NavLink = Template.bind({});
-NavLink.args = {
+export const Default = Template.bind({});
+Default.args = {
   href: '#',
   label: 'A nav link',
+};
+
+/**
+ * NavLink Stories - StackWithLogo
+ */
+export const StackWithLogo = Template.bind({});
+StackWithLogo.args = {
+  href: '#example',
+  label: 'A nav link',
+  logo: <Icon aria-hidden shape="home" />,
+};
+
+/**
+ * NavLink Stories - InlineWithLogo
+ */
+export const InlineWithLogo = Template.bind({});
+InlineWithLogo.args = {
+  href: '#example',
+  isInline: true,
+  label: 'A nav link',
+  logo: <Icon aria-hidden shape="home" />,
 };

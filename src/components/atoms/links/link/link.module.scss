@@ -1,0 +1,70 @@
+@use "../../../../styles/abstracts/placeholders";
+
+.link {
+  color: var(--color-primary);
+
+  &--regular {
+    @extend %link;
+  }
+
+  &[hreflang],
+  &--download,
+  &--external {
+    @extend %link-with-icon;
+  }
+
+  &[hreflang]:not(#{&}--download):not(#{&}--external) {
+    --is-icon-hidden: "";
+  }
+
+  &[hreflang] {
+    @extend %link-with-lang;
+  }
+
+  &--download {
+    @extend %download-link;
+  }
+
+  &--external {
+    @extend %external-link;
+  }
+
+  &--download,
+  &--external {
+    &:not([hreflang]) {
+      --is-lang-hidden: "";
+    }
+  }
+
+  &--external#{&}--download {
+    @extend %external-download-link;
+  }
+}
+
+:global([data-theme="light"]) {
+  :local {
+    .link {
+      &--download {
+        @extend %light-download-link;
+      }
+
+      &--external {
+        @extend %light-external-link;
+      }
+    }
+  }
+}
+
+:global([data-theme="dark"]) {
+  :local {
+    .link {
+      &--download {
+        @extend %dark-download-link;
+      }
+
+      &--external {
+        @extend %dark-external-link;
+      }
+    }
+  }
+}

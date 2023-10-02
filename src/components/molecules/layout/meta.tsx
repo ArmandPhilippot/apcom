@@ -336,7 +336,7 @@ export const Meta: FC<MetaProps> = ({
         );
       case 'website':
         return typeof value === 'string' ? (
-          <Link href={value} external={true}>
+          <Link href={value} isExternal>
             {value}
           </Link>
         ) : null;

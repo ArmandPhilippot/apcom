@@ -1,4 +1,14 @@
 .nav {
+  &--main {
+    width: fit-content;
+  }
+
+  &--main & {
+    &__item {
+      flex: 1;
+    }
+  }
+
   &--footer & {
     &__item:not(:first-child) {
       &::before {
