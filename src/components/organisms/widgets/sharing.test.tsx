@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
 import { Sharing, type SharingData } from './sharing';
 
 const postData: SharingData = {
@@ -12,13 +12,13 @@ describe('Sharing', () => {
   it('renders a sharing widget', () => {
     render(<Sharing data={postData} media={['facebook', 'twitter']} />);
     expect(
-      screen.getByRole('link', { name: 'Share on facebook' })
+      rtlScreen.getByRole('link', { name: 'Share on Facebook' })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: 'Share on twitter' })
+      rtlScreen.getByRole('link', { name: 'Share on Twitter' })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole('link', { name: 'Share on linkedin' })
+      rtlScreen.queryByRole('link', { name: 'Share on LinkedIn' })
     ).not.toBeInTheDocument();
   });
 });

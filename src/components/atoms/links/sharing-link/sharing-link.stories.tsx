@@ -1,11 +1,11 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { SharingLink } from './sharing-link';
 
 /**
  * SharingLink - Storybook Meta
  */
 export default {
-  title: 'Atoms/Buttons/Sharing',
+  title: 'Atoms/Links/Sharing',
   component: SharingLink,
   argTypes: {
     medium: {
@@ -21,6 +21,16 @@ export default {
         'linkedin',
         'twitter',
       ],
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
+    label: {
+      control: {
+        type: 'text',
+      },
+      description: 'An accessible label that describe the link..',
       type: {
         name: 'string',
         required: true,
@@ -48,6 +58,7 @@ const Template: ComponentStory<typeof SharingLink> = (args) => (
  */
 export const Diaspora = Template.bind({});
 Diaspora.args = {
+  label: 'Share on Diaspora',
   medium: 'diaspora',
   url: '#',
 };
@@ -57,6 +68,7 @@ Diaspora.args = {
  */
 export const Email = Template.bind({});
 Email.args = {
+  label: 'Share by Email',
   medium: 'email',
   url: '#',
 };
@@ -66,6 +78,7 @@ Email.args = {
  */
 export const Facebook = Template.bind({});
 Facebook.args = {
+  label: 'Share on Facebook',
   medium: 'facebook',
   url: '#',
 };
@@ -75,6 +88,7 @@ Facebook.args = {
  */
 export const JournalDuHacker = Template.bind({});
 JournalDuHacker.args = {
+  label: 'Share on Journal du Hacker',
   medium: 'journal-du-hacker',
   url: '#',
 };
@@ -84,6 +98,7 @@ JournalDuHacker.args = {
  */
 export const LinkedIn = Template.bind({});
 LinkedIn.args = {
+  label: 'Share on LinkedIn',
   medium: 'linkedin',
   url: '#',
 };
@@ -93,6 +108,7 @@ LinkedIn.args = {
  */
 export const Twitter = Template.bind({});
 Twitter.args = {
+  label: 'Share on Twitter',
   medium: 'twitter',
   url: '#',
 };

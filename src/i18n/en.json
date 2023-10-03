@@ -67,6 +67,10 @@
     "defaultMessage": "Leave a reply",
     "description": "Comment: comment form title"
   },
+  "2ukj9H": {
+    "defaultMessage": "Share by Email",
+    "description": "Sharing: Email sharing link"
+  },
   "310o3F": {
     "defaultMessage": "Error 404: Page not found - {websiteName}",
     "description": "404Page: SEO - Page title"
@@ -267,6 +271,10 @@
     "defaultMessage": "Topics",
     "description": "SearchPage: topics list widget title"
   },
+  "NI5gXc": {
+    "defaultMessage": "Share on Twitter",
+    "description": "Sharing: Twitter sharing link"
+  },
   "OF5cPz": {
     "defaultMessage": "{postsCount, plural, =0 {No articles} one {# article} other {# articles}}",
     "description": "BlogPage: posts count meta"
@@ -370,6 +378,10 @@
   "Xj+WXB": {
     "defaultMessage": "Open search",
     "description": "Search: Open label"
+  },
+  "Y+DYja": {
+    "defaultMessage": "Share on LinkedIn",
+    "description": "Sharing: LinkedIn sharing link"
   },
   "Ygea7s": {
     "defaultMessage": "Light theme",
@@ -523,6 +535,14 @@
     "defaultMessage": "Legal notice",
     "description": "Layout: Legal notice label"
   },
+  "o0DAK4": {
+    "defaultMessage": "Share on Facebook",
+    "description": "Sharing: Facebook sharing link"
+  },
+  "oVLRW8": {
+    "defaultMessage": "Share on Diaspora",
+    "description": "Sharing: Diaspora sharing link"
+  },
   "og/zWL": {
     "defaultMessage": "Dark theme",
     "description": "PrismThemeToggle: dark theme label"
@@ -599,10 +619,6 @@
     "defaultMessage": "Load more articles?",
     "description": "PostsList: load more button"
   },
-  "ureXFw": {
-    "defaultMessage": "Share on {name}",
-    "description": "Sharing: share on social network text"
-  },
   "va65iw": {
     "defaultMessage": "On",
     "description": "MotionToggle: activate reduce motion label"
@@ -610,6 +626,10 @@
   "vkF/RP": {
     "defaultMessage": "Web development",
     "description": "HomePage: link to web development thematic"
+  },
+  "vnbryZ": {
+    "defaultMessage": "Share on Journal du Hacker",
+    "description": "Sharing: Journal du Hacker sharing link"
   },
   "w4B5PA": {
     "defaultMessage": "Email:",

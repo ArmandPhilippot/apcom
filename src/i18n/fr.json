@@ -67,6 +67,10 @@
     "defaultMessage": "Laisser une réponse",
     "description": "Comment: comment form title"
   },
+  "2ukj9H": {
+    "defaultMessage": "Partager par email",
+    "description": "Sharing: Email sharing link"
+  },
   "310o3F": {
     "defaultMessage": "Erreur 404 : Page non trouvée - {websiteName}",
     "description": "404Page: SEO - Page title"
@@ -267,6 +271,10 @@
     "defaultMessage": "Sujets",
     "description": "SearchPage: topics list widget title"
   },
+  "NI5gXc": {
+    "defaultMessage": "Partager sur Twitter",
+    "description": "Sharing: Twitter sharing link"
+  },
   "OF5cPz": {
     "defaultMessage": "{postsCount, plural, =0 {0 article} one {# article} other {# articles}}",
     "description": "BlogPage: posts count meta"
@@ -370,6 +378,10 @@
   "Xj+WXB": {
     "defaultMessage": "Ouvrir la recherche",
     "description": "Search: Open label"
+  },
+  "Y+DYja": {
+    "defaultMessage": "Partager sur LinkedIn",
+    "description": "Sharing: LinkedIn sharing link"
   },
   "Ygea7s": {
     "defaultMessage": "Thème clair",
@@ -523,6 +535,14 @@
     "defaultMessage": "Mentions légales",
     "description": "Layout: Legal notice label"
   },
+  "o0DAK4": {
+    "defaultMessage": "Partager sur Facebook",
+    "description": "Sharing: Facebook sharing link"
+  },
+  "oVLRW8": {
+    "defaultMessage": "Partager sur Diaspora",
+    "description": "Sharing: Diaspora sharing link"
+  },
   "og/zWL": {
     "defaultMessage": "Thème sombre",
     "description": "PrismThemeToggle: dark theme label"
@@ -599,10 +619,6 @@
     "defaultMessage": "Charger plus d’articles ?",
     "description": "PostsList: load more button"
   },
-  "ureXFw": {
-    "defaultMessage": "Partager via {name}",
-    "description": "Sharing: share on social network text"
-  },
   "va65iw": {
     "defaultMessage": "Marche",
     "description": "MotionToggle: activate reduce motion label"
@@ -610,6 +626,10 @@
   "vkF/RP": {
     "defaultMessage": "Développement web",
     "description": "HomePage: link to web development thematic"
+  },
+  "vnbryZ": {
+    "defaultMessage": "Partager sur le Journal du Hacker",
+    "description": "Sharing: Journal du Hacker sharing link"
   },
   "w4B5PA": {
     "defaultMessage": "E-mail :",
