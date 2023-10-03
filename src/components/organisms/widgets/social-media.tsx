@@ -3,7 +3,9 @@ import { List, ListItem, SocialLink, type SocialLinkProps } from '../../atoms';
 import { Widget, type WidgetProps } from '../../molecules';
 import styles from './social-media.module.scss';
 
-export type Media = SocialLinkProps;
+export type Media = Required<
+  Pick<SocialLinkProps, 'icon' | 'id' | 'label' | 'url'>
+>;
 
 export type SocialMediaProps = Pick<WidgetProps, 'level' | 'title'> & {
   media: Media[];
@@ -22,9 +24,9 @@ export const SocialMedia: FC<SocialMediaProps> = ({ media, ...props }) => {
    * @returns {JSX.Element[]} The social links.
    */
   const getItems = (links: Media[]): JSX.Element[] =>
-    links.map((link, index) => (
-      <ListItem key={`media-${index}`}>
-        <SocialLink name={link.name} url={link.url} />
+    links.map(({ id, ...link }) => (
+      <ListItem key={id}>
+        <SocialLink {...link} />
       </ListItem>
     ));
 

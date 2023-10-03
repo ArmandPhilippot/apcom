@@ -1,4 +1,8 @@
 {
+  "++U2Hm": {
+    "defaultMessage": "Gitlab profile",
+    "description": "CVPage: Gitlab profile link"
+  },
   "+Dre5J": {
     "defaultMessage": "Open-source projects",
     "description": "CVPage: social media widget title"
@@ -42,6 +46,10 @@
   "18h/t0": {
     "defaultMessage": "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
     "description": "BlogPage: SEO - Meta description"
+  },
+  "1V3CJf": {
+    "defaultMessage": "Gitlab profile",
+    "description": "ContactPage: Gitlab profile link"
   },
   "1dCuCx": {
     "defaultMessage": "Name:",
@@ -110,6 +118,10 @@
   "6a1Uo6": {
     "defaultMessage": "This comment is awaiting moderation...",
     "description": "Comment: awaiting moderation"
+  },
+  "75FYp7": {
+    "defaultMessage": "Github profile",
+    "description": "ContactPage: Github profile link"
   },
   "7AnwZ7": {
     "defaultMessage": "Gitlab",
@@ -235,6 +247,10 @@
     "defaultMessage": "Submitting...",
     "description": "CommentForm: spinner message on submit"
   },
+  "Jm0a6H": {
+    "defaultMessage": "Github profile",
+    "description": "CVPage: Github profile link"
+  },
   "JpC3JH": {
     "defaultMessage": "Other topics",
     "description": "TopicPage: other topics list widget title"
@@ -275,6 +291,10 @@
     "defaultMessage": "Share on Twitter",
     "description": "Sharing: Twitter sharing link"
   },
+  "Nx8Jo5": {
+    "defaultMessage": "Github profile",
+    "description": "ProjectsPage: Github profile link"
+  },
   "OF5cPz": {
     "defaultMessage": "{postsCount, plural, =0 {No articles} one {# article} other {# articles}}",
     "description": "BlogPage: posts count meta"
@@ -298,6 +318,10 @@
   "Q+1GbT": {
     "defaultMessage": "Table of contents sidebar",
     "description": "PageLayout: accessible name for ToC sidebar"
+  },
+  "Q3oEQn": {
+    "defaultMessage": "LinkedIn profile",
+    "description": "ContactPage: LinkedIn profile link"
   },
   "QCW3cy": {
     "defaultMessage": "Open settings",
@@ -326,6 +350,10 @@
   "RwI3B9": {
     "defaultMessage": "Loading the repository popularity...",
     "description": "ProjectsPage: loading repository popularity"
+  },
+  "Sm2wCk": {
+    "defaultMessage": "LinkedIn profile",
+    "description": "CVPage: LinkedIn profile link"
   },
   "T4YA64": {
     "defaultMessage": "Subscribe",
@@ -582,6 +610,10 @@
   "sBwfCy": {
     "defaultMessage": "No comments.",
     "description": "PageLayout: no comments text"
+  },
+  "sECHDg": {
+    "defaultMessage": "Gitlab profile",
+    "description": "ProjectsPage: Gitlab profile link"
   },
   "sI7gJK": {
     "defaultMessage": "{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}",

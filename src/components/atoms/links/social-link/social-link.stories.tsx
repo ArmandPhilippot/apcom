@@ -1,24 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { SocialLink } from './social-link';
 
 /**
  * SocialLink - Storybook Meta
  */
 export default {
-  title: 'Atoms/Buttons/Social',
+  title: 'Atoms/Links/Social',
   component: SocialLink,
   argTypes: {
-    name: {
-      control: {
-        type: 'select',
-      },
-      description: 'Social website name.',
-      options: ['Github', 'Gitlab', 'LinkedIn', 'Twitter'],
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
     url: {
       control: {
         type: null,
@@ -41,7 +30,8 @@ const Template: ComponentStory<typeof SocialLink> = (args) => (
  */
 export const Github = Template.bind({});
 Github.args = {
-  name: 'Github',
+  icon: 'Github',
+  label: 'Github profile',
   url: '#',
 };
 
@@ -50,7 +40,8 @@ Github.args = {
  */
 export const Gitlab = Template.bind({});
 Gitlab.args = {
-  name: 'Gitlab',
+  icon: 'Gitlab',
+  label: 'Gitlab profile',
   url: '#',
 };
 
@@ -59,7 +50,8 @@ Gitlab.args = {
  */
 export const LinkedIn = Template.bind({});
 LinkedIn.args = {
-  name: 'LinkedIn',
+  icon: 'LinkedIn',
+  label: 'LinkedIn profile',
   url: '#',
 };
 
@@ -68,6 +60,7 @@ LinkedIn.args = {
  */
 export const Twitter = Template.bind({});
 Twitter.args = {
-  name: 'Twitter',
+  icon: 'Twitter',
+  label: 'Twitter profile',
   url: '#',
 };

@@ -1,10 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
-import { SocialMedia, Media } from './social-media';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { SocialMedia, type Media } from './social-media';
 
 const media: Media[] = [
-  { name: 'Github', url: '#' },
-  { name: 'LinkedIn', url: '#' },
+  { icon: 'Github', id: 'github', label: 'Github', url: '#' },
+  { icon: 'LinkedIn', id: 'gitlab', label: 'Gitlab', url: '#' },
 ];
 const title = 'Dolores ut ut';
 const titleLevel = 2;
@@ -22,7 +22,7 @@ describe('SocialMedia', () => {
   it('renders the widget title', () => {
     render(<SocialMedia media={media} title={title} level={titleLevel} />);
     expect(
-      screen.getByRole('heading', {
+      rtlScreen.getByRole('heading', {
         level: titleLevel,
         name: new RegExp(title, 'i'),
       })
@@ -31,6 +31,6 @@ describe('SocialMedia', () => {
 
   it('renders the correct number of items', () => {
     render(<SocialMedia media={media} title={title} level={titleLevel} />);
-    expect(screen.getAllByRole('listitem')).toHaveLength(media.length);
+    expect(rtlScreen.getAllByRole('listitem')).toHaveLength(media.length);
   });
 });

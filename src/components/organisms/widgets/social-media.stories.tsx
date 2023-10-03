@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { SocialMedia as SocialMediaWidget, Media } from './social-media';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { SocialMedia as SocialMediaWidget, type Media } from './social-media';
 
 /**
  * SocialMedia - Storybook Meta
@@ -46,8 +46,8 @@ const Template: ComponentStory<typeof SocialMediaWidget> = (args) => (
 );
 
 const media: Media[] = [
-  { name: 'Github', url: '#' },
-  { name: 'LinkedIn', url: '#' },
+  { icon: 'Github', id: 'github', label: 'Github', url: '#' },
+  { icon: 'LinkedIn', id: 'gitlab', label: 'Gitlab', url: '#' },
 ];
 
 /**

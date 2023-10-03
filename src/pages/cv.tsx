@@ -179,6 +179,22 @@ const CVPage: NextPageWithLayout = () => {
     }
   );
 
+  const githubLabel = intl.formatMessage({
+    defaultMessage: 'Github profile',
+    description: 'CVPage: Github profile link',
+    id: 'Jm0a6H',
+  });
+  const gitlabLabel = intl.formatMessage({
+    defaultMessage: 'Gitlab profile',
+    description: 'CVPage: Gitlab profile link',
+    id: '++U2Hm',
+  });
+  const linkedinLabel = intl.formatMessage({
+    defaultMessage: 'LinkedIn profile',
+    description: 'CVPage: LinkedIn profile link',
+    id: 'Sm2wCk',
+  });
+
   const widgets = [
     <ImageWidget
       // eslint-disable-next-line react/jsx-no-literals -- Key allowed
@@ -196,10 +212,22 @@ const CVPage: NextPageWithLayout = () => {
       title={socialMediaTitle}
       level={2}
       media={[
-        { name: 'Github', url: PERSONAL_LINKS.GITHUB },
-        { name: 'Gitlab', url: PERSONAL_LINKS.GITLAB },
         {
-          name: 'LinkedIn',
+          icon: 'Github',
+          id: 'github',
+          label: githubLabel,
+          url: PERSONAL_LINKS.GITHUB,
+        },
+        {
+          icon: 'Gitlab',
+          id: 'gitlab',
+          label: gitlabLabel,
+          url: PERSONAL_LINKS.GITLAB,
+        },
+        {
+          icon: 'LinkedIn',
+          id: 'linkedin',
+          label: linkedinLabel,
           url: PERSONAL_LINKS.LINKEDIN,
         },
       ]}

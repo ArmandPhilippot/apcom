@@ -65,6 +65,21 @@ const ContactPage: NextPageWithLayout = () => {
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, contactSchema]);
+  const githubLabel = intl.formatMessage({
+    defaultMessage: 'Github profile',
+    description: 'ContactPage: Github profile link',
+    id: '75FYp7',
+  });
+  const gitlabLabel = intl.formatMessage({
+    defaultMessage: 'Gitlab profile',
+    description: 'ContactPage: Gitlab profile link',
+    id: '1V3CJf',
+  });
+  const linkedinLabel = intl.formatMessage({
+    defaultMessage: 'LinkedIn profile',
+    description: 'ContactPage: LinkedIn profile link',
+    id: 'Q3oEQn',
+  });
 
   const widgets = [
     <SocialMedia
@@ -73,10 +88,22 @@ const ContactPage: NextPageWithLayout = () => {
       title={socialMediaTitle}
       level={2}
       media={[
-        { name: 'Github', url: 'https://github.com/ArmandPhilippot' },
-        { name: 'Gitlab', url: 'https://gitlab.com/ArmandPhilippot' },
         {
-          name: 'LinkedIn',
+          icon: 'Github',
+          id: 'github',
+          label: githubLabel,
+          url: 'https://github.com/ArmandPhilippot',
+        },
+        {
+          icon: 'Gitlab',
+          id: 'gitlab',
+          label: gitlabLabel,
+          url: 'https://gitlab.com/ArmandPhilippot',
+        },
+        {
+          icon: 'LinkedIn',
+          id: 'linkedin',
+          label: linkedinLabel,
           url: 'https://www.linkedin.com/in/armandphilippot',
         },
       ]}

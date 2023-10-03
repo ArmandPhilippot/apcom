@@ -19,7 +19,6 @@ import {
   type ResponsiveImageProps,
   Sharing,
   SocialLink,
-  type SocialWebsite,
   Spinner,
   type MetaData,
   Heading,
@@ -30,7 +29,6 @@ import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
-  capitalize,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -182,13 +180,34 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
    */
   const getReposLinks = (repositories: Repos): JSX.Element[] => {
     const links = [];
+    const githubLabel = intl.formatMessage({
+      defaultMessage: 'Github profile',
+      description: 'ProjectsPage: Github profile link',
+      id: 'Nx8Jo5',
+    });
+    const gitlabLabel = intl.formatMessage({
+      defaultMessage: 'Gitlab profile',
+      description: 'ProjectsPage: Gitlab profile link',
+      id: 'sECHDg',
+    });
 
-    for (const [name, url] of Object.entries(repositories)) {
-      const socialWebsite = capitalize(name) as SocialWebsite;
-      const socialUrl = `https://${name}.com/${url}`;
+    if (repositories.github)
+      links.push(
+        <SocialLink
+          icon="Github"
+          label={githubLabel}
+          url={repositories.github}
+        />
+      );
 
-      links.push(<SocialLink name={socialWebsite} url={socialUrl} />);
-    }
+    if (repositories.gitlab)
+      links.push(
+        <SocialLink
+          icon="Gitlab"
+          label={gitlabLabel}
+          url={repositories.gitlab}
+        />
+      );
 
     return links;
   };
