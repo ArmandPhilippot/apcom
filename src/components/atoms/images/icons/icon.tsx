@@ -8,7 +8,11 @@ import {
 } from './plus-minus-icon';
 import { type SVGIconShape, SVGPaths, type SVGPathsProps } from './svg-paths';
 
-export type IconShape = SVGIconShape | PlusMinusIconShape | 'hamburger';
+export type IconShape =
+  | SVGIconShape
+  | PlusMinusIconShape
+  | 'hamburger'
+  | 'help';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 

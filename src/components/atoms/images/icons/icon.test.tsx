@@ -116,6 +116,14 @@ describe('Icon', () => {
     expect(rtlScreen.getByRole('img', { name: heading })).toBeInTheDocument();
   });
 
+  it('render an icon with help shape', () => {
+    const heading = 'quidem';
+
+    render(<Icon heading={heading} shape="help" role="img" />);
+
+    expect(rtlScreen.getByRole('img', { name: heading })).toBeInTheDocument();
+  });
+
   it('render an icon with home shape', () => {
     const heading = 'aut';
 

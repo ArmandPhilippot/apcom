@@ -14,6 +14,7 @@ import {
   PostsStackIconPaths,
   SunIconPaths,
   CrossIconPaths,
+  HelpIconPaths,
 } from './icons-paths';
 
 export type SVGIconOrientation = ArrowOrientation;
@@ -27,6 +28,7 @@ export type SVGIconShape =
   | 'cross'
   | 'envelop'
   | 'feed'
+  | 'help'
   | 'home'
   | 'magnifying-glass'
   | 'moon'
@@ -67,6 +69,8 @@ export const SVGPaths: FC<SVGPathsProps> = ({
       return <EnvelopIconPaths />;
     case 'feed':
       return <FeedIconPaths />;
+    case 'help':
+      return <HelpIconPaths />;
     case 'home':
       return <HomeIconPaths />;
     case 'magnifying-glass':

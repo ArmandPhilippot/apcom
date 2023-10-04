@@ -22,6 +22,7 @@ export default {
         'envelop',
         'feed',
         'hamburger',
+        'help',
         'home',
         'magnifying-glass',
         'minus',
@@ -142,6 +143,14 @@ Feed.args = {
 export const Hamburger = Template.bind({});
 Hamburger.args = {
   shape: 'hamburger',
+};
+
+/**
+ * Icon Stories - Help
+ */
+export const Help = Template.bind({});
+Help.args = {
+  shape: 'help',
 };
 
 /**
