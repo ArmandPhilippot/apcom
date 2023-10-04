@@ -30,7 +30,7 @@
 .back-to-top {
   &--hidden {
     opacity: 0;
-    transform: translateY(calc(var(--button-size) + var(--spacing-md)));
+    transform: translateY(calc(var(--button-height) + var(--spacing-md)));
     visibility: hidden;
   }
 

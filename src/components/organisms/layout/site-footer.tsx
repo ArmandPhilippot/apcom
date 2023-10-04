@@ -50,6 +50,12 @@ export const SiteFooter: FC<SiteFooterProps> = ({
     description: 'SiteFooter: an accessible name for the footer nav',
     id: 'pRzkFR',
   });
+  const backToTop = intl.formatMessage({
+    defaultMessage: 'Back to top',
+    description: 'SiteFooter: an accessible name for the back to top button',
+    id: 'OHvb01',
+  });
+  const backToTopAnchor = `#${topId}`;
   const footerClass = `${styles.wrapper} ${className}`;
   const btnClass = `${styles['back-to-top']} ${backToTopClassName}`;
 
@@ -69,7 +75,11 @@ export const SiteFooter: FC<SiteFooterProps> = ({
           kind="footer"
         />
       ) : null}
-      <BackToTop className={btnClass} to={topId} />
+      <BackToTop
+        anchor={backToTopAnchor}
+        className={btnClass}
+        label={backToTop}
+      />
     </Footer>
   );
 };

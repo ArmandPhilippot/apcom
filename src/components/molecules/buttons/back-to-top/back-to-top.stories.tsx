@@ -8,6 +8,16 @@ export default {
   title: 'Molecules/Buttons',
   component: BackToTopComponent,
   argTypes: {
+    anchor: {
+      control: {
+        type: 'text',
+      },
+      description: 'An element id with leading hashtag to use as anchor.',
+      type: {
+        name: 'string',
+        required: true,
+      },
+    },
     className: {
       control: {
         type: 'text',
@@ -21,11 +31,11 @@ export default {
         required: false,
       },
     },
-    to: {
+    label: {
       control: {
         type: 'text',
       },
-      description: 'An element id (without hashtag) to use as anchor.',
+      description: 'An accessible name for the button.',
       type: {
         name: 'string',
         required: true,
@@ -43,5 +53,6 @@ const Template: ComponentStory<typeof BackToTopComponent> = (args) => (
  */
 export const BackToTop = Template.bind({});
 BackToTop.args = {
-  to: 'top',
+  anchor: '#top',
+  label: 'Back to top',
 };

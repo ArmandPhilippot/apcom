@@ -299,6 +299,10 @@
     "defaultMessage": "{postsCount, plural, =0 {0 article} one {# article} other {# articles}}",
     "description": "BlogPage: posts count meta"
   },
+  "OHvb01": {
+    "defaultMessage": "Retour en haut de page",
+    "description": "SiteFooter: an accessible name for the back to top button"
+  },
   "OI0N37": {
     "defaultMessage": "Écrit par :",
     "description": "Meta: author label"
@@ -542,10 +546,6 @@
   "lKhTGM": {
     "defaultMessage": "Utilisez Ctrl+c pour copier",
     "description": "usePrism: copy button error text"
-  },
-  "m+SUSR": {
-    "defaultMessage": "Retour en haut de page",
-    "description": "BackToTop: link text"
   },
   "nGss/j": {
     "defaultMessage": "Suivi Ackee (analytique)",
