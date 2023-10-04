@@ -1,0 +1,7 @@
+@use "../../../styles/abstracts/mixins" as mix;
+
+.wrapper {
+  &:not(:focus-within, :active) {
+    @include mix.visually-hidden;
+  }
+}

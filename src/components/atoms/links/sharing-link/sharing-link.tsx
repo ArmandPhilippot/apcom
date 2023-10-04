@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, FC } from 'react';
+import { VisuallyHidden } from '../../visually-hidden';
 import styles from './sharing-link.module.scss';
 
 export type SharingMedium =
@@ -44,8 +45,7 @@ export const SharingLink: FC<SharingLinkProps> = ({
 
   return (
     <a {...props} className={linkClass} href={url}>
-      {/* eslint-disable-next-line -- SR class allowed */}
-      <span className="screen-reader-text">{label}</span>
+      <VisuallyHidden>{label}</VisuallyHidden>
     </a>
   );
 };
