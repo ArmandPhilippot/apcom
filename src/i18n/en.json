@@ -51,6 +51,10 @@
     "defaultMessage": "Gitlab profile",
     "description": "ContactPage: Gitlab profile link"
   },
+  "1Xgg7+": {
+    "defaultMessage": "Show help",
+    "description": "Tooltip: show help label"
+  },
   "1dCuCx": {
     "defaultMessage": "Name:",
     "description": "ContactForm: name label"
@@ -514,10 +518,6 @@
   "hzHuCc": {
     "defaultMessage": "Reply",
     "description": "Comment: reply button"
-  },
-  "i+/ckF": {
-    "defaultMessage": "Help",
-    "description": "HelpButton: screen reader text"
   },
   "i5L19t": {
     "defaultMessage": "Shaarli",

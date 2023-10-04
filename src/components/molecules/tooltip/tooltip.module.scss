@@ -38,14 +38,6 @@
     opacity: 1;
     visibility: visible;
     transform: scale(1);
-
-    & ~ .btn {
-      background: var(--color-primary);
-
-      * {
-        color: var(--color-fg-inverted);
-      }
-    }
   }
 }
 
@@ -60,13 +52,15 @@
 
 .icon {
   align-self: stretch;
-  display: flex;
-  align-items: center;
   margin-right: var(--spacing-xs);
-  padding: 0 var(--spacing-2xs);
   background: var(--color-primary-dark);
   border: fun.convert-px(1) solid var(--color-primary-dark);
   box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
-  color: var(--color-fg-inverted);
-  font-weight: 600;
+
+  :global {
+    path {
+      fill: var(--color-fg-inverted);
+      margin-inline: var(--spacing-2xs);
+    }
+  }
 }

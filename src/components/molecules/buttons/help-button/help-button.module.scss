@@ -1,0 +1,24 @@
+@use "../../../../styles/abstracts/functions" as fun;
+@use "../../../../styles/abstracts/mixins" as mix;
+
+.btn {
+  padding: fun.convert-px(7);
+
+  @include mix.pointer("fine") {
+    padding: fun.convert-px(4);
+  }
+
+  &[aria-pressed="true"] {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
+
+    .icon {
+      :global {
+        path {
+          fill: var(--color-fg-inverted);
+        }
+      }
+    }
+  }
+}

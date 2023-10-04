@@ -1,8 +1,9 @@
-import { FC, MouseEventHandler, useRef } from 'react';
-import { Heading, Modal, ModalProps } from '../../atoms';
+import { type FC, type MouseEventHandler, useRef } from 'react';
+import { useIntl } from 'react-intl';
+import { useOnClickOutside } from '../../../utils/hooks';
+import { Heading, Icon, Modal, type ModalProps } from '../../atoms';
 import { HelpButton } from '../buttons';
 import styles from './tooltip.module.scss';
-import { useOnClickOutside } from '../../../utils/hooks';
 
 export type TooltipProps = Omit<ModalProps, 'heading'> & {
   /**
@@ -47,6 +48,12 @@ export const Tooltip: FC<TooltipProps> = ({
   onToggle,
   ...props
 }) => {
+  const intl = useIntl();
+  const helpLabel = intl.formatMessage({
+    defaultMessage: 'Show help',
+    description: 'Tooltip: show help label',
+    id: '1Xgg7+',
+  });
   const directionModifier =
     direction === 'upwards' ? 'tooltip--up' : 'tooltip--down';
   const visibilityModifier = isOpen ? 'tooltip--visible' : 'tooltip--hidden';
@@ -70,9 +77,7 @@ export const Tooltip: FC<TooltipProps> = ({
         className={tooltipClass}
         heading={
           <Heading className={styles.heading} isFake level={6}>
-            <span aria-hidden className={styles.icon}>
-              ?
-            </span>
+            <Icon aria-hidden className={styles.icon} shape="help" size="sm" />
             {heading}
           </Heading>
         }
@@ -82,8 +87,9 @@ export const Tooltip: FC<TooltipProps> = ({
         {children}
       </Modal>
       <HelpButton
-        aria-pressed={isOpen}
         className={styles.btn}
+        isPressed={isOpen}
+        label={helpLabel}
         onClick={onToggle}
         ref={btnRef}
       />

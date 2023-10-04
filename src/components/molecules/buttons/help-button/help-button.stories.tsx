@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { HelpButton as HelpButtonComponent } from './help-button';
 
 /**
@@ -45,3 +45,6 @@ const Template: ComponentStory<typeof HelpButtonComponent> = (args) => (
  * Help Button Stories - Level 1
  */
 export const HelpButton = Template.bind({});
+HelpButton.args = {
+  label: 'Help',
+};
