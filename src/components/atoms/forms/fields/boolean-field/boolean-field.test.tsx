@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { BooleanField } from './boolean-field';
 
 const handleChange = () => {
@@ -19,7 +19,7 @@ describe('boolean field', () => {
         value="checkbox"
       />
     );
-    expect(screen.getByRole('checkbox')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('checkbox')).toBeInTheDocument();
   });
 
   it('renders a radio button', () => {
@@ -32,6 +32,6 @@ describe('boolean field', () => {
         value="checkbox"
       />
     );
-    expect(screen.getByRole('radio')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('radio')).toBeInTheDocument();
   });
 });

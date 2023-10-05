@@ -1,11 +1,11 @@
-import { ForwardRefRenderFunction, forwardRef } from 'react';
+import { type ForwardRefRenderFunction, forwardRef } from 'react';
 import {
   Fieldset,
-  FieldsetProps,
+  type FieldsetProps,
   Label,
-  LabelProps,
+  type LabelProps,
   Radio,
-  RadioProps,
+  type RadioProps,
 } from '../../../atoms';
 import { LabelledField } from '../labelled-field';
 import styles from './radio-group.module.scss';
@@ -78,6 +78,7 @@ const RadioGroupWithRef: ForwardRefRenderFunction<
       className={groupClass}
       isInline={isInline}
       ref={ref}
+      // eslint-disable-next-line react/jsx-no-literals -- Role allowed
       role="radiogroup"
     >
       {options.map((option) => (

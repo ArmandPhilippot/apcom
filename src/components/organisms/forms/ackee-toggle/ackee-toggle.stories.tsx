@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { AckeeToggle } from './ackee-toggle';
 import { storageKey } from './ackee-toggle.fixture';
 

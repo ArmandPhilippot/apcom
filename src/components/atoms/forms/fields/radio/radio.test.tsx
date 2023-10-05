@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Radio } from './radio';
 
 const doNothing = () => {
@@ -11,7 +11,7 @@ describe('Radio', () => {
     render(
       <Radio id="radio" name="radio" onChange={doNothing} value="radio" />
     );
-    expect(screen.getByRole('radio')).not.toBeChecked();
+    expect(rtlScreen.getByRole('radio')).not.toBeChecked();
   });
 
   it('renders a checked radio', () => {
@@ -24,6 +24,6 @@ describe('Radio', () => {
         value="radio"
       />
     );
-    expect(screen.getByRole('radio')).toBeChecked();
+    expect(rtlScreen.getByRole('radio')).toBeChecked();
   });
 });

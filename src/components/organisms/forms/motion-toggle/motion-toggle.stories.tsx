@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { MotionToggle } from './motion-toggle';
 import { storageKey } from './motion-toggle.fixture';
 

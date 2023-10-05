@@ -1,6 +1,6 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Legend as LegendComponent } from './legend';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Fieldset } from '../fieldset';
+import { Legend as LegendComponent } from './legend';
 
 /**
  * Legend - Storybook Meta

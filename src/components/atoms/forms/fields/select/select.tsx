@@ -1,4 +1,4 @@
-import { FC, SelectHTMLAttributes } from 'react';
+import type { FC, SelectHTMLAttributes } from 'react';
 import styles from '../fields.module.scss';
 
 export type SelectOptions = {
@@ -18,7 +18,7 @@ export type SelectOptions = {
 
 export type SelectProps = Omit<
   SelectHTMLAttributes<HTMLSelectElement>,
-  'disabled' | 'hidden' | 'required'
+  'disabled' | 'required'
 > & {
   /**
    * Should the select field be disabled?
@@ -26,12 +26,6 @@ export type SelectProps = Omit<
    * @default false
    */
   isDisabled?: boolean;
-  /**
-   * Should the select field be hidden?
-   *
-   * @default false
-   */
-  isHidden?: boolean;
   /**
    * Is the select field required?
    *
@@ -52,7 +46,6 @@ export type SelectProps = Omit<
 export const Select: FC<SelectProps> = ({
   className = '',
   isDisabled = false,
-  isHidden = false,
   isRequired = false,
   options,
   ...props

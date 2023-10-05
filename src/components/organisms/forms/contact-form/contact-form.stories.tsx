@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ContactForm } from './contact-form';
 
 /**
@@ -59,7 +59,8 @@ const Template: ComponentStory<typeof ContactForm> = (args) => (
  */
 export const Contact = Template.bind({});
 Contact.args = {
-  sendMail: async (_data, reset: () => void) => {
-    reset();
-  },
+  sendMail: async (_data, reset: () => void) =>
+    new Promise(() => {
+      reset();
+    }),
 };

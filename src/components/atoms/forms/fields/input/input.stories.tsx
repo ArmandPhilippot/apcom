@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChangeEvent, useCallback, useState } from 'react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { type ChangeEvent, useCallback, useState } from 'react';
 import { Input } from './input';
 
 /**
@@ -187,50 +187,50 @@ const Template: ComponentStory<typeof Input> = ({
 };
 
 /**
- * Input Story - DateTime
+ * Input Story - DateTimeField
  */
-export const DateTime = Template.bind({});
-DateTime.args = {
+export const DateTimeField = Template.bind({});
+DateTimeField.args = {
   id: 'field-storybook',
   name: 'field-storybook',
   type: 'datetime-local',
 };
 
 /**
- * Input Story - Email
+ * Input Story - EmailField
  */
-export const Email = Template.bind({});
-Email.args = {
+export const EmailField = Template.bind({});
+EmailField.args = {
   id: 'field-storybook',
   name: 'field-storybook',
   type: 'email',
 };
 
 /**
- * Input Story - Numeric
+ * Input Story - NumericField
  */
-export const Numeric = Template.bind({});
-Numeric.args = {
+export const NumericField = Template.bind({});
+NumericField.args = {
   id: 'field-storybook',
   name: 'field-storybook',
   type: 'number',
 };
 
 /**
- * Input Story - Text
+ * Input Story - TextField
  */
-export const Text = Template.bind({});
-Text.args = {
+export const TextField = Template.bind({});
+TextField.args = {
   id: 'field-storybook',
   name: 'field-storybook',
   type: 'text',
 };
 
 /**
- * Input Story - Time
+ * Input Story - TimeField
  */
-export const Time = Template.bind({});
-Time.args = {
+export const TimeField = Template.bind({});
+TimeField.args = {
   id: 'field-storybook',
   name: 'field-storybook',
   type: 'time',

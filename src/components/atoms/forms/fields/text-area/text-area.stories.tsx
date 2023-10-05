@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChangeEvent, useCallback, useState } from 'react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { type ChangeEvent, useCallback, useState } from 'react';
 import { TextArea as TextAreaComponent } from './text-area';
 
 /**

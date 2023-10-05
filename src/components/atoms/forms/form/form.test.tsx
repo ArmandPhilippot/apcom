@@ -1,14 +1,18 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Form } from './form';
+
+const doNothing = () => {
+  // Do nothing
+};
 
 describe('Form', () => {
   it('renders a form', () => {
     render(
-      <Form aria-label="A form name" onSubmit={() => null}>
+      <Form aria-label="A form name" onSubmit={doNothing}>
         Fields
       </Form>
     );
-    expect(screen.getByRole('form')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('form')).toBeInTheDocument();
   });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { TextArea } from './text-area';
 
 const doNothing = () => {
@@ -16,6 +16,6 @@ describe('TextArea', () => {
         value=""
       />
     );
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('textbox')).toBeInTheDocument();
   });
 });

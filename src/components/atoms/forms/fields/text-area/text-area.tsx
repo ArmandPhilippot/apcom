@@ -19,12 +19,6 @@ export type TextAreaProps = AllowedTextAreaProps & {
    */
   isDisabled?: boolean;
   /**
-   * Should the field be hidden?
-   *
-   * @default false
-   */
-  isHidden?: boolean;
-  /**
    * Should the field be readonly?
    *
    * @default false
@@ -42,7 +36,6 @@ const TextAreaWithRef = (
   {
     className = '',
     isDisabled = false,
-    isHidden = false,
     isReadOnly = false,
     isRequired = false,
     ...props

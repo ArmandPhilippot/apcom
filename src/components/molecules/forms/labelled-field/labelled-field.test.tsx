@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Input, Label } from '../../../atoms';
 import { LabelledField } from './labelled-field';
 
@@ -27,7 +27,7 @@ describe('LabelledField', () => {
         label={<Label htmlFor={id}>{label}</Label>}
       />
     );
-    expect(screen.getByLabelText(label)).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toHaveValue(value);
+    expect(rtlScreen.getByLabelText(label)).toBeInTheDocument();
+    expect(rtlScreen.getByRole('textbox')).toHaveValue(value);
   });
 });

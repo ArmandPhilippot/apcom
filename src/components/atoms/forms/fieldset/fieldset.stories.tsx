@@ -1,7 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Fieldset as FieldsetComponent } from './fieldset';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Input } from '../fields';
 import { Legend } from '../legend';
+import { Fieldset as FieldsetComponent } from './fieldset';
 
 /**
  * Fieldset - Storybook Meta
@@ -31,28 +31,26 @@ export default {
   },
 } as ComponentMeta<typeof FieldsetComponent>;
 
-const Template: ComponentStory<typeof FieldsetComponent> = (args) => {
-  return (
-    <FieldsetComponent {...args}>
-      <div>
-        <Input
-          aria-label="A field example"
-          id="field1"
-          name="field1"
-          type="text"
-        />
-      </div>
-      <div>
-        <Input
-          aria-label="Another field example"
-          id="field2"
-          name="field2"
-          type="text"
-        />
-      </div>
-    </FieldsetComponent>
-  );
-};
+const Template: ComponentStory<typeof FieldsetComponent> = (args) => (
+  <FieldsetComponent {...args}>
+    <div>
+      <Input
+        aria-label="A field example"
+        id="field1"
+        name="field1"
+        type="text"
+      />
+    </div>
+    <div>
+      <Input
+        aria-label="Another field example"
+        id="field2"
+        name="field2"
+        type="text"
+      />
+    </div>
+  </FieldsetComponent>
+);
 
 /**
  * Fieldset Story

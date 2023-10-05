@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../../tests/utils';
 import { MotionToggle } from './motion-toggle';
 import { storageKey } from './motion-toggle.fixture';
 
@@ -8,7 +8,7 @@ describe('MotionToggle', () => {
   it('renders a toggle component', () => {
     render(<MotionToggle storageKey={storageKey} defaultValue="on" />);
     expect(
-      screen.getByRole('radiogroup', {
+      rtlScreen.getByRole('radiogroup', {
         name: /Animations:/i,
       })
     ).toBeInTheDocument();

@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { CommentForm } from './comment-form';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { CommentForm as CommentFormComponent } from './comment-form';
 
 const saveComment = async () => {
   /** Do nothing. */
@@ -10,7 +10,7 @@ const saveComment = async () => {
  */
 export default {
   title: 'Organisms/Forms',
-  component: CommentForm,
+  component: CommentFormComponent,
   args: {
     saveComment,
     titleAlignment: 'left',
@@ -111,13 +111,13 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof CommentForm>;
+} as ComponentMeta<typeof CommentFormComponent>;
 
-const Template: ComponentStory<typeof CommentForm> = (args) => (
-  <CommentForm {...args} />
+const Template: ComponentStory<typeof CommentFormComponent> = (args) => (
+  <CommentFormComponent {...args} />
 );
 
 /**
- * Forms Stories - Comment
+ * Forms Stories - Comment form
  */
-export const Comment = Template.bind({});
+export const CommentForm = Template.bind({});

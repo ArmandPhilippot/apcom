@@ -2,7 +2,6 @@
 @use "../../../../styles/abstracts/mixins" as mix;
 
 .field {
-  width: 100%;
   padding: var(--spacing-2xs) var(--spacing-xs);
   background: var(--color-bg-tertiary);
   border: fun.convert-px(2) solid var(--color-border);

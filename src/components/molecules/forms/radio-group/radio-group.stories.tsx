@@ -1,8 +1,8 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { type ChangeEventHandler, useCallback, useState } from 'react';
 import { Legend } from '../../../atoms';
 import { RadioGroup as RadioGroupComponent } from './radio-group';
 import { getOptions, initialChoice } from './radio-group.fixture';
-import { ChangeEventHandler, useCallback, useState } from 'react';
 
 /**
  * RadioGroup - Storybook Meta

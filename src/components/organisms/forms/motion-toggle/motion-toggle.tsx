@@ -1,8 +1,12 @@
-import { ChangeEvent, FC } from 'react';
+import { useCallback, type FC } from 'react';
 import { useIntl } from 'react-intl';
 import { useAttributes, useLocalStorage } from '../../../../utils/hooks';
 import { Legend } from '../../../atoms';
-import { Switch, SwitchOption, SwitchProps } from '../../../molecules';
+import {
+  Switch,
+  type SwitchOption,
+  type SwitchProps,
+} from '../../../molecules';
 
 export type MotionToggleValue = 'on' | 'off';
 
@@ -37,7 +41,7 @@ export const MotionToggle: FC<MotionToggleProps> = ({
   );
   useAttributes({
     element:
-      typeof window !== 'undefined' ? document.documentElement : undefined,
+      typeof window === 'undefined' ? undefined : document.documentElement,
     attribute: 'reduced-motion',
     value: `${isReduced}`,
   });
@@ -71,9 +75,9 @@ export const MotionToggle: FC<MotionToggleProps> = ({
     },
   ];
 
-  const updateSetting = (e: ChangeEvent<HTMLInputElement>) => {
+  const updateSetting = useCallback(() => {
     setIsReduced((prev) => !prev);
-  };
+  }, [setIsReduced]);
 
   return (
     <Switch

@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Legend } from '../../../atoms';
-import { Switch, SwitchOption } from './switch';
+import { Switch, type SwitchOption } from './switch';
 
 const doNothing = () => {
   /* Do nothing. */
@@ -27,9 +27,9 @@ describe('Switch', () => {
     );
 
     expect(
-      screen.getByRole('radiogroup', { name: legend })
+      rtlScreen.getByRole('radiogroup', { name: legend })
     ).toBeInTheDocument();
-    expect(screen.getAllByRole('radio')).toHaveLength(items.length);
+    expect(rtlScreen.getAllByRole('radio')).toHaveLength(items.length);
   });
 
   it('can render a disabled switch', () => {
@@ -43,8 +43,8 @@ describe('Switch', () => {
       />
     );
 
-    const radios = screen.getAllByRole<HTMLInputElement>('radio');
+    const radios = rtlScreen.getAllByRole<HTMLInputElement>('radio');
     expect(radios.every((radio) => radio.disabled)).toBe(true);
-    expect(screen.getByRole('radiogroup')).toBeDisabled();
+    expect(rtlScreen.getByRole('radiogroup')).toBeDisabled();
   });
 });

@@ -1,10 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Label } from './label';
 
 describe('Label', () => {
   it('renders a field label', () => {
     render(<Label>A label</Label>);
-    expect(screen.getByText('A label')).toBeInTheDocument();
+    expect(rtlScreen.getByText('A label')).toBeInTheDocument();
   });
 });

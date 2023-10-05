@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../../tests/utils';
 import { CommentForm } from './comment-form';
 
 const saveComment = async () => {
@@ -10,7 +10,7 @@ const title = 'Cum voluptas voluptatibus';
 describe('CommentForm', () => {
   it('renders a form', () => {
     render(<CommentForm saveComment={saveComment} />);
-    expect(screen.getByRole('form')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('form')).toBeInTheDocument();
   });
 
   it('renders an optional title', () => {
@@ -18,7 +18,7 @@ describe('CommentForm', () => {
       <CommentForm saveComment={saveComment} title={title} titleLevel={2} />
     );
     expect(
-      screen.getByRole('heading', { level: 2, name: title })
+      rtlScreen.getByRole('heading', { level: 2, name: title })
     ).toBeInTheDocument();
   });
 });

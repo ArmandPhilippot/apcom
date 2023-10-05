@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Legend } from '../../../atoms';
 import { RadioGroup } from './radio-group';
 import { getOptions, initialChoice } from './radio-group.fixture';
@@ -23,7 +23,7 @@ describe('RadioGroup', () => {
     );
 
     expect(
-      screen.getByRole('radiogroup', { name: legend })
+      rtlScreen.getByRole('radiogroup', { name: legend })
     ).toBeInTheDocument();
   });
 
@@ -39,7 +39,7 @@ describe('RadioGroup', () => {
       />
     );
 
-    expect(screen.getAllByRole('radio')).toHaveLength(options.length);
+    expect(rtlScreen.getAllByRole('radio')).toHaveLength(options.length);
   });
 
   it('can render an inlined radio group', () => {
@@ -55,6 +55,6 @@ describe('RadioGroup', () => {
       />
     );
 
-    expect(screen.getByRole('radiogroup')).toHaveClass('group--inline');
+    expect(rtlScreen.getByRole('radiogroup')).toHaveClass('group--inline');
   });
 });

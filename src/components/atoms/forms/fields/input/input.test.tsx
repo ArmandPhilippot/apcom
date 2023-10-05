@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Input } from './input';
 
 const doNothing = () => {
@@ -17,7 +17,7 @@ describe('Input', () => {
         value=""
       />
     );
-    expect(screen.getByRole('textbox')).toHaveAttribute('type', 'text');
+    expect(rtlScreen.getByRole('textbox')).toHaveAttribute('type', 'text');
   });
 
   it('renders a search input', () => {
@@ -30,6 +30,6 @@ describe('Input', () => {
         value=""
       />
     );
-    expect(screen.getByRole('searchbox')).toHaveAttribute('type', 'search');
+    expect(rtlScreen.getByRole('searchbox')).toHaveAttribute('type', 'search');
   });
 });

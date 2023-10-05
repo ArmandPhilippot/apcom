@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChangeEvent, useState } from 'react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { type ChangeEvent, useState, useCallback } from 'react';
 import { Input, Label } from '../../../atoms';
 import { LabelledField } from './labelled-field';
 
@@ -77,9 +77,9 @@ export default {
 const Template: ComponentStory<typeof LabelledField> = ({ ...args }) => {
   const id = 'sunt';
   const [value, setValue] = useState<string>('');
-  const updateValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const updateValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  };
+  }, []);
 
   return (
     <LabelledField

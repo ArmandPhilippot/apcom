@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Select } from './select';
 
 const doNothing = () => {
@@ -25,7 +25,7 @@ describe('Select', () => {
       />
     );
 
-    expect(screen.getByRole('combobox')).toHaveValue(selected.value);
+    expect(rtlScreen.getByRole('combobox')).toHaveValue(selected.value);
   });
 
   it('renders the select options', () => {
@@ -39,6 +39,6 @@ describe('Select', () => {
       />
     );
 
-    expect(screen.getAllByRole('option')).toHaveLength(selectOptions.length);
+    expect(rtlScreen.getAllByRole('option')).toHaveLength(selectOptions.length);
   });
 });

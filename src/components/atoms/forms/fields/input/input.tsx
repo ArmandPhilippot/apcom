@@ -8,7 +8,7 @@ import styles from '../fields.module.scss';
 
 export type InputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  'disabled' | 'hidden' | 'readonly' | 'required' | 'type'
+  'disabled' | 'readonly' | 'required' | 'type'
 > &
   Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'id' | 'name'>> & {
     /**
@@ -17,12 +17,6 @@ export type InputProps = Omit<
      * @default false
      */
     isDisabled?: boolean;
-    /**
-     * Should the field be hidden?
-     *
-     * @default false
-     */
-    isHidden?: boolean;
     /**
      * Should the field be readonly?
      *
@@ -45,7 +39,6 @@ const InputWithRef = (
   {
     className = '',
     isDisabled = false,
-    isHidden = false,
     isReadOnly = false,
     isRequired = false,
     ...props

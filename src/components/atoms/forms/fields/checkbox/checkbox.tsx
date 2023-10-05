@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { BooleanField, BooleanFieldProps } from '../boolean-field';
+import type { FC } from 'react';
+import { BooleanField, type BooleanFieldProps } from '../boolean-field';
 
 export type CheckboxProps = Omit<BooleanFieldProps, 'type'>;
 
@@ -9,5 +9,6 @@ export type CheckboxProps = Omit<BooleanFieldProps, 'type'>;
  * Render a checkbox input type.
  */
 export const Checkbox: FC<CheckboxProps> = (props) => (
+  // eslint-disable-next-line react/jsx-no-literals -- Type allowed
   <BooleanField {...props} type="checkbox" />
 );

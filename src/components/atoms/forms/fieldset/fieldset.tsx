@@ -1,11 +1,11 @@
 import {
   forwardRef,
   type FieldsetHTMLAttributes,
-  ForwardRefRenderFunction,
-  ReactElement,
+  type ForwardRefRenderFunction,
+  type ReactElement,
 } from 'react';
+import type { LegendProps } from '../legend';
 import styles from './fieldset.module.scss';
-import { LegendProps } from '../legend';
 
 export type FieldsetProps = Omit<
   FieldsetHTMLAttributes<HTMLFieldSetElement>,

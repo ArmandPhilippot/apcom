@@ -1,14 +1,21 @@
-import type { FC, ChangeEventHandler, ReactNode, ReactElement } from 'react';
+import {
+  type FC,
+  type ChangeEventHandler,
+  type ReactNode,
+  type ReactElement,
+  forwardRef,
+  type ForwardRefRenderFunction,
+} from 'react';
 import {
   Fieldset,
   type FieldsetProps,
-  LabelProps,
-  RadioProps,
+  type LabelProps,
+  type RadioProps,
   Label,
   Radio,
 } from '../../../atoms';
+import type { TooltipProps } from '../../tooltip';
 import styles from './switch.module.scss';
-import { TooltipProps } from '../../tooltip';
 
 type SwitchItemProps = Omit<LabelProps, 'children' | 'htmlFor' | 'isRequired'> &
   Pick<RadioProps, 'isDisabled' | 'name'> & {
@@ -94,24 +101,31 @@ export type SwitchProps = Omit<FieldsetProps, 'children'> & {
   value: SwitchOption['value'];
 };
 
-/**
- * Switch component.
- */
-export const Switch: FC<SwitchProps> = ({
-  className = '',
-  isDisabled = false,
-  items,
-  name,
-  onSwitch,
-  tooltip,
-  value,
-  ...props
-}) => {
+const SwitchWithRef: ForwardRefRenderFunction<
+  HTMLFieldSetElement,
+  SwitchProps
+> = (
+  {
+    className = '',
+    isDisabled = false,
+    items,
+    name,
+    onSwitch,
+    tooltip,
+    value,
+    ...props
+  },
+  ref
+) => {
+  const fieldsetClass = `${styles.fieldset} ${className}`;
+
   return (
     <Fieldset
       {...props}
-      className={`${styles.fieldset} ${className}`}
+      className={fieldsetClass}
       isDisabled={isDisabled}
+      ref={ref}
+      // eslint-disable-next-line react/jsx-no-literals -- Role allowed
       role="radiogroup"
     >
       {tooltip}
@@ -130,3 +144,8 @@ export const Switch: FC<SwitchProps> = ({
     </Fieldset>
   );
 };
+
+/**
+ * Switch component.
+ */
+export const Switch = forwardRef(SwitchWithRef);

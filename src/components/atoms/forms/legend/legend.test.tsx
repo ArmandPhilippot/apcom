@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Fieldset } from '../fieldset';
 import { Legend } from './legend';
 
@@ -13,6 +13,6 @@ describe('legend', () => {
       </Fieldset>
     );
 
-    expect(screen.getByRole('group')).toHaveTextContent(body);
+    expect(rtlScreen.getByRole('group')).toHaveTextContent(body);
   });
 });

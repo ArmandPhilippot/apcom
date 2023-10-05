@@ -1,7 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Switch as SwitchComponent, SwitchOption } from './switch';
-import { ChangeEventHandler, useCallback, useState } from 'react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { type ChangeEventHandler, useCallback, useState } from 'react';
 import { Legend } from '../../../atoms';
+import { Switch as SwitchComponent, type SwitchOption } from './switch';
 
 /**
  * Switch - Storybook Meta

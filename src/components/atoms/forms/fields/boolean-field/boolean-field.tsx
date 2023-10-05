@@ -1,4 +1,4 @@
-import { FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes } from 'react';
 import styles from './boolean-field.module.scss';
 
 export type BooleanFieldProps = Omit<

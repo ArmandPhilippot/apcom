@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Input } from '../fields';
 import { Fieldset } from './fieldset';
 
@@ -15,8 +15,8 @@ describe('fieldset', () => {
         />
       </Fieldset>
     );
-    expect(screen.getByRole('group')).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).not.toBeDisabled();
+    expect(rtlScreen.getByRole('group')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('textbox')).not.toBeDisabled();
   });
 
   it('renders a disabled fieldset', () => {
@@ -30,7 +30,7 @@ describe('fieldset', () => {
         />
       </Fieldset>
     );
-    expect(screen.getByRole('group')).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toBeDisabled();
+    expect(rtlScreen.getByRole('group')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('textbox')).toBeDisabled();
   });
 });

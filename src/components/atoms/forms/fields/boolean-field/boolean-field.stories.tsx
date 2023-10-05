@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useState } from 'react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useCallback, useState } from 'react';
 import { BooleanField } from './boolean-field';
 
 /**
@@ -138,15 +138,12 @@ const Template: ComponentStory<typeof BooleanField> = ({
   ...args
 }) => {
   const [isChecked, setIsChecked] = useState(checked);
+  const handleChange = useCallback(() => {
+    setIsChecked((prev) => !prev);
+  }, []);
 
   return (
-    <BooleanField
-      isChecked={isChecked}
-      onChange={() => {
-        setIsChecked(!isChecked);
-      }}
-      {...args}
-    />
+    <BooleanField isChecked={isChecked} onChange={handleChange} {...args} />
   );
 };
 

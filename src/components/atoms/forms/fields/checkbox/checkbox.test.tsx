@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
 import { Checkbox } from './checkbox';
 
 const doNothing = () => {
@@ -16,7 +16,7 @@ describe('Checkbox', () => {
         value="checkbox"
       />
     );
-    expect(screen.getByRole('checkbox')).not.toBeChecked();
+    expect(rtlScreen.getByRole('checkbox')).not.toBeChecked();
   });
 
   it('renders a checked checkbox', () => {
@@ -29,6 +29,6 @@ describe('Checkbox', () => {
         value="checkbox"
       />
     );
-    expect(screen.getByRole('checkbox')).toBeChecked();
+    expect(rtlScreen.getByRole('checkbox')).toBeChecked();
   });
 });

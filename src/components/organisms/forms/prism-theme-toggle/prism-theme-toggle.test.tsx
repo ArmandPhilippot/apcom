@@ -1,12 +1,12 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../../tests/utils';
 import { PrismThemeToggle } from './prism-theme-toggle';
 
 describe('PrismThemeToggle', () => {
   it('renders a toggle component', () => {
     render(<PrismThemeToggle />);
     expect(
-      screen.getByRole('radiogroup', {
+      rtlScreen.getByRole('radiogroup', {
         name: /Code blocks:/i,
       })
     ).toBeInTheDocument();

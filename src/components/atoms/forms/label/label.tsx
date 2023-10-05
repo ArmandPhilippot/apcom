@@ -1,4 +1,4 @@
-import { FC, LabelHTMLAttributes, ReactNode } from 'react';
+import type { FC, LabelHTMLAttributes, ReactNode } from 'react';
 import styles from './label.module.scss';
 
 export type LabelSize = 'md' | 'sm';

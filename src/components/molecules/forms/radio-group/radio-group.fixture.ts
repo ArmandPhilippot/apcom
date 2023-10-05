@@ -1,6 +1,6 @@
-import { RadioGroupItem } from './radio-group';
+import type { RadioGroupItem } from './radio-group';
 
-export const getOptions = (name: string = 'group1') => {
+export const getOptions = (name = 'group1') => {
   const value1 = 'option1';
   const value2 = 'option2';
   const value3 = 'option3';
