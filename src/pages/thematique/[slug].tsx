@@ -119,18 +119,24 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
           topics
             ? [
                 <LinksListWidget
+                  heading={
+                    <Heading isFake level={3}>
+                      {thematicsListTitle}
+                    </Heading>
+                  }
+                  items={getLinksListItems(thematics)}
                   // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="thematics"
-                  items={getLinksListItems(thematics)}
-                  title={thematicsListTitle}
-                  level={2}
                 />,
                 <LinksListWidget
+                  heading={
+                    <Heading isFake level={3}>
+                      {topicsListTitle}
+                    </Heading>
+                  }
+                  items={getLinksListItems(topics)}
                   // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="related-topics"
-                  items={getLinksListItems(topics)}
-                  title={topicsListTitle}
-                  level={2}
                 />,
               ]
             : []

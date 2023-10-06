@@ -375,10 +375,6 @@
     "defaultMessage": "An error occurred:",
     "description": "Contact: error message"
   },
-  "UX9Bu8": {
-    "defaultMessage": "Collapse",
-    "description": "HeadingButton: title prefix (expanded state)"
-  },
   "UsQske": {
     "defaultMessage": "Read more here:",
     "description": "Sharing: content link prefix"
@@ -454,10 +450,6 @@
   "b4fdYE": {
     "defaultMessage": "Created on:",
     "description": "Meta: creation date label"
-  },
-  "bcyOgC": {
-    "defaultMessage": "Expand",
-    "description": "HeadingButton: title prefix (collapsed state)"
   },
   "bojYF5": {
     "defaultMessage": "Home",

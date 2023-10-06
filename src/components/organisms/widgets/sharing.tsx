@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { SharingLink, type SharingMedium } from '../../atoms';
-import { Widget, type WidgetProps } from '../../molecules';
+import { Heading, SharingLink, type SharingMedium } from '../../atoms';
+import { Collapsible, type CollapsibleProps } from '../../molecules';
 import styles from './sharing.module.scss';
 
 /**
@@ -80,7 +80,7 @@ export type SharingData = {
   url: string;
 };
 
-export type SharingProps = {
+export type SharingProps = Omit<CollapsibleProps, 'children' | 'heading'> & {
   /**
    * Set additional classnames to the sharing links list.
    */
@@ -89,14 +89,6 @@ export type SharingProps = {
    * The page data to share.
    */
   data: SharingData;
-  /**
-   * The widget default state.
-   */
-  expanded?: WidgetProps['expanded'];
-  /**
-   * The HTML heading level.
-   */
-  level?: WidgetProps['level'];
   /**
    * A list of active and ordered sharing medium.
    */
@@ -112,8 +104,6 @@ export const Sharing: FC<SharingProps> = ({
   className = '',
   data,
   media,
-  expanded = true,
-  level = 2,
   ...props
 }) => {
   const listClass = `${styles.list} ${className}`;
@@ -255,8 +245,15 @@ export const Sharing: FC<SharingProps> = ({
     ));
 
   return (
-    <Widget {...props} expanded={expanded} level={level} title={widgetTitle}>
+    <Collapsible
+      {...props}
+      heading={
+        <Heading isFake level={3}>
+          {widgetTitle}
+        </Heading>
+      }
+    >
       <ul className={listClass}>{getItems()}</ul>
-    </Widget>
+    </Collapsible>
   );
 };

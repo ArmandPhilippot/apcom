@@ -1,4 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Heading } from '../../atoms';
 import { SocialMedia as SocialMediaWidget, type Media } from './social-media';
 
 /**
@@ -8,34 +9,12 @@ export default {
   title: 'Organisms/Widgets',
   component: SocialMediaWidget,
   argTypes: {
-    level: {
-      control: {
-        type: 'number',
-        min: 1,
-        max: 6,
-      },
-      description: 'The heading level.',
-      type: {
-        name: 'number',
-        required: true,
-      },
-    },
     media: {
       description: 'The links data.',
       type: {
         name: 'object',
         required: true,
         value: {},
-      },
-    },
-    title: {
-      control: {
-        type: 'text',
-      },
-      description: 'The widget title.',
-      type: {
-        name: 'string',
-        required: true,
       },
     },
   },
@@ -55,7 +34,10 @@ const media: Media[] = [
  */
 export const SocialMedia = Template.bind({});
 SocialMedia.args = {
+  heading: (
+    <Heading isFake level={3}>
+      Follow me
+    </Heading>
+  ),
   media,
-  title: 'Follow me',
-  level: 2,
 };

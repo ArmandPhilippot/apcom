@@ -252,8 +252,6 @@ SinglePage.args = {
         'linkedin',
         'twitter',
       ]}
-      level={2}
-      expanded={true}
     />,
   ],
   withToC: true,
@@ -330,8 +328,6 @@ Post.args = {
         'linkedin',
         'twitter',
       ]}
-      level={2}
-      expanded={true}
     />,
   ],
   withToC: true,
@@ -372,10 +368,13 @@ Blog.args = {
   ),
   widgets: [
     <LinksListWidget
-      key="sidebar-widget1"
+      heading={
+        <Heading isFake level={3}>
+          Categories
+        </Heading>
+      }
       items={blogCategories}
-      title="Categories"
-      level={2}
+      key="sidebar-widget1"
     />,
   ],
 };

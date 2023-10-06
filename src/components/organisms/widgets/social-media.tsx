@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 import { List, ListItem, SocialLink, type SocialLinkProps } from '../../atoms';
-import { Widget, type WidgetProps } from '../../molecules';
+import { Collapsible, type CollapsibleProps } from '../../molecules';
 import styles from './social-media.module.scss';
 
 export type Media = Required<
   Pick<SocialLinkProps, 'icon' | 'id' | 'label' | 'url'>
 >;
 
-export type SocialMediaProps = Pick<WidgetProps, 'level' | 'title'> & {
+export type SocialMediaProps = Omit<CollapsibleProps, 'children'> & {
   media: Media[];
 };
 
@@ -31,10 +31,10 @@ export const SocialMedia: FC<SocialMediaProps> = ({ media, ...props }) => {
     ));
 
   return (
-    <Widget expanded={true} {...props}>
+    <Collapsible {...props}>
       <List className={styles.list} hideMarker isInline spacing="xs">
         {getItems(media)}
       </List>
-    </Widget>
+    </Collapsible>
   );
 };

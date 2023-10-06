@@ -1,4 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Heading } from '../../atoms';
 import { ImageWidget } from './image-widget';
 
 /**
@@ -52,16 +53,6 @@ export default {
         required: false,
       },
     },
-    expanded: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'The state of the widget.',
-      type: {
-        name: 'boolean',
-        required: true,
-      },
-    },
     image: {
       description: 'An image object.',
       type: {
@@ -81,28 +72,6 @@ export default {
       type: {
         name: 'string',
         required: false,
-      },
-    },
-    level: {
-      control: {
-        type: 'number',
-        min: 1,
-        max: 6,
-      },
-      description: 'The widget title level (hn).',
-      type: {
-        name: 'number',
-        required: true,
-      },
-    },
-    title: {
-      control: {
-        type: 'text',
-      },
-      description: 'The widget title.',
-      type: {
-        name: 'string',
-        required: true,
       },
     },
     url: {
@@ -128,7 +97,7 @@ const Template: ComponentStory<typeof ImageWidget> = (args) => (
 const image = {
   alt: 'Et perferendis quaerat',
   height: 480,
-  src: 'http://placeimg.com/640/480/nature',
+  src: 'http://picsum.photos/640/480',
   width: 640,
 };
 
@@ -138,10 +107,12 @@ const image = {
 export const AlignLeft = Template.bind({});
 AlignLeft.args = {
   alignment: 'left',
-  expanded: true,
+  heading: (
+    <Heading isFake level={3}>
+      Quo et totam
+    </Heading>
+  ),
   image,
-  level: 2,
-  title: 'Quo et totam',
 };
 
 /**
@@ -150,10 +121,12 @@ AlignLeft.args = {
 export const AlignCenter = Template.bind({});
 AlignCenter.args = {
   alignment: 'center',
-  expanded: true,
+  heading: (
+    <Heading isFake level={3}>
+      Quo et totam
+    </Heading>
+  ),
   image,
-  level: 2,
-  title: 'Quo et totam',
 };
 
 /**
@@ -162,10 +135,12 @@ AlignCenter.args = {
 export const AlignRight = Template.bind({});
 AlignRight.args = {
   alignment: 'right',
-  expanded: true,
+  heading: (
+    <Heading isFake level={3}>
+      Quo et totam
+    </Heading>
+  ),
   image,
-  level: 2,
-  title: 'Quo et totam',
 };
 
 /**
@@ -174,8 +149,10 @@ AlignRight.args = {
 export const WithDescription = Template.bind({});
 WithDescription.args = {
   description: 'Sint enim harum',
-  expanded: true,
+  heading: (
+    <Heading isFake level={3}>
+      Quo et totam
+    </Heading>
+  ),
   image,
-  level: 2,
-  title: 'Quo et totam',
 };

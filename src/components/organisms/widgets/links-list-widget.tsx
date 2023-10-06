@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { slugify } from '../../../utils/helpers';
 import { Link, List, ListItem } from '../../atoms';
-import { Widget, type WidgetProps } from '../../molecules';
+import { Collapsible, type CollapsibleProps } from '../../molecules';
 import styles from './links-list-widget.module.scss';
 
 export type LinksListItems = {
@@ -19,7 +19,10 @@ export type LinksListItems = {
   url: string;
 };
 
-export type LinksListWidgetProps = Pick<WidgetProps, 'level' | 'title'> & {
+export type LinksListWidgetProps = Omit<
+  CollapsibleProps,
+  'children' | 'disablePadding' | 'hasBorders'
+> & {
   className?: string;
   /**
    * Should the links be ordered?
@@ -71,13 +74,7 @@ export const LinksListWidget: FC<LinksListWidgetProps> = ({
     ));
 
   return (
-    <Widget
-      {...props}
-      className={styles.widget}
-      expanded={true}
-      withBorders={true}
-      withScroll={true}
-    >
+    <Collapsible {...props} className={styles.widget} disablePadding hasBorders>
       <List
         className={`${styles.list} ${styles[listKindClass]} ${className}`}
         hideMarker
@@ -85,6 +82,6 @@ export const LinksListWidget: FC<LinksListWidgetProps> = ({
       >
         {getListItems(items)}
       </List>
-    </Widget>
+    </Collapsible>
   );
 };

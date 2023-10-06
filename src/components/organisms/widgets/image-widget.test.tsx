@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
+import { Heading } from '../../atoms';
 import { ImageWidget } from './image-widget';
 
 const description = 'Ut vitae sit';
@@ -20,26 +21,22 @@ describe('ImageWidget', () => {
   it('renders an image', () => {
     render(
       <ImageWidget
-        expanded={true}
+        heading={<Heading level={titleLevel}>{title}</Heading>}
         image={img}
-        title={title}
-        level={titleLevel}
       />
     );
-    expect(screen.getByRole('img', { name: img.alt })).toBeInTheDocument();
+    expect(rtlScreen.getByRole('img', { name: img.alt })).toBeInTheDocument();
   });
 
-  it('renders a link', () => {
+  it('renders an image with a link', () => {
     render(
       <ImageWidget
-        expanded={true}
+        heading={<Heading level={titleLevel}>{title}</Heading>}
         image={img}
-        title={title}
-        level={titleLevel}
         url={url}
       />
     );
-    expect(screen.getByRole('link', { name: img.alt })).toHaveAttribute(
+    expect(rtlScreen.getByRole('link', { name: img.alt })).toHaveAttribute(
       'href',
       url
     );
@@ -48,13 +45,11 @@ describe('ImageWidget', () => {
   it('renders a description', () => {
     render(
       <ImageWidget
-        expanded={true}
+        heading={<Heading level={titleLevel}>{title}</Heading>}
         image={img}
         description={description}
-        title={title}
-        level={titleLevel}
       />
     );
-    expect(screen.getByText(description)).toBeInTheDocument();
+    expect(rtlScreen.getByText(description)).toBeInTheDocument();
   });
 });

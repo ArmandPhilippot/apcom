@@ -197,20 +197,25 @@ const CVPage: NextPageWithLayout = () => {
 
   const widgets = [
     <ImageWidget
+      description={cvCaption}
+      heading={
+        <Heading isFake level={3}>
+          {imageWidgetTitle}
+        </Heading>
+      }
+      image={image}
+      imageClassName={styles.image}
       // eslint-disable-next-line react/jsx-no-literals -- Key allowed
       key="image-widget"
-      expanded={true}
-      title={imageWidgetTitle}
-      level={2}
-      image={image}
-      description={cvCaption}
-      imageClassName={styles.image}
     />,
     <SocialMedia
+      heading={
+        <Heading isFake level={3}>
+          {socialMediaTitle}
+        </Heading>
+      }
       // eslint-disable-next-line react/jsx-no-literals -- Key allowed
       key="social-media"
-      title={socialMediaTitle}
-      level={2}
       media={[
         {
           icon: 'Github',

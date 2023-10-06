@@ -1,4 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Heading } from '../../atoms';
 import { LinksListWidget } from './links-list-widget';
 
 /**
@@ -30,28 +31,6 @@ export default {
         name: 'object',
         required: true,
         value: {},
-      },
-    },
-    level: {
-      control: {
-        type: 'number',
-        min: 1,
-        max: 6,
-      },
-      description: 'The heading level.',
-      type: {
-        name: 'number',
-        required: true,
-      },
-    },
-    title: {
-      control: {
-        type: 'text',
-      },
-      description: 'The widget title.',
-      type: {
-        name: 'string',
-        required: true,
       },
     },
   },
@@ -89,9 +68,12 @@ const items = [
  */
 export const Unordered = Template.bind({});
 Unordered.args = {
+  heading: (
+    <Heading isFake level={3}>
+      Quo et totam
+    </Heading>
+  ),
   items,
-  level: 2,
-  title: 'A list of links',
 };
 
 /**
@@ -99,8 +81,11 @@ Unordered.args = {
  */
 export const Ordered = Template.bind({});
 Ordered.args = {
+  heading: (
+    <Heading isFake level={3}>
+      Quo et totam
+    </Heading>
+  ),
   isOrdered: true,
   items,
-  level: 2,
-  title: 'A list of links',
 };

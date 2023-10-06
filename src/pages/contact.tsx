@@ -13,6 +13,7 @@ import {
   type NoticeKind,
   PageLayout,
   SocialMedia,
+  Heading,
 } from '../components';
 import { meta } from '../content/pages/contact.mdx';
 import { sendMail } from '../services/graphql';
@@ -83,10 +84,13 @@ const ContactPage: NextPageWithLayout = () => {
 
   const widgets = [
     <SocialMedia
+      heading={
+        <Heading isFake level={3}>
+          {socialMediaTitle}
+        </Heading>
+      }
       // eslint-disable-next-line react/jsx-no-literals -- Key allowed
       key="social-media"
-      title={socialMediaTitle}
-      level={2}
       media={[
         {
           icon: 'Github',

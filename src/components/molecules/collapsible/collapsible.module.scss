@@ -1,0 +1,100 @@
+@use "../../../styles/abstracts/functions" as fun;
+@use "../../../styles/abstracts/mixins" as mix;
+
+.heading {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-2xs);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--color-bg);
+  border-top: fun.convert-px(2) solid var(--color-primary-dark);
+  border-bottom: fun.convert-px(2) solid var(--color-primary-dark);
+
+  &:hover,
+  &:focus {
+    .icon {
+      background: var(--color-primary-light);
+      color: var(--color-fg-inverted);
+      transform: scale(1.25);
+
+      &::before,
+      &::after {
+        background: var(--color-bg);
+      }
+    }
+  }
+}
+
+.body {
+  &--has-borders {
+    border: fun.convert-px(2) solid var(--color-primary-dark);
+  }
+
+  &--has-padding {
+    padding-inline: var(--spacing-2xs);
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("lg") {
+      max-height: calc(100vh - var(--spacing-2xs));
+
+      &--expanded {
+        .body {
+          overflow: hidden;
+        }
+
+        &:hover,
+        &:focus-within {
+          .body {
+            overflow-y: auto;
+          }
+        }
+      }
+    }
+  }
+
+  &--collapsed {
+    .body {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      visibility: hidden;
+      transition:
+        all 0.2s linear 0.2s,
+        max-height 0.5s cubic-bezier(0, 1, 0, 1);
+    }
+  }
+
+  &--expanded {
+    .body {
+      max-height: 10000px; // Fixed value needed for transition.
+      opacity: 1;
+      visibility: visible;
+      transition:
+        all 0.5s ease-in-out 0s,
+        margin 0.2s ease-in-out 0s,
+        padding 0.2s ease-in-out 0s,
+        max-height 1.2s ease-in-out;
+
+      &--has-padding {
+        margin: var(--spacing-2xs) 0;
+        padding-block: var(--spacing-2xs);
+      }
+
+      &--no-padding {
+        margin: var(--spacing-xs) 0;
+      }
+    }
+  }
+}

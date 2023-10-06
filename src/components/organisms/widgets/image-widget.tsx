@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import {
   ResponsiveImage,
   type ResponsiveImageProps,
-  Widget,
-  type WidgetProps,
+  Collapsible,
+  type CollapsibleProps,
 } from '../../molecules';
 import styles from './image-widget.module.scss';
 
@@ -14,9 +14,9 @@ export type Image = Pick<
   'alt' | 'height' | 'src' | 'width'
 >;
 
-export type ImageWidgetProps = Pick<
-  WidgetProps,
-  'className' | 'expanded' | 'level' | 'title'
+export type ImageWidgetProps = Omit<
+  CollapsibleProps,
+  'children' | 'onToggle'
 > & {
   /**
    * The content alignment.
@@ -51,19 +51,23 @@ export const ImageWidget: FC<ImageWidgetProps> = ({
   description,
   image,
   imageClassName = '',
+  isCollapsed,
   url,
   ...props
 }) => {
   const alignmentClass = `widget--${alignment}`;
 
   return (
-    <Widget className={`${styles[alignmentClass]} ${className}`} {...props}>
+    <Collapsible
+      {...props}
+      className={`${styles[alignmentClass]} ${className}`}
+    >
       <ResponsiveImage
         {...image}
         caption={description}
         className={`${styles.figure} ${imageClassName}`}
         target={url}
       />
-    </Widget>
+    </Collapsible>
   );
 };

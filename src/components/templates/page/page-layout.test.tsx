@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
-import { BreadcrumbList } from 'schema-dts';
-import { render, screen } from '../../../../tests/utils';
+import type { BreadcrumbList } from 'schema-dts';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
 import { comments } from '../../organisms/layout/comments-list.fixture';
 import { PageLayout } from './page-layout';
 
@@ -25,7 +25,7 @@ describe('PageLayout', () => {
       </PageLayout>
     );
     expect(
-      screen.getByRole('heading', { level: 1, name: title })
+      rtlScreen.getByRole('heading', { level: 1, name: title })
     ).toBeInTheDocument();
   });
 
@@ -39,7 +39,7 @@ describe('PageLayout', () => {
         {children}
       </PageLayout>
     );
-    expect(screen.getByText(children)).toBeInTheDocument();
+    expect(rtlScreen.getByText(children)).toBeInTheDocument();
   });
 
   it('renders the breadcrumb', () => {
@@ -53,7 +53,7 @@ describe('PageLayout', () => {
       </PageLayout>
     );
     expect(
-      screen.getByRole('navigation', { name: 'Breadcrumb' })
+      rtlScreen.getByRole('navigation', { name: 'Breadcrumb' })
     ).toBeInTheDocument();
   });
 
@@ -68,9 +68,7 @@ describe('PageLayout', () => {
         {children}
       </PageLayout>
     );
-    expect(
-      screen.getByRole('heading', { level: 2, name: /Table of Contents/i })
-    ).toBeInTheDocument();
+    expect(rtlScreen.getByText(/Table of Contents/i)).toBeInTheDocument();
   });
 
   it('renders the comment form', () => {
@@ -85,7 +83,7 @@ describe('PageLayout', () => {
       </PageLayout>
     );
     expect(
-      screen.getByRole('form', { name: /Leave a comment/i })
+      rtlScreen.getByRole('form', { name: /Leave a comment/i })
     ).toBeInTheDocument();
   });
 
@@ -102,7 +100,7 @@ describe('PageLayout', () => {
       </PageLayout>
     );
     expect(
-      screen.getByRole('heading', { level: 2, name: /Comments/i })
+      rtlScreen.getByRole('heading', { level: 2, name: /Comments/i })
     ).toBeInTheDocument();
   });
 });

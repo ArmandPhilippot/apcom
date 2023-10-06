@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useHeadingsTree, type Heading } from '../../../utils/hooks';
 import { type LinksListItems, LinksListWidget } from './links-list-widget';
 import styles from './table-of-contents.module.scss';
+import { Heading as HeadingComponent } from 'src/components/atoms';
 
 type TableOfContentsProps = {
   /**
@@ -43,10 +44,13 @@ export const TableOfContents: FC<TableOfContentsProps> = ({ wrapper }) => {
   return (
     <LinksListWidget
       className={styles.list}
+      heading={
+        <HeadingComponent isFake level={3}>
+          {title}
+        </HeadingComponent>
+      }
       isOrdered
       items={getItems(headingsTree)}
-      level={2}
-      title={title}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Sharing as SharingWidget } from './sharing';
 
 /**
@@ -27,36 +27,6 @@ export default {
         name: 'object',
         required: true,
         value: {},
-      },
-    },
-    expanded: {
-      control: {
-        type: null,
-      },
-      description: 'Default widget state (expanded or collapsed).',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: true },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
-    level: {
-      control: {
-        type: 'number',
-        min: 1,
-        max: 6,
-      },
-      description: 'The heading level.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: 2 },
-      },
-      type: {
-        name: 'number',
-        required: false,
       },
     },
     media: {

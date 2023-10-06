@@ -7,6 +7,7 @@ import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
+  Heading,
   LinksListWidget,
   Notice,
   PageLayout,
@@ -159,24 +160,30 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         headerMeta={{ total: totalArticles }}
         widgets={[
           <LinksListWidget
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="thematics-list"
+            heading={
+              <Heading isFake level={3}>
+                {thematicsListTitle}
+              </Heading>
+            }
             items={getLinksListItems(
               thematicsList.map((thematic) =>
                 getPageLinkFromRawData(thematic, 'thematic')
               )
             )}
-            title={thematicsListTitle}
-            level={2}
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
+            key="thematics-list"
           />,
           <LinksListWidget
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="topics-list"
+            heading={
+              <Heading isFake level={3}>
+                {topicsListTitle}
+              </Heading>
+            }
             items={getLinksListItems(
               topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
             )}
-            title={topicsListTitle}
-            level={2}
+            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
+            key="topics-list"
           />,
         ]}
       >
