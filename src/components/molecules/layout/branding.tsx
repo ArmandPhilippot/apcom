@@ -1,11 +1,9 @@
-import { type FC, useRef } from 'react';
-import { useIntl } from 'react-intl';
+import { type FC, useRef, type ReactNode } from 'react';
 import { useStyles } from '../../../utils/hooks';
-import { Heading, Link } from '../../atoms';
-import { FlippingLogo, type FlippingLogoProps } from '../images';
+import { Flip, FlipSide, Heading, Link } from '../../atoms';
 import styles from './branding.module.scss';
 
-export type BrandingProps = Pick<FlippingLogoProps, 'photo'> & {
+export type BrandingProps = {
   /**
    * The Branding baseline.
    */
@@ -14,6 +12,14 @@ export type BrandingProps = Pick<FlippingLogoProps, 'photo'> & {
    * Use H1 if the current page is homepage. Default: false.
    */
   isHome?: boolean;
+  /**
+   * The website logo.
+   */
+  logo: ReactNode;
+  /**
+   * Your photo.
+   */
+  photo: ReactNode;
   /**
    * The Branding title;
    */
@@ -32,31 +38,14 @@ export type BrandingProps = Pick<FlippingLogoProps, 'photo'> & {
 export const Branding: FC<BrandingProps> = ({
   baseline,
   isHome = false,
+  logo,
   photo,
   title,
   withLink = false,
   ...props
 }) => {
   const baselineRef = useRef<HTMLParagraphElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement | HTMLParagraphElement>(null);
-  const intl = useIntl();
-  const altText = intl.formatMessage(
-    {
-      defaultMessage: '{website} picture',
-      description: 'Branding: photo alternative text',
-      id: 'dDK5oc',
-    },
-    { website: title }
-  );
-  const logoTitle = intl.formatMessage(
-    {
-      defaultMessage: '{website} logo',
-      description: 'Branding: logo title',
-      id: 'x55qsD',
-    },
-    { website: title }
-  );
 
   useStyles({
     property: '--typing-animation',
@@ -69,22 +58,15 @@ export const Branding: FC<BrandingProps> = ({
       'hide-text 4.25s linear 0s 1, blink 0.8s ease-in-out 4.25s 2, typing 3.8s linear 4.25s 1',
     target: baselineRef,
   });
-  useStyles({
-    property: 'animation',
-    styles: 'flip-logo 9s ease-in 0s 1',
-    target: logoRef,
-  });
 
   return (
     <div className={styles.wrapper}>
-      <FlippingLogo
-        {...props}
-        altText={altText}
-        className={styles.logo}
-        logoTitle={logoTitle}
-        photo={photo}
-        ref={logoRef}
-      />
+      <Flip {...props} className={styles.logo}>
+        <FlipSide className={styles.flip}>{photo}</FlipSide>
+        <FlipSide className={styles.flip} isBack>
+          {logo}
+        </FlipSide>
+      </Flip>
       <Heading
         className={styles.title}
         isFake={!isHome}

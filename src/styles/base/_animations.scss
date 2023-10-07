@@ -1,7 +1,7 @@
 @use "../abstracts/functions" as fun;
 
 @keyframes pulse {
-  from {
+  0% {
     transform: scale(1);
   }
 
@@ -9,44 +9,57 @@
     transform: scale(0.8);
   }
 
-  to {
+  100% {
     transform: scale(1);
   }
 }
 
 @keyframes draw-borders {
   0% {
-    background-position: top left, top right, bottom right, bottom left;
-    background-size: 0% var(--draw-border-thickness, fun.convert-px(3)),
+    background-position:
+      top left,
+      top right,
+      bottom right,
+      bottom left;
+    background-size:
+      0% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 0%,
       0% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 0%;
   }
 
   25% {
-    background-size: 0% var(--draw-border-thickness, fun.convert-px(3)),
+    background-size:
+      0% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 0%,
       100% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 0%;
   }
 
   50% {
-    background-size: 0% var(--draw-border-thickness, fun.convert-px(3)),
+    background-size:
+      0% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 0%,
       100% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 100%;
   }
 
   75% {
-    background-size: 100% var(--draw-border-thickness, fun.convert-px(3)),
+    background-size:
+      100% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 0%,
       100% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 100%;
   }
 
   100% {
-    background-position: top left, top right, bottom right, bottom left;
-    background-size: 100% var(--draw-border-thickness, fun.convert-px(3)),
+    background-position:
+      top left,
+      top right,
+      bottom right,
+      bottom left;
+    background-size:
+      100% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 100%,
       100% var(--draw-border-thickness, fun.convert-px(3)),
       var(--draw-border-thickness, fun.convert-px(3)) 100%;
@@ -70,17 +83,6 @@
 
   100% {
     transform: translateY(0);
-  }
-}
-
-@keyframes flip-logo {
-  0%,
-  90% {
-    transform: rotateY(180deg);
-  }
-
-  100% {
-    transform: rotateY(0deg);
   }
 }
 

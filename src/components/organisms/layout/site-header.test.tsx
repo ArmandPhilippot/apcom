@@ -1,5 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
+import NextImage from 'next/image';
 import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { Logo } from '../../atoms';
 import { SiteHeader } from './site-header';
 
 const nav = [
@@ -9,8 +11,6 @@ const nav = [
   { id: 'contact-link', href: '#', label: 'Contact' },
 ];
 
-const photo = 'http://placeimg.com/640/480/nightlife';
-
 const title = 'Assumenda quis quod';
 
 describe('SiteHeader', () => {
@@ -19,9 +19,17 @@ describe('SiteHeader', () => {
       <SiteHeader
         ackeeStorageKey="ackee-tracking"
         isHome={true}
+        logo={<Logo />}
         motionStorageKey="reduced-motion"
         nav={nav}
-        photo={photo}
+        photo={
+          <NextImage
+            alt="A photo"
+            height={200}
+            src="https://picsum.photos/200"
+            width={200}
+          />
+        }
         searchPage="#"
         title={title}
       />
@@ -35,9 +43,17 @@ describe('SiteHeader', () => {
     render(
       <SiteHeader
         ackeeStorageKey="ackee-tracking"
+        logo={<Logo />}
         motionStorageKey="reduced-motion"
         nav={nav}
-        photo={photo}
+        photo={
+          <NextImage
+            alt="A photo"
+            height={200}
+            src="https://picsum.photos/200"
+            width={200}
+          />
+        }
         searchPage="#"
         title={title}
       />

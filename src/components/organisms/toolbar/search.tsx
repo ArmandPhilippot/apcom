@@ -62,13 +62,12 @@ const SearchWithRef: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
         value="open"
       />
       <FlippingLabel
-        aria-label={label}
         className={sharedStyles.label}
         htmlFor="search-button"
+        icon={<Icon aria-hidden={true} shape="magnifying-glass" size="lg" />}
         isActive={isActive}
-      >
-        <Icon aria-hidden={true} shape="magnifying-glass" size="lg" />
-      </FlippingLabel>
+        label={label}
+      />
       <SearchModal
         className={`${sharedStyles.modal} ${searchStyles.modal} ${className}`}
         ref={searchInputRef}

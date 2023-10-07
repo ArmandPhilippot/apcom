@@ -1,15 +1,18 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
+import { Icon } from '../../../atoms';
 import { FlippingLabel } from './flipping-label';
 
 describe('FlippingLabel', () => {
   it('renders a label', () => {
-    const ariaLabel = 'vero quo inventore';
+    const label = 'vero quo inventore';
     render(
-      <FlippingLabel aria-label={ariaLabel} isActive={false}>
-        <>Test</>
-      </FlippingLabel>
+      <FlippingLabel
+        icon={<Icon shape="arrow" />}
+        isActive={false}
+        label={label}
+      />
     );
-    expect(screen.getByLabelText(ariaLabel)).toBeInTheDocument();
+    expect(rtlScreen.getByText(label)).toBeInTheDocument();
   });
 });

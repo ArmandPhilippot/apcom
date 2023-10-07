@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useCallback, useState } from 'react';
-import { Icon } from '../../../atoms';
+import { Button, Icon } from '../../../atoms';
 import { FlippingLabel } from './flipping-label';
 
 export default {
@@ -78,20 +78,22 @@ const Template: ComponentStory<typeof FlippingLabel> = ({
   const updateState = useCallback(() => setActive((prev) => !prev), []);
 
   return (
-    <button onClick={updateState} type="button">
+    <Button kind="neutral" onClick={updateState} shape="initial" type="button">
       <FlippingLabel {...args} isActive={active} />
-    </button>
+    </Button>
   );
 };
 
 export const Active = Template.bind({});
 Active.args = {
-  children: <Icon shape="magnifying-glass" />,
+  icon: <Icon shape="magnifying-glass" />,
   isActive: true,
+  label: 'Close the search',
 };
 
 export const Inactive = Template.bind({});
 Inactive.args = {
-  children: <Icon shape="magnifying-glass" />,
+  icon: <Icon shape="magnifying-glass" />,
   isActive: false,
+  label: 'Open the search',
 };

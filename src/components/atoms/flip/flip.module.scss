@@ -1,0 +1,49 @@
+@use "../../../styles/abstracts/functions" as fun;
+
+.front,
+.back {
+  grid-area: 1 / 1 / 2 / 2;
+  backface-visibility: hidden;
+  transition: all var(--flipper-speed, 0.6s) linear 0s;
+}
+
+.back {
+  transform: var(--rotation);
+}
+
+.wrapper {
+  display: grid;
+  transform-style: preserve-3d;
+
+  &--dynamic {
+    &:hover,
+    &:focus,
+    &:focus-within {
+      .back {
+        transform: rotate(0);
+      }
+
+      .front {
+        transform: var(--rotation);
+      }
+    }
+  }
+
+  &--manual#{&}--is-back {
+    .back {
+      transform: rotate(0);
+    }
+
+    .front {
+      transform: var(--rotation);
+    }
+  }
+
+  &--horizontal {
+    --rotation: rotateY(180deg);
+  }
+
+  &--vertical {
+    --rotation: rotateX(180deg);
+  }
+}

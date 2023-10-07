@@ -1,4 +1,6 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import NextImage from 'next/image';
+import { Logo } from '../../atoms';
 import { Branding } from './branding';
 
 /**
@@ -82,8 +84,16 @@ const Template: ComponentStory<typeof Branding> = (args) => (
  */
 export const Default = Template.bind({});
 Default.args = {
+  logo: <Logo heading="A logo example" />,
+  photo: (
+    <NextImage
+      alt="A photo example"
+      height={200}
+      src="https://picsum.photos/200"
+      width={200}
+    />
+  ),
   title: 'Website title',
-  photo: 'http://placeimg.com/640/480',
 };
 
 /**
@@ -91,7 +101,15 @@ Default.args = {
  */
 export const WithBaseline = Template.bind({});
 WithBaseline.args = {
-  title: 'Website title',
   baseline: 'Maiores corporis qui',
-  photo: 'http://placeimg.com/640/480',
+  logo: <Logo heading="A logo example" />,
+  photo: (
+    <NextImage
+      alt="A photo example"
+      height={200}
+      src="https://picsum.photos/200"
+      width={200}
+    />
+  ),
+  title: 'Website title',
 };

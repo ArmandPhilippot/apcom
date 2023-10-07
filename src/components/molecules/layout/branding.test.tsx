@@ -1,62 +1,109 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
+import NextImage from 'next/image';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { Logo } from '../../atoms';
 import { Branding } from './branding';
 
 describe('Branding', () => {
   it('renders a photo', () => {
+    const altText = 'A photo example';
+
     render(
       <Branding
-        photo="http://placeimg.com/640/480/city"
+        logo={<Logo />}
+        photo={
+          <NextImage
+            alt="A photo example"
+            height={200}
+            src="https://picsum.photos/200"
+            width={200}
+          />
+        }
         title="Website title"
       />
     );
-    expect(
-      screen.getByRole('img', { name: 'Website title picture' })
-    ).toBeInTheDocument();
+    expect(rtlScreen.getByRole('img', { name: altText })).toBeInTheDocument();
   });
 
   it('renders a logo', () => {
+    const logoHeading = 'sed enim voluptatem';
+
     render(
-      <Branding photo="http://placeimg.com/640/480/city" title="Website name" />
+      <Branding
+        logo={<Logo heading={logoHeading} />}
+        photo={
+          <NextImage
+            alt="A photo example"
+            height={200}
+            src="https://picsum.photos/200"
+            width={200}
+          />
+        }
+        title="Website name"
+      />
     );
-    expect(screen.getByTitle('Website name logo')).toBeInTheDocument();
+    expect(rtlScreen.getByTitle(logoHeading)).toBeInTheDocument();
   });
 
   it('renders a baseline', () => {
     render(
       <Branding
-        photo="http://placeimg.com/640/480"
+        logo={<Logo />}
+        photo={
+          <NextImage
+            alt="A photo example"
+            height={200}
+            src="https://picsum.photos/200"
+            width={200}
+          />
+        }
         title="Website title"
         baseline="Website baseline"
       />
     );
-    expect(screen.getByText('Website baseline')).toBeInTheDocument();
+    expect(rtlScreen.getByText('Website baseline')).toBeInTheDocument();
   });
 
   it('renders a title wrapped with h1 element', () => {
     render(
       <Branding
-        photo="http://placeimg.com/640/480"
+        logo={<Logo />}
+        photo={
+          <NextImage
+            alt="A photo example"
+            height={200}
+            src="https://picsum.photos/200"
+            width={200}
+          />
+        }
         title="Website title"
         isHome={true}
       />
     );
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Website title' })
+      rtlScreen.getByRole('heading', { level: 1, name: 'Website title' })
     ).toBeInTheDocument();
   });
 
   it('renders a title with h1 styles', () => {
     render(
       <Branding
-        photo="http://placeimg.com/640/480"
+        logo={<Logo />}
+        photo={
+          <NextImage
+            alt="A photo example"
+            height={200}
+            src="https://picsum.photos/200"
+            width={200}
+          />
+        }
         title="Website title"
         isHome={false}
       />
     );
     expect(
-      screen.queryByRole('heading', { level: 1, name: 'Website title' })
+      rtlScreen.queryByRole('heading', { level: 1, name: 'Website title' })
     ).not.toBeInTheDocument();
-    expect(screen.getByText('Website title')).toHaveClass('heading--1');
+    expect(rtlScreen.getByText('Website title')).toHaveClass('heading--1');
   });
 });

@@ -1,4 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import NextImage from 'next/image';
+import { Logo } from '../../atoms';
 import { SiteHeader as SiteHeaderComponent } from './site-header';
 
 /**
@@ -147,7 +149,15 @@ const nav = [
  */
 export const SiteHeader = Template.bind({});
 SiteHeader.args = {
+  logo: <Logo />,
   nav,
-  photo: 'http://placeimg.com/640/480/people',
+  photo: (
+    <NextImage
+      alt="A photo"
+      height={200}
+      src="https://picsum.photos/200"
+      width={200}
+    />
+  ),
   title: 'Website title',
 };

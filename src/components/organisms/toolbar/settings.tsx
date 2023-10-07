@@ -54,13 +54,12 @@ const SettingsWithRef: ForwardRefRenderFunction<
         value="open"
       />
       <FlippingLabel
-        aria-label={label}
         className={styles.label}
         htmlFor="settings-button"
+        icon={<Icon aria-hidden={true} shape="cog" size="lg" />}
         isActive={isActive}
-      >
-        <Icon aria-hidden={true} shape="cog" size="lg" />
-      </FlippingLabel>
+        label={label}
+      />
       <SettingsModal
         ackeeStorageKey={ackeeStorageKey}
         className={`${styles.modal} ${className}`}

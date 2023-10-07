@@ -1,4 +1,5 @@
 export * from './buttons';
+export * from './flip';
 export * from './forms';
 export * from './heading';
 export * from './images';

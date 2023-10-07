@@ -1,4 +1,5 @@
 /* eslint-disable max-statements */
+import NextImage from 'next/image';
 import Script from 'next/script';
 import {
   type FC,
@@ -16,7 +17,7 @@ import {
   useScrollPosition,
   useSettings,
 } from '../../../utils/hooks';
-import { ButtonLink, Icon, Main } from '../../atoms';
+import { ButtonLink, Icon, Logo, Main } from '../../atoms';
 import {
   SiteFooter,
   type SiteFooterProps,
@@ -112,6 +113,22 @@ export const Layout: FC<LayoutProps> = ({
     description: 'Layout: main nav - contact link',
     id: 'AE4kCD',
   });
+  const photoAltText = intl.formatMessage(
+    {
+      defaultMessage: '{website} picture',
+      description: 'Layout: photo alternative text',
+      id: '8jjY1X',
+    },
+    { website: name }
+  );
+  const logoTitle = intl.formatMessage(
+    {
+      defaultMessage: '{website} logo',
+      description: 'Layout: logo title',
+      id: '52H2HA',
+    },
+    { website: name }
+  );
 
   const mainNav: SiteHeaderProps['nav'] = [
     {
@@ -240,11 +257,19 @@ export const Layout: FC<LayoutProps> = ({
         baseline={baseline}
         className={styles.header}
         isHome={isHome}
+        logo={<Logo heading={logoTitle} />}
         // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
         motionStorageKey="reduced-motion"
         nav={mainNav}
-        // eslint-disable-next-line react/jsx-no-literals -- Photo allowed
-        photo="/armand-philippot.jpg"
+        photo={
+          <NextImage
+            alt={photoAltText}
+            height={100}
+            // eslint-disable-next-line react/jsx-no-literals -- Photo allowed
+            src="/armand-philippot.jpg"
+            width={100}
+          />
+        }
         searchPage={ROUTES.SEARCH}
         title={name}
         withLink={true}
