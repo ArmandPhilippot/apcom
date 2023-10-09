@@ -1,0 +1,80 @@
+@use "../../../styles/abstracts/functions" as fun;
+@use "../../../styles/abstracts/mixins" as mix;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  width: 100%;
+  text-align: center;
+
+  @include mix.media("screen") {
+    @include mix.dimensions("2xs") {
+      grid-template-columns:
+        auto
+        minmax(0, 1fr);
+      align-items: center;
+      justify-items: left;
+      column-gap: var(--spacing-sm);
+      width: unset;
+    }
+  }
+
+  > *:first-child {
+    max-width: fun.convert-px(200);
+    max-height: fun.convert-px(200);
+    margin-bottom: var(--spacing-2xs);
+
+    @include mix.media("screen") {
+      @include mix.dimensions("2xs") {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  > *:nth-child(2) {
+    margin-block: var(--spacing-2xs);
+  }
+
+  > *:nth-child(3) {
+    margin-block: 0 var(--spacing-xs);
+  }
+
+  > *:first-child,
+  > *:first-child:nth-last-child(2) + * {
+    grid-row: span 2;
+  }
+
+  > *:first-child:nth-last-child(3) + * {
+    align-self: self-end;
+  }
+
+  > *:first-child:nth-last-child(3) ~ *:last-child {
+    align-self: self-start;
+  }
+}
+
+.link {
+  background: linear-gradient(
+      to top,
+      var(--color-primary-light) fun.convert-px(5),
+      transparent fun.convert-px(5)
+    )
+    left / 0 100% no-repeat;
+  text-decoration: none;
+  transition: all 0.6s ease-out 0s;
+
+  &:hover,
+  &:focus {
+    background-size: 100% 100%;
+  }
+
+  &:focus {
+    color: var(--color-primary-light);
+  }
+
+  &:active {
+    background-size: 0 100%;
+    color: var(--color-primary-dark);
+  }
+}

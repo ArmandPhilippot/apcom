@@ -20,5 +20,4 @@ export * from './use-route-change';
 export * from './use-scroll-position';
 export * from './use-settings';
 export * from './use-state-change';
-export * from './use-styles';
 export * from './use-update-ackee-options';

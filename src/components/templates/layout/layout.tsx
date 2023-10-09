@@ -7,6 +7,7 @@ import {
   type ReactNode,
   useRef,
   useState,
+  type CSSProperties,
 } from 'react';
 import { useIntl } from 'react-intl';
 import type { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
@@ -17,7 +18,7 @@ import {
   useScrollPosition,
   useSettings,
 } from '../../../utils/hooks';
-import { ButtonLink, Icon, Logo, Main } from '../../atoms';
+import { ButtonLink, Heading, Icon, Logo, Main } from '../../atoms';
 import {
   SiteFooter,
   type SiteFooterProps,
@@ -25,16 +26,23 @@ import {
   type SiteHeaderProps,
 } from '../../organisms';
 import styles from './layout.module.scss';
+import { FlippingLogo } from 'src/components/molecules';
 
 export type QueryAction = SearchAction & {
   'query-input': string;
 };
 
-export type LayoutProps = Pick<SiteHeaderProps, 'isHome'> & {
+export type LayoutProps = {
   /**
    * The layout main content.
    */
   children: ReactNode;
+  /**
+   * Is it homepage?
+   *
+   * @default false
+   */
+  isHome?: boolean;
   /**
    * Determine if article has a comments section.
    */
@@ -230,6 +238,15 @@ export const Layout: FC<LayoutProps> = ({
 
   useRouteChange(giveFocusToTopRef);
 
+  const brandingTitleStyles = {
+    '--typing-animation':
+      'blink 0.7s ease-in-out 0s 2, typing 4.3s linear 0s 1',
+  } as CSSProperties;
+  const brandingBaselineStyles = {
+    '--typing-animation':
+      'hide-text 4.25s linear 0s 1, blink 0.8s ease-in-out 4.25s 2, typing 3.8s linear 4.25s 1',
+  } as CSSProperties;
+
   return (
     <>
       <Script
@@ -254,25 +271,44 @@ export const Layout: FC<LayoutProps> = ({
       <SiteHeader
         // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
         ackeeStorageKey="ackee-tracking"
-        baseline={baseline}
+        baseline={
+          <div
+            className={styles.brand__baseline}
+            style={brandingBaselineStyles}
+          >
+            {baseline}
+          </div>
+        }
         className={styles.header}
-        isHome={isHome}
-        logo={<Logo heading={logoTitle} />}
-        // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
-        motionStorageKey="reduced-motion"
-        nav={mainNav}
-        photo={
-          <NextImage
-            alt={photoAltText}
-            height={100}
-            // eslint-disable-next-line react/jsx-no-literals -- Photo allowed
-            src="/armand-philippot.jpg"
-            width={100}
+        logo={
+          <FlippingLogo
+            back={<Logo heading={logoTitle} />}
+            className={styles.brand__logo}
+            front={
+              <NextImage
+                alt={photoAltText}
+                height={120}
+                src="/armand-philippot.jpg"
+                width={120}
+              />
+            }
           />
         }
+        // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
+        motionStorageKey="reduced-motion"
+        name={
+          <Heading
+            className={styles.brand__title}
+            isFake={!isHome}
+            level={1}
+            style={brandingTitleStyles}
+          >
+            {name}
+          </Heading>
+        }
+        nav={mainNav}
         searchPage={ROUTES.SEARCH}
-        title={name}
-        withLink={true}
+        url="/"
       />
       <Main id="main" className={styles.main}>
         <article

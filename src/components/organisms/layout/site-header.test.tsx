@@ -1,7 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import NextImage from 'next/image';
 import { render, screen as rtlScreen } from '../../../../tests/utils';
-import { Logo } from '../../atoms';
 import { SiteHeader } from './site-header';
 
 const nav = [
@@ -18,20 +17,18 @@ describe('SiteHeader', () => {
     render(
       <SiteHeader
         ackeeStorageKey="ackee-tracking"
-        isHome={true}
-        logo={<Logo />}
-        motionStorageKey="reduced-motion"
-        nav={nav}
-        photo={
+        logo={
           <NextImage
-            alt="A photo"
+            alt="A logo"
             height={200}
             src="https://picsum.photos/200"
             width={200}
           />
         }
+        motionStorageKey="reduced-motion"
+        name={<h1>{title}</h1>}
+        nav={nav}
         searchPage="#"
-        title={title}
       />
     );
     expect(
@@ -43,10 +40,7 @@ describe('SiteHeader', () => {
     render(
       <SiteHeader
         ackeeStorageKey="ackee-tracking"
-        logo={<Logo />}
-        motionStorageKey="reduced-motion"
-        nav={nav}
-        photo={
+        logo={
           <NextImage
             alt="A photo"
             height={200}
@@ -54,8 +48,10 @@ describe('SiteHeader', () => {
             width={200}
           />
         }
+        motionStorageKey="reduced-motion"
+        name={<div>{title}</div>}
+        nav={nav}
         searchPage="#"
-        title={title}
       />
     );
     expect(rtlScreen.getByRole('navigation')).toBeInTheDocument();
