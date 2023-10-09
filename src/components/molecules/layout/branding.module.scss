@@ -54,15 +54,7 @@
 
   .logo {
     grid-row: span 2;
-    margin-bottom: var(--spacing-sm);
-    border-radius: 50%;
     animation: flip-logo 9s ease-in 0s 1;
-
-    @include mix.media("screen") {
-      @include mix.dimensions("2xs") {
-        margin-bottom: 0;
-      }
-    }
   }
 
   .title {
@@ -103,23 +95,6 @@
       background-size: 0 100%;
       color: var(--color-primary-dark);
     }
-  }
-}
-
-.flip {
-  width: var(--logo-size);
-  height: var(--logo-size);
-  border: fun.convert-px(2) solid var(--color-primary-dark);
-  border-radius: 50%;
-  box-shadow:
-    fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
-      var(--color-shadow-light),
-    fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
-      var(--color-shadow-light);
-
-  > * {
-    padding: fun.convert-px(2);
-    border-radius: 50%;
   }
 }
 

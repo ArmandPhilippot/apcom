@@ -1,0 +1,24 @@
+@use "../../../../styles/abstracts/functions" as fun;
+
+.wrapper {
+  border-radius: 50%;
+  width: fit-content;
+}
+
+.side {
+  width: var(--logo-size, fun.convert-px(100));
+  height: var(--logo-size, fun.convert-px(100));
+  border: fun.convert-px(2) solid var(--color-primary-dark);
+  border-radius: 50%;
+  box-shadow:
+    fun.convert-px(1) fun.convert-px(2) fun.convert-px(1) 0
+      var(--color-shadow-light),
+    fun.convert-px(2) fun.convert-px(3) fun.convert-px(3) 0
+      var(--color-shadow-light);
+
+  > * {
+    padding: fun.convert-px(2);
+    background: var(--color-bg);
+    border-radius: 50%;
+  }
+}

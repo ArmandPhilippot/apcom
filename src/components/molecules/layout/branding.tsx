@@ -1,6 +1,7 @@
 import { type FC, useRef, type ReactNode } from 'react';
 import { useStyles } from '../../../utils/hooks';
-import { Flip, FlipSide, Heading, Link } from '../../atoms';
+import { Heading, Link } from '../../atoms';
+import { FlippingLogo } from '../images';
 import styles from './branding.module.scss';
 
 export type BrandingProps = {
@@ -42,7 +43,6 @@ export const Branding: FC<BrandingProps> = ({
   photo,
   title,
   withLink = false,
-  ...props
 }) => {
   const baselineRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement | HTMLParagraphElement>(null);
@@ -61,12 +61,7 @@ export const Branding: FC<BrandingProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      <Flip {...props} className={styles.logo}>
-        <FlipSide className={styles.flip}>{photo}</FlipSide>
-        <FlipSide className={styles.flip} isBack>
-          {logo}
-        </FlipSide>
-      </Flip>
+      <FlippingLogo back={logo} className={styles.logo} front={photo} />
       <Heading
         className={styles.title}
         isFake={!isHome}
