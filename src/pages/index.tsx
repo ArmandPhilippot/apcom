@@ -1,6 +1,7 @@
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import Script from 'next/script';
 import type { FC, HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
@@ -15,10 +16,10 @@ import {
   Icon,
   List,
   ListItem,
-  ResponsiveImage,
   Section,
   type SectionProps,
   Heading,
+  Figure,
 } from '../components';
 import HomePageContent from '../content/pages/homepage.mdx';
 import { getArticlesCard } from '../services/graphql';
@@ -81,6 +82,12 @@ const H6 = ({
   <Heading {...props} level={6}>
     {children}
   </Heading>
+);
+
+const ResponsiveImage = (props: NextImageProps) => (
+  <Figure>
+    <NextImage {...props} />
+  </Figure>
 );
 
 /**

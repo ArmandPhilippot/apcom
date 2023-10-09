@@ -1,18 +1,12 @@
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import type { FC } from 'react';
-import {
-  ResponsiveImage,
-  type ResponsiveImageProps,
-  Collapsible,
-  type CollapsibleProps,
-} from '../../molecules';
+import { Figure, Link, type FigureProps } from '../../atoms';
+import { Collapsible, type CollapsibleProps } from '../../molecules';
 import styles from './image-widget.module.scss';
 
 export type Alignment = 'left' | 'center' | 'right';
 
-export type Image = Pick<
-  ResponsiveImageProps,
-  'alt' | 'height' | 'src' | 'width'
->;
+export type Image = Pick<NextImageProps, 'alt' | 'height' | 'src' | 'width'>;
 
 export type ImageWidgetProps = Omit<
   CollapsibleProps,
@@ -25,7 +19,7 @@ export type ImageWidgetProps = Omit<
   /**
    * Add a caption to the image.
    */
-  description?: ResponsiveImageProps['caption'];
+  description?: FigureProps['caption'];
   /**
    * An object describing the image.
    */
@@ -37,7 +31,7 @@ export type ImageWidgetProps = Omit<
   /**
    * Add a link to the image.
    */
-  url?: ResponsiveImageProps['target'];
+  url?: string;
 };
 
 /**
@@ -62,12 +56,19 @@ export const ImageWidget: FC<ImageWidgetProps> = ({
       {...props}
       className={`${styles[alignmentClass]} ${className}`}
     >
-      <ResponsiveImage
-        {...image}
+      <Figure
         caption={description}
         className={`${styles.figure} ${imageClassName}`}
-        target={url}
-      />
+        hasBorders
+      >
+        {url ? (
+          <Link href={url}>
+            <NextImage {...image} />
+          </Link>
+        ) : (
+          <NextImage {...image} />
+        )}
+      </Figure>
     </Collapsible>
   );
 };

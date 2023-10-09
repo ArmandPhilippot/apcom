@@ -20,6 +20,7 @@
   .cover {
     place-content: center;
     height: fun.convert-px(150);
+    object-fit: scale-down;
     margin: auto;
     border-bottom: fun.convert-px(1) solid var(--color-border);
   }

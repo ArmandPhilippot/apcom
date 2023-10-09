@@ -1,7 +1,6 @@
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import type { FC } from 'react';
-import type { Image as Img } from '../../../types';
-import { ButtonLink, Heading, type HeadingLevel } from '../../atoms';
-import { ResponsiveImage } from '../images';
+import { ButtonLink, Figure, Heading, type HeadingLevel } from '../../atoms';
 import styles from './card.module.scss';
 import { Meta, type MetaData } from './meta';
 
@@ -13,7 +12,7 @@ export type CardProps = {
   /**
    * The card cover.
    */
-  cover?: Img;
+  cover?: Pick<NextImageProps, 'alt' | 'src' | 'title' | 'width' | 'height'>;
   /**
    * The card id.
    */
@@ -63,7 +62,9 @@ export const Card: FC<CardProps> = ({
       <article className={styles.article}>
         <header className={styles.header}>
           {cover ? (
-            <ResponsiveImage {...cover} className={styles.cover} />
+            <Figure>
+              <NextImage {...cover} className={styles.cover} />
+            </Figure>
           ) : null}
           <Heading className={styles.title} id={headingId} level={titleLevel}>
             {title}

@@ -46,6 +46,7 @@
   height: fun.convert-px(100);
   max-width: 100%;
   border: fun.convert-px(1) solid var(--color-border);
+  object-fit: scale-down;
 
   @include mix.media("screen") {
     @include mix.dimensions("sm") {

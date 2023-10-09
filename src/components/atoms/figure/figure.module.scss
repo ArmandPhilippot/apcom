@@ -1,0 +1,30 @@
+@use "../../../styles/abstracts/functions" as fun;
+
+.caption {
+  margin: 0;
+  padding: fun.convert-px(4) var(--spacing-2xs);
+  background: var(--color-bg-secondary);
+  border: fun.convert-px(1) solid var(--color-border-light);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column;
+  width: fit-content;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+
+  &--has-borders {
+    padding: fun.convert-px(4);
+    border: fun.convert-px(1) solid var(--color-border);
+    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+      var(--color-shadow);
+
+    .caption {
+      margin-top: fun.convert-px(4);
+    }
+  }
+}

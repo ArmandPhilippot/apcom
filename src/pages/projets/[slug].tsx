@@ -3,6 +3,7 @@ import type { MDXComponents } from 'mdx/types';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import type { ComponentType, HTMLAttributes } from 'react';
@@ -15,8 +16,6 @@ import {
   Overview,
   type OverviewMeta,
   PageLayout,
-  ResponsiveImage,
-  type ResponsiveImageProps,
   Sharing,
   SocialLink,
   Spinner,
@@ -24,6 +23,7 @@ import {
   Heading,
   List,
   ListItem,
+  Figure,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
@@ -41,8 +41,10 @@ import {
 } from '../../utils/helpers/server';
 import { useBreadcrumb, useGithubApi, useSettings } from '../../utils/hooks';
 
-const BorderedImage = (props: ResponsiveImageProps) => (
-  <ResponsiveImage withBorders={true} {...props} />
+const BorderedImage = (props: NextImageProps) => (
+  <Figure hasBorders>
+    <NextImage {...props} />
+  </Figure>
 );
 
 const H1 = ({

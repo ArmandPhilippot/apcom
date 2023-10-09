@@ -1,14 +1,15 @@
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import {
   getLayout,
   Link,
   PageLayout,
-  ResponsiveImage,
   type MetaData,
+  Figure,
 } from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
@@ -20,6 +21,12 @@ import {
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
+
+const ResponsiveImage = (props: NextImageProps) => (
+  <Figure>
+    <NextImage {...props} />
+  </Figure>
+);
 
 const components: MDXComponents = {
   Image: ResponsiveImage,

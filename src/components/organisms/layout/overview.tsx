@@ -1,10 +1,7 @@
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import type { FC } from 'react';
-import {
-  Meta,
-  type MetaData,
-  ResponsiveImage,
-  type ResponsiveImageProps,
-} from '../../molecules';
+import { Figure } from '../../atoms';
+import { Meta, type MetaData } from '../../molecules';
 import styles from './overview.module.scss';
 
 export type OverviewMeta = Pick<
@@ -25,7 +22,7 @@ export type OverviewProps = {
   /**
    * The overview cover.
    */
-  cover?: Pick<ResponsiveImageProps, 'alt' | 'src' | 'width' | 'height'>;
+  cover?: Pick<NextImageProps, 'alt' | 'src' | 'width' | 'height'>;
   /**
    * The overview meta.
    */
@@ -47,7 +44,11 @@ export const Overview: FC<OverviewProps> = ({
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
-      {cover ? <ResponsiveImage className={styles.cover} {...cover} /> : null}
+      {cover ? (
+        <Figure>
+          <NextImage {...cover} className={styles.cover} />
+        </Figure>
+      ) : null}
       <Meta
         className={`${styles.meta} ${metaModifier}`}
         data={{ ...remainingMeta, technologies }}

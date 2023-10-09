@@ -1,3 +1,4 @@
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import type { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import type { Article, Meta as MetaType } from '../../../types';
@@ -8,19 +9,12 @@ import {
   type HeadingLevel,
   Icon,
   Link,
+  Figure,
 } from '../../atoms';
-import {
-  Meta,
-  type MetaData,
-  ResponsiveImage,
-  type ResponsiveImageProps,
-} from '../../molecules';
+import { Meta, type MetaData } from '../../molecules';
 import styles from './summary.module.scss';
 
-export type Cover = Pick<
-  ResponsiveImageProps,
-  'alt' | 'src' | 'width' | 'height'
->;
+export type Cover = Pick<NextImageProps, 'alt' | 'src' | 'width' | 'height'>;
 
 export type SummaryMeta = Pick<
   MetaType<'article'>,
@@ -108,7 +102,11 @@ export const Summary: FC<SummaryProps> = ({
 
   return (
     <article className={styles.wrapper}>
-      {cover ? <ResponsiveImage className={styles.cover} {...cover} /> : null}
+      {cover ? (
+        <Figure>
+          <NextImage {...cover} className={styles.cover} />
+        </Figure>
+      ) : null}
       <header className={styles.header}>
         <Link href={url} className={styles.link}>
           <Heading level={titleLevel} className={styles.title}>

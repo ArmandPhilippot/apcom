@@ -107,6 +107,10 @@
     "defaultMessage": "Read more articles about:",
     "description": "ArticlePage: footer topics list label"
   },
+  "52H2HA": {
+    "defaultMessage": "{website} logo",
+    "description": "Layout: logo title"
+  },
   "5O2vpy": {
     "defaultMessage": "No results found.",
     "description": "NoResults: no results"
@@ -142,6 +146,10 @@
   "7zDlQo": {
     "defaultMessage": "Full includes all information from partial as well as information about referrer, operating system, device, browser, screen size and language.",
     "description": "AckeeToggle: tooltip message"
+  },
+  "8jjY1X": {
+    "defaultMessage": "{website} picture",
+    "description": "Layout: photo alternative text"
   },
   "92zgdp": {
     "defaultMessage": "Total:",
@@ -463,10 +471,6 @@
     "defaultMessage": "Sidebar",
     "description": "PageLayout: accessible name for the sidebar"
   },
-  "dDK5oc": {
-    "defaultMessage": "{website} picture",
-    "description": "Branding: photo alternative text"
-  },
   "dz2kDV": {
     "defaultMessage": "Comment form",
     "description": "CommentForm: aria label"
@@ -662,10 +666,6 @@
   "w8GrOf": {
     "defaultMessage": "Free",
     "description": "HomePage: link to free thematic"
-  },
-  "x55qsD": {
-    "defaultMessage": "{website} logo",
-    "description": "Branding: logo title"
   },
   "xYNeKX": {
     "defaultMessage": "Settings form",

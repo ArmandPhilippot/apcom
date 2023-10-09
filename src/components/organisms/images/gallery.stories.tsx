@@ -1,5 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ResponsiveImage } from '../../molecules';
+import NextImage from 'next/image';
+import { Figure } from '../../atoms';
 import { Gallery } from './gallery';
 
 /**
@@ -13,7 +14,7 @@ export default {
       control: {
         type: null,
       },
-      description: 'Two or more ResponsiveImage component.',
+      description: 'Two or more images.',
       type: {
         name: 'function',
         required: true,
@@ -37,16 +38,24 @@ export default {
 const image = {
   alt: 'Modi provident omnis',
   height: 480,
-  src: 'http://picsum.photos/640/480',
+  src: 'https://picsum.photos/640/480',
   width: 640,
 };
 
 const Template: ComponentStory<typeof Gallery> = (args) => (
   <Gallery {...args}>
-    <ResponsiveImage {...image} />
-    <ResponsiveImage {...image} />
-    <ResponsiveImage {...image} />
-    <ResponsiveImage {...image} />
+    <Figure>
+      <NextImage {...image} />
+    </Figure>
+    <Figure>
+      <NextImage {...image} />
+    </Figure>
+    <Figure>
+      <NextImage {...image} />
+    </Figure>
+    <Figure>
+      <NextImage {...image} />
+    </Figure>
   </Gallery>
 );
 

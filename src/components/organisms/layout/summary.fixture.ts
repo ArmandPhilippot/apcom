@@ -1,9 +1,9 @@
-import { type SummaryMeta } from './summary';
+import type { SummaryMeta } from './summary';
 
 export const cover = {
   alt: 'A cover',
   height: 480,
-  src: 'http://placeimg.com/640/480',
+  src: 'https://picsum.photos/640/480',
   width: 640,
 };
 

@@ -2,6 +2,7 @@
 import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
+import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import type { HTMLAttributes } from 'react';
@@ -12,7 +13,6 @@ import {
   Link,
   PageLayout,
   type PageLayoutProps,
-  ResponsiveImage,
   Sharing,
   Spinner,
 } from '../../components';
@@ -108,7 +108,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       label: footerMetaLabel,
       value: topics.map((topic) => (
         <ButtonLink className={styles.btn} key={topic.id} to={topic.url}>
-          {topic.logo ? <ResponsiveImage {...topic.logo} /> : null} {topic.name}
+          {topic.logo ? <NextImage {...topic.logo} /> : null} {topic.name}
         </ButtonLink>
       )),
     },

@@ -1,6 +1,5 @@
 import { Children, type FC, type ReactElement } from 'react';
 import { List, ListItem } from '../../atoms';
-import type { ResponsiveImageProps } from '../../molecules';
 import styles from './gallery.module.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -8,9 +7,9 @@ export type GalleryColumn = 2 | 3 | 4;
 
 export type GalleryProps = {
   /**
-   * The images using ResponsiveImage component.
+   * The images.
    */
-  children: ReactElement<ResponsiveImageProps>[];
+  children: ReactElement[];
   /**
    * The columns count.
    */

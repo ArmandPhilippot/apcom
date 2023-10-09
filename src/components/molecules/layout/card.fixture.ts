@@ -1,7 +1,7 @@
 export const cover = {
   alt: 'A picture',
   height: 480,
-  src: 'http://placeimg.com/640/480',
+  src: 'https://picsum.photos/640/480',
   width: 640,
 };
 

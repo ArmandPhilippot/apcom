@@ -2,6 +2,7 @@
 import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
+import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useIntl } from 'react-intl';
@@ -11,7 +12,6 @@ import {
   LinksListWidget,
   PageLayout,
   PostsList,
-  ResponsiveImage,
   type MetaData,
 } from '../../components';
 import {
@@ -101,7 +101,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
 
   const getPageHeading = () => (
     <>
-      {cover ? <ResponsiveImage className={styles.logo} {...cover} /> : null}
+      {cover ? <NextImage {...cover} className={styles.logo} /> : null}
       {title}
     </>
   );

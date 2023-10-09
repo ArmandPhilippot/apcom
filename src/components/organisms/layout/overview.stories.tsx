@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Overview, OverviewMeta } from './overview';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Overview, type OverviewMeta } from './overview';
 
 /**
  * Overview - Storybook Meta
@@ -50,7 +50,7 @@ const Template: ComponentStory<typeof Overview> = (args) => (
 const cover = {
   alt: 'picture',
   height: 480,
-  src: 'http://placeimg.com/640/480/cats',
+  src: 'https://picsum.photos/640/480',
   width: 640,
 };
 

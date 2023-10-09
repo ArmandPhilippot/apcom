@@ -107,6 +107,10 @@
     "defaultMessage": "Lire plus d’articles à propos de :",
     "description": "ArticlePage: footer topics list label"
   },
+  "52H2HA": {
+    "defaultMessage": "Logo du site d’{website}",
+    "description": "Layout: logo title"
+  },
   "5O2vpy": {
     "defaultMessage": "Aucun résultat.",
     "description": "NoResults: no results"
@@ -142,6 +146,10 @@
   "7zDlQo": {
     "defaultMessage": "Complet inclut toutes les informations de Partiel ainsi que des informations à propos du site référent, du système d’exploitation, de l’appareil, du navigateur, de la taille d’écran et de la langue.",
     "description": "AckeeToggle: tooltip message"
+  },
+  "8jjY1X": {
+    "defaultMessage": "Photo d’{website}",
+    "description": "Layout: photo alternative text"
   },
   "92zgdp": {
     "defaultMessage": "Total :",
@@ -463,10 +471,6 @@
     "defaultMessage": "Barre latérale",
     "description": "PageLayout: accessible name for the sidebar"
   },
-  "dDK5oc": {
-    "defaultMessage": "Photo d’{website}",
-    "description": "Branding: photo alternative text"
-  },
   "dz2kDV": {
     "defaultMessage": "Formulaire des commentaires",
     "description": "CommentForm: aria label"
@@ -662,10 +666,6 @@
   "w8GrOf": {
     "defaultMessage": "Libre",
     "description": "HomePage: link to free thematic"
-  },
-  "x55qsD": {
-    "defaultMessage": "Logo d’{website}",
-    "description": "Branding: logo title"
   },
   "xYNeKX": {
     "defaultMessage": "Formulaire des réglages",

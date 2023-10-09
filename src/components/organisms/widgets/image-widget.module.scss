@@ -4,6 +4,7 @@
   --scale-up: 1.02;
   --scale-down: 0.98;
 
+  width: fit-content;
   margin: 0;
   padding: fun.convert-px(5);
   border: fun.convert-px(1) solid var(--color-border);
