@@ -1,0 +1,62 @@
+@use "../../../../styles/abstracts/functions" as fun;
+
+.item {
+  column-gap: var(--spacing-2xs);
+  align-content: baseline;
+
+  &--bordered-values {
+    row-gap: var(--spacing-2xs);
+  }
+
+  &--centered {
+    margin-inline: auto;
+    text-align: center;
+    place-items: center;
+    justify-content: center;
+  }
+
+  &--inlined {
+    align-items: first baseline;
+  }
+
+  &--inlined-values {
+    flex-flow: row wrap;
+  }
+
+  &:not(#{&}--bordered-values) {
+    row-gap: fun.convert-px(3);
+  }
+}
+
+.value {
+  width: fit-content;
+  height: fit-content;
+  color: var(--color-fg);
+  font-weight: 400;
+}
+
+:where(.item--bordered-values) {
+  .value {
+    padding: fun.convert-px(2) var(--spacing-2xs);
+    border: fun.convert-px(1) solid var(--color-primary-darker);
+  }
+}
+
+:where(.item--inlined-values) {
+  .label {
+    flex: 1 0 100%;
+  }
+}
+
+/* It's an arbitrary choice. When there is only one meta item (like on small
+ * cards) removing the width can mess up the layout. However, must of the times
+ * when there are multiples items, we need to remove the width especially if we
+ * want to use `isCentered` prop. */
+:where(.item--inlined-values:not(:only-of-type)) {
+  .label {
+    /* We need to remove its width to avoid an extra space and make the
+     * container width fit its contents. However the label should be smaller
+     * than the values to avoid unexpected behavior with layout. */
+    width: 0;
+  }
+}

@@ -16,7 +16,6 @@ import { Heading, Notice, type NoticeKind, Sidebar } from '../../atoms';
 import {
   Breadcrumb,
   type BreadcrumbItem,
-  type MetaData,
   PageFooter,
   type PageFooterProps,
   PageHeader,
@@ -40,13 +39,6 @@ const hasComments = (
   comments: SingleComment[] | undefined
 ): comments is SingleComment[] =>
   Array.isArray(comments) && comments.length > 0;
-
-/**
- * Check if meta properties are defined.
- *
- * @param {MetaData} meta - The metadata.
- */
-const hasMeta = (meta: MetaData) => Object.values(meta).every((value) => value);
 
 type CommentStatus = {
   isReply: boolean;
@@ -256,7 +248,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
           {children}
         </div>
       )}
-      {footerMeta && hasMeta(footerMeta) ? (
+      {footerMeta?.length ? (
         <PageFooter meta={footerMeta} className={styles.footer} />
       ) : null}
       <Sidebar

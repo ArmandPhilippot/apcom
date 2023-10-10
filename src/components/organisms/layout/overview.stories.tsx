@@ -1,5 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Overview, type OverviewMeta } from './overview';
+import type { MetaItemData } from '../../molecules';
+import { Overview } from './overview';
 
 /**
  * Overview - Storybook Meta
@@ -54,10 +55,10 @@ const cover = {
   width: 640,
 };
 
-const meta: OverviewMeta = {
-  creation: { date: '2022-05-09' },
-  license: 'Dignissimos ratione veritatis',
-};
+const meta = [
+  { id: 'creation-date', label: 'Creation date', value: '2022-05-09' },
+  { id: 'license', label: 'License', value: 'Dignissimos ratione veritatis' },
+] satisfies MetaItemData[];
 
 /**
  * Overview Stories - Default

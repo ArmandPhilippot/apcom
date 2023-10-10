@@ -1,0 +1,24 @@
+.list {
+  display: grid;
+  width: fit-content;
+  height: fit-content;
+
+  &--centered {
+    margin-inline: auto;
+    justify-items: center;
+  }
+
+  &--inlined {
+    grid-auto-flow: column;
+    grid-template-columns: repeat(
+      auto-fit,
+      min(calc(100vw - (var(--spacing-md) * 2)), 1fr)
+    );
+    column-gap: clamp(var(--spacing-lg), 3vw, var(--spacing-3xl));
+    row-gap: clamp(var(--spacing-sm), 3vw, var(--spacing-md));
+  }
+
+  &--stacked {
+    gap: var(--spacing-2xs);
+  }
+}

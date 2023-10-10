@@ -11,7 +11,7 @@
       auto-fit,
       min(calc(100vw - (var(--spacing-md) * 2)), 23ch)
     );
-    row-gap: var(--spacing-2xs);
+    row-gap: var(--spacing-sm);
 
     @include mix.media("screen") {
       @include mix.dimensions("md") {
@@ -19,21 +19,6 @@
           auto-fit,
           min(calc(100vw - (var(--spacing-md) * 2)), 20ch)
         );
-      }
-    }
-
-    &--has-techno {
-      div:last-child {
-        gap: var(--spacing-2xs);
-
-        dd {
-          padding: 0 var(--spacing-2xs);
-          border: fun.convert-px(1) solid var(--color-border-dark);
-
-          &::before {
-            display: none;
-          }
-        }
       }
     }
   }

@@ -90,11 +90,21 @@ const items: CardsListItem[] = [
     id: 'card-1',
     cover: {
       alt: 'card 1 picture',
-      src: 'http://picsum.photos/640/480',
+      src: 'https://picsum.photos/640/480',
       width: 640,
       height: 480,
     },
-    meta: { thematics: ['Velit', 'Ex', 'Alias'] },
+    meta: [
+      {
+        id: 'categories',
+        label: 'Categories',
+        value: [
+          { id: 'velit', value: 'Velit' },
+          { id: 'ex', value: 'Ex' },
+          { id: 'alias', value: 'Alias' },
+        ],
+      },
+    ],
     tagline: 'Molestias ut error',
     title: 'Et alias omnis',
     url: '#',
@@ -103,11 +113,11 @@ const items: CardsListItem[] = [
     id: 'card-2',
     cover: {
       alt: 'card 2 picture',
-      src: 'http://picsum.photos/640/480',
+      src: 'https://picsum.photos/640/480',
       width: 640,
       height: 480,
     },
-    meta: { thematics: ['Voluptas'] },
+    meta: [{ id: 'categories', label: 'Categories', value: 'Voluptas' }],
     tagline: 'Quod vel accusamus',
     title: 'Laboriosam doloremque mollitia',
     url: '#',
@@ -116,13 +126,22 @@ const items: CardsListItem[] = [
     id: 'card-3',
     cover: {
       alt: 'card 3 picture',
-      src: 'http://picsum.photos/640/480',
+      src: 'https://picsum.photos/640/480',
       width: 640,
       height: 480,
     },
-    meta: {
-      thematics: ['Quisquam', 'Quia', 'Sapiente', 'Perspiciatis'],
-    },
+    meta: [
+      {
+        id: 'categories',
+        label: 'Categories',
+        value: [
+          { id: 'quisquam', value: 'Quisquam' },
+          { id: 'quia', value: 'Quia' },
+          { id: 'sapiente', value: 'Sapiente' },
+          { id: 'perspiciatis', value: 'Perspiciatis' },
+        ],
+      },
+    ],
     tagline: 'Quo error eum',
     title: 'Magni rem nulla',
     url: '#',

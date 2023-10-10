@@ -18,14 +18,15 @@ import {
   List,
   PageLayout,
   SocialMedia,
-  type MetaData,
   ListItem,
+  type MetaItemData,
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import styles from '../styles/pages/cv.module.scss';
 import type { NextPageWithLayout } from '../types';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import {
+  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -152,16 +153,43 @@ const CVPage: NextPageWithLayout = () => {
     id: '+Dre5J',
   });
 
-  const headerMeta: MetaData = {
-    publication: {
-      date: dates.publication,
+  /**
+   * Retrieve a formatted date (and time).
+   *
+   * @param {string} date - A date string.
+   * @returns {JSX.Element} The formatted date wrapped in a time element.
+   */
+  const getDate = (date: string): JSX.Element => {
+    const isoDate = new Date(`${date}`).toISOString();
+
+    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
+  };
+
+  const headerMeta: (MetaItemData | undefined)[] = [
+    {
+      id: 'publication-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Published on:',
+        description: 'Page: publication date label',
+        id: '4QbTDq',
+      }),
+      value: getDate(dates.publication),
     },
-    update: dates.update
+    dates.update
       ? {
-          date: dates.update,
+          id: 'update-date',
+          label: intl.formatMessage({
+            defaultMessage: 'Updated on:',
+            description: 'Page: update date label',
+            id: 'Ez8Qim',
+          }),
+          value: getDate(dates.update),
         }
       : undefined,
-  };
+  ];
+  const filteredMeta = headerMeta.filter(
+    (item): item is MetaItemData => !!item
+  );
 
   const { website } = useSettings();
   const cvCaption = intl.formatMessage(
@@ -267,7 +295,7 @@ const CVPage: NextPageWithLayout = () => {
     <PageLayout
       breadcrumb={breadcrumbItems}
       breadcrumbSchema={breadcrumbSchema}
-      headerMeta={headerMeta}
+      headerMeta={filteredMeta}
       intro={intro}
       title={title}
       widgets={widgets}

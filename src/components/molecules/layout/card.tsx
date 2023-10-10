@@ -1,8 +1,8 @@
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import type { FC } from 'react';
 import { ButtonLink, Figure, Heading, type HeadingLevel } from '../../atoms';
+import { MetaList, type MetaItemData } from '../meta-list';
 import styles from './card.module.scss';
-import { Meta, type MetaData } from './meta';
 
 export type CardProps = {
   /**
@@ -20,7 +20,7 @@ export type CardProps = {
   /**
    * The card meta.
    */
-  meta?: MetaData;
+  meta?: MetaItemData[];
   /**
    * The card tagline.
    */
@@ -73,7 +73,13 @@ export const Card: FC<CardProps> = ({
         {tagline ? <div className={styles.tagline}>{tagline}</div> : null}
         {meta ? (
           <footer className={styles.footer}>
-            <Meta className={styles.list} data={meta} spacing="sm" />
+            <MetaList
+              className={styles.list}
+              hasBorderedValues={meta.length < 2}
+              hasInlinedValues={meta.length < 2}
+              isCentered
+              items={meta}
+            />
           </footer>
         ) : null}
       </article>

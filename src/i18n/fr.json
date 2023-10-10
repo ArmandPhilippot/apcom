@@ -31,10 +31,6 @@
     "defaultMessage": "Thématiques liées",
     "description": "TopicPage: related thematics list widget title"
   },
-  "02rgLO": {
-    "defaultMessage": "{commentsCount, plural, =0 {0 commentaire} one {# commentaire} other {# commentaires}}<a11y> à propos de {title}</a11y>",
-    "description": "Meta: comments count"
-  },
   "0gVlI3": {
     "defaultMessage": "Suivi :",
     "description": "AckeeToggle: select label"
@@ -58,6 +54,10 @@
   "1dCuCx": {
     "defaultMessage": "Nom :",
     "description": "ContactForm: name label"
+  },
+  "24FIsG": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "ThematicPage: update date label"
   },
   "28GZdv": {
     "defaultMessage": "Projets",
@@ -98,6 +98,10 @@
   "48Ww//": {
     "defaultMessage": "Page non trouvée.",
     "description": "404Page: SEO - Meta description"
+  },
+  "4QbTDq": {
+    "defaultMessage": "Publié le :",
+    "description": "Page: publication date label"
   },
   "4iYISO": {
     "defaultMessage": "Chargement de l’article demandé…",
@@ -151,9 +155,9 @@
     "defaultMessage": "Photo d’{website}",
     "description": "Layout: photo alternative text"
   },
-  "92zgdp": {
-    "defaultMessage": "Total :",
-    "description": "Meta: total label"
+  "9DfuHk": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "TopicPage: update date label"
   },
   "9MeLN3": {
     "defaultMessage": "{articlesCount, plural, =0 {# article chargé} one {# article chargé} other {# articles chargés}} sur un total de {total}",
@@ -179,10 +183,6 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: page title"
   },
-  "AuGklx": {
-    "defaultMessage": "Licence :",
-    "description": "Meta: license label"
-  },
   "B290Ph": {
     "defaultMessage": "Merci, votre commentaire a été envoyé avec succès.",
     "description": "PageLayout: comment form success message"
@@ -199,6 +199,10 @@
     "defaultMessage": "Échec du chargement.",
     "description": "BlogPage: failed to load text"
   },
+  "CvOqoh": {
+    "defaultMessage": "Thématiques :",
+    "description": "ArticlePage: thematics meta label"
+  },
   "D8vB38": {
     "defaultMessage": "Blog",
     "description": "Layout: main nav - blog link"
@@ -211,14 +215,6 @@
     "defaultMessage": "Thématiques",
     "description": "SearchPage: thematics list widget title"
   },
-  "DssFG1": {
-    "defaultMessage": "Dépôts :",
-    "description": "Meta: repositories label"
-  },
-  "EbFvsM": {
-    "defaultMessage": "Temps de lecture :",
-    "description": "Meta: reading time label"
-  },
   "EeCqAE": {
     "defaultMessage": "Chargement des résultats…",
     "description": "SearchPage: loading search results message"
@@ -227,13 +223,13 @@
     "defaultMessage": "Blog",
     "description": "Breadcrumb: blog label"
   },
+  "Ez8Qim": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "Page: update date label"
+  },
   "G+Twgm": {
     "defaultMessage": "Recherche",
     "description": "SearchModal: modal title"
-  },
-  "GRyyfy": {
-    "defaultMessage": "Site officiel :",
-    "description": "Meta: official website label"
   },
   "GTbGMy": {
     "defaultMessage": "Ouvrir le menu",
@@ -242,6 +238,10 @@
   "GVpTIl": {
     "defaultMessage": "Sujets",
     "description": "Error404Page: topics list widget title"
+  },
+  "Gw7X3x": {
+    "defaultMessage": "Temps de lecture :",
+    "description": "ArticlePage: reading time label"
   },
   "HFdzae": {
     "defaultMessage": "Formulaire de contact",
@@ -254,6 +254,10 @@
   "HriY57": {
     "defaultMessage": "Thématiques",
     "description": "BlogPage: thematics list widget title"
+  },
+  "HxZvY4": {
+    "defaultMessage": "Publié le :",
+    "description": "ProjectsPage: publication date label"
   },
   "IY5ew6": {
     "defaultMessage": "En cours d’envoi…",
@@ -271,6 +275,10 @@
     "defaultMessage": "Aller au contenu",
     "description": "Layout: Skip to content link"
   },
+  "KV+NMZ": {
+    "defaultMessage": "Publié le :",
+    "description": "TopicPage: publication date label"
+  },
   "KVSWGP": {
     "defaultMessage": "Autres thématiques",
     "description": "ThematicPage: other thematics list widget title"
@@ -278,6 +286,10 @@
   "KnWeKh": {
     "defaultMessage": "Page non trouvée",
     "description": "Error404Page: page title"
+  },
+  "KrNvQi": {
+    "defaultMessage": "Popularité :",
+    "description": "ProjectsPage: popularity label"
   },
   "LCorTC": {
     "defaultMessage": "Annuler la réponse",
@@ -287,9 +299,17 @@
     "defaultMessage": "Fermer la recherche",
     "description": "Search: Close label"
   },
+  "Ld6yMP": {
+    "defaultMessage": "{date} à {time}",
+    "description": "Comment: publication date and time"
+  },
   "LszkU6": {
     "defaultMessage": "Tous les articles dans {thematicName}",
     "description": "ThematicPage: posts list heading"
+  },
+  "MJbZfX": {
+    "defaultMessage": "Écrit par :",
+    "description": "ArticlePage: author label"
   },
   "N44SOc": {
     "defaultMessage": "Projets",
@@ -307,17 +327,9 @@
     "defaultMessage": "Profil Github",
     "description": "ProjectsPage: Github profile link"
   },
-  "OF5cPz": {
-    "defaultMessage": "{postsCount, plural, =0 {0 article} one {# article} other {# articles}}",
-    "description": "BlogPage: posts count meta"
-  },
   "OHvb01": {
     "defaultMessage": "Retour en haut de page",
     "description": "SiteFooter: an accessible name for the back to top button"
-  },
-  "OI0N37": {
-    "defaultMessage": "Écrit par :",
-    "description": "Meta: author label"
   },
   "OL0Yzx": {
     "defaultMessage": "Publier",
@@ -343,10 +355,6 @@
     "defaultMessage": "Ouvrir les réglages",
     "description": "Settings: Open label"
   },
-  "QGi5uD": {
-    "defaultMessage": "Publié le :",
-    "description": "Meta: publication date label"
-  },
   "QLisK6": {
     "defaultMessage": "Thème sombre 🌙",
     "description": "usePrism: toggle dark theme button text"
@@ -363,9 +371,21 @@
     "defaultMessage": "CV",
     "description": "Layout: main nav - cv link"
   },
+  "RecdwX": {
+    "defaultMessage": "Publié le :",
+    "description": "ArticlePage: publication date label"
+  },
+  "RvGb2c": {
+    "defaultMessage": "{postsCount, plural, =0 {0 article} one {# article} other {# articles}}",
+    "description": "Page: posts count meta"
+  },
   "RwI3B9": {
     "defaultMessage": "Chargement de la popularité du dépôt…",
     "description": "ProjectsPage: loading repository popularity"
+  },
+  "RwNZ6p": {
+    "defaultMessage": "Technologies :",
+    "description": "ProjectsPage: technologies label"
   },
   "Sm2wCk": {
     "defaultMessage": "Profil LinkedIn",
@@ -383,6 +403,14 @@
     "defaultMessage": "Une erreur est survenue :",
     "description": "Contact: error message"
   },
+  "TvQ2Ee": {
+    "defaultMessage": "Publié le :",
+    "description": "Summary: publication date label"
+  },
+  "UTGhUU": {
+    "defaultMessage": "Publié le :",
+    "description": "ThematicPage: publication date label"
+  },
   "UsQske": {
     "defaultMessage": "En lire plus ici :",
     "description": "Sharing: content link prefix"
@@ -394,6 +422,10 @@
   "Vmj5cw": {
     "defaultMessage": "Il est maintenant en attente de modération.",
     "description": "PageLayout: comment awaiting moderation"
+  },
+  "VtYzuv": {
+    "defaultMessage": "License :",
+    "description": "ProjectsPage: license label"
   },
   "WDwNDl": {
     "defaultMessage": "Recherche",
@@ -427,6 +459,10 @@
     "defaultMessage": "Thème clair",
     "description": "ThemeToggle: light theme label"
   },
+  "ZAqGZ6": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "ArticlePage: update date label"
+  },
   "ZB/Aw2": {
     "defaultMessage": "Partiel inclut seulement l’url de la page, le nombre de visites et la durée.",
     "description": "AckeeToggle: tooltip message"
@@ -455,17 +491,17 @@
     "defaultMessage": "Vous devriez lire {title}",
     "description": "Sharing: subject text"
   },
-  "b4fdYE": {
-    "defaultMessage": "Créé le :",
-    "description": "Meta: creation date label"
+  "bfPp0g": {
+    "defaultMessage": "Commentaires :",
+    "description": "Summary: comments label"
+  },
+  "bk0WOp": {
+    "defaultMessage": "Thématiques :",
+    "description": "Summary: thematics label"
   },
   "bojYF5": {
     "defaultMessage": "Accueil",
     "description": "Layout: main nav - home link"
-  },
-  "bz53Us": {
-    "defaultMessage": "Thématiques :",
-    "description": "Meta: thematics label"
   },
   "c556Qo": {
     "defaultMessage": "Barre latérale",
@@ -475,6 +511,10 @@
     "defaultMessage": "Formulaire des commentaires",
     "description": "CommentForm: aria label"
   },
+  "f0Z/Po": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "Summary: update date label"
+  },
   "fN04AJ": {
     "defaultMessage": "<link>Télécharger le CV au format PDF</link>",
     "description": "CVPage: download CV in PDF text"
@@ -482,10 +522,6 @@
   "fOe8rH": {
     "defaultMessage": "Échec du chargement.",
     "description": "SearchPage: failed to load text"
-  },
-  "fcHeyC": {
-    "defaultMessage": "{date} à {time}",
-    "description": "Meta: publication date and time"
   },
   "fkcTGp": {
     "defaultMessage": "Une erreur est survenue :",
@@ -498,10 +534,6 @@
   "g3+Ahv": {
     "defaultMessage": "Il a été approuvé.",
     "description": "PageLayout: comment approved."
-  },
-  "gJNaBD": {
-    "defaultMessage": "Sujets :",
-    "description": "Meta: topics label"
   },
   "gPfT/K": {
     "defaultMessage": "Réglages",
@@ -523,6 +555,14 @@
     "defaultMessage": "{count} secondes",
     "description": "useReadingTime: seconds count"
   },
+  "iDIKb7": {
+    "defaultMessage": "Dépôts :",
+    "description": "ProjectsPage: repositories label"
+  },
+  "iv3Ex1": {
+    "defaultMessage": "{postsCount, plural, =0 {0 article} one {# article} other {# articles}}",
+    "description": "ThematicPage: posts count meta"
+  },
   "j5k9Fe": {
     "defaultMessage": "Accueil",
     "description": "Breadcrumb: home label"
@@ -531,13 +571,17 @@
     "defaultMessage": "Linux",
     "description": "HomePage: link to Linux thematic"
   },
-  "jTVIh8": {
-    "defaultMessage": "Commentaires :",
-    "description": "Meta: comments label"
+  "kNBXyK": {
+    "defaultMessage": "Total :",
+    "description": "Page: total label"
   },
   "kzIYoQ": {
     "defaultMessage": "Laisser un commentaire",
     "description": "PageLayout: comment form title"
+  },
+  "lHkta9": {
+    "defaultMessage": "Total :",
+    "description": "ThematicPage: total label"
   },
   "lKhTGM": {
     "defaultMessage": "Utilisez Ctrl+c pour copier",
@@ -575,13 +619,13 @@
     "defaultMessage": "Pied de page",
     "description": "SiteFooter: an accessible name for the footer nav"
   },
+  "pT5nHk": {
+    "defaultMessage": "Publié le :",
+    "description": "HomePage: publication date label"
+  },
   "pWKyyR": {
     "defaultMessage": "Arrêt",
     "description": "MotionToggle: deactivate reduce motion label"
-  },
-  "pWTj2W": {
-    "defaultMessage": "Popularité :",
-    "description": "Meta: popularity label"
   },
   "pg26sn": {
     "defaultMessage": "Découvrez les résultats de recherche pour {query} sur {websiteName}.",
@@ -594,6 +638,10 @@
   "qnwsWV": {
     "defaultMessage": "Projets",
     "description": "Layout: main nav - projects link"
+  },
+  "r/6HOI": {
+    "defaultMessage": "Écrit par :",
+    "description": "Summary: author label"
   },
   "s1i43J": {
     "defaultMessage": "{minutesCount} minutes",
@@ -619,17 +667,21 @@
     "defaultMessage": "Me contacter",
     "description": "HomePage: contact button text"
   },
+  "soj7do": {
+    "defaultMessage": "Publié le :",
+    "description": "Comment: publication date label"
+  },
   "suXOBu": {
     "defaultMessage": "Thème :",
     "description": "ThemeToggle: theme label"
   },
+  "tBX4mb": {
+    "defaultMessage": "Total :",
+    "description": "TopicPage: total label"
+  },
   "tIZYpD": {
     "defaultMessage": "Partiel",
     "description": "AckeeToggle: partial option name"
-  },
-  "tLC7bh": {
-    "defaultMessage": "Mis à jour le :",
-    "description": "Meta: update date label"
   },
   "tMuNTy": {
     "defaultMessage": "{websiteName} est intégrateur web / développeur front-end en France. Il code et il écrit essentiellement à propos de développement web et du libre.",
@@ -639,9 +691,17 @@
     "defaultMessage": "Thème clair",
     "description": "PrismThemeToggle: light theme label"
   },
+  "tyzdql": {
+    "defaultMessage": "Temps de lecture :",
+    "description": "Summary: reading time label"
+  },
   "u41qSk": {
     "defaultMessage": "Site web :",
     "description": "CommentForm: website label"
+  },
+  "uAL4iW": {
+    "defaultMessage": "{postsCount, plural, =0 {0 article} one {# article} other {# articles}}",
+    "description": "TopicPage: posts count meta"
   },
   "uaqd5F": {
     "defaultMessage": "Charger plus d’articles ?",
@@ -667,6 +727,14 @@
     "defaultMessage": "Libre",
     "description": "HomePage: link to free thematic"
   },
+  "wQrvgw": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "ProjectsPage: update date label"
+  },
+  "wVFA4m": {
+    "defaultMessage": "Créé le :",
+    "description": "ProjectsPage: creation date label"
+  },
   "xYNeKX": {
     "defaultMessage": "Formulaire des réglages",
     "description": "SettingsModal: an accessible form name"
@@ -687,9 +755,17 @@
     "defaultMessage": "Vous êtes ici :",
     "description": "Pagination: current page indication"
   },
+  "yIZ+AC": {
+    "defaultMessage": "Sujets :",
+    "description": "Summary: topics label"
+  },
   "yN5P+m": {
     "defaultMessage": "Message :",
     "description": "ContactForm: message label"
+  },
+  "ye/vlA": {
+    "defaultMessage": "{commentsCount, plural, =0 {0 commentaire} one {# commentaire} other {# commentaires}}<a11y> à propos de {title}</a11y>",
+    "description": "Summary: comments count"
   },
   "yfgMcl": {
     "defaultMessage": "Introduction :",
@@ -702,5 +778,9 @@
   "zbzlb1": {
     "defaultMessage": "Page {number}",
     "description": "BlogPage: page number"
+  },
+  "zoifQd": {
+    "defaultMessage": "Site officiel :",
+    "description": "TopicPage: official website label"
   }
 }

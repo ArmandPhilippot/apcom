@@ -14,21 +14,22 @@ import {
   getLayout,
   Link,
   Overview,
-  type OverviewMeta,
   PageLayout,
   Sharing,
   SocialLink,
   Spinner,
-  type MetaData,
   Heading,
   List,
   ListItem,
   Figure,
+  type MetaItemData,
+  type MetaValues,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
+  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -166,22 +167,52 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     url: `${website.url}${asPath}`,
   };
 
-  const headerMeta: MetaData = {
-    publication: { date: dates.publication },
-    update:
-      dates.update && dates.update !== dates.publication
-        ? { date: dates.update }
-        : undefined,
+  /**
+   * Retrieve a formatted date (and time).
+   *
+   * @param {string} date - A date string.
+   * @returns {JSX.Element} The formatted date wrapped in a time element.
+   */
+  const getDate = (date: string): JSX.Element => {
+    const isoDate = new Date(`${date}`).toISOString();
+
+    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
   };
+
+  const headerMeta: (MetaItemData | undefined)[] = [
+    {
+      id: 'publication-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Published on:',
+        description: 'ProjectsPage: publication date label',
+        id: 'HxZvY4',
+      }),
+      value: getDate(dates.publication),
+    },
+    dates.update && dates.update !== dates.publication
+      ? {
+          id: 'update-date',
+          label: intl.formatMessage({
+            defaultMessage: 'Updated on:',
+            description: 'ProjectsPage: update date label',
+            id: 'wQrvgw',
+          }),
+          value: getDate(dates.update),
+        }
+      : undefined,
+  ];
+  const filteredHeaderMeta = headerMeta.filter(
+    (item): item is MetaItemData => !!item
+  );
 
   /**
    * Retrieve the repositories links.
    *
    * @param {Repos} repositories - A repositories object.
-   * @returns {JSX.Element[]} - An array of SocialLink.
+   * @returns {MetaValues[]} - An array of meta values.
    */
-  const getReposLinks = (repositories: Repos): JSX.Element[] => {
-    const links = [];
+  const getReposLinks = (repositories: Repos): MetaValues[] => {
+    const links: MetaValues[] = [];
     const githubLabel = intl.formatMessage({
       defaultMessage: 'Github profile',
       description: 'ProjectsPage: Github profile link',
@@ -194,22 +225,28 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     });
 
     if (repositories.github)
-      links.push(
-        <SocialLink
-          icon="Github"
-          label={githubLabel}
-          url={repositories.github}
-        />
-      );
+      links.push({
+        id: 'github',
+        value: (
+          <SocialLink
+            icon="Github"
+            label={githubLabel}
+            url={repositories.github}
+          />
+        ),
+      });
 
     if (repositories.gitlab)
-      links.push(
-        <SocialLink
-          icon="Gitlab"
-          label={gitlabLabel}
-          url={repositories.gitlab}
-        />
-      );
+      links.push({
+        id: 'gitlab',
+        value: (
+          <SocialLink
+            icon="Gitlab"
+            label={gitlabLabel}
+            url={repositories.gitlab}
+          />
+        ),
+      });
 
     return links;
   };
@@ -254,14 +291,75 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     );
   };
 
-  const overviewData: OverviewMeta = {
-    creation: { date: data.created_at },
-    update: { date: data.updated_at },
-    license,
-    popularity: repos?.github && getRepoPopularity(repos.github),
-    repositories: repos ? getReposLinks(repos) : undefined,
-    technologies,
-  };
+  const overviewMeta: (MetaItemData | undefined)[] = [
+    {
+      id: 'creation-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Created on:',
+        description: 'ProjectsPage: creation date label',
+        id: 'wVFA4m',
+      }),
+      value: getDate(data.created_at),
+    },
+    {
+      id: 'update-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Updated on:',
+        description: 'ProjectsPage: update date label',
+        id: 'wQrvgw',
+      }),
+      value: getDate(data.updated_at),
+    },
+    license
+      ? {
+          id: 'license',
+          label: intl.formatMessage({
+            defaultMessage: 'License:',
+            description: 'ProjectsPage: license label',
+            id: 'VtYzuv',
+          }),
+          value: license,
+        }
+      : undefined,
+    repos?.github
+      ? {
+          id: 'popularity',
+          label: intl.formatMessage({
+            defaultMessage: 'Popularity:',
+            description: 'ProjectsPage: popularity label',
+            id: 'KrNvQi',
+          }),
+          value: getRepoPopularity(repos.github),
+        }
+      : undefined,
+    repos
+      ? {
+          id: 'repositories',
+          label: intl.formatMessage({
+            defaultMessage: 'Repositories:',
+            description: 'ProjectsPage: repositories label',
+            id: 'iDIKb7',
+          }),
+          value: getReposLinks(repos),
+        }
+      : undefined,
+    technologies
+      ? {
+          id: 'technologies',
+          label: intl.formatMessage({
+            defaultMessage: 'Technologies:',
+            description: 'ProjectsPage: technologies label',
+            id: 'RwNZ6p',
+          }),
+          value: technologies.map((techno) => {
+            return { id: techno, value: techno };
+          }),
+        }
+      : undefined,
+  ];
+  const filteredOverviewMeta = overviewMeta.filter(
+    (item): item is MetaItemData => !!item
+  );
 
   const webpageSchema = getWebPageSchema({
     description: seo.description,
@@ -306,7 +404,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         intro={intro}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={headerMeta}
+        headerMeta={filteredHeaderMeta}
         withToC={true}
         widgets={[
           <Sharing
@@ -325,7 +423,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
           />,
         ]}
       >
-        <Overview cover={cover} meta={overviewData} />
+        <Overview cover={cover} meta={filteredOverviewMeta} />
         <ProjectContent components={components} />
       </PageLayout>
     </>

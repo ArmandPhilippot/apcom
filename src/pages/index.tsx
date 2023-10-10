@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -26,7 +27,11 @@ import { getArticlesCard } from '../services/graphql';
 import styles from '../styles/pages/home.module.scss';
 import type { ArticleCard, NextPageWithLayout } from '../types';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
-import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
+import {
+  getFormattedDate,
+  getSchemaJson,
+  getWebPageSchema,
+} from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
 
@@ -279,6 +284,11 @@ type HomeProps = {
  */
 const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
   const intl = useIntl();
+  const publicationDate = intl.formatMessage({
+    defaultMessage: 'Published on:',
+    description: 'HomePage: publication date label',
+    id: 'pT5nHk',
+  });
   const { schema: breadcrumbSchema } = useBreadcrumb({
     title: '',
     url: `/`,
@@ -291,10 +301,22 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
    */
   const getRecentPosts = (): JSX.Element => {
     const posts: CardsListItem[] = recentPosts.map((post) => {
+      const isoDate = new Date(`${post.dates.publication}`).toISOString();
+
       return {
         cover: post.cover,
         id: post.slug,
-        meta: { publication: { date: post.dates.publication } },
+        meta: [
+          {
+            id: 'publication-date',
+            label: publicationDate,
+            value: (
+              <time dateTime={isoDate}>
+                {getFormattedDate(post.dates.publication)}
+              </time>
+            ),
+          },
+        ],
         title: post.title,
         url: `${ROUTES.ARTICLE}/${post.slug}`,
       };

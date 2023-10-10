@@ -12,9 +12,9 @@ import {
   getLayout,
   Link,
   PageLayout,
-  type PageLayoutProps,
   Sharing,
   Spinner,
+  type MetaItemData,
 } from '../../components';
 import {
   getAllArticlesSlugs,
@@ -26,6 +26,7 @@ import type { Article, NextPageWithLayout, SingleComment } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
+  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -82,20 +83,83 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   const { content, id, intro, meta, title } = article;
   const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
 
-  const headerMeta: PageLayoutProps['headerMeta'] = {
-    author: author?.name,
-    publication: { date: dates.publication },
-    update:
-      dates.update && dates.publication !== dates.update
-        ? { date: dates.update }
-        : undefined,
-    readingTime,
-    thematics: thematics?.map((thematic) => (
-      <Link key={thematic.id} href={thematic.url}>
-        {thematic.name}
-      </Link>
-    )),
+  /**
+   * Retrieve a formatted date (and time).
+   *
+   * @param {string} date - A date string.
+   * @returns {JSX.Element} The formatted date wrapped in a time element.
+   */
+  const getDate = (date: string): JSX.Element => {
+    const isoDate = new Date(`${date}`).toISOString();
+
+    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
   };
+
+  const headerMeta: (MetaItemData | undefined)[] = [
+    author
+      ? {
+          id: 'author',
+          label: intl.formatMessage({
+            defaultMessage: 'Written by:',
+            description: 'ArticlePage: author label',
+            id: 'MJbZfX',
+          }),
+          value: author.name,
+        }
+      : undefined,
+    {
+      id: 'publication-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Published on:',
+        description: 'ArticlePage: publication date label',
+        id: 'RecdwX',
+      }),
+      value: getDate(dates.publication),
+    },
+    dates.update && dates.publication !== dates.update
+      ? {
+          id: 'update-date',
+          label: intl.formatMessage({
+            defaultMessage: 'Updated on:',
+            description: 'ArticlePage: update date label',
+            id: 'ZAqGZ6',
+          }),
+          value: getDate(dates.update),
+        }
+      : undefined,
+    {
+      id: 'reading-time',
+      label: intl.formatMessage({
+        defaultMessage: 'Reading time:',
+        description: 'ArticlePage: reading time label',
+        id: 'Gw7X3x',
+      }),
+      value: readingTime,
+    },
+    thematics
+      ? {
+          id: 'thematics',
+          label: intl.formatMessage({
+            defaultMessage: 'Thematics:',
+            description: 'ArticlePage: thematics meta label',
+            id: 'CvOqoh',
+          }),
+          value: thematics.map((thematic) => {
+            return {
+              id: `thematic-${thematic.id}`,
+              value: (
+                <Link key={thematic.id} href={thematic.url}>
+                  {thematic.name}
+                </Link>
+              ),
+            };
+          }),
+        }
+      : undefined,
+  ];
+  const filteredHeaderMeta = headerMeta.filter(
+    (item): item is MetaItemData => !!item
+  );
 
   const footerMetaLabel = intl.formatMessage({
     defaultMessage: 'Read more articles about:',
@@ -103,16 +167,29 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     id: '50xc4o',
   });
 
-  const footerMeta: PageLayoutProps['footerMeta'] = {
-    custom: topics && {
-      label: footerMetaLabel,
-      value: topics.map((topic) => (
-        <ButtonLink className={styles.btn} key={topic.id} to={topic.url}>
-          {topic.logo ? <NextImage {...topic.logo} /> : null} {topic.name}
-        </ButtonLink>
-      )),
-    },
-  };
+  const footerMeta: MetaItemData[] = topics
+    ? [
+        {
+          id: 'more-about',
+          label: footerMetaLabel,
+          value: topics.map((topic) => {
+            return {
+              id: `topic--${topic.id}`,
+              value: (
+                <ButtonLink
+                  className={styles.btn}
+                  key={topic.id}
+                  to={topic.url}
+                >
+                  {topic.logo ? <NextImage {...topic.logo} /> : null}{' '}
+                  {topic.name}
+                </ButtonLink>
+              ),
+            };
+          }),
+        },
+      ]
+    : [];
 
   const webpageSchema = getWebPageSchema({
     description: intro,
@@ -208,7 +285,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         breadcrumbSchema={breadcrumbSchema}
         comments={commentsData}
         footerMeta={footerMeta}
-        headerMeta={headerMeta}
+        headerMeta={filteredHeaderMeta}
         id={id as number}
         intro={intro}
         title={title}

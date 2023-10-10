@@ -1,6 +1,6 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { MetaItemData } from '../meta-list';
 import { Card } from './card';
-import { cover, id, meta, tagline, title, url } from './card.fixture';
 
 /**
  * Card - Storybook Meta
@@ -118,6 +118,33 @@ export default {
 } as ComponentMeta<typeof Card>;
 
 const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
+
+const cover = {
+  alt: 'A picture',
+  height: 480,
+  src: 'https://picsum.photos/640/480',
+  width: 640,
+};
+
+const id = 'nam';
+
+const meta = [
+  { id: 'author', label: 'Author', value: 'Possimus' },
+  {
+    id: 'categories',
+    label: 'Categories',
+    value: [
+      { id: 'autem', value: 'Autem' },
+      { id: 'eos', value: 'Eos' },
+    ],
+  },
+] satisfies MetaItemData[];
+
+const tagline = 'Ut rerum incidunt';
+
+const title = 'Alias qui porro';
+
+const url = '/an-existing-url';
 
 /**
  * Card Stories - Default

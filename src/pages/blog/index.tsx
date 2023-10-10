@@ -9,6 +9,7 @@ import {
   getLayout,
   Heading,
   LinksListWidget,
+  type MetaItemData,
   Notice,
   PageLayout,
   PostsList,
@@ -134,6 +135,28 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   });
   const postsListBaseUrl = `${ROUTES.BLOG}/page/`;
 
+  const headerMeta: MetaItemData[] = totalArticles
+    ? [
+        {
+          id: 'posts-count',
+          label: intl.formatMessage({
+            defaultMessage: 'Total:',
+            description: 'Page: total label',
+            id: 'kNBXyK',
+          }),
+          value: intl.formatMessage(
+            {
+              defaultMessage:
+                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+              description: 'Page: posts count meta',
+              id: 'RvGb2c',
+            },
+            { postsCount: totalArticles }
+          ),
+        },
+      ]
+    : [];
+
   return (
     <>
       <Head>
@@ -157,7 +180,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         title={title}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={{ total: totalArticles }}
+        headerMeta={headerMeta}
         widgets={[
           <LinksListWidget
             heading={

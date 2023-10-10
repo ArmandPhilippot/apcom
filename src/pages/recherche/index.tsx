@@ -9,6 +9,7 @@ import {
   getLayout,
   Heading,
   LinksListWidget,
+  type MetaItemData,
   Notice,
   PageLayout,
   PostsList,
@@ -133,6 +134,28 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     getTotalArticles(query.s as string)
   );
 
+  const headerMeta: MetaItemData[] = totalArticles
+    ? [
+        {
+          id: 'posts-count',
+          label: intl.formatMessage({
+            defaultMessage: 'Total:',
+            description: 'Page: total label',
+            id: 'kNBXyK',
+          }),
+          value: intl.formatMessage(
+            {
+              defaultMessage:
+                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+              description: 'Page: posts count meta',
+              id: 'RvGb2c',
+            },
+            { postsCount: totalArticles }
+          ),
+        },
+      ]
+    : [];
+
   /**
    * Load more posts handler.
    */
@@ -181,7 +204,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
         title={title}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={{ total: totalArticles }}
+        headerMeta={headerMeta}
         widgets={[
           <LinksListWidget
             heading={

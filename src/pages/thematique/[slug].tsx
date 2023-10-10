@@ -9,9 +9,9 @@ import {
   getLayout,
   Heading,
   LinksListWidget,
+  type MetaItemData,
   PageLayout,
   PostsList,
-  type MetaData,
 } from '../../components';
 import {
   getAllThematicsSlugs,
@@ -22,6 +22,7 @@ import {
 import type { NextPageWithLayout, PageLink, Thematic } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
+  getFormattedDate,
   getLinksListItems,
   getPageLinkFromRawData,
   getPostsWithUrl,
@@ -50,11 +51,62 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     url: `${ROUTES.THEMATICS.INDEX}/${slug}`,
   });
 
-  const headerMeta: MetaData = {
-    publication: { date: dates.publication },
-    update: dates.update ? { date: dates.update } : undefined,
-    total: articles ? articles.length : undefined,
+  /**
+   * Retrieve a formatted date (and time).
+   *
+   * @param {string} date - A date string.
+   * @returns {JSX.Element} The formatted date wrapped in a time element.
+   */
+  const getDate = (date: string): JSX.Element => {
+    const isoDate = new Date(`${date}`).toISOString();
+
+    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
   };
+
+  const headerMeta: (MetaItemData | undefined)[] = [
+    {
+      id: 'publication-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Published on:',
+        description: 'ThematicPage: publication date label',
+        id: 'UTGhUU',
+      }),
+      value: getDate(dates.publication),
+    },
+    dates.update
+      ? {
+          id: 'update-date',
+          label: intl.formatMessage({
+            defaultMessage: 'Updated on:',
+            description: 'ThematicPage: update date label',
+            id: '24FIsG',
+          }),
+          value: getDate(dates.update),
+        }
+      : undefined,
+    articles
+      ? {
+          id: 'total',
+          label: intl.formatMessage({
+            defaultMessage: 'Total:',
+            description: 'ThematicPage: total label',
+            id: 'lHkta9',
+          }),
+          value: intl.formatMessage(
+            {
+              defaultMessage:
+                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+              description: 'ThematicPage: posts count meta',
+              id: 'iv3Ex1',
+            },
+            { postsCount: articles.length }
+          ),
+        }
+      : undefined,
+  ];
+  const filteredMeta = headerMeta.filter(
+    (item): item is MetaItemData => !!item
+  );
 
   const { website } = useSettings();
   const { asPath } = useRouter();
@@ -114,7 +166,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
         breadcrumbSchema={breadcrumbSchema}
         title={title}
         intro={intro}
-        headerMeta={headerMeta}
+        headerMeta={filteredMeta}
         widgets={
           topics
             ? [

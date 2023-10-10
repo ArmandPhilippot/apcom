@@ -1,5 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { MetaData } from './meta';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { PageFooter as PageFooterComponent } from './page-footer';
 
 /**
@@ -40,16 +39,17 @@ const Template: ComponentStory<typeof PageFooterComponent> = (args) => (
   <PageFooterComponent {...args} />
 );
 
-const meta: MetaData = {
-  custom: {
+const meta = [
+  {
+    id: 'more-about',
     label: 'More posts about:',
-    value: [
-      <a key="topic-1" href="#">
+    value: (
+      <a key="topic-1" href="#topic1">
         Topic name
-      </a>,
-    ],
+      </a>
+    ),
   },
-};
+];
 
 /**
  * Page Footer Stories - With meta

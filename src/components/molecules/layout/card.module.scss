@@ -1,5 +1,9 @@
 @use "../../../styles/abstracts/functions" as fun;
 
+.footer {
+  margin-top: auto;
+}
+
 .wrapper {
   --scale-up: 1.05;
   --scale-down: 0.95;

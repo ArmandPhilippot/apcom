@@ -1,8 +1,10 @@
+/* eslint-disable max-statements */
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useIntl } from 'react-intl';
 import {
   CardsList,
   type CardsListItem,
@@ -44,6 +46,12 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     title,
     url: ROUTES.PROJECTS,
   });
+  const intl = useIntl();
+  const metaLabel = intl.formatMessage({
+    defaultMessage: 'Technologies:',
+    description: 'Meta: technologies label',
+    id: 'ADQmDF',
+  });
 
   const items: CardsListItem[] = projects.map(
     ({ id, meta: projectMeta, slug, title: projectTitle }) => {
@@ -52,7 +60,17 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
       return {
         cover,
         id: id as string,
-        meta: { technologies },
+        meta: technologies?.length
+          ? [
+              {
+                id: 'technologies',
+                label: metaLabel,
+                value: technologies.map((techno) => {
+                  return { id: techno, value: techno };
+                }),
+              },
+            ]
+          : [],
         tagline,
         title: projectTitle,
         url: `${ROUTES.PROJECTS}/${slug}`,

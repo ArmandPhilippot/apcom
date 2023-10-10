@@ -109,13 +109,9 @@
   flex-flow: row wrap;
   font-size: var(--font-size-sm);
 
-  &__item {
-    flex: 1 0 min(calc(100vw - 2 * var(--spacing-md)), 14ch);
-  }
-
   @include mix.media("screen") {
     @include mix.dimensions("sm") {
-      display: flex;
+      flex-flow: column wrap;
       margin-top: 0;
     }
   }

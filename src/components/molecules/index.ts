@@ -4,5 +4,6 @@ export * from './collapsible';
 export * from './forms';
 export * from './images';
 export * from './layout';
+export * from './meta-list';
 export * from './nav';
 export * from './tooltip';

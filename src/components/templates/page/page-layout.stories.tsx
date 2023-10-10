@@ -271,23 +271,38 @@ Post.args = {
   breadcrumb: postBreadcrumb,
   title: pageTitle,
   intro: pageIntro,
-  headerMeta: {
-    publication: { date: '2020-03-14' },
-    thematics: [
-      <Link key="cat1" href="#">
-        Cat 1
-      </Link>,
-      <Link key="cat2" href="#">
-        Cat 2
-      </Link>,
-    ],
-  },
-  footerMeta: {
-    custom: {
+  headerMeta: [
+    { id: 'publication-date', label: 'Published on:', value: '2020-03-14' },
+    {
+      id: 'thematics',
+      label: 'Thematics:',
+      value: [
+        {
+          id: 'cat-1',
+          value: (
+            <Link key="cat1" href="#">
+              Cat 1
+            </Link>
+          ),
+        },
+        {
+          id: 'cat-2',
+          value: (
+            <Link key="cat2" href="#">
+              Cat 2
+            </Link>
+          ),
+        },
+      ],
+    },
+  ],
+  footerMeta: [
+    {
+      id: 'read-more',
       label: 'Read more about:',
       value: <ButtonLink to="#">Topic 1</ButtonLink>,
     },
-  },
+  ],
   children: (
     <>
       <Heading level={2}>Impedit commodi rerum</Heading>
@@ -357,7 +372,7 @@ export const Blog = Template.bind({});
 Blog.args = {
   breadcrumb: postsListBreadcrumb,
   title: 'Blog',
-  headerMeta: { total: posts.length },
+  headerMeta: [{ id: 'total', label: 'Total:', value: `${posts.length}` }],
   children: (
     <PostsList
       posts={posts}

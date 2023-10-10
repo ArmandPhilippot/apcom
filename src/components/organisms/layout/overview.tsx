@@ -1,18 +1,8 @@
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import type { FC } from 'react';
 import { Figure } from '../../atoms';
-import { Meta, type MetaData } from '../../molecules';
+import { MetaList, type MetaItemData } from '../../molecules';
 import styles from './overview.module.scss';
-
-export type OverviewMeta = Pick<
-  MetaData,
-  | 'creation'
-  | 'license'
-  | 'popularity'
-  | 'repositories'
-  | 'technologies'
-  | 'update'
->;
 
 export type OverviewProps = {
   /**
@@ -26,7 +16,7 @@ export type OverviewProps = {
   /**
    * The overview meta.
    */
-  meta: OverviewMeta;
+  meta: MetaItemData[];
 };
 
 /**
@@ -39,20 +29,16 @@ export const Overview: FC<OverviewProps> = ({
   cover,
   meta,
 }) => {
-  const { technologies, ...remainingMeta } = meta;
-  const metaModifier = technologies ? styles['meta--has-techno'] : '';
+  const wrapperClass = `${styles.wrapper} ${className}`;
 
   return (
-    <div className={`${styles.wrapper} ${className}`}>
+    <div className={wrapperClass}>
       {cover ? (
         <Figure>
           <NextImage {...cover} className={styles.cover} />
         </Figure>
       ) : null}
-      <Meta
-        className={`${styles.meta} ${metaModifier}`}
-        data={{ ...remainingMeta, technologies }}
-      />
+      <MetaList className={styles.meta} hasInlinedValues items={meta} />
     </div>
   );
 };

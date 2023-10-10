@@ -1,20 +1,23 @@
+/* eslint-disable max-statements */
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useIntl } from 'react-intl';
 import {
   getLayout,
   Link,
   PageLayout,
-  type MetaData,
   Figure,
+  type MetaItemData,
 } from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
 import { ROUTES } from '../utils/constants';
 import {
+  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -37,22 +40,50 @@ const components: MDXComponents = {
  * Legal Notice page.
  */
 const LegalNoticePage: NextPageWithLayout = () => {
+  const intl = useIntl();
   const { dates, intro, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
     url: ROUTES.LEGAL_NOTICE,
   });
 
-  const headerMeta: MetaData = {
-    publication: {
-      date: dates.publication,
+  /**
+   * Retrieve a formatted date (and time).
+   *
+   * @param {string} date - A date string.
+   * @returns {JSX.Element} The formatted date wrapped in a time element.
+   */
+  const getDate = (date: string): JSX.Element => {
+    const isoDate = new Date(`${date}`).toISOString();
+
+    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
+  };
+
+  const headerMeta: (MetaItemData | undefined)[] = [
+    {
+      id: 'publication-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Published on:',
+        description: 'Page: publication date label',
+        id: '4QbTDq',
+      }),
+      value: getDate(dates.publication),
     },
-    update: dates.update
+    dates.update
       ? {
-          date: dates.update,
+          id: 'update-date',
+          label: intl.formatMessage({
+            defaultMessage: 'Updated on:',
+            description: 'Page: update date label',
+            id: 'Ez8Qim',
+          }),
+          value: getDate(dates.update),
         }
       : undefined,
-  };
+  ];
+  const filteredMeta = headerMeta.filter(
+    (item): item is MetaItemData => !!item
+  );
 
   const { website } = useSettings();
   const { asPath } = useRouter();
@@ -82,7 +113,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
     <PageLayout
       breadcrumb={breadcrumbItems}
       breadcrumbSchema={breadcrumbSchema}
-      headerMeta={headerMeta}
+      headerMeta={filteredMeta}
       intro={intro}
       title={title}
       withToC={true}

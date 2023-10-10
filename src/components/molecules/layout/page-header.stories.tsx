@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { PageHeader } from './page-header';
 
 /**
@@ -62,17 +62,31 @@ const Template: ComponentStory<typeof PageHeader> = (args) => (
   <PageHeader {...args} />
 );
 
-const meta = {
-  publication: { date: '2022-04-09' },
-  thematics: [
-    <a key="category1" href="#">
-      Category 1
-    </a>,
-    <a key="category2" href="#">
-      Category 2
-    </a>,
-  ],
-};
+const meta = [
+  { id: 'publication-date', label: 'Published on:', value: '2022-04-09' },
+  {
+    id: 'thematics',
+    label: 'Thematics:',
+    value: [
+      {
+        id: 'cat-1',
+        value: (
+          <a key="category1" href="#cat1">
+            Category 1
+          </a>
+        ),
+      },
+      {
+        id: 'cat-2',
+        value: (
+          <a key="category2" href="#cat2">
+            Category 2
+          </a>
+        ),
+      },
+    ],
+  },
+];
 
 /**
  * Page Header Stories - Default

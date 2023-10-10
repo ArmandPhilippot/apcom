@@ -10,9 +10,9 @@ import {
   getLayout,
   Heading,
   LinksListWidget,
+  type MetaItemData,
   PageLayout,
   PostsList,
-  type MetaData,
 } from '../../components';
 import {
   getAllTopicsSlugs,
@@ -24,6 +24,7 @@ import styles from '../../styles/pages/topic.module.scss';
 import type { NextPageWithLayout, PageLink, Topic } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
+  getFormattedDate,
   getLinksListItems,
   getPageLinkFromRawData,
   getPostsWithUrl,
@@ -59,12 +60,73 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     url: `${ROUTES.TOPICS}/${slug}`,
   });
 
-  const headerMeta: MetaData = {
-    publication: { date: dates.publication },
-    update: dates.update ? { date: dates.update } : undefined,
-    website: officialWebsite,
-    total: articles ? articles.length : undefined,
+  /**
+   * Retrieve a formatted date (and time).
+   *
+   * @param {string} date - A date string.
+   * @returns {JSX.Element} The formatted date wrapped in a time element.
+   */
+  const getDate = (date: string): JSX.Element => {
+    const isoDate = new Date(`${date}`).toISOString();
+
+    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
   };
+
+  const headerMeta: (MetaItemData | undefined)[] = [
+    {
+      id: 'publication-date',
+      label: intl.formatMessage({
+        defaultMessage: 'Published on:',
+        description: 'TopicPage: publication date label',
+        id: 'KV+NMZ',
+      }),
+      value: getDate(dates.publication),
+    },
+    dates.update
+      ? {
+          id: 'update-date',
+          label: intl.formatMessage({
+            defaultMessage: 'Updated on:',
+            description: 'TopicPage: update date label',
+            id: '9DfuHk',
+          }),
+          value: getDate(dates.update),
+        }
+      : undefined,
+    officialWebsite
+      ? {
+          id: 'website',
+          label: intl.formatMessage({
+            defaultMessage: 'Official website:',
+            description: 'TopicPage: official website label',
+            id: 'zoifQd',
+          }),
+          value: officialWebsite,
+        }
+      : undefined,
+    articles?.length
+      ? {
+          id: 'total',
+          label: intl.formatMessage({
+            defaultMessage: 'Total:',
+            description: 'TopicPage: total label',
+            id: 'tBX4mb',
+          }),
+          value: intl.formatMessage(
+            {
+              defaultMessage:
+                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+              description: 'TopicPage: posts count meta',
+              id: 'uAL4iW',
+            },
+            { postsCount: articles.length }
+          ),
+        }
+      : undefined,
+  ];
+  const filteredMeta = headerMeta.filter(
+    (item): item is MetaItemData => !!item
+  );
 
   const { website } = useSettings();
   const { asPath } = useRouter();
@@ -132,7 +194,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
         breadcrumbSchema={breadcrumbSchema}
         title={getPageHeading()}
         intro={intro}
-        headerMeta={headerMeta}
+        headerMeta={filteredMeta}
         widgets={
           thematics
             ? [

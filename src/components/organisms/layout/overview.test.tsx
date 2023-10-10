@@ -1,27 +1,33 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
-import { Overview, type OverviewMeta } from './overview';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import type { MetaItemData } from '../../molecules';
+import { Overview } from './overview';
 
 const cover = {
   alt: 'Incidunt unde quam',
   height: 480,
-  src: 'http://placeimg.com/640/480/cats',
+  src: 'https://picsum.photos/640/480',
   width: 640,
 };
 
-const data: OverviewMeta = {
-  creation: { date: '2022-05-09' },
-  license: 'Dignissimos ratione veritatis',
-};
+const meta = [
+  { id: 'creation-date', label: 'Creation date', value: '2022-05-09' },
+  { id: 'license', label: 'License', value: 'Dignissimos ratione veritatis' },
+] satisfies MetaItemData[];
 
 describe('Overview', () => {
-  it('renders some data', () => {
-    render(<Overview meta={data} />);
-    expect(screen.getByText(data.license!)).toBeInTheDocument();
+  it('renders some meta', () => {
+    render(<Overview meta={meta} />);
+
+    const metaLabels = meta.map((item) => item.label);
+
+    for (const label of metaLabels) {
+      expect(rtlScreen.getByText(label)).toBeInTheDocument();
+    }
   });
 
   it('renders a cover', () => {
-    render(<Overview cover={cover} meta={data} />);
-    expect(screen.getByRole('img', { name: cover.alt })).toBeInTheDocument();
+    render(<Overview cover={cover} meta={meta} />);
+    expect(rtlScreen.getByRole('img', { name: cover.alt })).toBeInTheDocument();
   });
 });

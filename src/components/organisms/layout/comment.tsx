@@ -5,9 +5,10 @@ import { type FC, useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
 import type { Comment as CommentSchema, WithContext } from 'schema-dts';
 import type { SingleComment } from '../../../types';
+import { getFormattedDate, getFormattedTime } from '../../../utils/helpers';
 import { useSettings } from '../../../utils/hooks';
 import { Button, Link } from '../../atoms';
-import { Meta } from '../../molecules';
+import { MetaList } from '../../molecules';
 import { CommentForm, type CommentFormProps } from '../forms';
 import styles from './comment.module.scss';
 
@@ -61,6 +62,20 @@ export const UserComment: FC<UserCommentProps> = ({
 
   const { author, date } = meta;
   const [publicationDate, publicationTime] = date.split(' ');
+  const isoDateTime = new Date(
+    `${publicationDate}T${publicationTime}`
+  ).toISOString();
+  const commentDate = intl.formatMessage(
+    {
+      defaultMessage: '{date} at {time}',
+      description: 'Comment: publication date and time',
+      id: 'Ld6yMP',
+    },
+    {
+      date: getFormattedDate(publicationDate),
+      time: getFormattedTime(`${publicationDate}T${publicationTime}`),
+    }
+  );
 
   const buttonLabel = isReplying
     ? intl.formatMessage({
@@ -135,16 +150,24 @@ export const UserComment: FC<UserCommentProps> = ({
             <span className={styles.author}>{author.name}</span>
           )}
         </header>
-        <Meta
+        <MetaList
           className={styles.date}
-          data={{
-            publication: {
-              date: publicationDate,
-              time: publicationTime,
-              target: `#comment-${id}`,
-            },
-          }}
           isInline
+          items={[
+            {
+              id: 'publication-date',
+              label: intl.formatMessage({
+                defaultMessage: 'Published on:',
+                description: 'Comment: publication date label',
+                id: 'soj7do',
+              }),
+              value: (
+                <Link href={`#comment-${id}`}>
+                  <time dateTime={isoDateTime}>{commentDate}</time>
+                </Link>
+              ),
+            },
+          ]}
         />
         <div
           className={styles.body}
