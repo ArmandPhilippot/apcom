@@ -12,12 +12,12 @@ import {
   PageLayout,
   Figure,
   type MetaItemData,
+  Time,
 } from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
 import { ROUTES } from '../utils/constants';
 import {
-  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -47,18 +47,6 @@ const LegalNoticePage: NextPageWithLayout = () => {
     url: ROUTES.LEGAL_NOTICE,
   });
 
-  /**
-   * Retrieve a formatted date (and time).
-   *
-   * @param {string} date - A date string.
-   * @returns {JSX.Element} The formatted date wrapped in a time element.
-   */
-  const getDate = (date: string): JSX.Element => {
-    const isoDate = new Date(`${date}`).toISOString();
-
-    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
-  };
-
   const headerMeta: (MetaItemData | undefined)[] = [
     {
       id: 'publication-date',
@@ -67,7 +55,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
         description: 'Page: publication date label',
         id: '4QbTDq',
       }),
-      value: getDate(dates.publication),
+      value: <Time date={dates.publication} />,
     },
     dates.update
       ? {
@@ -77,7 +65,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
             description: 'Page: update date label',
             id: 'Ez8Qim',
           }),
-          value: getDate(dates.update),
+          value: <Time date={dates.update} />,
         }
       : undefined,
   ];

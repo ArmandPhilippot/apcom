@@ -20,13 +20,13 @@ import {
   SocialMedia,
   ListItem,
   type MetaItemData,
+  Time,
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import styles from '../styles/pages/cv.module.scss';
 import type { NextPageWithLayout } from '../types';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import {
-  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -153,18 +153,6 @@ const CVPage: NextPageWithLayout = () => {
     id: '+Dre5J',
   });
 
-  /**
-   * Retrieve a formatted date (and time).
-   *
-   * @param {string} date - A date string.
-   * @returns {JSX.Element} The formatted date wrapped in a time element.
-   */
-  const getDate = (date: string): JSX.Element => {
-    const isoDate = new Date(`${date}`).toISOString();
-
-    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
-  };
-
   const headerMeta: (MetaItemData | undefined)[] = [
     {
       id: 'publication-date',
@@ -173,7 +161,7 @@ const CVPage: NextPageWithLayout = () => {
         description: 'Page: publication date label',
         id: '4QbTDq',
       }),
-      value: getDate(dates.publication),
+      value: <Time date={dates.publication} />,
     },
     dates.update
       ? {
@@ -183,7 +171,7 @@ const CVPage: NextPageWithLayout = () => {
             description: 'Page: update date label',
             id: 'Ez8Qim',
           }),
-          value: getDate(dates.update),
+          value: <Time date={dates.update} />,
         }
       : undefined,
   ];

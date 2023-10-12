@@ -24,12 +24,12 @@ import {
   Figure,
   type MetaItemData,
   type MetaValues,
+  Time,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
-  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -167,18 +167,6 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     url: `${website.url}${asPath}`,
   };
 
-  /**
-   * Retrieve a formatted date (and time).
-   *
-   * @param {string} date - A date string.
-   * @returns {JSX.Element} The formatted date wrapped in a time element.
-   */
-  const getDate = (date: string): JSX.Element => {
-    const isoDate = new Date(`${date}`).toISOString();
-
-    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
-  };
-
   const headerMeta: (MetaItemData | undefined)[] = [
     {
       id: 'publication-date',
@@ -187,7 +175,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         description: 'ProjectsPage: publication date label',
         id: 'HxZvY4',
       }),
-      value: getDate(dates.publication),
+      value: <Time date={dates.publication} />,
     },
     dates.update && dates.update !== dates.publication
       ? {
@@ -197,7 +185,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
             description: 'ProjectsPage: update date label',
             id: 'wQrvgw',
           }),
-          value: getDate(dates.update),
+          value: <Time date={dates.update} />,
         }
       : undefined,
   ];
@@ -299,7 +287,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         description: 'ProjectsPage: creation date label',
         id: 'wVFA4m',
       }),
-      value: getDate(data.created_at),
+      value: <Time date={data.created_at} />,
     },
     {
       id: 'update-date',
@@ -308,7 +296,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         description: 'ProjectsPage: update date label',
         id: 'wQrvgw',
       }),
-      value: getDate(data.updated_at),
+      value: <Time date={data.updated_at} />,
     },
     license
       ? {

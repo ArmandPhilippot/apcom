@@ -12,6 +12,7 @@ import {
   type MetaItemData,
   PageLayout,
   PostsList,
+  Time,
 } from '../../components';
 import {
   getAllThematicsSlugs,
@@ -22,7 +23,6 @@ import {
 import type { NextPageWithLayout, PageLink, Thematic } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
-  getFormattedDate,
   getLinksListItems,
   getPageLinkFromRawData,
   getPostsWithUrl,
@@ -51,18 +51,6 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     url: `${ROUTES.THEMATICS.INDEX}/${slug}`,
   });
 
-  /**
-   * Retrieve a formatted date (and time).
-   *
-   * @param {string} date - A date string.
-   * @returns {JSX.Element} The formatted date wrapped in a time element.
-   */
-  const getDate = (date: string): JSX.Element => {
-    const isoDate = new Date(`${date}`).toISOString();
-
-    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
-  };
-
   const headerMeta: (MetaItemData | undefined)[] = [
     {
       id: 'publication-date',
@@ -71,7 +59,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
         description: 'ThematicPage: publication date label',
         id: 'UTGhUU',
       }),
-      value: getDate(dates.publication),
+      value: <Time date={dates.publication} />,
     },
     dates.update
       ? {
@@ -81,7 +69,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
             description: 'ThematicPage: update date label',
             id: '24FIsG',
           }),
-          value: getDate(dates.update),
+          value: <Time date={dates.update} />,
         }
       : undefined,
     articles

@@ -13,6 +13,7 @@ import {
   type MetaItemData,
   PageLayout,
   PostsList,
+  Time,
 } from '../../components';
 import {
   getAllTopicsSlugs,
@@ -24,7 +25,6 @@ import styles from '../../styles/pages/topic.module.scss';
 import type { NextPageWithLayout, PageLink, Topic } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
-  getFormattedDate,
   getLinksListItems,
   getPageLinkFromRawData,
   getPostsWithUrl,
@@ -60,18 +60,6 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     url: `${ROUTES.TOPICS}/${slug}`,
   });
 
-  /**
-   * Retrieve a formatted date (and time).
-   *
-   * @param {string} date - A date string.
-   * @returns {JSX.Element} The formatted date wrapped in a time element.
-   */
-  const getDate = (date: string): JSX.Element => {
-    const isoDate = new Date(`${date}`).toISOString();
-
-    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
-  };
-
   const headerMeta: (MetaItemData | undefined)[] = [
     {
       id: 'publication-date',
@@ -80,7 +68,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
         description: 'TopicPage: publication date label',
         id: 'KV+NMZ',
       }),
-      value: getDate(dates.publication),
+      value: <Time date={dates.publication} />,
     },
     dates.update
       ? {
@@ -90,7 +78,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
             description: 'TopicPage: update date label',
             id: '9DfuHk',
           }),
-          value: getDate(dates.update),
+          value: <Time date={dates.update} />,
         }
       : undefined,
     officialWebsite

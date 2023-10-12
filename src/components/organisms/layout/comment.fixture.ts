@@ -1,4 +1,3 @@
-import { getFormattedDate, getFormattedTime } from '../../../utils/helpers';
 import type { UserCommentProps } from './comment';
 
 export const author = {
@@ -36,6 +35,3 @@ export const data: UserCommentProps = {
   parentId: 0,
   saveComment,
 };
-
-export const formattedDate = getFormattedDate(date);
-export const formattedTime = getFormattedTime(date);

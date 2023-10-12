@@ -1,13 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { render, screen as rtlScreen } from '../../../../tests/utils';
 import { UserComment } from './comment';
-import {
-  author,
-  data,
-  formattedDate,
-  formattedTime,
-  id,
-} from './comment.fixture';
+import { author, data, id } from './comment.fixture';
 
 describe('UserComment', () => {
   it('renders an avatar', () => {
@@ -29,7 +23,7 @@ describe('UserComment', () => {
     render(<UserComment canReply={true} {...data} />);
     expect(
       rtlScreen.getByRole('link', {
-        name: `${formattedDate} at ${formattedTime}`,
+        name: /\sat\s/,
       })
     ).toHaveAttribute('href', `#comment-${id}`);
   });

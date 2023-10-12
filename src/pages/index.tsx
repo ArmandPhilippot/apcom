@@ -21,17 +21,14 @@ import {
   type SectionProps,
   Heading,
   Figure,
+  Time,
 } from '../components';
 import HomePageContent from '../content/pages/homepage.mdx';
 import { getArticlesCard } from '../services/graphql';
 import styles from '../styles/pages/home.module.scss';
 import type { ArticleCard, NextPageWithLayout } from '../types';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
-import {
-  getFormattedDate,
-  getSchemaJson,
-  getWebPageSchema,
-} from '../utils/helpers';
+import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
 
@@ -301,8 +298,6 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
    */
   const getRecentPosts = (): JSX.Element => {
     const posts: CardsListItem[] = recentPosts.map((post) => {
-      const isoDate = new Date(`${post.dates.publication}`).toISOString();
-
       return {
         cover: post.cover,
         id: post.slug,
@@ -310,11 +305,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
           {
             id: 'publication-date',
             label: publicationDate,
-            value: (
-              <time dateTime={isoDate}>
-                {getFormattedDate(post.dates.publication)}
-              </time>
-            ),
+            value: <Time date={post.dates.publication} />,
           },
         ],
         title: post.title,

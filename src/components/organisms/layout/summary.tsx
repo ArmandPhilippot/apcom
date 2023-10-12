@@ -2,7 +2,6 @@ import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import type { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import type { Article, Meta as MetaType } from '../../../types';
-import { getFormattedDate } from '../../../utils/helpers';
 import { useReadingTime } from '../../../utils/hooks';
 import {
   ButtonLink,
@@ -11,6 +10,7 @@ import {
   Icon,
   Link,
   Figure,
+  Time,
 } from '../../atoms';
 import { MetaList, type MetaItemData } from '../../molecules';
 import styles from './summary.module.scss';
@@ -72,18 +72,6 @@ export const Summary: FC<SummaryProps> = ({
   );
   const readingTime = useReadingTime(meta.wordsCount, true);
 
-  /**
-   * Retrieve a formatted date (and time).
-   *
-   * @param {string} date - A date string.
-   * @returns {JSX.Element} The formatted date wrapped in a time element.
-   */
-  const getDate = (date: string): JSX.Element => {
-    const isoDate = new Date(`${date}`).toISOString();
-
-    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
-  };
-
   const getMetaItems = (): MetaItemData[] => {
     const summaryMeta: MetaItemData[] = [
       {
@@ -93,7 +81,7 @@ export const Summary: FC<SummaryProps> = ({
           description: 'Summary: publication date label',
           id: 'TvQ2Ee',
         }),
-        value: getDate(meta.dates.publication),
+        value: <Time date={meta.dates.publication} />,
       },
     ];
 
@@ -105,7 +93,7 @@ export const Summary: FC<SummaryProps> = ({
           description: 'Summary: update date label',
           id: 'f0Z/Po',
         }),
-        value: getDate(meta.dates.update),
+        value: <Time date={meta.dates.update} />,
       });
 
     summaryMeta.push({

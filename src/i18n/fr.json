@@ -155,6 +155,10 @@
     "defaultMessage": "Photo d’{website}",
     "description": "Layout: photo alternative text"
   },
+  "8q5PXx": {
+    "defaultMessage": "{date} à {time}",
+    "description": "Time: readable date and time"
+  },
   "9DfuHk": {
     "defaultMessage": "Mis à jour le :",
     "description": "TopicPage: update date label"
@@ -298,10 +302,6 @@
   "LDDUNO": {
     "defaultMessage": "Fermer la recherche",
     "description": "Search: Close label"
-  },
-  "Ld6yMP": {
-    "defaultMessage": "{date} à {time}",
-    "description": "Comment: publication date and time"
   },
   "LszkU6": {
     "defaultMessage": "Tous les articles dans {thematicName}",

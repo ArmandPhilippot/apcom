@@ -15,6 +15,7 @@ import {
   Sharing,
   Spinner,
   type MetaItemData,
+  Time,
 } from '../../components';
 import {
   getAllArticlesSlugs,
@@ -26,7 +27,6 @@ import type { Article, NextPageWithLayout, SingleComment } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
-  getFormattedDate,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
@@ -83,18 +83,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   const { content, id, intro, meta, title } = article;
   const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
 
-  /**
-   * Retrieve a formatted date (and time).
-   *
-   * @param {string} date - A date string.
-   * @returns {JSX.Element} The formatted date wrapped in a time element.
-   */
-  const getDate = (date: string): JSX.Element => {
-    const isoDate = new Date(`${date}`).toISOString();
-
-    return <time dateTime={isoDate}>{getFormattedDate(date)}</time>;
-  };
-
   const headerMeta: (MetaItemData | undefined)[] = [
     author
       ? {
@@ -114,7 +102,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         description: 'ArticlePage: publication date label',
         id: 'RecdwX',
       }),
-      value: getDate(dates.publication),
+      value: <Time date={dates.publication} />,
     },
     dates.update && dates.publication !== dates.update
       ? {
@@ -124,7 +112,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
             description: 'ArticlePage: update date label',
             id: 'ZAqGZ6',
           }),
-          value: getDate(dates.update),
+          value: <Time date={dates.update} />,
         }
       : undefined,
     {
