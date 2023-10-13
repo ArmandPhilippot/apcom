@@ -275,14 +275,14 @@
   });
 
   ['url', 'bold', 'italic', 'strike'].forEach(function (token) {
-    ['url', 'bold', 'italic', 'strike', 'code-snippet'].forEach(function (
-      inside
-    ) {
-      if (token !== inside) {
-        Prism.languages.markdown[token].inside.content.inside[inside] =
-          Prism.languages.markdown[inside];
+    ['url', 'bold', 'italic', 'strike', 'code-snippet'].forEach(
+      function (inside) {
+        if (token !== inside) {
+          Prism.languages.markdown[token].inside.content.inside[inside] =
+            Prism.languages.markdown[inside];
+        }
       }
-    });
+    );
   });
 
   Prism.hooks.add('after-tokenize', function (env) {

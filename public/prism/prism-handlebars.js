@@ -41,4 +41,5 @@
   });
 
   Prism.languages.hbs = Prism.languages.handlebars;
+  Prism.languages.mustache = Prism.languages.handlebars;
 })(Prism);

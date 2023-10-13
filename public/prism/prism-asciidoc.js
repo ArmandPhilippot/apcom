@@ -28,7 +28,7 @@
 
   var asciidoc = (Prism.languages.asciidoc = {
     'comment-block': {
-      pattern: /^(\/{4,})(?:\r?\n|\r)(?:[\s\S]*(?:\r?\n|\r))??\1/m,
+      pattern: /^(\/{4,})$[\s\S]*?^\1/m,
       alias: 'comment',
     },
     table: {
@@ -48,7 +48,7 @@
     },
 
     'passthrough-block': {
-      pattern: /^(\+{4,})(?:\r?\n|\r)(?:[\s\S]*(?:\r?\n|\r))??\1$/m,
+      pattern: /^(\+{4,})$[\s\S]*?^\1$/m,
       inside: {
         punctuation: /^\++|\++$/,
         // See rest below
@@ -56,7 +56,7 @@
     },
     // Literal blocks and listing blocks
     'literal-block': {
-      pattern: /^(-{4,}|\.{4,})(?:\r?\n|\r)(?:[\s\S]*(?:\r?\n|\r))??\1$/m,
+      pattern: /^(-{4,}|\.{4,})$[\s\S]*?^\1$/m,
       inside: {
         punctuation: /^(?:-+|\.+)|(?:-+|\.+)$/,
         // See rest below
@@ -64,8 +64,7 @@
     },
     // Sidebar blocks, quote blocks, example blocks and open blocks
     'other-block': {
-      pattern:
-        /^(--|\*{4,}|_{4,}|={4,})(?:\r?\n|\r)(?:[\s\S]*(?:\r?\n|\r))??\1$/m,
+      pattern: /^(--|\*{4,}|_{4,}|={4,})$[\s\S]*?^\1$/m,
       inside: {
         punctuation: /^(?:-+|\*+|_+|=+)|(?:-+|\*+|_+|=+)$/,
         // See rest below

@@ -5,7 +5,6 @@
 @use "partials/article-links";
 @use "partials/article-lists";
 @use "partials/article-media";
-@use "partials/article-prism";
 @use "partials/article-wp-blocks";
 
 .btn {
@@ -23,8 +22,8 @@
     @include article-links.styles;
     @include article-lists.styles;
     @include article-media.styles;
-    @include article-prism.styles;
     @include article-wp-blocks.styles;
+    @extend %prism;
   }
 }
 

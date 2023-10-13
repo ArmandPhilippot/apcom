@@ -90,6 +90,7 @@
     '$unionWith',
     '$unset',
     '$unwind',
+    '$setWindowFields',
 
     // aggregation pipeline operators
     '$abs',
@@ -222,6 +223,16 @@
     '$week',
     '$year',
     '$zip',
+    '$count',
+    '$dateAdd',
+    '$dateDiff',
+    '$dateSubtract',
+    '$dateTrunc',
+    '$getField',
+    '$rand',
+    '$sampleRate',
+    '$setField',
+    '$unsetField',
 
     // aggregation pipeline query modifiers
     '$comment',

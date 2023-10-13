@@ -33,7 +33,6 @@ import {
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
-  type OptionalPrismPlugin,
   useArticle,
   useBreadcrumb,
   useComments,
@@ -70,8 +69,23 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   });
   const readingTime = useReadingTime(article?.meta.wordsCount ?? 0, true);
   const { website } = useSettings();
-  const prismPlugins: OptionalPrismPlugin[] = ['command-line', 'line-numbers'];
-  const { attributes, className } = usePrism({ plugins: prismPlugins });
+  const { attributes, className } = usePrism({
+    attributes: {
+      'data-toolbar-order': 'show-language,copy-to-clipboard,color-scheme',
+    },
+    plugins: [
+      'toolbar',
+      'autoloader',
+      'show-language',
+      'color-scheme',
+      'copy-to-clipboard',
+      'inline-color',
+      'match-braces',
+      'normalize-whitespace',
+      'command-line',
+      'line-numbers',
+    ],
+  });
   const loadingArticle = intl.formatMessage({
     defaultMessage: 'Loading the requested article...',
     description: 'ArticlePage: loading article message',
@@ -231,10 +245,10 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       str.includes('command-line') ||
       (!str.includes('command-line') && str.includes('language-bash'))
     ) {
-      return `class="${wpBlockClassName} ${commandLineClassName}${languageClassName}" tabindex="0" data-filter-output="#output#`;
+      return `class="${wpBlockClassName} ${commandLineClassName} ${languageClassName}" tabindex="0" data-filter-output="#output#`;
     }
 
-    return `class="${wpBlockClassName} ${lineNumbersClassName}${languageClassName}" tabindex="0`;
+    return `class="${wpBlockClassName} ${lineNumbersClassName} ${languageClassName}" tabindex="0`;
   };
 
   const contentWithPrismClasses = content.replaceAll(
@@ -265,9 +279,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       />
       <PageLayout
         allowComments={true}
-        bodyAttributes={{
-          ...(attributes as HTMLAttributes<HTMLDivElement>),
-        }}
+        bodyAttributes={attributes as HTMLAttributes<HTMLDivElement>}
         bodyClassName={styles.body}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}

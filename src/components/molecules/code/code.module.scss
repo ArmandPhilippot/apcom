@@ -1,0 +1,13 @@
+@use "../../../styles/abstracts/placeholders";
+
+.wrapper {
+  width: 100%;
+
+  :global {
+    @extend %prism;
+  }
+
+  figcaption {
+    margin-top: calc(var(--spacing-sm) * -1);
+  }
+}

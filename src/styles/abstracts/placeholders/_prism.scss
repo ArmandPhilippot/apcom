@@ -1,7 +1,7 @@
-@use "../../abstracts/functions" as fun;
-@use "../../abstracts/mixins" as mix;
+@use "../functions" as fun;
+@use "../mixins" as mix;
 
-@mixin styles {
+%prism {
   .code-toolbar {
     --toolbar-height: #{fun.convert-px(100)};
 
@@ -63,8 +63,8 @@
     background: var(--color-bg);
     border: 0.4ex solid var(--color-primary);
     border-radius: fun.convert-px(30);
-    box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
-        var(--color-shadow),
+    box-shadow:
+      fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) var(--color-shadow),
       fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
         var(--color-shadow),
       fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
@@ -78,7 +78,8 @@
     &:focus {
       transform: translateX(#{fun.convert-px(-2)})
         translateY(#{fun.convert-px(-2)});
-      box-shadow: fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+      box-shadow:
+        fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
           var(--color-shadow-light),
         fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
           var(--color-shadow-light),
@@ -105,7 +106,9 @@
     padding: 0;
     position: relative;
     overflow: auto;
+    background: var(--color-bg-secondary);
     border: fun.convert-px(1) solid var(--color-border-light);
+    color: var(--color-fg);
     hyphens: none;
     tab-size: 4;
     text-align: left;
@@ -122,7 +125,7 @@
     &.line-numbers {
       --gutter-size: 6ch;
 
-      counter-reset: lineNumber;
+      counter-reset: linenumber;
       padding-left: var(--gutter-size-with-spacing);
     }
 
@@ -183,10 +186,10 @@
 
     .line-numbers-rows {
       > span {
-        counter-increment: lineNumber;
+        counter-increment: linenumber;
 
         &::before {
-          content: counter(lineNumber);
+          content: counter(linenumber);
         }
       }
     }
@@ -270,6 +273,10 @@
       &.punctuation.brace-selected {
         background: var(--color-bg);
         outline: solid fun.convert-px(1) var(--color-primary-light);
+      }
+
+      &.output {
+        user-select: none;
       }
     }
 

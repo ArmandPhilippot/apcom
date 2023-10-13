@@ -72,6 +72,6 @@
       },
     },
 
-    operator: /=/,
+    punctuation: /=/,
   };
 })(Prism);

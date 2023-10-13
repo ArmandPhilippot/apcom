@@ -1,7 +1,10 @@
 ackee
+apacheconf
 apcom
 autodocs
+autoloader
 changefreq
+classname
 coldark
 commitlint
 creativecommons
@@ -9,6 +12,7 @@ Eckles
 formatjs
 gitlab
 Gitlab
+hexcode
 Jamstack
 LINKEDIN
 nextjs
