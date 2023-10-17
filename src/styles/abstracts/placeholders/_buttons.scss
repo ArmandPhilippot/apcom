@@ -1,7 +1,7 @@
 @use "../functions" as fun;
 
 %button {
-  display: inline-flex;
+  display: flex;
   place-content: center;
   align-items: center;
   gap: var(--spacing-2xs);

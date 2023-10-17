@@ -2,14 +2,22 @@
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
+import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import {
+  Card,
+  CardCover,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  CardTitle,
   CardsList,
   type CardsListItem,
   getLayout,
   Link,
+  MetaList,
   PageLayout,
 } from '../../components';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
@@ -56,24 +64,54 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
   const items: CardsListItem[] = projects.map(
     ({ id, meta: projectMeta, slug, title: projectTitle }) => {
       const { cover, tagline, technologies } = projectMeta;
+      const figureLabel = intl.formatMessage(
+        {
+          defaultMessage: '{title} cover',
+          description: 'ProjectsPage: figure (cover) accessible name',
+          id: 'FdF33B',
+        },
+        { title: projectTitle }
+      );
 
       return {
-        cover,
-        id: id as string,
-        meta: technologies?.length
-          ? [
-              {
-                id: 'technologies',
-                label: metaLabel,
-                value: technologies.map((techno) => {
-                  return { id: techno, value: techno };
-                }),
-              },
-            ]
-          : [],
-        tagline,
-        title: projectTitle,
-        url: `${ROUTES.PROJECTS}/${slug}`,
+        card: (
+          <Card
+            cover={
+              cover ? (
+                <CardCover aria-label={figureLabel} hasBorders>
+                  <NextImage {...cover} />
+                </CardCover>
+              ) : undefined
+            }
+            meta={
+              technologies ? (
+                <MetaList
+                  hasBorderedValues
+                  hasInlinedValues
+                  isCentered
+                  items={[
+                    {
+                      id: 'technologies',
+                      label: metaLabel,
+                      value: technologies.map((techno) => {
+                        return { id: techno, value: techno };
+                      }),
+                    },
+                  ]}
+                />
+              ) : undefined
+            }
+            isCentered
+            linkTo={`${ROUTES.PROJECTS}/${slug}`}
+          >
+            <CardHeader>
+              <CardTitle>{projectTitle}</CardTitle>
+            </CardHeader>
+            <CardBody>{tagline}</CardBody>
+            <CardFooter />
+          </Card>
+        ),
+        id: `${id}`,
       };
     }
   );
@@ -127,7 +165,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
       >
-        <CardsList items={items} titleLevel={2} className={styles.list} />
+        <CardsList className={styles.list} items={items} />
       </PageLayout>
     </>
   );

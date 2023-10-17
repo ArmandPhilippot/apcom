@@ -8,19 +8,25 @@ import type { FC, HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import {
   ButtonLink,
+  Card,
+  CardCover,
+  CardFooter,
+  CardHeader,
+  CardMeta,
+  CardTitle,
   CardsList,
   type CardsListItem,
   Column,
   Columns,
   type ColumnsProps,
+  Figure,
   getLayout,
+  Heading,
   Icon,
   List,
   ListItem,
   Section,
   type SectionProps,
-  Heading,
-  Figure,
   Time,
 } from '../components';
 import HomePageContent from '../content/pages/homepage.mdx';
@@ -299,22 +305,47 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
   const getRecentPosts = (): JSX.Element => {
     const posts: CardsListItem[] = recentPosts.map((post) => {
       return {
-        cover: post.cover,
-        id: post.slug,
-        meta: [
-          {
-            id: 'publication-date',
-            label: publicationDate,
-            value: <Time date={post.dates.publication} />,
-          },
-        ],
-        title: post.title,
-        url: `${ROUTES.ARTICLE}/${post.slug}`,
+        card: (
+          <Card
+            cover={
+              post.cover ? (
+                <CardCover hasBorders>
+                  <NextImage
+                    {...post.cover}
+                    style={{ objectFit: 'scale-down' }}
+                  />
+                </CardCover>
+              ) : undefined
+            }
+            meta={
+              <CardMeta
+                hasBorderedValues
+                hasInlinedValues
+                isCentered
+                items={[
+                  {
+                    id: 'publication-date',
+                    label: publicationDate,
+                    value: <Time date={post.dates.publication} />,
+                  },
+                ]}
+              />
+            }
+            isCentered
+            linkTo={`${ROUTES.ARTICLE}/${post.slug}`}
+          >
+            <CardHeader>
+              <CardTitle level={3}>{post.title}</CardTitle>
+            </CardHeader>
+            <CardFooter />
+          </Card>
+        ),
+        id: `${post.id}`,
       };
     });
     const listClass = `${styles.list} ${styles['list--cards']}`;
 
-    return <CardsList className={listClass} items={posts} titleLevel={3} />;
+    return <CardsList className={listClass} items={posts} />;
   };
 
   const components: MDXComponents = {

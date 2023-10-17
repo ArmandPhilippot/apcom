@@ -3,16 +3,18 @@ import type { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import type { Article, Meta as MetaType } from '../../../types';
 import { useReadingTime } from '../../../utils/hooks';
+import { ButtonLink, type HeadingLevel, Icon, Link, Time } from '../../atoms';
 import {
-  ButtonLink,
-  Heading,
-  type HeadingLevel,
-  Icon,
-  Link,
-  Figure,
-  Time,
-} from '../../atoms';
-import { MetaList, type MetaItemData } from '../../molecules';
+  Card,
+  CardActions,
+  CardBody,
+  CardCover,
+  CardFooter,
+  CardHeader,
+  CardMeta,
+  CardTitle,
+  type MetaItemData,
+} from '../../molecules';
 import styles from './summary.module.scss';
 
 export type Cover = Pick<NextImageProps, 'alt' | 'src' | 'width' | 'height'>;
@@ -56,6 +58,14 @@ export const Summary: FC<SummaryProps> = ({
   url,
 }) => {
   const intl = useIntl();
+  const figureLabel = intl.formatMessage(
+    {
+      defaultMessage: '{title} cover',
+      description: 'Summary: figure (cover) accessible name',
+      id: 'RNVe1W',
+    },
+    { title }
+  );
   const readMore = intl.formatMessage(
     {
       defaultMessage: 'Read more<a11y> about {title}</a11y>',
@@ -182,40 +192,44 @@ export const Summary: FC<SummaryProps> = ({
   };
 
   return (
-    <article className={styles.wrapper}>
-      {meta.cover ? (
-        <Figure>
-          <NextImage {...meta.cover} className={styles.cover} />
-        </Figure>
-      ) : null}
-      <header className={styles.header}>
-        <Link href={url} className={styles.link}>
-          <Heading level={titleLevel} className={styles.title}>
-            {title}
-          </Heading>
-        </Link>
-      </header>
-      <div className={styles.body}>
+    <Card
+      className={styles.wrapper}
+      cover={
+        meta.cover ? (
+          <CardCover aria-label={figureLabel} hasBorders>
+            <NextImage {...meta.cover} />
+          </CardCover>
+        ) : undefined
+      }
+      meta={<CardMeta items={getMetaItems()} />}
+    >
+      <CardHeader>
+        <CardTitle className={styles.title} level={titleLevel}>
+          <Link href={url}>{title}</Link>
+        </CardTitle>
+      </CardHeader>
+      <CardBody>
         <div
           className={styles.intro}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: intro }}
         />
-        <ButtonLink className={styles['read-more']} to={url}>
-          {readMore}
-          <Icon
-            aria-hidden={true}
-            className={styles.icon}
-            // eslint-disable-next-line react/jsx-no-literals -- Direction allowed
-            orientation="right"
-            // eslint-disable-next-line react/jsx-no-literals -- Shape allowed
-            shape="arrow"
-          />
-        </ButtonLink>
-      </div>
-      <footer className={styles.footer}>
-        <MetaList className={styles.meta} items={getMetaItems()} />
-      </footer>
-    </article>
+      </CardBody>
+      <CardFooter>
+        <CardActions>
+          <ButtonLink to={url}>
+            {readMore}
+            <Icon
+              aria-hidden={true}
+              className={styles.icon}
+              // eslint-disable-next-line react/jsx-no-literals -- Direction allowed
+              orientation="right"
+              // eslint-disable-next-line react/jsx-no-literals -- Shape allowed
+              shape="arrow"
+            />
+          </ButtonLink>
+        </CardActions>
+      </CardFooter>
+    </Card>
   );
 };

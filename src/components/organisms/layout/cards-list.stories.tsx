@@ -1,4 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Card, CardBody, CardHeader, CardTitle } from '../../molecules';
 import {
   CardsList as CardsListComponent,
   type CardsListItem,
@@ -10,39 +11,7 @@ import {
 export default {
   title: 'Organisms/Layout',
   component: CardsListComponent,
-  args: {
-    coverFit: 'cover',
-    kind: 'unordered',
-  },
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the list wrapper.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    coverFit: {
-      control: {
-        type: 'select',
-      },
-      description: 'The cover fit.',
-      options: ['fill', 'contain', 'cover', 'none', 'scale-down'],
-      table: {
-        category: 'Options',
-        defaultValue: { summary: 'cover' },
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     items: {
       description: 'The cards data.',
       type: {
@@ -51,31 +20,18 @@ export default {
         value: {},
       },
     },
-    kind: {
+    isOrdered: {
       control: {
-        type: 'select',
+        type: 'boolean',
       },
-      description: 'The list kind.',
-      options: ['ordered', 'unordered'],
+      description: 'Should the list be ordered?',
       table: {
         category: 'Options',
-        defaultValue: { summary: 'unordered' },
+        defaultValue: { summary: false },
       },
       type: {
-        name: 'string',
+        name: 'boolean',
         required: false,
-      },
-    },
-    titleLevel: {
-      control: {
-        type: 'number',
-        min: 1,
-        max: 6,
-      },
-      description: 'The heading level for each card.',
-      type: {
-        name: 'number',
-        required: true,
       },
     },
   },
@@ -88,63 +44,49 @@ const Template: ComponentStory<typeof CardsListComponent> = (args) => (
 const items: CardsListItem[] = [
   {
     id: 'card-1',
-    cover: {
-      alt: 'card 1 picture',
-      src: 'https://picsum.photos/640/480',
-      width: 640,
-      height: 480,
-    },
-    meta: [
-      {
-        id: 'categories',
-        label: 'Categories',
-        value: [
-          { id: 'velit', value: 'Velit' },
-          { id: 'ex', value: 'Ex' },
-          { id: 'alias', value: 'Alias' },
-        ],
-      },
-    ],
-    tagline: 'Molestias ut error',
-    title: 'Et alias omnis',
-    url: '#',
+    card: (
+      <Card>
+        <CardHeader>
+          <CardTitle>Et alias omnis</CardTitle>
+        </CardHeader>
+        <CardBody>
+          Rerum voluptatem sint sint sit dignissimos. Labore totam possimus
+          tempore atque veniam. Doloremque tenetur quidem beatae veritatis quo.
+          Quaerat voluptatem deleniti voluptas quia. Qui voluptatem iure iste
+          expedita et sed beatae.
+        </CardBody>
+      </Card>
+    ),
   },
   {
     id: 'card-2',
-    cover: {
-      alt: 'card 2 picture',
-      src: 'https://picsum.photos/640/480',
-      width: 640,
-      height: 480,
-    },
-    meta: [{ id: 'categories', label: 'Categories', value: 'Voluptas' }],
-    tagline: 'Quod vel accusamus',
-    title: 'Laboriosam doloremque mollitia',
-    url: '#',
+    card: (
+      <Card>
+        <CardHeader>
+          <CardTitle>Fugiat magnam nesciunt</CardTitle>
+        </CardHeader>
+        <CardBody>
+          Sit corporis animi ea. Earum asperiores error et. Aliquid quia et
+          consequatur. Magnam sit ut facere explicabo vel dolorem earum
+          assumenda. Aspernatur inventore quod libero est.
+        </CardBody>
+      </Card>
+    ),
   },
   {
     id: 'card-3',
-    cover: {
-      alt: 'card 3 picture',
-      src: 'https://picsum.photos/640/480',
-      width: 640,
-      height: 480,
-    },
-    meta: [
-      {
-        id: 'categories',
-        label: 'Categories',
-        value: [
-          { id: 'quisquam', value: 'Quisquam' },
-          { id: 'quia', value: 'Quia' },
-          { id: 'sapiente', value: 'Sapiente' },
-          { id: 'perspiciatis', value: 'Perspiciatis' },
-        ],
-      },
-    ],
-    tagline: 'Quo error eum',
-    title: 'Magni rem nulla',
-    url: '#',
+    card: (
+      <Card>
+        <CardHeader>
+          <CardTitle>Asperiores eum quas</CardTitle>
+        </CardHeader>
+        <CardBody>
+          Doloremque ut cupiditate distinctio aperiam. Neque tempora unde
+          perferendis asperiores. Doloremque velit vel quam. Temporibus itaque
+          non non exercitationem.
+        </CardBody>
+      </Card>
+    ),
   },
 ];
 
@@ -154,5 +96,4 @@ const items: CardsListItem[] = [
 export const CardsList = Template.bind({});
 CardsList.args = {
   items,
-  titleLevel: 2,
 };

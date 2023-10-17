@@ -7,7 +7,16 @@ import type { Comment as CommentSchema, WithContext } from 'schema-dts';
 import type { SingleComment } from '../../../types';
 import { useSettings } from '../../../utils/hooks';
 import { Button, Link, Time } from '../../atoms';
-import { MetaList } from '../../molecules';
+import {
+  Card,
+  CardActions,
+  CardBody,
+  CardCover,
+  CardFooter,
+  CardHeader,
+  CardMeta,
+  CardTitle,
+} from '../../molecules';
 import { CommentForm, type CommentFormProps } from '../forms';
 import styles from './comment.module.scss';
 
@@ -103,9 +112,6 @@ export const UserComment: FC<UserCommentProps> = ({
     text: content,
   };
 
-  const commentWrapperClass = `${styles.wrapper} ${styles['wrapper--comment']}`;
-  const formWrapperClass = `${styles.wrapper} ${styles['wrapper--form']}`;
-
   return (
     <>
       <Script
@@ -113,10 +119,10 @@ export const UserComment: FC<UserCommentProps> = ({
         id="schema-comments"
         type="application/ld+json"
       />
-      <article className={commentWrapperClass} id={`comment-${id}`}>
-        <header className={styles.header}>
-          {author.avatar ? (
-            <div className={styles.avatar}>
+      <Card
+        cover={
+          author.avatar ? (
+            <CardCover className={styles.avatar}>
               <NextImage
                 {...props}
                 alt={author.avatar.alt}
@@ -124,55 +130,64 @@ export const UserComment: FC<UserCommentProps> = ({
                 src={author.avatar.src}
                 style={{ objectFit: 'cover' }}
               />
-            </div>
-          ) : null}
-          {author.website ? (
-            <Link href={author.website} className={styles.author}>
-              {author.name}
-            </Link>
-          ) : (
-            <span className={styles.author}>{author.name}</span>
-          )}
-        </header>
-        <MetaList
-          className={styles.date}
-          isInline
-          items={[
-            {
-              id: 'publication-date',
-              label: intl.formatMessage({
-                defaultMessage: 'Published on:',
-                description: 'Comment: publication date label',
-                id: 'soj7do',
-              }),
-              value: (
-                <Link href={`#comment-${id}`}>
-                  <Time date={date} showTime />
-                </Link>
-              ),
-            },
-          ]}
-        />
-        <div
+            </CardCover>
+          ) : undefined
+        }
+        id={`comment-${id}`}
+        variant={2}
+      >
+        <CardHeader>
+          <CardTitle className={styles.author} isFake>
+            {author.website ? (
+              <Link href={author.website}>{author.name}</Link>
+            ) : (
+              author.name
+            )}
+          </CardTitle>
+          <CardMeta
+            hasInlinedItems
+            items={[
+              {
+                id: 'publication-date',
+                label: intl.formatMessage({
+                  defaultMessage: 'Published on:',
+                  description: 'Comment: publication date label',
+                  id: 'soj7do',
+                }),
+                value: (
+                  <Link href={`#comment-${id}`}>
+                    <Time date={date} showTime />
+                  </Link>
+                ),
+              },
+            ]}
+          />
+        </CardHeader>
+        <CardBody
           className={styles.body}
           dangerouslySetInnerHTML={{ __html: content }}
         />
-        <footer className={styles.footer}>
-          {canReply ? (
-            <Button kind="tertiary" onClick={handleReply}>
-              {buttonLabel}
-            </Button>
-          ) : null}
-        </footer>
-      </article>
+        {canReply ? (
+          <CardFooter>
+            <CardActions>
+              <Button kind="tertiary" onClick={handleReply}>
+                {buttonLabel}
+              </Button>
+            </CardActions>
+          </CardFooter>
+        ) : null}
+      </Card>
       {isReplying ? (
-        <CommentForm
-          className={formWrapperClass}
-          Notice={Notice}
-          parentId={id}
-          saveComment={saveComment}
-          title={formTitle}
-        />
+        <Card className={styles.form} variant={2}>
+          <CardBody>
+            <CommentForm
+              Notice={Notice}
+              parentId={id}
+              saveComment={saveComment}
+              title={formTitle}
+            />
+          </CardBody>
+        </Card>
       ) : null}
     </>
   );

@@ -27,7 +27,7 @@ export type ButtonLinkProps = Omit<
    *
    * @default 'rectangle'
    */
-  shape?: 'circle' | 'rectangle' | 'square';
+  shape?: 'auto' | 'circle' | 'rectangle' | 'square';
   /**
    * Define an URL or anchor as target.
    */

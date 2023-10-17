@@ -1,73 +1,60 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { render, screen as rtlScreen } from '@testing-library/react';
+import { Card, CardBody, CardHeader, CardTitle } from '../../molecules';
 import { CardsList, type CardsListItem } from './cards-list';
 
 const items: CardsListItem[] = [
   {
     id: 'card-1',
-    cover: {
-      alt: 'card 1 picture',
-      src: 'https://picsum.photos/640/480',
-      width: 640,
-      height: 480,
-    },
-    meta: [
-      {
-        id: 'categories',
-        label: 'Categories',
-        value: [
-          { id: 'velit', value: 'Velit' },
-          { id: 'ex', value: 'Ex' },
-          { id: 'alias', value: 'Alias' },
-        ],
-      },
-    ],
-    tagline: 'Molestias ut error',
-    title: 'Et alias omnis',
-    url: '#',
+    card: (
+      <Card>
+        <CardHeader>
+          <CardTitle>Et alias omnis</CardTitle>
+        </CardHeader>
+        <CardBody>
+          Rerum voluptatem sint sint sit dignissimos. Labore totam possimus
+          tempore atque veniam. Doloremque tenetur quidem beatae veritatis quo.
+          Quaerat voluptatem deleniti voluptas quia. Qui voluptatem iure iste
+          expedita et sed beatae.
+        </CardBody>
+      </Card>
+    ),
   },
   {
     id: 'card-2',
-    cover: {
-      alt: 'card 2 picture',
-      src: 'https://picsum.photos/640/480',
-      width: 640,
-      height: 480,
-    },
-    meta: [{ id: 'categories', label: 'Categories', value: 'Voluptas' }],
-    tagline: 'Quod vel accusamus',
-    title: 'Laboriosam doloremque mollitia',
-    url: '#',
+    card: (
+      <Card>
+        <CardHeader>
+          <CardTitle>Fugiat magnam nesciunt</CardTitle>
+        </CardHeader>
+        <CardBody>
+          Sit corporis animi ea. Earum asperiores error et. Aliquid quia et
+          consequatur. Magnam sit ut facere explicabo vel dolorem earum
+          assumenda. Aspernatur inventore quod libero est.
+        </CardBody>
+      </Card>
+    ),
   },
   {
     id: 'card-3',
-    cover: {
-      alt: 'card 3 picture',
-      src: 'https://picsum.photos/640/480',
-      width: 640,
-      height: 480,
-    },
-    meta: [
-      {
-        id: 'categories',
-        label: 'Categories',
-        value: [
-          { id: 'quisquam', value: 'Quisquam' },
-          { id: 'quia', value: 'Quia' },
-          { id: 'sapiente', value: 'Sapiente' },
-          { id: 'perspiciatis', value: 'Perspiciatis' },
-        ],
-      },
-    ],
-    tagline: 'Quo error eum',
-    title: 'Magni rem nulla',
-    url: '#',
+    card: (
+      <Card>
+        <CardHeader>
+          <CardTitle>Asperiores eum quas</CardTitle>
+        </CardHeader>
+        <CardBody>
+          Doloremque ut cupiditate distinctio aperiam. Neque tempora unde
+          perferendis asperiores. Doloremque velit vel quam. Temporibus itaque
+          non non exercitationem.
+        </CardBody>
+      </Card>
+    ),
   },
 ];
 
 describe('CardsList', () => {
   it('renders a list of cards', () => {
-    render(<CardsList items={items} titleLevel={2} />);
+    render(<CardsList items={items} />);
     expect(rtlScreen.getAllByRole('heading', { level: 2 })).toHaveLength(
       items.length
     );

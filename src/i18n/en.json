@@ -231,6 +231,10 @@
     "defaultMessage": "Updated on:",
     "description": "Page: update date label"
   },
+  "FdF33B": {
+    "defaultMessage": "{title} cover",
+    "description": "ProjectsPage: figure (cover) accessible name"
+  },
   "G+Twgm": {
     "defaultMessage": "Search",
     "description": "SearchModal: modal title"
@@ -370,6 +374,10 @@
   "R895yC": {
     "defaultMessage": "CV",
     "description": "Layout: main nav - cv link"
+  },
+  "RNVe1W": {
+    "defaultMessage": "{title} cover",
+    "description": "Summary: figure (cover) accessible name"
   },
   "RecdwX": {
     "defaultMessage": "Published on:",

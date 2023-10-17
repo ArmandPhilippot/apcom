@@ -1,16 +1,20 @@
-import type { FC } from 'react';
+import type { FC, ReactElement } from 'react';
 import { List, ListItem } from '../../atoms';
-import { Card, type CardProps } from '../../molecules';
+import type { CardProps } from '../../molecules';
 import styles from './cards-list.module.scss';
 
-export type CardsListItem = Omit<CardProps, 'className' | 'titleLevel'> & {
+export type CardsListItem = {
+  /**
+   * The card.
+   */
+  card: ReactElement<CardProps<string> | CardProps<undefined>>;
   /**
    * The card id.
    */
   id: string;
 };
 
-export type CardsListProps = Pick<CardProps, 'titleLevel'> & {
+export type CardsListProps = {
   /**
    * Set additional classnames to the list wrapper.
    */
@@ -36,7 +40,6 @@ export const CardsList: FC<CardsListProps> = ({
   className = '',
   isOrdered = false,
   items,
-  titleLevel,
 }) => {
   const kindModifier = `wrapper--${isOrdered ? 'ordered' : 'unordered'}`;
 
@@ -47,15 +50,9 @@ export const CardsList: FC<CardsListProps> = ({
       isInline
       isOrdered={isOrdered}
     >
-      {items.map(({ id, ...item }) => (
-        <ListItem key={id}>
-          <Card
-            {...item}
-            className={styles.card}
-            key={id}
-            id={id}
-            titleLevel={titleLevel}
-          />
+      {items.map(({ id, card }) => (
+        <ListItem className={styles.item} key={id}>
+          {card}
         </ListItem>
       ))}
     </List>

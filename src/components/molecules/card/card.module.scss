@@ -1,0 +1,296 @@
+@use "../../../styles/abstracts/functions" as fun;
+
+$breakpoint: 50ch;
+
+.cover {
+  width: var(--cover-width, 100%);
+  height: var(--cover-height, fun.convert-px(150));
+  max-width: none;
+  position: relative;
+
+  > * {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    position: absolute;
+    inset: 0;
+    object-position: center;
+    object-fit: cover;
+  }
+}
+
+.title {
+  background: none;
+  padding: 0;
+}
+
+.body {
+  max-width: 80ch;
+  color: var(--color-fg);
+  font-weight: 400;
+}
+
+.actions {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: var(--alignment);
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-sm);
+  padding-block: var(--spacing-sm);
+}
+
+.meta {
+  font-size: var(--font-size-sm);
+}
+
+:where(.footer) .meta {
+  flex-flow: row wrap;
+}
+
+.header,
+.footer {
+  display: contents;
+}
+
+.card {
+  --card-padding: clamp(var(--spacing-sm), 3vw, var(--spacing-md));
+
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-sm);
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+
+  &--variant-1 {
+    --cover-height: clamp(
+      #{fun.convert-px(100)},
+      calc(#{fun.convert-px(200)} - 10cqw),
+      #{fun.convert-px(200)}
+    );
+  }
+
+  &--variant-2 {
+    --cover-height: #{fun.convert-px(90)};
+    --cover-width: var(--cover-height);
+  }
+}
+
+:where(.card--variant-2) .cover {
+  border-radius: fun.convert-px(3);
+  box-shadow:
+    0 0 0 fun.convert-px(1) var(--color-shadow-light),
+    fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1) var(--color-shadow);
+}
+
+.wrapper {
+  container: card / inline-size;
+
+  &--centered {
+    .header,
+    .body,
+    .footer {
+      text-align: center;
+    }
+
+    .meta {
+      margin-inline: auto;
+    }
+  }
+
+  &--is-link {
+    --scale-up: 1.05;
+
+    &:not(:disabled):focus:not(:hover) {
+      text-decoration: none;
+
+      .title {
+        text-decoration: underline solid var(--color-primary) 0.3ex;
+      }
+    }
+  }
+}
+
+/* stylelint-disable no-descending-specificity -- Stylelint complains about
+ * specificity but I think it is clearer and DRY this way. */
+
+:where(.wrapper--is-block) .card--variant-2 {
+  border: fun.convert-px(1) solid var(--color-border);
+  box-shadow:
+    fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow-light),
+    fun.convert-px(4) fun.convert-px(4) fun.convert-px(3) fun.convert-px(-2)
+      var(--color-shadow);
+}
+
+@container card (width <= #{$breakpoint}) {
+  .card {
+    display: flex;
+    flex-flow: column wrap;
+    row-gap: var(--card-padding);
+
+    &:where(:not(&--has-cover)) {
+      padding: var(--card-padding);
+    }
+
+    &:where(&--has-cover) {
+      padding-block-end: var(--card-padding);
+
+      :where(.header, .footer) > *:not(.cover),
+      .body {
+        padding-inline: var(--card-padding);
+      }
+    }
+  }
+
+  :where(.card--variant-1) {
+    .cover {
+      --cover-width: 100%;
+    }
+
+    :where(.footer) .meta {
+      margin-block-start: auto;
+      justify-content: space-between;
+    }
+  }
+
+  :where(.card--variant-2) {
+    :where(.header) {
+      .cover,
+      .title {
+        margin-inline: auto;
+      }
+
+      .cover {
+        margin-block-start: var(--card-padding);
+      }
+    }
+  }
+}
+
+@container card (width > #{$breakpoint}) {
+  .card {
+    display: grid;
+    grid-auto-rows: max-content;
+    padding: var(--card-padding);
+  }
+
+  .cover,
+  .title,
+  .meta,
+  .body,
+  .actions {
+    grid-column: 1;
+  }
+
+  .card--variant-1 {
+    grid-auto-columns: minmax(30ch, 80ch) 1fr minmax(min-content, 25cqw);
+  }
+
+  :where(.wrapper--is-block) .card--variant-1 {
+    border: fun.convert-px(1) solid var(--color-primary-dark);
+    border-radius: fun.convert-px(3);
+    box-shadow:
+      fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) 0
+        var(--color-shadow),
+      fun.convert-px(3) fun.convert-px(3) fun.convert-px(3) fun.convert-px(-1)
+        var(--color-shadow-light),
+      fun.convert-px(5) fun.convert-px(5) fun.convert-px(7) fun.convert-px(-1)
+        var(--color-shadow-light);
+  }
+
+  .card--variant-2 {
+    grid-auto-columns: minmax(min-content, 15cqw) 1fr minmax(30ch, 80ch);
+  }
+
+  .cover {
+    grid-row-start: 1;
+  }
+
+  :where(.wrapper--is-link:not(:disabled, :hover):focus) .title {
+    text-decoration: underline solid var(--color-primary) 0.3ex;
+  }
+
+  :where(.card--has-cover .header:only-child) .cover:only-child {
+    --cover-width: calc(100% + (2 * var(--card-padding)));
+    --cover-height: calc(100% + (2 * var(--card-padding)));
+
+    margin-block-start: calc(var(--card-padding) * -1);
+    margin-inline-start: calc(var(--card-padding) * -1);
+  }
+
+  :where(.card--variant-1) {
+    :where(.header:only-child) > *:only-child,
+    .body:only-child,
+    :where(.footer:only-child) > *:only-child {
+      grid-column: 1 / span 2;
+    }
+
+    :where(.header:not(:only-child)) .cover,
+    :where(.header:only-child) .cover:not(:only-child),
+    :where(.footer:not(:only-child)) .meta,
+    :where(.footer:only-child) .meta:not(:only-child) {
+      grid-column: 3;
+    }
+
+    :where(.footer) .meta {
+      grid-row-start: 1;
+      flex-flow: column wrap;
+    }
+
+    :where(.body:first-child + .footer) .meta,
+    :where(.footer:only-child) .meta {
+      grid-row-end: 1;
+    }
+
+    :where(.header) .title,
+    :where(.header) .cover + .meta {
+      grid-row: 1;
+      align-self: center;
+    }
+  }
+
+  :where(.card--variant-1.card--has-cover .footer) .meta {
+    grid-row: 2 / span 3;
+  }
+
+  :where(.card--variant-1.card--no-footer-meta .header:not(:only-child)) .cover,
+  :where(.card--variant-1.card--no-footer-meta .header) .cover:not(:only-child),
+  :where(.card--variant-1.card--no-cover .footer) .meta {
+    --cover-height: 100%;
+
+    grid-row-end: span 4;
+  }
+
+  :where(.card--variant-2) {
+    .header:only-child > *,
+    .body:only-child,
+    .footer:only-child > * {
+      grid-column: 1 / span 2;
+    }
+
+    .header:only-child > .meta {
+      justify-self: center;
+    }
+
+    :where(.header:not(:only-child)) .meta,
+    .body,
+    :where(.footer:not(:only-child)) .actions,
+    :where(.footer:not(:only-child)) .meta {
+      grid-column: 3;
+    }
+
+    :where(.header) {
+      .cover,
+      .title {
+        grid-row: 1 / span 2;
+        justify-self: center;
+      }
+    }
+  }
+
+  :where(.card--variant-2.card--has-cover .header) .title {
+    margin-top: calc(var(--cover-height) + var(--spacing-sm));
+  }
+}
+
+/* stylelint-enable no-descending-specificity */
