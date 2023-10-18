@@ -12,8 +12,7 @@
 
   list-style-position: inside;
 
-  ul,
-  ol {
+  :where(%regular-list) {
     margin-block-start: var(--itemSpacing);
     padding-inline-start: var(--spacing-sm);
   }

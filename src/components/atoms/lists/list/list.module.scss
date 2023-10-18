@@ -15,14 +15,12 @@
     }
   }
 
-  &--stack#{&} {
-    &--ordered,
-    &--unordered {
-      @extend %regular-list;
-    }
-  }
-
   &--no-marker {
     list-style-type: none;
   }
+}
+
+.list--ordered:where(.list--stack),
+.list--unordered:where(.list--stack) {
+  @extend %regular-list;
 }

@@ -4,7 +4,7 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import Script from 'next/script';
-import type { FC, HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
   ButtonLink,
@@ -14,13 +14,10 @@ import {
   CardHeader,
   CardMeta,
   CardTitle,
-  CardsList,
-  type CardsListItem,
-  Column,
-  Columns,
-  type ColumnsProps,
   Figure,
   getLayout,
+  Grid,
+  type GridItem,
   Heading,
   Icon,
   List,
@@ -37,6 +34,15 @@ import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
+
+/**
+ * Column component.
+ *
+ * Render the body as a column.
+ */
+const Column = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => (
+  <div {...props}>{children}</div>
+);
 
 const H1 = ({
   children = '',
@@ -256,8 +262,15 @@ const MoreLinks: FC = () => {
   );
 };
 
-const StyledColumns = (props: ColumnsProps) => (
-  <Columns className={styles.columns} {...props} />
+const StyledGrid = ({ children }: { children: ReactNode[] }) => (
+  <Grid
+    className={styles.columns}
+    gap="sm"
+    items={children.map((child, index) => {
+      return { id: `${index}`, item: child };
+    })}
+    sizeMin="250px"
+  />
 );
 
 /**
@@ -303,9 +316,9 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
    * @returns {JSX.Element} - The cards list.
    */
   const getRecentPosts = (): JSX.Element => {
-    const posts: CardsListItem[] = recentPosts.map((post) => {
+    const posts: GridItem[] = recentPosts.map((post) => {
       return {
-        card: (
+        item: (
           <Card
             cover={
               post.cover ? (
@@ -345,14 +358,22 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     });
     const listClass = `${styles.list} ${styles['list--cards']}`;
 
-    return <CardsList className={listClass} items={posts} />;
+    return (
+      <Grid
+        className={listClass}
+        gap="sm"
+        isCentered
+        items={posts}
+        sizeMax="25ch"
+      />
+    );
   };
 
   const components: MDXComponents = {
     CodingLinks,
     ColdarkRepos,
     Column,
-    Columns: StyledColumns,
+    Grid: StyledGrid,
     h1: H1,
     h2: H2,
     h3: H3,

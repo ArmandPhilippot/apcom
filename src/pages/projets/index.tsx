@@ -13,9 +13,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  CardsList,
-  type CardsListItem,
   getLayout,
+  Grid,
+  type GridItem,
   Link,
   MetaList,
   PageLayout,
@@ -61,7 +61,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     id: 'ADQmDF',
   });
 
-  const items: CardsListItem[] = projects.map(
+  const items: GridItem[] = projects.map(
     ({ id, meta: projectMeta, slug, title: projectTitle }) => {
       const { cover, tagline, technologies } = projectMeta;
       const figureLabel = intl.formatMessage(
@@ -74,7 +74,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
       );
 
       return {
-        card: (
+        item: (
           <Card
             cover={
               cover ? (
@@ -165,7 +165,13 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
       >
-        <CardsList className={styles.list} items={items} />
+        <Grid
+          className={styles.list}
+          gap="sm"
+          isCentered
+          items={items}
+          sizeMax="30ch"
+        />
       </PageLayout>
     </>
   );

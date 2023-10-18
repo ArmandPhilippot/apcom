@@ -6,11 +6,10 @@ import Head from 'next/head';
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import type { ComponentType, HTMLAttributes } from 'react';
+import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Code,
-  Gallery,
   getLayout,
   Link,
   Overview,
@@ -25,6 +24,7 @@ import {
   type MetaItemData,
   type MetaValues,
   Time,
+  Grid,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
@@ -118,6 +118,16 @@ const UnorderedList = ({
   <List {...props} spacing="2xs">
     {children}
   </List>
+);
+
+const Gallery = ({ children }: { children: ReactNode[] }) => (
+  <Grid
+    gap="sm"
+    items={children.map((child, index) => {
+      return { id: `${index}`, item: child };
+    })}
+    sizeMin="250px"
+  />
 );
 
 const components: MDXComponents = {

@@ -1,0 +1,41 @@
+.wrapper {
+  display: grid;
+  gap: var(--gap);
+
+  &--is-centered {
+    place-content: center;
+  }
+
+  &--has-fixed-size {
+    grid-template-columns: repeat(
+      var(--col, auto-fit),
+      min(100vw - (var(--spacing-md) * 2), var(--size))
+    );
+  }
+
+  &--has-min-size {
+    grid-template-columns: repeat(
+      var(--col, auto-fit),
+      minmax(
+        min(100vw - (var(--spacing-md) * 2), var(--size-min)),
+        var(--size-max, 1fr)
+      )
+    );
+  }
+
+  &:not(#{&}--has-fixed-size):not(#{&}--has-min-size) {
+    grid-template-columns: repeat(
+      var(--col, auto-fit),
+      minmax(0, var(--size-max, 1fr))
+    );
+  }
+}
+
+.item {
+  display: flex;
+  flex-flow: row wrap;
+
+  > * {
+    flex: 1;
+  }
+}

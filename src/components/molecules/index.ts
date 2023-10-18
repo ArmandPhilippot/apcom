@@ -4,6 +4,7 @@ export * from './card';
 export * from './code';
 export * from './collapsible';
 export * from './forms';
+export * from './grid';
 export * from './images';
 export * from './layout';
 export * from './meta-list';
