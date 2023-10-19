@@ -15,14 +15,14 @@ describe('NavLink', () => {
     );
   });
 
-  it('can render a nav link with inlined contents', () => {
+  it('can render a nav link with stacked contents', () => {
     const label = 'eius';
     const target = '#harum';
 
-    render(<NavLink href={target} isInline label={label} />);
+    render(<NavLink href={target} isStack label={label} />);
 
     expect(rtlScreen.getByRole('link', { name: label })).toHaveClass(
-      'link--inline'
+      'link--stack'
     );
   });
 });

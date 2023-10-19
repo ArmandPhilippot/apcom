@@ -8,33 +8,55 @@ import styles from './nav-link.module.scss';
 
 export type NavLinkProps = Omit<LinkProps, 'children' | 'disableTransition'> & {
   /**
-   * Should the logo and label be inlined?
+   * Should the logo be above the label?
    *
    * @default false
    */
-  isInline?: boolean;
+  isStack?: boolean;
   /**
    * The link label.
    */
-  label: string;
+  label: ReactNode;
   /**
    * The link logo.
    */
   logo?: ReactNode;
+  /**
+   * The link variant.
+   *
+   * @default 'regular'
+   */
+  variant?: 'block' | 'main' | 'regular';
 };
 
 const NavLinkWithRef: ForwardRefRenderFunction<
   HTMLAnchorElement,
   NavLinkProps
-> = ({ className = '', isInline = false, label, logo, ...props }, ref) => {
+> = (
+  {
+    className = '',
+    isStack = false,
+    label,
+    logo,
+    variant = 'regular',
+    ...props
+  },
+  ref
+) => {
   const linkClass = [
     styles.link,
-    styles[isInline ? 'link--inline' : 'link--stack'],
+    styles[`link--${variant}`],
+    styles[isStack ? 'link--stack' : 'link--inline'],
     className,
   ].join(' ');
 
   return (
-    <Link {...props} className={linkClass} disableTransition ref={ref}>
+    <Link
+      {...props}
+      className={linkClass}
+      disableTransition={variant === 'main'}
+      ref={ref}
+    >
       {logo ? <span className={styles.logo}>{logo}</span> : null}
       {label}
     </Link>

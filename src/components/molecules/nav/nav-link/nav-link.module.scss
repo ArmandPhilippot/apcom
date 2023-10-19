@@ -2,60 +2,97 @@
 @use "../../../../styles/abstracts/placeholders";
 
 .link {
-  --draw-border-thickness: #{fun.convert-px(4)};
-  --draw-border-color1: var(--color-primary-light);
-  --draw-border-color2: var(--color-primary-lighter);
+  &--block,
+  &--main,
+  &--regular#{&}--stack {
+    display: flex;
+    place-items: center;
+    place-content: center;
+    row-gap: var(--spacing-2xs);
+  }
 
-  display: flex;
-  flex-flow: row wrap;
-  place-items: center;
-  place-content: center;
-  row-gap: var(--spacing-2xs);
-  min-width: var(--link-min-width, fun.convert-px(80));
-  padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-2xs);
-  background: none;
-  border-radius: 8%;
-  font-size: var(--font-size-sm);
-  font-variant: small-caps;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
+  &--block {
+    padding: var(--spacing-2xs) var(--spacing-xs);
+    font-weight: 500;
+    text-decoration: underline solid transparent 0;
+
+    &:hover,
+    &:focus {
+      background: var(--color-bg-secondary);
+    }
+
+    &:focus {
+      color: var(--color-primary);
+      text-decoration-color: var(--color-primary-light);
+      text-decoration-thickness: 0.25ex;
+    }
+
+    &:active {
+      background: var(--color-bg-tertiary);
+      text-decoration-color: transparent;
+      text-decoration-thickness: 0;
+    }
+  }
+
+  &--main {
+    --draw-border-thickness: #{fun.convert-px(4)};
+    --draw-border-color1: var(--color-primary-light);
+    --draw-border-color2: var(--color-primary-lighter);
+
+    min-width: var(--link-min-width, fun.convert-px(82));
+    padding: var(--spacing-xs);
+    background: none;
+    border-radius: 8%;
+    font-size: var(--font-size-sm);
+    font-variant: small-caps;
+    font-weight: 600;
+    line-height: initial;
+    text-align: center;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      @extend %draw-borders;
+    }
+
+    &:hover {
+      color: var(--color-primary-light);
+    }
+
+    &:focus {
+      color: var(--color-primary-light);
+    }
+
+    &:active {
+      --draw-border-color1: var(--color-primary-dark);
+      --draw-border-color2: var(--color-primary-light);
+
+      color: var(--color-primary-dark);
+
+      @extend %draw-borders;
+    }
+  }
 
   &--inline {
-    width: fit-content;
-
     .logo {
       margin-right: var(--spacing-xs);
     }
   }
 
+  &--inline#{&}--regular {
+    .logo {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
   &--stack {
+    flex-flow: column wrap;
+
     .logo {
       flex: 0 0 100%;
       display: flex;
       place-content: center;
     }
-  }
-
-  &:hover,
-  &:focus {
-    @extend %draw-borders;
-  }
-
-  &:hover {
-    color: var(--color-primary-light);
-  }
-
-  &:focus {
-    color: var(--color-primary-light);
-  }
-
-  &:active {
-    --draw-border-color1: var(--color-primary-dark);
-    --draw-border-color2: var(--color-primary-light);
-
-    color: var(--color-primary-dark);
-
-    @extend %draw-borders;
   }
 }

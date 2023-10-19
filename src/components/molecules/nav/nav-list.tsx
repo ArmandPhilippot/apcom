@@ -49,8 +49,7 @@ export const NavList: FC<NavListProps> = ({
   listClassName = '',
   ...props
 }) => {
-  const kindClass = `nav--${kind}`;
-  const navClass = `${styles.nav} ${styles[kindClass]} ${className}`;
+  const navClass = [styles[`nav--${kind}`], className].join(' ');
 
   /**
    * Get the nav items.
@@ -60,7 +59,7 @@ export const NavList: FC<NavListProps> = ({
     items.map(({ id, href, label, logo }) => (
       <ListItem key={id} className={styles.nav__item}>
         {kind === 'main' ? (
-          <NavLink href={href} label={label} logo={logo} />
+          <NavLink href={href} label={label} logo={logo} variant="main" />
         ) : (
           <Link href={href}>{label}</Link>
         )}

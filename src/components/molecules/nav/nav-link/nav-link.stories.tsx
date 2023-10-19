@@ -49,31 +49,100 @@ const Template: ComponentStory<typeof NavLinkComponent> = (args) => (
 );
 
 /**
- * NavLink Stories - Default
+ * NavLink Stories - Regular
  */
-export const Default = Template.bind({});
-Default.args = {
+export const Regular = Template.bind({});
+Regular.args = {
   href: '#',
   label: 'A nav link',
 };
 
 /**
- * NavLink Stories - StackWithLogo
+ * NavLink Stories - RegularInlineWithLogo
  */
-export const StackWithLogo = Template.bind({});
-StackWithLogo.args = {
+export const RegularInlineWithLogo = Template.bind({});
+RegularInlineWithLogo.args = {
   href: '#example',
+  isStack: false,
   label: 'A nav link',
   logo: <Icon aria-hidden shape="home" />,
 };
 
 /**
- * NavLink Stories - InlineWithLogo
+ * NavLink Stories - RegularStackWithLogo
  */
-export const InlineWithLogo = Template.bind({});
-InlineWithLogo.args = {
+export const RegularStackWithLogo = Template.bind({});
+RegularStackWithLogo.args = {
   href: '#example',
-  isInline: true,
+  isStack: true,
   label: 'A nav link',
   logo: <Icon aria-hidden shape="home" />,
+};
+
+/**
+ * NavLink Stories - Block
+ */
+export const Block = Template.bind({});
+Block.args = {
+  href: '#',
+  label: 'A nav link',
+  variant: 'block',
+};
+
+/**
+ * NavLink Stories - BlockInlineWithLogo
+ */
+export const BlockInlineWithLogo = Template.bind({});
+BlockInlineWithLogo.args = {
+  href: '#example',
+  isStack: false,
+  label: 'A nav link',
+  logo: <Icon aria-hidden shape="home" />,
+  variant: 'block',
+};
+
+/**
+ * NavLink Stories - BlockStackWithLogo
+ */
+export const BlockStackWithLogo = Template.bind({});
+BlockStackWithLogo.args = {
+  href: '#example',
+  isStack: true,
+  label: 'A nav link',
+  logo: <Icon aria-hidden shape="home" />,
+  variant: 'block',
+};
+
+/**
+ * NavLink Stories - Main
+ */
+export const Main = Template.bind({});
+Main.args = {
+  href: '#',
+  label: 'A nav link',
+  variant: 'main',
+};
+
+/**
+ * NavLink Stories - MainInlineWithLogo
+ */
+export const MainInlineWithLogo = Template.bind({});
+MainInlineWithLogo.args = {
+  href: '#example',
+  isStack: false,
+  label: 'A nav link',
+  logo: <Icon aria-hidden shape="home" />,
+  variant: 'main',
+};
+
+/**
+ * NavLink Stories - MainStackWithLogo
+ */
+export const MainStackWithLogo = Template.bind({});
+MainStackWithLogo.args = {
+  href: '#example',
+  isStack: true,
+  label: 'A nav link',
+  logo: <Icon aria-hidden shape="home" />,
+  variant: 'main',
 };
