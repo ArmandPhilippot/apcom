@@ -73,9 +73,9 @@ const Template: ComponentStory<typeof SiteFooterComponent> = (args) => (
 );
 
 const copyright = {
-  dates: { start: '2017', end: '2022' },
+  from: '2017',
   owner: 'Lorem ipsum',
-  icon: <Icon shape="cc-by-sa" />,
+  to: '2022',
 };
 
 const navItems = [{ id: 'legal-notice', href: '#', label: 'Legal notice' }];
@@ -86,6 +86,7 @@ const navItems = [{ id: 'legal-notice', href: '#', label: 'Legal notice' }];
 export const SiteFooter = Template.bind({});
 SiteFooter.args = {
   copyright,
+  license: <Icon shape="cc-by-sa" />,
   navItems,
   topId: 'top',
 };

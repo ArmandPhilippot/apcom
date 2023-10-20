@@ -88,12 +88,9 @@ export const Layout: FC<LayoutProps> = ({
   });
 
   const copyrightData = {
-    dates: {
-      start: copyright.start,
-      end: copyright.end,
-    },
+    from: copyright.start,
     owner: name,
-    icon: <Icon heading={copyrightTitle} shape="cc-by-sa" size="lg" />,
+    to: copyright.end,
   };
 
   const homeLabel = intl.formatMessage({
@@ -321,6 +318,7 @@ export const Layout: FC<LayoutProps> = ({
         backToTopClassName={backToTopClassName}
         className={styles.footer}
         copyright={copyrightData}
+        license={<Icon heading={copyrightTitle} shape="cc-by-sa" size="lg" />}
         navItems={footerNav}
         topId="top"
       />

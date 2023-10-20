@@ -3,9 +3,8 @@ import { render, screen as rtlScreen } from '../../../../tests/utils';
 import { SiteFooter, type SiteFooterProps } from './site-footer';
 
 const copyright: SiteFooterProps['copyright'] = {
-  dates: { start: '2017', end: '2022' },
+  from: '2017',
   owner: 'Lorem ipsum',
-  icon: 'CC',
 };
 
 const navItems: SiteFooterProps['navItems'] = [
@@ -15,8 +14,10 @@ const navItems: SiteFooterProps['navItems'] = [
 describe('SiteFooter', () => {
   it('renders the website copyright', () => {
     render(<SiteFooter copyright={copyright} topId="top" />);
-    expect(rtlScreen.getByText(copyright.owner)).toBeInTheDocument();
-    expect(rtlScreen.getByText(copyright.dates.start)).toBeInTheDocument();
+    expect(
+      rtlScreen.getByText(new RegExp(copyright.owner))
+    ).toBeInTheDocument();
+    expect(rtlScreen.getByText(new RegExp(copyright.from))).toBeInTheDocument();
   });
 
   it('renders a back to top link', () => {

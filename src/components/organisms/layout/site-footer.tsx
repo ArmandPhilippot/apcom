@@ -1,12 +1,14 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
-import { Copyright, type CopyrightProps, Footer } from '../../atoms';
+import { Footer } from '../../atoms';
 import {
   BackToTop,
   type BackToTopProps,
   NavList,
   NavItem,
   NavLink,
+  type CopyrightProps,
+  Copyright,
 } from '../../molecules';
 import styles from './site-footer.module.scss';
 
@@ -30,6 +32,10 @@ export type SiteFooterProps = {
    */
   copyright: CopyrightProps;
   /**
+   * The website license.
+   */
+  license?: ReactNode;
+  /**
    * The footer nav items.
    */
   navItems?: FooterLinks[];
@@ -48,6 +54,7 @@ export const SiteFooter: FC<SiteFooterProps> = ({
   backToTopClassName,
   className = '',
   copyright,
+  license,
   navItems,
   topId,
 }) => {
@@ -68,11 +75,8 @@ export const SiteFooter: FC<SiteFooterProps> = ({
 
   return (
     <Footer className={footerClass}>
-      <Copyright
-        dates={copyright.dates}
-        icon={copyright.icon}
-        owner={copyright.owner}
-      />
+      <Copyright {...copyright} />
+      {license}
       {navItems ? (
         <NavList aria-label={ariaLabel} className={styles.nav} isInline>
           {navItems.map(({ id, ...link }) => (
