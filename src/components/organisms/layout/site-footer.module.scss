@@ -18,17 +18,6 @@
   }
 }
 
-.nav {
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      &::before {
-        content: "\2022";
-        margin-right: var(--spacing-2xs);
-      }
-    }
-  }
-}
-
 .back-to-top {
   position: fixed;
   bottom: calc(var(--toolbar-size, 0px) + var(--spacing-md));

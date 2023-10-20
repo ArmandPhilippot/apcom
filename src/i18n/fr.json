@@ -623,10 +623,6 @@
     "defaultMessage": "Thème sombre",
     "description": "PrismThemeToggle: dark theme label"
   },
-  "pRzkFR": {
-    "defaultMessage": "Pied de page",
-    "description": "SiteFooter: an accessible name for the footer nav"
-  },
   "pT5nHk": {
     "defaultMessage": "Publié le :",
     "description": "HomePage: publication date label"

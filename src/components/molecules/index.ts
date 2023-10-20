@@ -3,6 +3,7 @@ export * from './buttons';
 export * from './card';
 export * from './code';
 export * from './collapsible';
+export * from './colophon';
 export * from './copyright';
 export * from './forms';
 export * from './grid';

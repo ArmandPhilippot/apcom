@@ -7,9 +7,9 @@ const copyright: SiteFooterProps['copyright'] = {
   owner: 'Lorem ipsum',
 };
 
-const navItems: SiteFooterProps['navItems'] = [
+const navItems = [
   { id: 'legal-notice', href: '#', label: 'Legal notice' },
-];
+] satisfies SiteFooterProps['navItems'];
 
 describe('SiteFooter', () => {
   it('renders the website copyright', () => {

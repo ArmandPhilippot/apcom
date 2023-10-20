@@ -4,19 +4,12 @@ import { Footer } from '../../atoms';
 import {
   BackToTop,
   type BackToTopProps,
-  NavList,
-  NavItem,
-  NavLink,
+  Colophon,
+  type ColophonLink,
   type CopyrightProps,
   Copyright,
 } from '../../molecules';
 import styles from './site-footer.module.scss';
-
-export type FooterLinks = {
-  id: string;
-  href: string;
-  label: string;
-};
 
 export type SiteFooterProps = {
   /**
@@ -38,7 +31,7 @@ export type SiteFooterProps = {
   /**
    * The footer nav items.
    */
-  navItems?: FooterLinks[];
+  navItems?: ColophonLink[];
   /**
    * An element id (without hashtag) used as anchor for back to top button.
    */
@@ -59,11 +52,6 @@ export const SiteFooter: FC<SiteFooterProps> = ({
   topId,
 }) => {
   const intl = useIntl();
-  const ariaLabel = intl.formatMessage({
-    defaultMessage: 'Footer',
-    description: 'SiteFooter: an accessible name for the footer nav',
-    id: 'pRzkFR',
-  });
   const backToTop = intl.formatMessage({
     defaultMessage: 'Back to top',
     description: 'SiteFooter: an accessible name for the back to top button',
@@ -75,17 +63,11 @@ export const SiteFooter: FC<SiteFooterProps> = ({
 
   return (
     <Footer className={footerClass}>
-      <Copyright {...copyright} />
-      {license}
-      {navItems ? (
-        <NavList aria-label={ariaLabel} className={styles.nav} isInline>
-          {navItems.map(({ id, ...link }) => (
-            <NavItem key={id}>
-              <NavLink {...link} />
-            </NavItem>
-          ))}
-        </NavList>
-      ) : null}
+      <Colophon
+        copyright={<Copyright {...copyright} />}
+        license={license}
+        links={navItems}
+      />
       <BackToTop
         anchor={backToTopAnchor}
         className={btnClass}
