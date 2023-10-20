@@ -19,9 +19,6 @@
 }
 
 .nav {
-  display: flex;
-  flex-flow: row wrap;
-
   @include mix.media("screen") {
     @include mix.dimensions("sm") {
       &::before {

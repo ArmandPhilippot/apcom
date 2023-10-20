@@ -5,9 +5,16 @@ import {
   BackToTop,
   type BackToTopProps,
   NavList,
-  type NavItem,
+  NavItem,
+  NavLink,
 } from '../../molecules';
 import styles from './site-footer.module.scss';
+
+export type FooterLinks = {
+  id: string;
+  href: string;
+  label: string;
+};
 
 export type SiteFooterProps = {
   /**
@@ -25,7 +32,7 @@ export type SiteFooterProps = {
   /**
    * The footer nav items.
    */
-  navItems?: NavItem[];
+  navItems?: FooterLinks[];
   /**
    * An element id (without hashtag) used as anchor for back to top button.
    */
@@ -67,13 +74,13 @@ export const SiteFooter: FC<SiteFooterProps> = ({
         owner={copyright.owner}
       />
       {navItems ? (
-        <NavList
-          aria-label={ariaLabel}
-          className={styles.nav}
-          items={navItems}
-          // eslint-disable-next-line react/jsx-no-literals -- Kind allowed
-          kind="footer"
-        />
+        <NavList aria-label={ariaLabel} className={styles.nav} isInline>
+          {navItems.map(({ id, ...link }) => (
+            <NavItem key={id}>
+              <NavLink {...link} />
+            </NavItem>
+          ))}
+        </NavList>
       ) : null}
       <BackToTop
         anchor={backToTopAnchor}

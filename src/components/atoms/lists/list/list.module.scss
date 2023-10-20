@@ -1,5 +1,11 @@
 @use "../../../../styles/abstracts/placeholders";
 
+.item {
+  &--no-marker {
+    list-style-type: none;
+  }
+}
+
 .list {
   &--hierarchical {
     @extend %hierarchical-list;

@@ -43,16 +43,6 @@
     }
   }
 
-  .modal__list {
-    display: flex;
-
-    @include mix.media("screen") {
-      @include mix.dimensions("sm", "md") {
-        flex-flow: column;
-      }
-    }
-  }
-
   .checkbox {
     &:checked {
       ~ .label .icon {

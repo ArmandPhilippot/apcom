@@ -124,7 +124,7 @@ const components: MDXComponents = {
   h4: H4,
   h5: H5,
   h6: H6,
-  li: ListItem,
+  li: ({ ref, ...props }) => <ListItem {...props} />,
   Link,
   ol: OrderedList,
   ul: UnorderedList,

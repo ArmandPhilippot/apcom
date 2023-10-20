@@ -1,15 +1,32 @@
-import { forwardRef, type ForwardRefRenderFunction } from 'react';
+import {
+  forwardRef,
+  type ReactNode,
+  type ForwardRefRenderFunction,
+} from 'react';
 import { useIntl } from 'react-intl';
-import { BooleanField, type BooleanFieldProps, Icon, Label } from '../../atoms';
-import { NavList, type NavListProps, type NavItem } from '../../molecules';
+import {
+  BooleanField,
+  type BooleanFieldProps,
+  Icon,
+  Label,
+  Nav,
+} from '../../atoms';
+import { NavList, NavItem, NavLink } from '../../molecules';
 import mainNavStyles from './main-nav.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
+
+export type MainNavItem = {
+  id: string;
+  href: string;
+  label: string;
+  logo?: ReactNode;
+};
 
 export type MainNavProps = {
   /**
    * Set additional classnames to the nav element.
    */
-  className?: NavListProps['className'];
+  className?: string;
   /**
    * The button state.
    */
@@ -17,7 +34,7 @@ export type MainNavProps = {
   /**
    * The main nav items.
    */
-  items: NavItem[];
+  items: MainNavItem[];
   /**
    * A callback function to handle button state.
    */
@@ -59,12 +76,17 @@ const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
       >
         <Icon shape="hamburger" />
       </Label>
-      <NavList
+      <Nav
         className={`${sharedStyles.modal} ${mainNavStyles.modal} ${className}`}
-        items={items}
-        kind="main"
-        listClassName={mainNavStyles.modal__list}
-      />
+      >
+        <NavList isInline spacing="2xs">
+          {items.map(({ id, ...link }) => (
+            <NavItem key={id}>
+              <NavLink {...link} isStack variant="main" />
+            </NavItem>
+          ))}
+        </NavList>
+      </Nav>
     </div>
   );
 };
