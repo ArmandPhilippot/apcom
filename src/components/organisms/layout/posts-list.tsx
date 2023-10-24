@@ -11,7 +11,12 @@ import {
   List,
   ListItem,
 } from '../../atoms';
-import { Pagination, type PaginationProps } from '../../molecules';
+import {
+  Pagination,
+  type PaginationProps,
+  type RenderPaginationItemAriaLabel,
+  type RenderPaginationLink,
+} from '../nav';
 import { NoResults, type NoResultsProps } from './no-results';
 import styles from './posts-list.module.scss';
 import { Summary, type SummaryProps } from './summary';
@@ -25,8 +30,12 @@ export type Post = Omit<SummaryProps, 'titleLevel'> & {
 
 export type YearCollection = Record<string, Post[]>;
 
-export type PostsListProps = Pick<PaginationProps, 'baseUrl' | 'siblings'> &
+export type PostsListProps = Pick<PaginationProps, 'siblings'> &
   Pick<NoResultsProps, 'searchPage'> & {
+    /**
+     * The pagination base url.
+     */
+    baseUrl?: string;
     /**
      * True to display the posts by year. Default: false.
      */
@@ -86,7 +95,7 @@ const sortPostsByYear = (data: Post[]): YearCollection => {
  * Render a list of post summaries.
  */
 export const PostsList: FC<PostsListProps> = ({
-  baseUrl,
+  baseUrl = '',
   byYear = false,
   isLoading = false,
   loadMore,
@@ -164,6 +173,10 @@ export const PostsList: FC<PostsListProps> = ({
     ));
   };
 
+  const loadedPostsCount =
+    pageNumber === 1
+      ? posts.length
+      : pageNumber * blog.postsPerPage + posts.length;
   const progressInfo = intl.formatMessage(
     {
       defaultMessage:
@@ -171,7 +184,10 @@ export const PostsList: FC<PostsListProps> = ({
       description: 'PostsList: loaded articles progress',
       id: '9MeLN3',
     },
-    { articlesCount: posts.length, total }
+    {
+      articlesCount: loadedPostsCount,
+      total,
+    }
   );
 
   const loadMoreBody = intl.formatMessage({
@@ -202,7 +218,7 @@ export const PostsList: FC<PostsListProps> = ({
       <ProgressBar
         aria-label={progressInfo}
         className={styles.progress}
-        current={posts.length}
+        current={loadedPostsCount}
         id={progressBarId}
         isCentered
         isLoading={isLoading}
@@ -223,16 +239,68 @@ export const PostsList: FC<PostsListProps> = ({
     </>
   );
 
+  const paginationAriaLabel = intl.formatMessage({
+    defaultMessage: 'Pagination',
+    description: 'PostsList: pagination accessible name',
+    id: 'k1aA+G',
+  });
+
+  const renderItemAriaLabel: RenderPaginationItemAriaLabel = useCallback(
+    ({ kind, pageNumber: page, isCurrentPage }) => {
+      switch (kind) {
+        case 'backward':
+          return intl.formatMessage({
+            defaultMessage: 'Go to previous page',
+            description: 'PostsList: pagination backward link label',
+            id: 'PHO94k',
+          });
+        case 'forward':
+          return intl.formatMessage({
+            defaultMessage: 'Go to next page',
+            description: 'PostsList: pagination forward link label',
+            id: 'HaKhih',
+          });
+        case 'number':
+        default:
+          return isCurrentPage
+            ? intl.formatMessage(
+                {
+                  defaultMessage: 'Current page, page {number}',
+                  description: 'PostsList: pagination current page label',
+                  id: 'nwDGkZ',
+                },
+                { number: page }
+              )
+            : intl.formatMessage(
+                {
+                  defaultMessage: 'Go to page {number}',
+                  description: 'PostsList: pagination page link label',
+                  id: 'AmHSC4',
+                },
+                { number: page }
+              );
+      }
+    },
+    [intl]
+  );
+
+  const renderLink: RenderPaginationLink = useCallback(
+    (page) => `${baseUrl}${page}`,
+    [baseUrl]
+  );
+
   const getPagination = () => {
-    if (posts.length < blog.postsPerPage) return null;
+    if (total < blog.postsPerPage) return null;
 
     return (
       <Pagination
-        baseUrl={baseUrl}
+        aria-label={paginationAriaLabel}
+        className={styles.pagination}
         current={pageNumber}
-        perPage={blog.postsPerPage}
+        renderItemAriaLabel={renderItemAriaLabel}
+        renderLink={renderLink}
         siblings={siblings}
-        total={total}
+        total={Math.round(total / blog.postsPerPage)}
       />
     );
   };

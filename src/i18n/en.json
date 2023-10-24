@@ -187,6 +187,10 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: page title"
   },
+  "AmHSC4": {
+    "defaultMessage": "Go to page {number}",
+    "description": "PostsList: pagination page link label"
+  },
   "B290Ph": {
     "defaultMessage": "Thanks, your comment was successfully sent.",
     "description": "PageLayout: comment form success message"
@@ -254,6 +258,10 @@
   "HFdzae": {
     "defaultMessage": "Contact form",
     "description": "ContactForm: form accessible name"
+  },
+  "HaKhih": {
+    "defaultMessage": "Go to next page",
+    "description": "PostsList: pagination forward link label"
   },
   "HohQPh": {
     "defaultMessage": "Thematics",
@@ -343,6 +351,10 @@
     "defaultMessage": "{minutesCount} minutes {secondsCount} seconds",
     "description": "useReadingTime: minutes + seconds count"
   },
+  "PHO94k": {
+    "defaultMessage": "Go to previous page",
+    "description": "PostsList: pagination backward link label"
+  },
   "PXp2hv": {
     "defaultMessage": "{websiteName} | Front-end developer: WordPress/React",
     "description": "HomePage: SEO - Page title"
@@ -366,10 +378,6 @@
   "Qh2CwH": {
     "defaultMessage": "Find me elsewhere",
     "description": "ContactPage: social media widget title"
-  },
-  "R4yaW6": {
-    "defaultMessage": "Next page {icon}",
-    "description": "Pagination: Next page link"
   },
   "R895yC": {
     "defaultMessage": "CV",
@@ -402,10 +410,6 @@
   "T4YA64": {
     "defaultMessage": "Subscribe",
     "description": "HomePage: RSS feed subscription text"
-  },
-  "TSXPzr": {
-    "defaultMessage": "<a11y>Page </a11y>{number}",
-    "description": "Pagination: page number"
   },
   "TpyFZ6": {
     "defaultMessage": "An error occurred:",
@@ -491,10 +495,6 @@
     "defaultMessage": "Close menu",
     "description": "MainNav: Close label"
   },
-  "aMFqPH": {
-    "defaultMessage": "{icon} Previous page",
-    "description": "Pagination: previous page link"
-  },
   "azgQuH": {
     "defaultMessage": "You should read {title}",
     "description": "Sharing: subject text"
@@ -579,6 +579,10 @@
     "defaultMessage": "Linux",
     "description": "HomePage: link to Linux thematic"
   },
+  "k1aA+G": {
+    "defaultMessage": "Pagination",
+    "description": "PostsList: pagination accessible name"
+  },
   "kNBXyK": {
     "defaultMessage": "Total:",
     "description": "Page: total label"
@@ -606,6 +610,10 @@
   "nsw6Th": {
     "defaultMessage": "Copied!",
     "description": "usePrism: copy button text (clicked)"
+  },
+  "nwDGkZ": {
+    "defaultMessage": "Current page, page {number}",
+    "description": "PostsList: pagination current page label"
   },
   "nwbzKm": {
     "defaultMessage": "Legal notice",
@@ -754,10 +762,6 @@
   "yB1SPF": {
     "defaultMessage": "CC BY SA",
     "description": "Layout: copyright title"
-  },
-  "yE/Jdz": {
-    "defaultMessage": "You are here:",
-    "description": "Pagination: current page indication"
   },
   "yIZ+AC": {
     "defaultMessage": "Topics:",

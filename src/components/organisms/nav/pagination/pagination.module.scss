@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+  width: fit-content;
+}
+
+.list {
+  place-content: center;
+}
+
+.item {
+  display: flex;
+}

@@ -32,11 +32,12 @@
   color: var(--color-fg-inverted);
   text-shadow: fun.convert-px(2) fun.convert-px(2) 0 var(--color-shadow);
 
-  &:disabled {
+  &:disabled,
+  &[data-disabled="true"] {
     background: var(--color-primary-darker);
   }
 
-  &:not(:disabled) {
+  &:not(:disabled, [data-disabled="true"]) {
     &:hover,
     &:focus {
       background: var(--color-primary-light);
@@ -56,7 +57,8 @@
     }
 
     &:active,
-    &[aria-pressed="true"] {
+    &[aria-pressed="true"],
+    &[aria-current] {
       box-shadow:
         0 0 0 fun.convert-px(2) var(--color-primary),
         0 0 0 fun.convert-px(3) var(--color-primary-darker),
@@ -74,20 +76,22 @@
 %secondary-button {
   background: var(--color-bg);
   border: fun.convert-px(3) solid var(--color-primary);
-  box-shadow:
-    fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) var(--color-shadow),
-    fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
-      var(--color-shadow),
-    fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
-      var(--color-shadow);
   color: var(--color-primary);
 
-  &:disabled {
+  &:disabled,
+  &[data-disabled="true"] {
     border-color: var(--color-border-dark);
     color: var(--color-fg-light);
   }
 
-  &:not(:disabled) {
+  &:not(:disabled, [data-disabled="true"]) {
+    box-shadow:
+      fun.convert-px(1) fun.convert-px(1) fun.convert-px(1) var(--color-shadow),
+      fun.convert-px(1) fun.convert-px(2) fun.convert-px(2) fun.convert-px(-2)
+        var(--color-shadow),
+      fun.convert-px(3) fun.convert-px(4) fun.convert-px(5) fun.convert-px(-4)
+        var(--color-shadow);
+
     &:hover,
     &:focus {
       border-color: var(--color-primary-light);
@@ -109,7 +113,8 @@
     }
 
     &:active,
-    &[aria-pressed="true"] {
+    &[aria-pressed="true"],
+    &[aria-current] {
       box-shadow: 0 0 0 0 var(--color-shadow);
       transform: scale(var(--scale-down, 0.94));
 
@@ -124,14 +129,10 @@
 %tertiary-button {
   background: var(--color-bg);
   border: fun.convert-px(3) solid var(--color-primary);
-  box-shadow:
-    fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-bg),
-    fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-dark),
-    fun.convert-px(5) fun.convert-px(5) 0 0 var(--color-bg),
-    fun.convert-px(6) fun.convert-px(6) 0 0 var(--color-primary-dark);
   color: var(--color-primary);
 
-  &:disabled {
+  &:disabled,
+  &:where([data-disabled="true"]) {
     color: var(--color-fg-light);
     border-color: var(--color-border-dark);
     box-shadow:
@@ -141,7 +142,13 @@
       fun.convert-px(6) fun.convert-px(6) 0 0 var(--color-primary-darker);
   }
 
-  &:not(:disabled) {
+  &:not(:disabled, [data-disabled="true"]) {
+    box-shadow:
+      fun.convert-px(2) fun.convert-px(2) 0 0 var(--color-bg),
+      fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-primary-dark),
+      fun.convert-px(5) fun.convert-px(5) 0 0 var(--color-bg),
+      fun.convert-px(6) fun.convert-px(6) 0 0 var(--color-primary-dark);
+
     &:hover,
     &:focus {
       border-color: var(--color-primary-light);
@@ -169,6 +176,15 @@
       transform: translateX(#{fun.convert-px(5)})
         translateY(#{fun.convert-px(6)});
     }
+  }
+
+  &:not(:disabled, [data-disabled="true"]):where(
+      &:active,
+      &[aria-pressed="true"]
+    ),
+  &[aria-current] {
+    box-shadow: 0 0 0 0 var(--color-shadow);
+    transform: translateX(#{fun.convert-px(5)}) translateY(#{fun.convert-px(6)});
   }
 }
 

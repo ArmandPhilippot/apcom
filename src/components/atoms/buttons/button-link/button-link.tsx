@@ -11,6 +11,14 @@ export type ButtonLinkProps = Omit<
    */
   children: ReactNode;
   /**
+   * Should the link be disabled?
+   *
+   * Be aware, if disable the link will be replaced by a `span` element.
+   *
+   * @default false
+   */
+  isDisabled?: boolean;
+  /**
    * True if it is an external link.
    *
    * @default false
@@ -44,6 +52,7 @@ export const ButtonLink: FC<ButtonLinkProps> = ({
   className = '',
   kind = 'secondary',
   shape = 'rectangle',
+  isDisabled = false,
   isExternal = false,
   rel = '',
   to,
@@ -52,6 +61,14 @@ export const ButtonLink: FC<ButtonLinkProps> = ({
   const kindClass = styles[`btn--${kind}`];
   const shapeClass = styles[`btn--${shape}`];
   const btnClass = `${styles.btn} ${kindClass} ${shapeClass} ${className}`;
+
+  if (isDisabled)
+    return (
+      <span {...props} className={btnClass} data-disabled>
+        {children}
+      </span>
+    );
+
   const linkRel =
     isExternal && !rel.includes('external') ? `external ${rel}` : rel;
 

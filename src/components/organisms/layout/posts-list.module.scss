@@ -24,6 +24,7 @@
 }
 
 .year {
+  margin-bottom: var(--spacing-md);
   padding-bottom: fun.convert-px(3);
   background: linear-gradient(
       to top,
@@ -57,4 +58,9 @@
 
 .progress {
   margin-block: var(--spacing-md);
+}
+
+.pagination {
+  margin-inline: auto;
+  margin-block-end: var(--spacing-lg);
 }

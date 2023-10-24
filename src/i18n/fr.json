@@ -187,6 +187,10 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: page title"
   },
+  "AmHSC4": {
+    "defaultMessage": "Aller à la page {number}",
+    "description": "PostsList: pagination page link label"
+  },
   "B290Ph": {
     "defaultMessage": "Merci, votre commentaire a été envoyé avec succès.",
     "description": "PageLayout: comment form success message"
@@ -254,6 +258,10 @@
   "HFdzae": {
     "defaultMessage": "Formulaire de contact",
     "description": "ContactForm: form accessible name"
+  },
+  "HaKhih": {
+    "defaultMessage": "Aller à la page suivante",
+    "description": "PostsList: pagination forward link label"
   },
   "HohQPh": {
     "defaultMessage": "Thématiques",
@@ -343,6 +351,10 @@
     "defaultMessage": "{minutesCount} minutes {secondsCount} secondes",
     "description": "useReadingTime: minutes + seconds count"
   },
+  "PHO94k": {
+    "defaultMessage": "Aller à la page précédente",
+    "description": "PostsList: pagination backward link label"
+  },
   "PXp2hv": {
     "defaultMessage": "{websiteName} | Intégrateur web - Développeur WordPress / React",
     "description": "HomePage: SEO - Page title"
@@ -366,10 +378,6 @@
   "Qh2CwH": {
     "defaultMessage": "Retrouvez-moi ailleurs",
     "description": "ContactPage: social media widget title"
-  },
-  "R4yaW6": {
-    "defaultMessage": "Page suivante {icon}",
-    "description": "Pagination: Next page link"
   },
   "R895yC": {
     "defaultMessage": "CV",
@@ -402,10 +410,6 @@
   "T4YA64": {
     "defaultMessage": "Vous abonner",
     "description": "HomePage: RSS feed subscription text"
-  },
-  "TSXPzr": {
-    "defaultMessage": "<a11y>Page </a11y>{number}",
-    "description": "Pagination: page number"
   },
   "TpyFZ6": {
     "defaultMessage": "Une erreur est survenue :",
@@ -491,10 +495,6 @@
     "defaultMessage": "Fermer le menu",
     "description": "MainNav: Close label"
   },
-  "aMFqPH": {
-    "defaultMessage": "{icon} Page précédente",
-    "description": "Pagination: previous page link"
-  },
   "azgQuH": {
     "defaultMessage": "Vous devriez lire {title}",
     "description": "Sharing: subject text"
@@ -579,6 +579,10 @@
     "defaultMessage": "Linux",
     "description": "HomePage: link to Linux thematic"
   },
+  "k1aA+G": {
+    "defaultMessage": "Pagination",
+    "description": "PostsList: pagination accessible name"
+  },
   "kNBXyK": {
     "defaultMessage": "Total :",
     "description": "Page: total label"
@@ -606,6 +610,10 @@
   "nsw6Th": {
     "defaultMessage": "Copié !",
     "description": "usePrism: copy button text (clicked)"
+  },
+  "nwDGkZ": {
+    "defaultMessage": "Page actuelle, page {number}",
+    "description": "PostsList: pagination current page label"
   },
   "nwbzKm": {
     "defaultMessage": "Mentions légales",
@@ -754,10 +762,6 @@
   "yB1SPF": {
     "defaultMessage": "CC BY SA",
     "description": "Layout: copyright title"
-  },
-  "yE/Jdz": {
-    "defaultMessage": "Vous êtes ici :",
-    "description": "Pagination: current page indication"
   },
   "yIZ+AC": {
     "defaultMessage": "Sujets :",
