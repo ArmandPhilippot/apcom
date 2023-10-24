@@ -35,10 +35,6 @@
     "defaultMessage": "Suivi :",
     "description": "AckeeToggle: select label"
   },
-  "16zl9Z": {
-    "defaultMessage": "Vous êtes ici :",
-    "description": "Breadcrumb: You are here prefix"
-  },
   "18h/t0": {
     "defaultMessage": "Découvrez les articles d’{websiteName}. Il écrit à propos de développement web, de Linux et du libre essentiellement.",
     "description": "BlogPage: SEO - Meta description"
@@ -62,10 +58,6 @@
   "28GZdv": {
     "defaultMessage": "Projets",
     "description": "Breadcrumb: projects label"
-  },
-  "28nnDY": {
-    "defaultMessage": "Fil d’Ariane",
-    "description": "Breadcrumb: an accessible name for the breadcrumb nav."
   },
   "2D9tB5": {
     "defaultMessage": "Sujets",
@@ -598,6 +590,10 @@
   "lKhTGM": {
     "defaultMessage": "Utilisez Ctrl+c pour copier",
     "description": "usePrism: copy button error text"
+  },
+  "m6a3BD": {
+    "defaultMessage": "Fil d’Ariane",
+    "description": "PageLayout: an accessible name for the breadcrumb nav."
   },
   "nGss/j": {
     "defaultMessage": "Suivi Ackee (analytique)",

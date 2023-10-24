@@ -6,13 +6,11 @@
   @extend %grid;
 
   grid-column: 1 / -1;
+  width: 100%;
   padding: var(--spacing-md) 0;
 
   > * {
     grid-column: 2;
-  }
-
-  &__items {
     font-size: var(--font-size-sm);
   }
 }

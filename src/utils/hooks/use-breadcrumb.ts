@@ -1,10 +1,32 @@
 /* eslint-disable max-statements */
 import { useIntl } from 'react-intl';
 import type { BreadcrumbList } from 'schema-dts';
-import type { BreadcrumbItem } from '../../components';
+import type { BreadcrumbsItem } from '../../components';
 import { ROUTES } from '../constants';
 import { slugify } from '../helpers';
 import { useSettings } from './use-settings';
+
+const isArticle = (url: string) => url.startsWith(`${ROUTES.ARTICLE}/`);
+
+const isHome = (url: string) => url === '/';
+
+const isPageNumber = (url: string) => url.includes('/page/');
+
+const isProject = (url: string) => url.startsWith(`${ROUTES.PROJECTS}/`);
+
+const isSearch = (url: string) => url.startsWith(ROUTES.SEARCH);
+
+const isThematic = (url: string) =>
+  url.startsWith(`${ROUTES.THEMATICS.INDEX}/`);
+
+const isTopic = (url: string) => url.startsWith(`${ROUTES.TOPICS}/`);
+
+const hasBlogAsParent = (url: string) =>
+  isArticle(url) ||
+  isPageNumber(url) ||
+  isSearch(url) ||
+  isThematic(url) ||
+  isTopic(url);
 
 export type useBreadcrumbProps = {
   /**
@@ -21,7 +43,7 @@ export type useBreadcrumbReturn = {
   /**
    * The breadcrumb items.
    */
-  items: BreadcrumbItem[];
+  items: BreadcrumbsItem[];
   /**
    * The breadcrumb JSON schema.
    */
@@ -40,57 +62,54 @@ export const useBreadcrumb = ({
 }: useBreadcrumbProps): useBreadcrumbReturn => {
   const intl = useIntl();
   const { website } = useSettings();
-  const isArticle = url.startsWith(`${ROUTES.ARTICLE}/`);
-  const isHome = url === '/';
-  const isPageNumber = url.includes('/page/');
-  const isProject = url.startsWith(`${ROUTES.PROJECTS}/`);
-  const isSearch = url.startsWith(ROUTES.SEARCH);
-  const isThematic = url.startsWith(`${ROUTES.THEMATICS.INDEX}/`);
-  const isTopic = url.startsWith(`${ROUTES.TOPICS}/`);
+  const labels = {
+    home: intl.formatMessage({
+      defaultMessage: 'Home',
+      description: 'Breadcrumb: home label',
+      id: 'j5k9Fe',
+    }),
+    blog: intl.formatMessage({
+      defaultMessage: 'Blog',
+      description: 'Breadcrumb: blog label',
+      id: 'Es52wh',
+    }),
+    projects: intl.formatMessage({
+      defaultMessage: 'Projects',
+      description: 'Breadcrumb: projects label',
+      id: '28GZdv',
+    }),
+  };
 
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Breadcrumb: home label',
-    id: 'j5k9Fe',
-  });
-  const items: BreadcrumbItem[] = [{ id: 'home', name: homeLabel, url: '/' }];
+  const items: BreadcrumbsItem[] = [
+    { id: 'home', name: labels.home, url: '/' },
+  ];
   const schema: BreadcrumbList['itemListElement'][] = [
     {
       '@type': 'ListItem',
       position: 1,
-      name: homeLabel,
+      name: labels.home,
       item: website.url,
     },
   ];
 
-  if (isHome) return { items, schema };
+  if (isHome(url)) return { items, schema };
 
-  if (isArticle || isPageNumber || isSearch || isThematic || isTopic) {
-    const blogLabel = intl.formatMessage({
-      defaultMessage: 'Blog',
-      description: 'Breadcrumb: blog label',
-      id: 'Es52wh',
-    });
-    items.push({ id: 'blog', name: blogLabel, url: ROUTES.BLOG });
+  if (hasBlogAsParent(url)) {
+    items.push({ id: 'blog', name: labels.blog, url: ROUTES.BLOG });
     schema.push({
       '@type': 'ListItem',
       position: 2,
-      name: blogLabel,
+      name: labels.blog,
       item: `${website.url}${ROUTES.BLOG}`,
     });
   }
 
-  if (isProject) {
-    const projectsLabel = intl.formatMessage({
-      defaultMessage: 'Projects',
-      description: 'Breadcrumb: projects label',
-      id: '28GZdv',
-    });
-    items.push({ id: 'projects', name: projectsLabel, url: ROUTES.PROJECTS });
+  if (isProject(url)) {
+    items.push({ id: 'projects', name: labels.projects, url: ROUTES.PROJECTS });
     schema.push({
       '@type': 'ListItem',
       position: 2,
-      name: projectsLabel,
+      name: labels.projects,
       item: `${website.url}${ROUTES.PROJECTS}`,
     });
   }

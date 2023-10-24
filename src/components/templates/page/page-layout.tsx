@@ -14,8 +14,6 @@ import type { Approved, SendCommentInput, SingleComment } from '../../../types';
 import { useIsMounted } from '../../../utils/hooks';
 import { Heading, Notice, type NoticeKind, Sidebar } from '../../atoms';
 import {
-  Breadcrumb,
-  type BreadcrumbItem,
   PageFooter,
   type PageFooterProps,
   PageHeader,
@@ -27,6 +25,8 @@ import {
   CommentsList,
   type CommentsListProps,
   TableOfContents,
+  Breadcrumbs,
+  type BreadcrumbsItem,
 } from '../../organisms';
 import styles from './page-layout.module.scss';
 
@@ -62,7 +62,7 @@ export type PageLayoutProps = {
   /**
    * The breadcrumb items.
    */
-  breadcrumb: BreadcrumbItem[];
+  breadcrumb: BreadcrumbsItem[];
   /**
    * The breadcrumb JSON schema.
    */
@@ -127,6 +127,11 @@ export const PageLayout: FC<PageLayoutProps> = ({
   withToC = false,
 }) => {
   const intl = useIntl();
+  const breadcrumbsLabel = intl.formatMessage({
+    defaultMessage: 'Breadcrumb',
+    description: 'PageLayout: an accessible name for the breadcrumb nav.',
+    id: 'm6a3BD',
+  });
   const commentsTitle = intl.formatMessage({
     defaultMessage: 'Comments',
     description: 'PageLayout: comments title',
@@ -211,9 +216,9 @@ export const PageLayout: FC<PageLayoutProps> = ({
         id="schema-breadcrumb"
         type="application/ld+json"
       />
-      <Breadcrumb
+      <Breadcrumbs
+        aria-label={breadcrumbsLabel}
         className={styles.breadcrumb}
-        itemClassName={styles.breadcrumb__items}
         items={breadcrumb}
       />
       <PageHeader

@@ -35,10 +35,6 @@
     "defaultMessage": "Tracking:",
     "description": "AckeeToggle: select label"
   },
-  "16zl9Z": {
-    "defaultMessage": "You are here:",
-    "description": "Breadcrumb: You are here prefix"
-  },
   "18h/t0": {
     "defaultMessage": "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
     "description": "BlogPage: SEO - Meta description"
@@ -62,10 +58,6 @@
   "28GZdv": {
     "defaultMessage": "Projects",
     "description": "Breadcrumb: projects label"
-  },
-  "28nnDY": {
-    "defaultMessage": "Breadcrumb",
-    "description": "Breadcrumb: an accessible name for the breadcrumb nav."
   },
   "2D9tB5": {
     "defaultMessage": "Topics",
@@ -598,6 +590,10 @@
   "lKhTGM": {
     "defaultMessage": "Use Ctrl+c to copy",
     "description": "usePrism: copy button error text"
+  },
+  "m6a3BD": {
+    "defaultMessage": "Breadcrumb",
+    "description": "PageLayout: an accessible name for the breadcrumb nav."
   },
   "nGss/j": {
     "defaultMessage": "Ackee tracking (analytics)",
