@@ -291,6 +291,10 @@
     "defaultMessage": "Other thematics",
     "description": "ThematicPage: other thematics list widget title"
   },
+  "Kjj1Zk": {
+    "defaultMessage": "Back to top",
+    "description": "Layout: an accessible name for the back to top button"
+  },
   "KnWeKh": {
     "defaultMessage": "Page not found",
     "description": "Error404Page: page title"
@@ -330,10 +334,6 @@
   "Nx8Jo5": {
     "defaultMessage": "Github profile",
     "description": "ProjectsPage: Github profile link"
-  },
-  "OHvb01": {
-    "defaultMessage": "Back to top",
-    "description": "SiteFooter: an accessible name for the back to top button"
   },
   "OL0Yzx": {
     "defaultMessage": "Publish",

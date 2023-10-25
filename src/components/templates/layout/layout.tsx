@@ -18,15 +18,25 @@ import {
   useScrollPosition,
   useSettings,
 } from '../../../utils/hooks';
-import { ButtonLink, Heading, Icon, Logo, Main } from '../../atoms';
 import {
-  SiteFooter,
-  type SiteFooterProps,
-  SiteHeader,
-  type SiteHeaderProps,
-} from '../../organisms';
+  ButtonLink,
+  Footer,
+  Header,
+  Heading,
+  Icon,
+  Logo,
+  Main,
+} from '../../atoms';
+import {
+  BackToTop,
+  Branding,
+  Colophon,
+  type ColophonLink,
+  Copyright,
+  FlippingLogo,
+} from '../../molecules';
+import { type MainNavItem, Toolbar } from '../../organisms';
 import styles from './layout.module.scss';
-import { FlippingLogo } from 'src/components/molecules';
 
 export type QueryAction = SearchAction & {
   'query-input': string;
@@ -87,12 +97,6 @@ export const Layout: FC<LayoutProps> = ({
     id: 'yB1SPF',
   });
 
-  const copyrightData = {
-    from: copyright.start,
-    owner: name,
-    to: copyright.end,
-  };
-
   const homeLabel = intl.formatMessage({
     defaultMessage: 'Home',
     description: 'Layout: main nav - home link',
@@ -134,8 +138,13 @@ export const Layout: FC<LayoutProps> = ({
     },
     { website: name }
   );
+  const backToTop = intl.formatMessage({
+    defaultMessage: 'Back to top',
+    description: 'Layout: an accessible name for the back to top button',
+    id: 'Kjj1Zk',
+  });
 
-  const mainNav: SiteHeaderProps['nav'] = [
+  const mainNav: MainNavItem[] = [
     {
       id: 'home',
       label: homeLabel,
@@ -174,7 +183,7 @@ export const Layout: FC<LayoutProps> = ({
     id: 'nwbzKm',
   });
 
-  const footerNav: SiteFooterProps['navItems'] = [
+  const footerNav: ColophonLink[] = [
     { id: 'legal-notice', label: legalNoticeLabel, href: ROUTES.LEGAL_NOTICE },
   ];
 
@@ -215,14 +224,14 @@ export const Layout: FC<LayoutProps> = ({
   };
 
   const [backToTopClassName, setBackToTopClassName] = useState<string>(
-    styles['back-to-top--hidden']
+    `${styles['back-to-top']} ${styles['back-to-top--hidden']}`
   );
   const updateBackToTopClassName = () => {
     const visibleBreakpoint = 300;
     setBackToTopClassName(
       window.scrollY > visibleBreakpoint
-        ? styles['back-to-top--visible']
-        : styles['back-to-top--hidden']
+        ? `${styles['back-to-top']} ${styles['back-to-top--visible']}`
+        : `${styles['back-to-top']} ${styles['back-to-top--hidden']}`
     );
   };
 
@@ -265,48 +274,54 @@ export const Layout: FC<LayoutProps> = ({
       <ButtonLink className="screen-reader-text" to="#main">
         {skipToContent}
       </ButtonLink>
-      <SiteHeader
-        // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
-        ackeeStorageKey="ackee-tracking"
-        baseline={
-          <div
-            className={styles.brand__baseline}
-            style={brandingBaselineStyles}
-          >
-            {baseline}
-          </div>
-        }
-        className={styles.header}
-        logo={
-          <FlippingLogo
-            back={<Logo heading={logoTitle} />}
-            className={styles.brand__logo}
-            front={
-              <NextImage
-                alt={photoAltText}
-                height={120}
-                src="/armand-philippot.jpg"
-                width={120}
+      <Header className={styles.header}>
+        <div className={styles.header__body}>
+          <Branding
+            baseline={
+              <div
+                className={styles.brand__baseline}
+                style={brandingBaselineStyles}
+              >
+                {baseline}
+              </div>
+            }
+            logo={
+              <FlippingLogo
+                back={<Logo heading={logoTitle} />}
+                className={styles.brand__logo}
+                front={
+                  <NextImage
+                    alt={photoAltText}
+                    height={120}
+                    src="/armand-philippot.jpg"
+                    width={120}
+                  />
+                }
               />
             }
+            name={
+              <Heading
+                className={styles.brand__title}
+                isFake={!isHome}
+                level={1}
+                style={brandingTitleStyles}
+              >
+                {name}
+              </Heading>
+            }
+            url="/"
           />
-        }
-        // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
-        motionStorageKey="reduced-motion"
-        name={
-          <Heading
-            className={styles.brand__title}
-            isFake={!isHome}
-            level={1}
-            style={brandingTitleStyles}
-          >
-            {name}
-          </Heading>
-        }
-        nav={mainNav}
-        searchPage={ROUTES.SEARCH}
-        url="/"
-      />
+          <Toolbar
+            // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
+            ackeeStorageKey="ackee-tracking"
+            className={styles.toolbar}
+            // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
+            motionStorageKey="reduced-motion"
+            nav={mainNav}
+            searchPage={ROUTES.SEARCH}
+          />
+        </div>
+      </Header>
       <Main id="main" className={styles.main}>
         <article
           className={`${styles[articleGridClass]} ${styles[articleCommentsClass]}`}
@@ -314,14 +329,20 @@ export const Layout: FC<LayoutProps> = ({
           {children}
         </article>
       </Main>
-      <SiteFooter
-        backToTopClassName={backToTopClassName}
-        className={styles.footer}
-        copyright={copyrightData}
-        license={<Icon heading={copyrightTitle} shape="cc-by-sa" size="lg" />}
-        navItems={footerNav}
-        topId="top"
-      />
+      <Footer className={styles.footer}>
+        <Colophon
+          copyright={
+            <Copyright from={copyright.start} owner={name} to={copyright.end} />
+          }
+          license={<Icon heading={copyrightTitle} shape="cc-by-sa" size="lg" />}
+          links={footerNav}
+        />
+        <BackToTop
+          anchor="#top"
+          className={backToTopClassName}
+          label={backToTop}
+        />
+      </Footer>
       <noscript>
         <div className={styles.noscript}>{noScript}</div>
       </noscript>
