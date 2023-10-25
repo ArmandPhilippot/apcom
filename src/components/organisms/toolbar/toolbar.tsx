@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+/* eslint-disable max-statements */
+import { type FC, useState, useCallback } from 'react';
 import { useOnClickOutside, useRouteChange } from '../../../utils/hooks';
-import { MainNav, type MainNavProps } from './main-nav';
+import { MainNavItem, type MainNavItemProps } from './main-nav';
 import { Search, type SearchProps } from './search';
 import { Settings, type SettingsProps } from './settings';
 import styles from './toolbar.module.scss';
@@ -14,7 +15,7 @@ export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
     /**
      * The main nav items.
      */
-    nav: MainNavProps['items'];
+    nav: MainNavItemProps['items'];
   };
 
 /**
@@ -43,23 +44,36 @@ export const Toolbar: FC<ToolbarProps> = ({
     () => isSettingsOpened && setIsSettingsOpened(false)
   );
 
+  const toggleMainNav = useCallback(
+    () => setIsNavOpened((prevState) => !prevState),
+    []
+  );
+  const toggleSearch = useCallback(
+    () => setIsSearchOpened((prevState) => !prevState),
+    []
+  );
+  const toggleSettings = useCallback(
+    () => setIsSettingsOpened((prevState) => !prevState),
+    []
+  );
+
   useRouteChange(() => setIsSearchOpened(false));
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
-      <MainNav
+      <MainNavItem
         className={styles.modal}
         isActive={isNavOpened}
         items={nav}
         ref={mainNavRef}
-        setIsActive={() => setIsNavOpened(!isNavOpened)}
+        setIsActive={toggleMainNav}
       />
       <Search
         className={`${styles.modal} ${styles['modal--search']}`}
         isActive={isSearchOpened}
         ref={searchRef}
         searchPage={searchPage}
-        setIsActive={() => setIsSearchOpened(!isSearchOpened)}
+        setIsActive={toggleSearch}
       />
       <Settings
         ackeeStorageKey={ackeeStorageKey}
@@ -67,7 +81,7 @@ export const Toolbar: FC<ToolbarProps> = ({
         isActive={isSettingsOpened}
         motionStorageKey={motionStorageKey}
         ref={settingsRef}
-        setIsActive={() => setIsSettingsOpened(!isSettingsOpened)}
+        setIsActive={toggleSettings}
       />
     </div>
   );

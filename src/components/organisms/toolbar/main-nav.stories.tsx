@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useState } from 'react';
-import { MainNav } from './main-nav';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useCallback, useState } from 'react';
+import { MainNavItem } from './main-nav';
 
 /**
- * MainNav - Storybook Meta
+ * MainNavItem - Storybook Meta
  */
 export default {
-  title: 'Organisms/Toolbar/MainNav',
-  component: MainNav,
+  title: 'Organisms/Toolbar/MainNavItem',
+  component: MainNavItem,
   argTypes: {
     className: {
       control: {
@@ -54,28 +54,24 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof MainNav>;
+} as ComponentMeta<typeof MainNavItem>;
 
-const Template: ComponentStory<typeof MainNav> = ({
+const Template: ComponentStory<typeof MainNavItem> = ({
   isActive = false,
   setIsActive: _setIsActive,
   ...args
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return (
-    <MainNav
-      isActive={isOpen}
-      setIsActive={() => {
-        setIsOpen(!isOpen);
-      }}
-      {...args}
-    />
-  );
+  const toggle = useCallback(() => {
+    setIsOpen((prevState) => !prevState);
+  }, []);
+
+  return <MainNavItem isActive={isOpen} setIsActive={toggle} {...args} />;
 };
 
 /**
- * MainNav Stories - Inactive
+ * MainNavItem Stories - Inactive
  */
 export const Inactive = Template.bind({});
 Inactive.args = {
@@ -87,7 +83,7 @@ Inactive.args = {
 };
 
 /**
- * MainNav Stories - Active
+ * MainNavItem Stories - Active
  */
 export const Active = Template.bind({});
 Active.args = {

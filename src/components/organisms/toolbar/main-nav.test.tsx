@@ -1,6 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
-import { MainNav } from './main-nav';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
+import { MainNavItem } from './main-nav';
+
+const doNothing = () => {
+  // do nothing
+};
 
 const items = [
   { id: 'home', label: 'Home', href: '/' },
@@ -8,27 +12,34 @@ const items = [
   { id: 'contact', label: 'Contact', href: '/contact' },
 ];
 
-describe('MainNav', () => {
+describe('MainNavItem', () => {
   it('renders a checkbox to open main nav', () => {
-    render(<MainNav items={items} isActive={false} setIsActive={() => null} />);
-    expect(screen.getByRole('checkbox')).toHaveAccessibleName('Open menu');
+    render(
+      <MainNavItem items={items} isActive={false} setIsActive={doNothing} />
+    );
+    expect(rtlScreen.getByRole('checkbox')).toHaveAccessibleName('Open menu');
   });
 
   it('renders a checkbox to close main nav', () => {
-    render(<MainNav items={items} isActive={true} setIsActive={() => null} />);
-    expect(screen.getByRole('checkbox')).toHaveAccessibleName('Close menu');
+    render(
+      <MainNavItem items={items} isActive={true} setIsActive={doNothing} />
+    );
+    expect(rtlScreen.getByRole('checkbox')).toHaveAccessibleName('Close menu');
   });
 
   it('renders the correct number of items', () => {
-    render(<MainNav items={items} isActive={true} setIsActive={() => null} />);
-    expect(screen.getAllByRole('listitem')).toHaveLength(items.length);
+    render(
+      <MainNavItem items={items} isActive={true} setIsActive={doNothing} />
+    );
+    expect(rtlScreen.getAllByRole('listitem')).toHaveLength(items.length);
   });
 
   it('renders some links with the right label', () => {
-    render(<MainNav items={items} isActive={true} setIsActive={() => null} />);
-    expect(screen.getByRole('link', { name: items[0].label })).toHaveAttribute(
-      'href',
-      items[0].href
+    render(
+      <MainNavItem items={items} isActive={true} setIsActive={doNothing} />
     );
+    expect(
+      rtlScreen.getByRole('link', { name: items[0].label })
+    ).toHaveAttribute('href', items[0].href);
   });
 });

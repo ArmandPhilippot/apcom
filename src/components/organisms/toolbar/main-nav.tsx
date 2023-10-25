@@ -1,28 +1,11 @@
-import {
-  forwardRef,
-  type ReactNode,
-  type ForwardRefRenderFunction,
-} from 'react';
+import { forwardRef, type ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import {
-  BooleanField,
-  type BooleanFieldProps,
-  Icon,
-  Label,
-  Nav,
-} from '../../atoms';
-import { NavList, NavItem, NavLink } from '../../molecules';
+import { BooleanField, type BooleanFieldProps, Icon, Label } from '../../atoms';
+import { type MainNavItem as Item, MainNav } from '../nav';
 import mainNavStyles from './main-nav.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
 
-export type MainNavItem = {
-  id: string;
-  href: string;
-  label: string;
-  logo?: ReactNode;
-};
-
-export type MainNavProps = {
+export type MainNavItemProps = {
   /**
    * Set additional classnames to the nav element.
    */
@@ -34,17 +17,17 @@ export type MainNavProps = {
   /**
    * The main nav items.
    */
-  items: MainNavItem[];
+  items: Item[];
   /**
    * A callback function to handle button state.
    */
   setIsActive: BooleanFieldProps['onChange'];
 };
 
-const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
-  { className = '', isActive = false, items, setIsActive },
-  ref
-) => {
+const MainNavItemWithRef: ForwardRefRenderFunction<
+  HTMLDivElement,
+  MainNavItemProps
+> = ({ className = '', isActive = false, items, setIsActive }, ref) => {
   const intl = useIntl();
   const label = isActive
     ? intl.formatMessage({
@@ -76,24 +59,17 @@ const MainNavWithRef: ForwardRefRenderFunction<HTMLDivElement, MainNavProps> = (
       >
         <Icon shape="hamburger" />
       </Label>
-      <Nav
+      <MainNav
         className={`${sharedStyles.modal} ${mainNavStyles.modal} ${className}`}
-      >
-        <NavList isInline spacing="2xs">
-          {items.map(({ id, ...link }) => (
-            <NavItem key={id}>
-              <NavLink {...link} isStack variant="main" />
-            </NavItem>
-          ))}
-        </NavList>
-      </Nav>
+        items={items}
+      />
     </div>
   );
 };
 
 /**
- * MainNav component
+ * MainNavItem component
  *
- * Render the main navigation.
+ * Render the main navigation as toolbar item.
  */
-export const MainNav = forwardRef(MainNavWithRef);
+export const MainNavItem = forwardRef(MainNavItemWithRef);

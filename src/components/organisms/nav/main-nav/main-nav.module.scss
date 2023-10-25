@@ -1,0 +1,40 @@
+@use "../../../../styles/abstracts/functions" as fun;
+@use "../../../../styles/abstracts/mixins" as mix;
+
+.modal {
+  @include mix.dimensions("md") {
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.checkbox {
+  &:not(:checked) {
+    ~ .modal {
+      opacity: 0;
+      visibility: hidden;
+
+      @include mix.media("screen") {
+        @include mix.dimensions(null, "sm") {
+          transform: translateX(-100vw);
+        }
+
+        @include mix.dimensions("sm") {
+          transform: perspective(#{fun.convert-px(400)})
+            translate3d(0, 0, #{fun.convert-px(-400)});
+          transform-origin: 100% -50%;
+        }
+      }
+
+      @include mix.media("screen") {
+        @include mix.dimensions("md") {
+          opacity: 1;
+          visibility: visible;
+          transform: none;
+        }
+      }
+    }
+  }
+}
