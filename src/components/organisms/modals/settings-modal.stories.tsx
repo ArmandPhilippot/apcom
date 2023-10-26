@@ -1,6 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { storageKey as ackeeStorageKey } from '../../organisms/forms/ackee-toggle/ackee-toggle.fixture';
-import { storageKey as motionStorageKey } from '../../organisms/forms/motion-toggle/motion-toggle.fixture';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { storageKey as motionStorageKey } from '../forms/motion-toggle/motion-toggle.fixture';
 import { SettingsModal } from './settings-modal';
 
 /**
@@ -10,16 +9,6 @@ export default {
   title: 'Organisms/Modals',
   component: SettingsModal,
   argTypes: {
-    ackeeStorageKey: {
-      control: {
-        type: 'text',
-      },
-      description: 'A local storage key for Ackee.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
     className: {
       control: {
         type: 'text',
@@ -71,6 +60,5 @@ const Template: ComponentStory<typeof SettingsModal> = (args) => (
  */
 export const Settings = Template.bind({});
 Settings.args = {
-  ackeeStorageKey,
   motionStorageKey,
 };

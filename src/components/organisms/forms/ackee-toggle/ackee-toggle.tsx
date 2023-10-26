@@ -1,11 +1,7 @@
 /* eslint-disable max-statements */
-import { type ChangeEvent, type FC, useState, useCallback } from 'react';
+import { type FC, useState, useCallback } from 'react';
 import { useIntl } from 'react-intl';
-import {
-  type AckeeOptions,
-  useLocalStorage,
-  useUpdateAckeeOptions,
-} from '../../../../utils/hooks';
+import { useAckee } from '../../../../utils/hooks';
 import { Legend, List, ListItem } from '../../../atoms';
 import {
   Switch,
@@ -15,48 +11,21 @@ import {
   type TooltipProps,
 } from '../../../molecules';
 
-const validator = (value: unknown): value is AckeeOptions =>
-  value === 'full' || value === 'partial';
-
 export type AckeeToggleProps = Omit<
   SwitchProps,
-  'isInline' | 'items' | 'name' | 'onSwitch' | 'value'
+  'defaultValue' | 'isInline' | 'items' | 'name' | 'onSwitch' | 'value'
 > &
-  Pick<TooltipProps, 'direction'> & {
-    /**
-     * Set additional classnames to the toggle wrapper.
-     */
-    className?: string;
-    /**
-     * True if motion should be reduced by default.
-     */
-    defaultValue: AckeeOptions;
-    /**
-     * The local storage key to save preference.
-     */
-    storageKey: string;
-  };
+  Pick<TooltipProps, 'direction'>;
 
 /**
  * AckeeToggle component
  *
  * Render a Toggle component to set reduce motion.
  */
-export const AckeeToggle: FC<AckeeToggleProps> = ({
-  defaultValue,
-  direction,
-  storageKey,
-  ...props
-}) => {
+export const AckeeToggle: FC<AckeeToggleProps> = ({ direction, ...props }) => {
   const intl = useIntl();
-  const [value, setValue] = useLocalStorage(
-    storageKey,
-    defaultValue,
-    validator
-  );
+  const [tracking, toggleTracking] = useAckee();
   const [isTooltipOpened, setIsTooltipOpened] = useState(false);
-
-  useUpdateAckeeOptions(value);
 
   const ackeeLabel = intl.formatMessage({
     defaultMessage: 'Tracking:',
@@ -95,13 +64,6 @@ export const AckeeToggle: FC<AckeeToggleProps> = ({
     { id: 'ackee-partial' as const, label: partialLabel, value: 'partial' },
   ] satisfies [SwitchOption, SwitchOption];
 
-  const updateSetting = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value === 'full' ? 'full' : 'partial');
-    },
-    [setValue]
-  );
-
   const closeTooltip = useCallback(() => {
     setIsTooltipOpened(false);
   }, []);
@@ -116,7 +78,7 @@ export const AckeeToggle: FC<AckeeToggleProps> = ({
       items={options}
       legend={<Legend>{ackeeLabel}</Legend>}
       name="ackee"
-      onSwitch={updateSetting}
+      onSwitch={toggleTracking}
       tooltip={
         <Tooltip
           direction={direction}
@@ -134,7 +96,7 @@ export const AckeeToggle: FC<AckeeToggleProps> = ({
           </List>
         </Tooltip>
       }
-      value={value}
+      value={tracking}
     />
   );
 };

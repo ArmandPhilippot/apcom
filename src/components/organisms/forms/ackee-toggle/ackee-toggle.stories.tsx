@@ -1,6 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { AckeeToggle } from './ackee-toggle';
-import { storageKey } from './ackee-toggle.fixture';
 
 /**
  * AckeeToggle - Storybook Meta
@@ -41,7 +40,4 @@ const Template: ComponentStory<typeof AckeeToggle> = (args) => (
  * Toggle Stories - Ackee
  */
 export const Ackee = Template.bind({});
-Ackee.args = {
-  defaultValue: 'full',
-  storageKey,
-};
+Ackee.args = {};

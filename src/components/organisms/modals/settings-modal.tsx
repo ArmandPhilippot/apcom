@@ -3,7 +3,6 @@ import { useIntl } from 'react-intl';
 import { Form, Heading, Icon, Modal, type ModalProps } from '../../atoms';
 import {
   AckeeToggle,
-  type AckeeToggleProps,
   MotionToggle,
   type MotionToggleProps,
   PrismThemeToggle,
@@ -12,10 +11,6 @@ import {
 import styles from './settings-modal.module.scss';
 
 export type SettingsModalProps = Pick<ModalProps, 'className'> & {
-  /**
-   * The local storage key for Ackee settings.
-   */
-  ackeeStorageKey: AckeeToggleProps['storageKey'];
   /**
    * The local storage key for Reduce motion settings.
    */
@@ -29,7 +24,6 @@ export type SettingsModalProps = Pick<ModalProps, 'className'> & {
  */
 export const SettingsModal: FC<SettingsModalProps> = ({
   className = '',
-  ackeeStorageKey,
   motionStorageKey,
 }) => {
   const intl = useIntl();
@@ -70,12 +64,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
           defaultValue="on"
           storageKey={motionStorageKey}
         />
-        <AckeeToggle
-          className={styles.item}
-          direction="upwards"
-          defaultValue="full"
-          storageKey={ackeeStorageKey}
-        />
+        <AckeeToggle className={styles.item} direction="upwards" />
       </Form>
     </Modal>
   );

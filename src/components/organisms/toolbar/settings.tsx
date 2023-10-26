@@ -20,13 +20,7 @@ const SettingsWithRef: ForwardRefRenderFunction<
   HTMLDivElement,
   SettingsProps
 > = (
-  {
-    ackeeStorageKey,
-    className = '',
-    isActive = false,
-    motionStorageKey,
-    setIsActive,
-  },
+  { className = '', isActive = false, motionStorageKey, setIsActive },
   ref
 ) => {
   const intl = useIntl();
@@ -61,7 +55,6 @@ const SettingsWithRef: ForwardRefRenderFunction<
         label={label}
       />
       <SettingsModal
-        ackeeStorageKey={ackeeStorageKey}
         className={`${styles.modal} ${className}`}
         motionStorageKey={motionStorageKey}
       />

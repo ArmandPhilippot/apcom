@@ -1,12 +1,13 @@
 import type { Decorator, Preview } from '@storybook/react';
 import { ThemeProvider, useTheme } from 'next-themes';
+import { useDarkMode } from 'storybook-dark-mode';
 import { FC, ReactNode, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { useDarkMode } from 'storybook-dark-mode';
+import { AckeeProvider } from '../src/utils/providers';
+import '../src/styles/globals.scss';
 import { DocsContainer } from './overrides/docs-container';
 import dark from './themes/dark';
 import light from './themes/light';
-import '../src/styles/globals.scss';
 
 type ThemeWrapperProps = {
   children: ReactNode;
@@ -32,9 +33,16 @@ const withAllProviders: Decorator = (Story) => {
         enableColorScheme={true}
         enableSystem={true}
       >
-        <ThemeWrapper>
-          <Story />
-        </ThemeWrapper>
+        <AckeeProvider
+          domainId="any"
+          server="https://example.com"
+          storageKey="ackee"
+          tracking="full"
+        >
+          <ThemeWrapper>
+            <Story />
+          </ThemeWrapper>
+        </AckeeProvider>
       </ThemeProvider>
     </IntlProvider>
   );

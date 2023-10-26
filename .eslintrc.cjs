@@ -623,5 +623,11 @@ module.exports = {
         'react/jsx-no-literals': 'off',
       },
     },
+    {
+      files: ['tests/**'],
+      rules: {
+        'react/jsx-no-literals': 'off',
+      },
+    },
   ],
 };

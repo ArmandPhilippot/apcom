@@ -1,7 +1,11 @@
-import { render, RenderOptions } from '@testing-library/react';
+import {
+  render as rtlRender,
+  type RenderOptions,
+} from '@testing-library/react';
 import { ThemeProvider } from 'next-themes';
-import { FC, ReactElement, ReactNode } from 'react';
+import type { FC, ReactElement, ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
+import { AckeeProvider } from '../../src/utils/providers';
 
 type ProvidersConfig = {
   children: ReactNode;
@@ -18,13 +22,20 @@ type CustomRenderOptions = {
  *
  * @returns A component wrapped Intl and Theme providers.
  */
-const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => {
-  return (
-    <IntlProvider locale={locale}>
-      <ThemeProvider>{children}</ThemeProvider>
-    </IntlProvider>
-  );
-};
+const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => (
+  <IntlProvider locale={locale}>
+    <ThemeProvider>
+      <AckeeProvider
+        domainId="any-id"
+        server="https://example.test"
+        storageKey="ackee"
+        tracking="full"
+      >
+        {children}
+      </AckeeProvider>
+    </ThemeProvider>
+  </IntlProvider>
+);
 
 /**
  * Render a component with all the providers.
@@ -33,11 +44,12 @@ const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => {
  * @param {CustomRenderOptions} [options] - An object of render options and providers options.
  * @returns A React component wrapped with all the providers.
  */
-const customRender = (ui: ReactElement, options?: CustomRenderOptions) =>
-  render(ui, {
+const render = (ui: ReactElement, options?: CustomRenderOptions) =>
+  rtlRender(ui, {
     wrapper: (props) => <AllTheProviders {...props} {...options?.providers} />,
     ...options?.testingLibrary,
   });
 
+/* eslint-disable import/export */
 export * from '@testing-library/react';
-export { customRender as render };
+export { render };

@@ -137,3 +137,5 @@ export type Position = 'bottom' | 'center' | 'left' | 'right' | 'top';
 export type Spacing = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 export type Validator<T> = (value: unknown) => value is T;
+
+export type AckeeTrackerValue = 'full' | 'partial';

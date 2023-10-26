@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Toolbar as ToolbarComponent } from './toolbar';
 
 /**
@@ -8,21 +8,10 @@ export default {
   title: 'Organisms/Toolbar',
   component: ToolbarComponent,
   args: {
-    ackeeStorageKey: 'ackee-tracking',
     motionStorageKey: 'reduced-motion',
     searchPage: '#',
   },
   argTypes: {
-    ackeeStorageKey: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set Ackee settings local storage key.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
     className: {
       control: {
         type: 'text',

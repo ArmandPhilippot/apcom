@@ -30,3 +30,7 @@ export const ROUTES = {
 } as const;
 
 // cSpell:ignore legales thematique developpement
+
+export const STORAGE_KEY = {
+  ACKEE: 'ackee-tracking',
+} as const;

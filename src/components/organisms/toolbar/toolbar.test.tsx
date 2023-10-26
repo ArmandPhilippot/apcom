@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
 import { Toolbar } from './toolbar';
 
 const nav = [
@@ -12,13 +12,8 @@ const nav = [
 describe('Toolbar', () => {
   it('renders a navigation menu', () => {
     render(
-      <Toolbar
-        ackeeStorageKey="ackee-tracking"
-        motionStorageKey="reduced-motion"
-        nav={nav}
-        searchPage="#"
-      />
+      <Toolbar motionStorageKey="reduced-motion" nav={nav} searchPage="#" />
     );
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('navigation')).toBeInTheDocument();
   });
 });

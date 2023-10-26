@@ -312,8 +312,6 @@ export const Layout: FC<LayoutProps> = ({
             url="/"
           />
           <Toolbar
-            // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
-            ackeeStorageKey="ackee-tracking"
             className={styles.toolbar}
             // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
             motionStorageKey="reduced-motion"

@@ -7,7 +7,7 @@ import { Settings, type SettingsProps } from './settings';
 import styles from './toolbar.module.scss';
 
 export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
-  Pick<SettingsProps, 'ackeeStorageKey' | 'motionStorageKey'> & {
+  Pick<SettingsProps, 'motionStorageKey'> & {
     /**
      * Set additional classnames to the toolbar wrapper.
      */
@@ -24,7 +24,6 @@ export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
  * Render the website toolbar.
  */
 export const Toolbar: FC<ToolbarProps> = ({
-  ackeeStorageKey,
   className = '',
   motionStorageKey,
   nav,
@@ -76,7 +75,6 @@ export const Toolbar: FC<ToolbarProps> = ({
         setIsActive={toggleSearch}
       />
       <Settings
-        ackeeStorageKey={ackeeStorageKey}
         className={`${styles.modal} ${styles['modal--settings']}`}
         isActive={isSettingsOpened}
         motionStorageKey={motionStorageKey}

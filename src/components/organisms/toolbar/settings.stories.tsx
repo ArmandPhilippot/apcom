@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useState } from 'react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useCallback, useState } from 'react';
 import { Settings } from './settings';
 
 /**
@@ -9,20 +9,9 @@ export default {
   title: 'Organisms/Toolbar/Settings',
   component: Settings,
   args: {
-    ackeeStorageKey: 'ackee-tracking',
     motionStorageKey: 'reduced-motion',
   },
   argTypes: {
-    ackeeStorageKey: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set Ackee settings local storage key.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
     className: {
       control: {
         type: 'text',
@@ -92,15 +81,11 @@ const Template: ComponentStory<typeof Settings> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isActive);
 
-  return (
-    <Settings
-      isActive={isOpen}
-      setIsActive={() => {
-        setIsOpen(!isOpen);
-      }}
-      {...args}
-    />
-  );
+  const toggle = useCallback(() => {
+    setIsOpen((prevState) => !prevState);
+  }, []);
+
+  return <Settings isActive={isOpen} setIsActive={toggle} {...args} />;
 };
 
 /**

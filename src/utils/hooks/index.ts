@@ -1,3 +1,4 @@
+export * from './use-ackee';
 export * from './use-add-classname';
 export * from './use-article';
 export * from './use-attributes';
@@ -20,4 +21,3 @@ export * from './use-route-change';
 export * from './use-scroll-position';
 export * from './use-settings';
 export * from './use-state-change';
-export * from './use-update-ackee-options';
