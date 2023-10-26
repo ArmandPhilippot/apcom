@@ -10,6 +10,9 @@ import {
 
 export type MotionToggleValue = 'on' | 'off';
 
+const validator = (value: unknown): value is boolean =>
+  typeof value === 'boolean';
+
 export type MotionToggleProps = Omit<
   SwitchProps,
   'isInline' | 'items' | 'name' | 'onSwitch' | 'value'
@@ -17,7 +20,7 @@ export type MotionToggleProps = Omit<
   /**
    * True if motion should be reduced by default.
    */
-  defaultValue: 'on' | 'off';
+  defaultValue: MotionToggleValue;
   /**
    * The local storage key to save preference.
    */
@@ -35,9 +38,10 @@ export const MotionToggle: FC<MotionToggleProps> = ({
   ...props
 }) => {
   const intl = useIntl();
-  const { value: isReduced, setValue: setIsReduced } = useLocalStorage<boolean>(
+  const [isReduced, setIsReduced] = useLocalStorage(
     storageKey,
-    defaultValue !== 'on'
+    defaultValue !== 'on',
+    validator
   );
   useAttributes({
     element:

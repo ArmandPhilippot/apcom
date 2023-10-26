@@ -135,3 +135,5 @@ export type Position = 'bottom' | 'center' | 'left' | 'right' | 'top';
 
 /** Spacing keys defined has CSS variables */
 export type Spacing = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+
+export type Validator<T> = (value: unknown) => value is T;

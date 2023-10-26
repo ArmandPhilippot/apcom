@@ -1,11 +1,13 @@
+/* eslint-disable max-statements */
 import {
   createContext,
-  FC,
-  ReactNode,
+  type FC,
+  type ReactNode,
   useCallback,
   useContext,
   useEffect,
   useState,
+  useMemo,
 } from 'react';
 import { useAttributes, useLocalStorage, useQuerySelectorAll } from '../hooks';
 
@@ -42,12 +44,9 @@ export const usePrismTheme = () => useContext(PrismThemeContext);
  * @returns {boolean|undefined} True if `prefers-color-scheme` is set to `dark`.
  */
 const prefersDarkScheme = (): boolean | undefined => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined') return undefined;
 
-  return (
-    window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
 /**
@@ -56,25 +55,33 @@ const prefersDarkScheme = (): boolean | undefined => {
  * @param {string} theme - A string.
  * @returns {boolean} True if the given string match a Prism theme name.
  */
-const isValidTheme = (theme: string): boolean => {
-  return theme === 'dark' || theme === 'light' || theme === 'system';
-};
+const isValidTheme = (theme: string): boolean =>
+  theme === 'dark' || theme === 'light' || theme === 'system';
+
+const defaultThemes = ['dark', 'light', 'system'] satisfies PrismTheme[];
+
+const validator = (value: unknown): value is PrismTheme =>
+  typeof value === 'string' && (defaultThemes as string[]).includes(value);
 
 export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
   attribute = 'data-prismjs-color-scheme-current',
   storageKey = 'prismjs-color-scheme',
-  themes = ['dark', 'light', 'system'],
+  themes = defaultThemes,
   children,
 }) => {
   /**
    * Retrieve the theme to use depending on `prefers-color-scheme`.
    */
   const getThemeFromSystem = useCallback(() => {
-    return prefersDarkScheme() ? 'dark' : 'light';
+    if (prefersDarkScheme()) return 'dark';
+    return 'light';
   }, []);
 
-  const { value: prismTheme, setValue: setPrismTheme } =
-    useLocalStorage<PrismTheme>(storageKey, 'system');
+  const [prismTheme, setPrismTheme] = useLocalStorage<PrismTheme>(
+    storageKey,
+    'system',
+    validator
+  );
 
   useEffect(() => {
     if (!isValidTheme(prismTheme)) setPrismTheme('system');
@@ -113,10 +120,10 @@ export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
    */
   const listenAttributeChange = useCallback(
     (pre: HTMLPreElement) => {
-      var observer = new MutationObserver(function (mutations) {
+      const observer = new MutationObserver((mutations) => {
         mutations.forEach((record) => {
-          var mutatedPre = record.target as HTMLPreElement;
-          var newTheme = mutatedPre.getAttribute(attribute) as PrismTheme;
+          const mutatedPre = record.target as HTMLPreElement;
+          const newTheme = mutatedPre.getAttribute(attribute) as PrismTheme;
           setPrismTheme(newTheme);
         });
       });
@@ -133,16 +140,18 @@ export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
     preTags.forEach(listenAttributeChange);
   }, [preTags, listenAttributeChange]);
 
+  const value = useMemo(() => {
+    return {
+      themes,
+      theme: prismTheme,
+      setTheme: setPrismTheme,
+      codeBlocks: preTags,
+      resolvedTheme,
+    };
+  }, [preTags, prismTheme, resolvedTheme, setPrismTheme, themes]);
+
   return (
-    <PrismThemeContext.Provider
-      value={{
-        themes,
-        theme: prismTheme,
-        setTheme: setPrismTheme,
-        codeBlocks: preTags,
-        resolvedTheme,
-      }}
-    >
+    <PrismThemeContext.Provider value={value}>
       {children}
     </PrismThemeContext.Provider>
   );

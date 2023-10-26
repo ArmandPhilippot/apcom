@@ -15,6 +15,9 @@ import {
   type TooltipProps,
 } from '../../../molecules';
 
+const validator = (value: unknown): value is AckeeOptions =>
+  value === 'full' || value === 'partial';
+
 export type AckeeToggleProps = Omit<
   SwitchProps,
   'isInline' | 'items' | 'name' | 'onSwitch' | 'value'
@@ -46,9 +49,10 @@ export const AckeeToggle: FC<AckeeToggleProps> = ({
   ...props
 }) => {
   const intl = useIntl();
-  const { value, setValue } = useLocalStorage<AckeeOptions>(
+  const [value, setValue] = useLocalStorage(
     storageKey,
-    defaultValue
+    defaultValue,
+    validator
   );
   const [isTooltipOpened, setIsTooltipOpened] = useState(false);
 
