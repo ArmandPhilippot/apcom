@@ -4,28 +4,19 @@ import { Form, Heading, Icon, Modal, type ModalProps } from '../../atoms';
 import {
   AckeeToggle,
   MotionToggle,
-  type MotionToggleProps,
   PrismThemeToggle,
   ThemeToggle,
 } from '../forms';
 import styles from './settings-modal.module.scss';
 
-export type SettingsModalProps = Pick<ModalProps, 'className'> & {
-  /**
-   * The local storage key for Reduce motion settings.
-   */
-  motionStorageKey: MotionToggleProps['storageKey'];
-};
+export type SettingsModalProps = Pick<ModalProps, 'className'>;
 
 /**
  * SettingsModal component
  *
  * Render a modal with settings options.
  */
-export const SettingsModal: FC<SettingsModalProps> = ({
-  className = '',
-  motionStorageKey,
-}) => {
+export const SettingsModal: FC<SettingsModalProps> = ({ className = '' }) => {
   const intl = useIntl();
   const title = intl.formatMessage({
     defaultMessage: 'Settings',
@@ -59,11 +50,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
       >
         <ThemeToggle className={styles.item} />
         <PrismThemeToggle className={styles.item} />
-        <MotionToggle
-          className={styles.item}
-          defaultValue="on"
-          storageKey={motionStorageKey}
-        />
+        <MotionToggle className={styles.item} />
         <AckeeToggle className={styles.item} direction="upwards" />
       </Form>
     </Modal>

@@ -19,10 +19,7 @@ export type SettingsProps = SettingsModalProps & {
 const SettingsWithRef: ForwardRefRenderFunction<
   HTMLDivElement,
   SettingsProps
-> = (
-  { className = '', isActive = false, motionStorageKey, setIsActive },
-  ref
-) => {
+> = ({ className = '', isActive = false, setIsActive }, ref) => {
   const intl = useIntl();
   const label = isActive
     ? intl.formatMessage({
@@ -54,10 +51,7 @@ const SettingsWithRef: ForwardRefRenderFunction<
         isActive={isActive}
         label={label}
       />
-      <SettingsModal
-        className={`${styles.modal} ${className}`}
-        motionStorageKey={motionStorageKey}
-      />
+      <SettingsModal className={`${styles.modal} ${className}`} />
     </div>
   );
 };

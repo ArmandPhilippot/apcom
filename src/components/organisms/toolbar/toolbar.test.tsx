@@ -11,9 +11,7 @@ const nav = [
 
 describe('Toolbar', () => {
   it('renders a navigation menu', () => {
-    render(
-      <Toolbar motionStorageKey="reduced-motion" nav={nav} searchPage="#" />
-    );
+    render(<Toolbar nav={nav} searchPage="#" />);
     expect(rtlScreen.getByRole('navigation')).toBeInTheDocument();
   });
 });

@@ -17,6 +17,7 @@ export * from './use-prism';
 export * from './use-query-selector-all';
 export * from './use-reading-time';
 export * from './use-redirection';
+export * from './use-reduced-motion';
 export * from './use-route-change';
 export * from './use-scroll-position';
 export * from './use-settings';

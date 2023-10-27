@@ -55,9 +55,7 @@ const SwitchItem: FC<SwitchItemProps> = ({
   value,
   ...props
 }) => {
-  const selectedItemClass = isSelected ? styles['item--selected'] : '';
-  const disabledItemClass = isDisabled ? styles['item--disabled'] : '';
-  const itemClass = `${styles.item} ${selectedItemClass} ${disabledItemClass} ${className}`;
+  const itemClass = `${styles.item} ${className}`;
 
   return (
     <Label {...props} className={itemClass} htmlFor={id}>

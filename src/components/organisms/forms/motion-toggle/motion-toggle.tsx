@@ -1,6 +1,6 @@
-import { useCallback, type FC } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { useAttributes, useLocalStorage } from '../../../../utils/hooks';
+import { useReducedMotion } from '../../../../utils/hooks';
 import { Legend } from '../../../atoms';
 import {
   Switch,
@@ -8,47 +8,19 @@ import {
   type SwitchProps,
 } from '../../../molecules';
 
-export type MotionToggleValue = 'on' | 'off';
-
-const validator = (value: unknown): value is boolean =>
-  typeof value === 'boolean';
-
 export type MotionToggleProps = Omit<
   SwitchProps,
   'isInline' | 'items' | 'name' | 'onSwitch' | 'value'
-> & {
-  /**
-   * True if motion should be reduced by default.
-   */
-  defaultValue: MotionToggleValue;
-  /**
-   * The local storage key to save preference.
-   */
-  storageKey: string;
-};
+>;
 
 /**
  * MotionToggle component
  *
  * Render a Toggle component to set reduce motion.
  */
-export const MotionToggle: FC<MotionToggleProps> = ({
-  defaultValue,
-  storageKey,
-  ...props
-}) => {
+export const MotionToggle: FC<MotionToggleProps> = ({ ...props }) => {
   const intl = useIntl();
-  const [isReduced, setIsReduced] = useLocalStorage(
-    storageKey,
-    defaultValue !== 'on',
-    validator
-  );
-  useAttributes({
-    element:
-      typeof window === 'undefined' ? undefined : document.documentElement,
-    attribute: 'reduced-motion',
-    value: `${isReduced}`,
-  });
+  const { isReduced, toggleReducedMotion } = useReducedMotion();
 
   const reduceMotionLabel = intl.formatMessage({
     defaultMessage: 'Animations:',
@@ -79,10 +51,6 @@ export const MotionToggle: FC<MotionToggleProps> = ({
     },
   ];
 
-  const updateSetting = useCallback(() => {
-    setIsReduced((prev) => !prev);
-  }, [setIsReduced]);
-
   return (
     <Switch
       {...props}
@@ -90,7 +58,7 @@ export const MotionToggle: FC<MotionToggleProps> = ({
       items={options}
       legend={<Legend>{reduceMotionLabel}</Legend>}
       name="reduced-motion"
-      onSwitch={updateSetting}
+      onSwitch={toggleReducedMotion}
       value={isReduced ? 'off' : 'on'}
     />
   );

@@ -313,8 +313,6 @@ export const Layout: FC<LayoutProps> = ({
           />
           <Toolbar
             className={styles.toolbar}
-            // eslint-disable-next-line react/jsx-no-literals -- Storage key allowed
-            motionStorageKey="reduced-motion"
             nav={mainNav}
             searchPage={ROUTES.SEARCH}
           />

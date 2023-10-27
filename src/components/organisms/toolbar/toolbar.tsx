@@ -3,20 +3,19 @@ import { type FC, useState, useCallback } from 'react';
 import { useOnClickOutside, useRouteChange } from '../../../utils/hooks';
 import { MainNavItem, type MainNavItemProps } from './main-nav';
 import { Search, type SearchProps } from './search';
-import { Settings, type SettingsProps } from './settings';
+import { Settings } from './settings';
 import styles from './toolbar.module.scss';
 
-export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
-  Pick<SettingsProps, 'motionStorageKey'> & {
-    /**
-     * Set additional classnames to the toolbar wrapper.
-     */
-    className?: string;
-    /**
-     * The main nav items.
-     */
-    nav: MainNavItemProps['items'];
-  };
+export type ToolbarProps = Pick<SearchProps, 'searchPage'> & {
+  /**
+   * Set additional classnames to the toolbar wrapper.
+   */
+  className?: string;
+  /**
+   * The main nav items.
+   */
+  nav: MainNavItemProps['items'];
+};
 
 /**
  * Toolbar component
@@ -25,7 +24,6 @@ export type ToolbarProps = Pick<SearchProps, 'searchPage'> &
  */
 export const Toolbar: FC<ToolbarProps> = ({
   className = '',
-  motionStorageKey,
   nav,
   searchPage,
 }) => {
@@ -77,7 +75,6 @@ export const Toolbar: FC<ToolbarProps> = ({
       <Settings
         className={`${styles.modal} ${styles['modal--settings']}`}
         isActive={isSettingsOpened}
-        motionStorageKey={motionStorageKey}
         ref={settingsRef}
         setIsActive={toggleSettings}
       />

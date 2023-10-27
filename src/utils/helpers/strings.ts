@@ -5,18 +5,17 @@
  * @param {string} text - A text to slugify.
  * @returns {string} The slug.
  */
-export const slugify = (text: string): string => {
-  return text
+export const slugify = (text: string): string =>
+  text
     .toString()
-    .normalize('NFD')
+    .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '-')
-    .replace(/\-\-+/g, '-')
-    .replace(/(^-)|(-$)/g, '');
-};
+    .replace(/[^\w-]+/g, '-')
+    .replace(/--+/g, '-')
+    .replace(/(?:^-)|(?:-$)/g, '');
 
 /**
  * Capitalize the first letter of a string.
@@ -24,9 +23,8 @@ export const slugify = (text: string): string => {
  * @param {string} text - A text to capitalize.
  * @returns {string} The capitalized text.
  */
-export const capitalize = (text: string): string => {
-  return text.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase());
-};
+export const capitalize = (text: string): string =>
+  text.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase());
 
 /**
  * Convert a text from kebab case (foo-bar) to camel case (fooBar).
@@ -34,6 +32,16 @@ export const capitalize = (text: string): string => {
  * @param {string} text - A text to transform.
  * @returns {string} The text in camel case.
  */
-export const fromKebabCaseToCamelCase = (text: string): string => {
-  return text.replace(/-./g, (x) => x[1].toUpperCase());
+export const fromKebabCaseToCamelCase = (text: string): string =>
+  text.replace(/-./g, (x) => x[1].toUpperCase());
+
+/**
+ * Retrieve a valid data attribute from a string.
+ *
+ * @param {string} str - A string.
+ * @returns {string} A data attribute (ie. `data-...`)
+ */
+export const getDataAttributeFrom = (str: string) => {
+  if (str.startsWith('data-')) return str;
+  return `data-${str}`;
 };

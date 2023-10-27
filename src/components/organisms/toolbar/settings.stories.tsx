@@ -8,9 +8,6 @@ import { Settings } from './settings';
 export default {
   title: 'Organisms/Toolbar/Settings',
   component: Settings,
-  args: {
-    motionStorageKey: 'reduced-motion',
-  },
   argTypes: {
     className: {
       control: {
@@ -35,16 +32,6 @@ export default {
       },
       type: {
         name: 'boolean',
-        required: true,
-      },
-    },
-    motionStorageKey: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set Reduced motion settings local storage key.',
-      type: {
-        name: 'string',
         required: true,
       },
     },

@@ -8,7 +8,6 @@ export default {
   title: 'Organisms/Toolbar',
   component: ToolbarComponent,
   args: {
-    motionStorageKey: 'reduced-motion',
     searchPage: '#',
   },
   argTypes: {
@@ -23,16 +22,6 @@ export default {
       type: {
         name: 'string',
         required: false,
-      },
-    },
-    motionStorageKey: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set Reduced motion settings local storage key.',
-      type: {
-        name: 'string',
-        required: true,
       },
     },
     nav: {

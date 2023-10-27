@@ -5,7 +5,7 @@ import {
 import { ThemeProvider } from 'next-themes';
 import type { FC, ReactElement, ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
-import { AckeeProvider } from '../../src/utils/providers';
+import { AckeeProvider, MotionProvider } from '../../src/utils/providers';
 
 type ProvidersConfig = {
   children: ReactNode;
@@ -31,7 +31,13 @@ const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => (
         storageKey="ackee"
         tracking="full"
       >
-        {children}
+        <MotionProvider
+          attribute="reduced-motion"
+          hasReducedMotion={false}
+          storageKey="reduced-motion"
+        >
+          {children}
+        </MotionProvider>
       </AckeeProvider>
     </ThemeProvider>
   </IntlProvider>

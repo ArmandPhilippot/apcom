@@ -3,7 +3,7 @@ import { ThemeProvider, useTheme } from 'next-themes';
 import { useDarkMode } from 'storybook-dark-mode';
 import { FC, ReactNode, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { AckeeProvider } from '../src/utils/providers';
+import { AckeeProvider, MotionProvider } from '../src/utils/providers';
 import '../src/styles/globals.scss';
 import { DocsContainer } from './overrides/docs-container';
 import dark from './themes/dark';
@@ -33,16 +33,18 @@ const withAllProviders: Decorator = (Story) => {
         enableColorScheme={true}
         enableSystem={true}
       >
-        <AckeeProvider
-          domainId="any"
-          server="https://example.com"
-          storageKey="ackee"
-          tracking="full"
-        >
-          <ThemeWrapper>
-            <Story />
-          </ThemeWrapper>
-        </AckeeProvider>
+        <MotionProvider attribute="reduced-motion" storageKey="reduced-motion">
+          <AckeeProvider
+            domainId="any"
+            server="https://example.com"
+            storageKey="ackee"
+            tracking="full"
+          >
+            <ThemeWrapper>
+              <Story />
+            </ThemeWrapper>
+          </AckeeProvider>
+        </MotionProvider>
       </ThemeProvider>
     </IntlProvider>
   );

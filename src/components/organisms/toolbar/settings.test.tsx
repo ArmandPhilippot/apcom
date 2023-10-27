@@ -8,26 +8,14 @@ const doNothing = () => {
 
 describe('Settings', () => {
   it('renders a button to open settings modal', () => {
-    render(
-      <Settings
-        motionStorageKey="reduced-motion"
-        isActive={false}
-        setIsActive={doNothing}
-      />
-    );
+    render(<Settings isActive={false} setIsActive={doNothing} />);
     expect(
       rtlScreen.getByRole('checkbox', { name: 'Open settings' })
     ).toBeInTheDocument();
   });
 
   it('renders a button to close settings modal', () => {
-    render(
-      <Settings
-        motionStorageKey="reduced-motion"
-        isActive={true}
-        setIsActive={doNothing}
-      />
-    );
+    render(<Settings isActive={true} setIsActive={doNothing} />);
     expect(
       rtlScreen.getByRole('checkbox', { name: 'Close settings' })
     ).toBeInTheDocument();

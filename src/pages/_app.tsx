@@ -5,7 +5,11 @@ import '../styles/globals.scss';
 import type { AppPropsWithLayout } from '../types';
 import { settings } from '../utils/config';
 import { STORAGE_KEY } from '../utils/constants';
-import { AckeeProvider, PrismThemeProvider } from '../utils/providers';
+import {
+  AckeeProvider,
+  MotionProvider,
+  PrismThemeProvider,
+} from '../utils/providers';
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const { locale, defaultLocale } = useRouter();
@@ -20,21 +24,26 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       storageKey={STORAGE_KEY.ACKEE}
       tracking="full"
     >
-      <IntlProvider
-        locale={appLocale}
-        defaultLocale={defaultLocale}
-        messages={translation}
+      <MotionProvider
+        attribute={STORAGE_KEY.MOTION}
+        storageKey={STORAGE_KEY.MOTION}
       >
-        <ThemeProvider
-          defaultTheme="system"
-          enableColorScheme={true}
-          enableSystem={true}
+        <IntlProvider
+          locale={appLocale}
+          defaultLocale={defaultLocale}
+          messages={translation}
         >
-          <PrismThemeProvider>
-            {getLayout(<Component {...componentProps} />, {})}
-          </PrismThemeProvider>
-        </ThemeProvider>
-      </IntlProvider>
+          <ThemeProvider
+            defaultTheme="system"
+            enableColorScheme={true}
+            enableSystem={true}
+          >
+            <PrismThemeProvider>
+              {getLayout(<Component {...componentProps} />, {})}
+            </PrismThemeProvider>
+          </ThemeProvider>
+        </IntlProvider>
+      </MotionProvider>
     </AckeeProvider>
   );
 };

@@ -1,5 +1,4 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { storageKey as motionStorageKey } from '../forms/motion-toggle/motion-toggle.fixture';
 import { SettingsModal } from './settings-modal';
 
 /**
@@ -20,16 +19,6 @@ export default {
       type: {
         name: 'string',
         required: false,
-      },
-    },
-    motionStorageKey: {
-      control: {
-        type: 'text',
-      },
-      description: 'A local storage key for reduced motion setting..',
-      type: {
-        name: 'string',
-        required: true,
       },
     },
     tooltipClassName: {
@@ -59,6 +48,4 @@ const Template: ComponentStory<typeof SettingsModal> = (args) => (
  * Modals Stories - Settings
  */
 export const Settings = Template.bind({});
-Settings.args = {
-  motionStorageKey,
-};
+Settings.args = {};
