@@ -1,5 +1,4 @@
-import { useTheme } from 'next-themes';
-import { useCallback, type ChangeEvent, type FC } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
 import { Icon, Legend } from '../../../atoms';
 import {
@@ -7,6 +6,7 @@ import {
   type SwitchOption,
   type SwitchProps,
 } from '../../../molecules';
+import { useTheme } from 'src/utils/hooks';
 
 export type ThemeToggleProps = Omit<
   SwitchProps,
@@ -20,15 +20,8 @@ export type ThemeToggleProps = Omit<
  */
 export const ThemeToggle: FC<ThemeToggleProps> = (props) => {
   const intl = useIntl();
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, toggleTheme } = useTheme();
   const isDarkTheme = resolvedTheme === 'dark';
-
-  const updateTheme = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setTheme(e.target.value === 'light' ? 'light' : 'dark');
-    },
-    [setTheme]
-  );
 
   const themeLabel = intl.formatMessage({
     defaultMessage: 'Theme:',
@@ -76,7 +69,7 @@ export const ThemeToggle: FC<ThemeToggleProps> = (props) => {
       items={options}
       legend={<Legend>{themeLabel}</Legend>}
       name="theme"
-      onSwitch={updateTheme}
+      onSwitch={toggleTheme}
       value={isDarkTheme ? 'dark' : 'light'}
     />
   );

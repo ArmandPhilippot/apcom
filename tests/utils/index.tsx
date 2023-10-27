@@ -2,10 +2,13 @@ import {
   render as rtlRender,
   type RenderOptions,
 } from '@testing-library/react';
-import { ThemeProvider } from 'next-themes';
 import type { FC, ReactElement, ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
-import { AckeeProvider, MotionProvider } from '../../src/utils/providers';
+import {
+  AckeeProvider,
+  MotionProvider,
+  ThemeProvider,
+} from '../../src/utils/providers';
 
 type ProvidersConfig = {
   children: ReactNode;
@@ -24,7 +27,7 @@ type CustomRenderOptions = {
  */
 const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => (
   <IntlProvider locale={locale}>
-    <ThemeProvider>
+    <ThemeProvider attribute="theme" storageKey="theme">
       <AckeeProvider
         domainId="any-id"
         server="https://example.test"

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { ThemeProvider } from 'next-themes';
 import { IntlProvider } from 'react-intl';
 import '../styles/globals.scss';
 import type { AppPropsWithLayout } from '../types';
@@ -9,6 +8,7 @@ import {
   AckeeProvider,
   MotionProvider,
   PrismThemeProvider,
+  ThemeProvider,
 } from '../utils/providers';
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
@@ -34,9 +34,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           messages={translation}
         >
           <ThemeProvider
-            defaultTheme="system"
-            enableColorScheme={true}
-            enableSystem={true}
+            attribute={STORAGE_KEY.THEME}
+            storageKey={STORAGE_KEY.THEME}
           >
             <PrismThemeProvider>
               {getLayout(<Component {...componentProps} />, {})}

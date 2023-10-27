@@ -34,4 +34,5 @@ export const ROUTES = {
 export const STORAGE_KEY = {
   ACKEE: 'ackee-tracking',
   MOTION: 'reduced-motion',
+  THEME: 'theme',
 } as const;

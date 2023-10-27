@@ -1,13 +1,17 @@
 import type { Decorator, Preview } from '@storybook/react';
-import { ThemeProvider, useTheme } from 'next-themes';
 import { useDarkMode } from 'storybook-dark-mode';
 import { FC, ReactNode, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { AckeeProvider, MotionProvider } from '../src/utils/providers';
+import {
+  AckeeProvider,
+  MotionProvider,
+  ThemeProvider,
+} from '../src/utils/providers';
 import '../src/styles/globals.scss';
 import { DocsContainer } from './overrides/docs-container';
 import dark from './themes/dark';
 import light from './themes/light';
+import { useTheme } from '../src/utils/hooks';
 
 type ThemeWrapperProps = {
   children: ReactNode;
@@ -28,11 +32,7 @@ export const ThemeWrapper: FC<ThemeWrapperProps> = ({ children }) => {
 const withAllProviders: Decorator = (Story) => {
   return (
     <IntlProvider locale="en">
-      <ThemeProvider
-        defaultTheme="system"
-        enableColorScheme={true}
-        enableSystem={true}
-      >
+      <ThemeProvider attribute="theme" storageKey="theme">
         <MotionProvider attribute="reduced-motion" storageKey="reduced-motion">
           <AckeeProvider
             domainId="any"
