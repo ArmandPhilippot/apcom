@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl';
 import {
   AckeeProvider,
   MotionProvider,
+  PrismThemeProvider,
   ThemeProvider,
 } from '../../src/utils/providers';
 
@@ -28,20 +29,22 @@ type CustomRenderOptions = {
 const AllTheProviders: FC<ProvidersConfig> = ({ children, locale = 'en' }) => (
   <IntlProvider locale={locale}>
     <ThemeProvider attribute="theme" storageKey="theme">
-      <AckeeProvider
-        domainId="any-id"
-        server="https://example.test"
-        storageKey="ackee"
-        tracking="full"
-      >
-        <MotionProvider
-          attribute="reduced-motion"
-          hasReducedMotion={false}
-          storageKey="reduced-motion"
+      <PrismThemeProvider attribute="prism-theme" storageKey="prism-theme">
+        <AckeeProvider
+          domainId="any-id"
+          server="https://example.test"
+          storageKey="ackee"
+          tracking="full"
         >
-          {children}
-        </MotionProvider>
-      </AckeeProvider>
+          <MotionProvider
+            attribute="reduced-motion"
+            hasReducedMotion={false}
+            storageKey="reduced-motion"
+          >
+            {children}
+          </MotionProvider>
+        </AckeeProvider>
+      </PrismThemeProvider>
     </ThemeProvider>
   </IntlProvider>
 );

@@ -1,3 +1,6 @@
+import type { Theme } from '../../types';
+import { VALID_THEMES } from '../constants';
+
 /**
  * Check if the user prefers dark color scheme.
  *
@@ -16,3 +19,7 @@ export const getThemeFromSystem = () => {
   if (prefersDarkScheme()) return 'dark';
   return 'light';
 };
+
+export const themeValidator = (value: unknown): value is Theme =>
+  typeof value === 'string' &&
+  (VALID_THEMES as readonly string[]).includes(value);

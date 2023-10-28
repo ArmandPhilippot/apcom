@@ -4,8 +4,8 @@ import {
   type ReactNode,
   type SetStateAction,
   createContext,
-  useMemo,
   useEffect,
+  useMemo,
 } from 'react';
 import type { Theme } from '../../../types';
 import {
@@ -15,19 +15,21 @@ import {
 } from '../../helpers';
 import { useLocalStorage, useSystemColorScheme } from '../../hooks';
 
-type ThemeContextProps = {
+export type PrismThemeContextProps = {
+  attribute: string;
   resolvedTheme: Exclude<Theme, 'system'>;
   setTheme: Dispatch<SetStateAction<Theme>>;
   theme: Theme;
 };
 
-export const ThemeContext = createContext<ThemeContextProps>({
+export const PrismThemeContext = createContext<PrismThemeContextProps>({
+  attribute: 'data-prism-theme',
   resolvedTheme: getThemeFromSystem(),
   setTheme: (value) => value,
   theme: 'system',
 });
 
-export type ThemeProviderProps = {
+export type PrismThemeProviderProps = {
   /**
    * The attribute name to append to document root.
    */
@@ -48,7 +50,7 @@ export type ThemeProviderProps = {
   storageKey: string;
 };
 
-export const ThemeProvider: FC<ThemeProviderProps> = ({
+export const PrismThemeProvider: FC<PrismThemeProviderProps> = ({
   attribute,
   children,
   defaultTheme = 'system',
@@ -59,27 +61,26 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     defaultTheme,
     themeValidator
   );
-  const userColorScheme = useSystemColorScheme();
-  const resolvedTheme: Exclude<Theme, 'system'> =
-    theme === 'system' ? userColorScheme : theme;
+  const resolvedTheme = useSystemColorScheme();
   const dataAttribute = getDataAttributeFrom(attribute);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      document.documentElement.setAttribute(dataAttribute, `${resolvedTheme}`);
-      document.documentElement.style.colorScheme = resolvedTheme;
+      document.documentElement.setAttribute(dataAttribute, `${theme}`);
     }
 
     return () => {
       document.documentElement.removeAttribute(dataAttribute);
     };
-  }, [dataAttribute, resolvedTheme]);
+  }, [dataAttribute, theme]);
 
   const value = useMemo(() => {
-    return { resolvedTheme, setTheme, theme };
-  }, [resolvedTheme, setTheme, theme]);
+    return { attribute: dataAttribute, resolvedTheme, setTheme, theme };
+  }, [dataAttribute, resolvedTheme, setTheme, theme]);
 
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <PrismThemeContext.Provider value={value}>
+      {children}
+    </PrismThemeContext.Provider>
   );
 };

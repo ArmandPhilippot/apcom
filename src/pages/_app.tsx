@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl';
 import '../styles/globals.scss';
 import type { AppPropsWithLayout } from '../types';
 import { settings } from '../utils/config';
-import { STORAGE_KEY } from '../utils/constants';
+import { PRISM_THEME_ATTRIBUTE, STORAGE_KEY } from '../utils/constants';
 import {
   AckeeProvider,
   MotionProvider,
@@ -37,7 +37,10 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
             attribute={STORAGE_KEY.THEME}
             storageKey={STORAGE_KEY.THEME}
           >
-            <PrismThemeProvider>
+            <PrismThemeProvider
+              attribute={PRISM_THEME_ATTRIBUTE}
+              storageKey={STORAGE_KEY.PRISM}
+            >
               {getLayout(<Component {...componentProps} />, {})}
             </PrismThemeProvider>
           </ThemeProvider>

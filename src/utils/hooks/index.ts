@@ -1,7 +1,5 @@
 export * from './use-ackee';
-export * from './use-add-classname';
 export * from './use-article';
-export * from './use-attributes';
 export * from './use-breadcrumb';
 export * from './use-comments';
 export * from './use-data-from-api';
@@ -15,7 +13,7 @@ export * from './use-mutation-observer';
 export * from './use-on-click-outside';
 export * from './use-pagination';
 export * from './use-prism';
-export * from './use-query-selector-all';
+export * from './use-prism-theme';
 export * from './use-reading-time';
 export * from './use-redirection';
 export * from './use-reduced-motion';

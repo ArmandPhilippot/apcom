@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl';
 import {
   AckeeProvider,
   MotionProvider,
+  PrismThemeProvider,
   ThemeProvider,
 } from '../src/utils/providers';
 import '../src/styles/globals.scss';
@@ -33,18 +34,26 @@ const withAllProviders: Decorator = (Story) => {
   return (
     <IntlProvider locale="en">
       <ThemeProvider attribute="theme" storageKey="theme">
-        <MotionProvider attribute="reduced-motion" storageKey="reduced-motion">
-          <AckeeProvider
-            domainId="any"
-            server="https://example.com"
-            storageKey="ackee"
-            tracking="full"
+        <PrismThemeProvider
+          attribute="data-prismjs-color-scheme-current"
+          storageKey="prismjs-color-scheme"
+        >
+          <MotionProvider
+            attribute="reduced-motion"
+            storageKey="reduced-motion"
           >
-            <ThemeWrapper>
-              <Story />
-            </ThemeWrapper>
-          </AckeeProvider>
-        </MotionProvider>
+            <AckeeProvider
+              domainId="any"
+              server="https://example.com"
+              storageKey="ackee"
+              tracking="full"
+            >
+              <ThemeWrapper>
+                <Story />
+              </ThemeWrapper>
+            </AckeeProvider>
+          </MotionProvider>
+        </PrismThemeProvider>
       </ThemeProvider>
     </IntlProvider>
   );

@@ -1,6 +1,6 @@
-import { useCallback, type ChangeEvent, type FC } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { type PrismTheme, usePrismTheme } from '../../../../utils/providers';
+import { usePrismTheme } from '../../../../utils/hooks';
 import { Icon, Legend } from '../../../atoms';
 import {
   Switch,
@@ -20,24 +20,7 @@ export type PrismThemeToggleProps = Omit<
  */
 export const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
   const intl = useIntl();
-  const { theme, setTheme, resolvedTheme } = usePrismTheme();
-
-  /**
-   * Check if the resolved or chosen theme is dark theme.
-   *
-   * @returns {boolean} True if it is dark theme.
-   */
-  const isDarkTheme = (prismTheme?: PrismTheme): boolean => {
-    if (prismTheme === 'system') return resolvedTheme === 'dark';
-    return prismTheme === 'dark';
-  };
-
-  const updateTheme = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setTheme(e.target.value === 'light' ? 'light' : 'dark');
-    },
-    [setTheme]
-  );
+  const { currentTheme, toggleTheme } = usePrismTheme();
 
   const themeLabel = intl.formatMessage({
     defaultMessage: 'Code blocks:',
@@ -85,8 +68,8 @@ export const PrismThemeToggle: FC<PrismThemeToggleProps> = (props) => {
       items={options}
       legend={<Legend>{themeLabel}</Legend>}
       name="code-blocks"
-      onSwitch={updateTheme}
-      value={isDarkTheme(theme) ? 'dark' : 'light'}
+      onSwitch={toggleTheme}
+      value={currentTheme}
     />
   );
 };

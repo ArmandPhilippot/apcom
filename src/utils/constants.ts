@@ -34,5 +34,10 @@ export const ROUTES = {
 export const STORAGE_KEY = {
   ACKEE: 'ackee-tracking',
   MOTION: 'reduced-motion',
+  PRISM: 'prismjs-color-scheme',
   THEME: 'theme',
 } as const;
+
+export const PRISM_THEME_ATTRIBUTE = 'data-prismjs-color-scheme-current';
+
+export const VALID_THEMES = ['dark', 'light', 'system'] as const;

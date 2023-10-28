@@ -1,6 +1,12 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 import Script from 'next/script';
-import { STORAGE_KEY } from '../utils/constants';
+import {
+  PRISM_THEME_ATTRIBUTE,
+  STORAGE_KEY,
+  VALID_THEMES,
+} from '../utils/constants';
+
+const validPrismThemesStr = VALID_THEMES.map((t) => `"${t}"`);
 
 // eslint-disable-next-line @typescript-eslint/no-shadow -- Required by NextJs
 export default function Document() {
@@ -22,6 +28,15 @@ export default function Document() {
           }}
           // eslint-disable-next-line react/jsx-no-literals
           id="theme-hydration"
+          // eslint-disable-next-line react/jsx-no-literals
+          strategy="beforeInteractive"
+        />
+        <Script
+          dangerouslySetInnerHTML={{
+            __html: `!function(){const t=localStorage.getItem("${STORAGE_KEY.PRISM}"),e="string"==typeof t?JSON.parse(t):void 0,s=e&&[${validPrismThemesStr}].includes(e)?e:"system";document.documentElement.setAttribute("${PRISM_THEME_ATTRIBUTE}",s)}();`,
+          }}
+          // eslint-disable-next-line react/jsx-no-literals
+          id="prism-theme-hydration"
           // eslint-disable-next-line react/jsx-no-literals
           strategy="beforeInteractive"
         />
