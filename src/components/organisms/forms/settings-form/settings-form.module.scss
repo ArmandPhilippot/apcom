@@ -1,0 +1,30 @@
+@use "../../../../styles/abstracts/mixins" as mix;
+
+.form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  row-gap: var(--spacing-xs);
+  column-gap: var(--spacing-lg);
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "2xs", "height") {
+      row-gap: var(--spacing-2xs);
+    }
+  }
+}
+
+.item {
+  flex-basis: 100%;
+
+  > *:last-child {
+    flex-basis: 100%;
+    margin-inline-start: auto;
+
+    @include mix.media("screen") {
+      @include mix.dimensions("2xs") {
+        flex-basis: auto;
+      }
+    }
+  }
+}

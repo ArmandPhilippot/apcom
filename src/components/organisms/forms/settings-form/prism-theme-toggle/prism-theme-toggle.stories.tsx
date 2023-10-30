@@ -5,7 +5,7 @@ import { PrismThemeToggle } from './prism-theme-toggle';
  * PrismThemeToggle - Storybook Meta
  */
 export default {
-  title: 'Organisms/Forms/Toggle',
+  title: 'Organisms/Forms/Settings/Items',
   component: PrismThemeToggle,
   argTypes: {},
 } as ComponentMeta<typeof PrismThemeToggle>;

@@ -5,7 +5,7 @@ import { MotionToggle } from './motion-toggle';
  * MotionToggle - Storybook Meta
  */
 export default {
-  title: 'Organisms/Forms/Toggle',
+  title: 'Organisms/Forms/Settings/Items',
   component: MotionToggle,
   argTypes: {},
 } as ComponentMeta<typeof MotionToggle>;

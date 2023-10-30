@@ -14,21 +14,6 @@
   }
 }
 
-.form {
-  display: flex;
-  flex-flow: row wrap;
-  column-gap: var(--spacing-lg);
-}
-
-.item {
-  width: 100%;
-  margin: 0 0 var(--spacing-2xs);
-
-  > *:last-child {
-    margin-left: auto;
-  }
-}
-
 .icon {
   margin-right: var(--spacing-2xs);
 }

@@ -5,7 +5,7 @@ import { ThemeToggle } from './theme-toggle';
  * ThemeToggle - Storybook Meta
  */
 export default {
-  title: 'Organisms/Forms/Toggle',
+  title: 'Organisms/Forms/Settings/Items',
   component: ThemeToggle,
   argTypes: {},
 } as ComponentMeta<typeof ThemeToggle>;

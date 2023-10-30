@@ -1,0 +1,10 @@
+@use "../../../../../styles/abstracts/mixins" as mix;
+
+.tooltip {
+  @include mix.media("screen") {
+    @include mix.dimensions("sm") {
+      inset-inline: 0;
+      max-width: 100%;
+    }
+  }
+}

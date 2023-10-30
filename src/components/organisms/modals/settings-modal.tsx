@@ -1,12 +1,7 @@
 import { useCallback, type FC, type FormEvent } from 'react';
 import { useIntl } from 'react-intl';
-import { Form, Heading, Icon, Modal, type ModalProps } from '../../atoms';
-import {
-  AckeeToggle,
-  MotionToggle,
-  PrismThemeToggle,
-  ThemeToggle,
-} from '../forms';
+import { Heading, Icon, Modal, type ModalProps } from '../../atoms';
+import { SettingsForm } from '../forms';
 import styles from './settings-modal.module.scss';
 
 export type SettingsModalProps = Pick<ModalProps, 'className'>;
@@ -43,16 +38,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({ className = '' }) => {
         </Heading>
       }
     >
-      <Form
-        aria-label={ariaLabel}
-        className={styles.form}
-        onSubmit={submitHandler}
-      >
-        <ThemeToggle className={styles.item} />
-        <PrismThemeToggle className={styles.item} />
-        <MotionToggle className={styles.item} />
-        <AckeeToggle className={styles.item} direction="upwards" />
-      </Form>
+      <SettingsForm aria-label={ariaLabel} onSubmit={submitHandler} />
     </Modal>
   );
 };
