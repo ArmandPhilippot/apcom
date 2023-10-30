@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useCallback, useState } from 'react';
+import { useToggle } from '../../../utils/hooks';
 import { MainNavItem } from './main-nav';
 
 /**
@@ -61,11 +61,7 @@ const Template: ComponentStory<typeof MainNavItem> = ({
   setIsActive: _setIsActive,
   ...args
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(isActive);
-
-  const toggle = useCallback(() => {
-    setIsOpen((prevState) => !prevState);
-  }, []);
+  const [isOpen, toggle] = useToggle(isActive);
 
   return <MainNavItem isActive={isOpen} setIsActive={toggle} {...args} />;
 };

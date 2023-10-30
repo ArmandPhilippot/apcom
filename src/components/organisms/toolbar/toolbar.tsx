@@ -1,6 +1,10 @@
 /* eslint-disable max-statements */
-import { type FC, useState, useCallback } from 'react';
-import { useOnClickOutside, useRouteChange } from '../../../utils/hooks';
+import type { FC } from 'react';
+import {
+  useBoolean,
+  useOnClickOutside,
+  useRouteChange,
+} from '../../../utils/hooks';
 import { MainNavItem, type MainNavItemProps } from './main-nav';
 import { Search, type SearchProps } from './search';
 import { Settings } from './settings';
@@ -27,54 +31,53 @@ export const Toolbar: FC<ToolbarProps> = ({
   nav,
   searchPage,
 }) => {
-  const [isNavOpened, setIsNavOpened] = useState<boolean>(false);
-  const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);
-  const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
+  const {
+    deactivate: deactivateMainNav,
+    state: isMainNavOpen,
+    toggle: toggleMainNav,
+  } = useBoolean(false);
+  const {
+    deactivate: deactivateSearch,
+    state: isSearchOpen,
+    toggle: toggleSearch,
+  } = useBoolean(false);
+  const {
+    deactivate: deactivateSettings,
+    state: isSettingsOpen,
+    toggle: toggleSettings,
+  } = useBoolean(false);
 
   const mainNavRef = useOnClickOutside<HTMLDivElement>(
-    () => isNavOpened && setIsNavOpened(false)
+    () => isMainNavOpen && deactivateMainNav()
   );
   const searchRef = useOnClickOutside<HTMLDivElement>(
-    () => isSearchOpened && setIsSearchOpened(false)
+    () => isSearchOpen && deactivateSearch()
   );
   const settingsRef = useOnClickOutside<HTMLDivElement>(
-    () => isSettingsOpened && setIsSettingsOpened(false)
+    () => isSettingsOpen && deactivateSettings()
   );
 
-  const toggleMainNav = useCallback(
-    () => setIsNavOpened((prevState) => !prevState),
-    []
-  );
-  const toggleSearch = useCallback(
-    () => setIsSearchOpened((prevState) => !prevState),
-    []
-  );
-  const toggleSettings = useCallback(
-    () => setIsSettingsOpened((prevState) => !prevState),
-    []
-  );
-
-  useRouteChange(() => setIsSearchOpened(false));
+  useRouteChange(deactivateSearch);
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
       <MainNavItem
         className={styles.modal}
-        isActive={isNavOpened}
+        isActive={isMainNavOpen}
         items={nav}
         ref={mainNavRef}
         setIsActive={toggleMainNav}
       />
       <Search
         className={`${styles.modal} ${styles['modal--search']}`}
-        isActive={isSearchOpened}
+        isActive={isSearchOpen}
         ref={searchRef}
         searchPage={searchPage}
         setIsActive={toggleSearch}
       />
       <Settings
         className={`${styles.modal} ${styles['modal--settings']}`}
-        isActive={isSettingsOpened}
+        isActive={isSettingsOpen}
         ref={settingsRef}
         setIsActive={toggleSettings}
       />

@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useCallback, useState } from 'react';
+import { useToggle } from '../../../../utils/hooks';
 import { Button, Icon } from '../../../atoms';
 import { FlippingLabel } from './flipping-label';
 
@@ -74,11 +74,10 @@ const Template: ComponentStory<typeof FlippingLabel> = ({
   isActive,
   ...args
 }) => {
-  const [active, setActive] = useState<boolean>(isActive);
-  const updateState = useCallback(() => setActive((prev) => !prev), []);
+  const [active, toggle] = useToggle(isActive);
 
   return (
-    <Button kind="neutral" onClick={updateState} shape="initial" type="button">
+    <Button kind="neutral" onClick={toggle} shape="initial" type="button">
       <FlippingLabel {...args} isActive={active} />
     </Button>
   );

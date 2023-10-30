@@ -1,7 +1,7 @@
 /* eslint-disable max-statements */
-import { type FC, useState, useCallback } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
-import { useAckee } from '../../../../utils/hooks';
+import { useAckee, useBoolean } from '../../../../utils/hooks';
 import { Legend, List, ListItem } from '../../../atoms';
 import {
   Switch,
@@ -25,7 +25,11 @@ export type AckeeToggleProps = Omit<
 export const AckeeToggle: FC<AckeeToggleProps> = ({ direction, ...props }) => {
   const intl = useIntl();
   const [tracking, toggleTracking] = useAckee();
-  const [isTooltipOpened, setIsTooltipOpened] = useState(false);
+  const {
+    deactivate: closeTooltip,
+    state: isTooltipOpened,
+    toggle: toggleTooltip,
+  } = useBoolean(false);
 
   const ackeeLabel = intl.formatMessage({
     defaultMessage: 'Tracking:',
@@ -63,13 +67,6 @@ export const AckeeToggle: FC<AckeeToggleProps> = ({ direction, ...props }) => {
     { id: 'ackee-full' as const, label: fullLabel, value: 'full' },
     { id: 'ackee-partial' as const, label: partialLabel, value: 'partial' },
   ] satisfies [SwitchOption, SwitchOption];
-
-  const closeTooltip = useCallback(() => {
-    setIsTooltipOpened(false);
-  }, []);
-  const toggleTooltip = useCallback(() => {
-    setIsTooltipOpened((prev) => !prev);
-  }, []);
 
   return (
     <Switch

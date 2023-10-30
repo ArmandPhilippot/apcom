@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useCallback, useState } from 'react';
+import { useToggle } from '../../../utils/hooks';
 import { Settings } from './settings';
 
 /**
@@ -66,11 +66,7 @@ const Template: ComponentStory<typeof Settings> = ({
   setIsActive: _setIsActive,
   ...args
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(isActive);
-
-  const toggle = useCallback(() => {
-    setIsOpen((prevState) => !prevState);
-  }, []);
+  const [isOpen, toggle] = useToggle(isActive);
 
   return <Settings isActive={isOpen} setIsActive={toggle} {...args} />;
 };

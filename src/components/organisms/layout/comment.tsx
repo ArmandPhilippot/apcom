@@ -1,11 +1,11 @@
 /* eslint-disable max-statements */
 import NextImage from 'next/image';
 import Script from 'next/script';
-import { type FC, useCallback, useState } from 'react';
+import type { FC } from 'react';
 import { useIntl } from 'react-intl';
 import type { Comment as CommentSchema, WithContext } from 'schema-dts';
 import type { SingleComment } from '../../../types';
-import { useSettings } from '../../../utils/hooks';
+import { useSettings, useToggle } from '../../../utils/hooks';
 import { Button, Link, Time } from '../../atoms';
 import {
   Card,
@@ -49,12 +49,7 @@ export const UserComment: FC<UserCommentProps> = ({
 }) => {
   const intl = useIntl();
   const { website } = useSettings();
-  const [isReplying, setIsReplying] = useState<boolean>(false);
-
-  const handleReply = useCallback(
-    () => setIsReplying((prevState) => !prevState),
-    []
-  );
+  const [isReplying, toggleIsReplying] = useToggle(false);
 
   if (!approved) {
     return (
@@ -170,7 +165,7 @@ export const UserComment: FC<UserCommentProps> = ({
         {canReply ? (
           <CardFooter>
             <CardActions>
-              <Button kind="tertiary" onClick={handleReply}>
+              <Button kind="tertiary" onClick={toggleIsReplying}>
                 {buttonLabel}
               </Button>
             </CardActions>

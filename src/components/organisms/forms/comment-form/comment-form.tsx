@@ -10,6 +10,7 @@ import {
   useId,
 } from 'react';
 import { useIntl } from 'react-intl';
+import { useBoolean } from '../../../../utils/hooks';
 import {
   Button,
   Form,
@@ -77,15 +78,19 @@ export const CommentForm: FC<CommentFormProps> = ({
     };
   }, [parentId]);
   const [data, setData] = useState(emptyForm);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const {
+    activate: activateNotice,
+    deactivate: deactivateNotice,
+    state: isSubmitting,
+  } = useBoolean(false);
 
   /**
    * Reset all the form fields.
    */
   const resetForm = useCallback(() => {
     setData(emptyForm);
-    setIsSubmitting(false);
-  }, [emptyForm]);
+    deactivateNotice();
+  }, [deactivateNotice, emptyForm]);
 
   const nameLabel = intl.formatMessage({
     defaultMessage: 'Name:',
@@ -160,10 +165,10 @@ export const CommentForm: FC<CommentFormProps> = ({
   const sendForm = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      setIsSubmitting(true);
-      saveComment(data, resetForm).then(() => setIsSubmitting(false));
+      activateNotice();
+      saveComment(data, resetForm).then(() => deactivateNotice());
     },
-    [data, resetForm, saveComment]
+    [activateNotice, data, deactivateNotice, resetForm, saveComment]
   );
 
   return (

@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useState } from 'react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useToggle } from '../../../utils/hooks';
 import { Search } from './search';
 
 /**
@@ -66,17 +66,9 @@ const Template: ComponentStory<typeof Search> = ({
   setIsActive: _setIsActive,
   ...args
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(isActive);
+  const [isOpen, toggle] = useToggle(isActive);
 
-  return (
-    <Search
-      isActive={isOpen}
-      setIsActive={() => {
-        setIsOpen(!isOpen);
-      }}
-      {...args}
-    />
-  );
+  return <Search isActive={isOpen} setIsActive={toggle} {...args} />;
 };
 
 /**

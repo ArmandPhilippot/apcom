@@ -9,6 +9,7 @@ import {
   useMemo,
 } from 'react';
 import { useIntl } from 'react-intl';
+import { useBoolean } from '../../../../utils/hooks';
 import { Button, Form, Input, Label, Spinner, TextArea } from '../../../atoms';
 import { LabelledField } from '../../../molecules';
 import styles from './contact-form.module.scss';
@@ -56,15 +57,19 @@ export const ContactForm: FC<ContactFormProps> = ({
     };
   }, []);
   const [data, setData] = useState(emptyForm);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const {
+    activate: activateNotice,
+    deactivate: deactivateNotice,
+    state: isSubmitting,
+  } = useBoolean(false);
 
   /**
    * Reset all the form fields.
    */
   const resetForm = useCallback(() => {
     setData(emptyForm);
-    setIsSubmitting(false);
-  }, [emptyForm]);
+    deactivateNotice();
+  }, [deactivateNotice, emptyForm]);
 
   const updateForm = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -135,10 +140,10 @@ export const ContactForm: FC<ContactFormProps> = ({
   const submitHandler = useCallback(
     async (e: FormEvent) => {
       e.preventDefault();
-      setIsSubmitting(true);
-      await sendMail(data, resetForm).then(() => setIsSubmitting(false));
+      activateNotice();
+      await sendMail(data, resetForm).then(() => deactivateNotice());
     },
-    [data, resetForm, sendMail]
+    [activateNotice, data, deactivateNotice, resetForm, sendMail]
   );
 
   return (
