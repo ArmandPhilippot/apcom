@@ -1,6 +1,7 @@
 import { useCallback, type FC, type FormEvent } from 'react';
 import { useIntl } from 'react-intl';
-import { Heading, Icon, Modal, type ModalProps } from '../../atoms';
+import { Heading, Icon } from '../../atoms';
+import { Modal, type ModalProps } from '../../molecules';
 import { SettingsForm } from '../forms';
 import styles from './settings-modal.module.scss';
 
@@ -31,9 +32,9 @@ export const SettingsModal: FC<SettingsModalProps> = ({ className = '' }) => {
   return (
     <Modal
       className={`${styles.wrapper} ${className}`}
+      icon={<Icon className={styles.icon} shape="cog" />}
       heading={
         <Heading isFake level={3}>
-          <Icon className={styles.icon} shape="cog" />
           {title}
         </Heading>
       }

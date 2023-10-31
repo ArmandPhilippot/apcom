@@ -10,5 +10,5 @@ export * from './grid';
 export * from './images';
 export * from './layout';
 export * from './meta-list';
+export * from './modals';
 export * from './nav';
-export * from './tooltip';

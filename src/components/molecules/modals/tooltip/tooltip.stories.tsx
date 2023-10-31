@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useBoolean } from '../../../../utils/hooks';
 import { Tooltip } from './tooltip';
-import { useState } from 'react';
 
 /**
  * Switch - Storybook Meta
  */
 export default {
-  title: 'Molecules/Tooltip',
+  title: 'Molecules/Modals/Tooltip',
   component: Tooltip,
   args: {},
   argTypes: {},
@@ -17,15 +17,16 @@ const Template: ComponentStory<typeof Tooltip> = ({
   onToggle: _onToggle,
   ...args
 }) => {
-  const [isOpened, setIsOpened] = useState(isOpen);
-
-  const toggle = () => {
-    setIsOpened((prev) => !prev);
-  };
+  const { deactivate, state: isOpened, toggle } = useBoolean(isOpen);
 
   return (
     <div style={{ position: 'relative' }}>
-      <Tooltip {...args} isOpen={isOpened} onToggle={toggle} />
+      <Tooltip
+        {...args}
+        isOpen={isOpened}
+        onClickOutside={deactivate}
+        onToggle={toggle}
+      />
     </div>
   );
 };

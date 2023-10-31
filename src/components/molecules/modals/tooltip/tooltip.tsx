@@ -1,8 +1,9 @@
 import { type FC, type MouseEventHandler, useRef } from 'react';
 import { useIntl } from 'react-intl';
-import { useOnClickOutside } from '../../../utils/hooks';
-import { Heading, Icon, Modal, type ModalProps } from '../../atoms';
-import { HelpButton } from '../buttons';
+import { useOnClickOutside } from '../../../../utils/hooks';
+import { Heading, Icon } from '../../../atoms';
+import { HelpButton } from '../../buttons';
+import { Modal, type ModalProps } from '../modal';
 import styles from './tooltip.module.scss';
 
 export type TooltipProps = Omit<ModalProps, 'heading'> & {
@@ -77,10 +78,10 @@ export const Tooltip: FC<TooltipProps> = ({
         className={tooltipClass}
         heading={
           <Heading className={styles.heading} isFake level={6}>
-            <Icon aria-hidden className={styles.icon} shape="help" size="sm" />
             {heading}
           </Heading>
         }
+        icon={<Icon aria-hidden shape="help" size="sm" />}
         kind="secondary"
         ref={modalRef}
       >

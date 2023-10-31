@@ -8,7 +8,6 @@ export * from './layout';
 export * from './links';
 export * from './lists';
 export * from './loaders';
-export * from './modal';
 export * from './notice';
 export * from './sidebar';
 export * from './visually-hidden';

@@ -5,7 +5,7 @@
   width: 100%;
 
   @media screen and (max-height: #{var.get-breakpoint("2xs")}) and (max-width: #{var.get-breakpoint("sm")}) {
-    --first-col-width: #{fun.convert-px(160)};
+    --first-col-width: #{fun.convert-px(140)};
     --col-gap: var(--spacing-xl);
 
     display: grid;

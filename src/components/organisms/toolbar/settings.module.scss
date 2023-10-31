@@ -1,5 +1,9 @@
-.item .tooltip {
-  top: unset;
-  bottom: calc(100% + var(--spacing-2xs));
-  transform-origin: bottom center;
+@use "../../../styles/abstracts/mixins" as mix;
+
+.modal {
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "sm") {
+      border-inline: 0;
+    }
+  }
 }

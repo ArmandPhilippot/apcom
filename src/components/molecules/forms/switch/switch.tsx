@@ -14,7 +14,7 @@ import {
   Label,
   Radio,
 } from '../../../atoms';
-import type { TooltipProps } from '../../tooltip';
+import type { TooltipProps } from '../../modals';
 import styles from './switch.module.scss';
 
 type SwitchItemProps = Omit<LabelProps, 'children' | 'htmlFor' | 'isRequired'> &

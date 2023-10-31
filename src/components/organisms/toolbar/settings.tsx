@@ -3,7 +3,8 @@ import { useIntl } from 'react-intl';
 import { BooleanField, type BooleanFieldProps, Icon } from '../../atoms';
 import { FlippingLabel } from '../../molecules';
 import { SettingsModal, type SettingsModalProps } from '../modals';
-import styles from './toolbar-items.module.scss';
+import styles from './settings.module.scss';
+import sharedStyles from './toolbar-items.module.scss';
 
 export type SettingsProps = SettingsModalProps & {
   /**
@@ -34,9 +35,9 @@ const SettingsWithRef: ForwardRefRenderFunction<
       });
 
   return (
-    <div className={styles.item} ref={ref}>
+    <div className={sharedStyles.item} ref={ref}>
       <BooleanField
-        className={styles.checkbox}
+        className={sharedStyles.checkbox}
         id="settings-button"
         isChecked={isActive}
         name="settings-button"
@@ -45,13 +46,15 @@ const SettingsWithRef: ForwardRefRenderFunction<
         value="open"
       />
       <FlippingLabel
-        className={styles.label}
+        className={sharedStyles.label}
         htmlFor="settings-button"
         icon={<Icon aria-hidden={true} shape="cog" size="lg" />}
         isActive={isActive}
         label={label}
       />
-      <SettingsModal className={`${styles.modal} ${className}`} />
+      <SettingsModal
+        className={`${sharedStyles.modal} ${styles.modal} ${className}`}
+      />
     </div>
   );
 };

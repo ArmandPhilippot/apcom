@@ -1,6 +1,6 @@
-@use "../../../styles/abstracts/functions" as fun;
-@use "../../../styles/abstracts/mixins" as mix;
-@use "../../../styles/abstracts/variables" as var;
+@use "../../../../styles/abstracts/functions" as fun;
+@use "../../../../styles/abstracts/mixins" as mix;
+@use "../../../../styles/abstracts/variables" as var;
 
 .btn {
   margin-right: var(--spacing-xs);
@@ -42,25 +42,5 @@
 }
 
 .heading {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  height: 100%;
-  margin-left: calc(var(--spacing-xs) * -1.1);
   font-size: var(--font-size-sm);
-}
-
-.icon {
-  align-self: stretch;
-  margin-right: var(--spacing-xs);
-  background: var(--color-primary-dark);
-  border: fun.convert-px(1) solid var(--color-primary-dark);
-  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 0 var(--color-shadow);
-
-  :global {
-    path {
-      fill: var(--color-fg-inverted);
-      margin-inline: var(--spacing-2xs);
-    }
-  }
 }

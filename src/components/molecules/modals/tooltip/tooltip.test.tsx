@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../../tests/utils';
 import { Tooltip } from './tooltip';
 
 const title = 'A custom title';
@@ -10,8 +10,8 @@ describe('Tooltip', () => {
   it('renders a title and a body', () => {
     render(<Tooltip heading={title}>{children}</Tooltip>);
 
-    expect(screen.getByText(title)).toBeInTheDocument();
-    expect(screen.getByText(children)).toBeInTheDocument();
+    expect(rtlScreen.getByText(title)).toBeInTheDocument();
+    expect(rtlScreen.getByText(children)).toBeInTheDocument();
   });
 
   it('can render a hidden modal', () => {
@@ -22,9 +22,9 @@ describe('Tooltip', () => {
     );
 
     // Neither toBeVisible or toHaveStyle are working.
-    //expect(screen.getByText(children)).not.toBeVisible();
-    //expect(screen.getByText(children)).toHaveStyle({ visibility: 'hidden' });
-    expect(screen.getByText(children)).toHaveClass('tooltip--hidden');
+    //expect(rtlScreen.getByText(children)).not.toBeVisible();
+    //expect(rtlScreen.getByText(children)).toHaveStyle({ visibility: 'hidden' });
+    expect(rtlScreen.getByText(children)).toHaveClass('tooltip--hidden');
   });
 
   it('can render a visible modal', () => {
@@ -34,7 +34,9 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
-    expect(screen.getByText(children)).toBeVisible();
-    expect(screen.getByText(children)).toHaveStyle({ visibility: 'visible' });
+    expect(rtlScreen.getByText(children)).toBeVisible();
+    expect(rtlScreen.getByText(children)).toHaveStyle({
+      visibility: 'visible',
+    });
   });
 });

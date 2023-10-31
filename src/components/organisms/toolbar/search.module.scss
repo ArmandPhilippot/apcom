@@ -1,3 +1,11 @@
+@use "../../../styles/abstracts/mixins" as mix;
+
 .modal {
   padding-bottom: var(--spacing-md);
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "sm") {
+      border-inline: 0;
+    }
+  }
 }
