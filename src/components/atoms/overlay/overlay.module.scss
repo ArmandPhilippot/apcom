@@ -1,0 +1,18 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: hsla(0, 0%, 0%, 0.6);
+  transition: all 0.3s linear 0s;
+
+  &--hidden {
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}

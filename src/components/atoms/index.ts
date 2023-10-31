@@ -9,5 +9,6 @@ export * from './links';
 export * from './lists';
 export * from './loaders';
 export * from './notice';
+export * from './overlay';
 export * from './sidebar';
 export * from './visually-hidden';
