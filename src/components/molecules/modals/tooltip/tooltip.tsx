@@ -61,10 +61,12 @@ export const Tooltip: FC<TooltipProps> = ({
   const tooltipClass = `${styles.tooltip} ${styles[directionModifier]} ${styles[visibilityModifier]} ${className}`;
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  const closeModal = (target: Node) => {
-    if (!onClickOutside) return;
-
-    if (btnRef.current && !btnRef.current.contains(target)) {
+  const closeModal = ({ target }: MouseEvent | FocusEvent) => {
+    if (
+      onClickOutside &&
+      btnRef.current &&
+      !btnRef.current.contains(target as Node)
+    ) {
       onClickOutside();
     }
   };
