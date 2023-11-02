@@ -26,4 +26,5 @@ export * from './use-settings';
 export * from './use-state-change';
 export * from './use-system-color-scheme';
 export * from './use-theme';
+export * from './use-timeout';
 export * from './use-toggle';
