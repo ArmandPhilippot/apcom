@@ -1,8 +1,7 @@
-import { forwardRef, type ForwardRefRenderFunction, useRef } from 'react';
+import { forwardRef, type ForwardRefRenderFunction } from 'react';
 import { useIntl } from 'react-intl';
-import { useInputAutofocus } from '../../../utils/hooks';
+import { useAutofocus } from '../../../utils/hooks';
 import { BooleanField, type BooleanFieldProps, Icon } from '../../atoms';
-import { FlippingLabel } from '../../molecules';
 import { SearchModal, type SearchModalProps } from '../modals';
 import searchStyles from './search.module.scss';
 import sharedStyles from './toolbar-items.module.scss';
@@ -43,11 +42,9 @@ const SearchWithRef: ForwardRefRenderFunction<HTMLDivElement, SearchProps> = (
         description: 'Search: Open label',
       });
 
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  useInputAutofocus({
-    condition: isActive,
+  const searchInputRef = useAutofocus<HTMLInputElement>({
+    condition: () => isActive,
     delay: 360,
-    ref: searchInputRef,
   });
 
   return (
