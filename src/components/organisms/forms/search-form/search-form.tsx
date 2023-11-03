@@ -1,20 +1,22 @@
-import { useRouter } from 'next/router';
-import {
-  type ChangeEvent,
-  type FormEvent,
-  forwardRef,
-  type ForwardRefRenderFunction,
-  useId,
-  useState,
-  useCallback,
-} from 'react';
+import { forwardRef, type ForwardRefRenderFunction, useId } from 'react';
 import { useIntl } from 'react-intl';
-import { Button, Form, Icon, Input, Label } from '../../../atoms';
+import { type FormSubmitHandler, useForm } from '../../../../utils/hooks';
+import {
+  Button,
+  Form,
+  type FormProps,
+  Icon,
+  Input,
+  Label,
+} from '../../../atoms';
 import { LabelledField } from '../../../molecules';
 import styles from './search-form.module.scss';
 
-export type SearchFormProps = {
-  className?: string;
+export type SearchFormData = { query: string };
+
+export type SearchFormSubmit = FormSubmitHandler<SearchFormData>;
+
+export type SearchFormProps = Omit<FormProps, 'children' | 'onSubmit'> & {
   /**
    * Should the label be visually hidden?
    *
@@ -22,75 +24,80 @@ export type SearchFormProps = {
    */
   isLabelHidden?: boolean;
   /**
-   * The search page url.
+   * A callback function to handle search form submit.
    */
-  searchPage: string;
+  onSubmit?: SearchFormSubmit;
 };
 
 const SearchFormWithRef: ForwardRefRenderFunction<
   HTMLInputElement,
   SearchFormProps
-> = ({ className = '', isLabelHidden = false, searchPage }, ref) => {
+> = ({ className = '', isLabelHidden = false, onSubmit, ...props }, ref) => {
   const intl = useIntl();
-  const fieldLabel = intl.formatMessage({
-    defaultMessage: 'Search for:',
-    description: 'SearchForm: field accessible label',
-    id: 'X8oujO',
+  const { values, submit, submitStatus, update } = useForm<SearchFormData>({
+    initialValues: { query: '' },
+    submitHandler: onSubmit,
   });
-  const buttonLabel = intl.formatMessage({
-    defaultMessage: 'Search',
-    description: 'SearchForm: button accessible name',
-    id: 'WMqQrv',
-  });
-
-  const router = useRouter();
-  const [value, setValue] = useState<string>('');
-
-  const submitHandler = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      router.push({ pathname: searchPage, query: { s: value } });
-      setValue('');
-    },
-    [router, searchPage, value]
-  );
-
-  const updateForm = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  }, []);
-
   const id = useId();
-  const formClass = `${styles.wrapper} ${className}`;
+  const formClass = [
+    styles.wrapper,
+    styles[isLabelHidden ? 'wrapper--no-label' : 'wrapper--has-label'],
+    className,
+  ].join(' ');
+  const labels = {
+    button: intl.formatMessage({
+      defaultMessage: 'Search',
+      description: 'SearchForm: button accessible name',
+      id: 'WMqQrv',
+    }),
+    field: intl.formatMessage({
+      defaultMessage: 'Search for:',
+      description: 'SearchForm: field accessible label',
+      id: 'X8oujO',
+    }),
+  };
 
   return (
-    <Form className={formClass} onSubmit={submitHandler}>
+    <Form {...props} className={formClass} onSubmit={submit}>
       <LabelledField
         className={styles.field}
         field={
           <Input
-            className={styles.field}
-            id={`search-form-${id}`}
-            name="search-form"
-            onChange={updateForm}
+            className={styles.input}
+            id={id}
+            // eslint-disable-next-line react/jsx-no-literals
+            name="query"
+            onChange={update}
             ref={ref}
+            // eslint-disable-next-line react/jsx-no-literals
             type="search"
-            value={value}
+            value={values.query}
           />
         }
         label={
-          <Label htmlFor={`search-form-${id}`} isHidden={isLabelHidden}>
-            {fieldLabel}
+          <Label htmlFor={id} isHidden={isLabelHidden}>
+            {labels.field}
           </Label>
         }
       />
       <Button
-        aria-label={buttonLabel}
+        aria-label={labels.button}
         className={styles.btn}
+        isLoading={submitStatus === 'PENDING'}
+        // eslint-disable-next-line react/jsx-no-literals
         kind="neutral"
+        // eslint-disable-next-line react/jsx-no-literals
         shape="initial"
         type="submit"
       >
-        <Icon className={styles.btn__icon} shape="magnifying-glass" />
+        <Icon
+          aria-hidden
+          className={styles.icon}
+          // eslint-disable-next-line react/jsx-no-literals
+          shape="magnifying-glass"
+          // eslint-disable-next-line react/jsx-no-literals
+          size="lg"
+        />
       </Button>
     </Form>
   );

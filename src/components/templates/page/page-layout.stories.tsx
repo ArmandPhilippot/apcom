@@ -373,14 +373,7 @@ Blog.args = {
   breadcrumb: postsListBreadcrumb,
   title: 'Blog',
   headerMeta: [{ id: 'total', label: 'Total:', value: `${posts.length}` }],
-  children: (
-    <PostsList
-      posts={posts}
-      byYear={true}
-      total={posts.length}
-      searchPage="#"
-    />
-  ),
+  children: <PostsList posts={posts} byYear={true} total={posts.length} />,
   widgets: [
     <LinksListWidget
       heading={

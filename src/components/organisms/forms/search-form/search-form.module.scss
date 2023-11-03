@@ -1,57 +1,60 @@
 @use "../../../../styles/abstracts/functions" as fun;
-@use "../../../../styles/abstracts/mixins" as mix;
 
-.wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
+.input {
+  border-right: none;
+}
 
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      max-width: 35ch;
-    }
-  }
+.icon {
+  transform: scale(0.85);
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .btn {
-  align-self: stretch;
   background: var(--color-bg-tertiary);
   border: fun.convert-px(2) solid var(--color-border);
-  border-left: none;
   box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0 var(--color-shadow);
   transition: all 0.25s linear 0s;
 
-  &__icon {
-    transform: scale(0.85);
-    transition: all 0.3s ease-in-out 0s;
-  }
-
+  &:hover,
   &:focus {
-    outline: var(--color-primary-light) solid fun.convert-px(3);
-  }
-
-  &:active {
-    outline: none;
-  }
-
-  &:hover &,
-  &:focus & {
-    &__icon {
-      transform: scale(0.85) rotate(20deg) translateY(#{fun.convert-px(3)});
+    .icon {
+      transform: scale(0.85) rotate(20deg) translateX(#{fun.convert-px(2)})
+        translateY(#{fun.convert-px(3)});
     }
   }
 
-  &:active & {
-    &__icon {
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: fun.convert-px(3) fun.convert-px(3) 0 0
+      var(--color-primary-dark);
+  }
+
+  &:active {
+    .icon {
       transform: scale(0.7);
     }
   }
 }
 
-.field {
-  min-width: 0;
-  width: 100%;
+.wrapper {
+  display: flex;
 
+  &--no-label {
+    .btn {
+      align-self: stretch;
+    }
+  }
+
+  &--has-label {
+    .btn {
+      align-self: flex-end;
+      height: fun.convert-px(52);
+    }
+  }
+}
+
+.field {
   &:focus-within ~ .btn {
     background: var(--color-bg);
     border-color: var(--color-primary);
@@ -66,5 +69,10 @@
     box-shadow: fun.convert-px(5) fun.convert-px(5) 0 fun.convert-px(1)
       var(--color-shadow);
     transform: translate(fun.convert-px(-3), fun.convert-px(-3));
+
+    &:focus {
+      box-shadow: fun.convert-px(5) fun.convert-px(5) 0 fun.convert-px(1)
+        var(--color-primary-dark);
+    }
   }
 }

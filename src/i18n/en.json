@@ -195,6 +195,14 @@
     "defaultMessage": "Failed to load.",
     "description": "BlogPage: failed to load text"
   },
+  "C2YcUJ": {
+    "defaultMessage": "Query must be longer than one character.",
+    "description": "Layout: invalid query message"
+  },
+  "C6oK7h": {
+    "defaultMessage": "Query must be longer than one character.",
+    "description": "404Page: invalid query message"
+  },
   "CvOqoh": {
     "defaultMessage": "Thematics:",
     "description": "ArticlePage: thematics meta label"
@@ -410,6 +418,10 @@
   "VkAnvv": {
     "defaultMessage": "Send",
     "description": "ContactForm: send button"
+  },
+  "VkfO7t": {
+    "defaultMessage": "Query must be longer than one character.",
+    "description": "NoResults: invalid query message"
   },
   "Vmj5cw": {
     "defaultMessage": "It is now awaiting moderation.",

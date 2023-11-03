@@ -1,21 +1,10 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { NoResults as NoResultsComponent } from './no-results';
 
 export default {
   title: 'Organisms/Layout',
   component: NoResultsComponent,
-  argTypes: {
-    searchPage: {
-      control: {
-        type: 'text',
-      },
-      description: 'The search results page.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-  },
+  argTypes: {},
 } as ComponentMeta<typeof NoResultsComponent>;
 
 const Template: ComponentStory<typeof NoResultsComponent> = (args) => (
@@ -23,6 +12,4 @@ const Template: ComponentStory<typeof NoResultsComponent> = (args) => (
 );
 
 export const NoResults = Template.bind({});
-NoResults.args = {
-  searchPage: '#',
-};
+NoResults.args = {};

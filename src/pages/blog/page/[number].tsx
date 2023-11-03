@@ -213,7 +213,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           byYear={true}
           pageNumber={pageNumber}
           posts={getPostsList([articles])}
-          searchPage={ROUTES.SEARCH}
           total={totalArticles}
         />
       </PageLayout>

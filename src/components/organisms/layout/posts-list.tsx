@@ -17,7 +17,7 @@ import {
   type RenderPaginationItemAriaLabel,
   type RenderPaginationLink,
 } from '../nav';
-import { NoResults, type NoResultsProps } from './no-results';
+import { NoResults } from './no-results';
 import styles from './posts-list.module.scss';
 import { Summary, type SummaryProps } from './summary';
 
@@ -30,45 +30,44 @@ export type Post = Omit<SummaryProps, 'titleLevel'> & {
 
 export type YearCollection = Record<string, Post[]>;
 
-export type PostsListProps = Pick<PaginationProps, 'siblings'> &
-  Pick<NoResultsProps, 'searchPage'> & {
-    /**
-     * The pagination base url.
-     */
-    baseUrl?: string;
-    /**
-     * True to display the posts by year. Default: false.
-     */
-    byYear?: boolean;
-    /**
-     * Determine if the data is loading.
-     */
-    isLoading?: boolean;
-    /**
-     * Load more button handler.
-     */
-    loadMore?: () => void;
-    /**
-     * The current page number. Default: 1.
-     */
-    pageNumber?: number;
-    /**
-     * The posts data.
-     */
-    posts: Post[];
-    /**
-     * Determine if the load more button should be visible.
-     */
-    showLoadMoreBtn?: boolean;
-    /**
-     * The posts heading level (hn).
-     */
-    titleLevel?: HeadingLevel;
-    /**
-     * The total posts number.
-     */
-    total: number;
-  };
+export type PostsListProps = Pick<PaginationProps, 'siblings'> & {
+  /**
+   * The pagination base url.
+   */
+  baseUrl?: string;
+  /**
+   * True to display the posts by year. Default: false.
+   */
+  byYear?: boolean;
+  /**
+   * Determine if the data is loading.
+   */
+  isLoading?: boolean;
+  /**
+   * Load more button handler.
+   */
+  loadMore?: () => void;
+  /**
+   * The current page number. Default: 1.
+   */
+  pageNumber?: number;
+  /**
+   * The posts data.
+   */
+  posts: Post[];
+  /**
+   * Determine if the load more button should be visible.
+   */
+  showLoadMoreBtn?: boolean;
+  /**
+   * The posts heading level (hn).
+   */
+  titleLevel?: HeadingLevel;
+  /**
+   * The total posts number.
+   */
+  total: number;
+};
 
 /**
  * Create a collection of posts sorted by year.
@@ -101,7 +100,6 @@ export const PostsList: FC<PostsListProps> = ({
   loadMore,
   pageNumber = 1,
   posts,
-  searchPage,
   showLoadMoreBtn = false,
   siblings,
   titleLevel,
@@ -305,7 +303,7 @@ export const PostsList: FC<PostsListProps> = ({
     );
   };
 
-  if (posts.length === 0) return <NoResults searchPage={searchPage} />;
+  if (posts.length === 0) return <NoResults />;
 
   return (
     <>

@@ -200,7 +200,6 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
               baseUrl={postsListBaseUrl}
               byYear={true}
               posts={getPostsWithUrl(articles)}
-              searchPage={ROUTES.SEARCH}
               titleLevel={3}
               total={articles.length}
             />

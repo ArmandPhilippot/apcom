@@ -59,5 +59,3 @@ export const posts: Post[] = [
     url: '#',
   },
 ];
-
-export const searchPage = '#';

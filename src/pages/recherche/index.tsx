@@ -241,7 +241,6 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
             isLoading={isLoadingMore ?? isLoadingInitialData}
             loadMore={loadMore}
             posts={getPostsList(data)}
-            searchPage={ROUTES.SEARCH}
             showLoadMoreBtn={hasNextPage}
             total={totalArticles ?? 0}
           />

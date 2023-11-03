@@ -5,26 +5,9 @@ import { SearchForm } from './search-form';
  * SearchForm - Storybook Meta
  */
 export default {
-  title: 'Organisms/Forms',
+  title: 'Organisms/Forms/Search',
   component: SearchForm,
-  args: {
-    isLabelHidden: false,
-    searchPage: '#',
-  },
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the form wrapper.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     isLabelHidden: {
       control: {
         type: 'boolean',
@@ -39,16 +22,6 @@ export default {
         required: false,
       },
     },
-    searchPage: {
-      control: {
-        type: 'text',
-      },
-      description: 'The search results page url.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
   },
 } as ComponentMeta<typeof SearchForm>;
 
@@ -57,9 +30,17 @@ const Template: ComponentStory<typeof SearchForm> = (args) => (
 );
 
 /**
- * Forms Stories - Search
+ * SearchForm Stories - Default
  */
-export const Search = Template.bind({});
-Search.args = {
+export const Default = Template.bind({});
+Default.args = {
+  isLabelHidden: false,
+};
+
+/**
+ * SearchForm Stories - With hidden label
+ */
+export const WithHiddenLabel = Template.bind({});
+WithHiddenLabel.args = {
   isLabelHidden: true,
 };

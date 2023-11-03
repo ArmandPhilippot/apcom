@@ -1,5 +1,6 @@
 /* eslint-disable max-statements */
 import NextImage from 'next/image';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
 import {
   type FC,
@@ -46,6 +47,7 @@ import {
   SearchForm,
   SettingsForm,
   type NavbarItems,
+  type SearchFormSubmit,
 } from '../../organisms';
 import styles from './layout.module.scss';
 
@@ -85,6 +87,7 @@ export const Layout: FC<LayoutProps> = ({
   isHome,
   useGrid = false,
 }) => {
+  const router = useRouter();
   const intl = useIntl();
   const { website } = useSettings();
   const { baseline, copyright, locales, name, url } = website;
@@ -249,6 +252,26 @@ export const Layout: FC<LayoutProps> = ({
     condition: () => isSearchOpen,
     delay: 360,
   });
+  const searchSubmitHandler: SearchFormSubmit = useCallback(
+    ({ query }) => {
+      if (!query)
+        return {
+          messages: {
+            error: intl.formatMessage({
+              defaultMessage: 'Query must be longer than one character.',
+              description: 'Layout: invalid query message',
+              id: 'C2YcUJ',
+            }),
+          },
+          validator: (value) => value.query.length > 1,
+        };
+
+      router.push({ pathname: ROUTES.SEARCH, query: { s: query } });
+
+      return undefined;
+    },
+    [intl, router]
+  );
 
   useRouteChange(deactivateSearch);
 
@@ -268,8 +291,8 @@ export const Layout: FC<LayoutProps> = ({
         <SearchForm
           className={styles.search}
           isLabelHidden
+          onSubmit={searchSubmitHandler}
           ref={searchInputRef}
-          searchPage={ROUTES.SEARCH}
         />
       ),
       icon: 'magnifying-glass',

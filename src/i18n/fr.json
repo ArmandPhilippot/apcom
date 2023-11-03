@@ -195,6 +195,14 @@
     "defaultMessage": "Échec du chargement.",
     "description": "BlogPage: failed to load text"
   },
+  "C2YcUJ": {
+    "defaultMessage": "Les mots-clés doivent être plus longs qu'un caractère.",
+    "description": "Layout: invalid query message"
+  },
+  "C6oK7h": {
+    "defaultMessage": "Les mots-clés doivent être plus longs qu'un caractère.",
+    "description": "404Page: invalid query message"
+  },
   "CvOqoh": {
     "defaultMessage": "Thématiques :",
     "description": "ArticlePage: thematics meta label"
@@ -410,6 +418,10 @@
   "VkAnvv": {
     "defaultMessage": "Envoyer",
     "description": "ContactForm: send button"
+  },
+  "VkfO7t": {
+    "defaultMessage": "Les mots-clés doivent être plus longs qu'un caractère.",
+    "description": "NoResults: invalid query message"
   },
   "Vmj5cw": {
     "defaultMessage": "Il est maintenant en attente de modération.",

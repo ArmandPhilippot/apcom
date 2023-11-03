@@ -1,6 +1,8 @@
+/* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import type { ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, type ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -9,6 +11,7 @@ import {
   LinksListWidget,
   PageLayout,
   SearchForm,
+  type SearchFormSubmit,
 } from '../components';
 import {
   getThematicsPreview,
@@ -39,6 +42,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
   thematicsList,
   topicsList,
 }) => {
+  const router = useRouter();
   const intl = useIntl();
   const { website } = useSettings();
   const title = intl.formatMessage({
@@ -85,6 +89,26 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
     description: 'Error404Page: topics list widget title',
     id: 'GVpTIl',
   });
+  const searchSubmitHandler: SearchFormSubmit = useCallback(
+    ({ query }) => {
+      if (!query)
+        return {
+          messages: {
+            error: intl.formatMessage({
+              defaultMessage: 'Query must be longer than one character.',
+              description: '404Page: invalid query message',
+              id: 'C6oK7h',
+            }),
+          },
+          validator: (value) => value.query.length > 1,
+        };
+
+      router.push({ pathname: ROUTES.SEARCH, query: { s: query } });
+
+      return undefined;
+    },
+    [intl, router]
+  );
 
   return (
     <>
@@ -134,7 +158,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
             id: 'XKy7rx',
           })}
         </p>
-        <SearchForm isLabelHidden searchPage={ROUTES.SEARCH} />
+        <SearchForm isLabelHidden onSubmit={searchSubmitHandler} />
       </PageLayout>
     </>
   );
