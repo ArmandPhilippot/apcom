@@ -1,9 +1,0 @@
-@use "../../../styles/abstracts/mixins" as mix;
-
-.modal {
-  @include mix.media("screen") {
-    @include mix.dimensions(null, "sm") {
-      border-inline: 0;
-    }
-  }
-}

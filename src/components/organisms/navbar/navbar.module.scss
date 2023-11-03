@@ -1,0 +1,53 @@
+@use "../../../styles/abstracts/functions" as fun;
+@use "../../../styles/abstracts/mixins" as mix;
+
+.wrapper {
+  --btn-size: #{fun.convert-px(65)};
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  justify-content: space-between;
+
+  :global {
+    animation: slide-in-from-bottom 0.8s ease-in-out 0s 1;
+  }
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "sm") {
+      padding-inline: var(--spacing-sm);
+      position: fixed;
+      bottom: 0;
+      inset-inline: 0;
+      z-index: 5;
+      background: var(--color-bg);
+      border-top: fun.convert-px(4) solid;
+      border-image: radial-gradient(
+          ellipse at top,
+          var(--color-primary-lighter) 20%,
+          var(--color-primary) 100%
+        )
+        1;
+      box-shadow: 0 fun.convert-px(-2) fun.convert-px(3) fun.convert-px(-1)
+        var(--color-shadow-dark);
+    }
+
+    @include mix.dimensions("sm") {
+      --transform-origin: 95% -10%;
+
+      position: relative;
+      inset: unset;
+      width: fit-content;
+
+      :global {
+        animation: slide-in-from-top 0.8s ease-in-out 0s 1;
+      }
+    }
+  }
+}
+
+.item {
+  display: flex;
+  justify-content: flex-end;
+}

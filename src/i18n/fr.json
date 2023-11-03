@@ -15,10 +15,6 @@
     "defaultMessage": "Commentaires",
     "description": "PageLayout: comments title"
   },
-  "+viX9b": {
-    "defaultMessage": "Fermer les réglages",
-    "description": "Settings: Close label"
-  },
   "/42Z0z": {
     "defaultMessage": "Sujets liés",
     "description": "ThematicPage: related topics list widget title"
@@ -231,13 +227,9 @@
     "defaultMessage": "Illustration de {title}",
     "description": "ProjectsPage: figure (cover) accessible name"
   },
-  "G+Twgm": {
-    "defaultMessage": "Recherche",
-    "description": "SearchModal: modal title"
-  },
-  "GTbGMy": {
+  "Fgt/RZ": {
     "defaultMessage": "Ouvrir le menu",
-    "description": "MainNav: Open label"
+    "description": "Layout: main nav button label in navbar"
   },
   "GVpTIl": {
     "defaultMessage": "Sujets",
@@ -307,10 +299,6 @@
     "defaultMessage": "Annuler la réponse",
     "description": "Comment: cancel reply button"
   },
-  "LDDUNO": {
-    "defaultMessage": "Fermer la recherche",
-    "description": "Search: Close label"
-  },
   "LszkU6": {
     "defaultMessage": "Tous les articles dans {thematicName}",
     "description": "ThematicPage: posts list heading"
@@ -318,6 +306,10 @@
   "MJbZfX": {
     "defaultMessage": "Écrit par :",
     "description": "ArticlePage: author label"
+  },
+  "Mq+O6q": {
+    "defaultMessage": "Recherche",
+    "description": "Layout: search modal title in navbar"
   },
   "N44SOc": {
     "defaultMessage": "Projets",
@@ -358,10 +350,6 @@
   "Q3oEQn": {
     "defaultMessage": "Profil LinkedIn",
     "description": "ContactPage: LinkedIn profile link"
-  },
-  "QCW3cy": {
-    "defaultMessage": "Ouvrir les réglages",
-    "description": "Settings: Open label"
   },
   "QLisK6": {
     "defaultMessage": "Thème sombre 🌙",
@@ -451,9 +439,9 @@
     "defaultMessage": "Vous pouvez également tenter une recherche :",
     "description": "Error404Page: try a search message"
   },
-  "Xj+WXB": {
+  "XRwEoA": {
     "defaultMessage": "Ouvrir la recherche",
-    "description": "Search: Open label"
+    "description": "Layout: search button label in navbar"
   },
   "Y+DYja": {
     "defaultMessage": "Partager sur LinkedIn",
@@ -483,10 +471,6 @@
     "defaultMessage": "En lire plus<a11y> à propos de {title}</a11y>",
     "description": "Summary: read more link"
   },
-  "aJC7D2": {
-    "defaultMessage": "Fermer le menu",
-    "description": "MainNav: Close label"
-  },
   "azgQuH": {
     "defaultMessage": "Vous devriez lire {title}",
     "description": "Sharing: subject text"
@@ -506,6 +490,10 @@
   "c556Qo": {
     "defaultMessage": "Barre latérale",
     "description": "PageLayout: accessible name for the sidebar"
+  },
+  "dfTljv": {
+    "defaultMessage": "Navigation principale",
+    "description": "Layout: main nav accessible name"
   },
   "dz2kDV": {
     "defaultMessage": "Formulaire des commentaires",
@@ -535,9 +523,9 @@
     "defaultMessage": "Il a été approuvé.",
     "description": "PageLayout: comment approved."
   },
-  "gPfT/K": {
-    "defaultMessage": "Réglages",
-    "description": "SettingsModal: title"
+  "h3J0a+": {
+    "defaultMessage": "Formulaire des réglages",
+    "description": "Layout: an accessible name for the settings form in navbar"
   },
   "hHVgW3": {
     "defaultMessage": "Thème clair 🌞",
@@ -595,6 +583,10 @@
     "defaultMessage": "Fil d’Ariane",
     "description": "PageLayout: an accessible name for the breadcrumb nav."
   },
+  "mDKiaN": {
+    "defaultMessage": "Ouvrir les réglages",
+    "description": "Layout: settings button label in navbar"
+  },
   "nGss/j": {
     "defaultMessage": "Suivi Ackee (analytique)",
     "description": "AckeeToggle: tooltip title"
@@ -618,6 +610,10 @@
   "o0DAK4": {
     "defaultMessage": "Partager sur Facebook",
     "description": "Sharing: Facebook sharing link"
+  },
+  "o3WSz5": {
+    "defaultMessage": "Réglages",
+    "description": "Layout: settings modal title in navbar"
   },
   "oVLRW8": {
     "defaultMessage": "Partager sur Diaspora",
@@ -742,10 +738,6 @@
   "wVFA4m": {
     "defaultMessage": "Créé le :",
     "description": "ProjectsPage: creation date label"
-  },
-  "xYNeKX": {
-    "defaultMessage": "Formulaire des réglages",
-    "description": "SettingsModal: an accessible form name"
   },
   "xYemkP": {
     "defaultMessage": "Chargement des articles précédents…",

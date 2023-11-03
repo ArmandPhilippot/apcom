@@ -8,12 +8,16 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type FormEvent,
+  useCallback,
 } from 'react';
 import { useIntl } from 'react-intl';
 import type { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
 import type { NextPageWithLayoutOptions } from '../../../types';
 import { ROUTES } from '../../../utils/constants';
 import {
+  useAutofocus,
+  useBoolean,
   useRouteChange,
   useScrollPosition,
   useSettings,
@@ -35,7 +39,14 @@ import {
   Copyright,
   FlippingLogo,
 } from '../../molecules';
-import { type MainNavItem, Toolbar } from '../../organisms';
+import {
+  type MainNavItem,
+  Navbar,
+  MainNav,
+  SearchForm,
+  SettingsForm,
+  type NavbarItems,
+} from '../../organisms';
 import styles from './layout.module.scss';
 
 export type QueryAction = SearchAction & {
@@ -177,6 +188,117 @@ export const Layout: FC<LayoutProps> = ({
     },
   ];
 
+  const {
+    deactivate: deactivateMainNav,
+    state: isMainNavOpen,
+    toggle: toggleMainNav,
+  } = useBoolean(false);
+  const {
+    deactivate: deactivateSearch,
+    state: isSearchOpen,
+    toggle: toggleSearch,
+  } = useBoolean(false);
+  const {
+    deactivate: deactivateSettings,
+    state: isSettingsOpen,
+    toggle: toggleSettings,
+  } = useBoolean(false);
+  const labels = {
+    mainNavItem: intl.formatMessage({
+      defaultMessage: 'Open menu',
+      description: 'Layout: main nav button label in navbar',
+      id: 'Fgt/RZ',
+    }),
+    mainNavModal: intl.formatMessage({
+      defaultMessage: 'Main navigation',
+      description: 'Layout: main nav accessible name',
+      id: 'dfTljv',
+    }),
+    searchItem: intl.formatMessage({
+      defaultMessage: 'Open search',
+      id: 'XRwEoA',
+      description: 'Layout: search button label in navbar',
+    }),
+    searchModal: intl.formatMessage({
+      defaultMessage: 'Search',
+      description: 'Layout: search modal title in navbar',
+      id: 'Mq+O6q',
+    }),
+    settingsItem: intl.formatMessage({
+      defaultMessage: 'Open settings',
+      id: 'mDKiaN',
+      description: 'Layout: settings button label in navbar',
+    }),
+    settingsForm: intl.formatMessage({
+      defaultMessage: 'Settings form',
+      id: 'h3J0a+',
+      description: 'Layout: an accessible name for the settings form in navbar',
+    }),
+    settingsModal: intl.formatMessage({
+      defaultMessage: 'Settings',
+      description: 'Layout: settings modal title in navbar',
+      id: 'o3WSz5',
+    }),
+  };
+
+  const settingsSubmitHandler = useCallback((e: FormEvent) => {
+    e.preventDefault();
+  }, []);
+
+  const searchInputRef = useAutofocus<HTMLInputElement>({
+    condition: () => isSearchOpen,
+    delay: 360,
+  });
+
+  useRouteChange(deactivateSearch);
+
+  const navbarItems: NavbarItems = [
+    {
+      contents: <MainNav aria-label={labels.mainNavModal} items={mainNav} />,
+      icon: 'hamburger',
+      id: 'main-nav',
+      isActive: isMainNavOpen,
+      label: labels.mainNavItem,
+      modalVisibleFrom: 'md',
+      onDeactivate: deactivateMainNav,
+      onToggle: toggleMainNav,
+    },
+    {
+      contents: (
+        <SearchForm
+          className={styles.search}
+          isLabelHidden
+          ref={searchInputRef}
+          searchPage={ROUTES.SEARCH}
+        />
+      ),
+      icon: 'magnifying-glass',
+      id: 'search',
+      isActive: isSearchOpen,
+      label: labels.searchItem,
+      onDeactivate: deactivateSearch,
+      onToggle: toggleSearch,
+      modalHeading: labels.searchModal,
+    },
+    {
+      contents: (
+        <SettingsForm
+          aria-label={labels.settingsForm}
+          className={styles.settings}
+          onSubmit={settingsSubmitHandler}
+        />
+      ),
+      icon: 'cog',
+      id: 'settings',
+      isActive: isSettingsOpen,
+      label: labels.settingsItem,
+      onDeactivate: deactivateSettings,
+      onToggle: toggleSettings,
+      modalHeading: labels.settingsModal,
+      showIconOnModal: true,
+    },
+  ];
+
   const legalNoticeLabel = intl.formatMessage({
     defaultMessage: 'Legal notice',
     description: 'Layout: Legal notice label',
@@ -311,11 +433,7 @@ export const Layout: FC<LayoutProps> = ({
             }
             url="/"
           />
-          <Toolbar
-            className={styles.toolbar}
-            nav={mainNav}
-            searchPage={ROUTES.SEARCH}
-          />
+          <Navbar items={navbarItems} />
         </div>
       </Header>
       <Main id="main" className={styles.main}>

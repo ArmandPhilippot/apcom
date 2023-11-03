@@ -15,10 +15,6 @@
     "defaultMessage": "Comments",
     "description": "PageLayout: comments title"
   },
-  "+viX9b": {
-    "defaultMessage": "Close settings",
-    "description": "Settings: Close label"
-  },
   "/42Z0z": {
     "defaultMessage": "Related topics",
     "description": "ThematicPage: related topics list widget title"
@@ -231,13 +227,9 @@
     "defaultMessage": "{title} cover",
     "description": "ProjectsPage: figure (cover) accessible name"
   },
-  "G+Twgm": {
-    "defaultMessage": "Search",
-    "description": "SearchModal: modal title"
-  },
-  "GTbGMy": {
+  "Fgt/RZ": {
     "defaultMessage": "Open menu",
-    "description": "MainNav: Open label"
+    "description": "Layout: main nav button label in navbar"
   },
   "GVpTIl": {
     "defaultMessage": "Topics",
@@ -307,10 +299,6 @@
     "defaultMessage": "Cancel reply",
     "description": "Comment: cancel reply button"
   },
-  "LDDUNO": {
-    "defaultMessage": "Close search",
-    "description": "Search: Close label"
-  },
   "LszkU6": {
     "defaultMessage": "All posts in {thematicName}",
     "description": "ThematicPage: posts list heading"
@@ -318,6 +306,10 @@
   "MJbZfX": {
     "defaultMessage": "Written by:",
     "description": "ArticlePage: author label"
+  },
+  "Mq+O6q": {
+    "defaultMessage": "Search",
+    "description": "Layout: search modal title in navbar"
   },
   "N44SOc": {
     "defaultMessage": "Projects",
@@ -358,10 +350,6 @@
   "Q3oEQn": {
     "defaultMessage": "LinkedIn profile",
     "description": "ContactPage: LinkedIn profile link"
-  },
-  "QCW3cy": {
-    "defaultMessage": "Open settings",
-    "description": "Settings: Open label"
   },
   "QLisK6": {
     "defaultMessage": "Dark Theme 🌙",
@@ -451,9 +439,9 @@
     "defaultMessage": "You can also try a search:",
     "description": "Error404Page: try a search message"
   },
-  "Xj+WXB": {
+  "XRwEoA": {
     "defaultMessage": "Open search",
-    "description": "Search: Open label"
+    "description": "Layout: search button label in navbar"
   },
   "Y+DYja": {
     "defaultMessage": "Share on LinkedIn",
@@ -483,10 +471,6 @@
     "defaultMessage": "Read more<a11y> about {title}</a11y>",
     "description": "Summary: read more link"
   },
-  "aJC7D2": {
-    "defaultMessage": "Close menu",
-    "description": "MainNav: Close label"
-  },
   "azgQuH": {
     "defaultMessage": "You should read {title}",
     "description": "Sharing: subject text"
@@ -506,6 +490,10 @@
   "c556Qo": {
     "defaultMessage": "Sidebar",
     "description": "PageLayout: accessible name for the sidebar"
+  },
+  "dfTljv": {
+    "defaultMessage": "Main navigation",
+    "description": "Layout: main nav accessible name"
   },
   "dz2kDV": {
     "defaultMessage": "Comment form",
@@ -535,9 +523,9 @@
     "defaultMessage": "It has been approved.",
     "description": "PageLayout: comment approved."
   },
-  "gPfT/K": {
-    "defaultMessage": "Settings",
-    "description": "SettingsModal: title"
+  "h3J0a+": {
+    "defaultMessage": "Settings form",
+    "description": "Layout: an accessible name for the settings form in navbar"
   },
   "hHVgW3": {
     "defaultMessage": "Light Theme 🌞",
@@ -595,6 +583,10 @@
     "defaultMessage": "Breadcrumb",
     "description": "PageLayout: an accessible name for the breadcrumb nav."
   },
+  "mDKiaN": {
+    "defaultMessage": "Open settings",
+    "description": "Layout: settings button label in navbar"
+  },
   "nGss/j": {
     "defaultMessage": "Ackee tracking (analytics)",
     "description": "AckeeToggle: tooltip title"
@@ -618,6 +610,10 @@
   "o0DAK4": {
     "defaultMessage": "Share on Facebook",
     "description": "Sharing: Facebook sharing link"
+  },
+  "o3WSz5": {
+    "defaultMessage": "Settings",
+    "description": "Layout: settings modal title in navbar"
   },
   "oVLRW8": {
     "defaultMessage": "Share on Diaspora",
@@ -742,10 +738,6 @@
   "wVFA4m": {
     "defaultMessage": "Created on:",
     "description": "ProjectsPage: creation date label"
-  },
-  "xYNeKX": {
-    "defaultMessage": "Settings form",
-    "description": "SettingsModal: an accessible form name"
   },
   "xYemkP": {
     "defaultMessage": "Loading more articles...",

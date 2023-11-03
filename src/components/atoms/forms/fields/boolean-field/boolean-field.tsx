@@ -1,4 +1,8 @@
-import type { FC, InputHTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type InputHTMLAttributes,
+  type ForwardRefRenderFunction,
+} from 'react';
 import styles from './boolean-field.module.scss';
 
 export type BooleanFieldProps = Omit<
@@ -56,20 +60,21 @@ export type BooleanFieldProps = Omit<
   value: string;
 };
 
-/**
- * BooleanField component
- *
- * Render a checkbox or a radio input type.
- */
-export const BooleanField: FC<BooleanFieldProps> = ({
-  className = '',
-  isChecked = false,
-  isDisabled = false,
-  isHidden = false,
-  isReadOnly = false,
-  isRequired = false,
-  ...props
-}) => {
+const BooleanFieldWithRef: ForwardRefRenderFunction<
+  HTMLInputElement,
+  BooleanFieldProps
+> = (
+  {
+    className = '',
+    isChecked = false,
+    isDisabled = false,
+    isHidden = false,
+    isReadOnly = false,
+    isRequired = false,
+    ...props
+  },
+  ref
+) => {
   const visibilityClass = isHidden ? styles['field--hidden'] : '';
   const inputClass = `${visibilityClass} ${className}`;
 
@@ -80,7 +85,15 @@ export const BooleanField: FC<BooleanFieldProps> = ({
       className={inputClass}
       disabled={isDisabled}
       readOnly={isReadOnly}
+      ref={ref}
       required={isRequired}
     />
   );
 };
+
+/**
+ * BooleanField component
+ *
+ * Render a checkbox or a radio input type.
+ */
+export const BooleanField = forwardRef(BooleanFieldWithRef);

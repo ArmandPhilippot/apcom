@@ -1,0 +1,173 @@
+@use "../../../../styles/abstracts/functions" as fun;
+@use "../../../../styles/abstracts/mixins" as mix;
+@use "../../../../styles/abstracts/placeholders";
+
+.overlay {
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "sm") {
+      bottom: var(--modal-pos, var(--btn-size, --default-btn-size));
+      display: flex;
+      flex-flow: row wrap;
+      place-content: flex-end;
+    }
+
+    @include mix.dimensions("sm") {
+      position: absolute;
+      inset: calc(100% + var(--spacing-2xs)) auto;
+      background: transparent;
+    }
+  }
+}
+
+.modal {
+  transition:
+    all 0.8s ease-in-out 0s,
+    background 0s;
+
+  @include mix.media("screen") {
+    @include mix.dimensions(null, "sm") {
+      max-width: 100vw;
+      width: 100vw;
+      margin-bottom: fun.convert-px(2);
+      border-inline: 0;
+    }
+  }
+}
+
+.label {
+  --draw-border-thickness: #{fun.convert-px(4)};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  min-width: var(--btn-size, --default-btn-size);
+  min-height: var(--btn-size, --default-btn-size);
+  padding: var(--spacing-xs);
+  border-radius: fun.convert-px(5);
+}
+
+.flip {
+  --flipper-speed: 0.5s;
+
+  place-content: center;
+
+  &__side {
+    display: flex;
+    place-content: center;
+  }
+}
+
+.checkbox {
+  position: absolute;
+
+  /* 6px = checkbox approximate size */
+  inset: calc(50% - 6px) calc(50% - 6px);
+  opacity: 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    &,
+    + .label {
+      @extend %draw-borders;
+    }
+  }
+
+  &:checked + .label {
+    --draw-border-color1: var(--color-primary-dark);
+    --draw-border-color2: var(--color-primary-light);
+
+    .icon--hamburger {
+      > span {
+        background: transparent;
+        border: transparent;
+
+        &::before {
+          top: 40%;
+          transform-origin: 50% 50%;
+          transform: rotate(-45deg);
+        }
+
+        &::after {
+          bottom: 40%;
+          transform-origin: 50% 50%;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+
+  &:not(:checked) {
+    + .label {
+      --draw-border-color1: var(--color-primary-light);
+      --draw-border-color2: var(--color-primary-lighter);
+    }
+
+    ~ .overlay {
+      @include mix.media("screen") {
+        @include mix.dimensions("sm") {
+          overflow: visible;
+          transition: all 0.3s ease-in-out 0.8s;
+        }
+      }
+
+      > .modal {
+        @include mix.media("screen") {
+          @include mix.dimensions(null, "sm") {
+            transform: translateX(-100vw);
+          }
+
+          @include mix.dimensions("sm") {
+            transform: scale(0) perspective(#{fun.convert-px(250)})
+              translate3d(0, 0, #{fun.convert-px(-250)});
+            transform-origin: var(--transform-origin, 15% -15%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin modal-visible {
+  > .checkbox,
+  > .label {
+    display: none;
+  }
+
+  > .overlay {
+    display: contents;
+  }
+
+  .checkbox:is(:checked, :not(:checked)) ~ .overlay .modal {
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.item {
+  --default-btn-size: #{fun.convert-px(70)};
+
+  position: relative;
+
+  &--hidden-controller-sm {
+    @include mix.media("screen") {
+      @include mix.dimensions("sm") {
+        @include modal-visible;
+      }
+    }
+  }
+
+  &--hidden-controller-md {
+    @include mix.media("screen") {
+      @include mix.dimensions("md") {
+        @include modal-visible;
+      }
+    }
+  }
+}

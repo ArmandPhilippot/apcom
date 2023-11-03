@@ -14,6 +14,7 @@ import { LabelledField } from '../../../molecules';
 import styles from './search-form.module.scss';
 
 export type SearchFormProps = {
+  className?: string;
   /**
    * Should the label be visually hidden?
    *
@@ -29,7 +30,7 @@ export type SearchFormProps = {
 const SearchFormWithRef: ForwardRefRenderFunction<
   HTMLInputElement,
   SearchFormProps
-> = ({ isLabelHidden = false, searchPage }, ref) => {
+> = ({ className = '', isLabelHidden = false, searchPage }, ref) => {
   const intl = useIntl();
   const fieldLabel = intl.formatMessage({
     defaultMessage: 'Search for:',
@@ -59,9 +60,10 @@ const SearchFormWithRef: ForwardRefRenderFunction<
   }, []);
 
   const id = useId();
+  const formClass = `${styles.wrapper} ${className}`;
 
   return (
-    <Form className={styles.wrapper} onSubmit={submitHandler}>
+    <Form className={formClass} onSubmit={submitHandler}>
       <LabelledField
         className={styles.field}
         field={
