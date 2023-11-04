@@ -6,10 +6,7 @@ import { UserComment, type UserCommentProps } from './comment';
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
 export type CommentsListDepth = 0 | 1 | 2 | 3 | 4;
 
-export type CommentsListProps = Pick<
-  UserCommentProps,
-  'Notice' | 'saveComment'
-> & {
+export type CommentsListProps = Pick<UserCommentProps, 'onSubmit'> & {
   /**
    * An array of comments.
    */
@@ -28,8 +25,7 @@ export type CommentsListProps = Pick<
 export const CommentsList: FC<CommentsListProps> = ({
   comments,
   depth,
-  Notice,
-  saveComment,
+  onSubmit,
 }) => {
   /**
    * Get each comment wrapped in a list item.
@@ -45,12 +41,7 @@ export const CommentsList: FC<CommentsListProps> = ({
 
     return commentsList.map(({ replies, ...comment }) => (
       <ListItem key={comment.id}>
-        <UserComment
-          canReply={!isLastLevel}
-          Notice={Notice}
-          saveComment={saveComment}
-          {...comment}
-        />
+        <UserComment canReply={!isLastLevel} onSubmit={onSubmit} {...comment} />
         {replies.length && !isLastLevel ? (
           <List hideMarker isOrdered spacing="sm">
             {getItems(replies, startLevel + 1)}

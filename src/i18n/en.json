@@ -507,10 +507,6 @@
     "defaultMessage": "Main navigation",
     "description": "Layout: main nav accessible name"
   },
-  "dz2kDV": {
-    "defaultMessage": "Comment form",
-    "description": "CommentForm: aria label"
-  },
   "f0Z/Po": {
     "defaultMessage": "Updated on:",
     "description": "Summary: update date label"
@@ -582,6 +578,10 @@
   "kzIYoQ": {
     "defaultMessage": "Leave a comment",
     "description": "PageLayout: comment form title"
+  },
+  "l+Jcf6": {
+    "defaultMessage": "Comment form",
+    "description": "PageLayout: comment form accessible name"
   },
   "lHkta9": {
     "defaultMessage": "Total:",

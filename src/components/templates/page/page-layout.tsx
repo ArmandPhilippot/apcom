@@ -4,15 +4,14 @@ import {
   type HTMLAttributes,
   type ReactNode,
   useRef,
-  useState,
   useCallback,
 } from 'react';
 import { useIntl } from 'react-intl';
 import type { BreadcrumbList } from 'schema-dts';
 import { sendComment } from '../../../services/graphql';
-import type { Approved, SendCommentInput, SingleComment } from '../../../types';
+import type { SendCommentInput, SingleComment } from '../../../types';
 import { useIsMounted } from '../../../utils/hooks';
-import { Heading, Notice, type NoticeKind, Sidebar } from '../../atoms';
+import { Heading, Sidebar } from '../../atoms';
 import {
   PageFooter,
   type PageFooterProps,
@@ -21,12 +20,12 @@ import {
 } from '../../molecules';
 import {
   CommentForm,
-  type CommentFormProps,
   CommentsList,
   type CommentsListProps,
   TableOfContents,
   Breadcrumbs,
   type BreadcrumbsItem,
+  type CommentFormSubmit,
 } from '../../organisms';
 import styles from './page-layout.module.scss';
 
@@ -39,12 +38,6 @@ const hasComments = (
   comments: SingleComment[] | undefined
 ): comments is SingleComment[] =>
   Array.isArray(comments) && comments.length > 0;
-
-type CommentStatus = {
-  isReply: boolean;
-  kind: NoticeKind;
-  message: string;
-};
 
 export type PageLayoutProps = {
   /**
@@ -137,21 +130,37 @@ export const PageLayout: FC<PageLayoutProps> = ({
     description: 'PageLayout: comments title',
     id: '+dJU3e',
   });
-  const commentFormTitle = intl.formatMessage({
+  const commentFormSectionTitle = intl.formatMessage({
     defaultMessage: 'Leave a comment',
     description: 'PageLayout: comment form title',
     id: 'kzIYoQ',
   });
+  const commentFormTitle = intl.formatMessage({
+    defaultMessage: 'Comment form',
+    description: 'PageLayout: comment form accessible name',
+    id: 'l+Jcf6',
+  });
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const isMounted = useIsMounted(bodyRef);
-  const [commentStatus, setCommentStatus] = useState<CommentStatus | undefined>(
-    undefined
-  );
 
-  const isSuccessStatus = useCallback(
-    (comment: Approved | null, isReply: boolean, isSuccess: boolean) => {
-      if (isSuccess) {
+  const saveComment: CommentFormSubmit = useCallback(
+    async (data) => {
+      if (!id) throw new Error('Page id missing. Cannot save comment.');
+
+      const { author, comment: commentBody, email, parentId, website } = data;
+      const commentData: SendCommentInput = {
+        author,
+        authorEmail: email,
+        authorUrl: website ?? '',
+        clientMutationId: 'comment',
+        commentOn: id,
+        content: commentBody,
+        parent: parentId,
+      };
+      const { comment, success } = await sendComment(commentData);
+
+      if (success) {
         const successPrefix = intl.formatMessage({
           defaultMessage: 'Thanks, your comment was successfully sent.',
           description: 'PageLayout: comment form success message',
@@ -168,45 +177,26 @@ export const PageLayout: FC<PageLayoutProps> = ({
               id: 'Vmj5cw',
               description: 'PageLayout: comment awaiting moderation',
             });
-        setCommentStatus({
-          isReply,
-          kind: 'success',
-          message: `${successPrefix} ${successMessage}`,
-        });
-        return true;
+        return {
+          messages: {
+            success: `${successPrefix} ${successMessage}`,
+          },
+          validator: () => success,
+        };
       }
 
-      const error = intl.formatMessage({
-        defaultMessage: 'An error occurred:',
-        description: 'PageLayout: comment form error message',
-        id: 'fkcTGp',
-      });
-      setCommentStatus({ isReply, kind: 'error', message: error });
-      return false;
-    },
-    [intl]
-  );
-
-  const saveComment: CommentFormProps['saveComment'] = useCallback(
-    async (data, reset) => {
-      if (!id) throw new Error('Page id missing. Cannot save comment.');
-
-      const { author, comment: commentBody, email, parentId, website } = data;
-      const isReply = !!parentId;
-      const commentData: SendCommentInput = {
-        author,
-        authorEmail: email,
-        authorUrl: website ?? '',
-        clientMutationId: 'comment',
-        commentOn: id,
-        content: commentBody,
-        parent: parentId,
+      return {
+        messages: {
+          error: intl.formatMessage({
+            defaultMessage: 'An error occurred:',
+            description: 'PageLayout: comment form error message',
+            id: 'fkcTGp',
+          }),
+        },
+        validator: () => success,
       };
-      const { comment, success } = await sendComment(commentData);
-
-      if (isSuccessStatus(comment, isReply, success)) reset();
     },
-    [id, isSuccessStatus]
+    [id, intl]
   );
 
   return (
@@ -276,14 +266,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
               <CommentsList
                 comments={comments}
                 depth={2}
-                Notice={
-                  commentStatus?.isReply ? (
-                    <Notice className={styles.notice} kind={commentStatus.kind}>
-                      {commentStatus.message}
-                    </Notice>
-                  ) : null
-                }
-                saveComment={saveComment}
+                onSubmit={saveComment}
               />
             ) : (
               <p className={styles['comments__no-comments']}>
@@ -296,17 +279,13 @@ export const PageLayout: FC<PageLayoutProps> = ({
             )}
           </section>
           <section className={styles.comments__section}>
+            <Heading className={styles.comments__title} level={2}>
+              {commentFormSectionTitle}
+            </Heading>
             <CommentForm
+              aria-label={commentFormTitle}
               className={styles.comments__form}
-              saveComment={saveComment}
-              title={commentFormTitle}
-              Notice={
-                commentStatus && !commentStatus.isReply ? (
-                  <Notice className={styles.notice} kind={commentStatus.kind}>
-                    {commentStatus.message}
-                  </Notice>
-                ) : null
-              }
+              onSubmit={saveComment}
             />
           </section>
         </div>

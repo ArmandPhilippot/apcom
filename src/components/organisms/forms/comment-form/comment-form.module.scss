@@ -2,23 +2,22 @@
   display: flex;
   flex-flow: column wrap;
   gap: var(--spacing-xs);
-
-  > * {
-    max-width: 45ch;
-  }
-}
-
-.title {
-  width: fit-content;
-  margin-inline: auto;
-  margin-bottom: var(--spacing-sm);
+  max-width: 45ch;
 }
 
 .field {
   width: 100%;
 }
 
-.button {
-  display: block;
+.btn {
+  width: fit-content;
   margin: var(--spacing-sm) auto 0;
+}
+
+.notice {
+  margin-block-start: var(--spacing-sm);
+}
+
+.spinner {
+  margin-inline: auto;
 }

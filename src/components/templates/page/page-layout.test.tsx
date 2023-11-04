@@ -83,7 +83,7 @@ describe('PageLayout', () => {
       </PageLayout>
     );
     expect(
-      rtlScreen.getByRole('form', { name: /Leave a comment/i })
+      rtlScreen.getByRole('form', { name: /Comment form/i })
     ).toBeInTheDocument();
   });
 

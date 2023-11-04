@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import NextImage from 'next/image';
 import Script from 'next/script';
 import type { FC } from 'react';
@@ -6,7 +5,7 @@ import { useIntl } from 'react-intl';
 import type { Comment as CommentSchema, WithContext } from 'schema-dts';
 import type { SingleComment } from '../../../types';
 import { useSettings, useToggle } from '../../../utils/hooks';
-import { Button, Link, Time } from '../../atoms';
+import { Button, Heading, Link, Time } from '../../atoms';
 import {
   Card,
   CardActions,
@@ -24,7 +23,7 @@ export type UserCommentProps = Pick<
   SingleComment,
   'approved' | 'content' | 'id' | 'meta' | 'parentId'
 > &
-  Pick<CommentFormProps, 'Notice' | 'saveComment'> & {
+  Pick<CommentFormProps, 'onSubmit'> & {
     /**
      * Enable or disable the reply button. Default: true.
      */
@@ -42,9 +41,8 @@ export const UserComment: FC<UserCommentProps> = ({
   content,
   id,
   meta,
-  Notice,
+  onSubmit,
   parentId,
-  saveComment,
   ...props
 }) => {
   const intl = useIntl();
@@ -173,13 +171,15 @@ export const UserComment: FC<UserCommentProps> = ({
         ) : null}
       </Card>
       {isReplying ? (
-        <Card className={styles.form} variant={2}>
+        <Card className={styles.form__wrapper} variant={2}>
           <CardBody>
+            <Heading className={styles.form__heading} level={2}>
+              {formTitle}
+            </Heading>
             <CommentForm
-              Notice={Notice}
+              className={styles.form}
+              onSubmit={onSubmit}
               parentId={id}
-              saveComment={saveComment}
-              title={formTitle}
             />
           </CardBody>
         </Card>

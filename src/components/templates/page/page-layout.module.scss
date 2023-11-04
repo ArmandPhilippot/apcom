@@ -73,16 +73,11 @@
 
   &__section {
     grid-column: 2;
-
-    &:first-child {
-      margin: var(--spacing-md) 0 0;
-    }
   }
 
   &__title {
     width: fit-content;
-    margin-bottom: var(--spacing-md);
-    margin-inline: auto;
+    margin: var(--spacing-md) auto;
   }
 
   &__no-comments {

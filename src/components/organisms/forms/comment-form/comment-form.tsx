@@ -1,26 +1,21 @@
-/* eslint-disable max-statements */
-import {
-  type ChangeEvent,
-  type FC,
-  type FormEvent,
-  type ReactNode,
-  useCallback,
-  useMemo,
-  useState,
-  useId,
-} from 'react';
+import { type FC, useCallback, useId } from 'react';
 import { useIntl } from 'react-intl';
-import { useBoolean } from '../../../../utils/hooks';
+import type { Nullable } from '../../../../types';
+import {
+  type FormSubmitHandler,
+  useForm,
+  type FormSubmitStatus,
+  type FormSubmitMessages,
+} from '../../../../utils/hooks';
 import {
   Button,
   Form,
   type FormProps,
-  Heading,
-  type HeadingLevel,
   Spinner,
   Input,
   TextArea,
   Label,
+  Notice,
 } from '../../../atoms';
 import { LabelledField } from '../../../molecules';
 import styles from './comment-form.module.scss';
@@ -33,93 +28,114 @@ export type CommentFormData = {
   website?: string;
 };
 
-export type CommentFormProps = Pick<FormProps, 'className'> & {
+export type CommentFormSubmit = FormSubmitHandler<CommentFormData>;
+
+export type CommentFormProps = Omit<FormProps, 'children' | 'onSubmit'> & {
   /**
-   * Pass a component to print a success/error message.
+   * A callback function to handle form submit.
    */
-  Notice?: ReactNode;
+  onSubmit?: CommentFormSubmit;
   /**
    * The comment parent id.
    */
   parentId?: number;
-  /**
-   * A callback function to save comment. It takes a function as parameter to
-   * reset the form.
-   */
-  saveComment: (data: CommentFormData, reset: () => void) => Promise<void>;
-  /**
-   * The form title.
-   */
-  title?: string;
-  /**
-   * The title level. Default: 2.
-   */
-  titleLevel?: HeadingLevel;
 };
 
 export const CommentForm: FC<CommentFormProps> = ({
   className = '',
-  Notice,
+  onSubmit,
   parentId,
-  saveComment,
-  title,
-  titleLevel = 2,
   ...props
 }) => {
+  const formId = useId();
   const formClass = `${styles.form} ${className}`;
   const intl = useIntl();
-  const emptyForm: CommentFormData = useMemo(() => {
-    return {
-      author: '',
-      comment: '',
-      email: '',
-      parentId,
-      website: '',
+  const { messages, submit, submitStatus, update, values } =
+    useForm<CommentFormData>({
+      initialValues:
+        /* The order matter: it will be reused to generate the fields in the right
+         * order. */
+        {
+          parentId,
+          author: '',
+          email: '',
+          website: '',
+          comment: '',
+        },
+      submitHandler: onSubmit,
+    });
+
+  const renderFields = useCallback(() => {
+    const entries = Object.entries(values) as [
+      keyof CommentFormData,
+      CommentFormData[keyof CommentFormData],
+    ][];
+    const labels: Record<Exclude<keyof CommentFormData, 'parentId'>, string> = {
+      author: intl.formatMessage({
+        defaultMessage: 'Name:',
+        description: 'CommentForm: name label',
+        id: 'ZIrTee',
+      }),
+      comment: intl.formatMessage({
+        defaultMessage: 'Comment:',
+        description: 'CommentForm: comment label',
+        id: 'A8hGaK',
+      }),
+      email: intl.formatMessage({
+        defaultMessage: 'Email:',
+        description: 'CommentForm: email label',
+        id: 'Bh7z5v',
+      }),
+      website: intl.formatMessage({
+        defaultMessage: 'Website:',
+        description: 'CommentForm: website label',
+        id: 'u41qSk',
+      }),
     };
-  }, [parentId]);
-  const [data, setData] = useState(emptyForm);
-  const {
-    activate: activateNotice,
-    deactivate: deactivateNotice,
-    state: isSubmitting,
-  } = useBoolean(false);
 
-  /**
-   * Reset all the form fields.
-   */
-  const resetForm = useCallback(() => {
-    setData(emptyForm);
-    deactivateNotice();
-  }, [deactivateNotice, emptyForm]);
+    return entries.map(([field, value]) => {
+      const isRequired = field !== 'website';
+      const inputType = field === 'email' ? 'email' : 'text';
+      const fieldId = `${formId}-${field}`;
 
-  const nameLabel = intl.formatMessage({
-    defaultMessage: 'Name:',
-    description: 'CommentForm: name label',
-    id: 'ZIrTee',
-  });
+      return field === 'parentId' ? null : (
+        <LabelledField
+          className={styles.field}
+          field={
+            field === 'comment' ? (
+              <TextArea
+                id={fieldId}
+                isRequired
+                name={field}
+                onChange={update}
+                value={value}
+              />
+            ) : (
+              <Input
+                id={fieldId}
+                isRequired={isRequired}
+                name={field}
+                onChange={update}
+                type={inputType}
+                value={value}
+              />
+            )
+          }
+          key={field}
+          label={
+            <Label htmlFor={fieldId} isRequired={isRequired}>
+              {labels[field]}
+            </Label>
+          }
+        />
+      );
+    });
+  }, [values, formId, intl, update]);
 
-  const emailLabel = intl.formatMessage({
-    defaultMessage: 'Email:',
-    description: 'CommentForm: email label',
-    id: 'Bh7z5v',
-  });
-
-  const websiteLabel = intl.formatMessage({
-    defaultMessage: 'Website:',
-    description: 'CommentForm: website label',
-    id: 'u41qSk',
-  });
-
-  const commentLabel = intl.formatMessage({
-    defaultMessage: 'Comment:',
-    description: 'CommentForm: comment label',
-    id: 'A8hGaK',
-  });
-
-  const formTitle = intl.formatMessage({
-    defaultMessage: 'Comment form',
-    description: 'CommentForm: aria label',
-    id: 'dz2kDV',
+  const btnLabel = intl.formatMessage({
+    defaultMessage: 'Publish',
+    description: 'CommentForm: submit button',
+    id: 'OL0Yzx',
   });
 
   const loadingMsg = intl.formatMessage({
@@ -128,137 +144,59 @@ export const CommentForm: FC<CommentFormProps> = ({
     id: 'IY5ew6',
   });
 
-  const formAriaLabel = title ? undefined : formTitle;
-  const formId = useId();
-  const formLabelledBy = title ? formId : undefined;
-
-  const updateForm = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      switch (e.target.name) {
-        case 'author':
-          setData((prevData) => {
-            return { ...prevData, author: e.target.value };
-          });
-          break;
-        case 'comment':
-          setData((prevData) => {
-            return { ...prevData, comment: e.target.value };
-          });
-          break;
-        case 'email':
-          setData((prevData) => {
-            return { ...prevData, email: e.target.value };
-          });
-          break;
-        case 'website':
-          setData((prevData) => {
-            return { ...prevData, website: e.target.value };
-          });
-          break;
+  const renderNotice = useCallback(
+    (
+      currentStatus: FormSubmitStatus,
+      msg: Nullable<Partial<FormSubmitMessages>>
+    ) => {
+      switch (currentStatus) {
+        case 'FAILED':
+          return msg?.error ? (
+            <Notice
+              // eslint-disable-next-line react/jsx-no-literals
+              kind="error"
+            >
+              {msg.error}
+            </Notice>
+          ) : null;
+        case 'PENDING':
+          return (
+            <Notice
+              // eslint-disable-next-line react/jsx-no-literals
+              kind="info"
+            >
+              <Spinner className={styles.spinner}>{loadingMsg}</Spinner>
+            </Notice>
+          );
+        case 'SUCCEEDED':
+          return msg?.success ? (
+            <Notice
+              // eslint-disable-next-line react/jsx-no-literals
+              kind="success"
+            >
+              {msg.success}
+            </Notice>
+          ) : null;
         default:
-          break;
+          return null;
       }
     },
-    []
-  );
-
-  const sendForm = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      activateNotice();
-      saveComment(data, resetForm).then(() => deactivateNotice());
-    },
-    [activateNotice, data, deactivateNotice, resetForm, saveComment]
+    [loadingMsg]
   );
 
   return (
-    <Form
-      {...props}
-      aria-label={formAriaLabel}
-      aria-labelledby={formLabelledBy}
-      className={formClass}
-      onSubmit={sendForm}
-    >
-      {title ? (
-        <Heading className={styles.title} id={formId} level={titleLevel}>
-          {title}
-        </Heading>
-      ) : null}
-      <LabelledField
-        className={styles.field}
-        field={
-          <Input
-            id="commenter-name"
-            isRequired
-            name="author"
-            onChange={updateForm}
-            type="text"
-            value={data.author}
-          />
-        }
-        label={
-          <Label htmlFor="commenter-name" isRequired>
-            {nameLabel}
-          </Label>
-        }
-      />
-      <LabelledField
-        className={styles.field}
-        field={
-          <Input
-            id="commenter-email"
-            isRequired
-            name="email"
-            onChange={updateForm}
-            type="email"
-            value={data.email}
-          />
-        }
-        label={
-          <Label htmlFor="commenter-email" isRequired>
-            {emailLabel}
-          </Label>
-        }
-      />
-      <LabelledField
-        className={styles.field}
-        field={
-          <Input
-            id="commenter-website"
-            name="website"
-            onChange={updateForm}
-            type="url"
-            value={data.website}
-          />
-        }
-        label={<Label htmlFor="commenter-website">{websiteLabel}</Label>}
-      />
-      <LabelledField
-        className={styles.field}
-        field={
-          <TextArea
-            id="commenter-comment"
-            isRequired
-            name="comment"
-            onChange={updateForm}
-            value={data.comment}
-          />
-        }
-        label={
-          <Label htmlFor="commenter-comment" isRequired>
-            {commentLabel}
-          </Label>
-        }
-      />
-      <Button type="submit" kind="primary" className={styles.button}>
-        {intl.formatMessage({
-          defaultMessage: 'Publish',
-          description: 'CommentForm: submit button',
-          id: 'OL0Yzx',
-        })}
+    <Form {...props} className={formClass} onSubmit={submit}>
+      {renderFields()}
+      <Button
+        className={styles.btn}
+        isLoading={submitStatus === 'PENDING'}
+        // eslint-disable-next-line react/jsx-no-literals
+        kind="primary"
+        type="submit"
+      >
+        {btnLabel}
       </Button>
-      {isSubmitting ? <Spinner>{loadingMsg}</Spinner> : null}
-      {Notice}
+      {renderNotice(submitStatus, messages)}
     </Form>
   );
 };

@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { CommentsList } from './comments-list';
 import { comments } from './comments-list.fixture';
 
@@ -39,20 +39,7 @@ export default {
         required: true,
       },
     },
-    Notice: {
-      control: {
-        type: null,
-      },
-      description: 'A component to display a success or error message.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'function',
-        required: false,
-      },
-    },
-    saveComment: {
+    onSubmit: {
       control: {
         type: null,
       },

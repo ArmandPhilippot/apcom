@@ -14,7 +14,7 @@ export default {
   component: UserComment,
   args: {
     canReply: true,
-    saveComment,
+    onSubmit: saveComment,
   },
   argTypes: {
     author: {
@@ -59,19 +59,6 @@ export default {
         required: true,
       },
     },
-    Notice: {
-      control: {
-        type: null,
-      },
-      description: 'A component to display a success or error message.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'function',
-        required: false,
-      },
-    },
     parentId: {
       control: {
         type: null,
@@ -90,7 +77,7 @@ export default {
         value: {},
       },
     },
-    saveComment: {
+    onSubmit: {
       control: {
         type: null,
       },

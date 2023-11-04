@@ -23,9 +23,7 @@ export const meta = {
 
 export const id = 5;
 
-export const saveComment = async () => {
-  /** Do nothing. */
-};
+export const saveComment = () => undefined;
 
 export const data: UserCommentProps = {
   approved: true,
@@ -33,5 +31,5 @@ export const data: UserCommentProps = {
   id,
   meta,
   parentId: 0,
-  saveComment,
+  onSubmit: saveComment,
 };

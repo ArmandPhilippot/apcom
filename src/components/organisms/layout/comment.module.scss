@@ -65,9 +65,14 @@
 }
 
 .form {
-  margin-top: var(--spacing-sm);
-
-  form > * {
-    margin-inline: auto;
+  &__wrapper {
+    margin-top: var(--spacing-sm);
   }
+
+  &__heading {
+    width: fit-content;
+    margin: 0 auto var(--spacing-md) auto;
+  }
+
+  margin-inline: auto;
 }
