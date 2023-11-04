@@ -9,7 +9,11 @@
   width: 100%;
 }
 
-.button {
-  display: block;
+.btn {
+  width: fit-content;
   margin: var(--spacing-sm) auto 0;
+}
+
+.spinner {
+  margin: var(--spacing-sm) auto;
 }

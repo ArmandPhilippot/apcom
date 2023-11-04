@@ -1,16 +1,22 @@
-/* eslint-disable max-statements */
-import {
-  type ChangeEvent,
-  type FC,
-  type FormEvent,
-  type ReactNode,
-  useState,
-  useCallback,
-  useMemo,
-} from 'react';
+import { type FC, useCallback } from 'react';
 import { useIntl } from 'react-intl';
-import { useBoolean } from '../../../../utils/hooks';
-import { Button, Form, Input, Label, Spinner, TextArea } from '../../../atoms';
+import type { Nullable } from '../../../../types';
+import {
+  type FormSubmitHandler,
+  useForm,
+  type FormSubmitStatus,
+  type FormSubmitMessages,
+} from '../../../../utils/hooks';
+import {
+  Button,
+  Form,
+  type FormProps,
+  Input,
+  Label,
+  Spinner,
+  TextArea,
+  Notice,
+} from '../../../atoms';
 import { LabelledField } from '../../../molecules';
 import styles from './contact-form.module.scss';
 
@@ -21,19 +27,13 @@ export type ContactFormData = {
   object: string;
 };
 
-export type ContactFormProps = {
+export type ContactFormSubmit = FormSubmitHandler<ContactFormData>;
+
+export type ContactFormProps = Omit<FormProps, 'children' | 'onSubmit'> & {
   /**
-   * Set additional classnames to the form wrapper.
+   * A callback function to handle form submit.
    */
-  className?: string;
-  /**
-   * Pass a component to print a success/error message.
-   */
-  Notice?: ReactNode;
-  /**
-   * A callback function to send mail.
-   */
-  sendMail: (data: ContactFormData, reset: () => void) => Promise<void>;
+  onSubmit?: ContactFormSubmit;
 };
 
 /**
@@ -43,92 +43,29 @@ export type ContactFormProps = {
  */
 export const ContactForm: FC<ContactFormProps> = ({
   className = '',
-  Notice,
-  sendMail,
+  onSubmit,
+  ...props
 }) => {
   const formClass = `${styles.form} ${className}`;
   const intl = useIntl();
-  const emptyForm: ContactFormData = useMemo(() => {
-    return {
-      email: '',
-      message: '',
-      name: '',
-      object: '',
-    };
-  }, []);
-  const [data, setData] = useState(emptyForm);
-  const {
-    activate: activateNotice,
-    deactivate: deactivateNotice,
-    state: isSubmitting,
-  } = useBoolean(false);
+  const { messages, submit, submitStatus, update, values } =
+    useForm<ContactFormData>({
+      initialValues:
+        /* The order matter: it will be reused to generate the fields in the right
+         * order. */
+        {
+          name: '',
+          email: '',
+          object: '',
+          message: '',
+        },
+      submitHandler: onSubmit,
+    });
 
-  /**
-   * Reset all the form fields.
-   */
-  const resetForm = useCallback(() => {
-    setData(emptyForm);
-    deactivateNotice();
-  }, [deactivateNotice, emptyForm]);
-
-  const updateForm = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      switch (e.target.name) {
-        case 'email':
-          setData((prevData) => {
-            return { ...prevData, email: e.target.value };
-          });
-          break;
-        case 'message':
-          setData((prevData) => {
-            return { ...prevData, message: e.target.value };
-          });
-          break;
-        case 'name':
-          setData((prevData) => {
-            return { ...prevData, name: e.target.value };
-          });
-          break;
-        case 'object':
-          setData((prevData) => {
-            return { ...prevData, object: e.target.value };
-          });
-          break;
-        default:
-          break;
-      }
-    },
-    []
-  );
-
-  const formName = intl.formatMessage({
-    defaultMessage: 'Contact form',
-    description: 'ContactForm: form accessible name',
-    id: 'HFdzae',
-  });
-
-  const nameLabel = intl.formatMessage({
-    defaultMessage: 'Name:',
-    description: 'ContactForm: name label',
-    id: '1dCuCx',
-  });
-
-  const emailLabel = intl.formatMessage({
-    defaultMessage: 'Email:',
-    description: 'ContactForm: email label',
-    id: 'w4B5PA',
-  });
-
-  const objectLabel = intl.formatMessage({
-    defaultMessage: 'Object:',
-    description: 'ContactForm: object label',
-    id: 's8/tyz',
-  });
-
-  const messageLabel = intl.formatMessage({
-    defaultMessage: 'Message:',
-    description: 'ContactForm: message label',
-    id: 'yN5P+m',
+  const btnLabel = intl.formatMessage({
+    defaultMessage: 'Send',
+    description: 'ContactForm: send button',
+    id: 'VkAnvv',
   });
 
   const loadingMsg = intl.formatMessage({
@@ -137,92 +74,125 @@ export const ContactForm: FC<ContactFormProps> = ({
     id: 'xaqaYQ',
   });
 
-  const submitHandler = useCallback(
-    async (e: FormEvent) => {
-      e.preventDefault();
-      activateNotice();
-      await sendMail(data, resetForm).then(() => deactivateNotice());
+  const renderFields = useCallback(() => {
+    const entries = Object.entries(values) as [
+      keyof ContactFormData,
+      ContactFormData[keyof ContactFormData],
+    ][];
+    const labels = {
+      email: intl.formatMessage({
+        defaultMessage: 'Email:',
+        description: 'ContactForm: email label',
+        id: 'w4B5PA',
+      }),
+      message: intl.formatMessage({
+        defaultMessage: 'Message:',
+        description: 'ContactForm: message label',
+        id: 'yN5P+m',
+      }),
+      name: intl.formatMessage({
+        defaultMessage: 'Name:',
+        description: 'ContactForm: name label',
+        id: '1dCuCx',
+      }),
+      object: intl.formatMessage({
+        defaultMessage: 'Object:',
+        description: 'ContactForm: object label',
+        id: 's8/tyz',
+      }),
+    };
+
+    return entries.map(([field, value]) => {
+      const isRequired = field !== 'object';
+      const inputType = field === 'email' ? 'email' : 'text';
+
+      return (
+        <LabelledField
+          className={styles.field}
+          field={
+            field === 'message' ? (
+              <TextArea
+                id={field}
+                isRequired
+                name={field}
+                onChange={update}
+                value={value}
+              />
+            ) : (
+              <Input
+                id={field}
+                isRequired={isRequired}
+                name={field}
+                onChange={update}
+                type={inputType}
+                value={value}
+              />
+            )
+          }
+          key={field}
+          label={
+            <Label htmlFor={field} isRequired={isRequired}>
+              {labels[field]}
+            </Label>
+          }
+        />
+      );
+    });
+  }, [values, intl, update]);
+
+  const renderNotice = useCallback(
+    (
+      currentStatus: FormSubmitStatus,
+      msg: Nullable<Partial<FormSubmitMessages>>
+    ) => {
+      switch (currentStatus) {
+        case 'FAILED':
+          return msg?.error ? (
+            <Notice
+              // eslint-disable-next-line react/jsx-no-literals
+              kind="error"
+            >
+              {msg.error}
+            </Notice>
+          ) : null;
+        case 'PENDING':
+          return (
+            <Notice
+              // eslint-disable-next-line react/jsx-no-literals
+              kind="info"
+            >
+              <Spinner className={styles.spinner}>{loadingMsg}</Spinner>
+            </Notice>
+          );
+        case 'SUCCEEDED':
+          return msg?.success ? (
+            <Notice
+              // eslint-disable-next-line react/jsx-no-literals
+              kind="success"
+            >
+              {msg.success}
+            </Notice>
+          ) : null;
+        default:
+          return null;
+      }
     },
-    [activateNotice, data, deactivateNotice, resetForm, sendMail]
+    [loadingMsg]
   );
 
   return (
-    <Form aria-label={formName} className={formClass} onSubmit={submitHandler}>
-      <LabelledField
-        className={styles.field}
-        field={
-          <Input
-            id="contact-name"
-            isRequired
-            name="name"
-            onChange={updateForm}
-            type="text"
-            value={data.name}
-          />
-        }
-        label={
-          <Label htmlFor="contact-name" isRequired>
-            {nameLabel}
-          </Label>
-        }
-      />
-      <LabelledField
-        className={styles.field}
-        field={
-          <Input
-            id="contact-email"
-            isRequired
-            name="email"
-            onChange={updateForm}
-            type="email"
-            value={data.email}
-          />
-        }
-        label={
-          <Label htmlFor="contact-email" isRequired>
-            {emailLabel}
-          </Label>
-        }
-      />
-      <LabelledField
-        className={styles.field}
-        field={
-          <Input
-            id="contact-object"
-            name="object"
-            onChange={updateForm}
-            type="text"
-            value={data.object}
-          />
-        }
-        label={<Label htmlFor="contact-object">{objectLabel}</Label>}
-      />
-      <LabelledField
-        className={styles.field}
-        field={
-          <TextArea
-            id="contact-message"
-            isRequired
-            name="message"
-            onChange={updateForm}
-            value={data.message}
-          />
-        }
-        label={
-          <Label htmlFor="contact-message" isRequired>
-            {messageLabel}
-          </Label>
-        }
-      />
-      <Button type="submit" kind="primary" className={styles.button}>
-        {intl.formatMessage({
-          defaultMessage: 'Send',
-          description: 'ContactForm: send button',
-          id: 'VkAnvv',
-        })}
+    <Form {...props} className={formClass} onSubmit={submit}>
+      {renderFields()}
+      <Button
+        className={styles.btn}
+        isLoading={submitStatus === 'PENDING'}
+        // eslint-disable-next-line react/jsx-no-literals
+        kind="primary"
+        type="submit"
+      >
+        {btnLabel}
       </Button>
-      {isSubmitting ? <Spinner>{loadingMsg}</Spinner> : null}
-      {Notice}
+      {renderNotice(submitStatus, messages)}
     </Form>
   );
 };

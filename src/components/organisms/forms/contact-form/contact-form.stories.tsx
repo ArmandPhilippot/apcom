@@ -8,33 +8,7 @@ export default {
   title: 'Organisms/Forms',
   component: ContactForm,
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the form wrapper.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    Notice: {
-      control: {
-        type: null,
-      },
-      description: 'A component to display a success or error message.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'function',
-        required: false,
-      },
-    },
-    sendMail: {
+    onSubmit: {
       control: {
         type: null,
       },
@@ -44,7 +18,7 @@ export default {
       },
       type: {
         name: 'function',
-        required: true,
+        required: false,
       },
     },
   },
@@ -55,12 +29,7 @@ const Template: ComponentStory<typeof ContactForm> = (args) => (
 );
 
 /**
- * Forms Stories - Contact
+ * ContactForm Stories - Contact
  */
 export const Contact = Template.bind({});
-Contact.args = {
-  sendMail: async (_data, reset: () => void) =>
-    new Promise(() => {
-      reset();
-    }),
-};
+Contact.args = {};

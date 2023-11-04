@@ -247,10 +247,6 @@
     "defaultMessage": "Reading time:",
     "description": "ArticlePage: reading time label"
   },
-  "HFdzae": {
-    "defaultMessage": "Contact form",
-    "description": "ContactForm: form accessible name"
-  },
   "HaKhih": {
     "defaultMessage": "Go to next page",
     "description": "PostsList: pagination forward link label"
@@ -486,6 +482,10 @@
   "azgQuH": {
     "defaultMessage": "You should read {title}",
     "description": "Sharing: subject text"
+  },
+  "bPv0VG": {
+    "defaultMessage": "Contact form",
+    "description": "Contact: form accessible name"
   },
   "bfPp0g": {
     "defaultMessage": "Comments:",

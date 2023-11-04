@@ -3,21 +3,18 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   ContactForm,
-  type ContactFormProps,
   getLayout,
-  Notice,
-  type NoticeKind,
   PageLayout,
   SocialMedia,
   Heading,
+  type ContactFormSubmit,
 } from '../components';
 import { meta } from '../content/pages/contact.mdx';
 import { sendMail } from '../services/graphql';
-import styles from '../styles/pages/contact.module.scss';
 import type { NextPageWithLayout } from '../types';
 import { ROUTES } from '../utils/constants';
 import {
@@ -114,12 +111,14 @@ const ContactPage: NextPageWithLayout = () => {
     />,
   ];
 
-  const [statusKind, setStatusKind] = useState<NoticeKind>('info');
-  const [statusMessage, setStatusMessage] = useState<string>('');
+  const formName = intl.formatMessage({
+    defaultMessage: 'Contact form',
+    description: 'Contact: form accessible name',
+    id: 'bPv0VG',
+  });
 
-  const submitMail: ContactFormProps['sendMail'] = useCallback(
-    async (data, reset) => {
-      const { email, message, name, object } = data;
+  const submitMail: ContactFormSubmit = useCallback(
+    async ({ email, message, name, object }) => {
       const messageHTML = message.replace(/\r?\n/g, '<br />');
       const body = `Message received from ${name} <${email}> on ${website.url}.<br /><br />${messageHTML}`;
       const replyTo = `${name} <${email}>`;
@@ -132,26 +131,29 @@ const ContactPage: NextPageWithLayout = () => {
       const { message: mutationMessage, sent } = await sendMail(mailData);
 
       if (sent) {
-        setStatusKind('success');
-        setStatusMessage(
-          intl.formatMessage({
-            defaultMessage:
-              'Thanks. Your message was successfully sent. I will answer it as soon as possible.',
-            description: 'Contact: success message',
-            id: '3Pipok',
-          })
-        );
-        reset();
-      } else {
-        const errorPrefix = intl.formatMessage({
-          defaultMessage: 'An error occurred:',
-          description: 'Contact: error message',
-          id: 'TpyFZ6',
-        });
-        const error = `${errorPrefix} ${mutationMessage}`;
-        setStatusKind('error');
-        setStatusMessage(error);
+        return {
+          messages: {
+            success: intl.formatMessage({
+              defaultMessage:
+                'Thanks. Your message was successfully sent. I will answer it as soon as possible.',
+              description: 'Contact: success message',
+              id: '3Pipok',
+            }),
+          },
+          validator: () => sent,
+        };
       }
+
+      const errorPrefix = intl.formatMessage({
+        defaultMessage: 'An error occurred:',
+        description: 'Contact: error message',
+        id: 'TpyFZ6',
+      });
+
+      return {
+        messages: { error: `${errorPrefix} ${mutationMessage}` },
+        validator: () => sent,
+      };
     },
     [intl, website.url]
   );
@@ -185,16 +187,7 @@ const ContactPage: NextPageWithLayout = () => {
         title={pageTitle}
         widgets={widgets}
       >
-        <ContactForm
-          sendMail={submitMail}
-          Notice={
-            statusMessage ? (
-              <Notice className={styles.notice} kind={statusKind}>
-                {statusMessage}
-              </Notice>
-            ) : undefined
-          }
-        />
+        <ContactForm aria-label={formName} onSubmit={submitMail} />
       </PageLayout>
     </>
   );
