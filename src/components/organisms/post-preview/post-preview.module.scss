@@ -10,11 +10,11 @@
   }
 }
 
-.title {
+.heading {
   font-size: var(--font-size-2xl);
 }
 
-.intro {
+.excerpt {
   > *:last-child {
     margin-bottom: 0;
   }

@@ -1,4 +1,5 @@
-import type { LinksListItems, Post } from '../../components';
+import NextImage from 'next/image';
+import type { LinksListItems, PostData } from '../../components';
 import { getArticleFromRawData } from '../../services/graphql';
 import type {
   Article,
@@ -72,13 +73,32 @@ export const getLinksListItems = (links: PageLink[]): LinksListItems[] =>
  * Retrieve the posts list with the article URL.
  *
  * @param {Article[]} posts - An array of articles.
- * @returns {Post[]} An array of posts with full article URL.
+ * @returns {PostData[]} An array of posts with full article URL.
  */
-export const getPostsWithUrl = (posts: Article[]): Post[] =>
-  posts.map((post) => {
+export const getPostsWithUrl = (posts: Article[]): PostData[] =>
+  posts.map(({ intro, meta, slug, title, ...post }) => {
     return {
       ...post,
-      url: `/article/${post.slug}`,
+      cover: meta.cover ? <NextImage {...meta.cover} /> : undefined,
+      excerpt: intro,
+      heading: title,
+      meta: {
+        publicationDate: meta.dates.publication,
+        updateDate: meta.dates.update,
+        wordsCount: meta.wordsCount,
+        author: meta.author?.name,
+        thematics: meta.thematics,
+        topics: meta.topics,
+        comments:
+          meta.commentsCount === undefined
+            ? undefined
+            : {
+                count: meta.commentsCount,
+                postHeading: title,
+                url: `${ROUTES.ARTICLE}/${slug}#comments`,
+              },
+      },
+      url: `${ROUTES.ARTICLE}/${slug}`,
     };
   });
 
@@ -86,9 +106,11 @@ export const getPostsWithUrl = (posts: Article[]): Post[] =>
  * Retrieve the posts list from raw data.
  *
  * @param {EdgesResponse<RawArticle>[]} rawData - The raw data.
- * @returns {Post[]} An array of posts.
+ * @returns {PostData[]} An array of posts.
  */
-export const getPostsList = (rawData: EdgesResponse<RawArticle>[]): Post[] => {
+export const getPostsList = (
+  rawData: EdgesResponse<RawArticle>[]
+): PostData[] => {
   const articlesList: RawArticle[] = [];
   rawData.forEach((articleData) => {
     articleData.edges.forEach((edge) => {

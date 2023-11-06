@@ -1,4 +1,5 @@
-import type { Post } from './posts-list';
+import NextImage from 'next/image';
+import type { PostData } from './posts-list';
 
 export const introPost1 =
   'Esse et voluptas sapiente modi impedit unde et. Ducimus nulla ea impedit sit placeat nihil assumenda. Rem est fugiat amet quo hic. Corrupti fuga quod animi autem dolorem ullam corrupti vel aut.';
@@ -16,46 +17,46 @@ export const cover = {
   width: 640,
 };
 
-export const posts: Post[] = [
+export const posts: PostData[] = [
   {
-    intro: introPost1,
+    cover: <NextImage {...cover} />,
+    excerpt: introPost1,
     id: 'post-1',
     meta: {
-      cover,
-      dates: { publication: '2022-02-26' },
+      publicationDate: '2022-02-26',
       wordsCount: introPost1.split(' ').length,
       thematics: [
         { id: 1, name: 'Cat 1', url: '#' },
         { id: 2, name: 'Cat 2', url: '#' },
       ],
-      commentsCount: 1,
+      comments: { count: 1, postHeading: 'Ratione velit fuga' },
     },
-    title: 'Ratione velit fuga',
+    heading: 'Ratione velit fuga',
     url: '#',
   },
   {
-    intro: introPost2,
+    excerpt: introPost2,
     id: 'post-2',
     meta: {
-      dates: { publication: '2022-02-20' },
+      publicationDate: '2022-02-20',
       wordsCount: introPost2.split(' ').length,
       thematics: [{ id: 2, name: 'Cat 2', url: '#' }],
-      commentsCount: 0,
+      comments: { count: 0, postHeading: 'Debitis laudantium laudantium' },
     },
-    title: 'Debitis laudantium laudantium',
+    heading: 'Debitis laudantium laudantium',
     url: '#',
   },
   {
-    intro: introPost3,
+    cover: <NextImage {...cover} />,
+    excerpt: introPost3,
     id: 'post-3',
     meta: {
-      cover,
-      dates: { publication: '2021-12-20' },
+      publicationDate: '2021-12-20',
       wordsCount: introPost3.split(' ').length,
       thematics: [{ id: 1, name: 'Cat 1', url: '#' }],
-      commentsCount: 3,
+      comments: { count: 3, postHeading: 'Quaerat ut corporis' },
     },
-    title: 'Quaerat ut corporis',
+    heading: 'Quaerat ut corporis',
     url: '#',
   },
 ];

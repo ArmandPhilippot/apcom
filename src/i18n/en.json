@@ -3,6 +3,10 @@
     "defaultMessage": "Gitlab profile",
     "description": "CVPage: Gitlab profile link"
   },
+  "+6f4p1": {
+    "defaultMessage": "Published on:",
+    "description": "PostPreviewMeta: publication date label"
+  },
   "+Dre5J": {
     "defaultMessage": "Open-source projects",
     "description": "CVPage: social media widget title"
@@ -62,6 +66,10 @@
   "2QwvtS": {
     "defaultMessage": "Dark theme",
     "description": "ThemeToggle: dark theme label"
+  },
+  "2U7ixo": {
+    "defaultMessage": "Written by:",
+    "description": "PostPreviewMeta: author label"
   },
   "2fD5CI": {
     "defaultMessage": "Leave a reply",
@@ -151,6 +159,10 @@
     "defaultMessage": "Updated on:",
     "description": "TopicPage: update date label"
   },
+  "9MTBCG": {
+    "defaultMessage": "{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}",
+    "description": "PostPreviewMeta: thematics label"
+  },
   "9MeLN3": {
     "defaultMessage": "{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}",
     "description": "PostsList: loaded articles progress"
@@ -179,6 +191,10 @@
     "defaultMessage": "Go to page {number}",
     "description": "PostsList: pagination page link label"
   },
+  "B1lS/v": {
+    "defaultMessage": "Reading time:",
+    "description": "PostPreviewMeta: reading time label"
+  },
   "B290Ph": {
     "defaultMessage": "Thanks, your comment was successfully sent.",
     "description": "PageLayout: comment form success message"
@@ -186,6 +202,10 @@
   "B9OCyV": {
     "defaultMessage": "Others formats",
     "description": "CVPage: cv preview widget title"
+  },
+  "BYdQze": {
+    "defaultMessage": "Read more<a11y> about {postTitle}</a11y>",
+    "description": "PostPreview: read more link"
   },
   "Bh7z5v": {
     "defaultMessage": "Email:",
@@ -230,6 +250,10 @@
   "Ez8Qim": {
     "defaultMessage": "Updated on:",
     "description": "Page: update date label"
+  },
+  "FCpPCm": {
+    "defaultMessage": "Comments:",
+    "description": "PostPreviewMeta: comments label"
   },
   "FdF33B": {
     "defaultMessage": "{title} cover",
@@ -327,6 +351,10 @@
     "defaultMessage": "Share on Twitter",
     "description": "Sharing: Twitter sharing link"
   },
+  "NfAn9N": {
+    "defaultMessage": "{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}<a11y> about {title}</a11y>",
+    "description": "PostPreviewMeta: comments count"
+  },
   "Nx8Jo5": {
     "defaultMessage": "Github profile",
     "description": "ProjectsPage: Github profile link"
@@ -367,10 +395,6 @@
     "defaultMessage": "CV",
     "description": "Layout: main nav - cv link"
   },
-  "RNVe1W": {
-    "defaultMessage": "{title} cover",
-    "description": "Summary: figure (cover) accessible name"
-  },
   "RecdwX": {
     "defaultMessage": "Published on:",
     "description": "ArticlePage: publication date label"
@@ -398,10 +422,6 @@
   "TpyFZ6": {
     "defaultMessage": "An error occurred:",
     "description": "Contact: error message"
-  },
-  "TvQ2Ee": {
-    "defaultMessage": "Published on:",
-    "description": "Summary: publication date label"
   },
   "UTGhUU": {
     "defaultMessage": "Published on:",
@@ -475,9 +495,13 @@
     "defaultMessage": "Search results for {query}",
     "description": "SearchPage: SEO - Page title"
   },
-  "Zpgv+f": {
-    "defaultMessage": "Read more<a11y> about {title}</a11y>",
-    "description": "Summary: read more link"
+  "ZmRh0V": {
+    "defaultMessage": "Updated on:",
+    "description": "PostPreviewMeta: update date label"
+  },
+  "aBQYbE": {
+    "defaultMessage": "{topicsCount, plural, =0 {Topics:} one {Topic:} other {Topics:}}",
+    "description": "PostPreviewMeta: topics label"
   },
   "azgQuH": {
     "defaultMessage": "You should read {title}",
@@ -486,14 +510,6 @@
   "bPv0VG": {
     "defaultMessage": "Contact form",
     "description": "Contact: form accessible name"
-  },
-  "bfPp0g": {
-    "defaultMessage": "Comments:",
-    "description": "Summary: comments label"
-  },
-  "bk0WOp": {
-    "defaultMessage": "Thematics:",
-    "description": "Summary: thematics label"
   },
   "bojYF5": {
     "defaultMessage": "Home",
@@ -506,10 +522,6 @@
   "dfTljv": {
     "defaultMessage": "Main navigation",
     "description": "Layout: main nav accessible name"
-  },
-  "f0Z/Po": {
-    "defaultMessage": "Updated on:",
-    "description": "Summary: update date label"
   },
   "fN04AJ": {
     "defaultMessage": "<link>Download the CV in PDF</link>",
@@ -554,6 +566,10 @@
   "iDIKb7": {
     "defaultMessage": "Repositories:",
     "description": "ProjectsPage: repositories label"
+  },
+  "iG5SHf": {
+    "defaultMessage": "{postTitle} cover",
+    "description": "PostPreview: an accessible name for the figure wrapping the cover"
   },
   "iv3Ex1": {
     "defaultMessage": "{postsCount, plural, =0 {No articles} one {# article} other {# articles}}",
@@ -655,10 +671,6 @@
     "defaultMessage": "Projects",
     "description": "Layout: main nav - projects link"
   },
-  "r/6HOI": {
-    "defaultMessage": "Written by:",
-    "description": "Summary: author label"
-  },
   "s1i43J": {
     "defaultMessage": "{minutesCount} minutes",
     "description": "useReadingTime: rounded minutes count"
@@ -706,10 +718,6 @@
   "tsWh8x": {
     "defaultMessage": "Light theme",
     "description": "PrismThemeToggle: light theme label"
-  },
-  "tyzdql": {
-    "defaultMessage": "Reading time:",
-    "description": "Summary: reading time label"
   },
   "u41qSk": {
     "defaultMessage": "Website:",
@@ -759,21 +767,17 @@
     "defaultMessage": "Sending mail...",
     "description": "ContactForm: spinner message on submit"
   },
+  "y+13Ax": {
+    "defaultMessage": "{minutesCount, plural, =0 {Less than one minute} one {# minute} other {# minutes}}",
+    "description": "PostPreviewMeta: rounded minutes count"
+  },
   "yB1SPF": {
     "defaultMessage": "CC BY SA",
     "description": "Layout: copyright title"
   },
-  "yIZ+AC": {
-    "defaultMessage": "Topics:",
-    "description": "Summary: topics label"
-  },
   "yN5P+m": {
     "defaultMessage": "Message:",
     "description": "ContactForm: message label"
-  },
-  "ye/vlA": {
-    "defaultMessage": "{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}<a11y> about {title}</a11y>",
-    "description": "Summary: comments count"
   },
   "yfgMcl": {
     "defaultMessage": "Introduction:",

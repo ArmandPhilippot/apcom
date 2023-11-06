@@ -17,18 +17,30 @@ import {
   type RenderPaginationItemAriaLabel,
   type RenderPaginationLink,
 } from '../nav';
+import {
+  PostPreview,
+  type PostPreviewMetaData,
+  type PostPreviewProps,
+} from '../post-preview';
 import { NoResults } from './no-results';
 import styles from './posts-list.module.scss';
-import { Summary, type SummaryProps } from './summary';
 
-export type Post = Omit<SummaryProps, 'titleLevel'> & {
+export type PostData = Pick<
+  PostPreviewProps,
+  'cover' | 'excerpt' | 'heading' | 'url'
+> & {
   /**
    * The post id.
    */
   id: string | number;
+  /**
+   * The post meta.
+   */
+  meta: PostPreviewMetaData &
+    Required<Pick<PostPreviewMetaData, 'publicationDate'>>;
 };
 
-export type YearCollection = Record<string, Post[]>;
+export type YearCollection = Record<string, PostData[]>;
 
 export type PostsListProps = Pick<PaginationProps, 'siblings'> & {
   /**
@@ -54,7 +66,7 @@ export type PostsListProps = Pick<PaginationProps, 'siblings'> & {
   /**
    * The posts data.
    */
-  posts: Post[];
+  posts: PostData[];
   /**
    * Determine if the load more button should be visible.
    */
@@ -72,14 +84,14 @@ export type PostsListProps = Pick<PaginationProps, 'siblings'> & {
 /**
  * Create a collection of posts sorted by year.
  *
- * @param {Posts[]} data - A collection of posts.
+ * @param {PostData[]} data - A collection of posts.
  * @returns {YearCollection} The posts sorted by year.
  */
-const sortPostsByYear = (data: Post[]): YearCollection => {
+const sortPostsByYear = (data: PostData[]): YearCollection => {
   const yearCollection: Partial<YearCollection> = {};
 
   data.forEach((post) => {
-    const postYear = new Date(post.meta.dates.publication)
+    const postYear = new Date(post.meta.publicationDate)
       .getFullYear()
       .toString();
     yearCollection[postYear] = [...(yearCollection[postYear] ?? []), post];
@@ -116,12 +128,12 @@ export const PostsList: FC<PostsListProps> = ({
   /**
    * Retrieve the list of posts.
    *
-   * @param {Posts[]} allPosts - A collection fo posts.
+   * @param {PostData[]} allPosts - A collection fo posts.
    * @param {HeadingLevel} [headingLevel] - The posts heading level (hn).
    * @returns {JSX.Element} The list of posts.
    */
   const getList = (
-    allPosts: Post[],
+    allPosts: PostData[],
     headingLevel: HeadingLevel = 2
   ): JSX.Element => (
     <List
@@ -136,7 +148,7 @@ export const PostsList: FC<PostsListProps> = ({
       {allPosts.map(({ id, ...post }) => (
         <Fragment key={id}>
           <ListItem className={styles.item}>
-            <Summary {...post} titleLevel={headingLevel} />
+            <PostPreview {...post} headingLvl={headingLevel} />
           </ListItem>
           {id === lastPostId && (
             <ListItem>

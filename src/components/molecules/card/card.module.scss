@@ -232,9 +232,15 @@ $breakpoint: 50ch;
       grid-column: 3;
     }
 
-    :where(.footer) .meta {
-      grid-row-start: 1;
-      flex-flow: column wrap;
+    :where(.footer) {
+      .actions {
+        padding-bottom: 0;
+      }
+
+      .meta {
+        grid-row-start: 1;
+        flex-flow: column wrap;
+      }
     }
 
     :where(.body:first-child + .footer) .meta,
