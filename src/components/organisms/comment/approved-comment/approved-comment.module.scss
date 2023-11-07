@@ -1,23 +1,10 @@
-@use "../../../styles/abstracts/functions" as fun;
-@use "../../../styles/abstracts/mixins" as mix;
-@use "../../../styles/abstracts/placeholders";
-
-.avatar {
-  img {
-    border-radius: fun.convert-px(3);
-    box-shadow:
-      0 0 0 fun.convert-px(1) var(--color-shadow-light),
-      fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1)
-        var(--color-shadow);
-  }
-}
+@use "../../../../styles/abstracts/placeholders";
 
 .author {
   color: var(--color-primary-darker);
   font-family: var(--font-family-regular);
   font-size: var(--font-size-md);
   font-weight: 600;
-  text-align: center;
   text-shadow: none;
 }
 
@@ -62,17 +49,4 @@
       }
     }
   }
-}
-
-.form {
-  &__wrapper {
-    margin-top: var(--spacing-sm);
-  }
-
-  &__heading {
-    width: fit-content;
-    margin: 0 auto var(--spacing-md) auto;
-  }
-
-  margin-inline: auto;
 }

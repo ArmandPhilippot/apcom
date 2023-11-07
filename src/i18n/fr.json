@@ -47,6 +47,10 @@
     "defaultMessage": "Afficher l’aide",
     "description": "Tooltip: show help label"
   },
+  "1d/xvG": {
+    "defaultMessage": "Ce commentaire est en attente de modération…",
+    "description": "PendingComment: awaiting moderation text"
+  },
   "1dCuCx": {
     "defaultMessage": "Nom :",
     "description": "ContactForm: name label"
@@ -70,10 +74,6 @@
   "2U7ixo": {
     "defaultMessage": "Écrit par :",
     "description": "PostPreviewMeta: author label"
-  },
-  "2fD5CI": {
-    "defaultMessage": "Laisser une réponse",
-    "description": "Comment: comment form title"
   },
   "2ukj9H": {
     "defaultMessage": "Partager par email",
@@ -122,10 +122,6 @@
   "6GySNl": {
     "defaultMessage": "Copier",
     "description": "usePrism: copy button text (not clicked)"
-  },
-  "6a1Uo6": {
-    "defaultMessage": "Ce commentaire est en attente de modération…",
-    "description": "Comment: awaiting moderation"
   },
   "75FYp7": {
     "defaultMessage": "Profil Github",
@@ -323,10 +319,6 @@
     "defaultMessage": "Popularité :",
     "description": "ProjectsPage: popularity label"
   },
-  "LCorTC": {
-    "defaultMessage": "Annuler la réponse",
-    "description": "Comment: cancel reply button"
-  },
   "LszkU6": {
     "defaultMessage": "Tous les articles dans {thematicName}",
     "description": "ThematicPage: posts list heading"
@@ -359,6 +351,10 @@
     "defaultMessage": "Profil Github",
     "description": "ProjectsPage: Github profile link"
   },
+  "NzeU3V": {
+    "defaultMessage": "Publié le :",
+    "description": "ApprovedComment: publication date label"
+  },
   "OL0Yzx": {
     "defaultMessage": "Publier",
     "description": "CommentForm: submit button"
@@ -386,6 +382,10 @@
   "QLisK6": {
     "defaultMessage": "Thème sombre 🌙",
     "description": "usePrism: toggle dark theme button text"
+  },
+  "Qa9twM": {
+    "defaultMessage": "Répondre",
+    "description": "CommentsList: reply button"
   },
   "Qh2CwH": {
     "defaultMessage": "Retrouvez-moi ailleurs",
@@ -551,10 +551,6 @@
     "defaultMessage": "Thème clair 🌞",
     "description": "usePrism: toggle light theme button text"
   },
-  "hzHuCc": {
-    "defaultMessage": "Répondre",
-    "description": "Comment: reply button"
-  },
   "i5L19t": {
     "defaultMessage": "Shaarli",
     "description": "HomePage: link to Shaarli"
@@ -618,6 +614,10 @@
   "nGss/j": {
     "defaultMessage": "Suivi Ackee (analytique)",
     "description": "AckeeToggle: tooltip title"
+  },
+  "ndAawq": {
+    "defaultMessage": "Répondre au commentaire {id}",
+    "description": "ReplyCommentForm: an accessible name for the reply form"
   },
   "npisb3": {
     "defaultMessage": "Rechercher un article sur {websiteName}.",
@@ -695,10 +695,6 @@
     "defaultMessage": "Me contacter",
     "description": "HomePage: contact button text"
   },
-  "soj7do": {
-    "defaultMessage": "Publié le :",
-    "description": "Comment: publication date label"
-  },
   "suXOBu": {
     "defaultMessage": "Thème :",
     "description": "ThemeToggle: theme label"
@@ -727,6 +723,10 @@
     "defaultMessage": "{postsCount, plural, =0 {0 article} one {# article} other {# articles}}",
     "description": "TopicPage: posts count meta"
   },
+  "uZj4QI": {
+    "defaultMessage": "Annuler la réponse",
+    "description": "CommentsList: cancel reply button"
+  },
   "uaqd5F": {
     "defaultMessage": "Charger plus d’articles ?",
     "description": "PostsList: load more button"
@@ -750,6 +750,10 @@
   "w8GrOf": {
     "defaultMessage": "Libre",
     "description": "HomePage: link to free thematic"
+  },
+  "w8uLLF": {
+    "defaultMessage": "Laisser une réponse",
+    "description": "CommentsList: comment form title"
   },
   "wQrvgw": {
     "defaultMessage": "Mis à jour le :",

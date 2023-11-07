@@ -1,0 +1,13 @@
+.body {
+  margin-inline: auto;
+  width: 100%;
+}
+
+.form {
+  margin-inline: auto;
+}
+
+:where(.body) > *:first-child {
+  width: fit-content;
+  margin: 0 auto var(--spacing-md);
+}

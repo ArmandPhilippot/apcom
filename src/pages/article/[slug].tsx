@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import type { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
+import type { Comment as CommentSchema, WithContext } from 'schema-dts';
 import {
   ButtonLink,
   getLayout,
@@ -217,10 +218,39 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     slug,
     title,
   });
+  const commentsSchema: WithContext<CommentSchema>[] = commentsData
+    ? commentsData.map((comment) => {
+        return {
+          '@context': 'https://schema.org',
+          '@id': `${website.url}/#comment-${comment.id}`,
+          '@type': 'Comment',
+          parentItem: comment.parentId
+            ? { '@id': `${website.url}/#comment-${comment.parentId}` }
+            : undefined,
+          about: { '@type': 'Article', '@id': `${website.url}/#article` },
+          author: {
+            '@type': 'Person',
+            name: comment.meta.author.name,
+            image: comment.meta.author.avatar?.src,
+            url: comment.meta.author.website,
+          },
+          creator: {
+            '@type': 'Person',
+            name: comment.meta.author.name,
+            image: comment.meta.author.avatar?.src,
+            url: comment.meta.author.website,
+          },
+          dateCreated: comment.meta.date,
+          datePublished: comment.meta.date,
+          text: comment.content,
+        };
+      })
+    : [];
   const schemaJsonLd = getSchemaJson([
     webpageSchema,
     blogSchema,
     blogPostSchema,
+    ...commentsSchema,
   ]);
 
   const lineNumbersClassName = className
@@ -272,7 +302,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       </Head>
       <Script
         // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-project"
+        id="schema-article"
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}

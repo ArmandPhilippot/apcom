@@ -104,3 +104,5 @@ export const comments: SingleComment[] = [
     replies: [],
   },
 ];
+
+export const saveComment = () => undefined;
