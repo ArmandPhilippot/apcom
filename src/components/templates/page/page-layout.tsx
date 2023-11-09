@@ -9,7 +9,7 @@ import {
 import { useIntl } from 'react-intl';
 import type { BreadcrumbList } from 'schema-dts';
 import { sendComment } from '../../../services/graphql';
-import type { SendCommentInput, SingleComment } from '../../../types';
+import type { SendCommentInput } from '../../../types';
 import { useIsMounted } from '../../../utils/hooks';
 import { Heading, Sidebar } from '../../atoms';
 import {
@@ -28,16 +28,6 @@ import {
   type CommentFormSubmit,
 } from '../../organisms';
 import styles from './page-layout.module.scss';
-
-/**
- * Check if there is at least one comment.
- *
- * @param {SingleComment[] | undefined} comments - The comments.
- */
-const hasComments = (
-  comments: SingleComment[] | undefined
-): comments is SingleComment[] =>
-  Array.isArray(comments) && comments.length > 0;
 
 export type PageLayoutProps = {
   /**
@@ -262,7 +252,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
             <Heading className={styles.comments__title} level={2}>
               {commentsTitle}
             </Heading>
-            {hasComments(comments) ? (
+            {comments?.length ? (
               <CommentsList
                 comments={comments}
                 depth={2}

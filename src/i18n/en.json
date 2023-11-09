@@ -515,6 +515,10 @@
     "defaultMessage": "Home",
     "description": "Layout: main nav - home link"
   },
+  "c1Ju/q": {
+    "defaultMessage": "Leave a reply to {name}",
+    "description": "CommentsList: comment form title"
+  },
   "c556Qo": {
     "defaultMessage": "Sidebar",
     "description": "PageLayout: accessible name for the sidebar"
@@ -750,10 +754,6 @@
   "w8GrOf": {
     "defaultMessage": "Free",
     "description": "HomePage: link to free thematic"
-  },
-  "w8uLLF": {
-    "defaultMessage": "Leave a reply",
-    "description": "CommentsList: comment form title"
   },
   "wQrvgw": {
     "defaultMessage": "Updated on:",

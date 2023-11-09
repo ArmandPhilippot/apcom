@@ -17,6 +17,7 @@ import {
   Spinner,
   type MetaItemData,
   Time,
+  type CommentData,
 } from '../../components';
 import {
   getAllArticlesSlugs,
@@ -64,6 +65,19 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     contentId: article?.id,
     fallback: comments,
   });
+
+  const getComments = (data?: SingleComment[]) =>
+    data?.map((comment): CommentData => {
+      return {
+        author: comment.meta.author,
+        content: comment.content,
+        id: comment.id,
+        isApproved: comment.approved,
+        publicationDate: comment.meta.date,
+        replies: getComments(comment.replies),
+      };
+    });
+
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title: article?.title ?? '',
     url: `${ROUTES.ARTICLE}/${slug}`,
@@ -313,7 +327,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         bodyClassName={styles.body}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        comments={commentsData}
+        comments={getComments(commentsData)}
         footerMeta={footerMeta}
         headerMeta={filteredHeaderMeta}
         id={id as number}

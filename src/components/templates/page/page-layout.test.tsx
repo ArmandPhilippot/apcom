@@ -1,7 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import type { BreadcrumbList } from 'schema-dts';
 import { render, screen as rtlScreen } from '../../../../tests/utils';
-import { comments } from '../../organisms/layout/comments-list.fixture';
 import { PageLayout } from './page-layout';
 
 const title = 'Incidunt ad earum';
@@ -94,7 +93,15 @@ describe('PageLayout', () => {
         breadcrumbSchema={breadcrumbSchema}
         title={title}
         allowComments={true}
-        comments={comments}
+        comments={[
+          {
+            author: { name: 'Burley40' },
+            content: 'Veritatis praesentium non autem ut.',
+            id: 1,
+            isApproved: true,
+            publicationDate: '2023-11-02',
+          },
+        ]}
       >
         {children}
       </PageLayout>
