@@ -87,6 +87,10 @@
     "defaultMessage": "Thanks. Your message was successfully sent. I will answer it as soon as possible.",
     "description": "Contact: success message"
   },
+  "3bKzk0": {
+    "defaultMessage": "Repositories:",
+    "description": "ProjectOverview: repositories label"
+  },
   "3f3PzH": {
     "defaultMessage": "Github",
     "description": "HomePage: Github link"
@@ -122,6 +126,10 @@
   "6GySNl": {
     "defaultMessage": "Copy",
     "description": "usePrism: copy button text (not clicked)"
+  },
+  "701ggm": {
+    "defaultMessage": "Illustration of {projectName}",
+    "description": "ProjectOverview: cover accessible name"
   },
   "75FYp7": {
     "defaultMessage": "Github profile",
@@ -287,6 +295,10 @@
     "defaultMessage": "Submitting...",
     "description": "CommentForm: spinner message on submit"
   },
+  "JbT+fA": {
+    "defaultMessage": "Updated on:",
+    "description": "ProjectOverview: update date label"
+  },
   "Jm0a6H": {
     "defaultMessage": "Github profile",
     "description": "CVPage: Github profile link"
@@ -314,10 +326,6 @@
   "KnWeKh": {
     "defaultMessage": "Page not found",
     "description": "Error404Page: page title"
-  },
-  "KrNvQi": {
-    "defaultMessage": "Popularity:",
-    "description": "ProjectsPage: popularity label"
   },
   "LszkU6": {
     "defaultMessage": "All posts in {thematicName}",
@@ -359,9 +367,17 @@
     "defaultMessage": "Publish",
     "description": "CommentForm: submit button"
   },
+  "OWkqXt": {
+    "defaultMessage": "Technologies:",
+    "description": "ProjectOverview: technologies label"
+  },
   "OevMeU": {
     "defaultMessage": "{minutesCount} minutes {secondsCount} seconds",
     "description": "useReadingTime: minutes + seconds count"
+  },
+  "PBdVsm": {
+    "defaultMessage": "{starsCount, plural, =0 {No stars} one {# star} other {# stars}}",
+    "description": "ProjectOverview: stars count"
   },
   "PHO94k": {
     "defaultMessage": "Go to previous page",
@@ -391,6 +407,10 @@
     "defaultMessage": "Find me elsewhere",
     "description": "ContactPage: social media widget title"
   },
+  "QtdnFV": {
+    "defaultMessage": "License:",
+    "description": "ProjectOverview: license label"
+  },
   "R895yC": {
     "defaultMessage": "CV",
     "description": "Layout: main nav - cv link"
@@ -406,10 +426,6 @@
   "RwI3B9": {
     "defaultMessage": "Loading the repository popularity...",
     "description": "ProjectsPage: loading repository popularity"
-  },
-  "RwNZ6p": {
-    "defaultMessage": "Technologies:",
-    "description": "ProjectsPage: technologies label"
   },
   "Sm2wCk": {
     "defaultMessage": "LinkedIn profile",
@@ -442,10 +458,6 @@
   "Vmj5cw": {
     "defaultMessage": "It is now awaiting moderation.",
     "description": "PageLayout: comment awaiting moderation"
-  },
-  "VtYzuv": {
-    "defaultMessage": "License:",
-    "description": "ProjectsPage: license label"
   },
   "WDwNDl": {
     "defaultMessage": "Search",
@@ -515,6 +527,10 @@
     "defaultMessage": "Home",
     "description": "Layout: main nav - home link"
   },
+  "c0Oecl": {
+    "defaultMessage": "Created on:",
+    "description": "ProjectOverview: creation date label"
+  },
   "c1Ju/q": {
     "defaultMessage": "Leave a reply to {name}",
     "description": "CommentsList: comment form title"
@@ -522,6 +538,10 @@
   "c556Qo": {
     "defaultMessage": "Sidebar",
     "description": "PageLayout: accessible name for the sidebar"
+  },
+  "cIAOyy": {
+    "defaultMessage": "Popularity:",
+    "description": "ProjectOverview: popularity label"
   },
   "dfTljv": {
     "defaultMessage": "Main navigation",
@@ -562,10 +582,6 @@
   "i7Wq3G": {
     "defaultMessage": "{count} seconds",
     "description": "useReadingTime: seconds count"
-  },
-  "iDIKb7": {
-    "defaultMessage": "Repositories:",
-    "description": "ProjectsPage: repositories label"
   },
   "iG5SHf": {
     "defaultMessage": "{postTitle} cover",
@@ -691,10 +707,6 @@
     "defaultMessage": "Gitlab profile",
     "description": "ProjectsPage: Gitlab profile link"
   },
-  "sI7gJK": {
-    "defaultMessage": "{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}",
-    "description": "ProjectsPage: Github stars count"
-  },
   "sO/Iwj": {
     "defaultMessage": "Contact me",
     "description": "HomePage: contact button text"
@@ -758,10 +770,6 @@
   "wQrvgw": {
     "defaultMessage": "Updated on:",
     "description": "ProjectsPage: update date label"
-  },
-  "wVFA4m": {
-    "defaultMessage": "Created on:",
-    "description": "ProjectsPage: creation date label"
   },
   "xYemkP": {
     "defaultMessage": "Loading more articles...",

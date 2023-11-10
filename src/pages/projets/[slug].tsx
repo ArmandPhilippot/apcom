@@ -12,19 +12,19 @@ import {
   Code,
   getLayout,
   Link,
-  Overview,
   PageLayout,
   Sharing,
-  SocialLink,
   Spinner,
   Heading,
   List,
   ListItem,
   Figure,
   type MetaItemData,
-  type MetaValues,
   Time,
   Grid,
+  ProjectOverview,
+  type ProjectMeta,
+  type Repository,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
@@ -204,49 +204,37 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   );
 
   /**
-   * Retrieve the repositories links.
+   * Retrieve the project repositories.
    *
    * @param {Repos} repositories - A repositories object.
-   * @returns {MetaValues[]} - An array of meta values.
+   * @returns {Repository[]} - An array of repositories.
    */
-  const getReposLinks = (repositories: Repos): MetaValues[] => {
-    const links: MetaValues[] = [];
-    const githubLabel = intl.formatMessage({
-      defaultMessage: 'Github profile',
-      description: 'ProjectsPage: Github profile link',
-      id: 'Nx8Jo5',
-    });
-    const gitlabLabel = intl.formatMessage({
-      defaultMessage: 'Gitlab profile',
-      description: 'ProjectsPage: Gitlab profile link',
-      id: 'sECHDg',
-    });
+  const getRepos = (repositories: Repos): Repository[] => {
+    const definedRepos: Repository[] = [];
 
     if (repositories.github)
-      links.push({
-        id: 'github',
-        value: (
-          <SocialLink
-            icon="Github"
-            label={githubLabel}
-            url={repositories.github}
-          />
-        ),
+      definedRepos.push({
+        id: 'Github',
+        label: intl.formatMessage({
+          defaultMessage: 'Github profile',
+          description: 'ProjectsPage: Github profile link',
+          id: 'Nx8Jo5',
+        }),
+        url: repositories.github,
       });
 
     if (repositories.gitlab)
-      links.push({
-        id: 'gitlab',
-        value: (
-          <SocialLink
-            icon="Gitlab"
-            label={gitlabLabel}
-            url={repositories.gitlab}
-          />
-        ),
+      definedRepos.push({
+        id: 'Gitlab',
+        label: intl.formatMessage({
+          defaultMessage: 'Gitlab profile',
+          description: 'ProjectsPage: Gitlab profile link',
+          id: 'sECHDg',
+        }),
+        url: repositories.gitlab,
       });
 
-    return links;
+    return definedRepos;
   };
 
   const loadingRepoPopularity = intl.formatMessage({
@@ -269,95 +257,19 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
   if (isError) return 'Error';
   if (isLoading || !data) return <Spinner aria-label={loadingRepoPopularity} />;
 
-  const getRepoPopularity = (repo: string) => {
-    const stars = intl.formatMessage(
-      {
-        defaultMessage:
-          '{starsCount, plural, =0 {No stars on Github} one {# star on Github} other {# stars on Github}}',
-        description: 'ProjectsPage: Github stars count',
-        id: 'sI7gJK',
-      },
-      { starsCount: data.stargazers_count }
-    );
-    const popularityUrl = `https://github.com/${repo}/stargazers`;
-
-    return (
-      <>
-        ⭐&nbsp;
-        <Link href={popularityUrl}>{stars}</Link>
-      </>
-    );
+  const overviewMeta: Partial<ProjectMeta> = {
+    creationDate: data.created_at,
+    lastUpdateDate: data.updated_at,
+    license,
+    popularity: repos?.github
+      ? {
+          count: data.stargazers_count,
+          url: `https://github.com/${repos.github}/stargazers`,
+        }
+      : undefined,
+    repositories: repos ? getRepos(repos) : undefined,
+    technologies,
   };
-
-  const overviewMeta: (MetaItemData | undefined)[] = [
-    {
-      id: 'creation-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Created on:',
-        description: 'ProjectsPage: creation date label',
-        id: 'wVFA4m',
-      }),
-      value: <Time date={data.created_at} />,
-    },
-    {
-      id: 'update-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Updated on:',
-        description: 'ProjectsPage: update date label',
-        id: 'wQrvgw',
-      }),
-      value: <Time date={data.updated_at} />,
-    },
-    license
-      ? {
-          id: 'license',
-          label: intl.formatMessage({
-            defaultMessage: 'License:',
-            description: 'ProjectsPage: license label',
-            id: 'VtYzuv',
-          }),
-          value: license,
-        }
-      : undefined,
-    repos?.github
-      ? {
-          id: 'popularity',
-          label: intl.formatMessage({
-            defaultMessage: 'Popularity:',
-            description: 'ProjectsPage: popularity label',
-            id: 'KrNvQi',
-          }),
-          value: getRepoPopularity(repos.github),
-        }
-      : undefined,
-    repos
-      ? {
-          id: 'repositories',
-          label: intl.formatMessage({
-            defaultMessage: 'Repositories:',
-            description: 'ProjectsPage: repositories label',
-            id: 'iDIKb7',
-          }),
-          value: getReposLinks(repos),
-        }
-      : undefined,
-    technologies
-      ? {
-          id: 'technologies',
-          label: intl.formatMessage({
-            defaultMessage: 'Technologies:',
-            description: 'ProjectsPage: technologies label',
-            id: 'RwNZ6p',
-          }),
-          value: technologies.map((techno) => {
-            return { id: techno, value: techno };
-          }),
-        }
-      : undefined,
-  ];
-  const filteredOverviewMeta = overviewMeta.filter(
-    (item): item is MetaItemData => !!item
-  );
 
   const webpageSchema = getWebPageSchema({
     description: seo.description,
@@ -421,7 +333,11 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
           />,
         ]}
       >
-        <Overview cover={cover} meta={filteredOverviewMeta} />
+        <ProjectOverview
+          cover={cover ? <NextImage {...cover} /> : undefined}
+          meta={overviewMeta}
+          name={project.title}
+        />
         <ProjectContent components={components} />
       </PageLayout>
     </>

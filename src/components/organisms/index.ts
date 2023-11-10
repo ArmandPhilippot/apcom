@@ -5,4 +5,5 @@ export * from './layout';
 export * from './nav';
 export * from './navbar';
 export * from './post-preview';
+export * from './project-overview';
 export * from './widgets';

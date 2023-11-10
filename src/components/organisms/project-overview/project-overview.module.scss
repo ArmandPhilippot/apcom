@@ -1,0 +1,40 @@
+@use "../../../styles/abstracts/functions" as fun;
+@use "../../../styles/abstracts/mixins" as mix;
+
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  width: fit-content;
+  row-gap: var(--spacing-md);
+  margin-inline: auto;
+  padding: var(--spacing-md);
+  border: fun.convert-px(1) solid var(--color-border);
+}
+
+.heading {
+  margin-bottom: var(--spacing-md);
+}
+
+.cover {
+  height: fit-content;
+  margin: 0;
+
+  > img {
+    width: 100%;
+    max-height: fun.convert-px(250);
+    object-fit: cover;
+  }
+}
+
+.meta {
+  grid-auto-flow: row;
+  column-gap: clamp(var(--spacing-sm), 1.5vw, var(--spacing-lg));
+  row-gap: clamp(var(--spacing-2xs), 1vw, var(--spacing-sm));
+
+  @include mix.media("screen") {
+    @include mix.dimensions("xs") {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
