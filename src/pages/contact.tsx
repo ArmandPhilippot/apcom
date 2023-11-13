@@ -9,7 +9,7 @@ import {
   ContactForm,
   getLayout,
   PageLayout,
-  SocialMedia,
+  SocialMediaWidget,
   Heading,
   type ContactFormSubmit,
 } from '../components';
@@ -80,7 +80,7 @@ const ContactPage: NextPageWithLayout = () => {
   });
 
   const widgets = [
-    <SocialMedia
+    <SocialMediaWidget
       heading={
         <Heading isFake level={3}>
           {socialMediaTitle}

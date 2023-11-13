@@ -1,16 +1,16 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Heading } from '../../atoms';
-import { SocialMedia as SocialMediaWidget, type Media } from './social-media';
+import { Heading } from '../../../atoms';
+import { SocialMediaWidget, type SocialMediaData } from './social-media-widget';
 
 /**
  * SocialMedia - Storybook Meta
  */
 export default {
-  title: 'Organisms/Widgets',
+  title: 'Organisms/Widgets/SocialMedia',
   component: SocialMediaWidget,
   argTypes: {
     media: {
-      description: 'The links data.',
+      description: 'The social media data.',
       type: {
         name: 'object',
         required: true,
@@ -24,7 +24,7 @@ const Template: ComponentStory<typeof SocialMediaWidget> = (args) => (
   <SocialMediaWidget {...args} />
 );
 
-const media: Media[] = [
+const media: SocialMediaData[] = [
   { icon: 'Github', id: 'github', label: 'Github', url: '#' },
   { icon: 'LinkedIn', id: 'gitlab', label: 'Gitlab', url: '#' },
 ];

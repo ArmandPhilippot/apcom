@@ -18,7 +18,7 @@ import {
   Link,
   List,
   PageLayout,
-  SocialMedia,
+  SocialMediaWidget,
   ListItem,
   type MetaItemData,
   Time,
@@ -223,7 +223,7 @@ const CVPage: NextPageWithLayout = () => {
       // eslint-disable-next-line react/jsx-no-literals -- Key allowed
       key="image-widget"
     />,
-    <SocialMedia
+    <SocialMediaWidget
       heading={
         <Heading isFake level={3}>
           {socialMediaTitle}
