@@ -3,7 +3,6 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -108,19 +107,16 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   const {
     data,
     error,
-    isLoadingInitialData,
+    isLoading,
     isLoadingMore,
+    isRefreshing,
     hasNextPage,
-    setSize,
+    loadMore,
   } = usePagination<RawArticle>({
-    fallbackData: [articles],
+    fallback: [articles],
     fetcher: getArticles,
     perPage: blog.postsPerPage,
   });
-
-  const loadMore = useCallback(() => {
-    setSize((prevSize) => prevSize + 1);
-  }, [setSize]);
 
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Thematics',
@@ -214,7 +210,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           <PostsList
             baseUrl={postsListBaseUrl}
             byYear={true}
-            isLoading={isLoadingMore ?? isLoadingInitialData}
+            isLoading={isLoading || isLoadingMore || isRefreshing}
             loadMore={loadMore}
             posts={getPostsList(data)}
             showLoadMoreBtn={hasNextPage}

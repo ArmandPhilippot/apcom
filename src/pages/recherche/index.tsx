@@ -3,7 +3,6 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -119,15 +118,16 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
   const {
     data,
     error,
-    isLoadingInitialData,
+    isLoading,
     isLoadingMore,
+    isRefreshing,
     hasNextPage,
-    setSize,
+    loadMore,
   } = usePagination<RawArticle>({
-    fallbackData: [],
+    fallback: [],
     fetcher: getArticles,
     perPage: blog.postsPerPage,
-    search: query.s as string,
+    searchQuery: query.s as string,
   });
 
   const totalArticles = useDataFromAPI<number>(async () =>
@@ -155,13 +155,6 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
         },
       ]
     : [];
-
-  /**
-   * Load more posts handler.
-   */
-  const loadMore = useCallback(() => {
-    setSize((prevSize) => prevSize + 1);
-  }, [setSize]);
 
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Thematics',
@@ -238,7 +231,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
           <PostsList
             baseUrl={postsListBaseUrl}
             byYear={true}
-            isLoading={isLoadingMore ?? isLoadingInitialData}
+            isLoading={isLoading || isLoadingMore || isRefreshing}
             loadMore={loadMore}
             posts={getPostsList(data)}
             showLoadMoreBtn={hasNextPage}
