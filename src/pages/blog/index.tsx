@@ -3,6 +3,7 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useCallback, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -12,6 +13,9 @@ import {
   Notice,
   PageLayout,
   PostsList,
+  Pagination,
+  type RenderPaginationLink,
+  type RenderPaginationItemAriaLabel,
 } from '../../components';
 import {
   getArticles,
@@ -21,6 +25,7 @@ import {
   getTotalThematics,
   getTotalTopics,
 } from '../../services/graphql';
+import styles from '../../styles/pages/blog.module.scss';
 import type {
   EdgesResponse,
   NextPageWithLayout,
@@ -34,12 +39,16 @@ import {
   getBlogSchema,
   getLinksListItems,
   getPageLinkFromRawData,
-  getPostsList,
   getSchemaJson,
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb, usePagination, useSettings } from '../../utils/hooks';
+import {
+  useBreadcrumb,
+  useIsMounted,
+  usePostsList,
+  useSettings,
+} from '../../utils/hooks';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;
@@ -68,7 +77,8 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     title,
     url: ROUTES.BLOG,
   });
-
+  const postsListRef = useRef<HTMLDivElement>(null);
+  const isMounted = useIsMounted(postsListRef);
   const { blog, website } = useSettings();
   const { asPath } = useRouter();
   const page = {
@@ -105,14 +115,15 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
 
   const {
-    data,
     error,
+    firstNewResultIndex,
     isLoading,
     isLoadingMore,
     isRefreshing,
     hasNextPage,
     loadMore,
-  } = usePagination<RawArticle>({
+    posts,
+  } = usePostsList({
     fallback: [articles],
     fetcher: getArticles,
     perPage: blog.postsPerPage,
@@ -129,7 +140,54 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     description: 'BlogPage: topics list widget title',
     id: '2D9tB5',
   });
-  const postsListBaseUrl = `${ROUTES.BLOG}/page/`;
+  const renderPaginationLink: RenderPaginationLink = useCallback(
+    (pageNum) => `${ROUTES.BLOG}/page/${pageNum}`,
+    []
+  );
+  const renderPaginationLabel: RenderPaginationItemAriaLabel = useCallback(
+    ({ kind, pageNumber: number, isCurrentPage }) => {
+      switch (kind) {
+        case 'backward':
+          return intl.formatMessage(
+            {
+              defaultMessage: 'Go to previous page, page {number}',
+              description: 'BlogPage: previous page label',
+              id: 'faO6BQ',
+            },
+            { number }
+          );
+        case 'forward':
+          return intl.formatMessage(
+            {
+              defaultMessage: 'Go to next page, page {number}',
+              description: 'BlogPage: next page label',
+              id: 'oq3BzP',
+            },
+            { number }
+          );
+        case 'number':
+        default:
+          return isCurrentPage
+            ? intl.formatMessage(
+                {
+                  defaultMessage: 'Current page, page {number}',
+                  description: 'BlogPage: current page label',
+                  id: 'JL6G22',
+                },
+                { number }
+              )
+            : intl.formatMessage(
+                {
+                  defaultMessage: 'Go to page {number}',
+                  description: 'BlogPage: page number label',
+                  id: 'IVczxR',
+                },
+                { number }
+              );
+      }
+    },
+    [intl]
+  );
 
   const headerMeta: MetaItemData[] = totalArticles
     ? [
@@ -152,6 +210,12 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         },
       ]
     : [];
+
+  const paginationAriaLabel = intl.formatMessage({
+    defaultMessage: 'Pagination',
+    description: 'BlogPage: pagination accessible name',
+    id: 'AXe1Iz',
+  });
 
   return (
     <>
@@ -206,17 +270,28 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           />,
         ]}
       >
-        {data ? (
+        {posts ? (
           <PostsList
-            baseUrl={postsListBaseUrl}
-            byYear={true}
+            className={styles.list}
+            firstNewResult={firstNewResultIndex}
             isLoading={isLoading || isLoadingMore || isRefreshing}
-            loadMore={loadMore}
-            posts={getPostsList(data)}
-            showLoadMoreBtn={hasNextPage}
-            total={totalArticles}
+            onLoadMore={hasNextPage && isMounted ? loadMore : undefined}
+            posts={posts}
+            ref={postsListRef}
+            sortByYear
+            total={isMounted ? totalArticles : undefined}
           />
         ) : null}
+        {isMounted ? null : (
+          <Pagination
+            aria-label={paginationAriaLabel}
+            current={1}
+            isCentered
+            renderItemAriaLabel={renderPaginationLabel}
+            renderLink={renderPaginationLink}
+            total={totalArticles}
+          />
+        )}
         {error ? (
           <Notice
             // eslint-disable-next-line react/jsx-no-literals -- Kind allowed

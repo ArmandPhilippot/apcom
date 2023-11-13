@@ -4,6 +4,10 @@
   gap: var(--spacing-sm);
   align-items: center;
   width: fit-content;
+
+  &--centered {
+    margin-inline: auto;
+  }
 }
 
 .list {

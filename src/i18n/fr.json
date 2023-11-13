@@ -115,10 +115,6 @@
     "defaultMessage": "Logo du site d’{website}",
     "description": "Layout: logo title"
   },
-  "5O2vpy": {
-    "defaultMessage": "Aucun résultat.",
-    "description": "NoResults: no results"
-  },
   "5eD6y2": {
     "defaultMessage": "Complet",
     "description": "AckeeToggle: full option name"
@@ -191,9 +187,9 @@
     "defaultMessage": "Contact",
     "description": "ContactPage: page title"
   },
-  "AmHSC4": {
-    "defaultMessage": "Aller à la page {number}",
-    "description": "PostsList: pagination page link label"
+  "AXe1Iz": {
+    "defaultMessage": "Pagination",
+    "description": "BlogPage: pagination accessible name"
   },
   "B1lS/v": {
     "defaultMessage": "Temps de lecture :",
@@ -235,10 +231,6 @@
     "defaultMessage": "Blog",
     "description": "Layout: main nav - blog link"
   },
-  "DVBwfu": {
-    "defaultMessage": "Souhaitez-vous effectuer une nouvelle recherche ?",
-    "description": "NoResults: try a new search message"
-  },
   "Dq6+WH": {
     "defaultMessage": "Thématiques",
     "description": "SearchPage: thematics list widget title"
@@ -275,10 +267,6 @@
     "defaultMessage": "Temps de lecture :",
     "description": "ArticlePage: reading time label"
   },
-  "HaKhih": {
-    "defaultMessage": "Aller à la page suivante",
-    "description": "PostsList: pagination forward link label"
-  },
   "HohQPh": {
     "defaultMessage": "Thématiques",
     "description": "Error404Page: thematics list widget title"
@@ -291,9 +279,17 @@
     "defaultMessage": "Publié le :",
     "description": "ProjectsPage: publication date label"
   },
+  "IVczxR": {
+    "defaultMessage": "Aller à la page {number}",
+    "description": "BlogPage: page number label"
+  },
   "IY5ew6": {
     "defaultMessage": "En cours d’envoi…",
     "description": "CommentForm: spinner message on submit"
+  },
+  "JL6G22": {
+    "defaultMessage": "Page actuelle, page {number}",
+    "description": "BlogPage: current page label"
   },
   "JbT+fA": {
     "defaultMessage": "Mis à jour le :",
@@ -378,10 +374,6 @@
   "PBdVsm": {
     "defaultMessage": "{starsCount, plural, =0 {0 étoile} one {# étoile} other {# étoiles}}",
     "description": "ProjectOverview: stars count"
-  },
-  "PHO94k": {
-    "defaultMessage": "Aller à la page précédente",
-    "description": "PostsList: pagination backward link label"
   },
   "PXp2hv": {
     "defaultMessage": "{websiteName} | Intégrateur web - Développeur WordPress / React",
@@ -487,6 +479,10 @@
     "defaultMessage": "Partager sur LinkedIn",
     "description": "Sharing: LinkedIn sharing link"
   },
+  "YV//MH": {
+    "defaultMessage": "Aucun résultat.",
+    "description": "SearchPage: no results"
+  },
   "Ygea7s": {
     "defaultMessage": "Thème clair",
     "description": "ThemeToggle: light theme label"
@@ -555,6 +551,10 @@
     "defaultMessage": "Échec du chargement.",
     "description": "SearchPage: failed to load text"
   },
+  "faO6BQ": {
+    "defaultMessage": "Aller à la page précédente, page {number}",
+    "description": "BlogPage: previous page label"
+  },
   "fkcTGp": {
     "defaultMessage": "Une erreur est survenue :",
     "description": "PageLayout: comment form error message"
@@ -570,6 +570,10 @@
   "h3J0a+": {
     "defaultMessage": "Formulaire des réglages",
     "description": "Layout: an accessible name for the settings form in navbar"
+  },
+  "hGvQpI": {
+    "defaultMessage": "Charger plus d’articles ?",
+    "description": "PostsList: load more button"
   },
   "hHVgW3": {
     "defaultMessage": "Thème clair 🌞",
@@ -598,10 +602,6 @@
   "jASD7k": {
     "defaultMessage": "Linux",
     "description": "HomePage: link to Linux thematic"
-  },
-  "k1aA+G": {
-    "defaultMessage": "Pagination",
-    "description": "PostsList: pagination accessible name"
   },
   "kNBXyK": {
     "defaultMessage": "Total :",
@@ -647,10 +647,6 @@
     "defaultMessage": "Copié !",
     "description": "usePrism: copy button text (clicked)"
   },
-  "nwDGkZ": {
-    "defaultMessage": "Page actuelle, page {number}",
-    "description": "PostsList: pagination current page label"
-  },
   "nwbzKm": {
     "defaultMessage": "Mentions légales",
     "description": "Layout: Legal notice label"
@@ -670,6 +666,10 @@
   "og/zWL": {
     "defaultMessage": "Thème sombre",
     "description": "PrismThemeToggle: dark theme label"
+  },
+  "oq3BzP": {
+    "defaultMessage": "Aller à la page suivante, page {number}",
+    "description": "BlogPage: next page label"
   },
   "pT5nHk": {
     "defaultMessage": "Publié le :",
@@ -743,10 +743,6 @@
     "defaultMessage": "Annuler la réponse",
     "description": "CommentsList: cancel reply button"
   },
-  "uaqd5F": {
-    "defaultMessage": "Charger plus d’articles ?",
-    "description": "PostsList: load more button"
-  },
   "va65iw": {
     "defaultMessage": "Marche",
     "description": "MotionToggle: activate reduce motion label"
@@ -759,6 +755,10 @@
     "defaultMessage": "Partager sur le Journal du Hacker",
     "description": "Sharing: Journal du Hacker sharing link"
   },
+  "vtDLzG": {
+    "defaultMessage": "Souhaitez-vous essayer une nouvelle recherche ?",
+    "description": "SearchPage: try a new search message"
+  },
   "w4B5PA": {
     "defaultMessage": "E-mail :",
     "description": "ContactForm: email label"
@@ -767,9 +767,9 @@
     "defaultMessage": "Libre",
     "description": "HomePage: link to free thematic"
   },
-  "xYemkP": {
-    "defaultMessage": "Chargement des articles précédents…",
-    "description": "PostsList: loading more articles message"
+  "wQrvgw": {
+    "defaultMessage": "Mis à jour le :",
+    "description": "ProjectsPage: update date label"
   },
   "xaqaYQ": {
     "defaultMessage": "Mail en cours d’envoi…",

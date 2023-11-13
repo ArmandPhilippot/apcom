@@ -4,6 +4,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -12,6 +13,9 @@ import {
   type MetaItemData,
   PageLayout,
   PostsList,
+  Pagination,
+  type RenderPaginationLink,
+  type RenderPaginationItemAriaLabel,
 } from '../../../components';
 import {
   getArticles,
@@ -131,7 +135,54 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     description: 'BlogPage: topics list widget title',
     id: '2D9tB5',
   });
-  const postsListBaseUrl = `${ROUTES.BLOG}/page/`;
+  const renderPaginationLink: RenderPaginationLink = useCallback(
+    (pageNum) => `${ROUTES.BLOG}/page/${pageNum}`,
+    []
+  );
+  const renderPaginationLabel: RenderPaginationItemAriaLabel = useCallback(
+    ({ kind, pageNumber: number, isCurrentPage }) => {
+      switch (kind) {
+        case 'backward':
+          return intl.formatMessage(
+            {
+              defaultMessage: 'Go to previous page, page {number}',
+              description: 'BlogPage: previous page label',
+              id: 'faO6BQ',
+            },
+            { number }
+          );
+        case 'forward':
+          return intl.formatMessage(
+            {
+              defaultMessage: 'Go to next page, page {number}',
+              description: 'BlogPage: next page label',
+              id: 'oq3BzP',
+            },
+            { number }
+          );
+        case 'number':
+        default:
+          return isCurrentPage
+            ? intl.formatMessage(
+                {
+                  defaultMessage: 'Current page, page {number}',
+                  description: 'BlogPage: current page label',
+                  id: 'JL6G22',
+                },
+                { number }
+              )
+            : intl.formatMessage(
+                {
+                  defaultMessage: 'Go to page {number}',
+                  description: 'BlogPage: page number label',
+                  id: 'IVczxR',
+                },
+                { number }
+              );
+      }
+    },
+    [intl]
+  );
 
   const headerMeta: MetaItemData[] = totalArticles
     ? [
@@ -154,6 +205,12 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         },
       ]
     : [];
+
+  const paginationAriaLabel = intl.formatMessage({
+    defaultMessage: 'Pagination',
+    description: 'BlogPage: pagination accessible name',
+    id: 'AXe1Iz',
+  });
 
   return (
     <>
@@ -208,11 +265,13 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           />,
         ]}
       >
-        <PostsList
-          baseUrl={postsListBaseUrl}
-          byYear={true}
-          pageNumber={pageNumber}
-          posts={getPostsList([articles])}
+        <PostsList posts={getPostsList([articles])} sortByYear />
+        <Pagination
+          aria-label={paginationAriaLabel}
+          current={pageNumber}
+          isCentered
+          renderItemAriaLabel={renderPaginationLabel}
+          renderLink={renderPaginationLink}
           total={totalArticles}
         />
       </PageLayout>

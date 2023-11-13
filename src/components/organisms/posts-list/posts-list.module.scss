@@ -1,0 +1,40 @@
+@use "../../../styles/abstracts/functions" as fun;
+@use "../../../styles/abstracts/mixins" as mix;
+@use "../../../styles/abstracts/placeholders";
+
+.section {
+  max-width: 100%;
+  margin-block-end: var(--spacing-md);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      display: grid;
+      grid-template-columns: var(--col1, auto) minmax(0, 1fr);
+      align-items: first baseline;
+      gap: var(--gap, var(--spacing-lg));
+    }
+  }
+}
+
+:where(.section) .year {
+  @extend %h2;
+
+  margin-bottom: var(--spacing-md);
+
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      grid-column: 1;
+      position: sticky;
+      top: var(--spacing-xs);
+      justify-self: end;
+    }
+  }
+}
+
+.progress {
+  margin-block: var(--spacing-md);
+}
+
+.btn {
+  margin-inline: auto;
+}

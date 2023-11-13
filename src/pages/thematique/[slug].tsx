@@ -20,6 +20,7 @@ import {
   getThematicsPreview,
   getTotalThematics,
 } from '../../services/graphql';
+import styles from '../../styles/pages/blog.module.scss';
 import type { NextPageWithLayout, PageLink, Thematic } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
@@ -128,7 +129,6 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     id: '/42Z0z',
   });
   const pageUrl = `${website.url}${asPath}`;
-  const postsListBaseUrl = `${ROUTES.THEMATICS.INDEX}/page/`;
 
   return (
     <>
@@ -197,11 +197,10 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
               )}
             </Heading>
             <PostsList
-              baseUrl={postsListBaseUrl}
-              byYear={true}
+              className={styles.list}
               posts={getPostsWithUrl(articles)}
-              titleLevel={3}
-              total={articles.length}
+              headingLvl={3}
+              sortByYear
             />
           </>
         ) : null}

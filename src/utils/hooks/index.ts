@@ -14,6 +14,7 @@ export * from './use-match-media';
 export * from './use-mutation-observer';
 export * from './use-on-click-outside';
 export * from './use-pagination';
+export * from './use-posts-list';
 export * from './use-prism';
 export * from './use-prism-theme';
 export * from './use-reading-time';

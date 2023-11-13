@@ -1,21 +1,13 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { PostsList } from './posts-list';
-import { posts } from './posts-list.fixture';
 
 /**
  * PostsList - Storybook Meta
  */
 export default {
-  title: 'Organisms/Layout/PostsList',
+  title: 'Organisms/PostsList',
   component: PostsList,
-  args: {
-    byYear: false,
-    isLoading: false,
-    pageNumber: 1,
-    showLoadMoreBtn: false,
-    siblings: 1,
-    titleLevel: 2,
-  },
+  args: {},
   argTypes: {
     baseUrl: {
       control: {
@@ -160,32 +152,30 @@ const Template: ComponentStory<typeof PostsList> = (args) => (
  */
 export const Default = Template.bind({});
 Default.args = {
-  posts,
-  total: posts.length,
-};
-
-/**
- * PostsList Stories - By years
- */
-export const ByYears = Template.bind({});
-ByYears.args = {
-  posts,
-  byYear: true,
-  total: posts.length,
-};
-ByYears.decorators = [
-  (Story) => (
-    <div style={{ marginLeft: 150 }}>
-      <Story />
-    </div>
-  ),
-];
-
-/**
- * PostsList Stories - No results
- */
-export const NoResults = Template.bind({});
-NoResults.args = {
-  posts: [],
-  total: posts.length,
+  posts: [
+    {
+      excerpt:
+        'Omnis voluptatem et sit sit porro possimus quo rerum. Natus et sint cupiditate magnam omnis a consequuntur reprehenderit. Ex omnis voluptatem itaque id laboriosam qui dolorum facilis architecto. Impedit aliquid et qui quae dolorum accusamus rerum.',
+      heading: 'Post 1',
+      id: 'post1',
+      meta: { publicationDate: '2023-11-06' },
+      url: '#post1',
+    },
+    {
+      excerpt:
+        'Nobis omnis excepturi deserunt laudantium unde totam quam. Voluptates maiores minima voluptatem nihil ea voluptatem similique. Praesentium ratione necessitatibus et et dolore voluptas illum dignissimos ipsum. Eius tempore ex.',
+      heading: 'Post 2',
+      id: 'post2',
+      meta: { publicationDate: '2023-11-05' },
+      url: '#post2',
+    },
+    {
+      excerpt:
+        'Doloremque est dolorum explicabo. Laudantium quos delectus odit esse fugit officiis. Fugit provident vero harum atque. Eos nam qui sit ut minus voluptas. Reprehenderit rerum ut nostrum. Eos dolores mollitia quia ea voluptatem rerum vel.',
+      heading: 'Post 3',
+      id: 'post3',
+      meta: { publicationDate: '2023-11-04' },
+      url: '#post3',
+    },
+  ],
 };

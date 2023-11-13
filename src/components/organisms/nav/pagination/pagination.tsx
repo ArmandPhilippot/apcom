@@ -32,6 +32,12 @@ export type PaginationProps = Omit<NavProps, 'children'> & {
    */
   current: number;
   /**
+   * Should the pagination be centered?
+   *
+   * @default false
+   */
+  isCentered?: boolean;
+  /**
    * Function used to provide an accessible label to pagination items.
    */
   renderItemAriaLabel: RenderPaginationItemAriaLabel;
@@ -83,6 +89,7 @@ const PaginationWithRef: ForwardRefRenderFunction<
   {
     className = '',
     current,
+    isCentered = false,
     renderItemAriaLabel,
     renderLink,
     siblings = 1,
@@ -91,7 +98,11 @@ const PaginationWithRef: ForwardRefRenderFunction<
   },
   ref
 ) => {
-  const paginationClass = `${styles.wrapper} ${className}`;
+  const paginationClass = [
+    styles.wrapper,
+    styles[isCentered ? 'wrapper--centered' : ''],
+    className,
+  ].join(' ');
   const displayRange =
     current === 1 || current === total ? siblings + 1 : siblings;
   const hasPreviousPage = current > 1;

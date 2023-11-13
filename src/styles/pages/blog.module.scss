@@ -1,0 +1,18 @@
+@use "../abstracts/functions" as fun;
+@use "../abstracts/mixins" as mix;
+
+.list {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      --col1: #{fun.convert-px(100)};
+      --gap: var(--spacing-lg);
+
+      margin-left: calc((var(--col1) + var(--gap)) * -1);
+    }
+  }
+}
+
+.logo {
+  max-width: fun.convert-px(50);
+  margin: 0 var(--spacing-xs) 0 0;
+}

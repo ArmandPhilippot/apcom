@@ -21,7 +21,7 @@ import {
   getTopicsPreview,
   getTotalTopics,
 } from '../../services/graphql';
-import styles from '../../styles/pages/topic.module.scss';
+import styles from '../../styles/pages/blog.module.scss';
 import type { NextPageWithLayout, PageLink, Topic } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
@@ -156,7 +156,6 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     </>
   );
   const pageUrl = `${website.url}${asPath}`;
-  const postsListBaseUrl = `${ROUTES.TOPICS}/page/`;
 
   return (
     <>
@@ -225,11 +224,10 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
               )}
             </Heading>
             <PostsList
-              baseUrl={postsListBaseUrl}
-              byYear={true}
+              className={styles.list}
               posts={getPostsWithUrl(articles)}
-              titleLevel={3}
-              total={articles.length}
+              headingLvl={3}
+              sortByYear
             />
           </>
         ) : null}

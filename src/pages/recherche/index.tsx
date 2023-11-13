@@ -3,6 +3,7 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -13,6 +14,8 @@ import {
   PageLayout,
   PostsList,
   Spinner,
+  SearchForm,
+  type SearchFormSubmit,
 } from '../../components';
 import {
   getArticles,
@@ -22,9 +25,9 @@ import {
   getTotalThematics,
   getTotalTopics,
 } from '../../services/graphql';
+import styles from '../../styles/pages/blog.module.scss';
 import type {
   NextPageWithLayout,
-  RawArticle,
   RawThematicPreview,
   RawTopicPreview,
 } from '../../types';
@@ -33,7 +36,6 @@ import {
   getBlogSchema,
   getLinksListItems,
   getPageLinkFromRawData,
-  getPostsList,
   getSchemaJson,
   getWebPageSchema,
 } from '../../utils/helpers';
@@ -41,7 +43,7 @@ import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
   useBreadcrumb,
   useDataFromAPI,
-  usePagination,
+  usePostsList,
   useSettings,
 } from '../../utils/hooks';
 
@@ -59,7 +61,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
   topicsList,
 }) => {
   const intl = useIntl();
-  const { asPath, query } = useRouter();
+  const { asPath, query, push: routerPush } = useRouter();
   const title = query.s
     ? intl.formatMessage(
         {
@@ -116,14 +118,15 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
   const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
 
   const {
-    data,
     error,
+    firstNewResultIndex,
     isLoading,
     isLoadingMore,
     isRefreshing,
     hasNextPage,
     loadMore,
-  } = usePagination<RawArticle>({
+    posts,
+  } = usePostsList({
     fallback: [],
     fetcher: getArticles,
     perPage: blog.postsPerPage,
@@ -167,12 +170,32 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     description: 'SearchPage: topics list widget title',
     id: 'N804XO',
   });
-  const postsListBaseUrl = `${ROUTES.SEARCH}/page/`;
   const loadingResults = intl.formatMessage({
     defaultMessage: 'Loading the search results...',
     description: 'SearchPage: loading search results message',
     id: 'EeCqAE',
   });
+
+  const searchSubmitHandler: SearchFormSubmit = useCallback(
+    ({ query: searchQuery }) => {
+      if (!searchQuery)
+        return {
+          messages: {
+            error: intl.formatMessage({
+              defaultMessage: 'Query must be longer than one character.',
+              description: 'NoResults: invalid query message',
+              id: 'VkfO7t',
+            }),
+          },
+          validator: (value) => value.query.length > 1,
+        };
+
+      routerPush({ pathname: ROUTES.SEARCH, query: { s: searchQuery } });
+
+      return undefined;
+    },
+    [intl, routerPush]
+  );
 
   return (
     <>
@@ -227,18 +250,34 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
           />,
         ]}
       >
-        {data && data.length > 0 ? (
+        {posts ? null : <Spinner>{loadingResults}</Spinner>}
+        {posts?.length ? (
           <PostsList
-            baseUrl={postsListBaseUrl}
-            byYear={true}
+            className={styles.list}
+            firstNewResult={firstNewResultIndex}
             isLoading={isLoading || isLoadingMore || isRefreshing}
-            loadMore={loadMore}
-            posts={getPostsList(data)}
-            showLoadMoreBtn={hasNextPage}
-            total={totalArticles ?? 0}
+            onLoadMore={hasNextPage ? loadMore : undefined}
+            posts={posts}
+            sortByYear
           />
         ) : (
-          <Spinner>{loadingResults}</Spinner>
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: 'No results found.',
+                description: 'SearchPage: no results',
+                id: 'YV//MH',
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: 'Would you like to try a new search?',
+                description: 'SearchPage: try a new search message',
+                id: 'vtDLzG',
+              })}
+            </p>
+            <SearchForm isLabelHidden onSubmit={searchSubmitHandler} />
+          </>
         )}
         {error ? (
           <Notice
