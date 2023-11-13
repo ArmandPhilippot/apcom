@@ -2,6 +2,7 @@
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
+import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import React, {
@@ -23,7 +24,6 @@ import {
   Time,
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
-import styles from '../styles/pages/cv.module.scss';
 import type { NextPageWithLayout } from '../types';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import {
@@ -219,8 +219,7 @@ const CVPage: NextPageWithLayout = () => {
           {imageWidgetTitle}
         </Heading>
       }
-      image={image}
-      imageClassName={styles.image}
+      img={<NextImage {...image} />}
       // eslint-disable-next-line react/jsx-no-literals -- Key allowed
       key="image-widget"
     />,
