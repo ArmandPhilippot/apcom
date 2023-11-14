@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ButtonLink, Heading, Link } from '../../atoms';
-import { LinksListWidget, PostsList, SharingWidget } from '../../organisms';
+import { LinksWidget, PostsList, SharingWidget } from '../../organisms';
 import { LayoutBase } from '../layout/layout.stories';
 import { PageLayout as PageLayoutComponent } from './page-layout';
 
@@ -457,13 +457,10 @@ const postsListBreadcrumb = [
 ];
 
 const blogCategories = [
-  { name: 'Cat 1', url: '#' },
-  {
-    name: 'Cat 2',
-    url: '#',
-  },
-  { name: 'Cat 3', url: '#' },
-  { name: 'Cat 4', url: '#' },
+  { id: 'cat1', label: 'Cat 1', url: '#' },
+  { id: 'cat2', label: 'Cat 2', url: '#' },
+  { id: 'cat3', label: 'Cat 3', url: '#' },
+  { id: 'cat4', label: 'Cat 4', url: '#' },
 ];
 
 const posts = [
@@ -503,7 +500,7 @@ Blog.args = {
   headerMeta: [{ id: 'total', label: 'Total:', value: `${posts.length}` }],
   children: <PostsList posts={posts} sortByYear />,
   widgets: [
-    <LinksListWidget
+    <LinksWidget
       heading={
         <Heading isFake level={3}>
           Categories

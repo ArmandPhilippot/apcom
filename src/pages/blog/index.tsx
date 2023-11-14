@@ -8,7 +8,7 @@ import { useIntl } from 'react-intl';
 import {
   getLayout,
   Heading,
-  LinksListWidget,
+  LinksWidget,
   type MetaItemData,
   Notice,
   PageLayout,
@@ -37,7 +37,7 @@ import { settings } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
-  getLinksListItems,
+  getLinksItemData,
   getPageLinkFromRawData,
   getSchemaJson,
   getWebPageSchema,
@@ -242,13 +242,13 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         breadcrumbSchema={breadcrumbSchema}
         headerMeta={headerMeta}
         widgets={[
-          <LinksListWidget
+          <LinksWidget
             heading={
               <Heading isFake level={3}>
                 {thematicsListTitle}
               </Heading>
             }
-            items={getLinksListItems(
+            items={getLinksItemData(
               thematicsList.map((thematic) =>
                 getPageLinkFromRawData(thematic, 'thematic')
               )
@@ -256,13 +256,13 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
             // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="thematics-list"
           />,
-          <LinksListWidget
+          <LinksWidget
             heading={
               <Heading isFake level={3}>
                 {topicsListTitle}
               </Heading>
             }
-            items={getLinksListItems(
+            items={getLinksItemData(
               topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
             )}
             // eslint-disable-next-line react/jsx-no-literals -- Key allowed

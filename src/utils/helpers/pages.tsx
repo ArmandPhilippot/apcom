@@ -1,5 +1,5 @@
 import NextImage from 'next/image';
-import type { LinksListItems, PostData } from '../../components';
+import type { LinksWidgetItemData, PostData } from '../../components';
 import { getArticleFromRawData } from '../../services/graphql';
 import type {
   Article,
@@ -61,10 +61,11 @@ export const sortPageLinksByName = (a: PageLink, b: PageLink) => {
  * @param {PageLink[]} links - An array of page links.
  * @returns {LinksListItem[]} An array of links items.
  */
-export const getLinksListItems = (links: PageLink[]): LinksListItems[] =>
+export const getLinksItemData = (links: PageLink[]): LinksWidgetItemData[] =>
   links.map((link) => {
     return {
-      name: link.name,
+      id: `${link.id}`,
+      label: link.name,
       url: link.url,
     };
   });

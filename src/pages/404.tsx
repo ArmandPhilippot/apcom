@@ -8,7 +8,7 @@ import {
   getLayout,
   Heading,
   Link,
-  LinksListWidget,
+  LinksWidget,
   PageLayout,
   SearchForm,
   type SearchFormSubmit,
@@ -25,7 +25,7 @@ import type {
   RawTopicPreview,
 } from '../types';
 import { ROUTES } from '../utils/constants';
-import { getLinksListItems, getPageLinkFromRawData } from '../utils/helpers';
+import { getLinksItemData, getPageLinkFromRawData } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb, useSettings } from '../utils/hooks';
 
@@ -122,13 +122,13 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
         widgets={[
-          <LinksListWidget
+          <LinksWidget
             heading={
               <Heading isFake level={3}>
                 {thematicsListTitle}
               </Heading>
             }
-            items={getLinksListItems(
+            items={getLinksItemData(
               thematicsList.map((thematic) =>
                 getPageLinkFromRawData(thematic, 'thematic')
               )
@@ -136,13 +136,13 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
             // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="thematics-list"
           />,
-          <LinksListWidget
+          <LinksWidget
             heading={
               <Heading isFake level={3}>
                 {topicsListTitle}
               </Heading>
             }
-            items={getLinksListItems(
+            items={getLinksItemData(
               topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
             )}
             // eslint-disable-next-line react/jsx-no-literals -- Key allowed

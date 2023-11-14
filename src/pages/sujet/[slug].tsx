@@ -9,7 +9,7 @@ import { useIntl } from 'react-intl';
 import {
   getLayout,
   Heading,
-  LinksListWidget,
+  LinksWidget,
   type MetaItemData,
   PageLayout,
   PostsList,
@@ -25,7 +25,7 @@ import styles from '../../styles/pages/blog.module.scss';
 import type { NextPageWithLayout, PageLink, Topic } from '../../types';
 import { ROUTES } from '../../utils/constants';
 import {
-  getLinksListItems,
+  getLinksItemData,
   getPageLinkFromRawData,
   getPostsWithUrl,
   getSchemaJson,
@@ -185,23 +185,23 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
         widgets={
           thematics
             ? [
-                <LinksListWidget
+                <LinksWidget
                   heading={
                     <Heading isFake level={3}>
                       {thematicsListTitle}
                     </Heading>
                   }
-                  items={getLinksListItems(thematics)}
+                  items={getLinksItemData(thematics)}
                   // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="related-thematics"
                 />,
-                <LinksListWidget
+                <LinksWidget
                   heading={
                     <Heading isFake level={3}>
                       {topicsListTitle}
                     </Heading>
                   }
-                  items={getLinksListItems(topics)}
+                  items={getLinksItemData(topics)}
                   // eslint-disable-next-line react/jsx-no-literals -- Key allowed
                   key="topics"
                 />,
