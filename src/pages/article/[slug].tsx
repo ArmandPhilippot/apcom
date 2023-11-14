@@ -13,11 +13,12 @@ import {
   getLayout,
   Link,
   PageLayout,
-  Sharing,
+  SharingWidget,
   Spinner,
   type MetaItemData,
   Time,
   type CommentData,
+  Heading,
 } from '../../components';
 import {
   getAllArticlesSlugs,
@@ -301,6 +302,11 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   );
 
   const pageUrl = `${website.url}${slug}`;
+  const sharingWidgetTitle = intl.formatMessage({
+    defaultMessage: 'Share',
+    id: 'HKKkQk',
+    description: 'SharingWidget: widget title',
+  });
 
   return (
     <>
@@ -335,11 +341,12 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         title={title}
         withToC={true}
         widgets={[
-          <Sharing
+          <SharingWidget
             // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="sharing-widget"
             className={styles.widget}
             data={{ excerpt: intro, title, url: pageUrl }}
+            heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
             media={[
               'diaspora',
               'email',

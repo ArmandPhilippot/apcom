@@ -1,26 +1,14 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Sharing as SharingWidget } from './sharing';
+import { Heading } from '../../../atoms';
+import { SharingWidget } from './sharing-widget';
 
 /**
- * Sharing - Storybook Meta
+ * SharingWidget - Storybook Meta
  */
 export default {
-  title: 'Organisms/Widgets',
+  title: 'Organisms/Widgets/Sharing',
   component: SharingWidget,
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Set additional classnames to the sharing links list.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
     data: {
       description: 'The page data.',
       type: {
@@ -47,7 +35,7 @@ const Template: ComponentStory<typeof SharingWidget> = (args) => (
 );
 
 /**
- * Widgets Stories - Sharing
+ * SharingWidget Stories - Sharing
  */
 export const Sharing = Template.bind({});
 Sharing.args = {
@@ -57,5 +45,6 @@ Sharing.args = {
     title: 'Accusantium totam nostrum',
     url: 'https://www.example.test',
   },
+  heading: <Heading level={3}>Share</Heading>,
   media: ['diaspora', 'facebook', 'linkedin', 'twitter', 'email'],
 };

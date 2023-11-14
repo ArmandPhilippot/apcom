@@ -13,7 +13,7 @@ import {
   getLayout,
   Link,
   PageLayout,
-  Sharing,
+  SharingWidget,
   Spinner,
   Heading,
   List,
@@ -289,6 +289,11 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const sharingWidgetTitle = intl.formatMessage({
+    defaultMessage: 'Share',
+    id: 'HKKkQk',
+    description: 'SharingWidget: widget title',
+  });
 
   return (
     <>
@@ -317,10 +322,11 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         headerMeta={filteredHeaderMeta}
         withToC={true}
         widgets={[
-          <Sharing
+          <SharingWidget
             // eslint-disable-next-line react/jsx-no-literals -- Key allowed
             key="sharing-widget"
             data={{ excerpt: intro, title, url: page.url }}
+            heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
             media={[
               'diaspora',
               'email',

@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ButtonLink, Heading, Link } from '../../atoms';
-import { LinksListWidget, PostsList, Sharing } from '../../organisms';
+import { LinksListWidget, PostsList, SharingWidget } from '../../organisms';
 import { LayoutBase } from '../layout/layout.stories';
 import { PageLayout as PageLayoutComponent } from './page-layout';
 
@@ -239,9 +239,10 @@ SinglePage.args = {
     </>
   ),
   widgets: [
-    <Sharing
+    <SharingWidget
       key="sidebar2-widget1"
       data={{ excerpt: pageIntro, title: pageTitle, url: '#' }}
+      heading={<Heading level={3}>Share</Heading>}
       media={[
         'diaspora',
         'email',
@@ -330,9 +331,10 @@ Post.args = {
     </>
   ),
   widgets: [
-    <Sharing
+    <SharingWidget
       key="sidebar2-widget1"
       data={{ excerpt: pageIntro, title: pageTitle, url: '#' }}
+      heading={<Heading level={3}>Share</Heading>}
       media={[
         'diaspora',
         'email',
