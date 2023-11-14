@@ -471,10 +471,6 @@
     "defaultMessage": "Search",
     "description": "SearchPage: SEO - Page title"
   },
-  "WKG9wj": {
-    "defaultMessage": "Table of Contents",
-    "description": "TableOfContents: the widget title"
-  },
   "WMqQrv": {
     "defaultMessage": "Search",
     "description": "SearchForm: button accessible name"
@@ -554,6 +550,10 @@
   "dfTljv": {
     "defaultMessage": "Main navigation",
     "description": "Layout: main nav accessible name"
+  },
+  "eys2uX": {
+    "defaultMessage": "Table of Contents",
+    "description": "PageLayout: table of contents title"
   },
   "fN04AJ": {
     "defaultMessage": "<link>Download the CV in PDF</link>",

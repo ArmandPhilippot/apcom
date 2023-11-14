@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import Script from 'next/script';
 import {
   type FC,
@@ -10,7 +11,7 @@ import { useIntl } from 'react-intl';
 import type { BreadcrumbList } from 'schema-dts';
 import { sendComment } from '../../../services/graphql';
 import type { SendCommentInput } from '../../../types';
-import { useIsMounted } from '../../../utils/hooks';
+import { useHeadingsTree, useIsMounted } from '../../../utils/hooks';
 import { Heading, Sidebar } from '../../atoms';
 import {
   PageFooter,
@@ -22,7 +23,7 @@ import {
   CommentForm,
   CommentsList,
   type CommentsListProps,
-  TableOfContents,
+  TocWidget,
   Breadcrumbs,
   type BreadcrumbsItem,
   type CommentFormSubmit,
@@ -130,9 +131,15 @@ export const PageLayout: FC<PageLayoutProps> = ({
     description: 'PageLayout: comment form accessible name',
     id: 'l+Jcf6',
   });
+  const tocTitle = intl.formatMessage({
+    defaultMessage: 'Table of Contents',
+    description: 'PageLayout: table of contents title',
+    id: 'eys2uX',
+  });
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const isMounted = useIsMounted(bodyRef);
+  const headingsTree = useHeadingsTree(bodyRef, { fromLevel: 2 });
 
   const saveComment: CommentFormSubmit = useCallback(
     async (data) => {
@@ -217,7 +224,10 @@ export const PageLayout: FC<PageLayoutProps> = ({
           className={`${styles.sidebar} ${styles['sidebar--first']}`}
         >
           {isMounted && bodyRef.current ? (
-            <TableOfContents wrapper={bodyRef.current} />
+            <TocWidget
+              heading={<Heading level={3}>{tocTitle}</Heading>}
+              tree={headingsTree}
+            />
           ) : null}
         </Sidebar>
       ) : null}
