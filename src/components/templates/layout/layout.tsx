@@ -19,7 +19,7 @@ import { ROUTES } from '../../../utils/constants';
 import {
   useAutofocus,
   useBoolean,
-  useRouteChange,
+  useOnRouteChange,
   useScrollPosition,
 } from '../../../utils/hooks';
 import {
@@ -271,7 +271,7 @@ export const Layout: FC<LayoutProps> = ({
     [intl, router]
   );
 
-  useRouteChange(deactivateSearch);
+  useOnRouteChange(deactivateSearch);
 
   const navbarItems: NavbarItems = [
     {
@@ -382,7 +382,7 @@ export const Layout: FC<LayoutProps> = ({
     if (topRef.current) topRef.current.focus();
   };
 
-  useRouteChange(giveFocusToTopRef);
+  useOnRouteChange(giveFocusToTopRef);
 
   const brandingTitleStyles = {
     '--typing-animation':
