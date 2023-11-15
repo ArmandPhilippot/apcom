@@ -1,3 +1,4 @@
+import { CONFIG } from '../../../../src/utils/config';
 import { ROUTES } from '../../../../src/utils/constants';
 
 const userName = 'Cypress Test';
@@ -17,6 +18,7 @@ describe('Contact Page', () => {
   });
 
   it('submits the form', () => {
+    cy.intercept('POST', CONFIG.api.url ?? '').as('sendMail');
     cy.findByRole('textbox', { name: /Nom/i })
       .type(userName)
       .should('have.value', userName);
@@ -30,7 +32,9 @@ describe('Contact Page', () => {
       .type(message)
       .should('have.value', message);
     cy.findByRole('button', { name: /Envoyer/i }).click();
-    cy.findByText(/E-mail en cours d'envoi/i).should('be.visible');
+    cy.findByText(/Mail en cours/i).should('be.visible');
+    cy.wait('@sendMail');
+    cy.get('body').should('not.contain.text', /Mail en cours/i);
   });
 
   it('prevents the form to submit if some fields are missing', () => {
@@ -38,6 +42,6 @@ describe('Contact Page', () => {
       .type(userEmail)
       .should('have.value', userEmail);
     cy.findByRole('button', { name: /Envoyer/i }).click();
-    cy.findByText(/E-mail en cours d'envoi/i).should('not.be.visible');
+    cy.get('body').should('not.contain.text', /Mail en cours/i);
   });
 });

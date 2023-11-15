@@ -4,12 +4,18 @@ describe('Settings', () => {
   });
 
   it('should open and close a settings menu by clicking on a button', () => {
-    cy.findByLabelText(/Fermer les réglages/i).should('not.exist');
+    // findByLabelText does not return the input but the label...
+    cy.findByLabelText(/Ouvrir les réglages/i)
+      .prev()
+      .should('not.be.checked');
     cy.findByLabelText(/Ouvrir les réglages/i).click();
-    cy.findByLabelText(/Ouvrir les réglages/i).should('not.exist');
-    cy.findByLabelText(/Fermer les réglages/i).click();
-    cy.findByLabelText(/Fermer les réglages/i).should('not.exist');
-    cy.findByLabelText(/Ouvrir les réglages/i).should('exist');
+    cy.findByLabelText(/Ouvrir les réglages/i)
+      .prev()
+      .should('be.checked');
+    cy.findByLabelText(/Ouvrir les réglages/i).click();
+    cy.findByLabelText(/Ouvrir les réglages/i)
+      .prev()
+      .should('not.be.checked');
   });
 
   it('should open and close a tooltip by clicking on a button', () => {
@@ -44,7 +50,7 @@ describe('Settings', () => {
             .parent()
             .should('have.attr', 'data-theme', 'dark')
             .then(() => {
-              expect(localStorage.getItem('theme')).to.eq('dark');
+              expect(localStorage.getItem('theme')).to.eq('"dark"');
             });
         } else {
           cy.findByRole('radiogroup', { name: /Thème/i })

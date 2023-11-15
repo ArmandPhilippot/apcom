@@ -20,14 +20,20 @@ describe(
       'should open and close main nav menu by clicking on hamburger button',
       { viewportWidth: 810, viewportHeight: 1080 },
       () => {
-        cy.findByLabelText(/Fermer le menu/i).should('not.exist');
+        // findByLabelText does not return the input but the label...
+        cy.findByLabelText(/Ouvrir le menu/i)
+          .prev()
+          .should('not.be.checked');
         cy.findByRole('link', { name: /Blog/i }).should('not.exist');
         cy.findByLabelText(/Ouvrir le menu/i).click();
-        cy.findByLabelText(/Ouvrir le menu/i).should('not.exist');
-        cy.findByLabelText(/Fermer le menu/i).should('exist');
+        cy.findByLabelText(/Ouvrir le menu/i)
+          .prev()
+          .should('be.checked');
         cy.findByRole('link', { name: /Blog/i }).should('exist');
-        cy.findByLabelText(/Fermer le menu/i).click();
-        cy.findByLabelText(/Fermer le menu/i).should('not.exist');
+        cy.findByLabelText(/Ouvrir le menu/i).click();
+        cy.findByLabelText(/Ouvrir le menu/i)
+          .prev()
+          .should('not.be.checked');
         cy.findByRole('link', { name: /Blog/i }).should('not.exist');
         cy.findByLabelText(/Ouvrir le menu/i).should('exist');
       }
@@ -38,25 +44,33 @@ describe(
     });
 
     it('should navigate to the blog page', () => {
-      cy.findByRole('link', { name: /Blog/i }).click();
+      cy.findByLabelText('Navigation principale').within(() => {
+        cy.findByRole('link', { name: /Blog/i }).click();
+      });
       cy.url().should('include', ROUTES.BLOG);
       cy.findByRole('heading', { level: 1 }).contains('Blog');
     });
 
     it('should navigate to the CV page', () => {
-      cy.findByRole('link', { name: /CV/i }).click();
+      cy.findByLabelText('Navigation principale').within(() => {
+        cy.findByRole('link', { name: /CV/i }).click();
+      });
       cy.url().should('include', ROUTES.CV);
       cy.findByRole('heading', { level: 1 }).contains('CV');
     });
 
     it('should navigate to the projects page', () => {
-      cy.findByRole('link', { name: /Projets/i }).click();
+      cy.findByLabelText('Navigation principale').within(() => {
+        cy.findByRole('link', { name: /Projets/i }).click();
+      });
       cy.url().should('include', ROUTES.PROJECTS);
       cy.findByRole('heading', { level: 1 }).contains('Projets');
     });
 
     it('should navigate to the contact page', () => {
-      cy.findByRole('link', { name: /Contact/i }).click();
+      cy.findByLabelText('Navigation principale').within(() => {
+        cy.findByRole('link', { name: /Contact/i }).click();
+      });
       cy.url().should('include', ROUTES.CONTACT);
       cy.findByRole('heading', { level: 1 }).contains('Contact');
     });
