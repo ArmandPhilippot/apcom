@@ -1,10 +1,12 @@
 const isStaging = process.env.NEXT_PUBLIC_APP_ENV === 'staging';
 
-export const settings = {
+export const CONFIG = {
   ackee: {
-    filename: process.env.NEXT_PUBLIC_ACKEE_FILENAME || 'tracker.js',
-    siteId: process.env.NEXT_PUBLIC_ACKEE_SITE_ID || '',
-    url: `https://${process.env.NEXT_PUBLIC_ACKEE_DOMAIN}` || '',
+    filename: process.env.NEXT_PUBLIC_ACKEE_FILENAME ?? 'tracker.js',
+    siteId: process.env.NEXT_PUBLIC_ACKEE_SITE_ID ?? '',
+    url: process.env.NEXT_PUBLIC_ACKEE_DOMAIN
+      ? `https://${process.env.NEXT_PUBLIC_ACKEE_DOMAIN}`
+      : '',
   },
   api: {
     url: isStaging
@@ -12,15 +14,12 @@ export const settings = {
       : process.env.NEXT_PUBLIC_GRAPHQL_API,
   },
   name: 'Armand Philippot',
-  baseline: {
-    en: 'Front-end developer',
-    fr: 'Intégrateur web',
-  },
+  baseline: 'Intégrateur web',
   copyright: {
     startYear: '2012',
     endYear: new Date().getFullYear().toString(),
   },
-  email: process.env.APP_AUTHOR_EMAIL || '',
+  email: process.env.APP_AUTHOR_EMAIL ?? '',
   locales: {
     defaultLocale: 'fr',
     defaultCountry: 'FR',
@@ -31,5 +30,5 @@ export const settings = {
   url:
     (isStaging
       ? process.env.NEXT_PUBLIC_STAGING_APP_URL
-      : process.env.NEXT_PUBLIC_APP_URL) || '',
+      : process.env.NEXT_PUBLIC_APP_URL) ?? '',
 };

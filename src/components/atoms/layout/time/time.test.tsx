@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { render, screen as rtlScreen } from '../../../../../tests/utils';
-import { settings } from '../../../../utils/config';
+import { CONFIG } from '../../../../utils/config';
 import { Time } from './time';
 
 describe('Time', () => {
@@ -31,7 +31,7 @@ describe('Time', () => {
     expect(
       rtlScreen.getByText(new RegExp(`${date.getFullYear()}`))
     ).toHaveTextContent(
-      new Intl.DateTimeFormat(settings.locales.defaultLocale, {
+      new Intl.DateTimeFormat(CONFIG.locales.defaultLocale, {
         weekday: 'long',
       }).format(date)
     );

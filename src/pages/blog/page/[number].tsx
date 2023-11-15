@@ -33,7 +33,8 @@ import type {
   RawThematicPreview,
   RawTopicPreview,
 } from '../../../types';
-import { settings } from '../../../utils/config';
+import { CONFIG } from '../../../utils/config';
+import { ROUTES } from '../../../utils/constants';
 import {
   getBlogSchema,
   getLinksItemData,
@@ -43,12 +44,7 @@ import {
   getWebPageSchema,
 } from '../../../utils/helpers';
 import { loadTranslation, type Messages } from '../../../utils/helpers/server';
-import {
-  useBreadcrumb,
-  useRedirection,
-  useSettings,
-} from '../../../utils/hooks';
-import { ROUTES } from 'src/utils/constants';
+import { useBreadcrumb, useRedirection } from '../../../utils/hooks';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;
@@ -96,11 +92,10 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     url: `${ROUTES.BLOG}/page/${pageNumber}`,
   });
 
-  const { website } = useSettings();
   const { asPath } = useRouter();
   const page = {
-    title: `${pageTitleWithPageNumber} - ${website.name}`,
-    url: `${website.url}${asPath}`,
+    title: `${pageTitleWithPageNumber} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${asPath}`,
   };
   const pageDescription = intl.formatMessage(
     {
@@ -109,17 +104,17 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
       description: 'BlogPage: SEO - Meta description',
       id: '18h/t0',
     },
-    { websiteName: website.name }
+    { websiteName: CONFIG.name }
   );
   const webpageSchema = getWebPageSchema({
     description: pageDescription,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
   const blogSchema = getBlogSchema({
     isSinglePage: false,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
@@ -292,10 +287,10 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
 }) => {
   const pageNumber = Number((params as BlogPageParams).number);
   const lastCursor = await getArticlesEndCursor({
-    first: settings.postsPerPage * pageNumber,
+    first: CONFIG.postsPerPage * pageNumber,
   });
   const articles = await getArticles({
-    first: settings.postsPerPage,
+    first: CONFIG.postsPerPage,
     after: lastCursor,
   });
   const totalArticles = await getTotalArticles();
@@ -319,7 +314,7 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const totalArticles = await getTotalArticles();
-  const totalPages = Math.ceil(totalArticles / settings.postsPerPage);
+  const totalPages = Math.ceil(totalArticles / CONFIG.postsPerPage);
   const pagesArray = Array.from(
     { length: totalPages },
     (_, index) => index + 1

@@ -51,6 +51,7 @@
       "filename": [
         ".cspell/french-contents.txt",
         "src/content/**",
+        "src/utils/config.ts",
         "src/utils/constants.ts",
         "tests/cypress/e2e/**"
       ],

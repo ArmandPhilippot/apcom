@@ -23,6 +23,7 @@ import {
 import PageContent, { meta } from '../../content/pages/projects.mdx';
 import styles from '../../styles/pages/projects.module.scss';
 import type { NextPageWithLayout, ProjectCard } from '../../types';
+import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getSchemaJson,
@@ -34,7 +35,7 @@ import {
   loadTranslation,
   type Messages,
 } from '../../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../../utils/hooks';
+import { useBreadcrumb } from '../../utils/hooks';
 
 const components: MDXComponents = {
   Link,
@@ -116,11 +117,10 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     }
   );
 
-  const { website } = useSettings();
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: seo.title,
     updateDate: dates.update,
@@ -130,14 +130,14 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     description: seo.description,
     id: 'projects',
     kind: 'page',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
   const page = {
-    title: `${seo.title} - ${website.name}`,
-    url: `${website.url}${asPath}`,
+    title: `${seo.title} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${asPath}`,
   };
 
   return (

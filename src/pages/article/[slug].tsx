@@ -27,6 +27,7 @@ import {
 } from '../../services/graphql';
 import styles from '../../styles/pages/article.module.scss';
 import type { Article, NextPageWithLayout, SingleComment } from '../../types';
+import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
@@ -41,7 +42,6 @@ import {
   useComments,
   usePrism,
   useReadingTime,
-  useSettings,
 } from '../../utils/hooks';
 
 type ArticlePageProps = {
@@ -84,7 +84,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     url: `${ROUTES.ARTICLE}/${slug}`,
   });
   const readingTime = useReadingTime(article?.meta.wordsCount ?? 0, true);
-  const { website } = useSettings();
   const { attributes, className } = usePrism({
     attributes: {
       'data-toolbar-order': 'show-language,copy-to-clipboard,color-scheme',
@@ -211,14 +210,14 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 
   const webpageSchema = getWebPageSchema({
     description: intro,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug,
     title,
     updateDate: dates.update,
   });
   const blogSchema = getBlogSchema({
     isSinglePage: true,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug,
   });
   const blogPostSchema = getSinglePageSchema({
@@ -229,7 +228,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     description: intro,
     id: 'article',
     kind: 'post',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug,
     title,
   });
@@ -237,12 +236,12 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     ? commentsData.map((comment) => {
         return {
           '@context': 'https://schema.org',
-          '@id': `${website.url}/#comment-${comment.id}`,
+          '@id': `${CONFIG.url}/#comment-${comment.id}`,
           '@type': 'Comment',
           parentItem: comment.parentId
-            ? { '@id': `${website.url}/#comment-${comment.parentId}` }
+            ? { '@id': `${CONFIG.url}/#comment-${comment.parentId}` }
             : undefined,
-          about: { '@type': 'Article', '@id': `${website.url}/#article` },
+          about: { '@type': 'Article', '@id': `${CONFIG.url}/#article` },
           author: {
             '@type': 'Person',
             name: comment.meta.author.name,
@@ -301,7 +300,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     prismClassNameReplacer
   );
 
-  const pageUrl = `${website.url}${slug}`;
+  const pageUrl = `${CONFIG.url}${slug}`;
   const sharingWidgetTitle = intl.formatMessage({
     defaultMessage: 'Share',
     id: 'HKKkQk',

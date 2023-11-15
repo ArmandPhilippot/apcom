@@ -1,4 +1,4 @@
-import { settings } from '../../../../src/utils/config';
+import { CONFIG } from '../../../../src/utils/config';
 import { ROUTES } from '../../../../src/utils/constants';
 
 type ArticlesGroup = {
@@ -27,10 +27,10 @@ describe('Blog Page', () => {
           : { first: '0', total: '0' };
         const totalArticles = parseInt(total, 10);
 
-        expect(parseInt(first, 10)).to.be.within(1, settings.postsPerPage);
+        expect(parseInt(first, 10)).to.be.within(1, CONFIG.postsPerPage);
         expect(totalArticles).to.be.at.least(1);
 
-        const totalPages = Math.ceil(totalArticles / settings.postsPerPage);
+        const totalPages = Math.ceil(totalArticles / CONFIG.postsPerPage);
         const remainingPages = totalPages - 1;
 
         return Array.from({ length: remainingPages }, (_, i) => i + 1);

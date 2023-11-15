@@ -23,6 +23,7 @@ import {
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
 import type { NextPageWithLayout, PageLink, Topic } from '../../types';
+import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getLinksItemData,
@@ -33,7 +34,7 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../../utils/hooks';
+import { useBreadcrumb } from '../../utils/hooks';
 
 export type TopicPageProps = {
   currentTopic: Topic;
@@ -116,11 +117,10 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     (item): item is MetaItemData => !!item
   );
 
-  const { website } = useSettings();
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: seo.title,
     updateDate: dates.update,
@@ -131,7 +131,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     description: intro,
     id: 'topic',
     kind: 'page',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
@@ -155,7 +155,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
       {title}
     </>
   );
-  const pageUrl = `${website.url}${asPath}`;
+  const pageUrl = `${CONFIG.url}${asPath}`;
 
   return (
     <>

@@ -5,7 +5,7 @@ import {
   getTotalArticles,
 } from '../../services/graphql';
 import type { Article } from '../../types';
-import { settings } from '../config';
+import { CONFIG } from '../config';
 import { ROUTES } from '../constants';
 
 /**
@@ -32,25 +32,25 @@ const getAllArticles = async (): Promise<Article[]> => {
  */
 export const generateFeed = async (): Promise<Feed> => {
   const author = {
-    name: settings.name,
+    name: CONFIG.name,
     email: process.env.APP_AUTHOR_EMAIL,
-    link: settings.url,
+    link: CONFIG.url,
   };
-  const copyright = `${settings.name} CC BY SA ${settings.copyright.startYear} - ${settings.copyright.endYear}`;
-  const title = `${settings.name} | ${settings.baseline.fr}`;
+  const copyright = `${CONFIG.name} CC BY SA ${CONFIG.copyright.startYear} - ${CONFIG.copyright.endYear}`;
+  const title = `${CONFIG.name} | ${CONFIG.baseline}`;
 
   const feed = new Feed({
     author,
     copyright,
     description: process.env.APP_FEED_DESCRIPTION,
     feedLinks: {
-      json: `${settings.url}${ROUTES.RSS}/json`,
-      atom: `${settings.url}${ROUTES.RSS}/atom`,
+      json: `${CONFIG.url}${ROUTES.RSS}/json`,
+      atom: `${CONFIG.url}${ROUTES.RSS}/atom`,
     },
     generator: 'Feed & NextJS',
-    id: settings.url,
-    language: settings.locales.defaultLocale,
-    link: settings.url,
+    id: CONFIG.url,
+    language: CONFIG.locales.defaultLocale,
+    link: CONFIG.url,
     title,
   });
 
@@ -62,7 +62,7 @@ export const generateFeed = async (): Promise<Feed> => {
       date: new Date(article.meta.dates.publication),
       description: article.intro,
       id: `${article.id}`,
-      link: `${settings.url}${ROUTES.ARTICLE}/${article.slug}`,
+      link: `${CONFIG.url}${ROUTES.ARTICLE}/${article.slug}`,
       title: article.title,
     });
   });

@@ -25,6 +25,7 @@ import {
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import type { NextPageWithLayout } from '../types';
+import { CONFIG } from '../utils/config';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import {
   getSchemaJson,
@@ -32,7 +33,7 @@ import {
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../utils/hooks';
+import { useBreadcrumb } from '../utils/hooks';
 
 const ExternalLink = ({
   children = '',
@@ -179,7 +180,6 @@ const CVPage: NextPageWithLayout = () => {
     (item): item is MetaItemData => !!item
   );
 
-  const { website } = useSettings();
   const cvCaption = intl.formatMessage(
     {
       defaultMessage: '<link>Download the CV in PDF</link>',
@@ -257,7 +257,7 @@ const CVPage: NextPageWithLayout = () => {
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: seo.title,
     updateDate: dates.update,
@@ -268,14 +268,14 @@ const CVPage: NextPageWithLayout = () => {
     description: intro,
     id: 'cv',
     kind: 'about',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, cvSchema]);
   const page = {
-    title: `${seo.title} - ${website.name}`,
-    url: `${website.url}${asPath}`,
+    title: `${seo.title} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${asPath}`,
   };
 
   return (

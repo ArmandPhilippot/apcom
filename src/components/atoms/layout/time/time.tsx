@@ -4,7 +4,7 @@ import {
   forwardRef,
 } from 'react';
 import { useIntl } from 'react-intl';
-import { settings } from '../../../../utils/config';
+import { CONFIG } from '../../../../utils/config';
 
 type GetDateOptionsConfig = {
   hasDay: boolean;
@@ -65,7 +65,7 @@ export type TimeProps = Omit<
   /**
    * The current locale.
    *
-   * @default settings.locales.defaultLocale
+   * @default CONFIG.locales.defaultLocale
    */
   locale?: string;
   /**
@@ -88,7 +88,7 @@ const TimeWithRef: ForwardRefRenderFunction<HTMLTimeElement, TimeProps> = (
     hideDay = false,
     hideMonth = false,
     hideYear = false,
-    locale = settings.locales.defaultLocale,
+    locale = CONFIG.locales.defaultLocale,
     showTime = false,
     showWeekDay = false,
     ...props

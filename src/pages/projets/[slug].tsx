@@ -28,6 +28,7 @@ import {
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
+import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getSchemaJson,
@@ -40,7 +41,7 @@ import {
   loadTranslation,
   type Messages,
 } from '../../utils/helpers/server';
-import { useBreadcrumb, useGithubApi, useSettings } from '../../utils/hooks';
+import { useBreadcrumb, useGithubApi } from '../../utils/hooks';
 
 const BorderedImage = (props: NextImageProps) => (
   <Figure hasBorders>
@@ -170,11 +171,10 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     }
   );
 
-  const { website } = useSettings();
   const { asPath } = useRouter();
   const page = {
-    title: `${seo.title} - ${website.name}`,
-    url: `${website.url}${asPath}`,
+    title: `${seo.title} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${asPath}`,
   };
 
   const headerMeta: (MetaItemData | undefined)[] = [
@@ -273,7 +273,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
 
   const webpageSchema = getWebPageSchema({
     description: seo.description,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: seo.title,
     updateDate: dates.update,
@@ -284,7 +284,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     description: intro,
     id: 'project',
     kind: 'page',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });

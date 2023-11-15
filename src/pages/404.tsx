@@ -24,10 +24,11 @@ import type {
   RawThematicPreview,
   RawTopicPreview,
 } from '../types';
+import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
 import { getLinksItemData, getPageLinkFromRawData } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../utils/hooks';
+import { useBreadcrumb } from '../utils/hooks';
 
 type Error404PageProps = {
   thematicsList: RawThematicPreview[];
@@ -44,7 +45,6 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
 }) => {
   const router = useRouter();
   const intl = useIntl();
-  const { website } = useSettings();
   const title = intl.formatMessage({
     defaultMessage: 'Page not found',
     description: 'Error404Page: page title',
@@ -71,7 +71,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
       description: '404Page: SEO - Page title',
       id: '310o3F',
     },
-    { websiteName: website.name }
+    { websiteName: CONFIG.name }
   );
   const pageDescription = intl.formatMessage({
     defaultMessage: 'Page not found.',

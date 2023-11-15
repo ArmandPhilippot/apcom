@@ -2,9 +2,9 @@
 import { useIntl } from 'react-intl';
 import type { BreadcrumbList } from 'schema-dts';
 import type { BreadcrumbsItem } from '../../components';
+import { CONFIG } from '../config';
 import { ROUTES } from '../constants';
 import { slugify } from '../helpers';
-import { useSettings } from './use-settings';
 
 const isArticle = (url: string) => url.startsWith(`${ROUTES.ARTICLE}/`);
 
@@ -61,7 +61,6 @@ export const useBreadcrumb = ({
   url,
 }: useBreadcrumbProps): useBreadcrumbReturn => {
   const intl = useIntl();
-  const { website } = useSettings();
   const labels = {
     home: intl.formatMessage({
       defaultMessage: 'Home',
@@ -88,7 +87,7 @@ export const useBreadcrumb = ({
       '@type': 'ListItem',
       position: 1,
       name: labels.home,
-      item: website.url,
+      item: CONFIG.url,
     },
   ];
 
@@ -100,7 +99,7 @@ export const useBreadcrumb = ({
       '@type': 'ListItem',
       position: 2,
       name: labels.blog,
-      item: `${website.url}${ROUTES.BLOG}`,
+      item: `${CONFIG.url}${ROUTES.BLOG}`,
     });
   }
 
@@ -110,7 +109,7 @@ export const useBreadcrumb = ({
       '@type': 'ListItem',
       position: 2,
       name: labels.projects,
-      item: `${website.url}${ROUTES.PROJECTS}`,
+      item: `${CONFIG.url}${ROUTES.PROJECTS}`,
     });
   }
 
@@ -119,7 +118,7 @@ export const useBreadcrumb = ({
     '@type': 'ListItem',
     position: schema.length + 1,
     name: title,
-    item: `${website.url}${url}`,
+    item: `${CONFIG.url}${url}`,
   });
 
   return { items, schema };

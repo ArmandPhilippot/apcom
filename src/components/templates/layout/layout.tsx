@@ -15,13 +15,13 @@ import {
 import { useIntl } from 'react-intl';
 import type { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
 import type { NextPageWithLayoutOptions } from '../../../types';
+import { CONFIG } from '../../../utils/config';
 import { ROUTES } from '../../../utils/constants';
 import {
   useAutofocus,
   useBoolean,
   useRouteChange,
   useScrollPosition,
-  useSettings,
 } from '../../../utils/hooks';
 import {
   ButtonLink,
@@ -89,8 +89,7 @@ export const Layout: FC<LayoutProps> = ({
 }) => {
   const router = useRouter();
   const intl = useIntl();
-  const { website } = useSettings();
-  const { baseline, copyright, locales, name, url } = website;
+  const { baseline, copyright, locales, name, url } = CONFIG;
   const articleGridClass = useGrid ? 'article--grid' : '';
   const articleCommentsClass = withExtraPadding ? 'article--padding' : '';
 
@@ -350,10 +349,10 @@ export const Layout: FC<LayoutProps> = ({
     description: baseline,
     url,
     author: { '@id': `${url}/#branding` },
-    copyrightYear: Number(copyright.start),
+    copyrightYear: Number(copyright.startYear),
     creator: { '@id': `${url}/#branding` },
     editor: { '@id': `${url}/#branding` },
-    inLanguage: locales.default,
+    inLanguage: locales.defaultLocale,
     potentialAction: searchActionSchema,
   };
 
@@ -469,7 +468,11 @@ export const Layout: FC<LayoutProps> = ({
       <Footer className={styles.footer}>
         <Colophon
           copyright={
-            <Copyright from={copyright.start} owner={name} to={copyright.end} />
+            <Copyright
+              from={copyright.startYear}
+              owner={name}
+              to={copyright.endYear}
+            />
           }
           license={<Icon heading={copyrightTitle} shape="cc-by-sa" size="lg" />}
           links={footerNav}

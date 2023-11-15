@@ -31,6 +31,7 @@ import type {
   RawThematicPreview,
   RawTopicPreview,
 } from '../../types';
+import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
@@ -40,12 +41,7 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import {
-  useBreadcrumb,
-  useDataFromAPI,
-  usePostsList,
-  useSettings,
-} from '../../utils/hooks';
+import { useBreadcrumb, useDataFromAPI, usePostsList } from '../../utils/hooks';
 
 type SearchPageProps = {
   thematicsList: RawThematicPreview[];
@@ -81,10 +77,9 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     url: ROUTES.SEARCH,
   });
 
-  const { blog, website } = useSettings();
   const page = {
-    title: `${title} - ${website.name}`,
-    url: `${website.url}${asPath}`,
+    title: `${title} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${asPath}`,
   };
   const pageDescription = query.s
     ? intl.formatMessage(
@@ -94,7 +89,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
           description: 'SearchPage: SEO - Meta description',
           id: 'pg26sn',
         },
-        { query: query.s as string, websiteName: website.name }
+        { query: query.s as string, websiteName: CONFIG.name }
       )
     : intl.formatMessage(
         {
@@ -102,17 +97,17 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
           description: 'SearchPage: SEO - Meta description',
           id: 'npisb3',
         },
-        { websiteName: website.name }
+        { websiteName: CONFIG.name }
       );
   const webpageSchema = getWebPageSchema({
     description: pageDescription,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: page.title,
   });
   const blogSchema = getBlogSchema({
     isSinglePage: false,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
@@ -129,7 +124,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
   } = usePostsList({
     fallback: [],
     fetcher: getArticles,
-    perPage: blog.postsPerPage,
+    perPage: CONFIG.postsPerPage,
     searchQuery: query.s as string,
   });
 

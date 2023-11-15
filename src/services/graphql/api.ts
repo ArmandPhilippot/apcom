@@ -1,4 +1,4 @@
-import {
+import type {
   Mutations,
   MutationsInputMap,
   MutationsResponseMap,
@@ -6,7 +6,7 @@ import {
   QueriesInputMap,
   QueriesResponseMap,
 } from '../../types';
-import { settings } from '../../utils/config';
+import { CONFIG } from '../../utils/config';
 
 /**
  * Retrieve the API url from settings.
@@ -14,7 +14,7 @@ import { settings } from '../../utils/config';
  * @returns {string} The API url.
  */
 export const getAPIUrl = (): string => {
-  const { url } = settings.api;
+  const { url } = CONFIG.api;
 
   if (!url) {
     throw new Error('API url is not defined.');
@@ -65,7 +65,7 @@ export const fetchAPI = async <T, K extends Queries | Mutations>({
 
   type JSONResponse = {
     data?: FetchAPIResponse<T, K>;
-    errors?: Array<{ message: string }>;
+    errors?: { message: string }[];
   };
 
   const { data, errors }: JSONResponse = await response.json();
@@ -74,11 +74,10 @@ export const fetchAPI = async <T, K extends Queries | Mutations>({
     if (!data) return Promise.reject(new Error(`No data found"`));
 
     return data;
-  } else {
-    console.error('Failed to fetch API');
-    const error = new Error(
-      errors?.map((e) => e.message).join('\n') ?? 'unknown'
-    );
-    return Promise.reject(error);
   }
+  console.error('Failed to fetch API');
+  const error = new Error(
+    errors?.map((e) => e.message).join('\n') ?? 'unknown'
+  );
+  return Promise.reject(error);
 };

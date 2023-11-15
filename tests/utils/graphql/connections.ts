@@ -1,5 +1,5 @@
 import type { EdgesResponse, GraphQLEdges, Maybe } from '../../../src/types';
-import { settings } from '../../../src/utils/config';
+import { CONFIG } from '../../../src/utils/config';
 
 /**
  * Retrieve the edges.
@@ -36,7 +36,7 @@ type GetConnectionProps<T> = {
 export const getConnection = <T>({
   after,
   data = [],
-  first = settings.postsPerPage,
+  first = CONFIG.postsPerPage,
 }: GetConnectionProps<T>): EdgesResponse<T> => {
   const afterInt = after ? Number(after.replace('cursor', '')) : 0;
   const edges = getEdges(data.slice(afterInt, afterInt + first), afterInt);

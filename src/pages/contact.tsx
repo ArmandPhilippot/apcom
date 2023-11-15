@@ -16,6 +16,7 @@ import {
 import { meta } from '../content/pages/contact.mdx';
 import { sendMail } from '../services/graphql';
 import type { NextPageWithLayout } from '../types';
+import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
 import {
   getSchemaJson,
@@ -23,7 +24,7 @@ import {
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../utils/hooks';
+import { useBreadcrumb } from '../utils/hooks';
 
 const ContactPage: NextPageWithLayout = () => {
   const { dates, intro, seo, title } = meta;
@@ -44,11 +45,10 @@ const ContactPage: NextPageWithLayout = () => {
     id: 'Qh2CwH',
   });
 
-  const { website } = useSettings();
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: seo.title,
     updateDate: dates.update,
@@ -58,7 +58,7 @@ const ContactPage: NextPageWithLayout = () => {
     description: intro,
     id: 'contact',
     kind: 'contact',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
@@ -120,7 +120,7 @@ const ContactPage: NextPageWithLayout = () => {
   const submitMail: ContactFormSubmit = useCallback(
     async ({ email, message, name, object }) => {
       const messageHTML = message.replace(/\r?\n/g, '<br />');
-      const body = `Message received from ${name} <${email}> on ${website.url}.<br /><br />${messageHTML}`;
+      const body = `Message received from ${name} <${email}> on ${CONFIG.url}.<br /><br />${messageHTML}`;
       const replyTo = `${name} <${email}>`;
       const mailData = {
         body,
@@ -155,11 +155,11 @@ const ContactPage: NextPageWithLayout = () => {
         validator: () => sent,
       };
     },
-    [intl, website.url]
+    [intl]
   );
   const page = {
-    title: `${seo.title} - ${website.name}`,
-    url: `${website.url}${asPath}`,
+    title: `${seo.title} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${asPath}`,
   };
 
   return (

@@ -22,6 +22,7 @@ import {
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
 import type { NextPageWithLayout, PageLink, Thematic } from '../../types';
+import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getLinksItemData,
@@ -32,7 +33,7 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../../utils/hooks';
+import { useBreadcrumb } from '../../utils/hooks';
 
 export type ThematicPageProps = {
   currentThematic: Thematic;
@@ -97,11 +98,10 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     (item): item is MetaItemData => !!item
   );
 
-  const { website } = useSettings();
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: seo.title,
     updateDate: dates.update,
@@ -111,7 +111,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     description: intro,
     id: 'thematic',
     kind: 'page',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
@@ -128,7 +128,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     description: 'ThematicPage: related topics list widget title',
     id: '/42Z0z',
   });
-  const pageUrl = `${website.url}${asPath}`;
+  const pageUrl = `${CONFIG.url}${asPath}`;
 
   return (
     <>

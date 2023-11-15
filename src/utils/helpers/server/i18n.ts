@@ -1,10 +1,10 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
-import { settings } from '../../config';
+import { CONFIG } from '../../config';
 
-export type Messages = { [key: string]: string };
+export type Messages = Record<string, string>;
 
-export const defaultLocale = settings.locales.defaultLocale;
+export const { defaultLocale } = CONFIG.locales;
 
 /**
  * Load the translation for the provided locale.

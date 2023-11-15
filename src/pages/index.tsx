@@ -30,10 +30,11 @@ import HomePageContent from '../content/pages/homepage.mdx';
 import { getArticlesCard } from '../services/graphql';
 import styles from '../styles/pages/home.module.scss';
 import type { ArticleCard, NextPageWithLayout } from '../types';
+import { CONFIG } from '../utils/config';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../utils/hooks';
+import { useBreadcrumb } from '../utils/hooks';
 
 /**
  * Column component.
@@ -388,15 +389,13 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     ShaarliLink,
   };
 
-  const { website } = useSettings();
-
   const pageTitle = intl.formatMessage(
     {
       defaultMessage: '{websiteName} | Front-end developer: WordPress/React',
       description: 'HomePage: SEO - Page title',
       id: 'PXp2hv',
     },
-    { websiteName: website.name }
+    { websiteName: CONFIG.name }
   );
   const pageDescription = intl.formatMessage(
     {
@@ -405,11 +404,11 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
       description: 'HomePage: SEO - Meta description',
       id: 'tMuNTy',
     },
-    { websiteName: website.name }
+    { websiteName: CONFIG.name }
   );
   const webpageSchema = getWebPageSchema({
     description: pageDescription,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: '',
     title: pageTitle,
   });
@@ -421,7 +420,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
         <title>{pageTitle}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={website.url} />
+        <meta property="og:url" content={CONFIG.url} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
       </Head>

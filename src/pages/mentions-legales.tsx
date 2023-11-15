@@ -16,6 +16,7 @@ import {
 } from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
+import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
 import {
   getSchemaJson,
@@ -23,7 +24,7 @@ import {
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb, useSettings } from '../utils/hooks';
+import { useBreadcrumb } from '../utils/hooks';
 
 const ResponsiveImage = (props: NextImageProps) => (
   <Figure>
@@ -73,11 +74,10 @@ const LegalNoticePage: NextPageWithLayout = () => {
     (item): item is MetaItemData => !!item
   );
 
-  const { website } = useSettings();
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title: seo.title,
     updateDate: dates.update,
@@ -87,14 +87,14 @@ const LegalNoticePage: NextPageWithLayout = () => {
     description: intro,
     id: 'legal-notice',
     kind: 'page',
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
   const page = {
-    title: `${seo.title} - ${website.name}`,
-    url: `${website.url}${asPath}`,
+    title: `${seo.title} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${asPath}`,
   };
 
   return (

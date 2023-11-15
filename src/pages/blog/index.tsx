@@ -33,7 +33,7 @@ import type {
   RawThematicPreview,
   RawTopicPreview,
 } from '../../types';
-import { settings } from '../../utils/config';
+import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
@@ -43,12 +43,7 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import {
-  useBreadcrumb,
-  useIsMounted,
-  usePostsList,
-  useSettings,
-} from '../../utils/hooks';
+import { useBreadcrumb, useIsMounted, usePostsList } from '../../utils/hooks';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;
@@ -79,7 +74,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   });
   const postsListRef = useRef<HTMLDivElement>(null);
   const isMounted = useIsMounted(postsListRef);
-  const { blog, website } = useSettings();
   const { asPath } = useRouter();
   const page = {
     title: intl.formatMessage(
@@ -88,9 +82,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         description: 'BlogPage: SEO - Page title',
         id: '+Y+tLK',
       },
-      { websiteName: website.name }
+      { websiteName: CONFIG.name }
     ),
-    url: `${website.url}${asPath}`,
+    url: `${CONFIG.url}${asPath}`,
   };
   const pageDescription = intl.formatMessage(
     {
@@ -99,17 +93,17 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
       description: 'BlogPage: SEO - Meta description',
       id: '18h/t0',
     },
-    { websiteName: website.name }
+    { websiteName: CONFIG.name }
   );
   const webpageSchema = getWebPageSchema({
     description: pageDescription,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
     title,
   });
   const blogSchema = getBlogSchema({
     isSinglePage: false,
-    locale: website.locales.default,
+    locale: CONFIG.locales.defaultLocale,
     slug: asPath,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
@@ -126,7 +120,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   } = usePostsList({
     fallback: [articles],
     fetcher: getArticles,
-    perPage: blog.postsPerPage,
+    perPage: CONFIG.postsPerPage,
   });
 
   const thematicsListTitle = intl.formatMessage({
@@ -315,7 +309,7 @@ BlogPage.getLayout = (page) =>
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
   locale,
 }) => {
-  const articles = await getArticles({ first: settings.postsPerPage });
+  const articles = await getArticles({ first: CONFIG.postsPerPage });
   const totalArticles = await getTotalArticles();
   const totalThematics = await getTotalThematics();
   const thematics = await getThematicsPreview({ first: totalThematics });

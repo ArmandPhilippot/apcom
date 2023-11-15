@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { IntlProvider } from 'react-intl';
 import '../styles/globals.scss';
 import type { AppPropsWithLayout } from '../types';
-import { settings } from '../utils/config';
+import { CONFIG } from '../utils/config';
 import { PRISM_THEME_ATTRIBUTE, STORAGE_KEY } from '../utils/constants';
 import {
   AckeeProvider,
@@ -13,14 +13,14 @@ import {
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const { locale, defaultLocale } = useRouter();
-  const appLocale: string = locale ?? settings.locales.defaultLocale;
+  const appLocale: string = locale ?? CONFIG.locales.defaultLocale;
   const getLayout = Component.getLayout ?? ((page) => page);
   const { translation, ...componentProps } = pageProps;
 
   return (
     <AckeeProvider
-      domainId={settings.ackee.siteId}
-      server={settings.ackee.url}
+      domainId={CONFIG.ackee.siteId}
+      server={CONFIG.ackee.url}
       storageKey={STORAGE_KEY.ACKEE}
       tracking="full"
     >
