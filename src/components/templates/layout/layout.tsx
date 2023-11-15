@@ -7,7 +7,6 @@ import {
   type ReactElement,
   type ReactNode,
   useRef,
-  useState,
   type CSSProperties,
   type FormEvent,
   useCallback,
@@ -367,19 +366,16 @@ export const Layout: FC<LayoutProps> = ({
     subjectOf: { '@id': `${url}` },
   };
 
-  const [backToTopClassName, setBackToTopClassName] = useState<string>(
-    `${styles['back-to-top']} ${styles['back-to-top--hidden']}`
-  );
-  const updateBackToTopClassName = () => {
-    const visibleBreakpoint = 300;
-    setBackToTopClassName(
-      window.scrollY > visibleBreakpoint
-        ? `${styles['back-to-top']} ${styles['back-to-top--visible']}`
-        : `${styles['back-to-top']} ${styles['back-to-top--hidden']}`
-    );
-  };
-
-  useScrollPosition(updateBackToTopClassName);
+  const scrollPos = useScrollPosition();
+  const backToTopBreakpoint = 300;
+  const backToTopClassName = [
+    styles['back-to-top'],
+    styles[
+      scrollPos.y > backToTopBreakpoint
+        ? 'back-to-top--visible'
+        : 'back-to-top--hidden'
+    ],
+  ].join(' ');
 
   const topRef = useRef<HTMLSpanElement>(null);
   const giveFocusToTopRef = () => {
