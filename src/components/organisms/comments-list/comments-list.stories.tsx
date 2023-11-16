@@ -175,3 +175,14 @@ WithReplies.args = {
   depth: 2,
   onSubmit: saveComment,
 };
+
+/**
+ * Layout Stories - With nested comments and forbidden replies
+ */
+export const WithForbiddenReplies = Template.bind({});
+WithForbiddenReplies.args = {
+  areRepliesForbidden: true,
+  comments,
+  depth: 3,
+  onSubmit: saveComment,
+};

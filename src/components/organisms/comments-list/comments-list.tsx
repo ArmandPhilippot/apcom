@@ -36,6 +36,12 @@ export type CommentsListProps = Omit<
 > &
   Pick<ReplyCommentFormProps, 'onSubmit'> & {
     /**
+     * Should we forbid replies on comments when depth is not exceed?
+     *
+     * @default false
+     */
+    areRepliesForbidden?: boolean;
+    /**
      * The comments.
      */
     comments: CommentData[];
@@ -50,7 +56,10 @@ export type CommentsListProps = Omit<
 const CommentsListWithRef: ForwardRefRenderFunction<
   HTMLOListElement,
   CommentsListProps
-> = ({ comments, depth = 0, onSubmit, ...props }, ref) => {
+> = (
+  { areRepliesForbidden = false, comments, depth = 0, onSubmit, ...props },
+  ref
+) => {
   const [replyingTo, setReplyingTo] = useState<Nullable<number>>(null);
   const intl = useIntl();
 
@@ -93,8 +102,14 @@ const CommentsListWithRef: ForwardRefRenderFunction<
               <>
                 <ApprovedComment
                   {...comment}
-                  onReply={toggleReply}
-                  replyBtn={isLastLevel ? undefined : replyBtnLabel}
+                  onReply={
+                    isLastLevel || areRepliesForbidden ? undefined : toggleReply
+                  }
+                  replyBtn={
+                    isLastLevel || areRepliesForbidden
+                      ? undefined
+                      : replyBtnLabel
+                  }
                 />
                 {replyingTo === comment.id ? (
                   <ReplyCommentForm
@@ -122,7 +137,7 @@ const CommentsListWithRef: ForwardRefRenderFunction<
         );
       });
     },
-    [depth, intl, onSubmit, replyingTo, toggleReply]
+    [areRepliesForbidden, depth, intl, onSubmit, replyingTo, toggleReply]
   );
 
   return (

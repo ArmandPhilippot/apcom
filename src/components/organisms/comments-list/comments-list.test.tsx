@@ -261,4 +261,30 @@ describe('CommentsList', () => {
 
     expect(rtlScreen.queryByRole('form')).not.toBeInTheDocument();
   });
+
+  it('does not render a reply button when replies are forbidden', () => {
+    const comments = [
+      {
+        author: { name: 'Milan0' },
+        content: 'Fugit veniam quas qui dolor explicabo.',
+        id: 1,
+        isApproved: true,
+        publicationDate: '2023-01-23',
+      },
+      {
+        author: { name: 'Haskell42' },
+        content: 'Error quas accusamus nesciunt enim quae a.',
+        id: 2,
+        isApproved: true,
+        publicationDate: '2023-02-04',
+      },
+    ] satisfies CommentData[];
+
+    render(<CommentsList areRepliesForbidden comments={comments} depth={2} />);
+
+    expect(rtlScreen.queryAllByRole('button', { name: /Reply/ })).toHaveLength(
+      0
+    );
+    expect(rtlScreen.queryByRole('form')).not.toBeInTheDocument();
+  });
 });
