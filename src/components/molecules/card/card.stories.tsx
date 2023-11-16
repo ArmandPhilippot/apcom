@@ -1,4 +1,4 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
 import NextImage from 'next/image';
 import { Button, ButtonLink, Link, Time } from '../../atoms';
 import { Card, type CardProps } from './card';
@@ -19,7 +19,9 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof Card>;
 
-const Template: ComponentStory<typeof Card> = <T extends string | undefined>(
+const Template: Story<CardProps<string | undefined>> = <
+  T extends string | undefined,
+>(
   args: CardProps<T>
 ) => <Card {...args} />;
 

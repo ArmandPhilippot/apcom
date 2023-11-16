@@ -4,7 +4,7 @@ import {
   fetchAPI,
   getArticleFromRawData,
 } from '../../services/graphql';
-import { type Article, type RawArticle } from '../../types';
+import type { Article, RawArticle } from '../../types';
 
 export type UseArticleConfig = {
   /**
@@ -29,7 +29,8 @@ export const useArticle = ({
 }: UseArticleConfig): Article | undefined => {
   const { data } = useSWR(
     slug ? { query: articleBySlugQuery, variables: { slug } } : null,
-    fetchAPI<RawArticle, typeof articleBySlugQuery>
+    fetchAPI<RawArticle, typeof articleBySlugQuery>,
+    {}
   );
 
   return data ? getArticleFromRawData(data.post) : fallback;
