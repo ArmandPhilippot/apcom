@@ -79,9 +79,6 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    scrollRestoration: true,
-  },
   headers() {
     return [
       {
@@ -96,7 +93,15 @@ const nextConfig = {
     defaultLocale: 'fr',
   },
   images: {
-    domains: [backendDomain, 'secure.gravatar.com'],
+    remotePatterns: [
+      {
+        hostname: backendDomain,
+      },
+      {
+        protocol: 'https',
+        hostname: 'secure.gravatar.com',
+      },
+    ],
   },
   output: 'standalone',
   poweredByHeader: false,
