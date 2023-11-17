@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import {
   articleBySlugQuery,
   fetchAPI,
   getArticleFromRawData,
 } from '../../services/graphql';
-import type { Article, RawArticle } from '../../types';
+import type { Article, Maybe, RawArticle } from '../../types';
 
 export type UseArticleConfig = {
   /**
@@ -32,6 +33,19 @@ export const useArticle = ({
     fetchAPI<RawArticle, typeof articleBySlugQuery>,
     {}
   );
+  const [article, setArticle] = useState<Maybe<Article>>();
 
-  return data ? getArticleFromRawData(data.post) : fallback;
+  useEffect(() => {
+    const getArticle = async () => {
+      if (data) {
+        setArticle(await getArticleFromRawData(data.post));
+      } else {
+        setArticle(fallback);
+      }
+    };
+
+    getArticle();
+  }, [data, fallback]);
+
+  return article;
 };

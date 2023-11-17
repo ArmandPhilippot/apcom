@@ -1,13 +1,13 @@
-import {
-  type EdgesResponse,
-  type GraphQLEdgesInput,
-  type PageLink,
-  type RawArticle,
-  type RawTopic,
-  type RawTopicPreview,
-  type Slug,
-  type Topic,
-  type TotalItems,
+import type {
+  EdgesResponse,
+  GraphQLEdgesInput,
+  PageLink,
+  RawArticle,
+  RawTopic,
+  RawTopicPreview,
+  Slug,
+  Topic,
+  TotalItems,
 } from '../../types';
 import {
   getImageFromRawData,
@@ -59,7 +59,7 @@ export const getTopicsPreview = async (
  * @param {RawTopic} data - The page raw data.
  * @returns {Topic} The page data.
  */
-export const getTopicFromRawData = (data: RawTopic): Topic => {
+export const getTopicFromRawData = async (data: RawTopic): Promise<Topic> => {
   const {
     acfTopics,
     contentParts,
@@ -84,9 +84,9 @@ export const getTopicFromRawData = (data: RawTopic): Topic => {
 
     posts.forEach((post) => {
       if (post.acfPosts.postsInThematic) {
-        post.acfPosts.postsInThematic.forEach((thematic) =>
-          thematics.push(getPageLinkFromRawData(thematic, 'thematic'))
-        );
+        for (const thematic of post.acfPosts.postsInThematic) {
+          thematics.push(getPageLinkFromRawData(thematic, 'thematic'));
+        }
       }
     });
 
@@ -103,8 +103,8 @@ export const getTopicFromRawData = (data: RawTopic): Topic => {
     id: databaseId,
     intro: contentParts.beforeMore,
     meta: {
-      articles: acfTopics.postsInTopic.map((post) =>
-        getArticleFromRawData(post)
+      articles: await Promise.all(
+        acfTopics.postsInTopic.map(async (post) => getArticleFromRawData(post))
       ),
       cover: featuredImage?.node
         ? getImageFromRawData(featuredImage.node)
@@ -112,8 +112,8 @@ export const getTopicFromRawData = (data: RawTopic): Topic => {
       dates: { publication: date, update: modified },
       website: acfTopics.officialWebsite,
       seo: {
-        description: seo?.metaDesc || '',
-        title: seo?.title || '',
+        description: seo?.metaDesc ?? '',
+        title: seo?.title ?? '',
       },
       thematics: getRelatedThematics(acfTopics.postsInTopic),
       wordsCount: info.wordsCount,

@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import { userEvent } from '@testing-library/user-event';
 import { render, screen as rtlScreen } from '../../../../../tests/utils';
 import { SearchForm } from './search-form';

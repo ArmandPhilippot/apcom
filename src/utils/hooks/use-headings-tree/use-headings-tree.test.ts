@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useHeadingsTree } from './use-headings-tree';
 
 const labels = {
@@ -9,7 +9,7 @@ const labels = {
 };
 
 describe('useHeadingsTree', () => {
-  it('returns a ref object and the headings tree', () => {
+  it('returns a ref callback and the headings tree', () => {
     const wrapper = document.createElement('div');
 
     wrapper.innerHTML = `
@@ -19,12 +19,13 @@ describe('useHeadingsTree', () => {
 <h2>${labels.secondH2}</h2>
 <p>Totam cumque aut ipsum. Necessitatibus magnam necessitatibus. Qui illo nulla non ab. Accusamus voluptatem ab fugiat voluptas aspernatur velit dolore reprehenderit. Voluptatem quod minima asperiores voluptatum distinctio cumque quo.</p>`;
 
-    const wrapperRef = { current: wrapper };
-    const { result } = renderHook(() => useHeadingsTree(wrapperRef));
+    const { result } = renderHook(() => useHeadingsTree());
 
-    expect(result.current.length).toBe(1);
-    expect(result.current[0].label).toBe(labels.h1);
-    expect(result.current[0].children.length).toBe(2);
+    act(() => result.current.ref(wrapper));
+
+    expect(result.current.tree.length).toBe(1);
+    expect(result.current.tree[0].label).toBe(labels.h1);
+    expect(result.current.tree[0].children.length).toBe(2);
   });
 
   it('can return a headings tree starting at the specified level', () => {
@@ -37,14 +38,13 @@ describe('useHeadingsTree', () => {
 <h2>${labels.secondH2}</h2>
 <p>Totam cumque aut ipsum. Necessitatibus magnam necessitatibus. Qui illo nulla non ab. Accusamus voluptatem ab fugiat voluptas aspernatur velit dolore reprehenderit. Voluptatem quod minima asperiores voluptatum distinctio cumque quo.</p>`;
 
-    const wrapperRef = { current: wrapper };
-    const { result } = renderHook(() =>
-      useHeadingsTree(wrapperRef, { fromLevel: 2 })
-    );
+    const { result } = renderHook(() => useHeadingsTree({ fromLevel: 2 }));
 
-    expect(result.current.length).toBe(2);
-    expect(result.current[0].label).toBe(labels.firstH2);
-    expect(result.current[1].label).toBe(labels.secondH2);
+    act(() => result.current.ref(wrapper));
+
+    expect(result.current.tree.length).toBe(2);
+    expect(result.current.tree[0].label).toBe(labels.firstH2);
+    expect(result.current.tree[1].label).toBe(labels.secondH2);
   });
 
   it('can return a headings tree stopping at the specified level', () => {
@@ -57,22 +57,17 @@ describe('useHeadingsTree', () => {
 <h2>${labels.secondH2}</h2>
 <p>Totam cumque aut ipsum. Necessitatibus magnam necessitatibus. Qui illo nulla non ab. Accusamus voluptatem ab fugiat voluptas aspernatur velit dolore reprehenderit. Voluptatem quod minima asperiores voluptatum distinctio cumque quo.</p>`;
 
-    const wrapperRef = { current: wrapper };
-    const { result } = renderHook(() =>
-      useHeadingsTree(wrapperRef, { toLevel: 1 })
-    );
+    const { result } = renderHook(() => useHeadingsTree({ toLevel: 1 }));
 
-    expect(result.current.length).toBe(1);
-    expect(result.current[0].label).toBe(labels.h1);
-    expect(result.current[0].children).toStrictEqual([]);
+    act(() => result.current.ref(wrapper));
+
+    expect(result.current.tree.length).toBe(1);
+    expect(result.current.tree[0].label).toBe(labels.h1);
+    expect(result.current.tree[0].children).toStrictEqual([]);
   });
 
   it('throws an error if the options are invalid', () => {
-    const wrapperRef = { current: null };
-
-    expect(() =>
-      useHeadingsTree(wrapperRef, { fromLevel: 2, toLevel: 1 })
-    ).toThrowError(
+    expect(() => useHeadingsTree({ fromLevel: 2, toLevel: 1 })).toThrowError(
       'Invalid options: `fromLevel` must be lower or equal to `toLevel`.'
     );
   });

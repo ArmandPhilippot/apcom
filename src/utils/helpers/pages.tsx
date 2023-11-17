@@ -109,9 +109,9 @@ export const getPostsWithUrl = (posts: Article[]): PostData[] =>
  * @param {EdgesResponse<RawArticle>[]} rawData - The raw data.
  * @returns {PostData[]} An array of posts.
  */
-export const getPostsList = (
+export const getPostsList = async (
   rawData: EdgesResponse<RawArticle>[]
-): PostData[] => {
+): Promise<PostData[]> => {
   const articlesList: RawArticle[] = [];
   rawData.forEach((articleData) => {
     articleData.edges.forEach((edge) => {
@@ -120,6 +120,8 @@ export const getPostsList = (
   });
 
   return getPostsWithUrl(
-    articlesList.map((article) => getArticleFromRawData(article))
+    await Promise.all(
+      articlesList.map(async (article) => getArticleFromRawData(article))
+    )
   );
 };

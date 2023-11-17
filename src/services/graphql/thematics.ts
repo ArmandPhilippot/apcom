@@ -1,13 +1,13 @@
-import {
-  type EdgesResponse,
-  type GraphQLEdgesInput,
-  type PageLink,
-  type RawArticle,
-  type RawThematic,
-  type RawThematicPreview,
-  type Slug,
-  type Thematic,
-  type TotalItems,
+import type {
+  EdgesResponse,
+  GraphQLEdgesInput,
+  PageLink,
+  RawArticle,
+  RawThematic,
+  RawThematicPreview,
+  Slug,
+  Thematic,
+  TotalItems,
 } from '../../types';
 import {
   getImageFromRawData,
@@ -59,7 +59,9 @@ export const getThematicsPreview = async (
  * @param {RawThematic} data - The page raw data.
  * @returns {Thematic} The page data.
  */
-export const getThematicFromRawData = (data: RawThematic): Thematic => {
+export const getThematicFromRawData = async (
+  data: RawThematic
+): Promise<Thematic> => {
   const {
     acfThematics,
     contentParts,
@@ -84,9 +86,9 @@ export const getThematicFromRawData = (data: RawThematic): Thematic => {
 
     posts.forEach((post) => {
       if (post.acfPosts.postsInTopic) {
-        post.acfPosts.postsInTopic.forEach((topic) =>
-          topics.push(getPageLinkFromRawData(topic, 'topic'))
-        );
+        for (const topic of post.acfPosts.postsInTopic) {
+          topics.push(getPageLinkFromRawData(topic, 'topic'));
+        }
       }
     });
 
@@ -103,16 +105,18 @@ export const getThematicFromRawData = (data: RawThematic): Thematic => {
     id: databaseId,
     intro: contentParts.beforeMore,
     meta: {
-      articles: acfThematics.postsInThematic.map((post) =>
-        getArticleFromRawData(post)
+      articles: await Promise.all(
+        acfThematics.postsInThematic.map(async (post) =>
+          getArticleFromRawData(post)
+        )
       ),
       cover: featuredImage?.node
         ? getImageFromRawData(featuredImage.node)
         : undefined,
       dates: { publication: date, update: modified },
       seo: {
-        description: seo?.metaDesc || '',
-        title: seo?.title || '',
+        description: seo?.metaDesc ?? '',
+        title: seo?.title ?? '',
       },
       topics: getRelatedTopics(acfThematics.postsInThematic),
       wordsCount: info.wordsCount,

@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import { render, screen as rtlScreen } from '@testing-library/react';
 import { SocialLink } from './social-link';
 

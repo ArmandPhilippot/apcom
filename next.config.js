@@ -2,6 +2,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import bundleAnalyzer from '@next/bundle-analyzer';
 import nextMDX from '@next/mdx';
+import rehypeSlug from 'rehype-slug';
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
 
@@ -164,7 +165,7 @@ const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
-    rehypePlugins: [],
+    rehypePlugins: [rehypeSlug],
   },
 });
 

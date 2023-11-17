@@ -18,8 +18,8 @@ const getAllArticles = async (): Promise<Article[]> => {
   const rawArticles = await getArticles({ first: totalArticles });
   const articles: Article[] = [];
 
-  rawArticles.edges.forEach((edge) => {
-    articles.push(getArticleFromRawData(edge.node));
+  rawArticles.edges.forEach(async (edge) => {
+    articles.push(await getArticleFromRawData(edge.node));
   });
 
   return articles;

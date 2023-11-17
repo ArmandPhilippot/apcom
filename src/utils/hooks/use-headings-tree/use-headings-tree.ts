@@ -1,4 +1,4 @@
-import { useEffect, useState, type RefObject } from 'react';
+import { useState, useCallback, type RefCallback } from 'react';
 import type { HeadingLevel } from '../../../components';
 
 export type HeadingsTreeNode = {
@@ -111,17 +111,26 @@ const buildHeadingsTreeFrom = (
   return treeNodes;
 };
 
+export type UseHeadingsTreeReturn<T extends HTMLElement> = {
+  /**
+   * A callback function to set a ref.
+   */
+  ref: RefCallback<T>;
+  /**
+   * The headings tree.
+   */
+  tree: HeadingsTreeNode[];
+};
+
 /**
  * React hook to retrieve the headings tree in a document or in a given wrapper.
  *
- * @param {RefObject<T>} ref - A ref to the element where to look for headings.
  * @param {UseHeadingsTreeOptions} options - The headings tree config.
- * @returns {HeadingsTreeNode[]} The headings tree.
+ * @returns {UseHeadingsTreeReturn<T>} The headings tree and a ref callback.
  */
 export const useHeadingsTree = <T extends HTMLElement = HTMLElement>(
-  ref: RefObject<T>,
   options?: UseHeadingsTreeOptions
-): HeadingsTreeNode[] => {
+): UseHeadingsTreeReturn<T> => {
   if (
     options?.fromLevel &&
     options.toLevel &&
@@ -134,15 +143,14 @@ export const useHeadingsTree = <T extends HTMLElement = HTMLElement>(
   const [tree, setTree] = useState<HeadingsTreeNode[]>([]);
   const requestedHeadingTags = getHeadingTagsList(options);
   const query = requestedHeadingTags.join(', ');
+  const ref: RefCallback<T> = useCallback(
+    (el) => {
+      const headingNodes = el?.querySelectorAll<HTMLHeadingElement>(query);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
+      if (headingNodes) setTree(buildHeadingsTreeFrom(headingNodes));
+    },
+    [query]
+  );
 
-    const headingNodes =
-      ref.current?.querySelectorAll<HTMLHeadingElement>(query);
-
-    if (headingNodes) setTree(buildHeadingsTreeFrom(headingNodes));
-  }, [query, ref]);
-
-  return tree;
+  return { ref, tree };
 };

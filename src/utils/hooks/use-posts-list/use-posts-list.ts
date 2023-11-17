@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { PostData } from '../../../components';
 import type { Maybe, RawArticle } from '../../../types';
 import { getPostsList } from '../../helpers';
@@ -40,8 +40,15 @@ export const usePostsList = (
   } = usePagination(config);
   const [firstNewResultIndex, setFirstNewResultIndex] =
     useState<Maybe<number>>(undefined);
+  const [posts, setPosts] = useState<Maybe<PostData[]>>(undefined);
 
-  const posts = data ? getPostsList(data) : undefined;
+  useEffect(() => {
+    const getPosts = async () => {
+      if (data) setPosts(await getPostsList(data));
+    };
+
+    getPosts();
+  }, [data]);
 
   const handleLoadMore = useCallback(async () => {
     setFirstNewResultIndex(size * config.perPage + 1);

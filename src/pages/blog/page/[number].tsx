@@ -39,12 +39,15 @@ import {
   getBlogSchema,
   getLinksItemData,
   getPageLinkFromRawData,
-  getPostsList,
   getSchemaJson,
   getWebPageSchema,
 } from '../../../utils/helpers';
 import { loadTranslation, type Messages } from '../../../utils/helpers/server';
-import { useBreadcrumb, useRedirection } from '../../../utils/hooks';
+import {
+  useBreadcrumb,
+  usePostsList,
+  useRedirection,
+} from '../../../utils/hooks';
 
 type BlogPageProps = {
   articles: EdgesResponse<RawArticle>;
@@ -70,6 +73,11 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     redirectTo: ROUTES.BLOG,
   });
 
+  const { posts } = usePostsList({
+    fallback: [articles],
+    fetcher: getArticles,
+    perPage: CONFIG.postsPerPage,
+  });
   const intl = useIntl();
   const title = intl.formatMessage({
     defaultMessage: 'Blog',
@@ -260,7 +268,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
           />,
         ]}
       >
-        <PostsList posts={getPostsList([articles])} sortByYear />
+        <PostsList posts={posts ?? []} sortByYear />
         <Pagination
           aria-label={paginationAriaLabel}
           current={pageNumber}

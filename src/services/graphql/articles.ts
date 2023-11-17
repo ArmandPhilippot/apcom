@@ -1,19 +1,20 @@
-import {
-  type Article,
-  type ArticleCard,
-  type EdgesResponse,
-  type EndCursorResponse,
-  type GraphQLEdgesInput,
-  type GraphQLPageInfo,
-  type RawArticle,
-  type RawArticlePreview,
-  type Slug,
-  type TotalItems,
+import type {
+  Article,
+  ArticleCard,
+  EdgesResponse,
+  EndCursorResponse,
+  GraphQLEdgesInput,
+  GraphQLPageInfo,
+  RawArticle,
+  RawArticlePreview,
+  Slug,
+  TotalItems,
 } from '../../types';
 import {
   getAuthorFromRawData,
   getImageFromRawData,
   getPageLinkFromRawData,
+  updateContentTree,
 } from '../../utils/helpers';
 import { fetchAPI } from './api';
 import {
@@ -50,7 +51,9 @@ export type GetArticlesReturn = {
  * @param {RawArticle} data - The page raw data.
  * @returns {Article} The page data.
  */
-export const getArticleFromRawData = (data: RawArticle): Article => {
+export const getArticleFromRawData = async (
+  data: RawArticle
+): Promise<Article> => {
   const {
     acfPosts,
     author,
@@ -67,19 +70,19 @@ export const getArticleFromRawData = (data: RawArticle): Article => {
   } = data;
 
   return {
-    content: contentParts.afterMore,
+    content: await updateContentTree(contentParts.afterMore),
     id: databaseId,
     intro: contentParts.beforeMore,
     meta: {
       author: author && getAuthorFromRawData(author.node, 'page'),
-      commentsCount: commentCount || 0,
+      commentsCount: commentCount ?? 0,
       cover: featuredImage?.node
         ? getImageFromRawData(featuredImage.node)
         : undefined,
       dates: { publication: date, update: modified },
       seo: {
-        description: seo?.metaDesc || '',
-        title: seo?.title || '',
+        description: seo?.metaDesc ?? '',
+        title: seo?.title ?? '',
       },
       thematics: acfPosts.postsInThematic?.map((thematic) =>
         getPageLinkFromRawData(thematic, 'thematic')

@@ -4,14 +4,13 @@ import {
   type FC,
   type HTMLAttributes,
   type ReactNode,
-  useRef,
   useCallback,
 } from 'react';
 import { useIntl } from 'react-intl';
 import type { BreadcrumbList } from 'schema-dts';
 import { sendComment } from '../../../services/graphql';
 import type { SendCommentInput } from '../../../types';
-import { useHeadingsTree, useIsMounted } from '../../../utils/hooks';
+import { useHeadingsTree } from '../../../utils/hooks';
 import { Heading, Sidebar } from '../../atoms';
 import {
   PageFooter,
@@ -137,9 +136,9 @@ export const PageLayout: FC<PageLayoutProps> = ({
     id: 'eys2uX',
   });
 
-  const bodyRef = useRef<HTMLDivElement>(null);
-  const isMounted = useIsMounted(bodyRef);
-  const headingsTree = useHeadingsTree(bodyRef, { fromLevel: 2 });
+  const { ref: bodyRef, tree: headingsTree } = useHeadingsTree<HTMLDivElement>({
+    fromLevel: 2,
+  });
 
   const saveComment: CommentFormSubmit = useCallback(
     async (data) => {
@@ -223,12 +222,10 @@ export const PageLayout: FC<PageLayoutProps> = ({
           })}
           className={`${styles.sidebar} ${styles['sidebar--first']}`}
         >
-          {isMounted && bodyRef.current ? (
-            <TocWidget
-              heading={<Heading level={3}>{tocTitle}</Heading>}
-              tree={headingsTree}
-            />
-          ) : null}
+          <TocWidget
+            heading={<Heading level={3}>{tocTitle}</Heading>}
+            tree={headingsTree}
+          />
         </Sidebar>
       ) : null}
       {typeof children === 'string' ? (
