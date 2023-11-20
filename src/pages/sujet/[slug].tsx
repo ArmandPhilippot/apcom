@@ -10,10 +10,11 @@ import {
   getLayout,
   Heading,
   LinksWidget,
-  type MetaItemData,
   PageLayout,
   PostsList,
   Time,
+  MetaList,
+  MetaItem,
 } from '../../components';
 import {
   getAllTopicsSlugs,
@@ -60,62 +61,6 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     title,
     url: `${ROUTES.TOPICS}/${slug}`,
   });
-
-  const headerMeta: (MetaItemData | undefined)[] = [
-    {
-      id: 'publication-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Published on:',
-        description: 'TopicPage: publication date label',
-        id: 'KV+NMZ',
-      }),
-      value: <Time date={dates.publication} />,
-    },
-    dates.update
-      ? {
-          id: 'update-date',
-          label: intl.formatMessage({
-            defaultMessage: 'Updated on:',
-            description: 'TopicPage: update date label',
-            id: '9DfuHk',
-          }),
-          value: <Time date={dates.update} />,
-        }
-      : undefined,
-    officialWebsite
-      ? {
-          id: 'website',
-          label: intl.formatMessage({
-            defaultMessage: 'Official website:',
-            description: 'TopicPage: official website label',
-            id: 'zoifQd',
-          }),
-          value: officialWebsite,
-        }
-      : undefined,
-    articles?.length
-      ? {
-          id: 'total',
-          label: intl.formatMessage({
-            defaultMessage: 'Total:',
-            description: 'TopicPage: total label',
-            id: 'tBX4mb',
-          }),
-          value: intl.formatMessage(
-            {
-              defaultMessage:
-                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-              description: 'TopicPage: posts count meta',
-              id: 'uAL4iW',
-            },
-            { postsCount: articles.length }
-          ),
-        }
-      : undefined,
-  ];
-  const filteredMeta = headerMeta.filter(
-    (item): item is MetaItemData => !!item
-  );
 
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
@@ -181,7 +126,60 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
         breadcrumbSchema={breadcrumbSchema}
         title={getPageHeading()}
         intro={intro}
-        headerMeta={filteredMeta}
+        headerMeta={
+          <MetaList>
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Published on:',
+                description: 'Page: publication date label',
+                id: '4QbTDq',
+              })}
+              value={<Time date={dates.publication} />}
+            />
+            {dates.update ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Updated on:',
+                  description: 'Page: update date label',
+                  id: 'Ez8Qim',
+                })}
+                value={<Time date={dates.update} />}
+              />
+            ) : null}
+            {officialWebsite ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Official website:',
+                  description: 'TopicPage: official website label',
+                  id: 'zoifQd',
+                })}
+                value={officialWebsite}
+              />
+            ) : null}
+            {articles ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Total:',
+                  description: 'ThematicPage: total label',
+                  id: 'lHkta9',
+                })}
+                value={intl.formatMessage(
+                  {
+                    defaultMessage:
+                      '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+                    description: 'ThematicPage: posts count meta',
+                    id: 'iv3Ex1',
+                  },
+                  { postsCount: articles.length }
+                )}
+              />
+            ) : null}
+          </MetaList>
+        }
         widgets={
           thematics
             ? [

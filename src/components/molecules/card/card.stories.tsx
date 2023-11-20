@@ -1,6 +1,7 @@
 import type { ComponentMeta, Story } from '@storybook/react';
 import NextImage from 'next/image';
 import { Button, ButtonLink, Link, Time } from '../../atoms';
+import { MetaItem } from '../meta-list';
 import { Card, type CardProps } from './card';
 import { CardActions } from './card-actions';
 import { CardBody } from './card-body';
@@ -71,17 +72,13 @@ export const HeaderMeta = Template.bind({});
 HeaderMeta.args = {
   children: (
     <CardHeader>
-      <CardMeta
-        isInline
-        items={[
-          { id: 'author', label: 'Written by:', value: 'The author' },
-          {
-            id: 'publication-date',
-            label: 'Published on:',
-            value: <Time date={new Date().toISOString()} />,
-          },
-        ]}
-      />
+      <CardMeta isInline>
+        <MetaItem label="Written by:" value="The author" />
+        <MetaItem
+          label="Published on:"
+          value={<Time date={new Date().toISOString()} />}
+        />
+      </CardMeta>
     </CardHeader>
   ),
 };
@@ -107,27 +104,23 @@ export const FooterMeta = Template.bind({});
 FooterMeta.args = {
   children: <CardFooter />,
   meta: (
-    <CardMeta
-      items={[
-        {
-          id: 'categories',
-          label: 'Categories:',
-          value: [
-            { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
-            { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
-          ],
-        },
-        {
-          id: 'tags',
-          label: 'Tags:',
-          value: [
-            { id: 'tag-1', value: 'Tag 1' },
-            { id: 'tag-2', value: 'Tag 2' },
-            { id: 'tag-3', value: 'Tag 3' },
-          ],
-        },
-      ]}
-    />
+    <CardMeta>
+      <MetaItem
+        label="Categories:"
+        value={[
+          { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
+          { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
+        ]}
+      />
+      <MetaItem
+        label="Tags:"
+        value={[
+          { id: 'tag-1', value: 'Tag 1' },
+          { id: 'tag-2', value: 'Tag 2' },
+          { id: 'tag-3', value: 'Tag 3' },
+        ]}
+      />
+    </CardMeta>
   ),
 };
 
@@ -155,17 +148,13 @@ CompositionTitleMeta.args = {
   children: (
     <CardHeader>
       <CardTitle>The card title</CardTitle>
-      <CardMeta
-        isInline
-        items={[
-          { id: 'author', label: 'Written by:', value: 'The author' },
-          {
-            id: 'publication-date',
-            label: 'Published on:',
-            value: <Time date={new Date().toISOString()} />,
-          },
-        ]}
-      />
+      <CardMeta isInline>
+        <MetaItem label="Written by:" value="The author" />
+        <MetaItem
+          label="Published on:"
+          value={<Time date={new Date().toISOString()} />}
+        />
+      </CardMeta>
     </CardHeader>
   ),
 };
@@ -175,17 +164,13 @@ CompositionCoverTitleMeta.args = {
   children: (
     <CardHeader>
       <CardTitle>The card title</CardTitle>
-      <CardMeta
-        isInline
-        items={[
-          { id: 'author', label: 'Written by:', value: 'The author' },
-          {
-            id: 'publication-date',
-            label: 'Published on:',
-            value: <Time date={new Date().toISOString()} />,
-          },
-        ]}
-      />
+      <CardMeta isInline>
+        <MetaItem label="Written by:" value="The author" />
+        <MetaItem
+          label="Published on:"
+          value={<Time date={new Date().toISOString()} />}
+        />
+      </CardMeta>
     </CardHeader>
   ),
   cover: (
@@ -250,17 +235,13 @@ CompositionTitleMetaBody.args = {
     <>
       <CardHeader>
         <CardTitle>The card title</CardTitle>
-        <CardMeta
-          isInline
-          items={[
-            { id: 'author', label: 'Written by:', value: 'The author' },
-            {
-              id: 'publication-date',
-              label: 'Published on:',
-              value: <Time date={new Date().toISOString()} />,
-            },
-          ]}
-        />
+        <CardMeta isInline>
+          <MetaItem label="Written by:" value="The author" />
+          <MetaItem
+            label="Published on:"
+            value={<Time date={new Date().toISOString()} />}
+          />
+        </CardMeta>
       </CardHeader>
       <CardBody>
         Nihil magnam tempora voluptatem. Reiciendis ut cum vel. Odit et
@@ -278,17 +259,13 @@ CompositionCoverTitleMetaBody.args = {
     <>
       <CardHeader>
         <CardTitle>The card title</CardTitle>
-        <CardMeta
-          isInline
-          items={[
-            { id: 'author', label: 'Written by:', value: 'The author' },
-            {
-              id: 'publication-date',
-              label: 'Published on:',
-              value: <Time date={new Date().toISOString()} />,
-            },
-          ]}
-        />
+        <CardMeta isInline>
+          <MetaItem label="Written by:" value="The author" />
+          <MetaItem
+            label="Published on:"
+            value={<Time date={new Date().toISOString()} />}
+          />
+        </CardMeta>
       </CardHeader>
       <CardBody>
         Nihil magnam tempora voluptatem. Reiciendis ut cum vel. Odit et
@@ -399,27 +376,23 @@ CompositionTitleBodyActionsMeta.args = {
     </>
   ),
   meta: (
-    <CardMeta
-      items={[
-        {
-          id: 'categories',
-          label: 'Categories:',
-          value: [
-            { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
-            { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
-          ],
-        },
-        {
-          id: 'tags',
-          label: 'Tags:',
-          value: [
-            { id: 'tag-1', value: 'Tag 1' },
-            { id: 'tag-2', value: 'Tag 2' },
-            { id: 'tag-3', value: 'Tag 3' },
-          ],
-        },
-      ]}
-    />
+    <CardMeta>
+      <MetaItem
+        label="Categories:"
+        value={[
+          { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
+          { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
+        ]}
+      />
+      <MetaItem
+        label="Tags:"
+        value={[
+          { id: 'tag-1', value: 'Tag 1' },
+          { id: 'tag-2', value: 'Tag 2' },
+          { id: 'tag-3', value: 'Tag 3' },
+        ]}
+      />
+    </CardMeta>
   ),
 };
 
@@ -455,27 +428,23 @@ CompositionCoverTitleBodyActionsMeta.args = {
     </CardCover>
   ),
   meta: (
-    <CardMeta
-      items={[
-        {
-          id: 'categories',
-          label: 'Categories:',
-          value: [
-            { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
-            { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
-          ],
-        },
-        {
-          id: 'tags',
-          label: 'Tags:',
-          value: [
-            { id: 'tag-1', value: 'Tag 1' },
-            { id: 'tag-2', value: 'Tag 2' },
-            { id: 'tag-3', value: 'Tag 3' },
-          ],
-        },
-      ]}
-    />
+    <CardMeta>
+      <MetaItem
+        label="Categories:"
+        value={[
+          { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
+          { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
+        ]}
+      />
+      <MetaItem
+        label="Tags:"
+        value={[
+          { id: 'tag-1', value: 'Tag 1' },
+          { id: 'tag-2', value: 'Tag 2' },
+          { id: 'tag-3', value: 'Tag 3' },
+        ]}
+      />
+    </CardMeta>
   ),
 };
 
@@ -485,17 +454,13 @@ CompositionAllContents.args = {
     <>
       <CardHeader>
         <CardTitle>The card title</CardTitle>
-        <CardMeta
-          isInline
-          items={[
-            { id: 'author', label: 'Written by:', value: 'The author' },
-            {
-              id: 'publication-date',
-              label: 'Published on:',
-              value: <Time date={new Date().toISOString()} />,
-            },
-          ]}
-        />
+        <CardMeta isInline>
+          <MetaItem label="Written by:" value="The author" />
+          <MetaItem
+            label="Published on:"
+            value={<Time date={new Date().toISOString()} />}
+          />
+        </CardMeta>
       </CardHeader>
       <CardBody>
         Nihil magnam tempora voluptatem. Reiciendis ut cum vel. Odit et
@@ -522,26 +487,22 @@ CompositionAllContents.args = {
     </CardCover>
   ),
   meta: (
-    <CardMeta
-      items={[
-        {
-          id: 'categories',
-          label: 'Categories:',
-          value: [
-            { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
-            { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
-          ],
-        },
-        {
-          id: 'tags',
-          label: 'Tags:',
-          value: [
-            { id: 'tag-1', value: 'Tag 1' },
-            { id: 'tag-2', value: 'Tag 2' },
-            { id: 'tag-3', value: 'Tag 3' },
-          ],
-        },
-      ]}
-    />
+    <CardMeta>
+      <MetaItem
+        label="Categories:"
+        value={[
+          { id: 'cat-1', value: <Link href="#cat1">Category 1</Link> },
+          { id: 'cat-2', value: <Link href="#cat2">Category 2</Link> },
+        ]}
+      />
+      <MetaItem
+        label="Tags:"
+        value={[
+          { id: 'tag-1', value: 'Tag 1' },
+          { id: 'tag-2', value: 'Tag 2' },
+          { id: 'tag-3', value: 'Tag 3' },
+        ]}
+      />
+    </CardMeta>
   ),
 };

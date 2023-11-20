@@ -9,13 +9,14 @@ import {
   getLayout,
   Heading,
   LinksWidget,
-  type MetaItemData,
   Notice,
   PageLayout,
   PostsList,
   Pagination,
   type RenderPaginationLink,
   type RenderPaginationItemAriaLabel,
+  MetaList,
+  MetaItem,
 } from '../../components';
 import {
   getArticles,
@@ -183,28 +184,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     [intl]
   );
 
-  const headerMeta: MetaItemData[] = totalArticles
-    ? [
-        {
-          id: 'posts-count',
-          label: intl.formatMessage({
-            defaultMessage: 'Total:',
-            description: 'Page: total label',
-            id: 'kNBXyK',
-          }),
-          value: intl.formatMessage(
-            {
-              defaultMessage:
-                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-              description: 'Page: posts count meta',
-              id: 'RvGb2c',
-            },
-            { postsCount: totalArticles }
-          ),
-        },
-      ]
-    : [];
-
   const paginationAriaLabel = intl.formatMessage({
     defaultMessage: 'Pagination',
     description: 'BlogPage: pagination accessible name',
@@ -234,7 +213,27 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         title={title}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={headerMeta}
+        headerMeta={
+          <MetaList>
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Total:',
+                description: 'Page: total label',
+                id: 'kNBXyK',
+              })}
+              value={intl.formatMessage(
+                {
+                  defaultMessage:
+                    '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+                  description: 'Page: posts count meta',
+                  id: 'RvGb2c',
+                },
+                { postsCount: totalArticles }
+              )}
+            />
+          </MetaList>
+        }
         widgets={[
           <LinksWidget
             heading={

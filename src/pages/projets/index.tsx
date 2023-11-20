@@ -19,6 +19,7 @@ import {
   Link,
   MetaList,
   PageLayout,
+  MetaItem,
 } from '../../components';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
 import styles from '../../styles/pages/projects.module.scss';
@@ -86,20 +87,17 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
             }
             meta={
               technologies ? (
-                <MetaList
-                  hasBorderedValues
-                  hasInlinedValues
-                  isCentered
-                  items={[
-                    {
-                      id: 'technologies',
-                      label: metaLabel,
-                      value: technologies.map((techno) => {
-                        return { id: techno, value: techno };
-                      }),
-                    },
-                  ]}
-                />
+                <MetaList isCentered>
+                  <MetaItem
+                    hasBorderedValues
+                    hasInlinedValues
+                    isCentered
+                    label={metaLabel}
+                    value={technologies.map((techno) => {
+                      return { id: techno, value: techno };
+                    })}
+                  />
+                </MetaList>
               ) : undefined
             }
             isCentered

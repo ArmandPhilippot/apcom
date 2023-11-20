@@ -9,13 +9,14 @@ import {
   getLayout,
   Heading,
   LinksWidget,
-  type MetaItemData,
   Notice,
   PageLayout,
   PostsList,
   Spinner,
   SearchForm,
   type SearchFormSubmit,
+  MetaList,
+  MetaItem,
 } from '../../components';
 import {
   getArticles,
@@ -132,28 +133,6 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     getTotalArticles(query.s as string)
   );
 
-  const headerMeta: MetaItemData[] = totalArticles
-    ? [
-        {
-          id: 'posts-count',
-          label: intl.formatMessage({
-            defaultMessage: 'Total:',
-            description: 'Page: total label',
-            id: 'kNBXyK',
-          }),
-          value: intl.formatMessage(
-            {
-              defaultMessage:
-                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-              description: 'Page: posts count meta',
-              id: 'RvGb2c',
-            },
-            { postsCount: totalArticles }
-          ),
-        },
-      ]
-    : [];
-
   const thematicsListTitle = intl.formatMessage({
     defaultMessage: 'Thematics',
     description: 'SearchPage: thematics list widget title',
@@ -215,7 +194,27 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
         title={title}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={headerMeta}
+        headerMeta={
+          <MetaList>
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Total:',
+                description: 'Page: total label',
+                id: 'kNBXyK',
+              })}
+              value={intl.formatMessage(
+                {
+                  defaultMessage:
+                    '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+                  description: 'Page: posts count meta',
+                  id: 'RvGb2c',
+                },
+                { postsCount: totalArticles }
+              )}
+            />
+          </MetaList>
+        }
         widgets={[
           <LinksWidget
             heading={

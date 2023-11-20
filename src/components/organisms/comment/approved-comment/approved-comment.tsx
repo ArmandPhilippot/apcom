@@ -12,6 +12,7 @@ import {
   CardTitle,
   CardFooter,
   CardActions,
+  MetaItem,
 } from '../../../molecules';
 import styles from './approved-comment.module.scss';
 
@@ -138,20 +139,17 @@ const ApprovedCommentWithRef: ForwardRefRenderFunction<
             author.name
           )}
         </CardTitle>
-        <CardMeta
-          hasInlinedItems
-          items={[
-            {
-              id: 'publication-date',
-              label: publicationDateLabel,
-              value: (
-                <Link href={commentLink}>
-                  <Time date={publicationDate} showTime />
-                </Link>
-              ),
-            },
-          ]}
-        />
+        <CardMeta>
+          <MetaItem
+            isInline
+            label={publicationDateLabel}
+            value={
+              <Link href={commentLink}>
+                <Time date={publicationDate} showTime />
+              </Link>
+            }
+          />
+        </CardMeta>
       </CardHeader>
       <CardBody
         className={styles.body}

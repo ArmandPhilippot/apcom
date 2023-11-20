@@ -59,10 +59,6 @@
     "defaultMessage": "Name:",
     "description": "ContactForm: name label"
   },
-  "24FIsG": {
-    "defaultMessage": "Updated on:",
-    "description": "ThematicPage: update date label"
-  },
   "28GZdv": {
     "defaultMessage": "Projects",
     "description": "Breadcrumb: projects label"
@@ -154,10 +150,6 @@
   "8q5PXx": {
     "defaultMessage": "{date} at {time}",
     "description": "Time: readable date and time"
-  },
-  "9DfuHk": {
-    "defaultMessage": "Updated on:",
-    "description": "TopicPage: update date label"
   },
   "9MTBCG": {
     "defaultMessage": "{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}",
@@ -291,10 +283,6 @@
     "defaultMessage": "Thematics",
     "description": "BlogPage: thematics list widget title"
   },
-  "HxZvY4": {
-    "defaultMessage": "Published on:",
-    "description": "ProjectsPage: publication date label"
-  },
   "IVczxR": {
     "defaultMessage": "Go to page {number}",
     "description": "BlogPage: page number label"
@@ -322,10 +310,6 @@
   "K4rYdT": {
     "defaultMessage": "Skip to content",
     "description": "Layout: Skip to content link"
-  },
-  "KV+NMZ": {
-    "defaultMessage": "Published on:",
-    "description": "TopicPage: publication date label"
   },
   "KVSWGP": {
     "defaultMessage": "Other thematics",
@@ -427,10 +411,6 @@
     "defaultMessage": "CV",
     "description": "Layout: main nav - cv link"
   },
-  "RecdwX": {
-    "defaultMessage": "Published on:",
-    "description": "ArticlePage: publication date label"
-  },
   "RvGb2c": {
     "defaultMessage": "{postsCount, plural, =0 {No articles} one {# article} other {# articles}}",
     "description": "Page: posts count meta"
@@ -450,10 +430,6 @@
   "TpyFZ6": {
     "defaultMessage": "An error occurred:",
     "description": "Contact: error message"
-  },
-  "UTGhUU": {
-    "defaultMessage": "Published on:",
-    "description": "ThematicPage: publication date label"
   },
   "VkAnvv": {
     "defaultMessage": "Send",
@@ -498,10 +474,6 @@
   "Ygea7s": {
     "defaultMessage": "Light theme",
     "description": "ThemeToggle: light theme label"
-  },
-  "ZAqGZ6": {
-    "defaultMessage": "Updated on:",
-    "description": "ArticlePage: update date label"
   },
   "ZB/Aw2": {
     "defaultMessage": "Partial includes only page url, views and duration.",
@@ -719,10 +691,6 @@
     "defaultMessage": "Theme:",
     "description": "ThemeToggle: theme label"
   },
-  "tBX4mb": {
-    "defaultMessage": "Total:",
-    "description": "TopicPage: total label"
-  },
   "tIZYpD": {
     "defaultMessage": "Partial",
     "description": "AckeeToggle: partial option name"
@@ -738,10 +706,6 @@
   "u41qSk": {
     "defaultMessage": "Website:",
     "description": "CommentForm: website label"
-  },
-  "uAL4iW": {
-    "defaultMessage": "{postsCount, plural, =0 {No articles} one {# article} other {# articles}}",
-    "description": "TopicPage: posts count meta"
   },
   "uZj4QI": {
     "defaultMessage": "Cancel reply",
@@ -766,10 +730,6 @@
   "w8GrOf": {
     "defaultMessage": "Free",
     "description": "HomePage: link to free thematic"
-  },
-  "wQrvgw": {
-    "defaultMessage": "Updated on:",
-    "description": "ProjectsPage: update date label"
   },
   "xaqaYQ": {
     "defaultMessage": "Sending mail...",

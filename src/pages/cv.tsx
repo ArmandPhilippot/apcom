@@ -20,8 +20,9 @@ import {
   PageLayout,
   SocialMediaWidget,
   ListItem,
-  type MetaItemData,
   Time,
+  MetaList,
+  MetaItem,
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import type { NextPageWithLayout } from '../types';
@@ -154,32 +155,6 @@ const CVPage: NextPageWithLayout = () => {
     id: '+Dre5J',
   });
 
-  const headerMeta: (MetaItemData | undefined)[] = [
-    {
-      id: 'publication-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Published on:',
-        description: 'Page: publication date label',
-        id: '4QbTDq',
-      }),
-      value: <Time date={dates.publication} />,
-    },
-    dates.update
-      ? {
-          id: 'update-date',
-          label: intl.formatMessage({
-            defaultMessage: 'Updated on:',
-            description: 'Page: update date label',
-            id: 'Ez8Qim',
-          }),
-          value: <Time date={dates.update} />,
-        }
-      : undefined,
-  ];
-  const filteredMeta = headerMeta.filter(
-    (item): item is MetaItemData => !!item
-  );
-
   const cvCaption = intl.formatMessage(
     {
       defaultMessage: '<link>Download the CV in PDF</link>',
@@ -282,7 +257,30 @@ const CVPage: NextPageWithLayout = () => {
     <PageLayout
       breadcrumb={breadcrumbItems}
       breadcrumbSchema={breadcrumbSchema}
-      headerMeta={filteredMeta}
+      headerMeta={
+        <MetaList>
+          <MetaItem
+            isInline
+            label={intl.formatMessage({
+              defaultMessage: 'Published on:',
+              description: 'Page: publication date label',
+              id: '4QbTDq',
+            })}
+            value={<Time date={dates.publication} />}
+          />
+          {dates.update ? (
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Updated on:',
+                description: 'Page: update date label',
+                id: 'Ez8Qim',
+              })}
+              value={<Time date={dates.update} />}
+            />
+          ) : null}
+        </MetaList>
+      }
       intro={intro}
       title={title}
       widgets={widgets}

@@ -1,6 +1,5 @@
 import type { FC, ReactNode } from 'react';
 import { Header, Heading } from '../../atoms';
-import { MetaList, type MetaItemData } from '../meta-list';
 import styles from './page-header.module.scss';
 
 export type PageHeaderProps = {
@@ -15,7 +14,7 @@ export type PageHeaderProps = {
   /**
    * The page metadata.
    */
-  meta?: MetaItemData[];
+  meta?: ReactNode;
   /**
    * The page title.
    */
@@ -55,9 +54,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         <Heading className={styles.title} level={1}>
           {title}
         </Heading>
-        {meta ? (
-          <MetaList className={styles.meta} hasInlinedItems items={meta} />
-        ) : null}
+        {meta}
         {intro ? getIntro() : null}
       </div>
     </Header>

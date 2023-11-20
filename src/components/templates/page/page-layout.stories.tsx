@@ -1,5 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ButtonLink, Heading, Link } from '../../atoms';
+import { MetaItem, MetaList } from '../../molecules';
 import { LinksWidget, PostsList, SharingWidget } from '../../organisms';
 import { LayoutBase } from '../layout/layout.stories';
 import { PageLayout as PageLayoutComponent } from './page-layout';
@@ -270,38 +271,41 @@ Post.args = {
   breadcrumb: postBreadcrumb,
   title: pageTitle,
   intro: pageIntro,
-  headerMeta: [
-    { id: 'publication-date', label: 'Published on:', value: '2020-03-14' },
-    {
-      id: 'thematics',
-      label: 'Thematics:',
-      value: [
-        {
-          id: 'cat-1',
-          value: (
-            <Link key="cat1" href="#">
-              Cat 1
-            </Link>
-          ),
-        },
-        {
-          id: 'cat-2',
-          value: (
-            <Link key="cat2" href="#">
-              Cat 2
-            </Link>
-          ),
-        },
-      ],
-    },
-  ],
-  footerMeta: [
-    {
-      id: 'read-more',
-      label: 'Read more about:',
-      value: <ButtonLink to="#">Topic 1</ButtonLink>,
-    },
-  ],
+  headerMeta: (
+    <MetaList>
+      <MetaItem isInline label="Published on:" value="2020-03-14" />
+      <MetaItem
+        isInline
+        label="Thematic:"
+        value={[
+          {
+            id: 'cat-1',
+            value: (
+              <Link key="cat1" href="#">
+                Cat 1
+              </Link>
+            ),
+          },
+          {
+            id: 'cat-2',
+            value: (
+              <Link key="cat2" href="#">
+                Cat 2
+              </Link>
+            ),
+          },
+        ]}
+      />
+    </MetaList>
+  ),
+  footerMeta: (
+    <MetaList>
+      <MetaItem
+        label="Read more about:"
+        value={<ButtonLink to="#">Topic 1</ButtonLink>}
+      />
+    </MetaList>
+  ),
   children: (
     <>
       <Heading level={2}>Impedit commodi rerum</Heading>
@@ -497,7 +501,11 @@ export const Blog = Template.bind({});
 Blog.args = {
   breadcrumb: postsListBreadcrumb,
   title: 'Blog',
-  headerMeta: [{ id: 'total', label: 'Total:', value: `${posts.length}` }],
+  headerMeta: (
+    <MetaList>
+      <MetaItem isInline label="Total:" value={`${posts.length}`} />
+    </MetaList>
+  ),
   children: <PostsList posts={posts} sortByYear />,
   widgets: [
     <LinksWidget

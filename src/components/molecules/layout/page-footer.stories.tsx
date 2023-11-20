@@ -1,4 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Link } from '../../atoms';
+import { MetaItem, MetaList } from '../meta-list';
 import { PageFooter as PageFooterComponent } from './page-footer';
 
 /**
@@ -39,22 +41,17 @@ const Template: ComponentStory<typeof PageFooterComponent> = (args) => (
   <PageFooterComponent {...args} />
 );
 
-const meta = [
-  {
-    id: 'more-about',
-    label: 'More posts about:',
-    value: (
-      <a key="topic-1" href="#topic1">
-        Topic name
-      </a>
-    ),
-  },
-];
-
 /**
  * Page Footer Stories - With meta
  */
 export const PageFooter = Template.bind({});
 PageFooter.args = {
-  meta,
+  children: (
+    <MetaList>
+      <MetaItem
+        label="More posts about:"
+        value={<Link href="#topic1">Topic name</Link>}
+      />
+    </MetaList>
+  ),
 };

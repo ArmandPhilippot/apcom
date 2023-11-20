@@ -1,12 +1,13 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactElement, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import type { PageLink } from '../../../../types';
 import { getReadingTimeFrom } from '../../../../utils/helpers';
 import { Link, Time, VisuallyHidden } from '../../../atoms';
 import {
   CardMeta,
-  type MetaItemData,
   type CardMetaProps,
+  MetaItem,
+  type MetaItemProps,
 } from '../../../molecules';
 
 const a11y = (chunks: ReactNode) => <VisuallyHidden>{chunks}</VisuallyHidden>;
@@ -57,20 +58,7 @@ export type PostPreviewMetaData = {
   wordsCount?: number;
 };
 
-const validMetaKeys = [
-  'author',
-  'comments',
-  'publicationDate',
-  'thematics',
-  'topics',
-  'updateDate',
-  'wordsCount',
-] satisfies (keyof PostPreviewMetaData)[];
-
-const isValidMetaKey = (key: string): key is keyof PostPreviewMetaData =>
-  (validMetaKeys as string[]).includes(key);
-
-export type PostPreviewMetaProps = Omit<CardMetaProps, 'items'> & {
+export type PostPreviewMetaProps = Omit<CardMetaProps, 'children' | 'items'> & {
   /**
    * The post meta.
    */
@@ -83,23 +71,20 @@ export const PostPreviewMeta: FC<PostPreviewMetaProps> = ({
 }) => {
   const intl = useIntl();
 
-  const getAuthor = (): MetaItemData | undefined => {
-    if (!meta.author) return undefined;
-
-    return {
-      id: 'author',
-      label: intl.formatMessage({
+  const getAuthor = (author: string): ReactElement<MetaItemProps> => (
+    <MetaItem
+      label={intl.formatMessage({
         defaultMessage: 'Written by:',
         description: 'PostPreviewMeta: author label',
         id: '2U7ixo',
-      }),
-      value: meta.author,
-    };
-  };
+      })}
+      value={author}
+    />
+  );
 
-  const getCommentsCount = (): MetaItemData | undefined => {
-    if (!meta.comments) return undefined;
-
+  const getComments = (
+    comments: PostPreviewMetaComment
+  ): ReactElement<MetaItemProps> => {
     const commentsLabel = intl.formatMessage<ReactNode>(
       {
         defaultMessage:
@@ -109,146 +94,121 @@ export const PostPreviewMeta: FC<PostPreviewMetaProps> = ({
       },
       {
         a11y,
-        commentsCount: meta.comments.count,
-        title: meta.comments.postHeading,
+        commentsCount: comments.count,
+        title: comments.postHeading,
       }
     );
 
-    return {
-      id: 'comments',
-      label: intl.formatMessage({
-        defaultMessage: 'Comments:',
-        description: 'PostPreviewMeta: comments label',
-        id: 'FCpPCm',
-      }),
-      value: meta.comments.url ? (
-        <Link href={meta.comments.url}>{commentsLabel}</Link>
-      ) : (
-        <>{commentsLabel}</>
-      ),
-    };
+    return (
+      <MetaItem
+        label={intl.formatMessage({
+          defaultMessage: 'Comments:',
+          description: 'PostPreviewMeta: comments label',
+          id: 'FCpPCm',
+        })}
+        value={
+          comments.url ? (
+            <Link href={comments.url}>{commentsLabel}</Link>
+          ) : (
+            <>{commentsLabel}</>
+          )
+        }
+      />
+    );
   };
 
-  const getPublicationDate = (): MetaItemData | undefined => {
-    if (!meta.publicationDate) return undefined;
-
-    return {
-      id: 'publication-date',
-      label: intl.formatMessage({
+  const getPublicationDate = (date: string): ReactElement<MetaItemProps> => (
+    <MetaItem
+      label={intl.formatMessage({
         defaultMessage: 'Published on:',
         description: 'PostPreviewMeta: publication date label',
         id: '+6f4p1',
-      }),
-      value: <Time date={meta.publicationDate} />,
-    };
-  };
+      })}
+      value={<Time date={date} />}
+    />
+  );
 
-  const getThematics = (): MetaItemData | undefined => {
-    if (!meta.thematics?.length) return undefined;
-
-    return {
-      id: 'thematics',
-      label: intl.formatMessage(
+  const getThematics = (thematics: PageLink[]): ReactElement<MetaItemProps> => (
+    <MetaItem
+      label={intl.formatMessage(
         {
           defaultMessage:
             '{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}',
           description: 'PostPreviewMeta: thematics label',
           id: '9MTBCG',
         },
-        { thematicsCount: meta.thematics.length }
-      ),
-      value: meta.thematics.map((thematic) => {
+        { thematicsCount: thematics.length }
+      )}
+      value={thematics.map((thematic) => {
         return {
           id: `thematic-${thematic.id}`,
           value: <Link href={thematic.url}>{thematic.name}</Link>,
         };
-      }),
-    };
-  };
+      })}
+    />
+  );
 
-  const getTopics = (): MetaItemData | undefined => {
-    if (!meta.topics?.length) return undefined;
-
-    return {
-      id: 'topics',
-      label: intl.formatMessage(
+  const getTopics = (topics: PageLink[]): ReactElement<MetaItemProps> => (
+    <MetaItem
+      label={intl.formatMessage(
         {
           defaultMessage:
             '{topicsCount, plural, =0 {Topics:} one {Topic:} other {Topics:}}',
           description: 'PostPreviewMeta: topics label',
           id: 'aBQYbE',
         },
-        { topicsCount: meta.topics.length }
-      ),
-      value: meta.topics.map((topic) => {
+        { topicsCount: topics.length }
+      )}
+      value={topics.map((topic) => {
         return {
           id: `topic-${topic.id}`,
           value: <Link href={topic.url}>{topic.name}</Link>,
         };
-      }),
-    };
-  };
+      })}
+    />
+  );
 
-  const getUpdateDate = (): MetaItemData | undefined => {
-    if (!meta.updateDate || meta.updateDate === meta.publicationDate)
-      return undefined;
-
-    return {
-      id: 'update-date',
-      label: intl.formatMessage({
+  const getUpdateDate = (date: string): ReactElement<MetaItemProps> => (
+    <MetaItem
+      label={intl.formatMessage({
         defaultMessage: 'Updated on:',
         description: 'PostPreviewMeta: update date label',
         id: 'ZmRh0V',
-      }),
-      value: <Time date={meta.updateDate} />,
-    };
-  };
+      })}
+      value={<Time date={date} />}
+    />
+  );
 
-  const getReadingTime = (): MetaItemData | undefined => {
-    if (!meta.wordsCount) return undefined;
-
-    return {
-      id: 'reading-time',
-      label: intl.formatMessage({
+  const getReadingTime = (wordsCount: number): ReactElement<MetaItemProps> => (
+    <MetaItem
+      label={intl.formatMessage({
         defaultMessage: 'Reading time:',
         description: 'PostPreviewMeta: reading time label',
         id: 'B1lS/v',
-      }),
-      value: intl.formatMessage(
+      })}
+      value={intl.formatMessage(
         {
           defaultMessage:
             '{minutesCount, plural, =0 {Less than one minute} one {# minute} other {# minutes}}',
           description: 'PostPreviewMeta: rounded minutes count',
           id: 'y+13Ax',
         },
-        { minutesCount: getReadingTimeFrom(meta.wordsCount).inMinutes() }
-      ),
-    };
-  };
+        { minutesCount: getReadingTimeFrom(wordsCount).inMinutes() }
+      )}
+    />
+  );
 
-  const items: MetaItemData[] = Object.keys(meta)
-    .filter(isValidMetaKey)
-    .map((key): MetaItemData | undefined => {
-      switch (key) {
-        case 'author':
-          return getAuthor();
-        case 'comments':
-          return getCommentsCount();
-        case 'publicationDate':
-          return getPublicationDate();
-        case 'thematics':
-          return getThematics();
-        case 'topics':
-          return getTopics();
-        case 'updateDate':
-          return getUpdateDate();
-        case 'wordsCount':
-          return getReadingTime();
-        default:
-          throw new Error('Unsupported meta key.');
-      }
-    })
-    .filter((item): item is MetaItemData => item !== undefined);
-
-  return <CardMeta {...props} items={items} />;
+  return (
+    <CardMeta {...props}>
+      {meta.author ? getAuthor(meta.author) : null}
+      {meta.publicationDate ? getPublicationDate(meta.publicationDate) : null}
+      {meta.updateDate && meta.updateDate !== meta.publicationDate
+        ? getUpdateDate(meta.updateDate)
+        : null}
+      {meta.wordsCount ? getReadingTime(meta.wordsCount) : null}
+      {meta.thematics ? getThematics(meta.thematics) : null}
+      {meta.topics ? getTopics(meta.topics) : null}
+      {meta.comments ? getComments(meta.comments) : null}
+    </CardMeta>
+  );
 };

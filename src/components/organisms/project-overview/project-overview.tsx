@@ -6,7 +6,7 @@ import {
   type ReactElement,
 } from 'react';
 import { useIntl } from 'react-intl';
-import type { Maybe, ValueOf } from '../../../types';
+import type { ValueOf } from '../../../types';
 import {
   Time,
   type SocialWebsite,
@@ -14,7 +14,7 @@ import {
   SocialLink,
   Figure,
 } from '../../atoms';
-import { MetaList, type MetaItemData } from '../../molecules';
+import { MetaItem, type MetaItemProps, MetaList } from '../../molecules';
 import styles from './project-overview.module.scss';
 
 export type Repository = {
@@ -155,27 +155,31 @@ const ProjectOverviewWithRef: ForwardRefRenderFunction<
     [intl]
   );
 
-  const getMetaItems = useCallback((): MetaItemData[] => {
+  const getMetaItems = useCallback(() => {
     const keys = Object.keys(meta).filter(isValidMetaKey);
 
     return keys
-      .map((key): Maybe<MetaItemData> => {
+      .map((key) => {
         const value = meta[key];
 
-        return value
-          ? {
-              id: key,
-              label: metaLabels[key],
-              value: getMetaValue(key, value),
-              hasBorderedValues: key === 'technologies',
-              hasInlinedValues:
-                (key === 'technologies' || key === 'repositories') &&
-                Array.isArray(value) &&
-                value.length > 1,
+        return value ? (
+          <MetaItem
+            hasBorderedValues={key === 'technologies'}
+            hasInlinedValues={
+              (key === 'technologies' || key === 'repositories') &&
+              Array.isArray(value) &&
+              value.length > 1
             }
-          : undefined;
+            key={key}
+            label={metaLabels[key]}
+            value={getMetaValue(key, value)}
+          />
+        ) : undefined;
       })
-      .filter((item): item is MetaItemData => typeof item !== 'undefined');
+      .filter(
+        (item): item is ReactElement<MetaItemProps> =>
+          typeof item !== 'undefined'
+      );
   }, [getMetaValue, meta, metaLabels]);
 
   return (
@@ -185,7 +189,9 @@ const ProjectOverviewWithRef: ForwardRefRenderFunction<
           {cover}
         </Figure>
       ) : null}
-      <MetaList className={styles.meta} isInline items={getMetaItems()} />
+      <MetaList className={styles.meta} isInline>
+        {getMetaItems()}
+      </MetaList>
     </div>
   );
 };

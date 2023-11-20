@@ -1,6 +1,7 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Link } from '../../atoms';
-import { type MetaItemData, MetaList } from './meta-list';
+import { MetaItem } from './meta-item';
+import { MetaList } from './meta-list';
 
 /**
  * MetaList - Storybook Meta
@@ -24,7 +25,7 @@ const Template: ComponentStory<typeof MetaList> = (args) => (
   <MetaList {...args} />
 );
 
-const items: MetaItemData[] = [
+const items = [
   { id: 'comments', label: 'Comments', value: 'No comments.' },
   {
     id: 'category',
@@ -57,7 +58,7 @@ const items: MetaItemData[] = [
  */
 export const Default = Template.bind({});
 Default.args = {
-  items,
+  children: items.map(({ id, ...item }) => <MetaItem key={id} {...item} />),
 };
 
 /**
@@ -65,6 +66,6 @@ Default.args = {
  */
 export const Inlined = Template.bind({});
 Inlined.args = {
+  children: items.map(({ id, ...item }) => <MetaItem key={id} {...item} />),
   isInline: true,
-  items,
 };

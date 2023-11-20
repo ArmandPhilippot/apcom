@@ -15,10 +15,11 @@ import {
   PageLayout,
   SharingWidget,
   Spinner,
-  type MetaItemData,
   Time,
   type CommentData,
   Heading,
+  MetaList,
+  MetaItem,
 } from '../../components';
 import {
   getAllArticlesSlugs,
@@ -111,102 +112,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
 
   const { content, id, intro, meta, title } = article;
   const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
-
-  const headerMeta: (MetaItemData | undefined)[] = [
-    author
-      ? {
-          id: 'author',
-          label: intl.formatMessage({
-            defaultMessage: 'Written by:',
-            description: 'ArticlePage: author label',
-            id: 'MJbZfX',
-          }),
-          value: author.name,
-        }
-      : undefined,
-    {
-      id: 'publication-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Published on:',
-        description: 'ArticlePage: publication date label',
-        id: 'RecdwX',
-      }),
-      value: <Time date={dates.publication} />,
-    },
-    dates.update && dates.publication !== dates.update
-      ? {
-          id: 'update-date',
-          label: intl.formatMessage({
-            defaultMessage: 'Updated on:',
-            description: 'ArticlePage: update date label',
-            id: 'ZAqGZ6',
-          }),
-          value: <Time date={dates.update} />,
-        }
-      : undefined,
-    {
-      id: 'reading-time',
-      label: intl.formatMessage({
-        defaultMessage: 'Reading time:',
-        description: 'ArticlePage: reading time label',
-        id: 'Gw7X3x',
-      }),
-      value: readingTime,
-    },
-    thematics
-      ? {
-          id: 'thematics',
-          label: intl.formatMessage({
-            defaultMessage: 'Thematics:',
-            description: 'ArticlePage: thematics meta label',
-            id: 'CvOqoh',
-          }),
-          value: thematics.map((thematic) => {
-            return {
-              id: `thematic-${thematic.id}`,
-              value: (
-                <Link key={thematic.id} href={thematic.url}>
-                  {thematic.name}
-                </Link>
-              ),
-            };
-          }),
-        }
-      : undefined,
-  ];
-  const filteredHeaderMeta = headerMeta.filter(
-    (item): item is MetaItemData => !!item
-  );
-
-  const footerMetaLabel = intl.formatMessage({
-    defaultMessage: 'Read more articles about:',
-    description: 'ArticlePage: footer topics list label',
-    id: '50xc4o',
-  });
-
-  const footerMeta: MetaItemData[] = topics
-    ? [
-        {
-          id: 'more-about',
-          label: footerMetaLabel,
-          value: topics.map((topic) => {
-            return {
-              id: `topic--${topic.id}`,
-              value: (
-                <ButtonLink
-                  className={styles.btn}
-                  key={topic.id}
-                  to={topic.url}
-                >
-                  {topic.logo ? <NextImage {...topic.logo} /> : null}{' '}
-                  {topic.name}
-                </ButtonLink>
-              ),
-            };
-          }),
-        },
-      ]
-    : [];
 
   const webpageSchema = getWebPageSchema({
     description: intro,
@@ -333,8 +238,99 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
         comments={getComments(commentsData)}
-        footerMeta={footerMeta}
-        headerMeta={filteredHeaderMeta}
+        footerMeta={
+          topics ? (
+            <MetaList>
+              <MetaItem
+                hasInlinedValues
+                label={intl.formatMessage({
+                  defaultMessage: 'Read more articles about:',
+                  description: 'ArticlePage: footer topics list label',
+                  id: '50xc4o',
+                })}
+                value={topics.map((topic) => {
+                  return {
+                    id: `topic--${topic.id}`,
+                    value: (
+                      <ButtonLink
+                        className={styles.btn}
+                        key={topic.id}
+                        to={topic.url}
+                      >
+                        {topic.logo ? <NextImage {...topic.logo} /> : null}{' '}
+                        {topic.name}
+                      </ButtonLink>
+                    ),
+                  };
+                })}
+              />
+            </MetaList>
+          ) : undefined
+        }
+        headerMeta={
+          <MetaList>
+            {author ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Written by:',
+                  description: 'ArticlePage: author label',
+                  id: 'MJbZfX',
+                })}
+                value={author.name}
+              />
+            ) : null}
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Published on:',
+                description: 'Page: publication date label',
+                id: '4QbTDq',
+              })}
+              value={<Time date={dates.publication} />}
+            />
+            {dates.update ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Updated on:',
+                  description: 'Page: update date label',
+                  id: 'Ez8Qim',
+                })}
+                value={<Time date={dates.update} />}
+              />
+            ) : null}
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Reading time:',
+                description: 'ArticlePage: reading time label',
+                id: 'Gw7X3x',
+              })}
+              value={readingTime}
+            />
+            {thematics ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Thematics:',
+                  description: 'ArticlePage: thematics meta label',
+                  id: 'CvOqoh',
+                })}
+                value={thematics.map((thematic) => {
+                  return {
+                    id: `thematic-${thematic.id}`,
+                    value: (
+                      <Link key={thematic.id} href={thematic.url}>
+                        {thematic.name}
+                      </Link>
+                    ),
+                  };
+                })}
+              />
+            ) : null}
+          </MetaList>
+        }
         id={id as number}
         intro={intro}
         title={title}

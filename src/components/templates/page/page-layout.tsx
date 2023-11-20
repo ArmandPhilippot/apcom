@@ -12,12 +12,7 @@ import { sendComment } from '../../../services/graphql';
 import type { SendCommentInput } from '../../../types';
 import { useHeadingsTree } from '../../../utils/hooks';
 import { Heading, Sidebar } from '../../atoms';
-import {
-  PageFooter,
-  type PageFooterProps,
-  PageHeader,
-  type PageHeaderProps,
-} from '../../molecules';
+import { PageFooter, PageHeader, type PageHeaderProps } from '../../molecules';
 import {
   CommentForm,
   CommentsList,
@@ -61,11 +56,11 @@ export type PageLayoutProps = {
   /**
    * The footer metadata.
    */
-  footerMeta?: PageFooterProps['meta'];
+  footerMeta?: ReactNode;
   /**
    * The header metadata.
    */
-  headerMeta?: PageHeaderProps['meta'];
+  headerMeta?: ReactNode;
   /**
    * The page id.
    */
@@ -240,8 +235,8 @@ export const PageLayout: FC<PageLayoutProps> = ({
           {children}
         </div>
       )}
-      {footerMeta?.length ? (
-        <PageFooter meta={footerMeta} className={styles.footer} />
+      {footerMeta ? (
+        <PageFooter className={styles.footer}>{footerMeta}</PageFooter>
       ) : null}
       <Sidebar
         aria-label={intl.formatMessage({

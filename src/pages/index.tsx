@@ -25,6 +25,7 @@ import {
   Section,
   type SectionProps,
   Time,
+  MetaItem,
 } from '../components';
 import HomePageContent from '../content/pages/homepage.mdx';
 import { getArticlesCard } from '../services/graphql';
@@ -332,18 +333,14 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
               ) : undefined
             }
             meta={
-              <CardMeta
-                hasBorderedValues
-                hasInlinedValues
-                isCentered
-                items={[
-                  {
-                    id: 'publication-date',
-                    label: publicationDate,
-                    value: <Time date={post.dates.publication} />,
-                  },
-                ]}
-              />
+              <CardMeta isCentered>
+                <MetaItem
+                  hasBorderedValues
+                  isCentered
+                  label={publicationDate}
+                  value={<Time date={post.dates.publication} />}
+                />
+              </CardMeta>
             }
             isCentered
             linkTo={`${ROUTES.ARTICLE}/${post.slug}`}

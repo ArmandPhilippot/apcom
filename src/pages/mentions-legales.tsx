@@ -11,8 +11,9 @@ import {
   Link,
   PageLayout,
   Figure,
-  type MetaItemData,
   Time,
+  MetaList,
+  MetaItem,
 } from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
@@ -48,32 +49,6 @@ const LegalNoticePage: NextPageWithLayout = () => {
     url: ROUTES.LEGAL_NOTICE,
   });
 
-  const headerMeta: (MetaItemData | undefined)[] = [
-    {
-      id: 'publication-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Published on:',
-        description: 'Page: publication date label',
-        id: '4QbTDq',
-      }),
-      value: <Time date={dates.publication} />,
-    },
-    dates.update
-      ? {
-          id: 'update-date',
-          label: intl.formatMessage({
-            defaultMessage: 'Updated on:',
-            description: 'Page: update date label',
-            id: 'Ez8Qim',
-          }),
-          value: <Time date={dates.update} />,
-        }
-      : undefined,
-  ];
-  const filteredMeta = headerMeta.filter(
-    (item): item is MetaItemData => !!item
-  );
-
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
@@ -101,7 +76,30 @@ const LegalNoticePage: NextPageWithLayout = () => {
     <PageLayout
       breadcrumb={breadcrumbItems}
       breadcrumbSchema={breadcrumbSchema}
-      headerMeta={filteredMeta}
+      headerMeta={
+        <MetaList>
+          <MetaItem
+            isInline
+            label={intl.formatMessage({
+              defaultMessage: 'Published on:',
+              description: 'Page: publication date label',
+              id: '4QbTDq',
+            })}
+            value={<Time date={dates.publication} />}
+          />
+          {dates.update ? (
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Updated on:',
+                description: 'Page: update date label',
+                id: 'Ez8Qim',
+              })}
+              value={<Time date={dates.update} />}
+            />
+          ) : null}
+        </MetaList>
+      }
       intro={intro}
       title={title}
       withToC={true}

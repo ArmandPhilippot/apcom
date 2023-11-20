@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { render, screen as rtlScreen } from '@testing-library/react';
 import NextImage from 'next/image';
+import { MetaItem } from '../meta-list';
 import { Card } from './card';
 import { CardFooter } from './card-footer';
 import { CardHeader } from './card-header';
@@ -66,7 +67,11 @@ describe('Card', () => {
 
     render(
       <Card
-        meta={<CardMeta items={[{ id: 'any', label: term, value: desc }]} />}
+        meta={
+          <CardMeta>
+            <MetaItem label={term} value={desc} />
+          </CardMeta>
+        }
       >
         <CardFooter />
       </Card>
@@ -83,7 +88,11 @@ describe('Card', () => {
 
     render(
       <Card
-        meta={<CardMeta items={[{ id: 'any', label: term, value: desc }]} />}
+        meta={
+          <CardMeta>
+            <MetaItem label={term} value={desc} />
+          </CardMeta>
+        }
       >
         {body}
       </Card>

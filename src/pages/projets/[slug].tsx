@@ -19,12 +19,13 @@ import {
   List,
   ListItem,
   Figure,
-  type MetaItemData,
   Time,
   Grid,
   ProjectOverview,
   type ProjectMeta,
   type Repository,
+  MetaList,
+  MetaItem,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
@@ -177,32 +178,6 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     url: `${CONFIG.url}${asPath}`,
   };
 
-  const headerMeta: (MetaItemData | undefined)[] = [
-    {
-      id: 'publication-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Published on:',
-        description: 'ProjectsPage: publication date label',
-        id: 'HxZvY4',
-      }),
-      value: <Time date={dates.publication} />,
-    },
-    dates.update && dates.update !== dates.publication
-      ? {
-          id: 'update-date',
-          label: intl.formatMessage({
-            defaultMessage: 'Updated on:',
-            description: 'ProjectsPage: update date label',
-            id: 'wQrvgw',
-          }),
-          value: <Time date={dates.update} />,
-        }
-      : undefined,
-  ];
-  const filteredHeaderMeta = headerMeta.filter(
-    (item): item is MetaItemData => !!item
-  );
-
   /**
    * Retrieve the project repositories.
    *
@@ -319,7 +294,30 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         intro={intro}
         breadcrumb={breadcrumbItems}
         breadcrumbSchema={breadcrumbSchema}
-        headerMeta={filteredHeaderMeta}
+        headerMeta={
+          <MetaList>
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Published on:',
+                description: 'Page: publication date label',
+                id: '4QbTDq',
+              })}
+              value={<Time date={dates.publication} />}
+            />
+            {dates.update ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Updated on:',
+                  description: 'Page: update date label',
+                  id: 'Ez8Qim',
+                })}
+                value={<Time date={dates.update} />}
+              />
+            ) : null}
+          </MetaList>
+        }
         withToC={true}
         widgets={[
           <SharingWidget

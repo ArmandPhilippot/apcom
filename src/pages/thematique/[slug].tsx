@@ -9,10 +9,11 @@ import {
   getLayout,
   Heading,
   LinksWidget,
-  type MetaItemData,
   PageLayout,
   PostsList,
   Time,
+  MetaList,
+  MetaItem,
 } from '../../components';
 import {
   getAllThematicsSlugs,
@@ -52,51 +53,6 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     title,
     url: `${ROUTES.THEMATICS.INDEX}/${slug}`,
   });
-
-  const headerMeta: (MetaItemData | undefined)[] = [
-    {
-      id: 'publication-date',
-      label: intl.formatMessage({
-        defaultMessage: 'Published on:',
-        description: 'ThematicPage: publication date label',
-        id: 'UTGhUU',
-      }),
-      value: <Time date={dates.publication} />,
-    },
-    dates.update
-      ? {
-          id: 'update-date',
-          label: intl.formatMessage({
-            defaultMessage: 'Updated on:',
-            description: 'ThematicPage: update date label',
-            id: '24FIsG',
-          }),
-          value: <Time date={dates.update} />,
-        }
-      : undefined,
-    articles
-      ? {
-          id: 'total',
-          label: intl.formatMessage({
-            defaultMessage: 'Total:',
-            description: 'ThematicPage: total label',
-            id: 'lHkta9',
-          }),
-          value: intl.formatMessage(
-            {
-              defaultMessage:
-                '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-              description: 'ThematicPage: posts count meta',
-              id: 'iv3Ex1',
-            },
-            { postsCount: articles.length }
-          ),
-        }
-      : undefined,
-  ];
-  const filteredMeta = headerMeta.filter(
-    (item): item is MetaItemData => !!item
-  );
 
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
@@ -154,7 +110,49 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
         breadcrumbSchema={breadcrumbSchema}
         title={title}
         intro={intro}
-        headerMeta={filteredMeta}
+        headerMeta={
+          <MetaList>
+            <MetaItem
+              isInline
+              label={intl.formatMessage({
+                defaultMessage: 'Published on:',
+                description: 'Page: publication date label',
+                id: '4QbTDq',
+              })}
+              value={<Time date={dates.publication} />}
+            />
+            {dates.update ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Updated on:',
+                  description: 'Page: update date label',
+                  id: 'Ez8Qim',
+                })}
+                value={<Time date={dates.update} />}
+              />
+            ) : null}
+            {articles ? (
+              <MetaItem
+                isInline
+                label={intl.formatMessage({
+                  defaultMessage: 'Total:',
+                  description: 'ThematicPage: total label',
+                  id: 'lHkta9',
+                })}
+                value={intl.formatMessage(
+                  {
+                    defaultMessage:
+                      '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
+                    description: 'ThematicPage: posts count meta',
+                    id: 'iv3Ex1',
+                  },
+                  { postsCount: articles.length }
+                )}
+              />
+            ) : null}
+          </MetaList>
+        }
         widgets={
           topics
             ? [

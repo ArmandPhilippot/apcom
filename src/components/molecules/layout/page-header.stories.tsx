@@ -1,4 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { MetaItem, MetaList } from '../meta-list';
 import { PageHeader } from './page-header';
 
 /**
@@ -62,32 +63,6 @@ const Template: ComponentStory<typeof PageHeader> = (args) => (
   <PageHeader {...args} />
 );
 
-const meta = [
-  { id: 'publication-date', label: 'Published on:', value: '2022-04-09' },
-  {
-    id: 'thematics',
-    label: 'Thematics:',
-    value: [
-      {
-        id: 'cat-1',
-        value: (
-          <a key="category1" href="#cat1">
-            Category 1
-          </a>
-        ),
-      },
-      {
-        id: 'cat-2',
-        value: (
-          <a key="category2" href="#cat2">
-            Category 2
-          </a>
-        ),
-      },
-    ],
-  },
-];
-
 /**
  * Page Header Stories - Default
  */
@@ -111,7 +86,33 @@ WithIntro.args = {
  */
 export const WithMeta = Template.bind({});
 WithMeta.args = {
-  meta,
+  meta: (
+    <MetaList>
+      <MetaItem isInline label="Published on:" value="2022-04-09" />
+      <MetaItem
+        isInline
+        label="Thematics:"
+        value={[
+          {
+            id: 'cat-1',
+            value: (
+              <a key="category1" href="#cat1">
+                Category 1
+              </a>
+            ),
+          },
+          {
+            id: 'cat-2',
+            value: (
+              <a key="category2" href="#cat2">
+                Category 2
+              </a>
+            ),
+          },
+        ]}
+      />
+    </MetaList>
+  ),
   title: 'Excepturi nesciunt illum',
 };
 
@@ -122,6 +123,32 @@ export const WithIntroAndMeta = Template.bind({});
 WithIntroAndMeta.args = {
   intro:
     'Minima dolor nihil. Velit atque odit totam enim. Quisquam reprehenderit ut et inventore et nihil libero exercitationem. Cumque similique magni placeat et. Et sed est cumque labore. Et quia similique.',
-  meta,
+  meta: (
+    <MetaList>
+      <MetaItem isInline label="Published on:" value="2022-04-09" />
+      <MetaItem
+        isInline
+        label="Thematics:"
+        value={[
+          {
+            id: 'cat-1',
+            value: (
+              <a key="category1" href="#cat1">
+                Category 1
+              </a>
+            ),
+          },
+          {
+            id: 'cat-2',
+            value: (
+              <a key="category2" href="#cat2">
+                Category 2
+              </a>
+            ),
+          },
+        ]}
+      />
+    </MetaList>
+  ),
   title: 'Excepturi nesciunt illum',
 };
