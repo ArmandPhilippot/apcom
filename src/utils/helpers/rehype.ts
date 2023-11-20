@@ -9,14 +9,12 @@
 export const updateContentTree = async (content: string): Promise<string> => {
   const { unified } = await import('unified');
   const rehypeParse = (await import('rehype-parse')).default;
-  const rehypeSanitize = (await import('rehype-sanitize')).default;
   const rehypeSlug = (await import('rehype-slug')).default;
   const rehypeStringify = (await import('rehype-stringify')).default;
 
   return unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeSlug)
-    .use(() => rehypeSanitize({ clobberPrefix: 'h-' }))
     .use(rehypeStringify)
     .processSync(content)
     .toString();
