@@ -12,20 +12,21 @@ import {
   Code,
   getLayout,
   Link,
-  PageLayout,
   SharingWidget,
   Spinner,
   Heading,
   List,
   ListItem,
   Figure,
-  Time,
   Grid,
   ProjectOverview,
   type ProjectMeta,
   type Repository,
-  MetaList,
-  MetaItem,
+  Page,
+  PageHeader,
+  PageSidebar,
+  TocWidget,
+  PageBody,
 } from '../../components';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
@@ -42,7 +43,11 @@ import {
   loadTranslation,
   type Messages,
 } from '../../utils/helpers/server';
-import { useBreadcrumb, useGithubApi } from '../../utils/hooks';
+import {
+  useBreadcrumb,
+  useGithubApi,
+  useHeadingsTree,
+} from '../../utils/hooks';
 
 const BorderedImage = (props: NextImageProps) => (
   <Figure hasBorders>
@@ -164,6 +169,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     title,
     url: `${ROUTES.PROJECTS}/${id}`,
   });
+  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
 
   const ProjectContent: ComponentType<MDXComponents> = dynamic(
     async () => import(`../../content/projects/${id}.mdx`),
@@ -269,9 +275,14 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     id: 'HKKkQk',
     description: 'SharingWidget: widget title',
   });
+  const tocTitle = intl.formatMessage({
+    defaultMessage: 'Table of Contents',
+    description: 'PageLayout: table of contents title',
+    id: 'eys2uX',
+  });
 
   return (
-    <>
+    <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
         <title>{page.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -289,67 +300,54 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <PageLayout
-        title={title}
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader
+        heading={title}
         intro={intro}
-        breadcrumb={breadcrumbItems}
-        breadcrumbSchema={breadcrumbSchema}
-        headerMeta={
-          <MetaList>
-            <MetaItem
-              isInline
-              label={intl.formatMessage({
-                defaultMessage: 'Published on:',
-                description: 'Page: publication date label',
-                id: '4QbTDq',
-              })}
-              value={<Time date={dates.publication} />}
-            />
-            {dates.update ? (
-              <MetaItem
-                isInline
-                label={intl.formatMessage({
-                  defaultMessage: 'Updated on:',
-                  description: 'Page: update date label',
-                  id: 'Ez8Qim',
-                })}
-                value={<Time date={dates.update} />}
-              />
-            ) : null}
-          </MetaList>
-        }
-        withToC={true}
-        widgets={[
-          <SharingWidget
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="sharing-widget"
-            data={{ excerpt: intro, title, url: page.url }}
-            heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
-            media={[
-              'diaspora',
-              'email',
-              'facebook',
-              'journal-du-hacker',
-              'linkedin',
-              'twitter',
-            ]}
-            className={styles.widget}
-          />,
-        ]}
-      >
+        meta={{
+          publicationDate: dates.publication,
+          updateDate: dates.update,
+        }}
+      />
+      <PageSidebar>
+        <TocWidget
+          heading={<Heading level={3}>{tocTitle}</Heading>}
+          tree={tree}
+        />
+      </PageSidebar>
+      <PageBody ref={ref}>
         <ProjectOverview
           cover={cover ? <NextImage {...cover} /> : undefined}
           meta={overviewMeta}
           name={project.title}
         />
         <ProjectContent components={components} />
-      </PageLayout>
-    </>
+      </PageBody>
+      <PageSidebar>
+        <SharingWidget
+          data={{ excerpt: intro, title, url: page.url }}
+          heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
+          media={[
+            'diaspora',
+            'email',
+            'facebook',
+            'journal-du-hacker',
+            'linkedin',
+            'twitter',
+          ]}
+          className={styles.widget}
+        />
+      </PageSidebar>
+    </Page>
   );
 };
 
-ProjectPage.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+ProjectPage.getLayout = (page) => getLayout(page);
 
 export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
   locale,

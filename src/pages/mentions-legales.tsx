@@ -9,11 +9,13 @@ import { useIntl } from 'react-intl';
 import {
   getLayout,
   Link,
-  PageLayout,
   Figure,
-  Time,
-  MetaList,
-  MetaItem,
+  Page,
+  PageHeader,
+  PageSidebar,
+  TocWidget,
+  Heading,
+  PageBody,
 } from '../components';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
@@ -25,7 +27,7 @@ import {
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb } from '../utils/hooks';
+import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
 
 const ResponsiveImage = (props: NextImageProps) => (
   <Figure>
@@ -49,6 +51,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
     url: ROUTES.LEGAL_NOTICE,
   });
 
+  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
@@ -71,39 +74,14 @@ const LegalNoticePage: NextPageWithLayout = () => {
     title: `${seo.title} - ${CONFIG.name}`,
     url: `${CONFIG.url}${asPath}`,
   };
+  const tocTitle = intl.formatMessage({
+    defaultMessage: 'Table of Contents',
+    description: 'PageLayout: table of contents title',
+    id: 'eys2uX',
+  });
 
   return (
-    <PageLayout
-      breadcrumb={breadcrumbItems}
-      breadcrumbSchema={breadcrumbSchema}
-      headerMeta={
-        <MetaList>
-          <MetaItem
-            isInline
-            label={intl.formatMessage({
-              defaultMessage: 'Published on:',
-              description: 'Page: publication date label',
-              id: '4QbTDq',
-            })}
-            value={<Time date={dates.publication} />}
-          />
-          {dates.update ? (
-            <MetaItem
-              isInline
-              label={intl.formatMessage({
-                defaultMessage: 'Updated on:',
-                description: 'Page: update date label',
-                id: 'Ez8Qim',
-              })}
-              value={<Time date={dates.update} />}
-            />
-          ) : null}
-        </MetaList>
-      }
-      intro={intro}
-      title={title}
-      withToC={true}
-    >
+    <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
         <title>{page.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -120,13 +98,34 @@ const LegalNoticePage: NextPageWithLayout = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <LegalNoticeContent components={components} />
-    </PageLayout>
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader
+        heading={title}
+        intro={intro}
+        meta={{
+          publicationDate: dates.publication,
+          updateDate: dates.update,
+        }}
+      />
+      <PageSidebar>
+        <TocWidget
+          heading={<Heading level={3}>{tocTitle}</Heading>}
+          tree={tree}
+        />
+      </PageSidebar>
+      <PageBody ref={ref}>
+        <LegalNoticeContent components={components} />
+      </PageBody>
+    </Page>
   );
 };
 
-LegalNoticePage.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+LegalNoticePage.getLayout = (page) => getLayout(page);
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translation = await loadTranslation(locale);

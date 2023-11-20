@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { render, screen } from '../../../../tests/utils';
+import { render, screen as rtlScreen } from '../../../../tests/utils';
 import { Layout } from './layout';
 
 const body =
@@ -8,28 +8,28 @@ const body =
 describe('Layout', () => {
   it('renders the website header', () => {
     render(<Layout>{body}</Layout>);
-    expect(screen.getByRole('banner')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('banner')).toBeInTheDocument();
   });
 
   it('renders the website main content', () => {
     render(<Layout>{body}</Layout>);
-    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('main')).toBeInTheDocument();
   });
 
   it('renders the website footer', () => {
     render(<Layout>{body}</Layout>);
-    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+    expect(rtlScreen.getByRole('contentinfo')).toBeInTheDocument();
   });
 
   it('renders a skip to content link', () => {
     render(<Layout>{body}</Layout>);
     expect(
-      screen.getByRole('link', { name: 'Skip to content' })
+      rtlScreen.getByRole('link', { name: 'Skip to content' })
     ).toBeInTheDocument();
   });
 
-  it('renders an article', () => {
+  it('renders its body', () => {
     render(<Layout>{body}</Layout>);
-    expect(screen.getByRole('article')).toHaveTextContent(body);
+    expect(rtlScreen.getByText(body)).toBeInTheDocument();
   });
 });

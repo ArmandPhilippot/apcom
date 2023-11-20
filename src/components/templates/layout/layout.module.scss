@@ -90,19 +90,6 @@
   flex: 1;
 }
 
-.article {
-  &--grid {
-    @extend %grid;
-
-    grid-auto-flow: column dense;
-    align-items: baseline;
-  }
-
-  &--padding {
-    padding-bottom: var(--spacing-lg);
-  }
-}
-
 .footer {
   display: flex;
   flex-flow: column wrap;

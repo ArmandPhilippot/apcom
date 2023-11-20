@@ -8,7 +8,6 @@ export * from './copyright';
 export * from './forms';
 export * from './grid';
 export * from './images';
-export * from './layout';
 export * from './meta-list';
 export * from './modals';
 export * from './nav';

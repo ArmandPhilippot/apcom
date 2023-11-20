@@ -8,10 +8,13 @@ import { useIntl } from 'react-intl';
 import {
   ContactForm,
   getLayout,
-  PageLayout,
   SocialMediaWidget,
   Heading,
   type ContactFormSubmit,
+  Page,
+  PageHeader,
+  PageBody,
+  PageSidebar,
 } from '../components';
 import { meta } from '../content/pages/contact.mdx';
 import { sendMail } from '../services/graphql';
@@ -78,39 +81,6 @@ const ContactPage: NextPageWithLayout = () => {
     description: 'ContactPage: LinkedIn profile link',
     id: 'Q3oEQn',
   });
-
-  const widgets = [
-    <SocialMediaWidget
-      heading={
-        <Heading isFake level={3}>
-          {socialMediaTitle}
-        </Heading>
-      }
-      // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-      key="social-media"
-      media={[
-        {
-          icon: 'Github',
-          id: 'github',
-          label: githubLabel,
-          url: 'https://github.com/ArmandPhilippot',
-        },
-        {
-          icon: 'Gitlab',
-          id: 'gitlab',
-          label: gitlabLabel,
-          url: 'https://gitlab.com/ArmandPhilippot',
-        },
-        {
-          icon: 'LinkedIn',
-          id: 'linkedin',
-          label: linkedinLabel,
-          url: 'https://www.linkedin.com/in/armandphilippot',
-        },
-      ]}
-    />,
-  ];
-
   const formName = intl.formatMessage({
     defaultMessage: 'Contact form',
     description: 'Contact: form accessible name',
@@ -163,7 +133,7 @@ const ContactPage: NextPageWithLayout = () => {
   };
 
   return (
-    <>
+    <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
         <title>{page.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -180,21 +150,50 @@ const ContactPage: NextPageWithLayout = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <PageLayout
-        breadcrumb={breadcrumbItems}
-        breadcrumbSchema={breadcrumbSchema}
-        intro={intro}
-        title={pageTitle}
-        widgets={widgets}
-      >
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader heading={pageTitle} intro={intro} />
+      <PageBody>
         <ContactForm aria-label={formName} onSubmit={submitMail} />
-      </PageLayout>
-    </>
+      </PageBody>
+      <PageSidebar>
+        <SocialMediaWidget
+          heading={
+            <Heading isFake level={3}>
+              {socialMediaTitle}
+            </Heading>
+          }
+          media={[
+            {
+              icon: 'Github',
+              id: 'github',
+              label: githubLabel,
+              url: 'https://github.com/ArmandPhilippot',
+            },
+            {
+              icon: 'Gitlab',
+              id: 'gitlab',
+              label: gitlabLabel,
+              url: 'https://gitlab.com/ArmandPhilippot',
+            },
+            {
+              icon: 'LinkedIn',
+              id: 'linkedin',
+              label: linkedinLabel,
+              url: 'https://www.linkedin.com/in/armandphilippot',
+            },
+          ]}
+        />
+      </PageSidebar>
+    </Page>
   );
 };
 
-ContactPage.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+ContactPage.getLayout = (page) => getLayout(page);
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translation = await loadTranslation(locale);

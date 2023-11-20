@@ -10,13 +10,14 @@ import {
   Heading,
   LinksWidget,
   Notice,
-  PageLayout,
   PostsList,
   Spinner,
   SearchForm,
   type SearchFormSubmit,
-  MetaList,
-  MetaItem,
+  PageHeader,
+  Page,
+  PageSidebar,
+  PageBody,
 } from '../../components';
 import {
   getArticles,
@@ -172,7 +173,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
   );
 
   return (
-    <>
+    <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
         <title>{page.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -190,60 +191,14 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <PageLayout
-        title={title}
-        breadcrumb={breadcrumbItems}
-        breadcrumbSchema={breadcrumbSchema}
-        headerMeta={
-          <MetaList>
-            <MetaItem
-              isInline
-              label={intl.formatMessage({
-                defaultMessage: 'Total:',
-                description: 'Page: total label',
-                id: 'kNBXyK',
-              })}
-              value={intl.formatMessage(
-                {
-                  defaultMessage:
-                    '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-                  description: 'Page: posts count meta',
-                  id: 'RvGb2c',
-                },
-                { postsCount: totalArticles }
-              )}
-            />
-          </MetaList>
-        }
-        widgets={[
-          <LinksWidget
-            heading={
-              <Heading isFake level={3}>
-                {thematicsListTitle}
-              </Heading>
-            }
-            items={getLinksItemData(
-              thematicsList.map((thematic) =>
-                getPageLinkFromRawData(thematic, 'thematic')
-              )
-            )}
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="thematics-list"
-          />,
-          <LinksWidget
-            heading={
-              <Heading isFake level={3}>
-                {topicsListTitle}
-              </Heading>
-            }
-            items={getLinksItemData(
-              topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
-            )}
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="topics-list"
-          />,
-        ]}
-      >
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader heading={title} meta={{ total: totalArticles }} />
+      <PageBody className={styles.body}>
         {posts ? null : <Spinner>{loadingResults}</Spinner>}
         {posts?.length ? (
           <PostsList
@@ -285,13 +240,36 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
             })}
           </Notice>
         ) : null}
-      </PageLayout>
-    </>
+      </PageBody>
+      <PageSidebar>
+        <LinksWidget
+          heading={
+            <Heading isFake level={3}>
+              {thematicsListTitle}
+            </Heading>
+          }
+          items={getLinksItemData(
+            thematicsList.map((thematic) =>
+              getPageLinkFromRawData(thematic, 'thematic')
+            )
+          )}
+        />
+        <LinksWidget
+          heading={
+            <Heading isFake level={3}>
+              {topicsListTitle}
+            </Heading>
+          }
+          items={getLinksItemData(
+            topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
+          )}
+        />
+      </PageSidebar>
+    </Page>
   );
 };
 
-SearchPage.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+SearchPage.getLayout = (page) => getLayout(page);
 
 export const getStaticProps: GetStaticProps<SearchPageProps> = async ({
   locale,

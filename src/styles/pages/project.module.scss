@@ -3,8 +3,9 @@
 .widget {
   @include mix.media("screen") {
     @include mix.dimensions("md") {
-      width: min-content;
-      gap: var(--spacing-2xs);
+      > ul {
+        width: min-content;
+      }
     }
   }
 }

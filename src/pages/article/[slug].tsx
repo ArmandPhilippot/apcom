@@ -2,24 +2,23 @@
 import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import type { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import type { Comment as CommentSchema, WithContext } from 'schema-dts';
 import {
-  ButtonLink,
   getLayout,
-  Link,
-  PageLayout,
   SharingWidget,
   Spinner,
-  Time,
   type CommentData,
   Heading,
-  MetaList,
-  MetaItem,
+  Page,
+  PageHeader,
+  PageBody,
+  PageFooter,
+  PageComments,
+  PageSidebar,
+  TocWidget,
 } from '../../components';
 import {
   getAllArticlesSlugs,
@@ -41,8 +40,8 @@ import {
   useArticle,
   useBreadcrumb,
   useComments,
+  useHeadingsTree,
   usePrism,
-  useReadingTime,
 } from '../../utils/hooks';
 
 type ArticlePageProps = {
@@ -84,7 +83,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     title: article?.title ?? '',
     url: `${ROUTES.ARTICLE}/${slug}`,
   });
-  const readingTime = useReadingTime(article?.meta.wordsCount ?? 0, true);
   const { attributes, className } = usePrism({
     attributes: {
       'data-toolbar-order': 'show-language,copy-to-clipboard,color-scheme',
@@ -107,11 +105,21 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     description: 'ArticlePage: loading article message',
     id: '4iYISO',
   });
+  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
 
   if (isFallback || !article) return <Spinner>{loadingArticle}</Spinner>;
 
   const { content, id, intro, meta, title } = article;
-  const { author, commentsCount, cover, dates, seo, thematics, topics } = meta;
+  const {
+    author,
+    commentsCount,
+    cover,
+    dates,
+    seo,
+    thematics,
+    topics,
+    wordsCount,
+  } = meta;
 
   const webpageSchema = getWebPageSchema({
     description: intro,
@@ -211,9 +219,15 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     id: 'HKKkQk',
     description: 'SharingWidget: widget title',
   });
+  const tocTitle = intl.formatMessage({
+    defaultMessage: 'Table of Contents',
+    description: 'PageLayout: table of contents title',
+    id: 'eys2uX',
+  });
+  const articleComments = getComments(commentsData);
 
   return (
-    <>
+    <Page breadcrumbs={breadcrumbItems}>
       <Head>
         <title>{seo.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -231,135 +245,63 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <PageLayout
-        allowComments={true}
-        bodyAttributes={attributes as HTMLAttributes<HTMLDivElement>}
-        bodyClassName={styles.body}
-        breadcrumb={breadcrumbItems}
-        breadcrumbSchema={breadcrumbSchema}
-        comments={getComments(commentsData)}
-        footerMeta={
-          topics ? (
-            <MetaList>
-              <MetaItem
-                hasInlinedValues
-                label={intl.formatMessage({
-                  defaultMessage: 'Read more articles about:',
-                  description: 'ArticlePage: footer topics list label',
-                  id: '50xc4o',
-                })}
-                value={topics.map((topic) => {
-                  return {
-                    id: `topic--${topic.id}`,
-                    value: (
-                      <ButtonLink
-                        className={styles.btn}
-                        key={topic.id}
-                        to={topic.url}
-                      >
-                        {topic.logo ? <NextImage {...topic.logo} /> : null}{' '}
-                        {topic.name}
-                      </ButtonLink>
-                    ),
-                  };
-                })}
-              />
-            </MetaList>
-          ) : undefined
-        }
-        headerMeta={
-          <MetaList>
-            {author ? (
-              <MetaItem
-                isInline
-                label={intl.formatMessage({
-                  defaultMessage: 'Written by:',
-                  description: 'ArticlePage: author label',
-                  id: 'MJbZfX',
-                })}
-                value={author.name}
-              />
-            ) : null}
-            <MetaItem
-              isInline
-              label={intl.formatMessage({
-                defaultMessage: 'Published on:',
-                description: 'Page: publication date label',
-                id: '4QbTDq',
-              })}
-              value={<Time date={dates.publication} />}
-            />
-            {dates.update ? (
-              <MetaItem
-                isInline
-                label={intl.formatMessage({
-                  defaultMessage: 'Updated on:',
-                  description: 'Page: update date label',
-                  id: 'Ez8Qim',
-                })}
-                value={<Time date={dates.update} />}
-              />
-            ) : null}
-            <MetaItem
-              isInline
-              label={intl.formatMessage({
-                defaultMessage: 'Reading time:',
-                description: 'ArticlePage: reading time label',
-                id: 'Gw7X3x',
-              })}
-              value={readingTime}
-            />
-            {thematics ? (
-              <MetaItem
-                isInline
-                label={intl.formatMessage({
-                  defaultMessage: 'Thematics:',
-                  description: 'ArticlePage: thematics meta label',
-                  id: 'CvOqoh',
-                })}
-                value={thematics.map((thematic) => {
-                  return {
-                    id: `thematic-${thematic.id}`,
-                    value: (
-                      <Link key={thematic.id} href={thematic.url}>
-                        {thematic.name}
-                      </Link>
-                    ),
-                  };
-                })}
-              />
-            ) : null}
-          </MetaList>
-        }
-        id={id as number}
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader
+        heading={title}
         intro={intro}
-        title={title}
-        withToC={true}
-        widgets={[
-          <SharingWidget
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="sharing-widget"
-            className={styles.widget}
-            data={{ excerpt: intro, title, url: pageUrl }}
-            heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
-            media={[
-              'diaspora',
-              'email',
-              'facebook',
-              'journal-du-hacker',
-              'linkedin',
-              'twitter',
-            ]}
-          />,
-        ]}
-      >
-        {contentWithPrismClasses}
-      </PageLayout>
-    </>
+        meta={{
+          author: author?.name,
+          publicationDate: dates.publication,
+          thematics,
+          updateDate: dates.update,
+          wordsCount,
+        }}
+      />
+      <PageSidebar>
+        <TocWidget
+          heading={<Heading level={3}>{tocTitle}</Heading>}
+          tree={tree}
+        />
+      </PageSidebar>
+      <PageBody
+        {...attributes}
+        className={styles.body}
+        dangerouslySetInnerHTML={{ __html: contentWithPrismClasses }}
+        ref={ref}
+      />
+      {topics ? <PageFooter readMoreAbout={topics} /> : null}
+      <PageSidebar>
+        <SharingWidget
+          // eslint-disable-next-line react/jsx-no-literals -- Key allowed
+          key="sharing-widget"
+          className={styles.widget}
+          data={{ excerpt: intro, title, url: pageUrl }}
+          heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
+          media={[
+            'diaspora',
+            'email',
+            'facebook',
+            'journal-du-hacker',
+            'linkedin',
+            'twitter',
+          ]}
+        />
+      </PageSidebar>
+      <PageComments
+        comments={articleComments ?? []}
+        depth={2}
+        pageId={id as number}
+      />
+    </Page>
   );
 };
 
-ArticlePage.getLayout = (page) => getLayout(page, { useGrid: true });
+ArticlePage.getLayout = (page) => getLayout(page);
 
 type PostParams = {
   slug: string;

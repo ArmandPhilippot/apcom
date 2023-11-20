@@ -17,12 +17,13 @@ import {
   ImageWidget,
   Link,
   List,
-  PageLayout,
   SocialMediaWidget,
   ListItem,
-  Time,
-  MetaList,
-  MetaItem,
+  Page,
+  PageHeader,
+  PageSidebar,
+  TocWidget,
+  PageBody,
 } from '../components';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import type { NextPageWithLayout } from '../types';
@@ -34,7 +35,7 @@ import {
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb } from '../utils/hooks';
+import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
 
 const ExternalLink = ({
   children = '',
@@ -137,6 +138,7 @@ const components: MDXComponents = {
  */
 const CVPage: NextPageWithLayout = () => {
   const intl = useIntl();
+  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
   const { file, image } = data;
   const { dates, intro, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
@@ -153,6 +155,11 @@ const CVPage: NextPageWithLayout = () => {
     defaultMessage: 'Open-source projects',
     description: 'CVPage: social media widget title',
     id: '+Dre5J',
+  });
+  const tocTitle = intl.formatMessage({
+    defaultMessage: 'Table of Contents',
+    description: 'PageLayout: table of contents title',
+    id: 'eys2uX',
   });
 
   const cvCaption = intl.formatMessage(
@@ -186,49 +193,6 @@ const CVPage: NextPageWithLayout = () => {
     id: 'Sm2wCk',
   });
 
-  const widgets = [
-    <ImageWidget
-      description={cvCaption}
-      heading={
-        <Heading isFake level={3}>
-          {imageWidgetTitle}
-        </Heading>
-      }
-      img={<NextImage {...image} />}
-      // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-      key="image-widget"
-    />,
-    <SocialMediaWidget
-      heading={
-        <Heading isFake level={3}>
-          {socialMediaTitle}
-        </Heading>
-      }
-      // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-      key="social-media"
-      media={[
-        {
-          icon: 'Github',
-          id: 'github',
-          label: githubLabel,
-          url: PERSONAL_LINKS.GITHUB,
-        },
-        {
-          icon: 'Gitlab',
-          id: 'gitlab',
-          label: gitlabLabel,
-          url: PERSONAL_LINKS.GITLAB,
-        },
-        {
-          icon: 'LinkedIn',
-          id: 'linkedin',
-          label: linkedinLabel,
-          url: PERSONAL_LINKS.LINKEDIN,
-        },
-      ]}
-    />,
-  ];
-
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
@@ -254,38 +218,7 @@ const CVPage: NextPageWithLayout = () => {
   };
 
   return (
-    <PageLayout
-      breadcrumb={breadcrumbItems}
-      breadcrumbSchema={breadcrumbSchema}
-      headerMeta={
-        <MetaList>
-          <MetaItem
-            isInline
-            label={intl.formatMessage({
-              defaultMessage: 'Published on:',
-              description: 'Page: publication date label',
-              id: '4QbTDq',
-            })}
-            value={<Time date={dates.publication} />}
-          />
-          {dates.update ? (
-            <MetaItem
-              isInline
-              label={intl.formatMessage({
-                defaultMessage: 'Updated on:',
-                description: 'Page: update date label',
-                id: 'Ez8Qim',
-              })}
-              value={<Time date={dates.update} />}
-            />
-          ) : null}
-        </MetaList>
-      }
-      intro={intro}
-      title={title}
-      widgets={widgets}
-      withToC={true}
-    >
+    <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
         <title>{page.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -304,13 +237,72 @@ const CVPage: NextPageWithLayout = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <CVContent components={components} />
-    </PageLayout>
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader
+        heading={title}
+        intro={intro}
+        meta={{
+          publicationDate: dates.publication,
+          updateDate: dates.update,
+        }}
+      />
+      <PageSidebar>
+        <TocWidget
+          heading={<Heading level={3}>{tocTitle}</Heading>}
+          tree={tree}
+        />
+      </PageSidebar>
+      <PageBody ref={ref}>
+        <CVContent components={components} />
+      </PageBody>
+      <PageSidebar>
+        <ImageWidget
+          description={cvCaption}
+          heading={
+            <Heading isFake level={3}>
+              {imageWidgetTitle}
+            </Heading>
+          }
+          img={<NextImage {...image} />}
+        />
+        <SocialMediaWidget
+          heading={
+            <Heading isFake level={3}>
+              {socialMediaTitle}
+            </Heading>
+          }
+          media={[
+            {
+              icon: 'Github',
+              id: 'github',
+              label: githubLabel,
+              url: PERSONAL_LINKS.GITHUB,
+            },
+            {
+              icon: 'Gitlab',
+              id: 'gitlab',
+              label: gitlabLabel,
+              url: PERSONAL_LINKS.GITLAB,
+            },
+            {
+              icon: 'LinkedIn',
+              id: 'linkedin',
+              label: linkedinLabel,
+              url: PERSONAL_LINKS.LINKEDIN,
+            },
+          ]}
+        />
+      </PageSidebar>
+    </Page>
   );
 };
 
-CVPage.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+CVPage.getLayout = (page) => getLayout(page);
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translation = await loadTranslation(locale);

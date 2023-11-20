@@ -88,12 +88,12 @@
         max-height 1.2s ease-in-out;
 
       &--has-padding {
-        margin: var(--spacing-2xs) 0;
+        margin-top: var(--spacing-2xs);
         padding-block: var(--spacing-2xs);
       }
 
       &--no-padding {
-        margin: var(--spacing-xs) 0;
+        margin-top: var(--spacing-xs);
       }
     }
   }

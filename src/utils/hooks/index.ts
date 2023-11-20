@@ -17,7 +17,6 @@ export * from './use-pagination';
 export * from './use-posts-list';
 export * from './use-prism';
 export * from './use-prism-theme';
-export * from './use-reading-time';
 export * from './use-redirection';
 export * from './use-reduced-motion';
 export * from './use-scroll-lock';

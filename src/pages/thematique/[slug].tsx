@@ -9,11 +9,12 @@ import {
   getLayout,
   Heading,
   LinksWidget,
-  PageLayout,
   PostsList,
-  Time,
-  MetaList,
-  MetaItem,
+  Page,
+  PageHeader,
+  PageSidebar,
+  TocWidget,
+  PageBody,
 } from '../../components';
 import {
   getAllThematicsSlugs,
@@ -34,7 +35,7 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb } from '../../utils/hooks';
+import { useBreadcrumb, useHeadingsTree } from '../../utils/hooks';
 
 export type ThematicPageProps = {
   currentThematic: Thematic;
@@ -53,6 +54,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     title,
     url: `${ROUTES.THEMATICS.INDEX}/${slug}`,
   });
+  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
 
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
@@ -85,9 +87,14 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     id: '/42Z0z',
   });
   const pageUrl = `${CONFIG.url}${asPath}`;
+  const tocTitle = intl.formatMessage({
+    defaultMessage: 'Table of Contents',
+    description: 'PageLayout: table of contents title',
+    id: 'eys2uX',
+  });
 
   return (
-    <>
+    <Page breadcrumbs={breadcrumbItems}>
       <Head>
         <title>{seo.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -105,81 +112,28 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <PageLayout
-        breadcrumb={breadcrumbItems}
-        breadcrumbSchema={breadcrumbSchema}
-        title={title}
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader
+        heading={title}
         intro={intro}
-        headerMeta={
-          <MetaList>
-            <MetaItem
-              isInline
-              label={intl.formatMessage({
-                defaultMessage: 'Published on:',
-                description: 'Page: publication date label',
-                id: '4QbTDq',
-              })}
-              value={<Time date={dates.publication} />}
-            />
-            {dates.update ? (
-              <MetaItem
-                isInline
-                label={intl.formatMessage({
-                  defaultMessage: 'Updated on:',
-                  description: 'Page: update date label',
-                  id: 'Ez8Qim',
-                })}
-                value={<Time date={dates.update} />}
-              />
-            ) : null}
-            {articles ? (
-              <MetaItem
-                isInline
-                label={intl.formatMessage({
-                  defaultMessage: 'Total:',
-                  description: 'ThematicPage: total label',
-                  id: 'lHkta9',
-                })}
-                value={intl.formatMessage(
-                  {
-                    defaultMessage:
-                      '{postsCount, plural, =0 {No articles} one {# article} other {# articles}}',
-                    description: 'ThematicPage: posts count meta',
-                    id: 'iv3Ex1',
-                  },
-                  { postsCount: articles.length }
-                )}
-              />
-            ) : null}
-          </MetaList>
-        }
-        widgets={
-          topics
-            ? [
-                <LinksWidget
-                  heading={
-                    <Heading isFake level={3}>
-                      {thematicsListTitle}
-                    </Heading>
-                  }
-                  items={getLinksItemData(thematics)}
-                  // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-                  key="thematics"
-                />,
-                <LinksWidget
-                  heading={
-                    <Heading isFake level={3}>
-                      {topicsListTitle}
-                    </Heading>
-                  }
-                  items={getLinksItemData(topics)}
-                  // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-                  key="related-topics"
-                />,
-              ]
-            : []
-        }
-      >
+        meta={{
+          publicationDate: dates.publication,
+          total: articles?.length,
+          updateDate: dates.update,
+        }}
+      />
+      <PageSidebar>
+        <TocWidget
+          heading={<Heading level={3}>{tocTitle}</Heading>}
+          tree={tree}
+        />
+      </PageSidebar>
+      <PageBody className={styles.body} ref={ref}>
         {/*eslint-disable-next-line react/no-danger -- Necessary for content*/}
         <div dangerouslySetInnerHTML={{ __html: content }} />
         {articles ? (
@@ -202,13 +156,32 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
             />
           </>
         ) : null}
-      </PageLayout>
-    </>
+      </PageBody>
+      <PageSidebar>
+        <LinksWidget
+          heading={
+            <Heading isFake level={3}>
+              {thematicsListTitle}
+            </Heading>
+          }
+          items={getLinksItemData(thematics)}
+        />
+        {topics ? (
+          <LinksWidget
+            heading={
+              <Heading isFake level={3}>
+                {topicsListTitle}
+              </Heading>
+            }
+            items={getLinksItemData(topics)}
+          />
+        ) : null}
+      </PageSidebar>
+    </Page>
   );
 };
 
-ThematicPage.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+ThematicPage.getLayout = (page) => getLayout(page);
 
 type ThematicParams = {
   slug: string;

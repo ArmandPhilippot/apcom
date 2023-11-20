@@ -438,8 +438,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
   );
 };
 
-HomePage.getLayout = (page) =>
-  getLayout(page, { isHome: true, withExtraPadding: false });
+HomePage.getLayout = (page) => getLayout(page, { isHome: true });
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
   const translation = await loadTranslation(locale);

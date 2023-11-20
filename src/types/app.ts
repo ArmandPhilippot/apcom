@@ -5,9 +5,7 @@ import type { MessageFormatElement } from 'react-intl';
 import type { VALID_THEMES } from '../utils/constants';
 
 export type NextPageWithLayoutOptions = {
-  withExtraPadding?: boolean;
   isHome?: boolean;
-  useGrid?: boolean;
 };
 
 export type NextPageWithLayout<T = object> = NextPage<T> & {

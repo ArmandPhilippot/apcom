@@ -2,6 +2,7 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useCallback, type ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -9,7 +10,10 @@ import {
   Heading,
   Link,
   LinksWidget,
-  PageLayout,
+  Page,
+  PageBody,
+  PageHeader,
+  PageSidebar,
   SearchForm,
   type SearchFormSubmit,
 } from '../components';
@@ -111,45 +115,20 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
   );
 
   return (
-    <>
+    <Page breadcrumbs={breadcrumbItems}>
       <Head>
         <title>{pageTitle}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={pageDescription} />
       </Head>
-      <PageLayout
-        title={title}
-        breadcrumb={breadcrumbItems}
-        breadcrumbSchema={breadcrumbSchema}
-        widgets={[
-          <LinksWidget
-            heading={
-              <Heading isFake level={3}>
-                {thematicsListTitle}
-              </Heading>
-            }
-            items={getLinksItemData(
-              thematicsList.map((thematic) =>
-                getPageLinkFromRawData(thematic, 'thematic')
-              )
-            )}
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="thematics-list"
-          />,
-          <LinksWidget
-            heading={
-              <Heading isFake level={3}>
-                {topicsListTitle}
-              </Heading>
-            }
-            items={getLinksItemData(
-              topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
-            )}
-            // eslint-disable-next-line react/jsx-no-literals -- Key allowed
-            key="topics-list"
-          />,
-        ]}
-      >
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader heading={title} />
+      <PageBody>
         {body}
         <p>
           {intl.formatMessage({
@@ -159,13 +138,36 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
           })}
         </p>
         <SearchForm isLabelHidden onSubmit={searchSubmitHandler} />
-      </PageLayout>
-    </>
+      </PageBody>
+      <PageSidebar>
+        <LinksWidget
+          heading={
+            <Heading isFake level={3}>
+              {thematicsListTitle}
+            </Heading>
+          }
+          items={getLinksItemData(
+            thematicsList.map((thematic) =>
+              getPageLinkFromRawData(thematic, 'thematic')
+            )
+          )}
+        />
+        <LinksWidget
+          heading={
+            <Heading isFake level={3}>
+              {topicsListTitle}
+            </Heading>
+          }
+          items={getLinksItemData(
+            topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
+          )}
+        />
+      </PageSidebar>
+    </Page>
   );
 };
 
-Error404Page.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+Error404Page.getLayout = (page) => getLayout(page);
 
 export const getStaticProps: GetStaticProps<Error404PageProps> = async ({
   locale,

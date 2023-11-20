@@ -18,8 +18,10 @@ import {
   type GridItem,
   Link,
   MetaList,
-  PageLayout,
   MetaItem,
+  Page,
+  PageHeader,
+  PageBody,
 } from '../../components';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
 import styles from '../../styles/pages/projects.module.scss';
@@ -139,7 +141,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
   };
 
   return (
-    <>
+    <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
         <title>{page.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
@@ -157,12 +159,17 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
-      <PageLayout
-        title={title}
+      <Script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
+        id="schema-breadcrumb"
+        type="application/ld+json"
+      />
+      <PageHeader
+        heading={title}
         intro={<PageContent components={components} />}
-        breadcrumb={breadcrumbItems}
-        breadcrumbSchema={breadcrumbSchema}
-      >
+      />
+      <PageBody className={styles.body}>
         <Grid
           className={styles.list}
           gap="sm"
@@ -170,13 +177,12 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
           items={items}
           sizeMax="30ch"
         />
-      </PageLayout>
-    </>
+      </PageBody>
+    </Page>
   );
 };
 
-ProjectsPage.getLayout = (page) =>
-  getLayout(page, { useGrid: true, withExtraPadding: true });
+ProjectsPage.getLayout = (page) => getLayout(page);
 
 export const getStaticProps: GetStaticProps<ProjectsPageProps> = async ({
   locale,

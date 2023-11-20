@@ -15,13 +15,17 @@
     "defaultMessage": "Blog: development, open source - {websiteName}",
     "description": "BlogPage: SEO - Page title"
   },
-  "+dJU3e": {
-    "defaultMessage": "Comments",
-    "description": "PageLayout: comments title"
-  },
   "/42Z0z": {
     "defaultMessage": "Related topics",
     "description": "ThematicPage: related topics list widget title"
+  },
+  "/EfcyW": {
+    "defaultMessage": "It is now awaiting moderation.",
+    "description": "PageComments: comment awaiting moderation"
+  },
+  "/TTRRX": {
+    "defaultMessage": "Breadcrumbs",
+    "description": "Page: an accessible name for the breadcrumb nav."
   },
   "/q5csZ": {
     "defaultMessage": "Animations:",
@@ -30,6 +34,10 @@
   "/sRqPT": {
     "defaultMessage": "Related thematics",
     "description": "TopicPage: related thematics list widget title"
+  },
+  "/unaGZ": {
+    "defaultMessage": "Written by:",
+    "description": "PageHeader: author meta label"
   },
   "0f7fty": {
     "defaultMessage": "Share on Diaspora",
@@ -95,17 +103,9 @@
     "defaultMessage": "Page not found.",
     "description": "404Page: SEO - Meta description"
   },
-  "4QbTDq": {
-    "defaultMessage": "Published on:",
-    "description": "Page: publication date label"
-  },
   "4iYISO": {
     "defaultMessage": "Loading the requested article...",
     "description": "ArticlePage: loading article message"
-  },
-  "50xc4o": {
-    "defaultMessage": "Read more articles about:",
-    "description": "ArticlePage: footer topics list label"
   },
   "52H2HA": {
     "defaultMessage": "{website} logo",
@@ -159,6 +159,10 @@
     "defaultMessage": "{articlesCount, plural, =0 {# loaded articles} one {# loaded article} other {# loaded articles}} out of a total of {total}",
     "description": "PostsList: loaded articles progress"
   },
+  "9jh0r2": {
+    "defaultMessage": "Website:",
+    "description": "PageHeader: website meta label"
+  },
   "9sGNKq": {
     "defaultMessage": "Sorry, it seems that the page your are looking for does not exist. If you think this path should work, feel free to <link>contact me</link> with the necessary information so that I can fix the problem.",
     "description": "Error404Page: page body"
@@ -191,10 +195,6 @@
     "defaultMessage": "Reading time:",
     "description": "PostPreviewMeta: reading time label"
   },
-  "B290Ph": {
-    "defaultMessage": "Thanks, your comment was successfully sent.",
-    "description": "PageLayout: comment form success message"
-  },
   "B9OCyV": {
     "defaultMessage": "Others formats",
     "description": "CVPage: cv preview widget title"
@@ -223,10 +223,6 @@
     "defaultMessage": "Query must be longer than one character.",
     "description": "404Page: invalid query message"
   },
-  "CvOqoh": {
-    "defaultMessage": "Thematics:",
-    "description": "ArticlePage: thematics meta label"
-  },
   "D8vB38": {
     "defaultMessage": "Blog",
     "description": "Layout: main nav - blog link"
@@ -242,10 +238,6 @@
   "Es52wh": {
     "defaultMessage": "Blog",
     "description": "Breadcrumb: blog label"
-  },
-  "Ez8Qim": {
-    "defaultMessage": "Updated on:",
-    "description": "Page: update date label"
   },
   "FCpPCm": {
     "defaultMessage": "Comments:",
@@ -263,9 +255,9 @@
     "defaultMessage": "Topics",
     "description": "Error404Page: topics list widget title"
   },
-  "Gw7X3x": {
-    "defaultMessage": "Reading time:",
-    "description": "ArticlePage: reading time label"
+  "H4pKJP": {
+    "defaultMessage": "{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}",
+    "description": "PageComments: the section title of the comments list"
   },
   "HKKkQk": {
     "defaultMessage": "Share",
@@ -282,6 +274,10 @@
   "HriY57": {
     "defaultMessage": "Thematics",
     "description": "BlogPage: thematics list widget title"
+  },
+  "I6vhfk": {
+    "defaultMessage": "Read more posts about:",
+    "description": "PageFooter: the topics list label"
   },
   "IVczxR": {
     "defaultMessage": "Go to page {number}",
@@ -327,10 +323,6 @@
     "defaultMessage": "All posts in {thematicName}",
     "description": "ThematicPage: posts list heading"
   },
-  "MJbZfX": {
-    "defaultMessage": "Written by:",
-    "description": "ArticlePage: author label"
-  },
   "Mq+O6q": {
     "defaultMessage": "Search",
     "description": "Layout: search modal title in navbar"
@@ -342,6 +334,10 @@
   "N804XO": {
     "defaultMessage": "Topics",
     "description": "SearchPage: topics list widget title"
+  },
+  "NNDqRg": {
+    "defaultMessage": "{minutesCount, plural, =0 {Less than one minute} one {# minute} other {# minutes}}",
+    "description": "PageHeader: rounded minutes count"
   },
   "NfAn9N": {
     "defaultMessage": "{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}<a11y> about {title}</a11y>",
@@ -355,6 +351,14 @@
     "defaultMessage": "Published on:",
     "description": "ApprovedComment: publication date label"
   },
+  "ODwkBI": {
+    "defaultMessage": "{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}",
+    "description": "PageHeader: thematics label"
+  },
+  "OHvb01": {
+    "defaultMessage": "Back to top",
+    "description": "SiteFooter: an accessible name for the back to top button"
+  },
   "OL0Yzx": {
     "defaultMessage": "Publish",
     "description": "CommentForm: submit button"
@@ -367,10 +371,6 @@
     "defaultMessage": "Share by Email",
     "description": "SharingWidget: Email sharing link"
   },
-  "OevMeU": {
-    "defaultMessage": "{minutesCount} minutes {secondsCount} seconds",
-    "description": "useReadingTime: minutes + seconds count"
-  },
   "PBdVsm": {
     "defaultMessage": "{starsCount, plural, =0 {No stars} one {# star} other {# stars}}",
     "description": "ProjectOverview: stars count"
@@ -378,10 +378,6 @@
   "PXp2hv": {
     "defaultMessage": "{websiteName} | Front-end developer: WordPress/React",
     "description": "HomePage: SEO - Page title"
-  },
-  "Q+1GbT": {
-    "defaultMessage": "Table of contents sidebar",
-    "description": "PageLayout: accessible name for ToC sidebar"
   },
   "Q3oEQn": {
     "defaultMessage": "LinkedIn profile",
@@ -411,10 +407,6 @@
     "defaultMessage": "CV",
     "description": "Layout: main nav - cv link"
   },
-  "RvGb2c": {
-    "defaultMessage": "{postsCount, plural, =0 {No articles} one {# article} other {# articles}}",
-    "description": "Page: posts count meta"
-  },
   "RwI3B9": {
     "defaultMessage": "Loading the repository popularity...",
     "description": "ProjectsPage: loading repository popularity"
@@ -431,6 +423,10 @@
     "defaultMessage": "An error occurred:",
     "description": "Contact: error message"
   },
+  "UgJwSU": {
+    "defaultMessage": "It has been approved.",
+    "description": "PageComments: comment approved."
+  },
   "VkAnvv": {
     "defaultMessage": "Send",
     "description": "ContactForm: send button"
@@ -438,10 +434,6 @@
   "VkfO7t": {
     "defaultMessage": "Query must be longer than one character.",
     "description": "NoResults: invalid query message"
-  },
-  "Vmj5cw": {
-    "defaultMessage": "It is now awaiting moderation.",
-    "description": "PageLayout: comment awaiting moderation"
   },
   "WDwNDl": {
     "defaultMessage": "Search",
@@ -467,6 +459,10 @@
     "defaultMessage": "Open search",
     "description": "Layout: search button label in navbar"
   },
+  "Y7XdNp": {
+    "defaultMessage": "Leave a comment",
+    "description": "PageComments: the section title of the comment form"
+  },
   "YV//MH": {
     "defaultMessage": "No results found.",
     "description": "SearchPage: no results"
@@ -487,13 +483,25 @@
     "defaultMessage": "Search results for {query}",
     "description": "SearchPage: SEO - Page title"
   },
+  "ZcFroC": {
+    "defaultMessage": "Thanks, your comment was successfully sent.",
+    "description": "PageComments: comment form success message"
+  },
   "ZmRh0V": {
     "defaultMessage": "Updated on:",
     "description": "PostPreviewMeta: update date label"
   },
+  "a6DzIj": {
+    "defaultMessage": "Total:",
+    "description": "PageHeader: total meta label"
+  },
   "aBQYbE": {
     "defaultMessage": "{topicsCount, plural, =0 {Topics:} one {Topic:} other {Topics:}}",
     "description": "PostPreviewMeta: topics label"
+  },
+  "bAXtMT": {
+    "defaultMessage": "{postsCount, plural, =0 {No posts} one {# post} other {# posts}}",
+    "description": "PageHeader: total meta value"
   },
   "bPv0VG": {
     "defaultMessage": "Contact form",
@@ -510,10 +518,6 @@
   "c1Ju/q": {
     "defaultMessage": "Leave a reply to {name}",
     "description": "CommentsList: comment form title"
-  },
-  "c556Qo": {
-    "defaultMessage": "Sidebar",
-    "description": "PageLayout: accessible name for the sidebar"
   },
   "cIAOyy": {
     "defaultMessage": "Popularity:",
@@ -539,17 +543,9 @@
     "defaultMessage": "Go to previous page, page {number}",
     "description": "BlogPage: previous page label"
   },
-  "fkcTGp": {
-    "defaultMessage": "An error occurred:",
-    "description": "PageLayout: comment form error message"
-  },
   "ftXN+0": {
     "defaultMessage": "Code blocks:",
     "description": "PrismThemeToggle: theme label"
-  },
-  "g3+Ahv": {
-    "defaultMessage": "It has been approved.",
-    "description": "PageLayout: comment approved."
   },
   "h3J0a+": {
     "defaultMessage": "Settings form",
@@ -567,17 +563,13 @@
     "defaultMessage": "Shaarli",
     "description": "HomePage: link to Shaarli"
   },
-  "i7Wq3G": {
-    "defaultMessage": "{count} seconds",
-    "description": "useReadingTime: seconds count"
-  },
   "iG5SHf": {
     "defaultMessage": "{postTitle} cover",
     "description": "PostPreview: an accessible name for the figure wrapping the cover"
   },
-  "iv3Ex1": {
-    "defaultMessage": "{postsCount, plural, =0 {No articles} one {# article} other {# articles}}",
-    "description": "ThematicPage: posts count meta"
+  "iTLvLX": {
+    "defaultMessage": "CC BY SA",
+    "description": "SiteFooter: the license name"
   },
   "j5k9Fe": {
     "defaultMessage": "Home",
@@ -587,29 +579,17 @@
     "defaultMessage": "Linux",
     "description": "HomePage: link to Linux thematic"
   },
-  "kNBXyK": {
-    "defaultMessage": "Total:",
-    "description": "Page: total label"
-  },
-  "kzIYoQ": {
-    "defaultMessage": "Leave a comment",
-    "description": "PageLayout: comment form title"
-  },
-  "l+Jcf6": {
-    "defaultMessage": "Comment form",
-    "description": "PageLayout: comment form accessible name"
-  },
-  "lHkta9": {
-    "defaultMessage": "Total:",
-    "description": "ThematicPage: total label"
+  "jJm8wd": {
+    "defaultMessage": "Reading time:",
+    "description": "PageHeader: reading time label"
   },
   "lKhTGM": {
     "defaultMessage": "Use Ctrl+c to copy",
     "description": "usePrism: copy button error text"
   },
-  "m6a3BD": {
-    "defaultMessage": "Breadcrumb",
-    "description": "PageLayout: an accessible name for the breadcrumb nav."
+  "lsmD4c": {
+    "defaultMessage": "Legal notice",
+    "description": "SiteFooter: Legal notice link label"
   },
   "mDKiaN": {
     "defaultMessage": "Open settings",
@@ -635,6 +615,10 @@
     "defaultMessage": "Legal notice",
     "description": "Layout: Legal notice label"
   },
+  "o+wCJz": {
+    "defaultMessage": "Comment form",
+    "description": "PageComments: an accessible name for the comment form"
+  },
   "o3WSz5": {
     "defaultMessage": "Settings",
     "description": "Layout: settings modal title in navbar"
@@ -655,6 +639,10 @@
     "defaultMessage": "Published on:",
     "description": "HomePage: publication date label"
   },
+  "pUBhKy": {
+    "defaultMessage": "Published on:",
+    "description": "PageHeader: publication date label"
+  },
   "pWKyyR": {
     "defaultMessage": "Off",
     "description": "MotionToggle: deactivate reduce motion label"
@@ -667,17 +655,9 @@
     "defaultMessage": "Projects",
     "description": "Layout: main nav - projects link"
   },
-  "s1i43J": {
-    "defaultMessage": "{minutesCount} minutes",
-    "description": "useReadingTime: rounded minutes count"
-  },
   "s8/tyz": {
     "defaultMessage": "Object:",
     "description": "ContactForm: object label"
-  },
-  "sBwfCy": {
-    "defaultMessage": "No comments.",
-    "description": "PageLayout: no comments text"
   },
   "sECHDg": {
     "defaultMessage": "Gitlab profile",
@@ -686,6 +666,10 @@
   "sO/Iwj": {
     "defaultMessage": "Contact me",
     "description": "HomePage: contact button text"
+  },
+  "sR5hah": {
+    "defaultMessage": "Updated on:",
+    "description": "PageHeader: update date label"
   },
   "suXOBu": {
     "defaultMessage": "Theme:",
@@ -723,6 +707,10 @@
     "defaultMessage": "Would you like to try a new search?",
     "description": "SearchPage: try a new search message"
   },
+  "w+BpPg": {
+    "defaultMessage": "No comments yet. <link>Be the first!</link>",
+    "description": "PageComments: no comments text"
+  },
   "w4B5PA": {
     "defaultMessage": "Email:",
     "description": "ContactForm: email label"
@@ -754,9 +742,5 @@
   "zbzlb1": {
     "defaultMessage": "Page {number}",
     "description": "BlogPage: page number"
-  },
-  "zoifQd": {
-    "defaultMessage": "Official website:",
-    "description": "TopicPage: official website label"
   }
 }

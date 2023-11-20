@@ -65,14 +65,6 @@ export type LayoutProps = {
    * @default false
    */
   isHome?: boolean;
-  /**
-   * Determine if article has a comments section.
-   */
-  withExtraPadding?: boolean;
-  /**
-   * Determine if article should use grid. Default: false.
-   */
-  useGrid?: boolean;
 };
 
 /**
@@ -80,17 +72,10 @@ export type LayoutProps = {
  *
  * Render the base layout used by all pages.
  */
-export const Layout: FC<LayoutProps> = ({
-  children,
-  withExtraPadding = false,
-  isHome,
-  useGrid = false,
-}) => {
+export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
   const router = useRouter();
   const intl = useIntl();
   const { baseline, copyright, locales, name, url } = CONFIG;
-  const articleGridClass = useGrid ? 'article--grid' : '';
-  const articleCommentsClass = withExtraPadding ? 'article--padding' : '';
 
   const skipToContent = intl.formatMessage({
     defaultMessage: 'Skip to content',
@@ -455,11 +440,7 @@ export const Layout: FC<LayoutProps> = ({
         </div>
       </Header>
       <Main id="main" className={styles.main}>
-        <article
-          className={`${styles[articleGridClass]} ${styles[articleCommentsClass]}`}
-        >
-          {children}
-        </article>
+        {children}
       </Main>
       <Footer className={styles.footer}>
         <Colophon
@@ -495,5 +476,5 @@ export const Layout: FC<LayoutProps> = ({
  */
 export const getLayout = (
   page: ReactElement,
-  props: NextPageWithLayoutOptions
+  props?: NextPageWithLayoutOptions
 ) => <Layout {...props}>{page}</Layout>;
