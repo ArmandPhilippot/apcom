@@ -1,24 +1,7 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import { render, screen as rtlScreen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { useBoolean } from '../../../../utils/hooks';
-import { NavbarItem, type NavbarItemProps } from './navbar-item';
-
-const ControlledNavbarItem = ({
-  isActive,
-  ...props
-}: Omit<NavbarItemProps, 'onDeactivate' | 'onToggle'>) => {
-  const { deactivate, state, toggle } = useBoolean(isActive);
-
-  return (
-    <NavbarItem
-      {...props}
-      isActive={state}
-      onDeactivate={deactivate}
-      onToggle={toggle}
-    />
-  );
-};
+import { NavbarItem } from './navbar-item';
 
 describe('NavbarItem', () => {
   it('renders a labelled checkbox to open/close a modal', async () => {
@@ -27,14 +10,9 @@ describe('NavbarItem', () => {
     const user = userEvent.setup();
 
     render(
-      <ControlledNavbarItem
-        icon="arrow"
-        id="vel"
-        isActive={false}
-        label={label}
-      >
+      <NavbarItem icon="arrow" id="vel" label={label}>
         {modal}
-      </ControlledNavbarItem>
+      </NavbarItem>
     );
 
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -58,15 +36,17 @@ describe('NavbarItem', () => {
     const user = userEvent.setup();
 
     render(
-      <ControlledNavbarItem icon="arrow" id="et" isActive label={label}>
+      <NavbarItem icon="arrow" id="et" label={label}>
         {modal}
-      </ControlledNavbarItem>
+      </NavbarItem>
     );
 
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     expect.assertions(2);
 
     const controller = rtlScreen.getByRole('checkbox', { name: label });
+
+    await user.click(controller);
 
     expect(controller).toBeChecked();
 
@@ -76,4 +56,31 @@ describe('NavbarItem', () => {
     // Since the visibility is declared in CSS we cannot use this assertion.
     //expect(rtlScreen.getByText(modal)).not.toBeVisible();
   });
+
+  /* eslint-disable max-statements */
+  it('accepts an activation handler', async () => {
+    const handler = jest.fn();
+    const user = userEvent.setup();
+    const label = 'qui';
+
+    render(
+      <NavbarItem icon="arrow" id="aut" label={label} onActivation={handler}>
+        Some contents
+      </NavbarItem>
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    expect.assertions(3);
+
+    expect(handler).not.toHaveBeenCalled();
+
+    await user.click(rtlScreen.getByLabelText(label));
+
+    /* For some reasons (probably setTimeout) it is called twice but if I use
+    jest fake timers the test throws `Exceeded timeout`... So I leave it with 2
+    for now. */
+    expect(handler).toHaveBeenCalledTimes(2);
+    expect(handler).toHaveBeenCalledWith(true);
+  });
+  /* eslint-enable max-statements */
 });

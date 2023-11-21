@@ -1,4 +1,10 @@
-import { forwardRef, type ForwardRefRenderFunction, useId } from 'react';
+import {
+  forwardRef,
+  type ForwardRefRenderFunction,
+  useId,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { useIntl } from 'react-intl';
 import { type FormSubmitHandler, useForm } from '../../../../utils/hooks';
 import {
@@ -29,8 +35,15 @@ export type SearchFormProps = Omit<FormProps, 'children' | 'onSubmit'> & {
   onSubmit?: SearchFormSubmit;
 };
 
+export type SearchFormRef = {
+  /**
+   * A method to focus the search input.
+   */
+  focus: () => void;
+};
+
 const SearchFormWithRef: ForwardRefRenderFunction<
-  HTMLInputElement,
+  SearchFormRef,
   SearchFormProps
 > = ({ className = '', isLabelHidden = false, onSubmit, ...props }, ref) => {
   const intl = useIntl();
@@ -39,6 +52,7 @@ const SearchFormWithRef: ForwardRefRenderFunction<
     submitHandler: onSubmit,
   });
   const id = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
   const formClass = [
     styles.wrapper,
     styles[isLabelHidden ? 'wrapper--no-label' : 'wrapper--has-label'],
@@ -57,6 +71,18 @@ const SearchFormWithRef: ForwardRefRenderFunction<
     }),
   };
 
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        focus() {
+          inputRef.current?.focus();
+        },
+      };
+    },
+    []
+  );
+
   return (
     <Form {...props} className={formClass} onSubmit={submit}>
       <LabelledField
@@ -68,7 +94,7 @@ const SearchFormWithRef: ForwardRefRenderFunction<
             // eslint-disable-next-line react/jsx-no-literals
             name="query"
             onChange={update}
-            ref={ref}
+            ref={inputRef}
             // eslint-disable-next-line react/jsx-no-literals
             type="search"
             value={values.query}

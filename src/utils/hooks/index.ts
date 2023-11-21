@@ -1,6 +1,5 @@
 export * from './use-ackee';
 export * from './use-article';
-export * from './use-autofocus';
 export * from './use-boolean';
 export * from './use-breadcrumb';
 export * from './use-comments';

@@ -6,8 +6,11 @@ import {
   useRef,
 } from 'react';
 import {
+  useBoolean,
   useOnClickOutside,
+  useOnRouteChange,
   type useOnClickOutsideHandler,
+  useTimeout,
 } from '../../../../utils/hooks';
 import {
   Checkbox,
@@ -24,10 +27,16 @@ import {
 import { Modal } from '../../../molecules';
 import styles from './navbar-item.module.scss';
 
+export type NavbarItemActivationHandler = (isActive: boolean) => void;
+
 export type NavbarItemProps = Omit<
   ListItemProps,
   'children' | 'hideMarker' | 'id'
 > & {
+  /**
+   * Add a delay (in ms) before triggering the `onActivation` handler.
+   */
+  activationHandlerDelay?: number;
   /**
    * The modal contents.
    */
@@ -41,10 +50,6 @@ export type NavbarItemProps = Omit<
    */
   id: string;
   /**
-   * Should the modal be visible?
-   */
-  isActive: boolean;
-  /**
    * An accessible name for the nav item.
    */
   label: string;
@@ -57,13 +62,9 @@ export type NavbarItemProps = Omit<
    */
   modalVisibleFrom?: 'sm' | 'md';
   /**
-   * A callback function to handle modal deactivation.
+   * A callback function to handle item activation.
    */
-  onDeactivate?: () => void;
-  /**
-   * A callback function to handle modal toggle.
-   */
-  onToggle: () => void;
+  onActivation?: NavbarItemActivationHandler;
   /**
    * Should we add the icon on the modal?
    *
@@ -77,16 +78,15 @@ const NavbarItemWithRef: ForwardRefRenderFunction<
   NavbarItemProps
 > = (
   {
+    activationHandlerDelay,
     children,
     className = '',
     icon,
     id,
-    isActive,
     label,
     modalHeading,
     modalVisibleFrom,
-    onDeactivate,
-    onToggle,
+    onActivation,
     showIconOnModal = false,
     ...props
   },
@@ -99,6 +99,7 @@ const NavbarItemWithRef: ForwardRefRenderFunction<
       : '',
     className,
   ].join(' ');
+  const { deactivate, state: isActive, toggle } = useBoolean(false);
   const labelRef = useRef<HTMLLabelElement>(null);
   const checkboxRef = useRef<HTMLInputElement>(null);
   const deactivateItem: useOnClickOutsideHandler = useCallback(
@@ -107,11 +108,19 @@ const NavbarItemWithRef: ForwardRefRenderFunction<
         e.target && checkboxRef.current?.contains(e.target as Node);
       const isLabel = e.target && labelRef.current?.contains(e.target as Node);
 
-      if (onDeactivate && !isCheckbox && !isLabel) onDeactivate();
+      if (!isCheckbox && !isLabel) deactivate();
     },
-    [onDeactivate]
+    [deactivate]
   );
   const modalRef = useOnClickOutside<HTMLDivElement>(deactivateItem);
+
+  useOnRouteChange(deactivate, 'end');
+
+  const handleActivation = useCallback(() => {
+    if (onActivation) onActivation(isActive);
+  }, [isActive, onActivation]);
+
+  useTimeout(handleActivation, activationHandlerDelay);
 
   return (
     <ListItem {...props} className={itemClass} hideMarker ref={ref}>
@@ -120,7 +129,7 @@ const NavbarItemWithRef: ForwardRefRenderFunction<
         id={id}
         isChecked={isActive}
         name={id}
-        onChange={onToggle}
+        onChange={toggle}
         ref={checkboxRef}
         value={id}
       />

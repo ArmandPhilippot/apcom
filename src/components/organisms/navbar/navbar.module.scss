@@ -47,7 +47,7 @@
   }
 }
 
-.item {
+:where(.wrapper) > * {
   display: flex;
   justify-content: flex-end;
 }

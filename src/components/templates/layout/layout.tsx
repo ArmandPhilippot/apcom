@@ -16,12 +16,7 @@ import type { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
 import type { NextPageWithLayoutOptions } from '../../../types';
 import { CONFIG } from '../../../utils/config';
 import { ROUTES } from '../../../utils/constants';
-import {
-  useAutofocus,
-  useBoolean,
-  useOnRouteChange,
-  useScrollPosition,
-} from '../../../utils/hooks';
+import { useOnRouteChange, useScrollPosition } from '../../../utils/hooks';
 import {
   ButtonLink,
   Footer,
@@ -45,8 +40,10 @@ import {
   MainNav,
   SearchForm,
   SettingsForm,
-  type NavbarItems,
   type SearchFormSubmit,
+  NavbarItem,
+  type SearchFormRef,
+  type NavbarItemActivationHandler,
 } from '../../organisms';
 import styles from './layout.module.scss';
 
@@ -174,21 +171,6 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
     },
   ];
 
-  const {
-    deactivate: deactivateMainNav,
-    state: isMainNavOpen,
-    toggle: toggleMainNav,
-  } = useBoolean(false);
-  const {
-    deactivate: deactivateSearch,
-    state: isSearchOpen,
-    toggle: toggleSearch,
-  } = useBoolean(false);
-  const {
-    deactivate: deactivateSettings,
-    state: isSettingsOpen,
-    toggle: toggleSettings,
-  } = useBoolean(false);
   const labels = {
     mainNavItem: intl.formatMessage({
       defaultMessage: 'Open menu',
@@ -231,10 +213,13 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
     e.preventDefault();
   }, []);
 
-  const searchInputRef = useAutofocus<HTMLInputElement>({
-    condition: () => isSearchOpen,
-    delay: 360,
-  });
+  const searchFormRef = useRef<SearchFormRef>(null);
+  const giveFocusToSearchInput: NavbarItemActivationHandler = useCallback(
+    (isActive) => {
+      if (isActive) searchFormRef.current?.focus();
+    },
+    []
+  );
   const searchSubmitHandler: SearchFormSubmit = useCallback(
     ({ query }) => {
       if (!query)
@@ -255,55 +240,6 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
     },
     [intl, router]
   );
-
-  useOnRouteChange(deactivateSearch);
-
-  const navbarItems: NavbarItems = [
-    {
-      contents: <MainNav aria-label={labels.mainNavModal} items={mainNav} />,
-      icon: 'hamburger',
-      id: 'main-nav',
-      isActive: isMainNavOpen,
-      label: labels.mainNavItem,
-      modalVisibleFrom: 'md',
-      onDeactivate: deactivateMainNav,
-      onToggle: toggleMainNav,
-    },
-    {
-      contents: (
-        <SearchForm
-          className={styles.search}
-          isLabelHidden
-          onSubmit={searchSubmitHandler}
-          ref={searchInputRef}
-        />
-      ),
-      icon: 'magnifying-glass',
-      id: 'search',
-      isActive: isSearchOpen,
-      label: labels.searchItem,
-      onDeactivate: deactivateSearch,
-      onToggle: toggleSearch,
-      modalHeading: labels.searchModal,
-    },
-    {
-      contents: (
-        <SettingsForm
-          aria-label={labels.settingsForm}
-          className={styles.settings}
-          onSubmit={settingsSubmitHandler}
-        />
-      ),
-      icon: 'cog',
-      id: 'settings',
-      isActive: isSettingsOpen,
-      label: labels.settingsItem,
-      onDeactivate: deactivateSettings,
-      onToggle: toggleSettings,
-      modalHeading: labels.settingsModal,
-      showIconOnModal: true,
-    },
-  ];
 
   const legalNoticeLabel = intl.formatMessage({
     defaultMessage: 'Legal notice',
@@ -436,7 +372,44 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
             }
             url="/"
           />
-          <Navbar items={navbarItems} />
+          <Navbar>
+            <NavbarItem
+              icon="hamburger"
+              id="main-nav"
+              label={labels.mainNavItem}
+              modalVisibleFrom="md"
+            >
+              <MainNav aria-label={labels.mainNavModal} items={mainNav} />
+            </NavbarItem>
+            <NavbarItem
+              activationHandlerDelay={350}
+              icon="magnifying-glass"
+              id="search"
+              label={labels.searchItem}
+              modalHeading={labels.searchModal}
+              onActivation={giveFocusToSearchInput}
+            >
+              <SearchForm
+                className={styles.search}
+                isLabelHidden
+                onSubmit={searchSubmitHandler}
+                ref={searchFormRef}
+              />
+            </NavbarItem>
+            <NavbarItem
+              icon="cog"
+              id="settings"
+              label={labels.settingsItem}
+              modalHeading={labels.settingsModal}
+              showIconOnModal
+            >
+              <SettingsForm
+                aria-label={labels.settingsForm}
+                className={styles.settings}
+                onSubmit={settingsSubmitHandler}
+              />
+            </NavbarItem>
+          </Navbar>
         </div>
       </Header>
       <Main id="main" className={styles.main}>

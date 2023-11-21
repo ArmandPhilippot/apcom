@@ -1,5 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Navbar as NavbarComponent } from './navbar';
+import { NavbarItem } from './navbar-item';
 
 /**
  * Navbar - Storybook Meta
@@ -7,26 +8,13 @@ import { Navbar as NavbarComponent } from './navbar';
 export default {
   title: 'Organisms/Navbar',
   component: NavbarComponent,
-  args: {
-    searchPage: '#',
-  },
   argTypes: {
-    nav: {
-      description: 'The main nav items.',
+    children: {
+      description: 'The navbar items.',
       type: {
         name: 'object',
         required: true,
         value: {},
-      },
-    },
-    searchPage: {
-      control: {
-        type: 'text',
-      },
-      description: 'The search results page url.',
-      type: {
-        name: 'string',
-        required: true,
       },
     },
   },
@@ -39,72 +27,51 @@ const Template: ComponentStory<typeof NavbarComponent> = (args) => (
   <NavbarComponent {...args} />
 );
 
-const doNothing = () => {
-  // do nothing;
+/**
+ * Navbar Stories - 1 item
+ */
+export const OneItem = Template.bind({});
+OneItem.args = {
+  children: (
+    <NavbarItem icon="hamburger" id="main-nav" label="Nav">
+      The main nav contents
+    </NavbarItem>
+  ),
 };
 
 /**
- * Navbar Stories - With all items inactive
+ * Navbar Stories - 2 items
  */
-export const NavbarInactiveItems = Template.bind({});
-NavbarInactiveItems.args = {
-  items: [
-    {
-      icon: 'hamburger',
-      id: 'main-nav',
-      isActive: false,
-      label: 'Nav',
-      contents: 'Main nav contents',
-      onToggle: doNothing,
-    },
-    {
-      icon: 'magnifying-glass',
-      id: 'search',
-      isActive: false,
-      label: 'Search',
-      contents: 'Search contents',
-      onToggle: doNothing,
-    },
-    {
-      icon: 'cog',
-      id: 'settings',
-      isActive: false,
-      label: 'Settings',
-      contents: 'Settings contents',
-      onToggle: doNothing,
-    },
-  ],
+export const TwoItems = Template.bind({});
+TwoItems.args = {
+  children: (
+    <>
+      <NavbarItem icon="hamburger" id="main-nav" label="Nav">
+        The main nav contents
+      </NavbarItem>
+      <NavbarItem icon="magnifying-glass" id="search" label="Search">
+        A search form
+      </NavbarItem>
+    </>
+  ),
 };
 
 /**
- * Navbar Stories - With one item active
+ * Navbar Stories - 3 items
  */
-export const NavbarActiveItem = Template.bind({});
-NavbarActiveItem.args = {
-  items: [
-    {
-      icon: 'hamburger',
-      id: 'main-nav',
-      isActive: true,
-      label: 'Nav',
-      contents: 'Main nav contents',
-      onToggle: doNothing,
-    },
-    {
-      icon: 'magnifying-glass',
-      id: 'search',
-      isActive: false,
-      label: 'Search',
-      contents: 'Search contents',
-      onToggle: doNothing,
-    },
-    {
-      icon: 'cog',
-      id: 'settings',
-      isActive: false,
-      label: 'Settings',
-      contents: 'Settings contents',
-      onToggle: doNothing,
-    },
-  ],
+export const ThreeItems = Template.bind({});
+ThreeItems.args = {
+  children: (
+    <>
+      <NavbarItem icon="hamburger" id="main-nav" label="Nav">
+        The main nav contents
+      </NavbarItem>
+      <NavbarItem icon="magnifying-glass" id="search" label="Search">
+        A search form
+      </NavbarItem>
+      <NavbarItem icon="cog" id="settings" label="Settings">
+        A settings form
+      </NavbarItem>
+    </>
+  ),
 };

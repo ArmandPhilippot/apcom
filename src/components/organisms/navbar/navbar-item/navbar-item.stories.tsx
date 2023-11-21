@@ -1,5 +1,4 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useBoolean } from '../../../../utils/hooks';
 import { NavbarItem } from './navbar-item';
 
 /**
@@ -11,23 +10,9 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof NavbarItem>;
 
-const Template: ComponentStory<typeof NavbarItem> = ({
-  isActive,
-  onDeactivate,
-  onToggle,
-  ...args
-}) => {
-  const { deactivate, state, toggle } = useBoolean(isActive);
-
-  return (
-    <NavbarItem
-      {...args}
-      isActive={state}
-      onDeactivate={deactivate}
-      onToggle={toggle}
-    />
-  );
-};
+const Template: ComponentStory<typeof NavbarItem> = (args) => (
+  <NavbarItem {...args} />
+);
 
 /**
  * NavbarItem Stories - Default
@@ -37,7 +22,6 @@ Default.args = {
   children: 'The modal contents.',
   icon: 'cog',
   id: 'default',
-  isActive: false,
   label: 'Open example',
 };
 
@@ -49,7 +33,6 @@ ModalVisibleAfterBreakpoint.args = {
   children: 'The modal contents.',
   icon: 'cog',
   id: 'modal-visible',
-  isActive: false,
   label: 'Open example',
   modalVisibleFrom: 'md',
 };

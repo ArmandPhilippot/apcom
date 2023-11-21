@@ -1,7 +1,8 @@
 import { describe, expect, it, jest } from '@jest/globals';
 import { userEvent } from '@testing-library/user-event';
-import { render, screen as rtlScreen } from '../../../../../tests/utils';
-import { SearchForm } from './search-form';
+import type { Ref } from 'react';
+import { act, render, screen as rtlScreen } from '../../../../../tests/utils';
+import { SearchForm, type SearchFormRef } from './search-form';
 
 describe('SearchForm', () => {
   it('renders a search input with a submit button', () => {
@@ -35,5 +36,17 @@ describe('SearchForm', () => {
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith({ query });
+  });
+
+  it('can give focus to the search input', () => {
+    const ref: Ref<SearchFormRef> = { current: null };
+
+    render(<SearchForm ref={ref} />);
+
+    act(() => {
+      ref.current?.focus();
+    });
+
+    expect(rtlScreen.getByRole('searchbox')).toHaveFocus();
   });
 });

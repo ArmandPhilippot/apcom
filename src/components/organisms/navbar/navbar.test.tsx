@@ -1,42 +1,21 @@
 import { describe, expect, it } from '@jest/globals';
 import { render, screen as rtlScreen } from '@testing-library/react';
-import { Navbar, type NavbarItems } from './navbar';
-
-const doNothing = () => {
-  // do nothing;
-};
-
-const items: NavbarItems = [
-  {
-    icon: 'hamburger',
-    id: 'main-nav',
-    isActive: false,
-    label: 'Nav',
-    contents: 'Main nav contents',
-    onToggle: doNothing,
-  },
-  {
-    icon: 'magnifying-glass',
-    id: 'search',
-    isActive: false,
-    label: 'Search',
-    contents: 'Search contents',
-    onToggle: doNothing,
-  },
-  {
-    icon: 'cog',
-    id: 'settings',
-    isActive: false,
-    label: 'Settings',
-    contents: 'Settings contents',
-    onToggle: doNothing,
-  },
-];
+import { Navbar } from './navbar';
+import { NavbarItem } from './navbar-item';
 
 describe('Navbar', () => {
   it('renders the given items', () => {
-    render(<Navbar items={items} />);
+    render(
+      <Navbar>
+        <NavbarItem icon="hamburger" id="main-nav" label="Main nav">
+          Main nav
+        </NavbarItem>
+        <NavbarItem icon="magnifying-glass" id="search" label="Search">
+          Search form
+        </NavbarItem>
+      </Navbar>
+    );
 
-    expect(rtlScreen.getAllByRole('listitem')).toHaveLength(items.length);
+    expect(rtlScreen.getAllByRole('listitem')).toHaveLength(2);
   });
 });
