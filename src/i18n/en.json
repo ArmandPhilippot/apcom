@@ -71,6 +71,10 @@
     "defaultMessage": "Projects",
     "description": "Breadcrumb: projects label"
   },
+  "2By3AZ": {
+    "defaultMessage": "Open menu",
+    "description": "SiteNavbar: main nav button label in navbar"
+  },
   "2D9tB5": {
     "defaultMessage": "Topics",
     "description": "BlogPage: topics list widget title"
@@ -107,13 +111,17 @@
     "defaultMessage": "Loading the requested article...",
     "description": "ArticlePage: loading article message"
   },
-  "52H2HA": {
-    "defaultMessage": "{website} logo",
-    "description": "Layout: logo title"
+  "5C+1PP": {
+    "defaultMessage": "Blog",
+    "description": "SiteNavbar: main nav - blog link"
   },
   "5eD6y2": {
     "defaultMessage": "Full",
     "description": "AckeeToggle: full option name"
+  },
+  "5eq0+c": {
+    "defaultMessage": "Search",
+    "description": "SiteNavbar: search modal title in navbar"
   },
   "6GySNl": {
     "defaultMessage": "Copy",
@@ -143,10 +151,6 @@
     "defaultMessage": "Full includes all information from partial as well as information about referrer, operating system, device, browser, screen size and language.",
     "description": "AckeeToggle: tooltip message"
   },
-  "8jjY1X": {
-    "defaultMessage": "{website} picture",
-    "description": "Layout: photo alternative text"
-  },
   "8q5PXx": {
     "defaultMessage": "{date} at {time}",
     "description": "Time: readable date and time"
@@ -174,10 +178,6 @@
   "ADQmDF": {
     "defaultMessage": "Technologies:",
     "description": "Meta: technologies label"
-  },
-  "AE4kCD": {
-    "defaultMessage": "Contact",
-    "description": "Layout: main nav - contact link"
   },
   "AN9iy7": {
     "defaultMessage": "Contact",
@@ -215,17 +215,9 @@
     "defaultMessage": "Failed to load.",
     "description": "BlogPage: failed to load text"
   },
-  "C2YcUJ": {
-    "defaultMessage": "Query must be longer than one character.",
-    "description": "Layout: invalid query message"
-  },
   "C6oK7h": {
     "defaultMessage": "Query must be longer than one character.",
     "description": "404Page: invalid query message"
-  },
-  "D8vB38": {
-    "defaultMessage": "Blog",
-    "description": "Layout: main nav - blog link"
   },
   "Dq6+WH": {
     "defaultMessage": "Thematics",
@@ -246,10 +238,6 @@
   "FdF33B": {
     "defaultMessage": "{title} cover",
     "description": "ProjectsPage: figure (cover) accessible name"
-  },
-  "Fgt/RZ": {
-    "defaultMessage": "Open menu",
-    "description": "Layout: main nav button label in navbar"
   },
   "GVpTIl": {
     "defaultMessage": "Topics",
@@ -291,6 +279,10 @@
     "defaultMessage": "Current page, page {number}",
     "description": "BlogPage: current page label"
   },
+  "JXLaT8": {
+    "defaultMessage": "Projects",
+    "description": "SiteNavbar: main nav - projects link"
+  },
   "JbT+fA": {
     "defaultMessage": "Updated on:",
     "description": "ProjectOverview: update date label"
@@ -311,10 +303,6 @@
     "defaultMessage": "Other thematics",
     "description": "ThematicPage: other thematics list widget title"
   },
-  "Kjj1Zk": {
-    "defaultMessage": "Back to top",
-    "description": "Layout: an accessible name for the back to top button"
-  },
   "KnWeKh": {
     "defaultMessage": "Page not found",
     "description": "Error404Page: page title"
@@ -323,9 +311,9 @@
     "defaultMessage": "All posts in {thematicName}",
     "description": "ThematicPage: posts list heading"
   },
-  "Mq+O6q": {
-    "defaultMessage": "Search",
-    "description": "Layout: search modal title in navbar"
+  "MJLr6U": {
+    "defaultMessage": "CV",
+    "description": "SiteNavbar: main nav - cv link"
   },
   "N44SOc": {
     "defaultMessage": "Projects",
@@ -379,6 +367,10 @@
     "defaultMessage": "{websiteName} | Front-end developer: WordPress/React",
     "description": "HomePage: SEO - Page title"
   },
+  "PnrHgZ": {
+    "defaultMessage": "Home",
+    "description": "SiteNavbar: main nav - home link"
+  },
   "Q3oEQn": {
     "defaultMessage": "LinkedIn profile",
     "description": "ContactPage: LinkedIn profile link"
@@ -386,6 +378,10 @@
   "QLisK6": {
     "defaultMessage": "Dark Theme 🌙",
     "description": "usePrism: toggle dark theme button text"
+  },
+  "QQAcaS": {
+    "defaultMessage": "Main navigation",
+    "description": "SiteNavbar: main nav accessible name"
   },
   "Qa9twM": {
     "defaultMessage": "Reply",
@@ -402,10 +398,6 @@
   "QtdnFV": {
     "defaultMessage": "License:",
     "description": "ProjectOverview: license label"
-  },
-  "R895yC": {
-    "defaultMessage": "CV",
-    "description": "Layout: main nav - cv link"
   },
   "RwI3B9": {
     "defaultMessage": "Loading the repository popularity...",
@@ -435,6 +427,10 @@
     "defaultMessage": "Query must be longer than one character.",
     "description": "NoResults: invalid query message"
   },
+  "Vrw5/h": {
+    "defaultMessage": "{website} logo",
+    "description": "SiteBranding: logo title"
+  },
   "WDwNDl": {
     "defaultMessage": "Search",
     "description": "SearchPage: SEO - Page title"
@@ -451,13 +447,13 @@
     "defaultMessage": "Search for:",
     "description": "SearchForm: field accessible label"
   },
+  "XGmQXV": {
+    "defaultMessage": "Contact",
+    "description": "SiteNavbar: main nav - contact link"
+  },
   "XKy7rx": {
     "defaultMessage": "You can also try a search:",
     "description": "Error404Page: try a search message"
-  },
-  "XRwEoA": {
-    "defaultMessage": "Open search",
-    "description": "Layout: search button label in navbar"
   },
   "Y7XdNp": {
     "defaultMessage": "Leave a comment",
@@ -470,6 +466,10 @@
   "Ygea7s": {
     "defaultMessage": "Light theme",
     "description": "ThemeToggle: light theme label"
+  },
+  "Z/rsgm": {
+    "defaultMessage": "Open search",
+    "description": "SiteNavbar: search button label in navbar"
   },
   "ZB/Aw2": {
     "defaultMessage": "Partial includes only page url, views and duration.",
@@ -507,10 +507,6 @@
     "defaultMessage": "Contact form",
     "description": "Contact: form accessible name"
   },
-  "bojYF5": {
-    "defaultMessage": "Home",
-    "description": "Layout: main nav - home link"
-  },
   "c0Oecl": {
     "defaultMessage": "Created on:",
     "description": "ProjectOverview: creation date label"
@@ -523,9 +519,9 @@
     "defaultMessage": "Popularity:",
     "description": "ProjectOverview: popularity label"
   },
-  "dfTljv": {
-    "defaultMessage": "Main navigation",
-    "description": "Layout: main nav accessible name"
+  "dDwm38": {
+    "defaultMessage": "{website} picture",
+    "description": "SiteBranding: photo alternative text"
   },
   "eys2uX": {
     "defaultMessage": "Table of Contents",
@@ -546,10 +542,6 @@
   "ftXN+0": {
     "defaultMessage": "Code blocks:",
     "description": "PrismThemeToggle: theme label"
-  },
-  "h3J0a+": {
-    "defaultMessage": "Settings form",
-    "description": "Layout: an accessible name for the settings form in navbar"
   },
   "hGvQpI": {
     "defaultMessage": "Load more posts?",
@@ -583,6 +575,10 @@
     "defaultMessage": "Reading time:",
     "description": "PageHeader: reading time label"
   },
+  "l50cYa": {
+    "defaultMessage": "Open settings",
+    "description": "SiteNavbar: settings button label in navbar"
+  },
   "lKhTGM": {
     "defaultMessage": "Use Ctrl+c to copy",
     "description": "usePrism: copy button error text"
@@ -591,13 +587,13 @@
     "defaultMessage": "Legal notice",
     "description": "SiteFooter: Legal notice link label"
   },
-  "mDKiaN": {
-    "defaultMessage": "Open settings",
-    "description": "Layout: settings button label in navbar"
-  },
   "nGss/j": {
     "defaultMessage": "Ackee tracking (analytics)",
     "description": "AckeeToggle: tooltip title"
+  },
+  "nRzO0T": {
+    "defaultMessage": "Query must be longer than one character.",
+    "description": "SiteNavbar: invalid query message"
   },
   "ndAawq": {
     "defaultMessage": "Leave a reply to comment {id}",
@@ -611,17 +607,9 @@
     "defaultMessage": "Copied!",
     "description": "usePrism: copy button text (clicked)"
   },
-  "nwbzKm": {
-    "defaultMessage": "Legal notice",
-    "description": "Layout: Legal notice label"
-  },
   "o+wCJz": {
     "defaultMessage": "Comment form",
     "description": "PageComments: an accessible name for the comment form"
-  },
-  "o3WSz5": {
-    "defaultMessage": "Settings",
-    "description": "Layout: settings modal title in navbar"
   },
   "ofQPC+": {
     "defaultMessage": "Share on LinkedIn",
@@ -650,10 +638,6 @@
   "pg26sn": {
     "defaultMessage": "Discover search results for {query} on {websiteName}.",
     "description": "SearchPage: SEO - Meta description"
-  },
-  "qnwsWV": {
-    "defaultMessage": "Projects",
-    "description": "Layout: main nav - projects link"
   },
   "s8/tyz": {
     "defaultMessage": "Object:",
@@ -691,6 +675,10 @@
     "defaultMessage": "Website:",
     "description": "CommentForm: website label"
   },
+  "uKef8u": {
+    "defaultMessage": "Settings",
+    "description": "SiteNavbar: settings modal title in navbar"
+  },
   "uZj4QI": {
     "defaultMessage": "Cancel reply",
     "description": "CommentsList: cancel reply button"
@@ -727,10 +715,6 @@
     "defaultMessage": "{minutesCount, plural, =0 {Less than one minute} one {# minute} other {# minutes}}",
     "description": "PostPreviewMeta: rounded minutes count"
   },
-  "yB1SPF": {
-    "defaultMessage": "CC BY SA",
-    "description": "Layout: copyright title"
-  },
   "yN5P+m": {
     "defaultMessage": "Message:",
     "description": "ContactForm: message label"
@@ -742,5 +726,9 @@
   "zbzlb1": {
     "defaultMessage": "Page {number}",
     "description": "BlogPage: page number"
+  },
+  "zhjPcZ": {
+    "defaultMessage": "Settings form",
+    "description": "SiteNavbar: an accessible name for the settings form in navbar"
   }
 }

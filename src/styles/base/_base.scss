@@ -38,6 +38,59 @@ p + iframe {
   margin-top: 0;
 }
 
+p {
+  font-size: var(--font-size-md);
+  margin: 0 0 var(--spacing-sm);
+}
+
+small {
+  font-size: var(--font-size-sm);
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  line-height: var(--line-height);
+}
+
+code,
+kbd,
+pre,
+var,
+samp {
+  font-family: var(--font-family-mono);
+}
+
+pre {
+  display: block;
+  max-width: 100%;
+  overflow: auto;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+}
+
+:not(pre) > code,
+kbd,
+var,
+samp {
+  background: var(--color-bg-code);
+  border: fun.convert-px(1) solid var(--color-border);
+  border-radius: fun.convert-px(3);
+  color: var(--color-primary-darker);
+  font-style: normal;
+  padding: fun.convert-px(2) fun.convert-px(5) fun.convert-px(1)
+    fun.convert-px(5);
+}
+
+kbd {
+  box-shadow: fun.convert-px(1) fun.convert-px(1) 0 fun.convert-px(1)
+    var(--color-shadow);
+}
+
 * {
   scrollbar-color: var(--color-primary) var(--color-bg-tertiary);
   scrollbar-width: auto;

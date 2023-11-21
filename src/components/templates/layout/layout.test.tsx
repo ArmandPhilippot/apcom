@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { render, screen as rtlScreen } from '../../../../tests/utils';
-import { Layout } from './layout';
+import { Layout, getLayout } from './layout';
 
 const body =
   'Sit dolorem eveniet. Sit sit odio nemo vitae corrupti modi sint est rerum. Pariatur quidem maiores distinctio. Quia et illum aspernatur est cum.';
@@ -31,5 +31,14 @@ describe('Layout', () => {
   it('renders its body', () => {
     render(<Layout>{body}</Layout>);
     expect(rtlScreen.getByText(body)).toBeInTheDocument();
+  });
+});
+
+describe('getLayout', () => {
+  it('wraps the given contents in a layout component', () => {
+    const PageContents = <div>{body}</div>;
+    const Page = getLayout(PageContents);
+
+    expect(Page.props).toStrictEqual({ children: PageContents });
   });
 });

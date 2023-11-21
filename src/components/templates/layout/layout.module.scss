@@ -2,130 +2,8 @@
 @use "../../../styles/abstracts/mixins" as mix;
 @use "../../../styles/abstracts/placeholders";
 
-%typing-animation {
-  --typing-animation: none;
-
-  width: fit-content;
-  position: relative;
-  overflow: hidden;
-
-  &::after {
-    content: "|";
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: var(--color-bg);
-    color: var(--color-primary-darker);
-    font-weight: 400;
-    text-align: left;
-    visibility: hidden;
-    transform: translateX(100%);
-    transform-origin: right;
-    animation: var(--typing-animation);
-
-    :global {
-      animation: var(--typing-animation);
-    }
-  }
-}
-
-.header {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) min(calc(100vw - calc(var(--spacing-md) * 2)), 100ch)
-    minmax(0, 1fr);
-  align-items: center;
-  padding: var(--spacing-md) 0 var(--spacing-lg);
-  border-bottom: fun.convert-px(3) solid var(--color-border-light);
-
-  &__body {
-    grid-column: 2;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-md);
-  }
-}
-
-.brand {
-  &__logo {
-    --logo-size: #{clamp(
-        fun.convert-px(95),
-        calc(120px - 5vw),
-        fun.convert-px(120)
-      )};
-
-    animation: flip-logo 9s ease-in 0s 1;
-  }
-
-  &__title {
-    font-size: var(--font-size-2xl);
-
-    @extend %typing-animation;
-  }
-
-  &__baseline {
-    color: var(--color-fg-light);
-    font-size: var(--font-size-lg);
-    font-weight: 600;
-
-    @extend %typing-animation;
-  }
-}
-
-.search,
-.settings {
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      min-width: 30ch;
-    }
-  }
-}
-
 .main {
   flex: 1;
-}
-
-.footer {
-  display: flex;
-  flex-flow: column wrap;
-  gap: var(--spacing-xs);
-  place-items: center;
-  place-content: center;
-  padding: var(--spacing-md) 0 calc(var(--toolbar-size) + var(--spacing-md));
-  border-top: fun.convert-px(3) solid var(--color-border-light);
-
-  @include mix.media("screen") {
-    @include mix.dimensions("sm") {
-      --toolbar-size: 0px;
-
-      flex-flow: row wrap;
-      font-size: var(--font-size-sm);
-    }
-  }
-}
-
-.back-to-top {
-  position: fixed;
-  bottom: calc(var(--toolbar-size, 0px) + var(--spacing-md));
-  right: var(--spacing-md);
-  transition: all 0.4s ease-in 0s;
-
-  &--hidden {
-    opacity: 0;
-    transform: translateY(calc(var(--button-height) + var(--spacing-md)));
-    visibility: hidden;
-  }
-
-  &--visible {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-  }
 }
 
 .noscript {
@@ -151,16 +29,5 @@
     @include mix.dimensions("xs") {
       height: fun.convert-px(50);
     }
-  }
-}
-
-@keyframes flip-logo {
-  0%,
-  90% {
-    transform: rotateY(180deg);
-  }
-
-  100% {
-    transform: rotateY(0deg);
   }
 }

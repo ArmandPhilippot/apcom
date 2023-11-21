@@ -4,17 +4,11 @@ import {
   useId,
   useImperativeHandle,
   useRef,
+  type HTMLAttributes,
 } from 'react';
 import { useIntl } from 'react-intl';
 import { type FormSubmitHandler, useForm } from '../../../../utils/hooks';
-import {
-  Button,
-  Form,
-  type FormProps,
-  Icon,
-  Input,
-  Label,
-} from '../../../atoms';
+import { Button, Form, Icon, Input, Label, Notice } from '../../../atoms';
 import { LabelledField } from '../../../molecules';
 import styles from './search-form.module.scss';
 
@@ -22,7 +16,10 @@ export type SearchFormData = { query: string };
 
 export type SearchFormSubmit = FormSubmitHandler<SearchFormData>;
 
-export type SearchFormProps = Omit<FormProps, 'children' | 'onSubmit'> & {
+export type SearchFormProps = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'children' | 'onSubmit'
+> & {
   /**
    * Should the label be visually hidden?
    *
@@ -45,19 +42,18 @@ export type SearchFormRef = {
 const SearchFormWithRef: ForwardRefRenderFunction<
   SearchFormRef,
   SearchFormProps
-> = ({ className = '', isLabelHidden = false, onSubmit, ...props }, ref) => {
+> = ({ isLabelHidden = false, onSubmit, ...props }, ref) => {
   const intl = useIntl();
-  const { values, submit, submitStatus, update } = useForm<SearchFormData>({
-    initialValues: { query: '' },
-    submitHandler: onSubmit,
-  });
+  const { messages, submit, submitStatus, update, values } =
+    useForm<SearchFormData>({
+      initialValues: { query: '' },
+      submitHandler: onSubmit,
+    });
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
-  const formClass = [
-    styles.wrapper,
-    styles[isLabelHidden ? 'wrapper--no-label' : 'wrapper--has-label'],
-    className,
-  ].join(' ');
+  const formClass = `${styles.form} ${
+    styles[isLabelHidden ? 'form--no-label' : 'form--has-label']
+  }`;
   const labels = {
     button: intl.formatMessage({
       defaultMessage: 'Search',
@@ -84,48 +80,55 @@ const SearchFormWithRef: ForwardRefRenderFunction<
   );
 
   return (
-    <Form {...props} className={formClass} onSubmit={submit}>
-      <LabelledField
-        className={styles.field}
-        field={
-          <Input
-            className={styles.input}
-            id={id}
-            // eslint-disable-next-line react/jsx-no-literals
-            name="query"
-            onChange={update}
-            ref={inputRef}
-            // eslint-disable-next-line react/jsx-no-literals
-            type="search"
-            value={values.query}
-          />
-        }
-        label={
-          <Label htmlFor={id} isHidden={isLabelHidden}>
-            {labels.field}
-          </Label>
-        }
-      />
-      <Button
-        aria-label={labels.button}
-        className={styles.btn}
-        isLoading={submitStatus === 'PENDING'}
-        // eslint-disable-next-line react/jsx-no-literals
-        kind="neutral"
-        // eslint-disable-next-line react/jsx-no-literals
-        shape="initial"
-        type="submit"
-      >
-        <Icon
-          aria-hidden
-          className={styles.icon}
-          // eslint-disable-next-line react/jsx-no-literals
-          shape="magnifying-glass"
-          // eslint-disable-next-line react/jsx-no-literals
-          size="lg"
+    <div {...props}>
+      <Form className={formClass} onSubmit={submit}>
+        <LabelledField
+          className={styles.field}
+          field={
+            <Input
+              className={styles.input}
+              id={id}
+              // eslint-disable-next-line react/jsx-no-literals
+              name="query"
+              onChange={update}
+              ref={inputRef}
+              // eslint-disable-next-line react/jsx-no-literals
+              type="search"
+              value={values.query}
+            />
+          }
+          label={
+            <Label htmlFor={id} isHidden={isLabelHidden}>
+              {labels.field}
+            </Label>
+          }
         />
-      </Button>
-    </Form>
+        <Button
+          aria-label={labels.button}
+          className={styles.btn}
+          isLoading={submitStatus === 'PENDING'}
+          // eslint-disable-next-line react/jsx-no-literals
+          kind="neutral"
+          // eslint-disable-next-line react/jsx-no-literals
+          shape="initial"
+          type="submit"
+        >
+          <Icon
+            aria-hidden
+            className={styles.icon}
+            // eslint-disable-next-line react/jsx-no-literals
+            shape="magnifying-glass"
+            // eslint-disable-next-line react/jsx-no-literals
+            size="lg"
+          />
+        </Button>
+      </Form>
+      {messages?.error && submitStatus === 'FAILED' ? (
+        <Notice className={styles.notice} kind="error">
+          {messages.error}
+        </Notice>
+      ) : null}
+    </div>
   );
 };
 

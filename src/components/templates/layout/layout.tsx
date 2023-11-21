@@ -1,67 +1,24 @@
-/* eslint-disable max-statements */
-import NextImage from 'next/image';
-import { useRouter } from 'next/router';
 import Script from 'next/script';
-import {
-  type FC,
-  type ReactElement,
-  type ReactNode,
-  useRef,
-  type CSSProperties,
-  type FormEvent,
-  useCallback,
-} from 'react';
+import type { FC, ReactElement, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import type { Person, SearchAction, WebSite, WithContext } from 'schema-dts';
 import type { NextPageWithLayoutOptions } from '../../../types';
 import { CONFIG } from '../../../utils/config';
 import { ROUTES } from '../../../utils/constants';
-import { useOnRouteChange, useScrollPosition } from '../../../utils/hooks';
-import {
-  ButtonLink,
-  Footer,
-  Header,
-  Heading,
-  Icon,
-  Logo,
-  Main,
-} from '../../atoms';
-import {
-  BackToTop,
-  Branding,
-  Colophon,
-  type ColophonLink,
-  Copyright,
-  FlippingLogo,
-} from '../../molecules';
-import {
-  type MainNavItem,
-  Navbar,
-  MainNav,
-  SearchForm,
-  SettingsForm,
-  type SearchFormSubmit,
-  NavbarItem,
-  type SearchFormRef,
-  type NavbarItemActivationHandler,
-} from '../../organisms';
+import { ButtonLink, Main } from '../../atoms';
 import styles from './layout.module.scss';
+import { SiteFooter } from './site-footer';
+import { SiteHeader, type SiteHeaderProps } from './site-header';
 
 export type QueryAction = SearchAction & {
   'query-input': string;
 };
 
-export type LayoutProps = {
+export type LayoutProps = Pick<SiteHeaderProps, 'isHome'> & {
   /**
    * The layout main content.
    */
   children: ReactNode;
-  /**
-   * Is it homepage?
-   *
-   * @default false
-   */
-  isHome?: boolean;
 };
 
 /**
@@ -70,186 +27,21 @@ export type LayoutProps = {
  * Render the base layout used by all pages.
  */
 export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
-  const router = useRouter();
-  const intl = useIntl();
   const { baseline, copyright, locales, name, url } = CONFIG;
-
-  const skipToContent = intl.formatMessage({
-    defaultMessage: 'Skip to content',
-    description: 'Layout: Skip to content link',
-    id: 'K4rYdT',
-  });
-  const noScript = intl.formatMessage({
-    defaultMessage:
-      'Warning: If you want to benefit from all features (search for example), please activate Javascript.',
-    description: 'Layout: noscript message',
-    id: '7jVUT6',
-  });
-  const copyrightTitle = intl.formatMessage({
-    defaultMessage: 'CC BY SA',
-    description: 'Layout: copyright title',
-    id: 'yB1SPF',
-  });
-
-  const homeLabel = intl.formatMessage({
-    defaultMessage: 'Home',
-    description: 'Layout: main nav - home link',
-    id: 'bojYF5',
-  });
-  const blogLabel = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'Layout: main nav - blog link',
-    id: 'D8vB38',
-  });
-  const projectsLabel = intl.formatMessage({
-    defaultMessage: 'Projects',
-    description: 'Layout: main nav - projects link',
-    id: 'qnwsWV',
-  });
-  const cvLabel = intl.formatMessage({
-    defaultMessage: 'CV',
-    description: 'Layout: main nav - cv link',
-    id: 'R895yC',
-  });
-  const contactLabel = intl.formatMessage({
-    defaultMessage: 'Contact',
-    description: 'Layout: main nav - contact link',
-    id: 'AE4kCD',
-  });
-  const photoAltText = intl.formatMessage(
-    {
-      defaultMessage: '{website} picture',
-      description: 'Layout: photo alternative text',
-      id: '8jjY1X',
-    },
-    { website: name }
-  );
-  const logoTitle = intl.formatMessage(
-    {
-      defaultMessage: '{website} logo',
-      description: 'Layout: logo title',
-      id: '52H2HA',
-    },
-    { website: name }
-  );
-  const backToTop = intl.formatMessage({
-    defaultMessage: 'Back to top',
-    description: 'Layout: an accessible name for the back to top button',
-    id: 'Kjj1Zk',
-  });
-
-  const mainNav: MainNavItem[] = [
-    {
-      id: 'home',
-      label: homeLabel,
-      href: '/',
-      logo: <Icon aria-hidden={true} shape="home" />,
-    },
-    {
-      id: 'blog',
-      label: blogLabel,
-      href: ROUTES.BLOG,
-      logo: <Icon aria-hidden={true} shape="posts-stack" />,
-    },
-    {
-      id: 'projects',
-      label: projectsLabel,
-      href: ROUTES.PROJECTS,
-      logo: <Icon aria-hidden={true} shape="computer" />,
-    },
-    {
-      id: 'cv',
-      label: cvLabel,
-      href: ROUTES.CV,
-      logo: <Icon aria-hidden={true} shape="career" />,
-    },
-    {
-      id: 'contact',
-      label: contactLabel,
-      href: ROUTES.CONTACT,
-      logo: <Icon aria-hidden={true} shape="envelop" />,
-    },
-  ];
-
-  const labels = {
-    mainNavItem: intl.formatMessage({
-      defaultMessage: 'Open menu',
-      description: 'Layout: main nav button label in navbar',
-      id: 'Fgt/RZ',
+  const intl = useIntl();
+  const messages = {
+    noScript: intl.formatMessage({
+      defaultMessage:
+        'Warning: If you want to benefit from all features (search for example), please activate Javascript.',
+      description: 'Layout: noscript message',
+      id: '7jVUT6',
     }),
-    mainNavModal: intl.formatMessage({
-      defaultMessage: 'Main navigation',
-      description: 'Layout: main nav accessible name',
-      id: 'dfTljv',
-    }),
-    searchItem: intl.formatMessage({
-      defaultMessage: 'Open search',
-      id: 'XRwEoA',
-      description: 'Layout: search button label in navbar',
-    }),
-    searchModal: intl.formatMessage({
-      defaultMessage: 'Search',
-      description: 'Layout: search modal title in navbar',
-      id: 'Mq+O6q',
-    }),
-    settingsItem: intl.formatMessage({
-      defaultMessage: 'Open settings',
-      id: 'mDKiaN',
-      description: 'Layout: settings button label in navbar',
-    }),
-    settingsForm: intl.formatMessage({
-      defaultMessage: 'Settings form',
-      id: 'h3J0a+',
-      description: 'Layout: an accessible name for the settings form in navbar',
-    }),
-    settingsModal: intl.formatMessage({
-      defaultMessage: 'Settings',
-      description: 'Layout: settings modal title in navbar',
-      id: 'o3WSz5',
+    skipToContent: intl.formatMessage({
+      defaultMessage: 'Skip to content',
+      description: 'Layout: Skip to content link',
+      id: 'K4rYdT',
     }),
   };
-
-  const settingsSubmitHandler = useCallback((e: FormEvent) => {
-    e.preventDefault();
-  }, []);
-
-  const searchFormRef = useRef<SearchFormRef>(null);
-  const giveFocusToSearchInput: NavbarItemActivationHandler = useCallback(
-    (isActive) => {
-      if (isActive) searchFormRef.current?.focus();
-    },
-    []
-  );
-  const searchSubmitHandler: SearchFormSubmit = useCallback(
-    ({ query }) => {
-      if (!query)
-        return {
-          messages: {
-            error: intl.formatMessage({
-              defaultMessage: 'Query must be longer than one character.',
-              description: 'Layout: invalid query message',
-              id: 'C2YcUJ',
-            }),
-          },
-          validator: (value) => value.query.length > 1,
-        };
-
-      router.push({ pathname: ROUTES.SEARCH, query: { s: query } });
-
-      return undefined;
-    },
-    [intl, router]
-  );
-
-  const legalNoticeLabel = intl.formatMessage({
-    defaultMessage: 'Legal notice',
-    description: 'Layout: Legal notice label',
-    id: 'nwbzKm',
-  });
-
-  const footerNav: ColophonLink[] = [
-    { id: 'legal-notice', label: legalNoticeLabel, href: ROUTES.LEGAL_NOTICE },
-  ];
 
   const searchActionSchema: QueryAction = {
     '@type': 'SearchAction',
@@ -260,7 +52,14 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
     query: 'required',
     'query-input': 'required name=search_term_string',
   };
-
+  const brandingSchema: Person = {
+    '@type': 'Person',
+    name,
+    url,
+    jobTitle: baseline,
+    image: '/armand-philippot.jpg',
+    subjectOf: { '@id': `${url}` },
+  };
   const schemaJsonLd: WithContext<WebSite> = {
     '@context': 'https://schema.org',
     '@id': `${url}`,
@@ -268,51 +67,16 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
     name,
     description: baseline,
     url,
-    author: { '@id': `${url}/#branding` },
+    author: brandingSchema,
     copyrightYear: Number(copyright.startYear),
-    creator: { '@id': `${url}/#branding` },
-    editor: { '@id': `${url}/#branding` },
+    creator: brandingSchema,
+    editor: brandingSchema,
     inLanguage: locales.defaultLocale,
     potentialAction: searchActionSchema,
   };
 
-  const brandingSchema: WithContext<Person> = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': `${url}/#branding`,
-    name,
-    url,
-    jobTitle: baseline,
-    image: '/armand-philippot.jpg',
-    subjectOf: { '@id': `${url}` },
-  };
-
-  const scrollPos = useScrollPosition();
-  const backToTopBreakpoint = 300;
-  const backToTopClassName = [
-    styles['back-to-top'],
-    styles[
-      scrollPos.y > backToTopBreakpoint
-        ? 'back-to-top--visible'
-        : 'back-to-top--hidden'
-    ],
-  ].join(' ');
-
-  const topRef = useRef<HTMLSpanElement>(null);
-  const giveFocusToTopRef = () => {
-    if (topRef.current) topRef.current.focus();
-  };
-
-  useOnRouteChange(giveFocusToTopRef);
-
-  const brandingTitleStyles = {
-    '--typing-animation':
-      'blink 0.7s ease-in-out 0s 2, typing 4.3s linear 0s 1',
-  } as CSSProperties;
-  const brandingBaselineStyles = {
-    '--typing-animation':
-      'hide-text 4.25s linear 0s 1, blink 0.8s ease-in-out 4.25s 2, typing 3.8s linear 4.25s 1',
-  } as CSSProperties;
+  const topId = 'top';
+  const mainId = 'main';
 
   return (
     <>
@@ -322,119 +86,25 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
         id="schema-layout"
         type="application/ld+json"
       />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(brandingSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-branding"
-        type="application/ld+json"
-      />
+      <span id={topId} />
       <noscript>
         <div className={styles['noscript-spacing']} />
       </noscript>
-      <span ref={topRef} tabIndex={-1} />
-      <ButtonLink className="screen-reader-text" to="#main">
-        {skipToContent}
+      <ButtonLink
+        // eslint-disable-next-line react/jsx-no-literals
+        className="screen-reader-text"
+        // eslint-disable-next-line react/jsx-no-literals
+        to={`#${mainId}`}
+      >
+        {messages.skipToContent}
       </ButtonLink>
-      <Header className={styles.header}>
-        <div className={styles.header__body}>
-          <Branding
-            baseline={
-              <div
-                className={styles.brand__baseline}
-                style={brandingBaselineStyles}
-              >
-                {baseline}
-              </div>
-            }
-            logo={
-              <FlippingLogo
-                back={<Logo heading={logoTitle} />}
-                className={styles.brand__logo}
-                front={
-                  <NextImage
-                    alt={photoAltText}
-                    height={120}
-                    src="/armand-philippot.jpg"
-                    width={120}
-                  />
-                }
-              />
-            }
-            name={
-              <Heading
-                className={styles.brand__title}
-                isFake={!isHome}
-                level={1}
-                style={brandingTitleStyles}
-              >
-                {name}
-              </Heading>
-            }
-            url="/"
-          />
-          <Navbar>
-            <NavbarItem
-              icon="hamburger"
-              id="main-nav"
-              label={labels.mainNavItem}
-              modalVisibleFrom="md"
-            >
-              <MainNav aria-label={labels.mainNavModal} items={mainNav} />
-            </NavbarItem>
-            <NavbarItem
-              activationHandlerDelay={350}
-              icon="magnifying-glass"
-              id="search"
-              label={labels.searchItem}
-              modalHeading={labels.searchModal}
-              onActivation={giveFocusToSearchInput}
-            >
-              <SearchForm
-                className={styles.search}
-                isLabelHidden
-                onSubmit={searchSubmitHandler}
-                ref={searchFormRef}
-              />
-            </NavbarItem>
-            <NavbarItem
-              icon="cog"
-              id="settings"
-              label={labels.settingsItem}
-              modalHeading={labels.settingsModal}
-              showIconOnModal
-            >
-              <SettingsForm
-                aria-label={labels.settingsForm}
-                className={styles.settings}
-                onSubmit={settingsSubmitHandler}
-              />
-            </NavbarItem>
-          </Navbar>
-        </div>
-      </Header>
-      <Main id="main" className={styles.main}>
+      <SiteHeader className={styles.header} isHome={isHome} />
+      <Main className={styles.main} id={mainId}>
         {children}
       </Main>
-      <Footer className={styles.footer}>
-        <Colophon
-          copyright={
-            <Copyright
-              from={copyright.startYear}
-              owner={name}
-              to={copyright.endYear}
-            />
-          }
-          license={<Icon heading={copyrightTitle} shape="cc-by-sa" size="lg" />}
-          links={footerNav}
-        />
-        <BackToTop
-          anchor="#top"
-          className={backToTopClassName}
-          label={backToTop}
-        />
-      </Footer>
+      <SiteFooter topId={topId} />
       <noscript>
-        <div className={styles.noscript}>{noScript}</div>
+        <div className={styles.noscript}>{messages.noScript}</div>
       </noscript>
     </>
   );

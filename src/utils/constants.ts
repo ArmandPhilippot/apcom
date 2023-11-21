@@ -15,6 +15,7 @@ export const ROUTES = {
   BLOG: '/blog',
   CONTACT: '/contact',
   CV: '/cv',
+  HOME: '/',
   LEGAL_NOTICE: '/mentions-legales',
   NOT_FOUND: '/404',
   PROJECTS: '/projets',
