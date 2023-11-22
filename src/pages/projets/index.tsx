@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
@@ -14,7 +13,6 @@ import {
   CardTitle,
   getLayout,
   Grid,
-  type GridItem,
   MetaList,
   MetaItem,
   Page,
@@ -59,59 +57,6 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     description: 'Meta: technologies label',
     id: 'ADQmDF',
   });
-
-  const items: GridItem[] = projects.map(
-    ({ id, meta: projectMeta, slug, title: projectTitle }) => {
-      const { cover, tagline, technologies } = projectMeta;
-      const figureLabel = intl.formatMessage(
-        {
-          defaultMessage: '{title} cover',
-          description: 'ProjectsPage: figure (cover) accessible name',
-          id: 'FdF33B',
-        },
-        { title: projectTitle }
-      );
-
-      return {
-        item: (
-          <Card
-            cover={
-              cover ? (
-                <CardCover aria-label={figureLabel} hasBorders>
-                  <NextImage {...cover} />
-                </CardCover>
-              ) : undefined
-            }
-            meta={
-              technologies ? (
-                <MetaList isCentered>
-                  <MetaItem
-                    hasBorderedValues
-                    hasInlinedValues
-                    isCentered
-                    label={metaLabel}
-                    value={technologies.map((techno) => {
-                      return { id: techno, value: techno };
-                    })}
-                  />
-                </MetaList>
-              ) : undefined
-            }
-            isCentered
-            linkTo={`${ROUTES.PROJECTS}/${slug}`}
-          >
-            <CardHeader>
-              <CardTitle>{projectTitle}</CardTitle>
-            </CardHeader>
-            <CardBody>{tagline}</CardBody>
-            <CardFooter />
-          </Card>
-        ),
-        id: `${id}`,
-      };
-    }
-  );
-
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
@@ -165,13 +110,57 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
         intro={<PageContent components={mdxComponents} />}
       />
       <PageBody className={styles.body}>
-        <Grid
-          className={styles.list}
-          gap="sm"
-          isCentered
-          items={items}
-          sizeMax="30ch"
-        />
+        <Grid className={styles.list} gap="sm" isCentered sizeMax="30ch">
+          {projects.map(
+            ({ id, meta: projectMeta, slug, title: projectTitle }) => {
+              const { cover, tagline, technologies } = projectMeta;
+              const figureLabel = intl.formatMessage(
+                {
+                  defaultMessage: '{title} cover',
+                  description: 'ProjectsPage: figure (cover) accessible name',
+                  id: 'FdF33B',
+                },
+                { title: projectTitle }
+              );
+
+              return (
+                <Card
+                  cover={
+                    cover ? (
+                      <CardCover aria-label={figureLabel} hasBorders>
+                        <NextImage {...cover} />
+                      </CardCover>
+                    ) : undefined
+                  }
+                  key={id}
+                  meta={
+                    technologies ? (
+                      <MetaList isCentered>
+                        <MetaItem
+                          hasBorderedValues
+                          hasInlinedValues
+                          isCentered
+                          label={metaLabel}
+                          value={technologies.map((techno) => {
+                            return { id: techno, value: techno };
+                          })}
+                        />
+                      </MetaList>
+                    ) : undefined
+                  }
+                  isCentered
+                  linkTo={`${ROUTES.PROJECTS}/${slug}`}
+                >
+                  <CardHeader>
+                    <CardTitle>{projectTitle}</CardTitle>
+                  </CardHeader>
+                  <CardBody>{tagline}</CardBody>
+                  <CardFooter />
+                </Card>
+              );
+            }
+          )}
+        </Grid>
       </PageBody>
     </Page>
   );

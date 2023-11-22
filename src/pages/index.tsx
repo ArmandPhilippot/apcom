@@ -15,7 +15,6 @@ import {
   CardTitle,
   getLayout,
   Grid,
-  type GridItem,
   Icon,
   List,
   ListItem,
@@ -151,12 +150,11 @@ const LibreLinks: FC = () => {
  */
 const ShaarliLink: FC = () => {
   const intl = useIntl();
-  const shaarliUrl = PERSONAL_LINKS.SHAARLI;
 
   return (
     <List className={styles.list} hideMarker isInline spacing="sm">
       <ListItem>
-        <ButtonLink isExternal to={shaarliUrl}>
+        <ButtonLink isExternal to={PERSONAL_LINKS.SHAARLI}>
           {intl.formatMessage({
             defaultMessage: 'Shaarli',
             description: 'HomePage: link to Shaarli',
@@ -202,15 +200,10 @@ const MoreLinks: FC = () => {
   );
 };
 
-const StyledGrid = ({ children }: { children: ReactNode[] }) => (
-  <Grid
-    className={styles.columns}
-    gap="sm"
-    items={children.map((child, index) => {
-      return { id: `${index}`, item: child };
-    })}
-    sizeMin="250px"
-  />
+const StyledGrid = ({ children }: { children: ReactNode }) => (
+  <Grid className={styles.columns} gap="sm" sizeMin="250px">
+    {children}
+  </Grid>
 );
 
 /**
@@ -256,9 +249,11 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
    * @returns {JSX.Element} - The cards list.
    */
   const getRecentPosts = (): JSX.Element => {
-    const posts: GridItem[] = recentPosts.map((post) => {
-      return {
-        item: (
+    const listClass = `${styles.list} ${styles['list--cards']}`;
+
+    return (
+      <Grid className={listClass} gap="sm" isCentered sizeMax="25ch">
+        {recentPosts.map((post) => (
           <Card
             cover={
               post.cover ? (
@@ -270,6 +265,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
                 </CardCover>
               ) : undefined
             }
+            key={post.id}
             meta={
               <CardMeta isCentered>
                 <MetaItem
@@ -288,20 +284,8 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
             </CardHeader>
             <CardFooter />
           </Card>
-        ),
-        id: `${post.id}`,
-      };
-    });
-    const listClass = `${styles.list} ${styles['list--cards']}`;
-
-    return (
-      <Grid
-        className={listClass}
-        gap="sm"
-        isCentered
-        items={posts}
-        sizeMax="25ch"
-      />
+        ))}
+      </Grid>
     );
   };
 

@@ -1,18 +1,25 @@
 import { describe, expect, it } from '@jest/globals';
 import { render, screen as rtlScreen } from '@testing-library/react';
-import { Grid, type GridItem } from './grid';
+import { Grid } from './grid';
+import { GridItem } from './grid-item';
 
-const items: GridItem[] = [
-  { id: 'item-1', item: 'Item 1' },
-  { id: 'item-2', item: 'Item 2' },
-  { id: 'item-3', item: 'Item 3' },
-  { id: 'item-4', item: 'Item 4' },
-  { id: 'item-5', item: 'Item 5' },
+const items = [
+  { id: 'item-1', contents: 'Item 1' },
+  { id: 'item-2', contents: 'Item 2' },
+  { id: 'item-3', contents: 'Item 3' },
+  { id: 'item-4', contents: 'Item 4' },
+  { id: 'item-5', contents: 'Item 5' },
 ];
 
 describe('Grid', () => {
   it('render a list of items as grid', () => {
-    render(<Grid items={items} />);
+    render(
+      <Grid>
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
 
     expect(rtlScreen.getAllByRole('listitem')).toHaveLength(items.length);
   });
@@ -20,7 +27,13 @@ describe('Grid', () => {
   it('can render a list of items with fixed size', () => {
     const size = '200px';
 
-    render(<Grid items={items} size={size} />);
+    render(
+      <Grid size={size}>
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
 
     expect(rtlScreen.getByRole('list')).toHaveClass('wrapper--has-fixed-size');
     expect(rtlScreen.getByRole('list')).toHaveStyle({ '--size': size });
@@ -29,7 +42,13 @@ describe('Grid', () => {
   it('can render a list of items with min size', () => {
     const size = '200px';
 
-    render(<Grid items={items} sizeMin={size} />);
+    render(
+      <Grid sizeMin={size}>
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
 
     expect(rtlScreen.getByRole('list')).toHaveClass('wrapper--has-min-size');
     expect(rtlScreen.getByRole('list')).toHaveStyle({ '--size-min': size });
@@ -38,7 +57,13 @@ describe('Grid', () => {
   it('can render a list of items with max size', () => {
     const size = '200px';
 
-    render(<Grid items={items} sizeMax={size} />);
+    render(
+      <Grid sizeMax={size}>
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
 
     expect(rtlScreen.getByRole('list')).toHaveStyle({ '--size-max': size });
   });
@@ -46,7 +71,13 @@ describe('Grid', () => {
   it('can render a list of items with a custom gap', () => {
     const gap = 'md';
 
-    render(<Grid items={items} gap={gap} />);
+    render(
+      <Grid gap={gap}>
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
 
     expect(rtlScreen.getByRole('list')).toHaveStyle({
       '--gap': `var(--spacing-${gap})`,
@@ -56,13 +87,25 @@ describe('Grid', () => {
   it('can render a list of items with an explicit number of columns', () => {
     const col = 4;
 
-    render(<Grid col={col} items={items} />);
+    render(
+      <Grid col={col}>
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
 
     expect(rtlScreen.getByRole('list')).toHaveStyle(`--col: ${col}`);
   });
 
   it('can render a centered list of items', () => {
-    render(<Grid isCentered items={items} />);
+    render(
+      <Grid isCentered>
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
 
     expect(rtlScreen.getByRole('list')).toHaveClass('wrapper--is-centered');
   });

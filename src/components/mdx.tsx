@@ -2,7 +2,7 @@ import type { MDXComponents } from 'mdx/types';
 import NextImage from 'next/image';
 import type { AnchorHTMLAttributes, ImgHTMLAttributes, ReactNode } from 'react';
 import { Figure, Heading, Link, List, ListItem } from './atoms';
-import { Code, Grid } from './molecules';
+import { Code, Grid, GridItem } from './molecules';
 
 const Anchor = ({
   children = '',
@@ -45,16 +45,15 @@ const Img = ({
   return <img {...props} alt={alt} height={height} src={src} width={width} />;
 };
 
-const Gallery = ({ children }: { children: ReactNode[] }) => (
+const Gallery = ({ children }: { children: ReactNode }) => (
   <Grid
     // eslint-disable-next-line react/jsx-no-literals
     gap="sm"
-    items={children.map((child, index) => {
-      return { id: `${index}`, item: child };
-    })}
     // eslint-disable-next-line react/jsx-no-literals
     sizeMin="250px"
-  />
+  >
+    {children}
+  </Grid>
 );
 
 export const mdxComponents: MDXComponents = {
@@ -63,6 +62,8 @@ export const mdxComponents: MDXComponents = {
   figure: ({ ref, ...props }) => <Figure {...props} />,
   Figure,
   Gallery,
+  Grid,
+  GridItem,
   h1: ({ ref, ...props }) => <Heading {...props} level={1} />,
   h2: ({ ref, ...props }) => <Heading {...props} level={2} />,
   h3: ({ ref, ...props }) => <Heading {...props} level={3} />,

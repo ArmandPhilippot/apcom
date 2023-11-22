@@ -5,18 +5,17 @@ import {
   type CSSProperties,
 } from 'react';
 import type { Spacing } from '../../../types';
-import { List, ListItem, type ListProps } from '../../atoms';
+import { List, type ListProps } from '../../atoms';
 import styles from './grid.module.scss';
-
-export type GridItem = {
-  id: string;
-  item: ReactNode;
-};
 
 export type GridProps<T extends boolean> = Omit<
   ListProps<T, false>,
   'children' | 'hideMarker' | 'isHierarchical' | 'isInline' | 'spacing'
 > & {
+  /**
+   * The grid items.
+   */
+  children: ReactNode;
   /**
    * Control the number of column.
    *
@@ -35,10 +34,6 @@ export type GridProps<T extends boolean> = Omit<
    * @default false
    */
   isCentered?: boolean;
-  /**
-   * The grid items.
-   */
-  items: GridItem[];
   /**
    * Define a fixed size for each item.
    *
@@ -67,11 +62,11 @@ export type GridProps<T extends boolean> = Omit<
 
 const GridWithRef = <T extends boolean>(
   {
+    children,
     className = '',
     col = 'auto-fit',
     gap,
     isCentered = false,
-    items,
     size,
     sizeMax,
     sizeMin,
@@ -104,11 +99,7 @@ const GridWithRef = <T extends boolean>(
       ref={ref}
       style={gridStyles}
     >
-      {items.map(({ id, item }) => (
-        <ListItem className={styles.item} key={id}>
-          {item}
-        </ListItem>
-      ))}
+      {children}
     </List>
   );
 };
