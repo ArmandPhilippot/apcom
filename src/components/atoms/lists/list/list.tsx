@@ -16,14 +16,14 @@ type UnorderedListProps = Omit<HTMLAttributes<HTMLUListElement>, 'children'>;
 type BaseListProps<O extends boolean, H extends boolean> = O extends true
   ? OrderedListProps
   : H extends true
-  ? OrderedListProps
-  : UnorderedListProps;
+    ? OrderedListProps
+    : UnorderedListProps;
 
 type AdditionalProps<O extends boolean, H extends boolean> = {
   /**
-   * An array of list items.
+   * The list items.
    */
-  children: ReactNode;
+  children?: ReactNode;
   /**
    * Should the items marker be hidden?
    *
@@ -109,8 +109,8 @@ const ListWithRef = <O extends boolean, H extends boolean>(
     O extends true
       ? HTMLOListElement
       : H extends true
-      ? HTMLOListElement
-      : HTMLUListElement
+        ? HTMLOListElement
+        : HTMLUListElement
   >
 ) => {
   const itemSpacing = spacing === null ? 0 : `var(--spacing-${spacing})`;

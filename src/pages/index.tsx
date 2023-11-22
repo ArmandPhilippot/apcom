@@ -1,8 +1,7 @@
-/* eslint-disable max-statements */
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import NextImage, { type ImageProps as NextImageProps } from 'next/image';
+import NextImage from 'next/image';
 import Script from 'next/script';
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
@@ -14,11 +13,9 @@ import {
   CardHeader,
   CardMeta,
   CardTitle,
-  Figure,
   getLayout,
   Grid,
   type GridItem,
-  Heading,
   Icon,
   List,
   ListItem,
@@ -27,6 +24,7 @@ import {
   Time,
   MetaItem,
 } from '../components';
+import { mdxComponents } from '../components/mdx';
 import HomePageContent from '../content/pages/homepage.mdx';
 import { getArticlesCard } from '../services/graphql';
 import styles from '../styles/pages/home.module.scss';
@@ -44,66 +42,6 @@ import { useBreadcrumb } from '../utils/hooks';
  */
 const Column = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div {...props}>{children}</div>
-);
-
-const H1 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={1}>
-    {children}
-  </Heading>
-);
-
-const H2 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={2}>
-    {children}
-  </Heading>
-);
-
-const H3 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={3}>
-    {children}
-  </Heading>
-);
-
-const H4 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={4}>
-    {children}
-  </Heading>
-);
-
-const H5 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={5}>
-    {children}
-  </Heading>
-);
-
-const H6 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={6}>
-    {children}
-  </Heading>
-);
-
-const ResponsiveImage = (props: NextImageProps) => (
-  <Figure>
-    <NextImage {...props} />
-  </Figure>
 );
 
 /**
@@ -368,17 +306,11 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
   };
 
   const components: MDXComponents = {
+    ...mdxComponents,
     CodingLinks,
     ColdarkRepos,
     Column,
     Grid: StyledGrid,
-    h1: H1,
-    h2: H2,
-    h3: H3,
-    h4: H4,
-    h5: H5,
-    h6: H6,
-    Image: ResponsiveImage,
     LibreLinks,
     MoreLinks,
     RecentPosts: getRecentPosts,

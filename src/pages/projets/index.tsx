@@ -1,5 +1,4 @@
 /* eslint-disable max-statements */
-import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
@@ -16,13 +15,13 @@ import {
   getLayout,
   Grid,
   type GridItem,
-  Link,
   MetaList,
   MetaItem,
   Page,
   PageHeader,
   PageBody,
 } from '../../components';
+import { mdxComponents } from '../../components/mdx';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
 import styles from '../../styles/pages/projects.module.scss';
 import type { NextPageWithLayout, ProjectCard } from '../../types';
@@ -39,10 +38,6 @@ import {
   type Messages,
 } from '../../utils/helpers/server';
 import { useBreadcrumb } from '../../utils/hooks';
-
-const components: MDXComponents = {
-  Link,
-};
 
 type ProjectsPageProps = {
   projects: ProjectCard[];
@@ -167,7 +162,7 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
       />
       <PageHeader
         heading={title}
-        intro={<PageContent components={components} />}
+        intro={<PageContent components={mdxComponents} />}
       />
       <PageBody className={styles.body}>
         <Grid

@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import bundleAnalyzer from '@next/bundle-analyzer';
 import nextMDX from '@next/mdx';
 import rehypeSlug from 'rehype-slug';
+import { visit } from 'unist-util-visit';
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
 
@@ -161,11 +162,19 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const overrideHTMLTags = () => (tree) => {
+  visit(tree, 'mdxJsxTextElement', (node) => {
+    if (node.data) {
+      delete node.data._mdxExplicitJsx;
+    }
+  });
+};
+
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
-    rehypePlugins: [rehypeSlug],
+    rehypePlugins: [rehypeSlug, overrideHTMLTags],
   },
 });
 

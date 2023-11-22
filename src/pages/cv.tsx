@@ -1,30 +1,24 @@
 /* eslint-disable max-statements */
-import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, {
-  type AnchorHTMLAttributes,
-  type HTMLAttributes,
-  type ReactNode,
-} from 'react';
+import React, { type ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
   Heading,
   ImageWidget,
   Link,
-  List,
   SocialMediaWidget,
-  ListItem,
   Page,
   PageHeader,
   PageSidebar,
   TocWidget,
   PageBody,
 } from '../components';
+import { mdxComponents } from '../components/mdx';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import type { NextPageWithLayout } from '../types';
 import { CONFIG } from '../utils/config';
@@ -36,102 +30,6 @@ import {
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
-
-const ExternalLink = ({
-  children = '',
-  href = '',
-  ...props
-}: AnchorHTMLAttributes<HTMLAnchorElement>) => (
-  <Link {...props} isExternal href={href}>
-    {children}
-  </Link>
-);
-
-const H1 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={1}>
-    {children}
-  </Heading>
-);
-
-const H2 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={2}>
-    {children}
-  </Heading>
-);
-
-const H3 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={3}>
-    {children}
-  </Heading>
-);
-
-const H4 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={4}>
-    {children}
-  </Heading>
-);
-
-const H5 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={5}>
-    {children}
-  </Heading>
-);
-
-const H6 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={6}>
-    {children}
-  </Heading>
-);
-
-const OrderedList = ({
-  children,
-  ...props
-}: HTMLAttributes<HTMLUListElement>) => (
-  <List {...props} isOrdered spacing="2xs">
-    {children}
-  </List>
-);
-
-const UnorderedList = ({
-  children,
-  ...props
-}: HTMLAttributes<HTMLUListElement>) => (
-  <List {...props} spacing="2xs">
-    {children}
-  </List>
-);
-
-const components: MDXComponents = {
-  a: ExternalLink,
-  h1: H1,
-  h2: H2,
-  h3: H3,
-  h4: H4,
-  h5: H5,
-  h6: H6,
-  li: ({ ref, ...props }) => <ListItem {...props} />,
-  Link,
-  ol: OrderedList,
-  ul: UnorderedList,
-};
 
 /**
  * CV page.
@@ -258,7 +156,7 @@ const CVPage: NextPageWithLayout = () => {
         />
       </PageSidebar>
       <PageBody ref={ref}>
-        <CVContent components={components} />
+        <CVContent components={mdxComponents} />
       </PageBody>
       <PageSidebar>
         <ImageWidget

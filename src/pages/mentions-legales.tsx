@@ -1,15 +1,11 @@
 /* eslint-disable max-statements */
-import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
-  Link,
-  Figure,
   Page,
   PageHeader,
   PageSidebar,
@@ -17,6 +13,7 @@ import {
   Heading,
   PageBody,
 } from '../components';
+import { mdxComponents } from '../components/mdx';
 import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
 import { CONFIG } from '../utils/config';
@@ -28,17 +25,6 @@ import {
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
-
-const ResponsiveImage = (props: NextImageProps) => (
-  <Figure>
-    <NextImage {...props} />
-  </Figure>
-);
-
-const components: MDXComponents = {
-  Image: ResponsiveImage,
-  Link,
-};
 
 /**
  * Legal Notice page.
@@ -119,7 +105,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
         />
       </PageSidebar>
       <PageBody ref={ref}>
-        <LegalNoticeContent components={components} />
+        <LegalNoticeContent components={mdxComponents} />
       </PageBody>
     </Page>
   );

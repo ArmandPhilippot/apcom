@@ -14,7 +14,7 @@ export type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
   /**
    * The heading body.
    */
-  children: ReactNode;
+  children?: ReactNode;
   /**
    * Use an heading element or only its styles.
    *

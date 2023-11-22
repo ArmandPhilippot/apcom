@@ -11,7 +11,7 @@ export type FigureProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
   /**
    * The contents (ie. an image, illustration, diagram, code snippet, etc.).
    */
-  children: ReactNode;
+  children?: ReactNode;
   /**
    * A figure caption.
    */

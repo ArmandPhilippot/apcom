@@ -3,22 +3,16 @@ import type { MDXComponents } from 'mdx/types';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import NextImage, { type ImageProps as NextImageProps } from 'next/image';
+import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
+import type { ComponentType } from 'react';
 import { useIntl } from 'react-intl';
 import {
-  Code,
   getLayout,
-  Link,
   SharingWidget,
   Spinner,
   Heading,
-  List,
-  ListItem,
-  Figure,
-  Grid,
   ProjectOverview,
   type ProjectMeta,
   type Repository,
@@ -28,6 +22,7 @@ import {
   TocWidget,
   PageBody,
 } from '../../components';
+import { mdxComponents } from '../../components/mdx';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
 import { CONFIG } from '../../utils/config';
@@ -48,110 +43,6 @@ import {
   useGithubApi,
   useHeadingsTree,
 } from '../../utils/hooks';
-
-const BorderedImage = (props: NextImageProps) => (
-  <Figure hasBorders>
-    <NextImage {...props} />
-  </Figure>
-);
-
-const H1 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={1}>
-    {children}
-  </Heading>
-);
-
-const H2 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={2}>
-    {children}
-  </Heading>
-);
-
-const H3 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={3}>
-    {children}
-  </Heading>
-);
-
-const H4 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={4}>
-    {children}
-  </Heading>
-);
-
-const H5 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={5}>
-    {children}
-  </Heading>
-);
-
-const H6 = ({
-  children = '',
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) => (
-  <Heading {...props} level={6}>
-    {children}
-  </Heading>
-);
-
-const OrderedList = ({
-  children,
-  ...props
-}: HTMLAttributes<HTMLUListElement>) => (
-  <List {...props} isOrdered spacing="2xs">
-    {children}
-  </List>
-);
-
-const UnorderedList = ({
-  children,
-  ...props
-}: HTMLAttributes<HTMLUListElement>) => (
-  <List {...props} spacing="2xs">
-    {children}
-  </List>
-);
-
-const Gallery = ({ children }: { children: ReactNode[] }) => (
-  <Grid
-    gap="sm"
-    items={children.map((child, index) => {
-      return { id: `${index}`, item: child };
-    })}
-    sizeMin="250px"
-  />
-);
-
-const components: MDXComponents = {
-  Code,
-  Gallery,
-  h1: H1,
-  h2: H2,
-  h3: H3,
-  h4: H4,
-  h5: H5,
-  h6: H6,
-  Image: BorderedImage,
-  li: ({ ref, ...props }) => <ListItem {...props} />,
-  Link,
-  ol: OrderedList,
-  ul: UnorderedList,
-};
 
 type ProjectPageProps = {
   project: ProjectPreview;
@@ -326,7 +217,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
           meta={overviewMeta}
           name={project.title}
         />
-        <ProjectContent components={components} />
+        <ProjectContent components={mdxComponents} />
       </PageBody>
       <PageSidebar>
         <SharingWidget
