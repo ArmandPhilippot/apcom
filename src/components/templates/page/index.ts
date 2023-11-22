@@ -3,4 +3,5 @@ export * from './page-body';
 export * from './page-comments';
 export * from './page-footer';
 export * from './page-header';
+export * from './page-section';
 export * from './page-sidebar';

@@ -7,6 +7,7 @@ import { PageBody } from './page-body';
 import { PageComments } from './page-comments';
 import { PageFooter } from './page-footer';
 import { PageHeader } from './page-header';
+import { PageSection } from './page-section';
 import { PageSidebar } from './page-sidebar';
 
 /**
@@ -453,4 +454,43 @@ HeaderBodyComments.args = {
       <PageComments comments={comments} pageId={1} />
     </>
   ),
+};
+
+/**
+ * Page Stories - SectionedPage
+ */
+export const SectionedPage = Template.bind({});
+SectionedPage.args = {
+  children: (
+    <>
+      <PageSection>
+        <Heading level={2}>A section title</Heading>
+        <p>
+          Illo temporibus nihil maiores nesciunt. Veritatis distinctio aperiam
+          culpa eveniet incidunt eos harum porro labore. Soluta culpa unde
+          adipisci fugiat voluptas eos.
+        </p>
+      </PageSection>
+      <PageSection variant="dark">
+        <Heading level={2}>Another section title</Heading>
+        <p>
+          Sint consequatur animi eum beatae. Non corporis quos quia et magnam.
+          Cumque molestiae blanditiis aut. Et suscipit iusto laudantium iusto
+          dignissimos.
+        </p>
+      </PageSection>
+      <PageSection>
+        <Heading level={2}>A third section title</Heading>
+        <p>
+          Omnis corporis perferendis animi iste quidem placeat est minus. Enim
+          autem consequatur voluptatem provident qui culpa. Aliquid aliquam
+          consequatur non explicabo ut distinctio quis a non. Delectus unde odio
+          eveniet temporibus omnis. Reprehenderit consequatur minima in
+          consequatur saepe est sed. Accusantium quia quae magnam expedita nihil
+          rerum omnis temporibus perspiciatis.
+        </p>
+      </PageSection>
+    </>
+  ),
+  hasSections: true,
 };

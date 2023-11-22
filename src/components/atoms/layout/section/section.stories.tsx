@@ -1,85 +1,37 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Heading } from '../../heading';
-import { Section } from './section';
+import { Section as SectionComponent } from './section';
 
 /**
  * Section - Storybook Meta
  */
 export default {
   title: 'Atoms/Layout/Section',
-  component: Section,
-  args: {
-    hasBorder: true,
-    variant: 'light',
-  },
+  component: SectionComponent,
   argTypes: {
     children: {
-      description: 'The section content.',
+      description: 'The section contents.',
       type: {
         name: 'function',
         required: true,
       },
     },
-    hasBorder: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Add a border at the bottom of the section.',
-      table: {
-        category: 'Styles',
-        defaultValue: { summary: false },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
-    variant: {
-      control: {
-        type: 'select',
-      },
-      description: 'The section variant.',
-      options: ['light', 'dark'],
-      table: {
-        category: 'Styles',
-        defaultValue: { summary: 'dark' },
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
   },
-} as ComponentMeta<typeof Section>;
+} as ComponentMeta<typeof SectionComponent>;
 
-const Template: ComponentStory<typeof Section> = (args) => (
-  <Section {...args} />
+const Template: ComponentStory<typeof SectionComponent> = (args) => (
+  <SectionComponent {...args} />
 );
 
 /**
- * Section Stories - Light
+ * Section Story
  */
-export const Light = Template.bind({});
-Light.args = {
+export const Section = Template.bind({});
+Section.args = {
   children: (
     <>
       <Heading level={2}>A section title</Heading>
       <div>The body</div>
     </>
   ),
-  variant: 'light',
-};
-
-/**
- * Section Stories - Dark
- */
-export const Dark = Template.bind({});
-Dark.args = {
-  children: (
-    <>
-      <Heading level={2}>A section title</Heading>
-      <div>The body</div>
-    </>
-  ),
-  variant: 'dark',
 };

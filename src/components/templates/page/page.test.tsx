@@ -3,6 +3,8 @@ import { render, screen as rtlScreen } from '../../../../tests/utils';
 import type { BreadcrumbsItem } from '../../organisms';
 import { Page } from './page';
 import { PageBody } from './page-body';
+import { PageSection } from './page-section';
+import { Heading } from 'src/components/atoms';
 
 describe('Page', () => {
   it('renders its children', () => {
@@ -45,5 +47,34 @@ describe('Page', () => {
     render(<Page isBodyLastChild>{body}</Page>);
 
     expect(rtlScreen.getByText(body)).toHaveClass('page--body-last');
+  });
+
+  it('can render a sectioned page', () => {
+    const sections = [
+      {
+        heading: 'excepturi ex dolorum',
+        contents:
+          'Id eius voluptas rerum nemo ullam omnis provident deserunt. Expedita sit ut consequatur deleniti. Maiores nam. Necessitatibus pariatur et qui dolor quia labore.',
+      },
+      {
+        heading: 'rerum corporis et',
+        contents:
+          'Vel maxime doloremque quo laborum debitis. Ab perferendis animi dolores et ut voluptatem. Tempore aut doloremque sunt enim aut sint. Quae iure saepe consectetur. Ex animi ut. Nobis aliquid iste accusantium nesciunt ab voluptas illum.',
+      },
+    ];
+
+    render(
+      <Page hasSections>
+        {sections.map((section) => (
+          <PageSection aria-label={section.heading} key={section.heading}>
+            <Heading level={2}>{section.heading}</Heading>
+            <p>{section.contents}</p>
+          </PageSection>
+        ))}
+      </Page>
+    );
+
+    expect(rtlScreen.getAllByRole('region')).toHaveLength(sections.length);
+    expect(rtlScreen.getByRole('article')).toHaveClass('page--full');
   });
 });

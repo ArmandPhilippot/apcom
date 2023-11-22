@@ -14,6 +14,12 @@ export type PageProps = HTMLAttributes<HTMLDivElement> & {
    */
   breadcrumbs?: BreadcrumbsItem[];
   /**
+   * Is it a regular page or a sectioned one?
+   *
+   * @default false
+   */
+  hasSections?: boolean;
+  /**
    * Add an extra padding to the body when there are no footer/comments.
    *
    * Note: this should be refactored when `:has()` pseudo-class will have a
@@ -25,13 +31,22 @@ export type PageProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const PageWithRef: ForwardRefRenderFunction<HTMLDivElement, PageProps> = (
-  { breadcrumbs, children, className = '', isBodyLastChild = false, ...props },
+  {
+    breadcrumbs,
+    children,
+    className = '',
+    hasSections = false,
+    isBodyLastChild = false,
+    ...props
+  },
   ref
 ) => {
   const wrapperClass = `${styles.wrapper} ${className}`;
-  const pageClass = `${styles.page} ${
-    styles[isBodyLastChild ? 'page--body-last' : '']
-  }`;
+  const pageClass = [
+    styles.page,
+    styles[hasSections ? 'page--full' : 'page--regular'],
+    styles[isBodyLastChild ? 'page--body-last' : ''],
+  ].join(' ');
   const intl = useIntl();
   const breadcrumbsLabel = intl.formatMessage({
     defaultMessage: 'Breadcrumbs',

@@ -14,7 +14,8 @@
 }
 
 .breadcrumbs,
-.page {
+.page--regular,
+.section {
   --border-size: #{fun.convert-px(3)};
   --col-gap: clamp(var(--spacing-md), 4vw, var(--spacing-2xl));
   --left-col: 0;
@@ -25,6 +26,10 @@
 
   grid-auto-flow: column dense;
   align-items: baseline;
+}
+
+.breadcrumbs,
+.page--regular {
   margin-top: var(--spacing-sm);
 }
 
@@ -107,6 +112,36 @@
   }
 }
 
+.section {
+  --right-col: minmax(0, 1fr);
+  --left-col: minmax(0, 1fr);
+
+  @extend %grid;
+
+  row-gap: var(--spacing-sm);
+  padding: var(--spacing-md) 0;
+
+  &--bordered {
+    border-bottom: fun.convert-px(1) solid var(--color-border);
+  }
+
+  &--dark {
+    background: var(--color-bg-secondary);
+  }
+
+  &--light {
+    background: var(--color-bg);
+  }
+
+  &__body {
+    grid-column: 2;
+
+    > * + * {
+      margin-block: var(--spacing-sm);
+    }
+  }
+}
+
 :where(.footer) {
   .btn {
     margin-inline-end: var(--spacing-2xs);
@@ -161,13 +196,13 @@
   padding: 0 0 var(--spacing-lg);
   background: var(--color-bg-secondary);
   border-top: var(--border-size) solid var(--color-border-light);
+
+  &__body {
+    grid-column: 2;
+  }
 }
 
 :where(.comments) {
-  .section {
-    grid-column: 2;
-  }
-
   .heading {
     width: fit-content;
     margin: var(--spacing-md) auto;
@@ -181,7 +216,7 @@
 
 @container page (width > #{var.get-breakpoint("md")}) {
   .breadcrumbs,
-  .page {
+  .page--regular {
     --right-col: minmax(25ch, 1fr);
   }
 
@@ -200,7 +235,7 @@
 
 @container page (width > #{var.get-breakpoint("lg")}) {
   .breadcrumbs,
-  .page {
+  .page--regular {
     --left-col: minmax(25ch, 1fr);
   }
 

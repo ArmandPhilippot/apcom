@@ -18,10 +18,11 @@ import {
   Icon,
   List,
   ListItem,
-  Section,
-  type SectionProps,
   Time,
   MetaItem,
+  type PageSectionProps,
+  PageSection,
+  Page,
 } from '../components';
 import { mdxComponents } from '../components/mdx';
 import HomePageContent from '../content/pages/homepage.mdx';
@@ -213,14 +214,18 @@ const StyledGrid = ({ children }: { children: ReactNode }) => (
  * @param {ReactNode[]} obj.children - The section body.
  * @returns {JSX.Element} A section element.
  */
-const HomePageSection: FC<SectionProps> = ({
+const HomePageSection: FC<PageSectionProps> = ({
   children,
   hasBorder = true,
   variant,
 }) => (
-  <Section className={styles.section} hasBorder={hasBorder} variant={variant}>
+  <PageSection
+    className={styles.section}
+    hasBorder={hasBorder}
+    variant={variant}
+  >
     {children}
-  </Section>
+  </PageSection>
 );
 
 type HomeProps = {
@@ -349,7 +354,9 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <HomePageContent components={components} />
+      <Page hasSections>
+        <HomePageContent components={components} />
+      </Page>
     </>
   );
 };

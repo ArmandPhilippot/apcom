@@ -8,7 +8,7 @@ import {
 import { useIntl } from 'react-intl';
 import { sendComment } from '../../../services/graphql';
 import type { SendCommentInput } from '../../../types';
-import { Heading, Link } from '../../atoms';
+import { Heading, Link, Section } from '../../atoms';
 import { Card, CardBody } from '../../molecules';
 import {
   type CommentData,
@@ -138,7 +138,7 @@ const PageCommentsWithRef: ForwardRefRenderFunction<
 
   return (
     <div {...props} className={wrapperClass} ref={ref}>
-      <section className={styles.section}>
+      <Section className={styles.comments__body}>
         <Heading className={styles.heading} level={2}>
           {commentsListTitle}
         </Heading>
@@ -154,10 +154,10 @@ const PageCommentsWithRef: ForwardRefRenderFunction<
             <CardBody>{noCommentsYet}</CardBody>
           </Card>
         )}
-      </section>
+      </Section>
       {areCommentsClosed ? null : (
-        <section
-          className={styles.section}
+        <Section
+          className={styles.comments__body}
           // eslint-disable-next-line react/jsx-no-literals
           id="comment-form-section"
         >
@@ -169,7 +169,7 @@ const PageCommentsWithRef: ForwardRefRenderFunction<
             className={styles.form}
             onSubmit={saveComment}
           />
-        </section>
+        </Section>
       )}
     </div>
   );
