@@ -3,17 +3,14 @@
 $breakpoint: 50ch;
 
 .cover {
+  display: flex;
   width: var(--cover-width, 100%);
-  height: var(--cover-height, fun.convert-px(150));
   max-width: none;
   position: relative;
 
   > * {
     width: 100%;
-    height: 100%;
-    max-width: 100%;
-    position: absolute;
-    inset: 0;
+    max-height: 100%;
     object-position: center;
     object-fit: cover;
   }
@@ -35,8 +32,7 @@ $breakpoint: 50ch;
   flex-flow: row wrap;
   align-items: center;
   justify-content: var(--alignment);
-  column-gap: var(--spacing-md);
-  row-gap: var(--spacing-sm);
+  gap: var(--spacing-sm) var(--spacing-md);
   padding-block: var(--spacing-sm);
 }
 
@@ -56,8 +52,7 @@ $breakpoint: 50ch;
 .card {
   --card-padding: clamp(var(--spacing-sm), 3vw, var(--spacing-md));
 
-  column-gap: var(--spacing-md);
-  row-gap: var(--spacing-sm);
+  gap: var(--spacing-sm) var(--spacing-md);
   width: 100%;
   height: 100%;
   background: var(--color-bg);
@@ -76,11 +71,24 @@ $breakpoint: 50ch;
   }
 }
 
-:where(.card--variant-2) .cover {
-  border-radius: fun.convert-px(3);
-  box-shadow:
-    0 0 0 fun.convert-px(1) var(--color-shadow-light),
-    fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1) var(--color-shadow);
+:where(.card--variant-1) .cover {
+  max-height: var(--cover-height, auto);
+}
+
+:where(.card--variant-2) {
+  .cover {
+    height: var(--cover-height, auto);
+    padding: 0;
+    border-radius: fun.convert-px(3);
+    box-shadow:
+      0 0 0 fun.convert-px(1) var(--color-shadow-light),
+      fun.convert-px(2) fun.convert-px(2) 0 fun.convert-px(1)
+        var(--color-shadow);
+  }
+
+  .title {
+    text-align: center;
+  }
 }
 
 .wrapper {
@@ -100,6 +108,8 @@ $breakpoint: 50ch;
 
   &--is-link {
     --scale-up: 1.05;
+
+    width: auto;
 
     &:not(:disabled):focus:not(:hover) {
       text-decoration: none;
@@ -163,6 +173,10 @@ $breakpoint: 50ch;
       .cover {
         margin-block-start: var(--card-padding);
       }
+
+      .meta {
+        margin-inline: auto;
+      }
     }
   }
 }
@@ -212,7 +226,7 @@ $breakpoint: 50ch;
 
   :where(.card--has-cover .header:only-child) .cover:only-child {
     --cover-width: calc(100% + (2 * var(--card-padding)));
-    --cover-height: calc(100% + (2 * var(--card-padding)));
+    --cover-height: auto;
 
     margin-block-start: calc(var(--card-padding) * -1);
     margin-inline-start: calc(var(--card-padding) * -1);
