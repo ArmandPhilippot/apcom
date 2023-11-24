@@ -1,43 +1,7 @@
 import NextImage from 'next/image';
 import type { LinksWidgetItemData, PostData } from '../../components';
-import { getArticleFromRawData } from '../../services/graphql';
-import type {
-  Article,
-  EdgesResponse,
-  PageLink,
-  RawArticle,
-  RawThematicPreview,
-  RawTopicPreview,
-} from '../../types';
+import type { ArticlePreview, PageLink } from '../../types';
 import { ROUTES } from '../constants';
-import { getImageFromRawData } from './images';
-
-/**
- * Convert raw data to a Link object.
- *
- * @param data - An object.
- * @param {number} data.databaseId - The data id.
- * @param {number} [data.logo] - The data logo.
- * @param {string} data.slug - The data slug.
- * @param {string} data.title - The data name.
- * @returns {PageLink} The link data (id, slug and title).
- */
-export const getPageLinkFromRawData = (
-  data: RawThematicPreview | RawTopicPreview,
-  kind: 'thematic' | 'topic'
-): PageLink => {
-  const { databaseId, featuredImage, slug, title } = data;
-  const baseUrl = `${
-    kind === 'thematic' ? ROUTES.THEMATICS.INDEX : ROUTES.TOPICS
-  }/`;
-
-  return {
-    id: databaseId,
-    logo: featuredImage ? getImageFromRawData(featuredImage.node) : undefined,
-    name: title,
-    url: `${baseUrl}${slug}`,
-  };
-};
 
 /**
  * Method to sort PageLink objects by name.
@@ -73,55 +37,28 @@ export const getLinksItemData = (links: PageLink[]): LinksWidgetItemData[] =>
 /**
  * Retrieve the posts list with the article URL.
  *
- * @param {Article[]} posts - An array of articles.
+ * @param {ArticlePreview[]} posts - An array of articles.
  * @returns {PostData[]} An array of posts with full article URL.
  */
-export const getPostsWithUrl = (posts: Article[]): PostData[] =>
-  posts.map(({ intro, meta, slug, title, ...post }) => {
+export const getPostsWithUrl = (posts: ArticlePreview[]): PostData[] =>
+  posts.map(({ id, intro, meta, slug, title, ...post }) => {
     return {
       ...post,
       cover: meta.cover ? <NextImage {...meta.cover} /> : undefined,
       excerpt: intro,
       heading: title,
+      id,
       meta: {
         publicationDate: meta.dates.publication,
         updateDate: meta.dates.update,
         wordsCount: meta.wordsCount,
-        author: meta.author?.name,
         thematics: meta.thematics,
-        topics: meta.topics,
-        comments:
-          meta.commentsCount === undefined
-            ? undefined
-            : {
-                count: meta.commentsCount,
-                postHeading: title,
-                url: `${ROUTES.ARTICLE}/${slug}#comments`,
-              },
+        comments: {
+          count: meta.commentsCount ?? 0,
+          postHeading: title,
+          url: `${ROUTES.ARTICLE}/${slug}#comments`,
+        },
       },
       url: `${ROUTES.ARTICLE}/${slug}`,
     };
   });
-
-/**
- * Retrieve the posts list from raw data.
- *
- * @param {EdgesResponse<RawArticle>[]} rawData - The raw data.
- * @returns {PostData[]} An array of posts.
- */
-export const getPostsList = async (
-  rawData: EdgesResponse<RawArticle>[]
-): Promise<PostData[]> => {
-  const articlesList: RawArticle[] = [];
-  rawData.forEach((articleData) => {
-    articleData.edges.forEach((edge) => {
-      articlesList.push(edge.node);
-    });
-  });
-
-  return getPostsWithUrl(
-    await Promise.all(
-      articlesList.map(async (article) => getArticleFromRawData(article))
-    )
-  );
-};

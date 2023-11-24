@@ -18,10 +18,11 @@ import {
   PageBody,
 } from '../../components';
 import {
-  getAllTopicsSlugs,
-  getTopicBySlug,
-  getTopicsPreview,
-  getTotalTopics,
+  convertTaxonomyToPageLink,
+  fetchAllTopicsSlugs,
+  fetchTopic,
+  fetchTopicsCount,
+  fetchTopicsList,
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
 import type { NextPageWithLayout, PageLink, Topic } from '../../types';
@@ -29,7 +30,6 @@ import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getLinksItemData,
-  getPageLinkFromRawData,
   getPostsWithUrl,
   getSchemaJson,
   getSinglePageSchema,
@@ -208,13 +208,13 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
   locale,
   params,
 }) => {
-  const currentTopic = await getTopicBySlug((params as TopicParams).slug);
-  const totalTopics = await getTotalTopics();
-  const allTopicsEdges = await getTopicsPreview({
+  const currentTopic = await fetchTopic((params as TopicParams).slug);
+  const totalTopics = await fetchTopicsCount();
+  const allTopicsEdges = await fetchTopicsList({
     first: totalTopics,
   });
   const allTopics = allTopicsEdges.edges.map((edge) =>
-    getPageLinkFromRawData(edge.node, 'topic')
+    convertTaxonomyToPageLink(edge.node)
   );
   const topicsLinks = allTopics.filter(
     (topic) => topic.url !== `${ROUTES.TOPICS}/${(params as TopicParams).slug}`
@@ -231,7 +231,7 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await getAllTopicsSlugs();
+  const slugs = await fetchAllTopicsSlugs();
   const paths = slugs.map((slug) => {
     return { params: { slug } };
   });

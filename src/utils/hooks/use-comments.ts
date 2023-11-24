@@ -1,9 +1,13 @@
 import useSWR from 'swr';
-import { getAllComments } from '../../services/graphql';
+import {
+  type FetchCommentsListInput,
+  fetchCommentsList,
+  convertWPCommentToComment,
+  buildCommentsTree,
+} from '../../services/graphql';
 import type { SingleComment } from '../../types';
 
-export type UseCommentsConfig = {
-  contentId?: string | number;
+export type UseCommentsConfig = FetchCommentsListInput & {
   fallback?: SingleComment[];
 };
 
@@ -14,10 +18,15 @@ export type UseCommentsConfig = {
  * @returns {SingleComment[]|undefined}
  */
 export const useComments = ({
-  contentId,
   fallback,
+  ...input
 }: UseCommentsConfig): SingleComment[] | undefined => {
-  const { data } = useSWR(contentId ? { contentId } : null, getAllComments, {});
+  const { data } = useSWR(input, fetchCommentsList, {});
 
-  return data ?? fallback;
+  if (!data) return fallback;
+
+  const comments = data.map(convertWPCommentToComment);
+  const commentsTree = buildCommentsTree(comments);
+
+  return commentsTree;
 };

@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { getConnection } from '../../../../tests/utils/graphql';
-import type { EdgesResponse, GraphQLEdgesInput, Search } from '../../../types';
-import { usePagination } from './use-pagination';
+import type { GraphQLConnection } from '../../../types';
+import {
+  type UsePaginationFetcherInput,
+  usePagination,
+} from './use-pagination';
 
 type Data = {
   id: number;
@@ -24,7 +27,7 @@ describe('usePagination', () => {
       after,
       first,
       search,
-    }: GraphQLEdgesInput & Search): Promise<EdgesResponse<Data>> => {
+    }: UsePaginationFetcherInput): Promise<GraphQLConnection<Data>> => {
       const filteredData = search
         ? data.filter((d) => d.title.includes(search))
         : data;

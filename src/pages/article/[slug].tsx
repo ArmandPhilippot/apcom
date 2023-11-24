@@ -21,9 +21,11 @@ import {
   TocWidget,
 } from '../../components';
 import {
-  getAllArticlesSlugs,
-  getAllComments,
-  getArticleBySlug,
+  convertPostToArticle,
+  convertWPCommentToComment,
+  fetchAllPostsSlugs,
+  fetchCommentsList,
+  fetchPost,
 } from '../../services/graphql';
 import styles from '../../styles/pages/article.module.scss';
 import type { Article, NextPageWithLayout, SingleComment } from '../../types';
@@ -63,8 +65,11 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   const intl = useIntl();
   const article = useArticle({ slug, fallback: post });
   const commentsData = useComments({
-    contentId: article?.id,
     fallback: comments,
+    first: article?.meta.commentsCount,
+    where: {
+      contentId: article?.id ?? post.id,
+    },
   });
 
   const getComments = (data?: SingleComment[]) =>
@@ -73,7 +78,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         author: comment.meta.author,
         content: comment.content,
         id: comment.id,
-        isApproved: comment.approved,
+        isApproved: comment.isApproved,
         publicationDate: comment.meta.date,
         replies: getComments(comment.replies),
       };
@@ -255,7 +260,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         heading={title}
         intro={intro}
         meta={{
-          author: author?.name,
+          author,
           publicationDate: dates.publication,
           thematics,
           updateDate: dates.update,
@@ -292,11 +297,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
           ]}
         />
       </PageSidebar>
-      <PageComments
-        comments={articleComments ?? []}
-        depth={2}
-        pageId={id as number}
-      />
+      <PageComments comments={articleComments ?? []} depth={2} pageId={id} />
     </Page>
   );
 };
@@ -311,14 +312,20 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
   locale,
   params,
 }) => {
-  const post = await getArticleBySlug((params as PostParams).slug);
-  const comments = await getAllComments({ contentId: post.id as number });
+  const post = await fetchPost((params as PostParams).slug);
+  const article = await convertPostToArticle(post);
+  const comments = await fetchCommentsList({
+    first: post.commentCount ?? 1,
+    where: { contentId: post.databaseId },
+  });
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      comments: JSON.parse(JSON.stringify(comments)),
-      post: JSON.parse(JSON.stringify(post)),
+      comments: JSON.parse(
+        JSON.stringify(comments.map(convertWPCommentToComment))
+      ),
+      post: JSON.parse(JSON.stringify(article)),
       slug: post.slug,
       translation,
     },
@@ -326,7 +333,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await getAllArticlesSlugs();
+  const slugs = await fetchAllPostsSlugs();
   const paths = slugs.map((slug) => {
     return { params: { slug } };
   });

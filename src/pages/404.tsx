@@ -18,25 +18,26 @@ import {
   type SearchFormSubmit,
 } from '../components';
 import {
-  getThematicsPreview,
-  getTopicsPreview,
-  getTotalThematics,
-  getTotalTopics,
+  convertTaxonomyToPageLink,
+  fetchThematicsCount,
+  fetchThematicsList,
+  fetchTopicsCount,
+  fetchTopicsList,
 } from '../services/graphql';
 import type {
   NextPageWithLayout,
-  RawThematicPreview,
-  RawTopicPreview,
+  WPThematicPreview,
+  WPTopicPreview,
 } from '../types';
 import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
-import { getLinksItemData, getPageLinkFromRawData } from '../utils/helpers';
+import { getLinksItemData } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumb } from '../utils/hooks';
 
 type Error404PageProps = {
-  thematicsList: RawThematicPreview[];
-  topicsList: RawTopicPreview[];
+  thematicsList: WPThematicPreview[];
+  topicsList: WPTopicPreview[];
   translation: Messages;
 };
 
@@ -146,11 +147,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
               {thematicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            thematicsList.map((thematic) =>
-              getPageLinkFromRawData(thematic, 'thematic')
-            )
-          )}
+          items={getLinksItemData(thematicsList.map(convertTaxonomyToPageLink))}
         />
         <LinksWidget
           heading={
@@ -158,9 +155,7 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
               {topicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
-          )}
+          items={getLinksItemData(topicsList.map(convertTaxonomyToPageLink))}
         />
       </PageSidebar>
     </Page>
@@ -172,10 +167,10 @@ Error404Page.getLayout = (page) => getLayout(page);
 export const getStaticProps: GetStaticProps<Error404PageProps> = async ({
   locale,
 }) => {
-  const totalThematics = await getTotalThematics();
-  const thematics = await getThematicsPreview({ first: totalThematics });
-  const totalTopics = await getTotalTopics();
-  const topics = await getTopicsPreview({ first: totalTopics });
+  const totalThematics = await fetchThematicsCount();
+  const thematics = await fetchThematicsList({ first: totalThematics });
+  const totalTopics = await fetchTopicsCount();
+  const topics = await fetchTopicsList({ first: totalTopics });
   const translation = await loadTranslation(locale);
 
   return {

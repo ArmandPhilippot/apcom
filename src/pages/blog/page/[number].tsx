@@ -20,27 +20,28 @@ import {
   PageSidebar,
 } from '../../../components';
 import {
-  getArticles,
-  getArticlesEndCursor,
-  getThematicsPreview,
-  getTopicsPreview,
-  getTotalArticles,
-  getTotalThematics,
-  getTotalTopics,
+  convertTaxonomyToPageLink,
+  fetchLastPostCursor,
+  fetchPostsCount,
+  fetchPostsList,
+  fetchThematicsCount,
+  fetchThematicsList,
+  fetchTopicsCount,
+  fetchTopicsList,
 } from '../../../services/graphql';
 import type {
-  EdgesResponse,
+  GraphQLConnection,
   NextPageWithLayout,
-  RawArticle,
-  RawThematicPreview,
-  RawTopicPreview,
+  WPPostPreview,
+  WPThematicPreview,
+  WPTopicPreview,
 } from '../../../types';
 import { CONFIG } from '../../../utils/config';
 import { ROUTES } from '../../../utils/constants';
 import {
   getBlogSchema,
   getLinksItemData,
-  getPageLinkFromRawData,
+  getPostsWithUrl,
   getSchemaJson,
   getWebPageSchema,
 } from '../../../utils/helpers';
@@ -52,10 +53,10 @@ import {
 } from '../../../utils/hooks';
 
 type BlogPageProps = {
-  articles: EdgesResponse<RawArticle>;
   pageNumber: number;
-  thematicsList: RawThematicPreview[];
-  topicsList: RawTopicPreview[];
+  posts: GraphQLConnection<WPPostPreview>;
+  thematicsList: WPThematicPreview[];
+  topicsList: WPTopicPreview[];
   totalArticles: number;
   translation: Messages;
 };
@@ -64,8 +65,8 @@ type BlogPageProps = {
  * Blog index page.
  */
 const BlogPage: NextPageWithLayout<BlogPageProps> = ({
-  articles,
   pageNumber,
+  posts,
   thematicsList,
   topicsList,
   totalArticles,
@@ -75,9 +76,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     redirectTo: ROUTES.BLOG,
   });
 
-  const { posts } = usePostsList({
-    fallback: [articles],
-    fetcher: getArticles,
+  const { articles } = usePostsList({
+    fallback: [posts],
+    fetcher: fetchPostsList,
     perPage: CONFIG.postsPerPage,
   });
   const intl = useIntl();
@@ -195,6 +196,10 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     id: 'AXe1Iz',
   });
 
+  const blogPageArticles = articles?.flatMap((p) =>
+    p.edges.map((edge) => edge.node)
+  );
+
   return (
     <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
@@ -225,7 +230,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         meta={{ total: totalArticles }}
       />
       <PageBody>
-        <PostsList posts={posts ?? []} sortByYear />
+        <PostsList posts={getPostsWithUrl(blogPageArticles ?? [])} sortByYear />
         <Pagination
           aria-label={paginationAriaLabel}
           current={pageNumber}
@@ -242,11 +247,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
               {thematicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            thematicsList.map((thematic) =>
-              getPageLinkFromRawData(thematic, 'thematic')
-            )
-          )}
+          items={getLinksItemData(thematicsList.map(convertTaxonomyToPageLink))}
         />
         <LinksWidget
           heading={
@@ -254,9 +255,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
               {topicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
-          )}
+          items={getLinksItemData(topicsList.map(convertTaxonomyToPageLink))}
         />
       </PageSidebar>
     </Page>
@@ -274,23 +273,23 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
   params,
 }) => {
   const pageNumber = Number((params as BlogPageParams).number);
-  const lastCursor = await getArticlesEndCursor({
-    first: CONFIG.postsPerPage * pageNumber,
-  });
-  const articles = await getArticles({
+  const lastCursor = await fetchLastPostCursor(
+    CONFIG.postsPerPage * pageNumber
+  );
+  const posts = await fetchPostsList({
     first: CONFIG.postsPerPage,
     after: lastCursor,
   });
-  const totalArticles = await getTotalArticles();
-  const totalThematics = await getTotalThematics();
-  const thematics = await getThematicsPreview({ first: totalThematics });
-  const totalTopics = await getTotalTopics();
-  const topics = await getTopicsPreview({ first: totalTopics });
+  const totalArticles = await fetchPostsCount();
+  const totalThematics = await fetchThematicsCount();
+  const thematics = await fetchThematicsList({ first: totalThematics });
+  const totalTopics = await fetchTopicsCount();
+  const topics = await fetchTopicsList({ first: totalTopics });
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      articles: JSON.parse(JSON.stringify(articles)),
+      posts: JSON.parse(JSON.stringify(posts)),
       pageNumber,
       thematicsList: thematics.edges.map((edge) => edge.node),
       topicsList: topics.edges.map((edge) => edge.node),
@@ -301,7 +300,7 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const totalArticles = await getTotalArticles();
+  const totalArticles = await fetchPostsCount();
   const totalPages = Math.ceil(totalArticles / CONFIG.postsPerPage);
   const pagesArray = Array.from(
     { length: totalPages },

@@ -1,5 +1,4 @@
-export * from './author';
-export * from './images';
+export * from './graphql';
 export * from './pages';
 export * from './reading-time';
 export * from './refs';

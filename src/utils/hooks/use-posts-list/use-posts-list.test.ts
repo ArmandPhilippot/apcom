@@ -1,13 +1,13 @@
 import { describe, expect, it } from '@jest/globals';
 import { act, renderHook } from '@testing-library/react';
-import { getArticles } from '../../../services/graphql';
+import { fetchPostsList } from '../../../services/graphql';
 import { usePostsList } from './use-posts-list';
 
 describe('usePostsList', () => {
   it('can return the first new result index when loading more posts', async () => {
     const perPage = 5;
     const { result } = renderHook(() =>
-      usePostsList({ fetcher: getArticles, perPage })
+      usePostsList({ fetcher: fetchPostsList, perPage })
     );
 
     expect.assertions(2);

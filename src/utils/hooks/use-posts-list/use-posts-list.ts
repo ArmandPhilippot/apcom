@@ -1,29 +1,34 @@
-import { useCallback, useEffect, useState } from 'react';
-import type { PostData } from '../../../components';
-import type { Maybe, RawArticle } from '../../../types';
-import { getPostsList } from '../../helpers';
+import { useCallback, useState } from 'react';
+import type {
+  ArticlePreview,
+  GraphQLConnection,
+  GraphQLEdge,
+  Maybe,
+  WPPostPreview,
+} from '../../../types';
 import {
   type UsePaginationConfig,
   usePagination,
   type UsePaginationReturn,
 } from '../use-pagination';
+import { convertPostPreviewToArticlePreview } from 'src/services/graphql';
 
 export type usePostsListReturn = Omit<
-  UsePaginationReturn<RawArticle>,
+  UsePaginationReturn<WPPostPreview>,
   'data'
 > & {
+  /**
+   * The articles list.
+   */
+  articles: Maybe<GraphQLConnection<ArticlePreview>[]>;
   /**
    * The index of the first new result when loading more posts.
    */
   firstNewResultIndex: Maybe<number>;
-  /**
-   * The posts list.
-   */
-  posts: Maybe<PostData[]>;
 };
 
 export const usePostsList = (
-  config: UsePaginationConfig<RawArticle>
+  config: UsePaginationConfig<WPPostPreview>
 ): usePostsListReturn => {
   const {
     data,
@@ -40,15 +45,6 @@ export const usePostsList = (
   } = usePagination(config);
   const [firstNewResultIndex, setFirstNewResultIndex] =
     useState<Maybe<number>>(undefined);
-  const [posts, setPosts] = useState<Maybe<PostData[]>>(undefined);
-
-  useEffect(() => {
-    const getPosts = async () => {
-      if (data) setPosts(await getPostsList(data));
-    };
-
-    getPosts();
-  }, [data]);
 
   const handleLoadMore = useCallback(async () => {
     setFirstNewResultIndex(size * config.perPage + 1);
@@ -56,7 +52,22 @@ export const usePostsList = (
     await loadMore();
   }, [config.perPage, loadMore, size]);
 
+  const articles: Maybe<GraphQLConnection<ArticlePreview>[]> = data?.map(
+    (page): GraphQLConnection<ArticlePreview> => {
+      return {
+        edges: page.edges.map((edge): GraphQLEdge<ArticlePreview> => {
+          return {
+            cursor: edge.cursor,
+            node: convertPostPreviewToArticlePreview(edge.node),
+          };
+        }),
+        pageInfo: page.pageInfo,
+      };
+    }
+  );
+
   return {
+    articles,
     error,
     firstNewResultIndex,
     hasNextPage,
@@ -67,7 +78,6 @@ export const usePostsList = (
     isRefreshing,
     isValidating,
     loadMore: handleLoadMore,
-    posts,
     size,
   };
 };

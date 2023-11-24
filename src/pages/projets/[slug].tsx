@@ -24,7 +24,7 @@ import {
 } from '../../components';
 import { mdxComponents } from '../../components/mdx';
 import styles from '../../styles/pages/project.module.scss';
-import type { NextPageWithLayout, ProjectPreview, Repos } from '../../types';
+import type { NextPageWithLayout, Project, Repos } from '../../types';
 import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
@@ -45,7 +45,7 @@ import {
 } from '../../utils/hooks';
 
 type ProjectPageProps = {
-  project: ProjectPreview;
+  project: Project;
   translation: Messages;
 };
 

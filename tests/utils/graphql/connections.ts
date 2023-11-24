@@ -1,4 +1,9 @@
-import type { EdgesResponse, GraphQLEdges, Maybe } from '../../../src/types';
+import type {
+  GraphQLConnection,
+  GraphQLEdge,
+  Maybe,
+  Nullable,
+} from '../../../src/types';
 import { CONFIG } from '../../../src/utils/config';
 
 /**
@@ -8,7 +13,7 @@ import { CONFIG } from '../../../src/utils/config';
  * @param {number} offset - The offset.
  * @returns {Array<Edge<T>>} The edges.
  */
-export const getEdges = <T>(data: T[], offset: number): GraphQLEdges<T>[] =>
+export const getEdges = <T>(data: T[], offset: number): GraphQLEdge<T>[] =>
   data.map((singleData, index) => {
     const currentItemNumber = index + 1;
 
@@ -21,7 +26,7 @@ export const getEdges = <T>(data: T[], offset: number): GraphQLEdges<T>[] =>
 type GetConnectionProps<T> = {
   data: Maybe<T[]>;
   first: Maybe<number>;
-  after: Maybe<string>;
+  after: Maybe<Nullable<string>>;
 };
 
 /**
@@ -37,7 +42,7 @@ export const getConnection = <T>({
   after,
   data = [],
   first = CONFIG.postsPerPage,
-}: GetConnectionProps<T>): EdgesResponse<T> => {
+}: GetConnectionProps<T>): GraphQLConnection<T> => {
   const afterInt = after ? Number(after.replace('cursor', '')) : 0;
   const edges = getEdges(data.slice(afterInt, afterInt + first), afterInt);
   const endCursor =
@@ -47,7 +52,9 @@ export const getConnection = <T>({
     edges,
     pageInfo: {
       endCursor,
+      hasPreviousPage: typeof after !== 'undefined',
       hasNextPage: data.length - afterInt > first,
+      startCursor: after ?? 'cursor1',
       total: data.length,
     },
   };

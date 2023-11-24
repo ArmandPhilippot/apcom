@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import {
-  articleBySlugQuery,
-  fetchAPI,
-  getArticleFromRawData,
-} from '../../services/graphql';
-import type { Article, Maybe, RawArticle } from '../../types';
+import { convertPostToArticle, fetchPost } from '../../services/graphql';
+import type { Article, Maybe } from '../../types';
 
 export type UseArticleConfig = {
   /**
@@ -28,24 +24,12 @@ export const useArticle = ({
   slug,
   fallback,
 }: UseArticleConfig): Article | undefined => {
-  const { data } = useSWR(
-    slug ? { query: articleBySlugQuery, variables: { slug } } : null,
-    fetchAPI<RawArticle, typeof articleBySlugQuery>,
-    {}
-  );
-  const [article, setArticle] = useState<Maybe<Article>>();
+  const { data } = useSWR(slug, fetchPost, {});
+  const [article, setArticle] = useState<Maybe<Article>>(fallback);
 
   useEffect(() => {
-    const getArticle = async () => {
-      if (data) {
-        setArticle(await getArticleFromRawData(data.post));
-      } else {
-        setArticle(fallback);
-      }
-    };
-
-    getArticle();
-  }, [data, fallback]);
+    if (data) convertPostToArticle(data).then((post) => setArticle(post));
+  }, [data]);
 
   return article;
 };

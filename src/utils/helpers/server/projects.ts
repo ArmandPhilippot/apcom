@@ -1,10 +1,6 @@
 import { readdirSync } from 'fs';
 import path from 'path';
-import {
-  type MDXProjectMeta,
-  type ProjectCard,
-  type ProjectPreview,
-} from '../../../types';
+import type { MDXProjectMeta, Project, ProjectPreview } from '../../../types';
 
 /**
  * Retrieve all the projects filename.
@@ -24,9 +20,7 @@ export const getProjectFilenames = (): string[] => {
  * @param {string} filename - The project filename.
  * @returns {Promise<ProjectPreview>}
  */
-export const getProjectData = async (
-  filename: string
-): Promise<ProjectPreview> => {
+export const getProjectData = async (filename: string): Promise<Project> => {
   try {
     const {
       meta,
@@ -53,7 +47,7 @@ export const getProjectData = async (
         },
       },
       slug: filename,
-      title: title,
+      title,
     };
   } catch (err) {
     console.error(err);
@@ -65,28 +59,24 @@ export const getProjectData = async (
  * Retrieve all the projects data using filenames.
  *
  * @param {string[]} filenames - The filenames without extension.
- * @returns {Promise<ProjectCard[]>} - An array of projects data.
+ * @returns {Promise<ProjectPreview[]>} - An array of projects data.
  */
 export const getProjectsData = async (
   filenames: string[]
-): Promise<ProjectCard[]> => {
-  return Promise.all(
-    filenames.map(async (filename) => {
-      const { id, meta, slug, title } = await getProjectData(filename);
-      const { cover, dates, tagline, technologies } = meta;
-      return { id, meta: { cover, dates, tagline, technologies }, slug, title };
-    })
-  );
-};
+): Promise<ProjectPreview[]> =>
+  Promise.all(filenames.map(async (filename) => getProjectData(filename)));
 
 /**
  * Method to sort an array of projects by publication date.
  *
- * @param {ProjectCard} a - A single project.
- * @param {ProjectCard} b - A single project.
+ * @param {ProjectPreview} a - A single project.
+ * @param {ProjectPreview} b - A single project.
  * @returns The result used by Array.sort() method: 1 || -1 || 0.
  */
-const sortProjectsByPublicationDate = (a: ProjectCard, b: ProjectCard) => {
+const sortProjectsByPublicationDate = (
+  a: ProjectPreview,
+  b: ProjectPreview
+) => {
   if (a.meta.dates.publication < b.meta.dates.publication) return 1;
   if (a.meta.dates.publication > b.meta.dates.publication) return -1;
   return 0;
@@ -95,9 +85,9 @@ const sortProjectsByPublicationDate = (a: ProjectCard, b: ProjectCard) => {
 /**
  * Retrieve all projects in content folder sorted by publication date.
  *
- * @returns {Promise<ProjectCard[]>} An array of projects.
+ * @returns {Promise<ProjectPreview[]>} An array of projects.
  */
-export const getProjectsCard = async (): Promise<ProjectCard[]> => {
+export const getProjectsCard = async (): Promise<ProjectPreview[]> => {
   const filenames = getProjectFilenames();
   const projects = await getProjectsData(filenames);
 

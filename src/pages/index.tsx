@@ -26,9 +26,12 @@ import {
 } from '../components';
 import { mdxComponents } from '../components/mdx';
 import HomePageContent from '../content/pages/homepage.mdx';
-import { getArticlesCard } from '../services/graphql';
+import {
+  convertRecentPostToRecentArticle,
+  fetchRecentPosts,
+} from '../services/graphql';
 import styles from '../styles/pages/home.module.scss';
-import type { ArticleCard, NextPageWithLayout } from '../types';
+import type { NextPageWithLayout, RecentArticle } from '../types';
 import { CONFIG } from '../utils/config';
 import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
@@ -229,7 +232,7 @@ const HomePageSection: FC<PageSectionProps> = ({
 );
 
 type HomeProps = {
-  recentPosts: ArticleCard[];
+  recentPosts: RecentArticle[];
   translation?: Messages;
 };
 
@@ -277,7 +280,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
                   hasBorderedValues
                   isCentered
                   label={publicationDate}
-                  value={<Time date={post.dates.publication} />}
+                  value={<Time date={post.publicationDate} />}
                 />
               </CardMeta>
             }
@@ -365,11 +368,13 @@ HomePage.getLayout = (page) => getLayout(page, { isHome: true });
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
   const translation = await loadTranslation(locale);
-  const recentPosts = await getArticlesCard({ first: 3 });
+  const recentPosts = await fetchRecentPosts({ first: 3 });
 
   return {
     props: {
-      recentPosts,
+      recentPosts: recentPosts.edges.map((edge) =>
+        convertRecentPostToRecentArticle(edge.node)
+      ),
       translation,
     },
   };

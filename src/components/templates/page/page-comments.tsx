@@ -6,8 +6,10 @@ import {
   useCallback,
 } from 'react';
 import { useIntl } from 'react-intl';
-import { sendComment } from '../../../services/graphql';
-import type { SendCommentInput } from '../../../types';
+import {
+  createComment,
+  type CreateCommentInput,
+} from '../../../services/graphql';
 import { Heading, Link, Section } from '../../atoms';
 import { Card, CardBody } from '../../molecules';
 import {
@@ -99,7 +101,7 @@ const PageCommentsWithRef: ForwardRefRenderFunction<
 
   const saveComment: CommentFormSubmit = useCallback(
     async (data) => {
-      const commentData: SendCommentInput = {
+      const commentData: CreateCommentInput = {
         author: data.author,
         authorEmail: data.email,
         authorUrl: data.website ?? '',
@@ -108,7 +110,7 @@ const PageCommentsWithRef: ForwardRefRenderFunction<
         content: data.comment,
         parent: data.parentId,
       };
-      const { comment, success } = await sendComment(commentData);
+      const { comment, success } = await createComment(commentData);
       const successPrefix = intl.formatMessage({
         defaultMessage: 'Thanks, your comment was successfully sent.',
         description: 'PageComments: comment form success message',

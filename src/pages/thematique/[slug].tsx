@@ -17,10 +17,11 @@ import {
   PageBody,
 } from '../../components';
 import {
-  getAllThematicsSlugs,
-  getThematicBySlug,
-  getThematicsPreview,
-  getTotalThematics,
+  convertTaxonomyToPageLink,
+  fetchAllThematicsSlugs,
+  fetchThematic,
+  fetchThematicsCount,
+  fetchThematicsList,
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
 import type { NextPageWithLayout, PageLink, Thematic } from '../../types';
@@ -28,7 +29,6 @@ import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getLinksItemData,
-  getPageLinkFromRawData,
   getPostsWithUrl,
   getSchemaJson,
   getSinglePageSchema,
@@ -191,15 +191,13 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
   locale,
   params,
 }) => {
-  const currentThematic = await getThematicBySlug(
-    (params as ThematicParams).slug
-  );
-  const totalThematics = await getTotalThematics();
-  const allThematicsEdges = await getThematicsPreview({
+  const currentThematic = await fetchThematic((params as ThematicParams).slug);
+  const totalThematics = await fetchThematicsCount();
+  const allThematicsEdges = await fetchThematicsList({
     first: totalThematics,
   });
   const allThematics = allThematicsEdges.edges.map((edge) =>
-    getPageLinkFromRawData(edge.node, 'thematic')
+    convertTaxonomyToPageLink(edge.node)
   );
   const allThematicsLinks = allThematics.filter(
     (thematic) =>
@@ -218,7 +216,7 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await getAllThematicsSlugs();
+  const slugs = await fetchAllThematicsSlugs();
   const paths = slugs.map((slug) => {
     return { params: { slug } };
   });

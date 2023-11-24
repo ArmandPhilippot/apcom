@@ -22,7 +22,7 @@ import {
 import { mdxComponents } from '../../components/mdx';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
 import styles from '../../styles/pages/projects.module.scss';
-import type { NextPageWithLayout, ProjectCard } from '../../types';
+import type { NextPageWithLayout, ProjectPreview } from '../../types';
 import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
@@ -38,7 +38,7 @@ import {
 import { useBreadcrumb } from '../../utils/hooks';
 
 type ProjectsPageProps = {
-  projects: ProjectCard[];
+  projects: ProjectPreview[];
   translation?: Messages;
 };
 

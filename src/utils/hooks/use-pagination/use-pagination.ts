@@ -1,22 +1,25 @@
 import { useCallback } from 'react';
 import useSWRInfinite, { type SWRInfiniteKeyLoader } from 'swr/infinite';
 import type {
-  EdgesResponse,
+  GraphQLConnection,
   GraphQLEdgesInput,
   Maybe,
   Nullable,
-  Search,
 } from '../../../types';
+
+export type UsePaginationFetcherInput = GraphQLEdgesInput & {
+  search?: string;
+};
 
 export type UsePaginationConfig<T> = {
   /**
    * The initial data.
    */
-  fallback?: EdgesResponse<T>[];
+  fallback?: GraphQLConnection<T>[];
   /**
    * A function to fetch more data.
    */
-  fetcher: (props: GraphQLEdgesInput & Search) => Promise<EdgesResponse<T>>;
+  fetcher: (props: UsePaginationFetcherInput) => Promise<GraphQLConnection<T>>;
   /**
    * The number of results per page.
    */
@@ -31,7 +34,7 @@ export type UsePaginationReturn<T> = {
   /**
    * The data from the API.
    */
-  data: Maybe<EdgesResponse<T>[]>;
+  data: Maybe<GraphQLConnection<T>[]>;
   /**
    * An error thrown by fetcher.
    */
@@ -88,8 +91,8 @@ export const usePagination = <T>({
   perPage,
   searchQuery,
 }: UsePaginationConfig<T>): UsePaginationReturn<T> => {
-  const getKey: SWRInfiniteKeyLoader<EdgesResponse<T>> = useCallback(
-    (pageIndex, previousPageData): Nullable<GraphQLEdgesInput & Search> => {
+  const getKey: SWRInfiniteKeyLoader<GraphQLConnection<T>> = useCallback(
+    (pageIndex, previousPageData): Nullable<UsePaginationFetcherInput> => {
       if (previousPageData && !previousPageData.edges.length) return null;
 
       return {

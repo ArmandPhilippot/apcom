@@ -20,25 +20,26 @@ import {
   PageBody,
 } from '../../components';
 import {
-  getArticles,
-  getThematicsPreview,
-  getTopicsPreview,
-  getTotalArticles,
-  getTotalThematics,
-  getTotalTopics,
+  convertTaxonomyToPageLink,
+  fetchPostsCount,
+  fetchPostsList,
+  fetchThematicsCount,
+  fetchThematicsList,
+  fetchTopicsCount,
+  fetchTopicsList,
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
 import type {
   NextPageWithLayout,
-  RawThematicPreview,
-  RawTopicPreview,
+  WPThematicPreview,
+  WPTopicPreview,
 } from '../../types';
 import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
   getLinksItemData,
-  getPageLinkFromRawData,
+  getPostsWithUrl,
   getSchemaJson,
   getWebPageSchema,
 } from '../../utils/helpers';
@@ -46,8 +47,8 @@ import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import { useBreadcrumb, useDataFromAPI, usePostsList } from '../../utils/hooks';
 
 type SearchPageProps = {
-  thematicsList: RawThematicPreview[];
-  topicsList: RawTopicPreview[];
+  thematicsList: WPThematicPreview[];
+  topicsList: WPTopicPreview[];
   translation: Messages;
 };
 
@@ -115,6 +116,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
   const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
 
   const {
+    articles,
     error,
     firstNewResultIndex,
     isLoading,
@@ -122,16 +124,15 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     isRefreshing,
     hasNextPage,
     loadMore,
-    posts,
   } = usePostsList({
     fallback: [],
-    fetcher: getArticles,
+    fetcher: fetchPostsList,
     perPage: CONFIG.postsPerPage,
     searchQuery: query.s as string,
   });
 
   const totalArticles = useDataFromAPI<number>(async () =>
-    getTotalArticles(query.s as string)
+    fetchPostsCount({ search: query.s as string })
   );
 
   const thematicsListTitle = intl.formatMessage({
@@ -172,6 +173,10 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     [intl, routerPush]
   );
 
+  const foundArticles = articles?.flatMap((p) =>
+    p.edges.map((edge) => edge.node)
+  );
+
   return (
     <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
@@ -199,14 +204,14 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
       />
       <PageHeader heading={title} meta={{ total: totalArticles }} />
       <PageBody className={styles.body}>
-        {posts ? null : <Spinner>{loadingResults}</Spinner>}
-        {posts?.length ? (
+        {foundArticles ? null : <Spinner>{loadingResults}</Spinner>}
+        {foundArticles?.length ? (
           <PostsList
             className={styles.list}
             firstNewResult={firstNewResultIndex}
             isLoading={isLoading || isLoadingMore || isRefreshing}
             onLoadMore={hasNextPage ? loadMore : undefined}
-            posts={posts}
+            posts={getPostsWithUrl(foundArticles)}
             sortByYear
           />
         ) : (
@@ -248,11 +253,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
               {thematicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            thematicsList.map((thematic) =>
-              getPageLinkFromRawData(thematic, 'thematic')
-            )
-          )}
+          items={getLinksItemData(thematicsList.map(convertTaxonomyToPageLink))}
         />
         <LinksWidget
           heading={
@@ -260,9 +261,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
               {topicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
-          )}
+          items={getLinksItemData(topicsList.map(convertTaxonomyToPageLink))}
         />
       </PageSidebar>
     </Page>
@@ -274,10 +273,10 @@ SearchPage.getLayout = (page) => getLayout(page);
 export const getStaticProps: GetStaticProps<SearchPageProps> = async ({
   locale,
 }) => {
-  const totalThematics = await getTotalThematics();
-  const thematics = await getThematicsPreview({ first: totalThematics });
-  const totalTopics = await getTotalTopics();
-  const topics = await getTopicsPreview({ first: totalTopics });
+  const totalThematics = await fetchThematicsCount();
+  const thematics = await fetchThematicsList({ first: totalThematics });
+  const totalTopics = await fetchTopicsCount();
+  const topics = await fetchTopicsList({ first: totalTopics });
   const translation = await loadTranslation(locale);
 
   return {

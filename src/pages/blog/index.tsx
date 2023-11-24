@@ -20,27 +20,28 @@ import {
   PageSidebar,
 } from '../../components';
 import {
-  getArticles,
-  getThematicsPreview,
-  getTopicsPreview,
-  getTotalArticles,
-  getTotalThematics,
-  getTotalTopics,
+  convertTaxonomyToPageLink,
+  fetchPostsCount,
+  fetchPostsList,
+  fetchThematicsCount,
+  fetchThematicsList,
+  fetchTopicsCount,
+  fetchTopicsList,
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
 import type {
-  EdgesResponse,
+  GraphQLConnection,
   NextPageWithLayout,
-  RawArticle,
-  RawThematicPreview,
-  RawTopicPreview,
+  WPPostPreview,
+  WPThematicPreview,
+  WPTopicPreview,
 } from '../../types';
 import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
   getLinksItemData,
-  getPageLinkFromRawData,
+  getPostsWithUrl,
   getSchemaJson,
   getWebPageSchema,
 } from '../../utils/helpers';
@@ -48,9 +49,9 @@ import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import { useBreadcrumb, useIsMounted, usePostsList } from '../../utils/hooks';
 
 type BlogPageProps = {
-  articles: EdgesResponse<RawArticle>;
-  thematicsList: RawThematicPreview[];
-  topicsList: RawTopicPreview[];
+  posts: GraphQLConnection<WPPostPreview>;
+  thematicsList: WPThematicPreview[];
+  topicsList: WPTopicPreview[];
   totalArticles: number;
   translation: Messages;
 };
@@ -59,7 +60,7 @@ type BlogPageProps = {
  * Blog index page.
  */
 const BlogPage: NextPageWithLayout<BlogPageProps> = ({
-  articles,
+  posts,
   thematicsList,
   topicsList,
   totalArticles,
@@ -111,6 +112,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
 
   const {
+    articles,
     error,
     firstNewResultIndex,
     isLoading,
@@ -118,10 +120,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     isRefreshing,
     hasNextPage,
     loadMore,
-    posts,
   } = usePostsList({
-    fallback: [articles],
-    fetcher: getArticles,
+    fallback: [posts],
+    fetcher: fetchPostsList,
     perPage: CONFIG.postsPerPage,
   });
 
@@ -191,6 +192,10 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     id: 'AXe1Iz',
   });
 
+  const blogArticles = articles?.flatMap((p) =>
+    p.edges.map((edge) => edge.node)
+  );
+
   return (
     <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
@@ -218,13 +223,13 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
       />
       <PageHeader heading={title} meta={{ total: totalArticles }} />
       <PageBody className={styles.body}>
-        {posts ? (
+        {blogArticles ? (
           <PostsList
             className={styles.list}
             firstNewResult={firstNewResultIndex}
             isLoading={isLoading || isLoadingMore || isRefreshing}
             onLoadMore={hasNextPage && isMounted ? loadMore : undefined}
-            posts={posts}
+            posts={getPostsWithUrl(blogArticles)}
             ref={postsListRef}
             sortByYear
             total={isMounted ? totalArticles : undefined}
@@ -260,11 +265,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
               {thematicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            thematicsList.map((thematic) =>
-              getPageLinkFromRawData(thematic, 'thematic')
-            )
-          )}
+          items={getLinksItemData(thematicsList.map(convertTaxonomyToPageLink))}
         />
         <LinksWidget
           heading={
@@ -272,9 +273,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
               {topicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(
-            topicsList.map((topic) => getPageLinkFromRawData(topic, 'topic'))
-          )}
+          items={getLinksItemData(topicsList.map(convertTaxonomyToPageLink))}
         />
       </PageSidebar>
     </Page>
@@ -286,17 +285,17 @@ BlogPage.getLayout = (page) => getLayout(page);
 export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
   locale,
 }) => {
-  const articles = await getArticles({ first: CONFIG.postsPerPage });
-  const totalArticles = await getTotalArticles();
-  const totalThematics = await getTotalThematics();
-  const thematics = await getThematicsPreview({ first: totalThematics });
-  const totalTopics = await getTotalTopics();
-  const topics = await getTopicsPreview({ first: totalTopics });
+  const posts = await fetchPostsList({ first: CONFIG.postsPerPage });
+  const totalArticles = await fetchPostsCount();
+  const totalThematics = await fetchThematicsCount();
+  const thematics = await fetchThematicsList({ first: totalThematics });
+  const totalTopics = await fetchTopicsCount();
+  const topics = await fetchTopicsList({ first: totalTopics });
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      articles: JSON.parse(JSON.stringify(articles)),
+      posts: JSON.parse(JSON.stringify(posts)),
       thematicsList: thematics.edges.map((edge) => edge.node),
       topicsList: topics.edges.map((edge) => edge.node),
       totalArticles,

@@ -1,28 +1,25 @@
 import { Feed } from 'feed';
 import {
-  getArticleFromRawData,
-  getArticles,
-  getTotalArticles,
+  convertPostPreviewToArticlePreview,
+  fetchPostsList,
+  fetchPostsCount,
 } from '../../services/graphql';
-import type { Article } from '../../types';
+import type { ArticlePreview } from '../../types';
 import { CONFIG } from '../config';
 import { ROUTES } from '../constants';
 
 /**
  * Retrieve the data for all the articles.
  *
- * @returns {Promise<Article[]>} - All the articles.
+ * @returns {Promise<ArticlePreview[]>} - All the articles.
  */
-const getAllArticles = async (): Promise<Article[]> => {
-  const totalArticles = await getTotalArticles();
-  const rawArticles = await getArticles({ first: totalArticles });
-  const articles: Article[] = [];
+const getAllArticles = async (): Promise<ArticlePreview[]> => {
+  const totalPosts = await fetchPostsCount();
+  const posts = await fetchPostsList({ first: totalPosts });
 
-  rawArticles.edges.forEach(async (edge) => {
-    articles.push(await getArticleFromRawData(edge.node));
-  });
-
-  return articles;
+  return posts.edges.map((edge) =>
+    convertPostPreviewToArticlePreview(edge.node)
+  );
 };
 
 /**
