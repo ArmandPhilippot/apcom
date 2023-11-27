@@ -15,6 +15,10 @@ const createJestConfig = nextJest({
  * @type {import('jest').Config}
  */
 const customJestConfig = {
+  // Needed because of mswServer export in tests directory.
+  coverageProvider: 'v8',
+  coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/tests'],
+
   // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
   moduleDirectories: ['node_modules', '<rootDir>/'],
 
@@ -22,17 +26,18 @@ const customJestConfig = {
     '^.+\\.(svg)$': '<rootDir>/tests/jest/__mocks__/svgr.mock.tsx',
   },
 
+  setupFiles: ['./jest.polyfills.cjs'],
+
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
 
-  testPathIgnorePatterns: [
-    '<rootDir>/tests/jest/__mocks__',
-    '<rootDir>/tests/utils',
-    '<rootDir>/tests/cypress/',
-  ],
+  testPathIgnorePatterns: ['/node_modules/', '<rootDir>/tests'],
 };
 
 /**
