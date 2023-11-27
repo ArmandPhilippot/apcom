@@ -1,10 +1,8 @@
 import type { GraphQLPageInfo, Nullable } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type LastPostCursorResponse = {
-  posts: Nullable<{
-    pageInfo: Pick<GraphQLPageInfo, 'endCursor'>;
-  }>;
+export type LastPostCursorResponse = {
+  posts: Nullable<Record<'pageInfo', Pick<GraphQLPageInfo, 'endCursor'>>>;
 };
 
 const lastPostCursorQuery = `query LastPostCursor($first: Int) {

@@ -1,7 +1,7 @@
 import type { GraphQLNodes, Nullable, SlugNode } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type PostsSlugsResponse = {
+export type PostsSlugsResponse = {
   posts: Nullable<GraphQLNodes<SlugNode>>;
 };
 

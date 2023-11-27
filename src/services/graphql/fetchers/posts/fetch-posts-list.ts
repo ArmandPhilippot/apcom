@@ -8,7 +8,7 @@ import type {
 } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type PostsListResponse = {
+export type PostsListResponse = {
   posts: Nullable<GraphQLConnection<WPPostPreview>>;
 };
 

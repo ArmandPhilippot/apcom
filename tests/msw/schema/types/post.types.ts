@@ -22,6 +22,13 @@ type Post {
   title(format: PostObjectFieldFormatEnum): String
 }
 
+enum PostIdType {
+  DATABASE_ID
+  ID
+  SLUG
+  URI
+}
+
 enum PostStatusEnum {
   ACF_DISABLED
   AUTO_DRAFT
@@ -66,6 +73,7 @@ type RootQueryToPostConnectionPageInfo {
 
 type RootQueryToPostConnection {
   edges: [RootQueryToPostConnectionEdge!]!
+  nodes: [Post!]!
   pageInfo: RootQueryToPostConnectionPageInfo!
 }`;
 

@@ -5,10 +5,8 @@ import type {
 } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type PostsCountResponse = {
-  posts: Nullable<{
-    pageInfo: Pick<GraphQLPageInfo, 'total'>;
-  }>;
+export type PostsCountResponse = {
+  posts: Nullable<Record<'pageInfo', Pick<GraphQLPageInfo, 'total'>>>;
 };
 
 const postsCountQuery = `query PostsCount($authorName: String, $search: String, $title: String) {

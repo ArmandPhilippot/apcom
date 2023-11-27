@@ -6,6 +6,11 @@ import { thematicTypes } from './thematic.types';
 import { topicTypes } from './topic.types';
 
 const rootQueryType = `type Query {
+  post(
+    asPreview: Boolean
+    id: ID!
+    idType: PostIdType
+  ): Post
   posts(
     after: String
     before: String

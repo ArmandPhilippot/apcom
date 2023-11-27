@@ -1,7 +1,7 @@
 import type { Nullable, WPPost } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type PostResponse = {
+export type PostResponse = {
   post: Nullable<WPPost>;
 };
 
