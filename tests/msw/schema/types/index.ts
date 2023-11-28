@@ -1,4 +1,5 @@
 import { authorTypes } from './author.types';
+import { commentTypes } from './comment.types';
 import { commonTypes } from './common.types';
 import { featuredImageTypes } from './featured-image.types';
 import { postTypes } from './post.types';
@@ -6,6 +7,13 @@ import { thematicTypes } from './thematic.types';
 import { topicTypes } from './topic.types';
 
 const rootQueryType = `type Query {
+  comments(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    where: RootQueryToCommentConnectionWhereArgs
+  ): RootQueryToCommentConnection
   post(
     asPreview: Boolean
     id: ID!
@@ -22,6 +30,7 @@ const rootQueryType = `type Query {
 
 export const types = [
   authorTypes,
+  commentTypes,
   commonTypes,
   featuredImageTypes,
   postTypes,

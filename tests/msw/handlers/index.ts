@@ -1,3 +1,4 @@
+import { commentsHandlers } from './comments';
 import { postsHandlers } from './posts';
 
-export const handlers = [...postsHandlers];
+export const handlers = [...commentsHandlers, ...postsHandlers];

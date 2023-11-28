@@ -1,17 +1,4 @@
-export const authorTypes = `enum AvatarRatingEnum {
-  G
-  PG
-  R
-  X
-}
-
-type Avatar {
-  height: Int
-  url: String
-  width: Int
-}
-
-type User {
+export const authorTypes = `type User {
   avatar(
     forceDefault: Boolean
     rating: AvatarRatingEnum
