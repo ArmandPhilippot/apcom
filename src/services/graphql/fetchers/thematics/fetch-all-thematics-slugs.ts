@@ -1,7 +1,7 @@
 import type { GraphQLNodes, Nullable, SlugNode } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type ThematicsSlugsResponse = {
+export type ThematicsSlugsResponse = {
   thematics: Nullable<GraphQLNodes<SlugNode>>;
 };
 

@@ -1,7 +1,7 @@
 import type { Nullable, WPThematic } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type ThematicResponse = {
+export type ThematicResponse = {
   thematic: Nullable<WPThematic>;
 };
 
@@ -54,6 +54,8 @@ const thematicQuery = `query Thematic($slug: ID!) {
       afterMore
       beforeMore
     }
+    databaseId
+    date
     featuredImage {
       node {
         altText
@@ -65,6 +67,7 @@ const thematicQuery = `query Thematic($slug: ID!) {
         title
       }
     }
+    modified
     seo {
       metaDesc
       title

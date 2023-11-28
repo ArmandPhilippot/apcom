@@ -26,6 +26,18 @@ const rootQueryType = `type Query {
     last: Int
     where: RootQueryToPostConnectionWhereArgs
   ): RootQueryToPostConnection
+  thematic(
+    asPreview: Boolean
+    id: ID!
+    idType: ThematicIdType
+  ): Thematic
+  thematics(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    where: RootQueryToThematicConnectionWhereArgs
+  ): RootQueryToThematicConnection
 }`;
 
 export const types = [

@@ -8,7 +8,7 @@ import type {
 } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type ThematicsListResponse = {
+export type ThematicsListResponse = {
   thematics: Nullable<GraphQLConnection<WPThematicPreview>>;
 };
 
@@ -41,6 +41,11 @@ const thematicsListQuery = `query ThematicsList($after: String, $before: String,
         slug
         title
       }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      total
     }
   }
 }`;

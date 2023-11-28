@@ -5,7 +5,7 @@ import type {
 } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type ThematicsCountResponse = {
+export type ThematicsCountResponse = {
   thematics: Nullable<{
     pageInfo: Pick<GraphQLPageInfo, 'total'>;
   }>;

@@ -57,6 +57,8 @@ export type WPImage = {
 type WPInfo = { wordsCount: number };
 
 type WPContent = {
+  contentParts: WPContentParts;
+  databaseId: number;
   date: string;
   featuredImage: Nullable<GraphQLNode<WPImage>>;
   modified: string;
@@ -66,7 +68,6 @@ type WPContent = {
 };
 
 export type WPPage = WPContent & {
-  contentParts: WPContentParts;
   info: WPInfo;
 };
 
@@ -81,8 +82,6 @@ export type WPPost = WPContent & {
   acfPosts: Nullable<Partial<WPAcfPosts>>;
   author: GraphQLNode<WPPostAuthor>;
   commentCount: Nullable<number>;
-  contentParts: WPContentParts;
-  databaseId: number;
   info: WPInfo;
 };
 
@@ -118,9 +117,10 @@ export type WPThematic = WPContent & {
   acfThematics: Nullable<WPAcfThematics>;
 };
 
-export type WPThematicPreview = Pick<WPThematic, 'slug' | 'title'> & {
-  databaseId: number;
-};
+export type WPThematicPreview = Pick<
+  WPThematic,
+  'databaseId' | 'slug' | 'title'
+>;
 
 type WPAcfTopics = {
   officialWebsite: string;
@@ -133,10 +133,8 @@ export type WPTopic = WPContent & {
 
 export type WPTopicPreview = Pick<
   WPTopic,
-  'featuredImage' | 'slug' | 'title'
-> & {
-  databaseId: number;
-};
+  'databaseId' | 'featuredImage' | 'slug' | 'title'
+>;
 
 //===========================================================================
 // Data from MDX files
