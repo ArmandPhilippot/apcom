@@ -123,7 +123,7 @@ export type WPThematicPreview = Pick<
 >;
 
 type WPAcfTopics = {
-  officialWebsite: string;
+  officialWebsite: Nullable<string>;
   postsInTopic: Nullable<WPPostPreview[]>;
 };
 

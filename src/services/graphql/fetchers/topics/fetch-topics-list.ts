@@ -8,7 +8,7 @@ import type {
 } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type TopicsListResponse = {
+export type TopicsListResponse = {
   topics: Nullable<GraphQLConnection<WPTopicPreview>>;
 };
 
@@ -34,7 +34,7 @@ const topicsListQuery = `query TopicsList($after: String, $before: String, $firs
               height
               width
             }
-            slug
+            sourceUrl
             title
           }
         }

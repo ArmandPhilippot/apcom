@@ -1,7 +1,7 @@
 import type { Nullable, WPTopic } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
 
-type TopicResponse = {
+export type TopicResponse = {
   topic: Nullable<WPTopic>;
 };
 
@@ -55,6 +55,8 @@ const topicQuery = `query Topic($slug: ID!) {
       afterMore
       beforeMore
     }
+    databaseId
+    date
     featuredImage {
       node {
         altText
@@ -66,6 +68,7 @@ const topicQuery = `query Topic($slug: ID!) {
         title
       }
     }
+    modified
     seo {
       metaDesc
       title

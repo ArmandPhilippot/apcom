@@ -38,6 +38,18 @@ const rootQueryType = `type Query {
     last: Int
     where: RootQueryToThematicConnectionWhereArgs
   ): RootQueryToThematicConnection
+  topic(
+    asPreview: Boolean
+    id: ID!
+    idType: TopicIdType
+  ): Topic
+  topics(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    where: RootQueryToTopicConnectionWhereArgs
+  ): RootQueryToTopicConnection
 }`;
 
 export const types = [
