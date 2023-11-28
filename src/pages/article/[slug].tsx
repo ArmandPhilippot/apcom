@@ -26,6 +26,7 @@ import {
   fetchAllPostsSlugs,
   fetchCommentsList,
   fetchPost,
+  fetchPostsCount,
 } from '../../services/graphql';
 import styles from '../../styles/pages/article.module.scss';
 import type { Article, NextPageWithLayout, SingleComment } from '../../types';
@@ -333,7 +334,8 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await fetchAllPostsSlugs();
+  const postsCount = await fetchPostsCount();
+  const slugs = await fetchAllPostsSlugs(postsCount);
   const paths = slugs.map((slug) => {
     return { params: { slug } };
   });

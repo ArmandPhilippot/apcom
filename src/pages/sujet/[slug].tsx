@@ -231,7 +231,8 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await fetchAllTopicsSlugs();
+  const topicsCount = await fetchTopicsCount();
+  const slugs = await fetchAllTopicsSlugs(topicsCount);
   const paths = slugs.map((slug) => {
     return { params: { slug } };
   });

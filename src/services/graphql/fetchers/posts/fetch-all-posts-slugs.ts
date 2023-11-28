@@ -1,6 +1,5 @@
 import type { GraphQLNodes, Nullable, SlugNode } from '../../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../../utils/helpers';
-import { fetchPostsCount } from './fetch-posts-count';
 
 type PostsSlugsResponse = {
   posts: Nullable<GraphQLNodes<SlugNode>>;
@@ -17,14 +16,14 @@ const postsSlugsQuery = `query PostsSlugs($first: Int) {
 /**
  * Retrieve the WordPress posts slugs.
  *
+ * @param {number} count - The number of posts slugs to retrieve.
  * @returns {Promise<string[]>} The posts slugs.
  */
-export const fetchAllPostsSlugs = async (): Promise<string[]> => {
-  const postsCount = await fetchPostsCount();
+export const fetchAllPostsSlugs = async (count: number): Promise<string[]> => {
   const response = await fetchGraphQL<PostsSlugsResponse>({
     query: postsSlugsQuery,
     url: getGraphQLUrl(),
-    variables: { first: postsCount },
+    variables: { first: count },
   });
 
   if (!response.posts)
