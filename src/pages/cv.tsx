@@ -31,65 +31,71 @@ import {
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
 
+const DownloadLink = (chunks: ReactNode) => (
+  <Link href={data.file} isDownload>
+    {chunks}
+  </Link>
+);
+
 /**
  * CV page.
  */
 const CVPage: NextPageWithLayout = () => {
   const intl = useIntl();
   const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
-  const { file, image } = data;
   const { dates, intro, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
     url: ROUTES.CV,
   });
-
-  const imageWidgetTitle = intl.formatMessage({
-    defaultMessage: 'Others formats',
-    description: 'CVPage: cv preview widget title',
-    id: 'B9OCyV',
-  });
-  const socialMediaTitle = intl.formatMessage({
-    defaultMessage: 'Open-source projects',
-    description: 'CVPage: social media widget title',
-    id: '+Dre5J',
-  });
-  const tocTitle = intl.formatMessage({
-    defaultMessage: 'Table of Contents',
-    description: 'PageLayout: table of contents title',
-    id: 'eys2uX',
-  });
-
-  const cvCaption = intl.formatMessage(
-    {
-      defaultMessage: '<link>Download the CV in PDF</link>',
-      id: 'fN04AJ',
-      description: 'CVPage: download CV in PDF text',
-    },
-    {
-      link: (chunks: ReactNode) => (
-        <Link href={file} isDownload>
-          {chunks}
-        </Link>
+  const messages = {
+    image: {
+      caption: intl.formatMessage(
+        {
+          defaultMessage: '<link>Download the CV in PDF</link>',
+          id: 'fN04AJ',
+          description: 'CVPage: download CV in PDF text',
+        },
+        {
+          link: DownloadLink,
+        }
       ),
-    }
-  );
-
-  const githubLabel = intl.formatMessage({
-    defaultMessage: 'Github profile',
-    description: 'CVPage: Github profile link',
-    id: 'Jm0a6H',
-  });
-  const gitlabLabel = intl.formatMessage({
-    defaultMessage: 'Gitlab profile',
-    description: 'CVPage: Gitlab profile link',
-    id: '++U2Hm',
-  });
-  const linkedinLabel = intl.formatMessage({
-    defaultMessage: 'LinkedIn profile',
-    description: 'CVPage: LinkedIn profile link',
-    id: 'Sm2wCk',
-  });
+      title: intl.formatMessage({
+        defaultMessage: 'Others formats',
+        description: 'CVPage: cv preview widget title',
+        id: 'B9OCyV',
+      }),
+    },
+    socialMedia: {
+      github: intl.formatMessage({
+        defaultMessage: 'Github profile',
+        description: 'CVPage: Github profile link',
+        id: 'Jm0a6H',
+      }),
+      gitlab: intl.formatMessage({
+        defaultMessage: 'Gitlab profile',
+        description: 'CVPage: Gitlab profile link',
+        id: '++U2Hm',
+      }),
+      linkedin: intl.formatMessage({
+        defaultMessage: 'LinkedIn profile',
+        description: 'CVPage: LinkedIn profile link',
+        id: 'Sm2wCk',
+      }),
+      title: intl.formatMessage({
+        defaultMessage: 'Open-source projects',
+        description: 'CVPage: social media widget title',
+        id: '+Dre5J',
+      }),
+    },
+    toc: {
+      title: intl.formatMessage({
+        defaultMessage: 'Table of Contents',
+        description: 'PageLayout: table of contents title',
+        id: 'eys2uX',
+      }),
+    },
+  };
 
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
@@ -100,7 +106,7 @@ const CVPage: NextPageWithLayout = () => {
     updateDate: dates.update,
   });
   const cvSchema = getSinglePageSchema({
-    cover: image.src,
+    cover: data.image.src,
     dates,
     description: intro,
     id: 'cv',
@@ -126,7 +132,7 @@ const CVPage: NextPageWithLayout = () => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
-        <meta property="og:image" content={image.src} />
+        <meta property="og:image" content={data.image.src} />
         <meta property="og:image:alt" content={title} />
       </Head>
       <Script
@@ -151,7 +157,7 @@ const CVPage: NextPageWithLayout = () => {
       />
       <PageSidebar>
         <TocWidget
-          heading={<Heading level={3}>{tocTitle}</Heading>}
+          heading={<Heading level={3}>{messages.toc.title}</Heading>}
           tree={tree}
         />
       </PageSidebar>
@@ -160,38 +166,32 @@ const CVPage: NextPageWithLayout = () => {
       </PageBody>
       <PageSidebar>
         <ImageWidget
-          description={cvCaption}
+          description={messages.image.caption}
           heading={
             <Heading isFake level={3}>
-              {imageWidgetTitle}
+              {messages.image.title}
             </Heading>
           }
-          img={<NextImage {...image} />}
+          img={<NextImage {...data.image} />}
         />
         <SocialMediaWidget
           heading={
             <Heading isFake level={3}>
-              {socialMediaTitle}
+              {messages.socialMedia.title}
             </Heading>
           }
           media={[
             {
               icon: 'Github',
               id: 'github',
-              label: githubLabel,
+              label: messages.socialMedia.github,
               url: PERSONAL_LINKS.GITHUB,
             },
             {
               icon: 'Gitlab',
               id: 'gitlab',
-              label: gitlabLabel,
+              label: messages.socialMedia.gitlab,
               url: PERSONAL_LINKS.GITLAB,
-            },
-            {
-              icon: 'LinkedIn',
-              id: 'linkedin',
-              label: linkedinLabel,
-              url: PERSONAL_LINKS.LINKEDIN,
             },
           ]}
         />
