@@ -3,6 +3,14 @@ import type { LinksWidgetItemData, PostData } from '../../components';
 import type { ArticlePreview, PageLink } from '../../types';
 import { ROUTES } from '../constants';
 
+export const getUniquePageLinks = (pageLinks: PageLink[]): PageLink[] => {
+  const pageLinksIds = pageLinks.map((pageLink) => pageLink.id);
+
+  return pageLinks.filter(
+    ({ id }, index) => !pageLinksIds.includes(id, index + 1)
+  );
+};
+
 /**
  * Method to sort PageLink objects by name.
  *

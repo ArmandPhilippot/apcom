@@ -267,18 +267,18 @@ export type ProjectPreview = Omit<Project, 'meta'> & {
   meta: Omit<ProjectMeta, 'license' | 'repos'>;
 };
 
-export type ThematicMeta = PageMeta & {
+export type ThematicMeta = Omit<PageMeta, 'wordsCount'> & {
   articles?: ArticlePreview[];
-  topics?: PageLink[];
+  relatedTopics?: PageLink[];
 };
 
 export type Thematic = Page & {
   meta: ThematicMeta;
 };
 
-export type TopicMeta = PageMeta & {
+export type TopicMeta = Omit<PageMeta, 'wordsCount'> & {
   articles?: ArticlePreview[];
-  thematics?: PageLink[];
+  relatedThematics?: PageLink[];
   website?: string;
 };
 

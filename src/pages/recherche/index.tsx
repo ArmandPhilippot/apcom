@@ -20,7 +20,8 @@ import {
   PageBody,
 } from '../../components';
 import {
-  convertTaxonomyToPageLink,
+  convertWPThematicPreviewToPageLink,
+  convertWPTopicPreviewToPageLink,
   fetchPostsCount,
   fetchPostsList,
   fetchThematicsCount,
@@ -253,7 +254,9 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
               {thematicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(thematicsList.map(convertTaxonomyToPageLink))}
+          items={getLinksItemData(
+            thematicsList.map(convertWPThematicPreviewToPageLink)
+          )}
         />
         <LinksWidget
           heading={
@@ -261,7 +264,9 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
               {topicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(topicsList.map(convertTaxonomyToPageLink))}
+          items={getLinksItemData(
+            topicsList.map(convertWPTopicPreviewToPageLink)
+          )}
         />
       </PageSidebar>
     </Page>

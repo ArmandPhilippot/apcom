@@ -20,7 +20,8 @@ import {
   PageSidebar,
 } from '../../../components';
 import {
-  convertTaxonomyToPageLink,
+  convertWPThematicPreviewToPageLink,
+  convertWPTopicPreviewToPageLink,
   fetchLastPostCursor,
   fetchPostsCount,
   fetchPostsList,
@@ -247,7 +248,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
               {thematicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(thematicsList.map(convertTaxonomyToPageLink))}
+          items={getLinksItemData(
+            thematicsList.map(convertWPThematicPreviewToPageLink)
+          )}
         />
         <LinksWidget
           heading={
@@ -255,7 +258,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
               {topicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(topicsList.map(convertTaxonomyToPageLink))}
+          items={getLinksItemData(
+            topicsList.map(convertWPTopicPreviewToPageLink)
+          )}
         />
       </PageSidebar>
     </Page>

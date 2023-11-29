@@ -18,7 +18,8 @@ import {
   type SearchFormSubmit,
 } from '../components';
 import {
-  convertTaxonomyToPageLink,
+  convertWPThematicPreviewToPageLink,
+  convertWPTopicPreviewToPageLink,
   fetchThematicsCount,
   fetchThematicsList,
   fetchTopicsCount,
@@ -147,7 +148,9 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
               {thematicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(thematicsList.map(convertTaxonomyToPageLink))}
+          items={getLinksItemData(
+            thematicsList.map(convertWPThematicPreviewToPageLink)
+          )}
         />
         <LinksWidget
           heading={
@@ -155,7 +158,9 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({
               {topicsListTitle}
             </Heading>
           }
-          items={getLinksItemData(topicsList.map(convertTaxonomyToPageLink))}
+          items={getLinksItemData(
+            topicsList.map(convertWPTopicPreviewToPageLink)
+          )}
         />
       </PageSidebar>
     </Page>

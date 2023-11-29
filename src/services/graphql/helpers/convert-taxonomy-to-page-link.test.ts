@@ -1,6 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
 import type { WPThematicPreview, WPTopicPreview } from '../../../types';
-import { convertTaxonomyToPageLink } from './convert-taxonomy-to-page-link';
+import { ROUTES } from '../../../utils/constants';
+import {
+  convertWPThematicPreviewToPageLink,
+  convertWPTopicPreviewToPageLink,
+} from './convert-taxonomy-to-page-link';
 
 describe('convert-taxonomy-to-page-link', () => {
   it('can convert a WPThematicPreview object to a Thematic object', () => {
@@ -9,12 +13,12 @@ describe('convert-taxonomy-to-page-link', () => {
       slug: '/the-thematic-slug',
       title: 'et ut alias',
     };
-    const result = convertTaxonomyToPageLink(thematic);
+    const result = convertWPThematicPreviewToPageLink(thematic);
 
     expect(result.id).toBe(thematic.databaseId);
     expect(result.logo).toBeUndefined();
     expect(result.name).toBe(thematic.title);
-    expect(result.url).toBe(thematic.slug);
+    expect(result.url).toBe(`${ROUTES.THEMATICS.INDEX}/${thematic.slug}`);
   });
 
   it('can convert a WPTopicPreview object to a Topic object', () => {
@@ -34,7 +38,7 @@ describe('convert-taxonomy-to-page-link', () => {
       slug: '/the-topic-slug',
       title: 'et ut alias',
     };
-    const result = convertTaxonomyToPageLink(topic);
+    const result = convertWPTopicPreviewToPageLink(topic);
 
     expect(result.id).toBe(topic.databaseId);
     expect(result.logo?.alt).toBe(topic.featuredImage?.node.altText);
@@ -47,6 +51,6 @@ describe('convert-taxonomy-to-page-link', () => {
       topic.featuredImage?.node.mediaDetails.width
     );
     expect(result.name).toBe(topic.title);
-    expect(result.url).toBe(topic.slug);
+    expect(result.url).toBe(`${ROUTES.TOPICS}/${topic.slug}`);
   });
 });

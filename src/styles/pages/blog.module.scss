@@ -1,5 +1,7 @@
 @use "../abstracts/functions" as fun;
 @use "../abstracts/mixins" as mix;
+@use "../abstracts/placeholders";
+@use "partials/article-links";
 
 .list {
   @include mix.media("screen") {
@@ -15,4 +17,52 @@
 .logo {
   max-width: fun.convert-px(50);
   margin: 0 var(--spacing-xs) 0 0;
+}
+
+:where(.body) {
+  :global {
+    @include article-links.styles;
+
+    h2 {
+      @extend %h2;
+
+      margin-block-end: var(--spacing-sm);
+    }
+  }
+}
+
+:global([data-theme="light"]) {
+  :local {
+    .body {
+      :global {
+        a {
+          &.download {
+            @extend %light-download-link;
+          }
+
+          &.external {
+            @extend %light-external-link;
+          }
+        }
+      }
+    }
+  }
+}
+
+:global([data-theme="dark"]) {
+  :local {
+    .body {
+      :global {
+        a {
+          &.download {
+            @extend %dark-download-link;
+          }
+
+          &.external {
+            @extend %dark-external-link;
+          }
+        }
+      }
+    }
+  }
 }

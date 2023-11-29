@@ -1,5 +1,5 @@
 import type { ArticlePreview, WPPostPreview } from '../../../types';
-import { convertTaxonomyToPageLink } from './convert-taxonomy-to-page-link';
+import { convertWPThematicPreviewToPageLink } from './convert-taxonomy-to-page-link';
 import { convertWPImgToImg } from './convert-wp-image-to-img';
 
 export const convertPostPreviewToArticlePreview = ({
@@ -26,7 +26,7 @@ export const convertPostPreviewToArticlePreview = ({
       },
       thematics:
         acfPosts && 'postsInThematic' in acfPosts
-          ? acfPosts.postsInThematic?.map(convertTaxonomyToPageLink)
+          ? acfPosts.postsInThematic?.map(convertWPThematicPreviewToPageLink)
           : undefined,
       wordsCount: info.wordsCount,
     },

@@ -13,11 +13,11 @@ import {
   Page,
   PageHeader,
   PageSidebar,
-  TocWidget,
   PageBody,
 } from '../../components';
 import {
-  convertTaxonomyToPageLink,
+  convertWPThematicPreviewToPageLink,
+  convertWPThematicToThematic,
   fetchAllThematicsSlugs,
   fetchThematic,
   fetchThematicsCount,
@@ -35,7 +35,7 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb, useHeadingsTree } from '../../utils/hooks';
+import { useBreadcrumb } from '../../utils/hooks';
 
 export type ThematicPageProps = {
   currentThematic: Thematic;
@@ -48,13 +48,12 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
   thematics,
 }) => {
   const { content, intro, meta, slug, title } = currentThematic;
-  const { articles, dates, seo, topics } = meta;
+  const { articles, dates, seo, relatedTopics } = meta;
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
     url: `${ROUTES.THEMATICS.INDEX}/${slug}`,
   });
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
 
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
@@ -87,11 +86,6 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     id: '/42Z0z',
   });
   const pageUrl = `${CONFIG.url}${asPath}`;
-  const tocTitle = intl.formatMessage({
-    defaultMessage: 'Table of Contents',
-    description: 'PageLayout: table of contents title',
-    id: 'eys2uX',
-  });
 
   return (
     <Page breadcrumbs={breadcrumbItems}>
@@ -127,13 +121,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
           updateDate: dates.update,
         }}
       />
-      <PageSidebar>
-        <TocWidget
-          heading={<Heading level={3}>{tocTitle}</Heading>}
-          tree={tree}
-        />
-      </PageSidebar>
-      <PageBody className={styles.body} ref={ref}>
+      <PageBody className={styles.body}>
         {/*eslint-disable-next-line react/no-danger -- Necessary for content*/}
         <div dangerouslySetInnerHTML={{ __html: content }} />
         {articles ? (
@@ -166,14 +154,14 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
           }
           items={getLinksItemData(thematics)}
         />
-        {topics ? (
+        {relatedTopics ? (
           <LinksWidget
             heading={
               <Heading isFake level={3}>
                 {topicsListTitle}
               </Heading>
             }
-            items={getLinksItemData(topics)}
+            items={getLinksItemData(relatedTopics)}
           />
         ) : null}
       </PageSidebar>
@@ -197,7 +185,7 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
     first: totalThematics,
   });
   const allThematics = allThematicsEdges.edges.map((edge) =>
-    convertTaxonomyToPageLink(edge.node)
+    convertWPThematicPreviewToPageLink(edge.node)
   );
   const allThematicsLinks = allThematics.filter(
     (thematic) =>
@@ -208,7 +196,9 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
 
   return {
     props: {
-      currentThematic: JSON.parse(JSON.stringify(currentThematic)),
+      currentThematic: JSON.parse(
+        JSON.stringify(convertWPThematicToThematic(currentThematic))
+      ),
       thematics: JSON.parse(JSON.stringify(allThematicsLinks)),
       translation,
     },

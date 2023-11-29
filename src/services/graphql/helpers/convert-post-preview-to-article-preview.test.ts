@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import type { WPPostPreview, WPThematicPreview } from '../../../types';
 import { convertPostPreviewToArticlePreview } from './convert-post-preview-to-article-preview';
-import { convertTaxonomyToPageLink } from './convert-taxonomy-to-page-link';
+import { convertWPThematicPreviewToPageLink } from './convert-taxonomy-to-page-link';
 import { convertWPImgToImg } from './convert-wp-image-to-img';
 
 describe('convert-post-preview-to-article-preview', () => {
@@ -124,7 +124,7 @@ describe('convert-post-preview-to-article-preview', () => {
     const result = convertPostPreviewToArticlePreview(post);
 
     expect(result.meta.thematics).toStrictEqual(
-      thematics.map(convertTaxonomyToPageLink)
+      thematics.map(convertWPThematicPreviewToPageLink)
     );
   });
 });

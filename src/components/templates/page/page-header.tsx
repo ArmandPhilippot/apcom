@@ -153,7 +153,7 @@ const PageHeaderWithRef: ForwardRefRenderFunction<
                   description: 'PageHeader: website meta label',
                   id: '9jh0r2',
                 })}
-                value={meta.website}
+                value={<Link href={meta.website}>{meta.website}</Link>}
               />
             ) : null}
           </MetaList>

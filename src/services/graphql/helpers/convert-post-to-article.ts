@@ -1,6 +1,9 @@
 import type { Article, WPPost } from '../../../types';
 import { updateContentTree } from '../../../utils/helpers';
-import { convertTaxonomyToPageLink } from './convert-taxonomy-to-page-link';
+import {
+  convertWPThematicPreviewToPageLink,
+  convertWPTopicPreviewToPageLink,
+} from './convert-taxonomy-to-page-link';
 import { convertWPImgToImg } from './convert-wp-image-to-img';
 
 export const convertPostToArticle = async ({
@@ -33,8 +36,10 @@ export const convertPostToArticle = async ({
         description: seo.metaDesc,
         title: seo.title,
       },
-      thematics: acfPosts?.postsInThematic?.map(convertTaxonomyToPageLink),
-      topics: acfPosts?.postsInTopic?.map(convertTaxonomyToPageLink),
+      thematics: acfPosts?.postsInThematic?.map(
+        convertWPThematicPreviewToPageLink
+      ),
+      topics: acfPosts?.postsInTopic?.map(convertWPTopicPreviewToPageLink),
       wordsCount: info.wordsCount,
     },
     slug,

@@ -3,9 +3,10 @@ import type {
   WPThematicPreview,
   WPTopicPreview,
 } from '../../../types';
+import { ROUTES } from '../../../utils/constants';
 import { convertWPImgToImg } from './convert-wp-image-to-img';
 
-export const convertTaxonomyToPageLink = ({
+const convertTaxonomyToPageLink = ({
   databaseId,
   slug,
   title,
@@ -21,3 +22,19 @@ export const convertTaxonomyToPageLink = ({
     url: slug,
   };
 };
+
+export const convertWPThematicPreviewToPageLink = (
+  thematic: WPThematicPreview
+): PageLink =>
+  convertTaxonomyToPageLink({
+    ...thematic,
+    slug: `${ROUTES.THEMATICS.INDEX}/${thematic.slug}`,
+  });
+
+export const convertWPTopicPreviewToPageLink = (
+  topic: WPTopicPreview
+): PageLink =>
+  convertTaxonomyToPageLink({
+    ...topic,
+    slug: `${ROUTES.TOPICS}/${topic.slug}`,
+  });

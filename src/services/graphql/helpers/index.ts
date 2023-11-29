@@ -5,3 +5,5 @@ export * from './convert-recent-post-to-recent-article';
 export * from './convert-taxonomy-to-page-link';
 export * from './convert-wp-comment-to-comment';
 export * from './convert-wp-image-to-img';
+export * from './convert-wp-thematic-to-thematic';
+export * from './convert-wp-topic-to-topic';

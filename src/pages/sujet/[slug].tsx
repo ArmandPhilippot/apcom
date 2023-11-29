@@ -14,11 +14,11 @@ import {
   Page,
   PageHeader,
   PageSidebar,
-  TocWidget,
   PageBody,
 } from '../../components';
 import {
-  convertTaxonomyToPageLink,
+  convertWPTopicPreviewToPageLink,
+  convertWPTopicToTopic,
   fetchAllTopicsSlugs,
   fetchTopic,
   fetchTopicsCount,
@@ -36,7 +36,7 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb, useHeadingsTree } from '../../utils/hooks';
+import { useBreadcrumb } from '../../utils/hooks';
 
 export type TopicPageProps = {
   currentTopic: Topic;
@@ -54,7 +54,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     cover,
     dates,
     seo,
-    thematics,
+    relatedThematics,
     website: officialWebsite,
   } = meta;
   const intl = useIntl();
@@ -62,7 +62,6 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     title,
     url: `${ROUTES.TOPICS}/${slug}`,
   });
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
 
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
@@ -103,11 +102,6 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
     </>
   );
   const pageUrl = `${CONFIG.url}${asPath}`;
-  const tocTitle = intl.formatMessage({
-    defaultMessage: 'Table of Contents',
-    description: 'PageLayout: table of contents title',
-    id: 'eys2uX',
-  });
 
   return (
     <Page breadcrumbs={breadcrumbItems}>
@@ -144,13 +138,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
           website: officialWebsite,
         }}
       />
-      <PageSidebar>
-        <TocWidget
-          heading={<Heading level={3}>{tocTitle}</Heading>}
-          tree={tree}
-        />
-      </PageSidebar>
-      <PageBody className={styles.body} ref={ref}>
+      <PageBody className={styles.body}>
         {/*eslint-disable-next-line react/no-danger -- Necessary for content*/}
         {content ? <div dangerouslySetInnerHTML={{ __html: content }} /> : null}
         {articles ? (
@@ -175,14 +163,14 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
         ) : null}
       </PageBody>
       <PageSidebar>
-        {thematics ? (
+        {relatedThematics ? (
           <LinksWidget
             heading={
               <Heading isFake level={3}>
                 {thematicsListTitle}
               </Heading>
             }
-            items={getLinksItemData(thematics)}
+            items={getLinksItemData(relatedThematics)}
           />
         ) : null}
         <LinksWidget
@@ -214,7 +202,7 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
     first: totalTopics,
   });
   const allTopics = allTopicsEdges.edges.map((edge) =>
-    convertTaxonomyToPageLink(edge.node)
+    convertWPTopicPreviewToPageLink(edge.node)
   );
   const topicsLinks = allTopics.filter(
     (topic) => topic.url !== `${ROUTES.TOPICS}/${(params as TopicParams).slug}`
@@ -223,7 +211,9 @@ export const getStaticProps: GetStaticProps<TopicPageProps> = async ({
 
   return {
     props: {
-      currentTopic: JSON.parse(JSON.stringify(currentTopic)),
+      currentTopic: JSON.parse(
+        JSON.stringify(convertWPTopicToTopic(currentTopic))
+      ),
       topics: JSON.parse(JSON.stringify(topicsLinks)),
       translation,
     },
