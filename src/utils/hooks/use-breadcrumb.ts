@@ -16,8 +16,7 @@ const isProject = (url: string) => url.startsWith(`${ROUTES.PROJECTS}/`);
 
 const isSearch = (url: string) => url.startsWith(ROUTES.SEARCH);
 
-const isThematic = (url: string) =>
-  url.startsWith(`${ROUTES.THEMATICS.INDEX}/`);
+const isThematic = (url: string) => url.startsWith(`${ROUTES.THEMATICS}/`);
 
 const isTopic = (url: string) => url.startsWith(`${ROUTES.TOPICS}/`);
 

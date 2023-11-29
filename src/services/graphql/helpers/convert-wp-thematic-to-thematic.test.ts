@@ -42,7 +42,7 @@ describe('convert-wp-thematic-to-thematic', () => {
     expect(result.meta.seo.description).toBe(thematic.seo.metaDesc);
     expect(result.meta.seo.title).toBe(thematic.seo.title);
     expect(result.meta.relatedTopics).toBeUndefined();
-    expect(result.slug).toBe(`${ROUTES.THEMATICS.INDEX}/${thematic.slug}`);
+    expect(result.slug).toBe(`${ROUTES.THEMATICS}/${thematic.slug}`);
     expect(result.title).toBe(thematic.title);
   });
   /* eslint-enable max-statements */

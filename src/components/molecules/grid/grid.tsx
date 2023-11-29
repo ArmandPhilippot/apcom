@@ -13,6 +13,12 @@ export type GridProps<T extends boolean> = Omit<
   'children' | 'hideMarker' | 'isHierarchical' | 'isInline' | 'spacing'
 > & {
   /**
+   * How the items should be aligned?
+   *
+   * @default undefined // The default behavior is `stretch`.
+   */
+  alignItems?: 'center' | 'end' | 'start';
+  /**
    * The grid items.
    */
   children: ReactNode;
@@ -62,6 +68,7 @@ export type GridProps<T extends boolean> = Omit<
 
 const GridWithRef = <T extends boolean>(
   {
+    alignItems,
     children,
     className = '',
     col = 'auto-fit',
@@ -77,6 +84,7 @@ const GridWithRef = <T extends boolean>(
 ) => {
   const gridClass = [
     styles.wrapper,
+    styles[alignItems ? `wrapper--align-items-${alignItems}` : ''],
     styles[isCentered ? 'wrapper--is-centered' : ''],
     styles[size ? 'wrapper--has-fixed-size' : ''],
     styles[sizeMin ? 'wrapper--has-min-size' : ''],

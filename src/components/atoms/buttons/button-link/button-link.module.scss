@@ -3,6 +3,8 @@
 .btn {
   @extend %button;
 
+  width: fit-content;
+
   &--circle {
     @extend %circle-button;
   }

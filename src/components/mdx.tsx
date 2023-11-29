@@ -1,8 +1,17 @@
 import type { MDXComponents } from 'mdx/types';
 import NextImage from 'next/image';
 import type { AnchorHTMLAttributes, ImgHTMLAttributes, ReactNode } from 'react';
-import { Figure, Heading, Link, List, ListItem } from './atoms';
+import {
+  ButtonLink,
+  Figure,
+  Heading,
+  Icon,
+  Link,
+  List,
+  ListItem,
+} from './atoms';
 import { Code, Grid, GridItem } from './molecules';
+import { PageSection } from './templates';
 
 const Anchor = ({
   children = '',
@@ -58,6 +67,7 @@ const Gallery = ({ children }: { children: ReactNode }) => (
 
 export const mdxComponents: MDXComponents = {
   a: Anchor,
+  ButtonLink,
   Code,
   figure: ({ ref, ...props }) => <Figure {...props} />,
   Figure,
@@ -70,9 +80,14 @@ export const mdxComponents: MDXComponents = {
   h4: ({ ref, ...props }) => <Heading {...props} level={4} />,
   h5: ({ ref, ...props }) => <Heading {...props} level={5} />,
   h6: ({ ref, ...props }) => <Heading {...props} level={6} />,
+  Icon,
   img: Img,
+  Img,
   li: ({ ref, ...props }) => <ListItem {...props} />,
   Link,
+  List,
+  ListItem,
+  PageSection,
   ol: ({ ref, ...props }) => (
     <List
       // eslint-disable-next-line react/jsx-no-literals

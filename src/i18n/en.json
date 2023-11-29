@@ -99,10 +99,6 @@
     "defaultMessage": "Repositories:",
     "description": "ProjectOverview: repositories label"
   },
-  "3f3PzH": {
-    "defaultMessage": "Github",
-    "description": "HomePage: Github link"
-  },
   "48Ww//": {
     "defaultMessage": "Page not found.",
     "description": "404Page: SEO - Meta description"
@@ -134,10 +130,6 @@
   "75FYp7": {
     "defaultMessage": "Github profile",
     "description": "ContactPage: Github profile link"
-  },
-  "7AnwZ7": {
-    "defaultMessage": "Gitlab",
-    "description": "HomePage: Gitlab link"
   },
   "7TbbIk": {
     "defaultMessage": "Blog",
@@ -315,10 +307,6 @@
     "defaultMessage": "CV",
     "description": "SiteNavbar: main nav - cv link"
   },
-  "N44SOc": {
-    "defaultMessage": "Projects",
-    "description": "HomePage: link to projects"
-  },
   "N804XO": {
     "defaultMessage": "Topics",
     "description": "SearchPage: topics list widget title"
@@ -363,10 +351,6 @@
     "defaultMessage": "{starsCount, plural, =0 {No stars} one {# star} other {# stars}}",
     "description": "ProjectOverview: stars count"
   },
-  "PXp2hv": {
-    "defaultMessage": "{websiteName} | Front-end developer: WordPress/React",
-    "description": "HomePage: SEO - Page title"
-  },
   "PnrHgZ": {
     "defaultMessage": "Home",
     "description": "SiteNavbar: main nav - home link"
@@ -406,10 +390,6 @@
   "Sm2wCk": {
     "defaultMessage": "LinkedIn profile",
     "description": "CVPage: LinkedIn profile link"
-  },
-  "T4YA64": {
-    "defaultMessage": "Subscribe",
-    "description": "HomePage: RSS feed subscription text"
   },
   "TpyFZ6": {
     "defaultMessage": "An error occurred:",
@@ -551,10 +531,6 @@
     "defaultMessage": "Light Theme 🌞",
     "description": "usePrism: toggle light theme button text"
   },
-  "i5L19t": {
-    "defaultMessage": "Shaarli",
-    "description": "HomePage: link to Shaarli"
-  },
   "iG5SHf": {
     "defaultMessage": "{postTitle} cover",
     "description": "PostPreview: an accessible name for the figure wrapping the cover"
@@ -567,13 +543,13 @@
     "defaultMessage": "Home",
     "description": "Breadcrumb: home label"
   },
-  "jASD7k": {
-    "defaultMessage": "Linux",
-    "description": "HomePage: link to Linux thematic"
-  },
   "jJm8wd": {
     "defaultMessage": "Reading time:",
     "description": "PageHeader: reading time label"
+  },
+  "kq+fzI": {
+    "defaultMessage": "Cover of {pageTitle}",
+    "description": "RecentPosts: card cover accessible name"
   },
   "l50cYa": {
     "defaultMessage": "Open settings",
@@ -586,6 +562,10 @@
   "lsmD4c": {
     "defaultMessage": "Legal notice",
     "description": "SiteFooter: Legal notice link label"
+  },
+  "mWZU4R": {
+    "defaultMessage": "View {pageTitle}",
+    "description": "RecentPosts: card accessible name"
   },
   "nGss/j": {
     "defaultMessage": "Ackee tracking (analytics)",
@@ -647,10 +627,6 @@
     "defaultMessage": "Gitlab profile",
     "description": "ProjectsPage: Gitlab profile link"
   },
-  "sO/Iwj": {
-    "defaultMessage": "Contact me",
-    "description": "HomePage: contact button text"
-  },
   "sR5hah": {
     "defaultMessage": "Updated on:",
     "description": "PageHeader: update date label"
@@ -662,10 +638,6 @@
   "tIZYpD": {
     "defaultMessage": "Partial",
     "description": "AckeeToggle: partial option name"
-  },
-  "tMuNTy": {
-    "defaultMessage": "{websiteName} is a front-end developer located in France. He codes and he writes mostly about web development and open-source.",
-    "description": "HomePage: SEO - Meta description"
   },
   "tsWh8x": {
     "defaultMessage": "Light theme",
@@ -687,10 +659,6 @@
     "defaultMessage": "On",
     "description": "MotionToggle: activate reduce motion label"
   },
-  "vkF/RP": {
-    "defaultMessage": "Web development",
-    "description": "HomePage: link to web development thematic"
-  },
   "vtDLzG": {
     "defaultMessage": "Would you like to try a new search?",
     "description": "SearchPage: try a new search message"
@@ -702,10 +670,6 @@
   "w4B5PA": {
     "defaultMessage": "Email:",
     "description": "ContactForm: email label"
-  },
-  "w8GrOf": {
-    "defaultMessage": "Free",
-    "description": "HomePage: link to free thematic"
   },
   "xaqaYQ": {
     "defaultMessage": "Sending mail...",

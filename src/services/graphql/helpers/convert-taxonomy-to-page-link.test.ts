@@ -18,7 +18,7 @@ describe('convert-taxonomy-to-page-link', () => {
     expect(result.id).toBe(thematic.databaseId);
     expect(result.logo).toBeUndefined();
     expect(result.name).toBe(thematic.title);
-    expect(result.url).toBe(`${ROUTES.THEMATICS.INDEX}/${thematic.slug}`);
+    expect(result.url).toBe(`${ROUTES.THEMATICS}/${thematic.slug}`);
   });
 
   it('can convert a WPTopicPreview object to a Topic object', () => {

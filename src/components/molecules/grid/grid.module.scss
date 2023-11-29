@@ -2,6 +2,18 @@
   display: grid;
   gap: var(--gap);
 
+  &--align-items-center {
+    align-items: center;
+  }
+
+  &--align-items-start {
+    align-items: start;
+  }
+
+  &--align-items-end {
+    align-items: end;
+  }
+
   &--is-centered {
     place-content: center;
   }

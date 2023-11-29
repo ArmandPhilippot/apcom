@@ -28,7 +28,7 @@ export const convertWPThematicPreviewToPageLink = (
 ): PageLink =>
   convertTaxonomyToPageLink({
     ...thematic,
-    slug: `${ROUTES.THEMATICS.INDEX}/${thematic.slug}`,
+    slug: `${ROUTES.THEMATICS}/${thematic.slug}`,
   });
 
 export const convertWPTopicPreviewToPageLink = (

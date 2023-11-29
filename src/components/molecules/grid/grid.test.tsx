@@ -109,4 +109,44 @@ describe('Grid', () => {
 
     expect(rtlScreen.getByRole('list')).toHaveClass('wrapper--is-centered');
   });
+
+  it('can render a list of centered items', () => {
+    render(
+      <Grid alignItems="center">
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
+
+    expect(rtlScreen.getByRole('list')).toHaveClass(
+      'wrapper--align-items-center'
+    );
+  });
+
+  it('can render a list of items with end alignment', () => {
+    render(
+      <Grid alignItems="end">
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
+
+    expect(rtlScreen.getByRole('list')).toHaveClass('wrapper--align-items-end');
+  });
+
+  it('can render a list of items with start alignment', () => {
+    render(
+      <Grid alignItems="start">
+        {items.map((item) => (
+          <GridItem key={item.id}>{item.contents}</GridItem>
+        ))}
+      </Grid>
+    );
+
+    expect(rtlScreen.getByRole('list')).toHaveClass(
+      'wrapper--align-items-start'
+    );
+  });
 });

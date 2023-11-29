@@ -2,7 +2,6 @@ export const PERSONAL_LINKS = {
   GITHUB: 'https://github.com/ArmandPhilippot',
   GITLAB: 'https://gitlab.com/ArmandPhilippot',
   LINKEDIN: 'https://www.linkedin.com/in/armandphilippot',
-  SHAARLI: 'https://shaarli.armandphilippot.com/',
 } as const;
 
 /**
@@ -21,12 +20,7 @@ export const ROUTES = {
   PROJECTS: '/projets',
   RSS: '/feed',
   SEARCH: '/recherche',
-  THEMATICS: {
-    INDEX: '/thematique',
-    FREE: '/thematique/libre',
-    LINUX: '/thematique/linux',
-    WEB_DEV: '/thematique/developpement-web',
-  },
+  THEMATICS: '/thematique',
   TOPICS: '/sujet',
 } as const;
 

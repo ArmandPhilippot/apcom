@@ -45,3 +45,16 @@ export const getDataAttributeFrom = (str: string) => {
   if (str.startsWith('data-')) return str;
   return `data-${str}`;
 };
+
+/**
+ * Remove the given character if present at the end of the given string.
+ *
+ * @param {string} str - A string to trim.
+ * @param {string} char - The character to remove.
+ * @returns {string} The trimmed string.
+ */
+export const trimTrailingChars = (str: string, char: string): string => {
+  const regExp = new RegExp(`${char}+$`);
+
+  return str.replace(regExp, '');
+};

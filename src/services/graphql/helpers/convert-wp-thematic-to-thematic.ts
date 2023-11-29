@@ -54,7 +54,7 @@ export const convertWPThematicToThematic = (thematic: WPThematic): Thematic => {
         ? getRelatedTopicsFrom(thematic.acfThematics.postsInThematic)
         : undefined,
     },
-    slug: `${ROUTES.THEMATICS.INDEX}/${thematic.slug}`,
+    slug: `${ROUTES.THEMATICS}/${thematic.slug}`,
     title: thematic.title,
   };
 };

@@ -10,6 +10,9 @@ import type {
 import type { Dates } from '../../types';
 import { CONFIG } from '../config';
 import { ROUTES } from '../constants';
+import { trimTrailingChars } from './strings';
+
+const host = trimTrailingChars(CONFIG.url, '/');
 
 export type GetBlogSchemaProps = {
   /**
@@ -38,22 +41,20 @@ export const getBlogSchema = ({
   slug,
 }: GetBlogSchemaProps): Blog => {
   return {
-    '@id': `${CONFIG.url}/#blog`,
+    '@id': `${host}/#blog`,
     '@type': 'Blog',
-    author: { '@id': `${CONFIG.url}/#branding` },
-    creator: { '@id': `${CONFIG.url}/#branding` },
-    editor: { '@id': `${CONFIG.url}/#branding` },
-    blogPost: isSinglePage ? { '@id': `${CONFIG.url}/#article` } : undefined,
+    author: { '@id': `${host}/#branding` },
+    creator: { '@id': `${host}/#branding` },
+    editor: { '@id': `${host}/#branding` },
+    blogPost: isSinglePage ? { '@id': `${host}/#article` } : undefined,
     inLanguage: locale,
     isPartOf: isSinglePage
       ? {
-          '@id': `${CONFIG.url}${slug}`,
+          '@id': `${host}${slug}`,
         }
       : undefined,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: isSinglePage
-      ? undefined
-      : { '@id': `${CONFIG.url}${slug}` },
+    mainEntityOfPage: isSinglePage ? undefined : { '@id': `${host}${slug}` },
   };
 };
 
@@ -137,19 +138,19 @@ export const getSinglePageSchema = <T extends SinglePageSchemaKind>({
   };
 
   return {
-    '@id': `${CONFIG.url}/#${id}`,
+    '@id': `${host}/#${id}`,
     '@type': singlePageSchemaType[kind],
     name: title,
     description,
     articleBody: content,
-    author: { '@id': `${CONFIG.url}/#branding` },
+    author: { '@id': `${host}/#branding` },
     commentCount: commentsCount,
     copyrightYear: publicationDate.getFullYear(),
-    creator: { '@id': `${CONFIG.url}/#branding` },
+    creator: { '@id': `${host}/#branding` },
     dateCreated: publicationDate.toISOString(),
     dateModified: updateDate?.toISOString(),
     datePublished: publicationDate.toISOString(),
-    editor: { '@id': `${CONFIG.url}/#branding` },
+    editor: { '@id': `${host}/#branding` },
     headline: title,
     image: cover,
     inLanguage: locale,
@@ -158,10 +159,10 @@ export const getSinglePageSchema = <T extends SinglePageSchemaKind>({
     isPartOf:
       kind === 'post'
         ? {
-            '@id': `${CONFIG.url}${ROUTES.BLOG}`,
+            '@id': `${host}${ROUTES.BLOG}`,
           }
         : undefined,
-    mainEntityOfPage: { '@id': `${CONFIG.url}${slug}` },
+    mainEntityOfPage: { '@id': `${host}${slug}` },
   } as SinglePageSchemaReturn[T];
 };
 
@@ -202,17 +203,17 @@ export const getWebPageSchema = ({
   updateDate,
 }: GetWebPageSchemaProps): WebPage => {
   return {
-    '@id': `${CONFIG.url}${slug}`,
+    '@id': `${host}${slug}`,
     '@type': 'WebPage',
-    breadcrumb: { '@id': `${CONFIG.url}/#breadcrumb` },
+    breadcrumb: { '@id': `${host}/#breadcrumb` },
     lastReviewed: updateDate,
     name: title,
     description,
     inLanguage: locale,
-    reviewedBy: { '@id': `${CONFIG.url}/#branding` },
-    url: `${CONFIG.url}${slug}`,
+    reviewedBy: { '@id': `${host}/#branding` },
+    url: `${host}${slug}`,
     isPartOf: {
-      '@id': `${CONFIG.url}`,
+      '@id': `${host}`,
     },
   };
 };

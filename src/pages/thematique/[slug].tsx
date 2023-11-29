@@ -52,7 +52,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `${ROUTES.THEMATICS.INDEX}/${slug}`,
+    url: `${ROUTES.THEMATICS}/${slug}`,
   });
 
   const { asPath } = useRouter();
@@ -189,8 +189,7 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
   );
   const allThematicsLinks = allThematics.filter(
     (thematic) =>
-      thematic.url !==
-      `${ROUTES.THEMATICS.INDEX}/${(params as ThematicParams).slug}`
+      thematic.url !== `${ROUTES.THEMATICS}/${(params as ThematicParams).slug}`
   );
   const translation = await loadTranslation(locale);
 

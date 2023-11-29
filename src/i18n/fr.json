@@ -99,10 +99,6 @@
     "defaultMessage": "Dépôts :",
     "description": "ProjectOverview: repositories label"
   },
-  "3f3PzH": {
-    "defaultMessage": "Github",
-    "description": "HomePage: Github link"
-  },
   "48Ww//": {
     "defaultMessage": "Page non trouvée.",
     "description": "404Page: SEO - Meta description"
@@ -134,10 +130,6 @@
   "75FYp7": {
     "defaultMessage": "Profil Github",
     "description": "ContactPage: Github profile link"
-  },
-  "7AnwZ7": {
-    "defaultMessage": "Gitlab",
-    "description": "HomePage: Gitlab link"
   },
   "7TbbIk": {
     "defaultMessage": "Blog",
@@ -315,10 +307,6 @@
     "defaultMessage": "CV",
     "description": "SiteNavbar: main nav - cv link"
   },
-  "N44SOc": {
-    "defaultMessage": "Projets",
-    "description": "HomePage: link to projects"
-  },
   "N804XO": {
     "defaultMessage": "Sujets",
     "description": "SearchPage: topics list widget title"
@@ -363,10 +351,6 @@
     "defaultMessage": "{starsCount, plural, =0 {0 étoile} one {# étoile} other {# étoiles}}",
     "description": "ProjectOverview: stars count"
   },
-  "PXp2hv": {
-    "defaultMessage": "{websiteName} | Intégrateur web - Développeur WordPress / React",
-    "description": "HomePage: SEO - Page title"
-  },
   "PnrHgZ": {
     "defaultMessage": "Accueil",
     "description": "SiteNavbar: main nav - home link"
@@ -406,10 +390,6 @@
   "Sm2wCk": {
     "defaultMessage": "Profil LinkedIn",
     "description": "CVPage: LinkedIn profile link"
-  },
-  "T4YA64": {
-    "defaultMessage": "Vous abonner",
-    "description": "HomePage: RSS feed subscription text"
   },
   "TpyFZ6": {
     "defaultMessage": "Une erreur est survenue :",
@@ -551,10 +531,6 @@
     "defaultMessage": "Thème clair 🌞",
     "description": "usePrism: toggle light theme button text"
   },
-  "i5L19t": {
-    "defaultMessage": "Shaarli",
-    "description": "HomePage: link to Shaarli"
-  },
   "iG5SHf": {
     "defaultMessage": "Illustration de {postTitle}",
     "description": "PostPreview: an accessible name for the figure wrapping the cover"
@@ -567,13 +543,13 @@
     "defaultMessage": "Accueil",
     "description": "Breadcrumb: home label"
   },
-  "jASD7k": {
-    "defaultMessage": "Linux",
-    "description": "HomePage: link to Linux thematic"
-  },
   "jJm8wd": {
     "defaultMessage": "Temps de lecture :",
     "description": "PageHeader: reading time label"
+  },
+  "kq+fzI": {
+    "defaultMessage": "Illustration de {pageTitle}",
+    "description": "RecentPosts: card cover accessible name"
   },
   "l50cYa": {
     "defaultMessage": "Ouvrir les réglages",
@@ -586,6 +562,10 @@
   "lsmD4c": {
     "defaultMessage": "Mentions légales",
     "description": "SiteFooter: Legal notice link label"
+  },
+  "mWZU4R": {
+    "defaultMessage": "Consulter {pageTitle}",
+    "description": "RecentPosts: card accessible name"
   },
   "nGss/j": {
     "defaultMessage": "Suivi Ackee (analytique)",
@@ -647,10 +627,6 @@
     "defaultMessage": "Profil Gitlab",
     "description": "ProjectsPage: Gitlab profile link"
   },
-  "sO/Iwj": {
-    "defaultMessage": "Me contacter",
-    "description": "HomePage: contact button text"
-  },
   "sR5hah": {
     "defaultMessage": "Mis à jour le :",
     "description": "PageHeader: update date label"
@@ -662,10 +638,6 @@
   "tIZYpD": {
     "defaultMessage": "Partiel",
     "description": "AckeeToggle: partial option name"
-  },
-  "tMuNTy": {
-    "defaultMessage": "{websiteName} est intégrateur web / développeur front-end en France. Il code et il écrit essentiellement à propos de développement web et du libre.",
-    "description": "HomePage: SEO - Meta description"
   },
   "tsWh8x": {
     "defaultMessage": "Thème clair",
@@ -687,10 +659,6 @@
     "defaultMessage": "Marche",
     "description": "MotionToggle: activate reduce motion label"
   },
-  "vkF/RP": {
-    "defaultMessage": "Développement web",
-    "description": "HomePage: link to web development thematic"
-  },
   "vtDLzG": {
     "defaultMessage": "Souhaitez-vous essayer une nouvelle recherche ?",
     "description": "SearchPage: try a new search message"
@@ -702,10 +670,6 @@
   "w4B5PA": {
     "defaultMessage": "E-mail :",
     "description": "ContactForm: email label"
-  },
-  "w8GrOf": {
-    "defaultMessage": "Libre",
-    "description": "HomePage: link to free thematic"
   },
   "xaqaYQ": {
     "defaultMessage": "Mail en cours d’envoi…",
