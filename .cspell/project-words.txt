@@ -15,6 +15,7 @@ Gitlab
 hexcode
 Jamstack
 LINKEDIN
+maxage
 nextjs
 nosniff
 postbuild

@@ -115,6 +115,11 @@ const nextConfig = {
         destination: '/feed.xml',
         permanent: true,
       },
+      {
+        source: '/feed/atom',
+        destination: '/atom.xml',
+        permanent: true,
+      },
     ];
   },
   sassOptions: {
