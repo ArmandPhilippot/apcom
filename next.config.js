@@ -108,11 +108,12 @@ const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
   reactStrictMode: true,
-  rewrites() {
+  redirects() {
     return [
       {
         source: '/feed',
         destination: '/feed.xml',
+        permanent: true,
       },
     ];
   },
