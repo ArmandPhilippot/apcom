@@ -3,11 +3,12 @@ import type {
   Article,
   Blog,
   BlogPosting,
+  Comment as CommentSchema,
   ContactPage,
   Graph,
   WebPage,
 } from 'schema-dts';
-import type { Dates } from '../../types';
+import type { Dates, SingleComment } from '../../types';
 import { CONFIG } from '../config';
 import { ROUTES } from '../constants';
 import { trimTrailingChars } from './strings';
@@ -50,13 +51,47 @@ export const getBlogSchema = ({
     inLanguage: locale,
     isPartOf: isSinglePage
       ? {
-          '@id': `${host}${slug}`,
+          '@id': `${host}/${slug}`,
         }
       : undefined,
     license: 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr',
-    mainEntityOfPage: isSinglePage ? undefined : { '@id': `${host}${slug}` },
+    mainEntityOfPage: isSinglePage ? undefined : { '@id': `${host}/${slug}` },
   };
 };
+
+/**
+ * Retrieve the JSON for Comment schema.
+ *
+ * @param props - The comments.
+ * @returns {CommentSchema[]} The JSON for Comment schema.
+ */
+export const getCommentsSchema = (comments: SingleComment[]): CommentSchema[] =>
+  comments.map((comment) => {
+    return {
+      '@context': 'https://schema.org',
+      '@id': `${CONFIG.url}/#comment-${comment.id}`,
+      '@type': 'Comment',
+      parentItem: comment.parentId
+        ? { '@id': `${CONFIG.url}/#comment-${comment.parentId}` }
+        : undefined,
+      about: { '@type': 'Article', '@id': `${CONFIG.url}/#article` },
+      author: {
+        '@type': 'Person',
+        name: comment.meta.author.name,
+        image: comment.meta.author.avatar?.src,
+        url: comment.meta.author.website,
+      },
+      creator: {
+        '@type': 'Person',
+        name: comment.meta.author.name,
+        image: comment.meta.author.avatar?.src,
+        url: comment.meta.author.website,
+      },
+      dateCreated: comment.meta.date,
+      datePublished: comment.meta.date,
+      text: comment.content,
+    };
+  });
 
 export type SinglePageSchemaReturn = {
   about: AboutPage;
@@ -159,10 +194,10 @@ export const getSinglePageSchema = <T extends SinglePageSchemaKind>({
     isPartOf:
       kind === 'post'
         ? {
-            '@id': `${host}${ROUTES.BLOG}`,
+            '@id': `${host}/${ROUTES.BLOG}`,
           }
         : undefined,
-    mainEntityOfPage: { '@id': `${host}${slug}` },
+    mainEntityOfPage: { '@id': `${host}/${slug}` },
   } as SinglePageSchemaReturn[T];
 };
 
@@ -203,7 +238,7 @@ export const getWebPageSchema = ({
   updateDate,
 }: GetWebPageSchemaProps): WebPage => {
   return {
-    '@id': `${host}${slug}`,
+    '@id': `${host}/${slug}`,
     '@type': 'WebPage',
     breadcrumb: { '@id': `${host}/#breadcrumb` },
     lastReviewed: updateDate,
@@ -211,7 +246,7 @@ export const getWebPageSchema = ({
     description,
     inLanguage: locale,
     reviewedBy: { '@id': `${host}/#branding` },
-    url: `${host}${slug}`,
+    url: `${host}/${slug}`,
     isPartOf: {
       '@id': `${host}`,
     },

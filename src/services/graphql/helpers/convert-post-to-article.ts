@@ -1,4 +1,5 @@
 import type { Article, WPPost } from '../../../types';
+import { ROUTES } from '../../../utils/constants';
 import { updateContentTree } from '../../../utils/helpers';
 import {
   convertWPThematicPreviewToPageLink,
@@ -6,7 +7,7 @@ import {
 } from './convert-taxonomy-to-page-link';
 import { convertWPImgToImg } from './convert-wp-image-to-img';
 
-export const convertPostToArticle = async ({
+export const convertPostToArticle = ({
   acfPosts,
   author,
   commentCount,
@@ -19,9 +20,9 @@ export const convertPostToArticle = async ({
   seo,
   slug,
   title,
-}: WPPost): Promise<Article> => {
+}: WPPost): Article => {
   return {
-    content: await updateContentTree(contentParts.afterMore),
+    content: updateContentTree(contentParts.afterMore),
     id: databaseId,
     intro: contentParts.beforeMore,
     meta: {
@@ -42,7 +43,7 @@ export const convertPostToArticle = async ({
       topics: acfPosts?.postsInTopic?.map(convertWPTopicPreviewToPageLink),
       wordsCount: info.wordsCount,
     },
-    slug,
+    slug: `${ROUTES.ARTICLE}/${slug}`,
     title,
   };
 };

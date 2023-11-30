@@ -18,9 +18,6 @@
 .section {
   --border-size: #{fun.convert-px(3)};
   --col-gap: clamp(var(--spacing-md), 4vw, var(--spacing-2xl));
-  --left-col: 0;
-  --right-col: 0;
-  --main-col: minmax(0, 80ch);
 
   @extend %grid;
 
@@ -30,6 +27,10 @@
 
 .breadcrumbs,
 .page--regular {
+  --left-col: 0;
+  --right-col: 0;
+  --main-col: minmax(0, 1fr);
+
   margin-top: var(--spacing-sm);
 }
 
@@ -74,7 +75,6 @@
 
 .body {
   grid-column: 2;
-  margin-top: var(--spacing-sm);
   padding-bottom: var(--spacing-md);
 }
 
@@ -113,8 +113,9 @@
 }
 
 .section {
-  --right-col: minmax(0, 1fr);
+  --main-col: minmax(0, 80ch);
   --left-col: minmax(0, 1fr);
+  --right-col: minmax(0, 1fr);
 
   @extend %grid;
 
@@ -202,6 +203,10 @@
   }
 }
 
+.spinner {
+  margin: var(--spacing-lg) auto 0;
+}
+
 :where(.comments) {
   .heading {
     width: fit-content;
@@ -212,11 +217,16 @@
     max-width: 40ch;
     margin-inline: auto;
   }
+
+  .spinner {
+    grid-column: 2;
+  }
 }
 
 @container page (width > #{var.get-breakpoint("md")}) {
   .breadcrumbs,
   .page--regular {
+    --main-col: minmax(0, 80ch);
     --right-col: minmax(25ch, 1fr);
   }
 

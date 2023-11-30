@@ -14,6 +14,7 @@ jest.mock('src/utils/helpers/rehype.ts', () => {
   return {
     __esModule: true,
     updateContentTree: jest.fn((str) => str),
+    updateWordPressCodeBlocks: jest.fn((str) => str),
   };
 });
 

@@ -1,3 +1,5 @@
+export * from './loading-page';
+export * from './loading-page-comments';
 export * from './page';
 export * from './page-body';
 export * from './page-comments';

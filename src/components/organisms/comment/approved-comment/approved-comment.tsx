@@ -117,9 +117,10 @@ const ApprovedCommentWithRef: ForwardRefRenderFunction<
       className={commentClass}
       cover={
         author.avatar ? (
-          <CardCover hasBorders>
+          <CardCover aria-label={author.avatar.alt} hasBorders>
             <NextImage
-              alt={author.avatar.alt}
+              // eslint-disable-next-line react/jsx-no-literals
+              alt=""
               height={96}
               src={author.avatar.src}
               width={96}

@@ -39,6 +39,10 @@
     "defaultMessage": "Écrit par :",
     "description": "PageHeader: author meta label"
   },
+  "0UzObH": {
+    "defaultMessage": "La page est en cours de chargement…",
+    "description": "LoadingPage: loading message"
+  },
   "0f7fty": {
     "defaultMessage": "Partager sur Diaspora",
     "description": "SharingWidget: Diaspora sharing link"
@@ -102,10 +106,6 @@
   "48Ww//": {
     "defaultMessage": "Page non trouvée.",
     "description": "404Page: SEO - Meta description"
-  },
-  "4iYISO": {
-    "defaultMessage": "Chargement de l’article demandé…",
-    "description": "ArticlePage: loading article message"
   },
   "5C+1PP": {
     "defaultMessage": "Blog",
@@ -399,6 +399,10 @@
     "defaultMessage": "Il a été approuvé.",
     "description": "PageComments: comment approved."
   },
+  "VTJE8h": {
+    "defaultMessage": "Avatar de {author}",
+    "description": "Article: accessible name for the comment avatar"
+  },
   "VkAnvv": {
     "defaultMessage": "Envoyer",
     "description": "ContactForm: send button"
@@ -523,6 +527,10 @@
     "defaultMessage": "Blocs de code :",
     "description": "PrismThemeToggle: theme label"
   },
+  "gYbxP4": {
+    "defaultMessage": "Les commentaires sont en cours de chargement…",
+    "description": "LoadingPageComments: loading message"
+  },
   "hGvQpI": {
     "defaultMessage": "Charger plus d’articles ?",
     "description": "PostsList: load more button"
@@ -618,6 +626,10 @@
   "pg26sn": {
     "defaultMessage": "Découvrez les résultats de recherche pour {query} sur {websiteName}.",
     "description": "SearchPage: SEO - Meta description"
+  },
+  "s57FTB": {
+    "defaultMessage": "Partager",
+    "description": "Article: sharing widget title"
   },
   "s8/tyz": {
     "defaultMessage": "Sujet :",

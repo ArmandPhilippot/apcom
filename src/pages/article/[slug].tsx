@@ -4,12 +4,11 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
-import type { Comment as CommentSchema, WithContext } from 'schema-dts';
 import {
   getLayout,
   SharingWidget,
-  Spinner,
   type CommentData,
   Heading,
   Page,
@@ -19,24 +18,30 @@ import {
   PageComments,
   PageSidebar,
   TocWidget,
+  LoadingPage,
+  LoadingPageComments,
 } from '../../components';
 import {
-  convertPostToArticle,
-  convertWPCommentToComment,
   fetchAllPostsSlugs,
   fetchCommentsList,
   fetchPost,
   fetchPostsCount,
 } from '../../services/graphql';
-import styles from '../../styles/pages/article.module.scss';
-import type { Article, NextPageWithLayout, SingleComment } from '../../types';
+import styles from '../../styles/pages/blog.module.scss';
+import type {
+  NextPageWithLayout,
+  SingleComment,
+  WPComment,
+  WPPost,
+} from '../../types';
 import { CONFIG } from '../../utils/config';
-import { ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
+  getCommentsSchema,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
+  updateWordPressCodeBlocks,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
@@ -48,48 +53,33 @@ import {
 } from '../../utils/hooks';
 
 type ArticlePageProps = {
-  comments: SingleComment[];
-  post: Article;
-  slug: string;
+  data: {
+    comments: WPComment[];
+    post: WPPost;
+  };
   translation: Messages;
 };
 
 /**
  * Article page.
  */
-const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
-  comments,
-  post,
-  slug,
-}) => {
-  const { isFallback } = useRouter();
+const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
   const intl = useIntl();
-  const article = useArticle({ slug, fallback: post });
-  const commentsData = useComments({
-    fallback: comments,
-    first: article?.meta.commentsCount,
+  const { isFallback } = useRouter();
+  const { article, isLoading } = useArticle(data.post.slug, data.post);
+  const { comments, isLoading: areCommentsLoading } = useComments({
+    fallback: data.comments,
+    first: article.meta.commentsCount,
     where: {
-      contentId: article?.id ?? post.id,
+      contentId: article.id,
     },
   });
-
-  const getComments = (data?: SingleComment[]) =>
-    data?.map((comment): CommentData => {
-      return {
-        author: comment.meta.author,
-        content: comment.content,
-        id: comment.id,
-        isApproved: comment.isApproved,
-        publicationDate: comment.meta.date,
-        replies: getComments(comment.replies),
-      };
-    });
-
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: article?.title ?? '',
-    url: `${ROUTES.ARTICLE}/${slug}`,
+    title: data.post.title,
+    url: data.post.slug,
   });
-  const { attributes, className } = usePrism({
+  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
+  const { attributes, className: prismClassName } = usePrism({
     attributes: {
       'data-toolbar-order': 'show-language,copy-to-clipboard,color-scheme',
     },
@@ -106,14 +96,41 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       'line-numbers',
     ],
   });
-  const loadingArticle = intl.formatMessage({
-    defaultMessage: 'Loading the requested article...',
-    description: 'ArticlePage: loading article message',
-    id: '4iYISO',
-  });
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
 
-  if (isFallback || !article) return <Spinner>{loadingArticle}</Spinner>;
+  const formatComments = useCallback(
+    (allComments: SingleComment[]) =>
+      allComments.map((comment): CommentData => {
+        return {
+          author: {
+            ...comment.meta.author,
+            avatar: comment.meta.author.avatar
+              ? {
+                  ...comment.meta.author.avatar,
+                  alt: intl.formatMessage(
+                    {
+                      defaultMessage: "{author}'s avatar",
+                      description:
+                        'Article: accessible name for the comment avatar',
+                      id: 'VTJE8h',
+                    },
+                    {
+                      author: comment.meta.author.name,
+                    }
+                  ),
+                }
+              : undefined,
+          },
+          content: comment.content,
+          id: comment.id,
+          isApproved: comment.isApproved,
+          publicationDate: comment.meta.date,
+          replies: formatComments(comment.replies),
+        };
+      }),
+    [intl]
+  );
+
+  if (isFallback || isLoading) return <LoadingPage />;
 
   const { content, id, intro, meta, title } = article;
   const {
@@ -130,14 +147,14 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
   const webpageSchema = getWebPageSchema({
     description: intro,
     locale: CONFIG.locales.defaultLocale,
-    slug,
+    slug: article.slug,
     title,
     updateDate: dates.update,
   });
   const blogSchema = getBlogSchema({
     isSinglePage: true,
     locale: CONFIG.locales.defaultLocale,
-    slug,
+    slug: article.slug,
   });
   const blogPostSchema = getSinglePageSchema({
     commentsCount,
@@ -148,89 +165,29 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
     id: 'article',
     kind: 'post',
     locale: CONFIG.locales.defaultLocale,
-    slug,
+    slug: article.slug,
     title,
   });
-  const commentsSchema: WithContext<CommentSchema>[] = commentsData
-    ? commentsData.map((comment) => {
-        return {
-          '@context': 'https://schema.org',
-          '@id': `${CONFIG.url}/#comment-${comment.id}`,
-          '@type': 'Comment',
-          parentItem: comment.parentId
-            ? { '@id': `${CONFIG.url}/#comment-${comment.parentId}` }
-            : undefined,
-          about: { '@type': 'Article', '@id': `${CONFIG.url}/#article` },
-          author: {
-            '@type': 'Person',
-            name: comment.meta.author.name,
-            image: comment.meta.author.avatar?.src,
-            url: comment.meta.author.website,
-          },
-          creator: {
-            '@type': 'Person',
-            name: comment.meta.author.name,
-            image: comment.meta.author.avatar?.src,
-            url: comment.meta.author.website,
-          },
-          dateCreated: comment.meta.date,
-          datePublished: comment.meta.date,
-          text: comment.content,
-        };
-      })
-    : [];
   const schemaJsonLd = getSchemaJson([
     webpageSchema,
     blogSchema,
     blogPostSchema,
-    ...commentsSchema,
+    ...getCommentsSchema(comments),
   ]);
 
-  const lineNumbersClassName = className
-    .replace('command-line', '')
-    .replace(/\s\s+/g, ' ');
-  const commandLineClassName = className
-    .replace('line-numbers', '')
-    .replace(/\s\s+/g, ' ');
-
-  /**
-   * Replace a string with Prism classnames and attributes.
-   *
-   * @param {string} str - The found string.
-   * @returns {string} The classes and attributes.
-   */
-  const prismClassNameReplacer = (str: string): string => {
-    const wpBlockClassName = 'wp-block-code';
-    const languageArray = /language-[^\s|"]+/.exec(str);
-    const languageClassName = languageArray ? `${languageArray[0]}` : '';
-
-    if (
-      str.includes('command-line') ||
-      (!str.includes('command-line') && str.includes('language-bash'))
-    ) {
-      return `class="${wpBlockClassName} ${commandLineClassName} ${languageClassName}" tabindex="0" data-filter-output="#output#`;
-    }
-
-    return `class="${wpBlockClassName} ${lineNumbersClassName} ${languageClassName}" tabindex="0`;
+  const pageUrl = `${CONFIG.url}${article.slug}`;
+  const messages = {
+    sharingTitle: intl.formatMessage({
+      defaultMessage: 'Share',
+      id: 's57FTB',
+      description: 'Article: sharing widget title',
+    }),
+    tocTitle: intl.formatMessage({
+      defaultMessage: 'Table of Contents',
+      description: 'PageLayout: table of contents title',
+      id: 'eys2uX',
+    }),
   };
-
-  const contentWithPrismClasses = content.replaceAll(
-    /class="wp-block-code[^"]+/gm,
-    prismClassNameReplacer
-  );
-
-  const pageUrl = `${CONFIG.url}${slug}`;
-  const sharingWidgetTitle = intl.formatMessage({
-    defaultMessage: 'Share',
-    id: 'HKKkQk',
-    description: 'SharingWidget: widget title',
-  });
-  const tocTitle = intl.formatMessage({
-    defaultMessage: 'Table of Contents',
-    description: 'PageLayout: table of contents title',
-    id: 'eys2uX',
-  });
-  const articleComments = getComments(commentsData);
 
   return (
     <Page breadcrumbs={breadcrumbItems}>
@@ -270,14 +227,16 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
       />
       <PageSidebar>
         <TocWidget
-          heading={<Heading level={3}>{tocTitle}</Heading>}
+          heading={<Heading level={2}>{messages.tocTitle}</Heading>}
           tree={tree}
         />
       </PageSidebar>
       <PageBody
         {...attributes}
         className={styles.body}
-        dangerouslySetInnerHTML={{ __html: contentWithPrismClasses }}
+        dangerouslySetInnerHTML={{
+          __html: updateWordPressCodeBlocks(content, prismClassName),
+        }}
         ref={ref}
       />
       {topics ? <PageFooter readMoreAbout={topics} /> : null}
@@ -285,9 +244,9 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
         <SharingWidget
           // eslint-disable-next-line react/jsx-no-literals -- Key allowed
           key="sharing-widget"
-          className={styles.widget}
+          className={styles['sharing-widget']}
           data={{ excerpt: intro, title, url: pageUrl }}
-          heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
+          heading={<Heading level={2}>{messages.sharingTitle}</Heading>}
           media={[
             'diaspora',
             'email',
@@ -298,7 +257,15 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({
           ]}
         />
       </PageSidebar>
-      <PageComments comments={articleComments ?? []} depth={2} pageId={id} />
+      {areCommentsLoading ? (
+        <LoadingPageComments />
+      ) : (
+        <PageComments
+          comments={formatComments(comments)}
+          depth={2}
+          pageId={id}
+        />
+      )}
     </Page>
   );
 };
@@ -314,7 +281,6 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
   params,
 }) => {
   const post = await fetchPost((params as PostParams).slug);
-  const article = await convertPostToArticle(post);
   const comments = await fetchCommentsList({
     first: post.commentCount ?? 1,
     where: { contentId: post.databaseId },
@@ -323,11 +289,10 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
 
   return {
     props: {
-      comments: JSON.parse(
-        JSON.stringify(comments.map(convertWPCommentToComment))
-      ),
-      post: JSON.parse(JSON.stringify(article)),
-      slug: post.slug,
+      data: {
+        comments: JSON.parse(JSON.stringify(comments)),
+        post: JSON.parse(JSON.stringify(post)),
+      },
       translation,
     },
   };

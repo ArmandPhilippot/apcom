@@ -6,7 +6,7 @@
   padding: var(--spacing-2xs) var(--spacing-xs);
   border-radius: fun.convert-px(3);
   box-shadow: #{fun.convert-px(3)} #{fun.convert-px(3)} 0 0 var(--shadowColor);
-  transition: all 0.3s linear 0s;
+  transition: all 0.2s linear 0s;
 
   &:hover,
   &:focus {

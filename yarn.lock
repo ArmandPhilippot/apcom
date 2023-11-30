@@ -4225,7 +4225,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/hast@^3.0.0":
+"@types/hast@^3.0.0", "@types/hast@^3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/hast/-/hast-3.0.3.tgz#7f75e6b43bc3f90316046a287d9ad3888309f7e1"
   integrity sha512-2fYGlaDy/qyLlhidX42wAH0KBi2TCjKMH8CHmBXgRlJ3Y+OXTiqsPQ6IWarZKwF1JoUcAJdPogv1d4b0COTpmQ==
@@ -8972,6 +8972,14 @@ hasown@^2.0.0:
   integrity sha512-vUptKVTpIJhcczKBbgnS+RtcuYMB8+oNzPK2/Hp3hanz8JmpATdmmgLgSaadVREkDm+e2giHwY3ZRkyjSIDDFA==
   dependencies:
     function-bind "^1.1.2"
+
+hast-util-classnames@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hast-util-classnames/-/hast-util-classnames-3.0.0.tgz#79d1e2c49fd0b2f4213f12048cb7a0439c351c8b"
+  integrity sha512-tI3JjoGDEBVorMAWK4jNRsfLMYmih1BUOG3VV36pH36njs1IEl7xkNrVTD2mD2yYHmQCa5R/fj61a8IAF4bRaQ==
+  dependencies:
+    "@types/hast" "^3.0.0"
+    space-separated-tokens "^2.0.0"
 
 hast-util-from-html@^2.0.0:
   version "2.0.1"

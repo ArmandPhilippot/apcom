@@ -52,7 +52,9 @@ describe('ApprovedComment', () => {
       />
     );
 
-    expect(rtlScreen.getByRole('img')).toHaveAccessibleName(author.avatar.alt);
+    expect(rtlScreen.getByRole('figure')).toHaveAccessibleName(
+      author.avatar.alt
+    );
   });
 
   it('can render a link to the author website', () => {

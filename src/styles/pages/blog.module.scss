@@ -1,7 +1,11 @@
 @use "../abstracts/functions" as fun;
 @use "../abstracts/mixins" as mix;
 @use "../abstracts/placeholders";
+@use "partials/article-headings";
 @use "partials/article-links";
+@use "partials/article-lists";
+@use "partials/article-media";
+@use "partials/article-wp-blocks";
 
 .list {
   @include mix.media("screen") {
@@ -14,20 +18,29 @@
   }
 }
 
+.sharing-widget {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      ul {
+        width: min-content;
+      }
+    }
+  }
+}
+
 .logo {
   max-width: fun.convert-px(50);
   margin: 0 var(--spacing-xs) 0 0;
 }
 
-:where(.body) {
+.body {
   :global {
+    @include article-headings.styles;
     @include article-links.styles;
-
-    h2 {
-      @extend %h2;
-
-      margin-block-end: var(--spacing-sm);
-    }
+    @include article-lists.styles;
+    @include article-media.styles;
+    @include article-wp-blocks.styles;
+    @extend %prism;
   }
 }
 

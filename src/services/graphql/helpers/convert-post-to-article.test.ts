@@ -1,11 +1,12 @@
 import { describe, expect, it } from '@jest/globals';
 import type { WPPost } from '../../../types';
+import { ROUTES } from '../../../utils/constants';
 import { convertPostToArticle } from './convert-post-to-article';
 import { convertWPImgToImg } from './convert-wp-image-to-img';
 
 describe('convert-post-to-article', () => {
   /* eslint-disable max-statements */
-  it('converts a WPPost object to an Article object', async () => {
+  it('converts a WPPost object to an Article object', () => {
     const post: WPPost = {
       acfPosts: null,
       author: { node: { name: 'Vince5' } },
@@ -28,10 +29,7 @@ describe('convert-post-to-article', () => {
       slug: '/the-post-slug',
       title: 'ea vero repellat',
     };
-    const result = await convertPostToArticle(post);
-
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    expect.assertions(15);
+    const result = convertPostToArticle(post);
 
     expect(result.content).toBe(post.contentParts.afterMore);
     expect(result.id).toBe(post.databaseId);
@@ -46,12 +44,12 @@ describe('convert-post-to-article', () => {
     expect(result.meta.thematics).toBeUndefined();
     expect(result.meta.topics).toBeUndefined();
     expect(result.meta.wordsCount).toBe(post.info.wordsCount);
-    expect(result.slug).toBe(post.slug);
+    expect(result.slug).toBe(`${ROUTES.ARTICLE}/${post.slug}`);
     expect(result.title).toBe(post.title);
   });
   /* eslint-enable max-statements */
 
-  it('can convert the cover', async () => {
+  it('can convert the cover', () => {
     const post = {
       acfPosts: null,
       author: { node: { name: 'Vince5' } },
@@ -84,16 +82,14 @@ describe('convert-post-to-article', () => {
       slug: '/the-post-slug',
       title: 'ea vero repellat',
     } satisfies WPPost;
-    const result = await convertPostToArticle(post);
-
-    expect.assertions(1);
+    const result = convertPostToArticle(post);
 
     expect(result.meta.cover).toStrictEqual(
       convertWPImgToImg(post.featuredImage.node)
     );
   });
 
-  it('can return 0 as comment count when not defined', async () => {
+  it('can return 0 as comment count when not defined', () => {
     const post: WPPost = {
       acfPosts: null,
       author: { node: { name: 'Vince5' } },
@@ -116,9 +112,7 @@ describe('convert-post-to-article', () => {
       slug: '/the-post-slug',
       title: 'ea vero repellat',
     };
-    const result = await convertPostToArticle(post);
-
-    expect.assertions(1);
+    const result = convertPostToArticle(post);
 
     expect(result.meta.commentsCount).toBe(0);
   });

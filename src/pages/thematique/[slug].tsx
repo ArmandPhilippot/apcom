@@ -59,7 +59,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
   const webpageSchema = getWebPageSchema({
     description: seo.description,
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug,
     title: seo.title,
     updateDate: dates.update,
   });
@@ -69,7 +69,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
     id: 'thematic',
     kind: 'page',
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);

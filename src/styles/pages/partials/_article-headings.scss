@@ -31,8 +31,10 @@
   h4,
   h5,
   h6 {
-    &:not(:first-child) {
-      margin-block: var(--spacing-sm);
+    margin-block: var(--spacing-sm);
+
+    &:first-of-type {
+      margin-block-start: var(--spacing-md);
     }
   }
 }
