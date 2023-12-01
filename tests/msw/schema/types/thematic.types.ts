@@ -26,6 +26,7 @@ type Thematic {
 
 input RootQueryToThematicConnectionWhereArgs {
   authorName: String
+  notIn: [ID]
   orderby: [PostObjectsConnectionOrderbyInput]
   search: String
   title: String

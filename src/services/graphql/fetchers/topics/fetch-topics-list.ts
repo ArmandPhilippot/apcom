@@ -12,13 +12,13 @@ export type TopicsListResponse = {
   topics: Nullable<GraphQLConnection<WPTopicPreview>>;
 };
 
-const topicsListQuery = `query TopicsList($after: String, $before: String, $first: Int, $last: Int, $orderby: [PostObjectsConnectionOrderbyInput], $search: String, $title: String) {
+const topicsListQuery = `query TopicsList($after: String, $before: String, $first: Int, $last: Int, $orderby: [PostObjectsConnectionOrderbyInput], $search: String, $title: String, $notIn: [ID]) {
   topics(
     after: $after
     before: $before
     first: $first
     last: $last
-    where: {orderby: $orderby, search: $search, title: $title}
+    where: {orderby: $orderby, search: $search, title: $title, notIn: $notIn}
   ) {
     edges {
       cursor

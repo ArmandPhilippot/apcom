@@ -14,17 +14,24 @@ import {
   PageHeader,
   PageSidebar,
   PageBody,
+  LoadingPage,
+  TocWidget,
+  Spinner,
 } from '../../components';
 import {
   convertWPThematicPreviewToPageLink,
-  convertWPThematicToThematic,
   fetchAllThematicsSlugs,
   fetchThematic,
   fetchThematicsCount,
   fetchThematicsList,
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
-import type { NextPageWithLayout, PageLink, Thematic } from '../../types';
+import type {
+  GraphQLConnection,
+  NextPageWithLayout,
+  WPThematic,
+  WPThematicPreview,
+} from '../../types';
 import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
@@ -33,29 +40,47 @@ import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
+  slugify,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb } from '../../utils/hooks';
+import {
+  useBreadcrumb,
+  useHeadingsTree,
+  useThematic,
+  useThematicsList,
+} from '../../utils/hooks';
 
 export type ThematicPageProps = {
-  currentThematic: Thematic;
-  thematics: PageLink[];
+  data: {
+    currentThematic: WPThematic;
+    otherThematics: GraphQLConnection<WPThematicPreview>;
+    totalThematics: number;
+  };
   translation: Messages;
 };
 
-const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
-  currentThematic,
-  thematics,
-}) => {
-  const { content, intro, meta, slug, title } = currentThematic;
-  const { articles, dates, seo, relatedTopics } = meta;
+const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({ data }) => {
   const intl = useIntl();
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: `${ROUTES.THEMATICS}/${slug}`,
+  const { isFallback } = useRouter();
+  const { isLoading, thematic } = useThematic(
+    data.currentThematic.slug,
+    data.currentThematic
+  );
+  const { isLoading: areThematicsLoading, thematics } = useThematicsList({
+    fallback: data.otherThematics,
+    input: { first: data.totalThematics, where: { notIn: [thematic.id] } },
   });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title: data.currentThematic.title,
+    url: `${ROUTES.THEMATICS}/${data.currentThematic.slug}`,
+  });
+  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
 
-  const { asPath } = useRouter();
+  if (isFallback || isLoading) return <LoadingPage />;
+
+  const { content, intro, meta, slug, title } = thematic;
+  const { articles, dates, seo, relatedTopics } = meta;
+
   const webpageSchema = getWebPageSchema({
     description: seo.description,
     locale: CONFIG.locales.defaultLocale,
@@ -74,18 +99,41 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
 
-  const thematicsListTitle = intl.formatMessage({
-    defaultMessage: 'Other thematics',
-    description: 'ThematicPage: other thematics list widget title',
-    id: 'KVSWGP',
-  });
+  const messages = {
+    widgets: {
+      loadingThematicsList: intl.formatMessage({
+        defaultMessage: 'Thematics are loading...',
+        description: 'ThematicPage: loading thematics message',
+        id: 'rVoW4G',
+      }),
+      thematicsListTitle: intl.formatMessage({
+        defaultMessage: 'Other thematics',
+        description: 'ThematicPage: other thematics list widget title',
+        id: 'KVSWGP',
+      }),
+      tocTitle: intl.formatMessage({
+        defaultMessage: 'Table of Contents',
+        description: 'PageLayout: table of contents title',
+        id: 'eys2uX',
+      }),
+      topicsListTitle: intl.formatMessage({
+        defaultMessage: 'Related topics',
+        description: 'ThematicPage: related topics list widget title',
+        id: '/42Z0z',
+      }),
+    },
+    browsePostsTitle: intl.formatMessage(
+      {
+        defaultMessage: 'Browse posts in {thematicName} thematic',
+        description: 'ThematicPage: posts list heading',
+        id: 'jrRBeb',
+      },
+      { thematicName: title }
+    ),
+  };
 
-  const topicsListTitle = intl.formatMessage({
-    defaultMessage: 'Related topics',
-    description: 'ThematicPage: related topics list widget title',
-    id: '/42Z0z',
-  });
-  const pageUrl = `${CONFIG.url}${asPath}`;
+  const pageUrl = `${CONFIG.url}${slug}`;
+  const browsePostHeadingId = slugify(messages.browsePostsTitle);
 
   return (
     <Page breadcrumbs={breadcrumbItems}>
@@ -121,23 +169,33 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
           updateDate: dates.update,
         }}
       />
-      <PageBody className={styles.body}>
-        {/*eslint-disable-next-line react/no-danger -- Necessary for content*/}
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+      <PageSidebar>
+        <TocWidget
+          heading={<Heading level={2}>{messages.widgets.tocTitle}</Heading>}
+          tree={[
+            ...tree,
+            {
+              children: [],
+              depth: 2,
+              id: browsePostHeadingId,
+              label: messages.browsePostsTitle,
+            },
+          ]}
+        />
+      </PageSidebar>
+      <PageBody>
+        <div
+          className={styles.body}
+          // eslint-disable-next-line react/no-danger -- Necessary for content
+          dangerouslySetInnerHTML={{ __html: content }}
+          ref={ref}
+        />
         {articles ? (
           <>
-            <Heading level={2}>
-              {intl.formatMessage(
-                {
-                  defaultMessage: 'All posts in {thematicName}',
-                  description: 'ThematicPage: posts list heading',
-                  id: 'LszkU6',
-                },
-                { thematicName: title }
-              )}
+            <Heading id={browsePostHeadingId} level={2}>
+              {messages.browsePostsTitle}
             </Heading>
             <PostsList
-              className={styles.list}
               posts={getPostsWithUrl(articles)}
               headingLvl={3}
               sortByYear
@@ -146,20 +204,24 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({
         ) : null}
       </PageBody>
       <PageSidebar>
-        <LinksWidget
-          heading={
-            <Heading isFake level={3}>
-              {thematicsListTitle}
-            </Heading>
-          }
-          items={getLinksItemData(thematics)}
-        />
+        {areThematicsLoading ? (
+          <Spinner>{messages.widgets.loadingThematicsList}</Spinner>
+        ) : (
+          <LinksWidget
+            heading={
+              <Heading level={2}>{messages.widgets.thematicsListTitle}</Heading>
+            }
+            items={getLinksItemData(
+              thematics.edges.map((edge) =>
+                convertWPThematicPreviewToPageLink(edge.node)
+              )
+            )}
+          />
+        )}
         {relatedTopics ? (
           <LinksWidget
             heading={
-              <Heading isFake level={3}>
-                {topicsListTitle}
-              </Heading>
+              <Heading level={2}>{messages.widgets.topicsListTitle}</Heading>
             }
             items={getLinksItemData(relatedTopics)}
           />
@@ -179,26 +241,21 @@ export const getStaticProps: GetStaticProps<ThematicPageProps> = async ({
   locale,
   params,
 }) => {
-  const currentThematic = await fetchThematic((params as ThematicParams).slug);
+  const thematic = await fetchThematic((params as ThematicParams).slug);
   const totalThematics = await fetchThematicsCount();
-  const allThematicsEdges = await fetchThematicsList({
+  const otherThematics = await fetchThematicsList({
     first: totalThematics,
+    where: { notIn: [thematic.databaseId] },
   });
-  const allThematics = allThematicsEdges.edges.map((edge) =>
-    convertWPThematicPreviewToPageLink(edge.node)
-  );
-  const allThematicsLinks = allThematics.filter(
-    (thematic) =>
-      thematic.url !== `${ROUTES.THEMATICS}/${(params as ThematicParams).slug}`
-  );
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      currentThematic: JSON.parse(
-        JSON.stringify(convertWPThematicToThematic(currentThematic))
-      ),
-      thematics: JSON.parse(JSON.stringify(allThematicsLinks)),
+      data: {
+        currentThematic: JSON.parse(JSON.stringify(thematic)),
+        otherThematics: JSON.parse(JSON.stringify(otherThematics)),
+        totalThematics,
+      },
       translation,
     },
   };

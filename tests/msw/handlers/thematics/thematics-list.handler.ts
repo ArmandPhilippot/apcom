@@ -23,12 +23,17 @@ export const thematicsListHandler = graphql.query<
     variableValues: variables,
     rootValue: {
       thematics({ after, first, where }: typeof variables) {
-        const { search, title } = where ?? {};
-        const filteredThematicsByTitle = title
-          ? wpThematicsFixture.filter((thematic) =>
-              thematic.title.includes(title)
+        const { notIn, search, title } = where ?? {};
+        const filteredThematicsById = notIn
+          ? wpThematicsFixture.filter(
+              (thematic) => !notIn.includes(thematic.databaseId)
             )
           : wpThematicsFixture;
+        const filteredThematicsByTitle = title
+          ? filteredThematicsById.filter((thematic) =>
+              thematic.title.includes(title)
+            )
+          : filteredThematicsById;
         const filteredThematics = search
           ? filteredThematicsByTitle.filter((thematic) =>
               thematic.title.includes(search)

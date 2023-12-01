@@ -34,6 +34,7 @@ describe('convert-wp-thematic-to-thematic', () => {
     const result = convertWPThematicToThematic(thematic);
 
     expect(result.content).toBe(thematic.contentParts.afterMore);
+    expect(result.id).toBe(thematic.databaseId);
     expect(result.intro).toBe(thematic.contentParts.beforeMore);
     expect(result.meta.articles).toBeUndefined();
     expect(result.meta.cover).toBeUndefined();

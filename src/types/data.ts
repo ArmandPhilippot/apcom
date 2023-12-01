@@ -273,6 +273,7 @@ export type ThematicMeta = Omit<PageMeta, 'wordsCount'> & {
 };
 
 export type Thematic = Page & {
+  id: number;
   meta: ThematicMeta;
 };
 
@@ -283,5 +284,6 @@ export type TopicMeta = Omit<PageMeta, 'wordsCount'> & {
 };
 
 export type Topic = Page & {
+  id: number;
   meta: TopicMeta;
 };

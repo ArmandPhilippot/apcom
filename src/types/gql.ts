@@ -70,4 +70,5 @@ export type GraphQLTaxonomyOrderBy = {
 export type GraphQLTaxonomyWhere = {
   search?: string;
   title?: string;
+  notIn?: number[];
 };

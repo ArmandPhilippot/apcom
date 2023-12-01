@@ -34,6 +34,7 @@ describe('convert-wp-topic-to-topic', () => {
     const result = convertWPTopicToTopic(topic);
 
     expect(result.content).toBe(topic.contentParts.afterMore);
+    expect(result.id).toBe(topic.databaseId);
     expect(result.intro).toBe(topic.contentParts.beforeMore);
     expect(result.meta.articles).toBeUndefined();
     expect(result.meta.cover).toBeUndefined();

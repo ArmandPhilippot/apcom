@@ -16,7 +16,7 @@
     "description": "BlogPage: SEO - Page title"
   },
   "/42Z0z": {
-    "defaultMessage": "Sujets liés",
+    "defaultMessage": "Sujets connexes",
     "description": "ThematicPage: related topics list widget title"
   },
   "/EfcyW": {
@@ -299,10 +299,6 @@
     "defaultMessage": "Page non trouvée",
     "description": "Error404Page: page title"
   },
-  "LszkU6": {
-    "defaultMessage": "Tous les articles dans {thematicName}",
-    "description": "ThematicPage: posts list heading"
-  },
   "MJLr6U": {
     "defaultMessage": "CV",
     "description": "SiteNavbar: main nav - cv link"
@@ -555,6 +551,10 @@
     "defaultMessage": "Temps de lecture :",
     "description": "PageHeader: reading time label"
   },
+  "jrRBeb": {
+    "defaultMessage": "Parcourir les articles de la thématique {thematicName}",
+    "description": "ThematicPage: posts list heading"
+  },
   "kq+fzI": {
     "defaultMessage": "Illustration de {pageTitle}",
     "description": "RecentPosts: card cover accessible name"
@@ -626,6 +626,10 @@
   "pg26sn": {
     "defaultMessage": "Découvrez les résultats de recherche pour {query} sur {websiteName}.",
     "description": "SearchPage: SEO - Meta description"
+  },
+  "rVoW4G": {
+    "defaultMessage": "Les thématiques sont en cours de chargement…",
+    "description": "ThematicPage: loading thematics message"
   },
   "s57FTB": {
     "defaultMessage": "Partager",

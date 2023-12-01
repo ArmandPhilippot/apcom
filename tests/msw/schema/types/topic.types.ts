@@ -27,6 +27,7 @@ type Topic {
 
 input RootQueryToTopicConnectionWhereArgs {
   authorName: String
+  notIn: [ID]
   orderby: [PostObjectsConnectionOrderbyInput]
   search: String
   title: String

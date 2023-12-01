@@ -23,10 +23,13 @@ export const topicsListHandler = graphql.query<
     variableValues: variables,
     rootValue: {
       topics({ after, first, where }: typeof variables) {
-        const { search, title } = where ?? {};
-        const filteredTopicsByTitle = title
-          ? wpTopicsFixture.filter((topic) => topic.title.includes(title))
+        const { notIn, search, title } = where ?? {};
+        const filteredTopicsById = notIn
+          ? wpTopicsFixture.filter((topic) => !notIn.includes(topic.databaseId))
           : wpTopicsFixture;
+        const filteredTopicsByTitle = title
+          ? filteredTopicsById.filter((topic) => topic.title.includes(title))
+          : filteredTopicsById;
         const filteredTopics = search
           ? filteredTopicsByTitle.filter((topic) =>
               topic.title.includes(search)

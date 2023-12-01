@@ -29,6 +29,8 @@
 }
 
 %link-with-icon {
+  display: inline-block;
+
   &::after {
     display: inline-block;
     content: var(--is-lang-hidden, "\0000a0" var(--lang-icon, ""))

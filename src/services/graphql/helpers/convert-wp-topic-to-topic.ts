@@ -26,31 +26,40 @@ const getRelatedThematicsFrom = (posts: WPPostPreview[]): PageLink[] => {
   return getUniquePageLinks(thematics).sort(sortPageLinksByName);
 };
 
-export const convertWPTopicToTopic = (topic: WPTopic): Topic => {
+export const convertWPTopicToTopic = ({
+  acfTopics,
+  contentParts,
+  databaseId,
+  date,
+  featuredImage,
+  modified,
+  seo,
+  slug,
+  title,
+}: WPTopic): Topic => {
   return {
-    content: topic.contentParts.afterMore,
-    intro: topic.contentParts.beforeMore,
+    content: contentParts.afterMore,
+    id: databaseId,
+    intro: contentParts.beforeMore,
     meta: {
-      articles: topic.acfTopics?.postsInTopic?.map(
+      articles: acfTopics?.postsInTopic?.map(
         convertPostPreviewToArticlePreview
       ),
-      cover: topic.featuredImage
-        ? convertWPImgToImg(topic.featuredImage.node)
-        : undefined,
+      cover: featuredImage ? convertWPImgToImg(featuredImage.node) : undefined,
       dates: {
-        publication: topic.date,
-        update: topic.modified,
+        publication: date,
+        update: modified,
       },
       seo: {
-        description: topic.seo.metaDesc,
-        title: topic.seo.title,
+        description: seo.metaDesc,
+        title: seo.title,
       },
-      relatedThematics: topic.acfTopics?.postsInTopic
-        ? getRelatedThematicsFrom(topic.acfTopics.postsInTopic)
+      relatedThematics: acfTopics?.postsInTopic
+        ? getRelatedThematicsFrom(acfTopics.postsInTopic)
         : undefined,
-      website: topic.acfTopics?.officialWebsite ?? undefined,
+      website: acfTopics?.officialWebsite ?? undefined,
     },
-    slug: `${ROUTES.TOPICS}/${topic.slug}`,
-    title: topic.title,
+    slug: `${ROUTES.TOPICS}/${slug}`,
+    title,
   };
 };

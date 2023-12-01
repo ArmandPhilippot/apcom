@@ -22,6 +22,8 @@ export * from './use-scroll-lock';
 export * from './use-scroll-position';
 export * from './use-scrollbar-width';
 export * from './use-system-color-scheme';
+export * from './use-thematic';
+export * from './use-thematics-list';
 export * from './use-theme';
 export * from './use-timeout';
 export * from './use-toggle';

@@ -7,7 +7,7 @@
 @use "partials/article-media";
 @use "partials/article-wp-blocks";
 
-.list {
+.posts-list {
   @include mix.media("screen") {
     @include mix.dimensions("md") {
       --col1: #{fun.convert-px(100)};
@@ -28,7 +28,7 @@
   }
 }
 
-.logo {
+.topic-logo {
   max-width: fun.convert-px(50);
   margin: 0 var(--spacing-xs) 0 0;
 }

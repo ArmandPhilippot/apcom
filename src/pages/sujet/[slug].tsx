@@ -97,7 +97,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({
 
   const getPageHeading = () => (
     <>
-      {cover ? <NextImage {...cover} className={styles.logo} /> : null}
+      {cover ? <NextImage {...cover} className={styles['topic-logo']} /> : null}
       {title}
     </>
   );

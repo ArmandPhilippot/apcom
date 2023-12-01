@@ -299,10 +299,6 @@
     "defaultMessage": "Page not found",
     "description": "Error404Page: page title"
   },
-  "LszkU6": {
-    "defaultMessage": "All posts in {thematicName}",
-    "description": "ThematicPage: posts list heading"
-  },
   "MJLr6U": {
     "defaultMessage": "CV",
     "description": "SiteNavbar: main nav - cv link"
@@ -555,6 +551,10 @@
     "defaultMessage": "Reading time:",
     "description": "PageHeader: reading time label"
   },
+  "jrRBeb": {
+    "defaultMessage": "Browse posts in {thematicName} thematic",
+    "description": "ThematicPage: posts list heading"
+  },
   "kq+fzI": {
     "defaultMessage": "Cover of {pageTitle}",
     "description": "RecentPosts: card cover accessible name"
@@ -626,6 +626,10 @@
   "pg26sn": {
     "defaultMessage": "Discover search results for {query} on {websiteName}.",
     "description": "SearchPage: SEO - Meta description"
+  },
+  "rVoW4G": {
+    "defaultMessage": "Thematics are loading...",
+    "description": "ThematicPage: loading thematics message"
   },
   "s57FTB": {
     "defaultMessage": "Share",
