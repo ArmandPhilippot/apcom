@@ -1,6 +1,6 @@
 import type { WPPost } from '../../src/types';
 
-export const wpPostsFixture: WPPost[] = [
+export const wpPostsFixture = [
   {
     acfPosts: null,
     author: {
@@ -174,4 +174,4 @@ export const wpPostsFixture: WPPost[] = [
     slug: '/post-4',
     title: 'Post 4',
   },
-];
+] satisfies WPPost[];

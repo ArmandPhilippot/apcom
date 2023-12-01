@@ -11,7 +11,7 @@ export type UsePaginationFetcherInput = GraphQLEdgesInput & {
   search?: string;
 };
 
-export type UsePaginationConfig<T> = {
+export type UsePaginationConfig<T> = Pick<GraphQLEdgesInput, 'after'> & {
   /**
    * The initial data.
    */
@@ -86,6 +86,7 @@ export type UsePaginationReturn<T> = {
  * @returns {UsePaginationReturn} An object with pagination data and helpers.
  */
 export const usePagination = <T>({
+  after,
   fallback,
   fetcher,
   perPage,
@@ -97,12 +98,11 @@ export const usePagination = <T>({
 
       return {
         first: perPage,
-        after:
-          pageIndex === 0 ? undefined : previousPageData?.pageInfo.endCursor,
+        after: pageIndex === 0 ? after : previousPageData?.pageInfo.endCursor,
         search: searchQuery,
       };
     },
-    [perPage, searchQuery]
+    [after, perPage, searchQuery]
   );
 
   const { data, error, isLoading, isValidating, setSize, size } =

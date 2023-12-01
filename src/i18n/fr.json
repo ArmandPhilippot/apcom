@@ -147,6 +147,10 @@
     "defaultMessage": "{date} à {time}",
     "description": "Time: readable date and time"
   },
+  "8xVO3Y": {
+    "defaultMessage": "Blog - Page {number}",
+    "description": "BlogPage: page title with number"
+  },
   "9MTBCG": {
     "defaultMessage": "{thematicsCount, plural, =0 {Thématiques :} one {Thématique :} other {Thématiques :}}",
     "description": "PostPreviewMeta: thematics label"
@@ -343,6 +347,10 @@
     "defaultMessage": "Partager par email",
     "description": "SharingWidget: Email sharing link"
   },
+  "OsclKU": {
+    "defaultMessage": "Les sujets sont en cours de chargement…",
+    "description": "BlogPage: loading topics message"
+  },
   "PBdVsm": {
     "defaultMessage": "{starsCount, plural, =0 {0 étoile} one {# étoile} other {# étoiles}}",
     "description": "ProjectOverview: stars count"
@@ -459,6 +467,10 @@
     "defaultMessage": "Nom :",
     "description": "CommentForm: name label"
   },
+  "ZMES/E": {
+    "defaultMessage": "Vous ne pouvez pas charger plus d’articles sans Javascript, veuillez utiliser la pagination.",
+    "description": "BlogPage: pagination no script message"
+  },
   "ZNBhDP": {
     "defaultMessage": "Résultats de la recherche pour {query}",
     "description": "SearchPage: SEO - Page title"
@@ -506,6 +518,10 @@
   "dDwm38": {
     "defaultMessage": "Photo d’{website}",
     "description": "SiteBranding: photo alternative text"
+  },
+  "dG3sT3": {
+    "defaultMessage": "Blog: développement, libre et open-source - Page {number} - {websiteName}",
+    "description": "BlogPage: SEO - Page title"
   },
   "eys2uX": {
     "defaultMessage": "Table des matières",
@@ -703,13 +719,13 @@
     "defaultMessage": "{minutesCount, plural, =0 {Moins d’une minute} one {# minute} other {# minutes}}",
     "description": "PostPreviewMeta: rounded minutes count"
   },
+  "y37FuH": {
+    "defaultMessage": "Les thématiques sont en cours de chargement…",
+    "description": "BlogPage: loading thematics message"
+  },
   "yN5P+m": {
     "defaultMessage": "Message :",
     "description": "ContactForm: message label"
-  },
-  "zbzlb1": {
-    "defaultMessage": "Page {number}",
-    "description": "BlogPage: page number"
   },
   "zhjPcZ": {
     "defaultMessage": "Formulaire des réglages",

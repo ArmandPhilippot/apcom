@@ -11,6 +11,14 @@ describe('Blog Page', () => {
     cy.visit(ROUTES.BLOG);
   });
 
+  it('successfully loads', () => {
+    cy.findByRole('heading', { level: 1 }).should('exist');
+  });
+
+  it('contains a breadcrumbs', () => {
+    cy.findByRole('navigation', { name: 'Fil d’Ariane' }).should('exist');
+  });
+
   it('loads the correct number of pages', () => {
     cy.findByText(
       /(?<first>\d+) articles chargés sur un total de (?<total>\d+)/i
@@ -48,5 +56,10 @@ describe('Blog Page', () => {
           'not.exist'
         );
       });
+  });
+
+  it('contains a thematics list widget and a topics list widget', () => {
+    cy.findByRole('heading', { level: 2, name: 'Thématiques' }).should('exist');
+    cy.findByRole('heading', { level: 2, name: 'Sujets' }).should('exist');
   });
 });

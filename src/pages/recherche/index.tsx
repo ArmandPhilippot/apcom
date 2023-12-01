@@ -23,7 +23,6 @@ import {
   convertWPThematicPreviewToPageLink,
   convertWPTopicPreviewToPageLink,
   fetchPostsCount,
-  fetchPostsList,
   fetchThematicsCount,
   fetchThematicsList,
   fetchTopicsCount,
@@ -45,7 +44,11 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb, useDataFromAPI, usePostsList } from '../../utils/hooks';
+import {
+  useArticlesList,
+  useBreadcrumb,
+  useDataFromAPI,
+} from '../../utils/hooks';
 
 type SearchPageProps = {
   thematicsList: WPThematicPreview[];
@@ -125,9 +128,8 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     isRefreshing,
     hasNextPage,
     loadMore,
-  } = usePostsList({
+  } = useArticlesList({
     fallback: [],
-    fetcher: fetchPostsList,
     perPage: CONFIG.postsPerPage,
     searchQuery: query.s as string,
   });

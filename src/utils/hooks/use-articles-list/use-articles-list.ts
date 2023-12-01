@@ -1,4 +1,8 @@
 import { useCallback, useState } from 'react';
+import {
+  convertPostPreviewToArticlePreview,
+  fetchPostsList,
+} from '../../../services/graphql';
 import type {
   ArticlePreview,
   GraphQLConnection,
@@ -11,9 +15,8 @@ import {
   usePagination,
   type UsePaginationReturn,
 } from '../use-pagination';
-import { convertPostPreviewToArticlePreview } from 'src/services/graphql';
 
-export type usePostsListReturn = Omit<
+export type useArticlesListReturn = Omit<
   UsePaginationReturn<WPPostPreview>,
   'data'
 > & {
@@ -27,9 +30,9 @@ export type usePostsListReturn = Omit<
   firstNewResultIndex: Maybe<number>;
 };
 
-export const usePostsList = (
-  config: UsePaginationConfig<WPPostPreview>
-): usePostsListReturn => {
+export const useArticlesList = (
+  config: Omit<UsePaginationConfig<WPPostPreview>, 'fetcher'>
+): useArticlesListReturn => {
   const {
     data,
     error,
@@ -42,7 +45,7 @@ export const usePostsList = (
     isValidating,
     loadMore,
     size,
-  } = usePagination(config);
+  } = usePagination({ ...config, fetcher: fetchPostsList });
   const [firstNewResultIndex, setFirstNewResultIndex] =
     useState<Maybe<number>>(undefined);
 
@@ -53,15 +56,15 @@ export const usePostsList = (
   }, [config.perPage, loadMore, size]);
 
   const articles: Maybe<GraphQLConnection<ArticlePreview>[]> = data?.map(
-    (page): GraphQLConnection<ArticlePreview> => {
+    ({ edges, pageInfo }): GraphQLConnection<ArticlePreview> => {
       return {
-        edges: page.edges.map((edge): GraphQLEdge<ArticlePreview> => {
+        edges: edges.map((edge): GraphQLEdge<ArticlePreview> => {
           return {
             cursor: edge.cursor,
             node: convertPostPreviewToArticlePreview(edge.node),
           };
         }),
-        pageInfo: page.pageInfo,
+        pageInfo,
       };
     }
   );

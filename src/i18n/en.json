@@ -147,6 +147,10 @@
     "defaultMessage": "{date} at {time}",
     "description": "Time: readable date and time"
   },
+  "8xVO3Y": {
+    "defaultMessage": "Blog - Page {number}",
+    "description": "BlogPage: page title with number"
+  },
   "9MTBCG": {
     "defaultMessage": "{thematicsCount, plural, =0 {Thematics:} one {Thematic:} other {Thematics:}}",
     "description": "PostPreviewMeta: thematics label"
@@ -343,6 +347,10 @@
     "defaultMessage": "Share by Email",
     "description": "SharingWidget: Email sharing link"
   },
+  "OsclKU": {
+    "defaultMessage": "Topics are loading...",
+    "description": "BlogPage: loading topics message"
+  },
   "PBdVsm": {
     "defaultMessage": "{starsCount, plural, =0 {No stars} one {# star} other {# stars}}",
     "description": "ProjectOverview: stars count"
@@ -459,6 +467,10 @@
     "defaultMessage": "Name:",
     "description": "CommentForm: name label"
   },
+  "ZMES/E": {
+    "defaultMessage": "You can't load more articles without Javascript, please use the pagination instead.",
+    "description": "BlogPage: pagination no script message"
+  },
   "ZNBhDP": {
     "defaultMessage": "Search results for {query}",
     "description": "SearchPage: SEO - Page title"
@@ -506,6 +518,10 @@
   "dDwm38": {
     "defaultMessage": "{website} picture",
     "description": "SiteBranding: photo alternative text"
+  },
+  "dG3sT3": {
+    "defaultMessage": "Blog: development, open source - Page {number} - {websiteName}",
+    "description": "BlogPage: SEO - Page title"
   },
   "eys2uX": {
     "defaultMessage": "Table of Contents",
@@ -703,13 +719,13 @@
     "defaultMessage": "{minutesCount, plural, =0 {Less than one minute} one {# minute} other {# minutes}}",
     "description": "PostPreviewMeta: rounded minutes count"
   },
+  "y37FuH": {
+    "defaultMessage": "Thematics are loading...",
+    "description": "BlogPage: loading thematics message"
+  },
   "yN5P+m": {
     "defaultMessage": "Message:",
     "description": "ContactForm: message label"
-  },
-  "zbzlb1": {
-    "defaultMessage": "Page {number}",
-    "description": "BlogPage: page number"
   },
   "zhjPcZ": {
     "defaultMessage": "Settings form",

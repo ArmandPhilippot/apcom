@@ -7,6 +7,22 @@
 @use "partials/article-media";
 @use "partials/article-wp-blocks";
 
+.posts-list {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      --col1: #{fun.convert-px(100)};
+      --gap: var(--spacing-lg);
+
+      margin-top: var(--spacing-md);
+      margin-left: calc((var(--col1) + var(--gap)) * -1);
+    }
+  }
+}
+
+.pagination {
+  margin-top: var(--spacing-md);
+}
+
 .sharing-widget {
   @include mix.media("screen") {
     @include mix.dimensions("md") {

@@ -1,9 +1,8 @@
 /* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -18,11 +17,11 @@ import {
   PageHeader,
   PageBody,
   PageSidebar,
+  Spinner,
 } from '../../components';
 import {
   convertWPThematicPreviewToPageLink,
   convertWPTopicPreviewToPageLink,
-  fetchPostsCount,
   fetchPostsList,
   fetchThematicsCount,
   fetchThematicsList,
@@ -47,71 +46,30 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
-import { useBreadcrumb, useIsMounted, usePostsList } from '../../utils/hooks';
+import {
+  useArticlesList,
+  useBreadcrumb,
+  useThematicsList,
+  useTopicsList,
+} from '../../utils/hooks';
+
+const renderPaginationLink: RenderPaginationLink = (pageNum) =>
+  `${ROUTES.BLOG}/page/${pageNum}`;
 
 type BlogPageProps = {
-  posts: GraphQLConnection<WPPostPreview>;
-  thematicsList: WPThematicPreview[];
-  topicsList: WPTopicPreview[];
-  totalArticles: number;
+  data: {
+    posts: GraphQLConnection<WPPostPreview>;
+    thematics: GraphQLConnection<WPThematicPreview>;
+    topics: GraphQLConnection<WPTopicPreview>;
+  };
   translation: Messages;
 };
 
 /**
  * Blog index page.
  */
-const BlogPage: NextPageWithLayout<BlogPageProps> = ({
-  posts,
-  thematicsList,
-  topicsList,
-  totalArticles,
-}) => {
+const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
   const intl = useIntl();
-  const title = intl.formatMessage({
-    defaultMessage: 'Blog',
-    description: 'BlogPage: page title',
-    id: '7TbbIk',
-  });
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: ROUTES.BLOG,
-  });
-  const postsListRef = useRef<HTMLDivElement>(null);
-  const isMounted = useIsMounted(postsListRef);
-  const { asPath } = useRouter();
-  const page = {
-    title: intl.formatMessage(
-      {
-        defaultMessage: 'Blog: development, open source - {websiteName}',
-        description: 'BlogPage: SEO - Page title',
-        id: '+Y+tLK',
-      },
-      { websiteName: CONFIG.name }
-    ),
-    url: `${CONFIG.url}${asPath}`,
-  };
-  const pageDescription = intl.formatMessage(
-    {
-      defaultMessage:
-        "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
-      description: 'BlogPage: SEO - Meta description',
-      id: '18h/t0',
-    },
-    { websiteName: CONFIG.name }
-  );
-  const webpageSchema = getWebPageSchema({
-    description: pageDescription,
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-    title,
-  });
-  const blogSchema = getBlogSchema({
-    isSinglePage: false,
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-  });
-  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
-
   const {
     articles,
     error,
@@ -121,27 +79,101 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     isRefreshing,
     hasNextPage,
     loadMore,
-  } = usePostsList({
-    fallback: [posts],
-    fetcher: fetchPostsList,
+  } = useArticlesList({
+    fallback: [data.posts],
     perPage: CONFIG.postsPerPage,
   });
-
-  const thematicsListTitle = intl.formatMessage({
-    defaultMessage: 'Thematics',
-    description: 'BlogPage: thematics list widget title',
-    id: 'HriY57',
+  const { isLoading: areThematicsLoading, thematics } = useThematicsList({
+    fallback: data.thematics,
+    input: { first: data.thematics.pageInfo.total },
+  });
+  const { isLoading: areTopicsLoading, topics } = useTopicsList({
+    fallback: data.topics,
+    input: { first: data.topics.pageInfo.total },
   });
 
-  const topicsListTitle = intl.formatMessage({
-    defaultMessage: 'Topics',
-    description: 'BlogPage: topics list widget title',
-    id: '2D9tB5',
+  const messages = {
+    loading: {
+      thematicsList: intl.formatMessage({
+        defaultMessage: 'Thematics are loading...',
+        description: 'BlogPage: loading thematics message',
+        id: 'y37FuH',
+      }),
+      topicsList: intl.formatMessage({
+        defaultMessage: 'Topics are loading...',
+        description: 'BlogPage: loading topics message',
+        id: 'OsclKU',
+      }),
+    },
+    pageTitle: intl.formatMessage({
+      defaultMessage: 'Blog',
+      description: 'BlogPage: page title',
+      id: '7TbbIk',
+    }),
+    pagination: {
+      noJS: intl.formatMessage({
+        defaultMessage:
+          "You can't load more articles without Javascript, please use the pagination instead.",
+        description: 'BlogPage: pagination no script message',
+        id: 'ZMES/E',
+      }),
+      title: intl.formatMessage({
+        defaultMessage: 'Pagination',
+        description: 'BlogPage: pagination accessible name',
+        id: 'AXe1Iz',
+      }),
+    },
+    seo: {
+      metaDesc: intl.formatMessage(
+        {
+          defaultMessage:
+            "Discover {websiteName}'s writings. He talks about web development, Linux and open source mostly.",
+          description: 'BlogPage: SEO - Meta description',
+          id: '18h/t0',
+        },
+        { websiteName: CONFIG.name }
+      ),
+      title: intl.formatMessage(
+        {
+          defaultMessage: 'Blog: development, open source - {websiteName}',
+          description: 'BlogPage: SEO - Page title',
+          id: '+Y+tLK',
+        },
+        { websiteName: CONFIG.name }
+      ),
+    },
+    widgets: {
+      thematicsListTitle: intl.formatMessage({
+        defaultMessage: 'Thematics',
+        description: 'BlogPage: thematics list widget title',
+        id: 'HriY57',
+      }),
+      topicsListTitle: intl.formatMessage({
+        defaultMessage: 'Topics',
+        description: 'BlogPage: topics list widget title',
+        id: '2D9tB5',
+      }),
+    },
+  };
+
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title: messages.pageTitle,
+    url: ROUTES.BLOG,
   });
-  const renderPaginationLink: RenderPaginationLink = useCallback(
-    (pageNum) => `${ROUTES.BLOG}/page/${pageNum}`,
-    []
-  );
+
+  const webpageSchema = getWebPageSchema({
+    description: messages.seo.metaDesc,
+    locale: CONFIG.locales.defaultLocale,
+    slug: ROUTES.BLOG,
+    title: messages.pageTitle,
+  });
+  const blogSchema = getBlogSchema({
+    isSinglePage: false,
+    locale: CONFIG.locales.defaultLocale,
+    slug: ROUTES.BLOG,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
+
   const renderPaginationLabel: RenderPaginationItemAriaLabel = useCallback(
     ({ kind, pageNumber: number, isCurrentPage }) => {
       switch (kind) {
@@ -187,27 +219,19 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     [intl]
   );
 
-  const paginationAriaLabel = intl.formatMessage({
-    defaultMessage: 'Pagination',
-    description: 'BlogPage: pagination accessible name',
-    id: 'AXe1Iz',
-  });
-
-  const blogArticles = articles?.flatMap((p) =>
-    p.edges.map((edge) => edge.node)
-  );
+  const pageUrl = `${CONFIG.url}${ROUTES.BLOG}`;
 
   return (
     <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
-        <title>{page.title}</title>
+        <title>{messages.seo.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
-        <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={page.url} />
+        <meta name="description" content={messages.seo.metaDesc} />
+        <meta property="og:url" content={pageUrl} />
         {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content={messages.pageTitle} />
+        <meta property="og:description" content={messages.seo.metaDesc} />
       </Head>
       <Script
         // eslint-disable-next-line react/jsx-no-literals -- Id allowed
@@ -222,30 +246,24 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
         id="schema-breadcrumb"
         type="application/ld+json"
       />
-      <PageHeader heading={title} meta={{ total: totalArticles }} />
-      <PageBody className={styles.body}>
-        {blogArticles ? (
+      <PageHeader
+        heading={messages.pageTitle}
+        meta={{ total: data.posts.pageInfo.total }}
+      />
+      <PageBody>
+        {articles ? (
           <PostsList
-            className={styles.list}
+            className={styles['posts-list']}
             firstNewResult={firstNewResultIndex}
             isLoading={isLoading || isLoadingMore || isRefreshing}
-            onLoadMore={hasNextPage && isMounted ? loadMore : undefined}
-            posts={getPostsWithUrl(blogArticles)}
-            ref={postsListRef}
+            onLoadMore={hasNextPage ? loadMore : undefined}
+            posts={getPostsWithUrl(
+              articles.flatMap((page) => page.edges.map((edge) => edge.node))
+            )}
             sortByYear
-            total={isMounted ? totalArticles : undefined}
+            total={data.posts.pageInfo.total}
           />
         ) : null}
-        {isMounted ? null : (
-          <Pagination
-            aria-label={paginationAriaLabel}
-            current={1}
-            isCentered
-            renderItemAriaLabel={renderPaginationLabel}
-            renderLink={renderPaginationLink}
-            total={totalArticles}
-          />
-        )}
         {error ? (
           <Notice
             // eslint-disable-next-line react/jsx-no-literals -- Kind allowed
@@ -258,28 +276,53 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
             })}
           </Notice>
         ) : null}
+        <noscript>
+          <Notice
+            // eslint-disable-next-line react/jsx-no-literals
+            kind="info"
+          >
+            {messages.pagination.noJS}
+          </Notice>
+          <Pagination
+            aria-label={messages.pagination.title}
+            className={styles.pagination}
+            current={1}
+            isCentered
+            renderItemAriaLabel={renderPaginationLabel}
+            renderLink={renderPaginationLink}
+            total={data.posts.pageInfo.total}
+          />
+        </noscript>
       </PageBody>
       <PageSidebar>
-        <LinksWidget
-          heading={
-            <Heading isFake level={3}>
-              {thematicsListTitle}
-            </Heading>
-          }
-          items={getLinksItemData(
-            thematicsList.map(convertWPThematicPreviewToPageLink)
-          )}
-        />
-        <LinksWidget
-          heading={
-            <Heading isFake level={3}>
-              {topicsListTitle}
-            </Heading>
-          }
-          items={getLinksItemData(
-            topicsList.map(convertWPTopicPreviewToPageLink)
-          )}
-        />
+        {areThematicsLoading ? (
+          <Spinner>{messages.loading.thematicsList}</Spinner>
+        ) : (
+          <LinksWidget
+            heading={
+              <Heading level={2}>{messages.widgets.thematicsListTitle}</Heading>
+            }
+            items={getLinksItemData(
+              thematics.edges.map((edge) =>
+                convertWPThematicPreviewToPageLink(edge.node)
+              )
+            )}
+          />
+        )}
+        {areTopicsLoading ? (
+          <Spinner>{messages.loading.topicsList}</Spinner>
+        ) : (
+          <LinksWidget
+            heading={
+              <Heading level={2}>{messages.widgets.topicsListTitle}</Heading>
+            }
+            items={getLinksItemData(
+              topics.edges.map((edge) =>
+                convertWPTopicPreviewToPageLink(edge.node)
+              )
+            )}
+          />
+        )}
       </PageSidebar>
     </Page>
   );
@@ -291,7 +334,6 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
   locale,
 }) => {
   const posts = await fetchPostsList({ first: CONFIG.postsPerPage });
-  const totalArticles = await fetchPostsCount();
   const totalThematics = await fetchThematicsCount();
   const thematics = await fetchThematicsList({ first: totalThematics });
   const totalTopics = await fetchTopicsCount();
@@ -300,10 +342,11 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
 
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(posts)),
-      thematicsList: thematics.edges.map((edge) => edge.node),
-      topicsList: topics.edges.map((edge) => edge.node),
-      totalArticles,
+      data: {
+        posts: JSON.parse(JSON.stringify(posts)),
+        thematics,
+        topics,
+      },
       translation,
     },
   };
