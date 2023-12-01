@@ -40,10 +40,22 @@ export type PostData = Pick<
     Required<Pick<PostPreviewMetaData, 'publicationDate'>>;
 };
 
+/**
+ * Method to sort PageLink objects by name.
+ *
+ * @param {PageLink} a - A PageLink object.
+ * @param {PageLink} b - Another PageLink object.
+ * @returns {1 | -1 | 0}
+ */
+export const sortPostsByDate = (a: PostData, b: PostData) =>
+  new Date(b.meta.publicationDate).getTime() -
+  new Date(a.meta.publicationDate).getTime();
+
 const getPostsByYear = (posts: PostData[]) => {
   const yearCollection = new Map<string, PostData[]>();
+  const sortedPosts = [...posts].sort(sortPostsByDate);
 
-  for (const post of posts) {
+  for (const post of sortedPosts) {
     const currentPostYear = new Date(post.meta.publicationDate)
       .getFullYear()
       .toString();

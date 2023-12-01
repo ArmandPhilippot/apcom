@@ -32,7 +32,7 @@
     "description": "MotionToggle: reduce motion label"
   },
   "/sRqPT": {
-    "defaultMessage": "Thématiques liées",
+    "defaultMessage": "Thématiques connexes",
     "description": "TopicPage: related thematics list widget title"
   },
   "/unaGZ": {
@@ -499,6 +499,10 @@
     "defaultMessage": "Popularité :",
     "description": "ProjectOverview: popularity label"
   },
+  "d+DOFQ": {
+    "defaultMessage": "Parcourir les articles au sujet de {topicName}",
+    "description": "TopicPage: posts list heading"
+  },
   "dDwm38": {
     "defaultMessage": "Photo d’{website}",
     "description": "SiteBranding: photo alternative text"
@@ -667,6 +671,10 @@
     "defaultMessage": "Réglages",
     "description": "SiteNavbar: settings modal title in navbar"
   },
+  "uUIgCr": {
+    "defaultMessage": "Les sujets sont en cours de chargement…",
+    "description": "TopicPage: loading topics message"
+  },
   "uZj4QI": {
     "defaultMessage": "Annuler la réponse",
     "description": "CommentsList: cancel reply button"
@@ -698,10 +706,6 @@
   "yN5P+m": {
     "defaultMessage": "Message :",
     "description": "ContactForm: message label"
-  },
-  "zEN3fd": {
-    "defaultMessage": "Tous les articles dans {topicName}",
-    "description": "TopicPage: posts list heading"
   },
   "zbzlb1": {
     "defaultMessage": "Page {number}",

@@ -499,6 +499,10 @@
     "defaultMessage": "Popularity:",
     "description": "ProjectOverview: popularity label"
   },
+  "d+DOFQ": {
+    "defaultMessage": "Browse posts in {topicName} topic",
+    "description": "TopicPage: posts list heading"
+  },
   "dDwm38": {
     "defaultMessage": "{website} picture",
     "description": "SiteBranding: photo alternative text"
@@ -667,6 +671,10 @@
     "defaultMessage": "Settings",
     "description": "SiteNavbar: settings modal title in navbar"
   },
+  "uUIgCr": {
+    "defaultMessage": "Topics are loading...",
+    "description": "TopicPage: loading topics message"
+  },
   "uZj4QI": {
     "defaultMessage": "Cancel reply",
     "description": "CommentsList: cancel reply button"
@@ -698,10 +706,6 @@
   "yN5P+m": {
     "defaultMessage": "Message:",
     "description": "ContactForm: message label"
-  },
-  "zEN3fd": {
-    "defaultMessage": "All posts in {topicName}",
-    "description": "TopicPage: posts list heading"
   },
   "zbzlb1": {
     "defaultMessage": "Page {number}",

@@ -3,6 +3,7 @@ import { ROUTES } from '../../../utils/constants';
 import {
   getUniquePageLinks,
   sortPageLinksByName,
+  updateContentTree,
 } from '../../../utils/helpers';
 import { convertPostPreviewToArticlePreview } from './convert-post-preview-to-article-preview';
 import { convertWPThematicPreviewToPageLink } from './convert-taxonomy-to-page-link';
@@ -38,7 +39,7 @@ export const convertWPTopicToTopic = ({
   title,
 }: WPTopic): Topic => {
   return {
-    content: contentParts.afterMore,
+    content: updateContentTree(contentParts.afterMore),
     id: databaseId,
     intro: contentParts.beforeMore,
     meta: {

@@ -27,3 +27,5 @@ export * from './use-thematics-list';
 export * from './use-theme';
 export * from './use-timeout';
 export * from './use-toggle';
+export * from './use-topic';
+export * from './use-topics-list';
