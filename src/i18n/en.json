@@ -167,6 +167,10 @@
     "defaultMessage": "Sorry, it seems that the page your are looking for does not exist. If you think this path should work, feel free to <link>contact me</link> with the necessary information so that I can fix the problem.",
     "description": "Error404Page: page body"
   },
+  "A0TsHP": {
+    "defaultMessage": "Please use the form below to start searching:",
+    "description": "SearchPage: search for message"
+  },
   "A8hGaK": {
     "defaultMessage": "Comment:",
     "description": "CommentForm: comment label"
@@ -219,9 +223,9 @@
     "defaultMessage": "Thematics",
     "description": "SearchPage: thematics list widget title"
   },
-  "EeCqAE": {
-    "defaultMessage": "Loading the search results...",
-    "description": "SearchPage: loading search results message"
+  "E+ROR5": {
+    "defaultMessage": "No results found. Would you like to try a new search?",
+    "description": "SearchPage: no results"
   },
   "Es52wh": {
     "defaultMessage": "Blog",
@@ -307,6 +311,10 @@
     "defaultMessage": "CV",
     "description": "SiteNavbar: main nav - cv link"
   },
+  "N+3eau": {
+    "defaultMessage": "Search results for \"{query}\"",
+    "description": "SearchPage: SEO - Page title"
+  },
   "N804XO": {
     "defaultMessage": "Topics",
     "description": "SearchPage: topics list widget title"
@@ -318,6 +326,10 @@
   "NfAn9N": {
     "defaultMessage": "{commentsCount, plural, =0 {No comments} one {# comment} other {# comments}}<a11y> about {title}</a11y>",
     "description": "PostPreviewMeta: comments count"
+  },
+  "NqVQYo": {
+    "defaultMessage": "Search - {websiteName}",
+    "description": "SearchPage: SEO - Page title"
   },
   "Nx8Jo5": {
     "defaultMessage": "Github profile",
@@ -371,6 +383,10 @@
     "defaultMessage": "Main navigation",
     "description": "SiteNavbar: main nav accessible name"
   },
+  "QRDdye": {
+    "defaultMessage": "Search results for {query} - {websiteName}",
+    "description": "SearchPage: SEO - Page title"
+  },
   "Qa9twM": {
     "defaultMessage": "Reply",
     "description": "CommentsList: reply button"
@@ -411,10 +427,6 @@
     "defaultMessage": "Send",
     "description": "ContactForm: send button"
   },
-  "VkfO7t": {
-    "defaultMessage": "Query must be longer than one character.",
-    "description": "NoResults: invalid query message"
-  },
   "Vrw5/h": {
     "defaultMessage": "{website} logo",
     "description": "SiteBranding: logo title"
@@ -447,10 +459,6 @@
     "defaultMessage": "Leave a comment",
     "description": "PageComments: the section title of the comment form"
   },
-  "YV//MH": {
-    "defaultMessage": "No results found.",
-    "description": "SearchPage: no results"
-  },
   "Ygea7s": {
     "defaultMessage": "Light theme",
     "description": "ThemeToggle: light theme label"
@@ -470,10 +478,6 @@
   "ZMES/E": {
     "defaultMessage": "You can't load more articles without Javascript, please use the pagination instead.",
     "description": "BlogPage: pagination no script message"
-  },
-  "ZNBhDP": {
-    "defaultMessage": "Search results for {query}",
-    "description": "SearchPage: SEO - Page title"
   },
   "ZcFroC": {
     "defaultMessage": "Thanks, your comment was successfully sent.",
@@ -522,6 +526,10 @@
   "dG3sT3": {
     "defaultMessage": "Blog: development, open source - Page {number} - {websiteName}",
     "description": "BlogPage: SEO - Page title"
+  },
+  "e3ppRI": {
+    "defaultMessage": "Query must be longer than one character.",
+    "description": "SearchPage: invalid query message"
   },
   "eys2uX": {
     "defaultMessage": "Table of Contents",
@@ -647,6 +655,10 @@
     "defaultMessage": "Discover search results for {query} on {websiteName}.",
     "description": "SearchPage: SEO - Meta description"
   },
+  "qFqWQH": {
+    "defaultMessage": "Thematics are loading...",
+    "description": "SearchPage: loading thematics message"
+  },
   "rVoW4G": {
     "defaultMessage": "Thematics are loading...",
     "description": "ThematicPage: loading thematics message"
@@ -675,6 +687,10 @@
     "defaultMessage": "Partial",
     "description": "AckeeToggle: partial option name"
   },
+  "tLflgC": {
+    "defaultMessage": "Topics are loading...",
+    "description": "SearchPage: loading topics message"
+  },
   "tsWh8x": {
     "defaultMessage": "Light theme",
     "description": "PrismThemeToggle: light theme label"
@@ -698,10 +714,6 @@
   "va65iw": {
     "defaultMessage": "On",
     "description": "MotionToggle: activate reduce motion label"
-  },
-  "vtDLzG": {
-    "defaultMessage": "Would you like to try a new search?",
-    "description": "SearchPage: try a new search message"
   },
   "w+BpPg": {
     "defaultMessage": "No comments yet. <link>Be the first!</link>",

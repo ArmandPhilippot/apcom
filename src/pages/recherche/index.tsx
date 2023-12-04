@@ -22,7 +22,6 @@ import {
 import {
   convertWPThematicPreviewToPageLink,
   convertWPTopicPreviewToPageLink,
-  fetchPostsCount,
   fetchThematicsCount,
   fetchThematicsList,
   fetchTopicsCount,
@@ -30,6 +29,7 @@ import {
 } from '../../services/graphql';
 import styles from '../../styles/pages/blog.module.scss';
 import type {
+  GraphQLConnection,
   NextPageWithLayout,
   WPThematicPreview,
   WPTopicPreview,
@@ -47,78 +47,70 @@ import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
   useArticlesList,
   useBreadcrumb,
-  useDataFromAPI,
+  useThematicsList,
+  useTopicsList,
 } from '../../utils/hooks';
 
+const NoResults = () => {
+  const intl = useIntl();
+  const router = useRouter();
+
+  const searchSubmitHandler: SearchFormSubmit = useCallback(
+    async ({ query: searchQuery }) => {
+      if (!searchQuery)
+        return {
+          messages: {
+            error: intl.formatMessage({
+              defaultMessage: 'Query must be longer than one character.',
+              description: 'SearchPage: invalid query message',
+              id: 'e3ppRI',
+            }),
+          },
+          validator: (value) => value.query.length > 1,
+        };
+
+      await router.push({ pathname: ROUTES.SEARCH, query: { s: searchQuery } });
+
+      return undefined;
+    },
+    [intl, router]
+  );
+
+  return (
+    <div className={styles['no-results']}>
+      <p>
+        {router.query.s
+          ? intl.formatMessage({
+              defaultMessage:
+                'No results found. Would you like to try a new search?',
+              description: 'SearchPage: no results',
+              id: 'E+ROR5',
+            })
+          : intl.formatMessage({
+              defaultMessage: 'Please use the form below to start searching:',
+              description: 'SearchPage: search for message',
+              id: 'A0TsHP',
+            })}
+      </p>
+      <SearchForm isLabelHidden onSubmit={searchSubmitHandler} />
+    </div>
+  );
+};
+
 type SearchPageProps = {
-  thematicsList: WPThematicPreview[];
-  topicsList: WPTopicPreview[];
+  data: {
+    thematics: GraphQLConnection<WPThematicPreview>;
+    topics: GraphQLConnection<WPTopicPreview>;
+  };
   translation: Messages;
 };
 
 /**
  * Search page.
  */
-const SearchPage: NextPageWithLayout<SearchPageProps> = ({
-  thematicsList,
-  topicsList,
-}) => {
+const SearchPage: NextPageWithLayout<SearchPageProps> = ({ data }) => {
   const intl = useIntl();
-  const { asPath, query, push: routerPush } = useRouter();
-  const title = query.s
-    ? intl.formatMessage(
-        {
-          defaultMessage: 'Search results for {query}',
-          description: 'SearchPage: SEO - Page title',
-          id: 'ZNBhDP',
-        },
-        { query: query.s as string }
-      )
-    : intl.formatMessage({
-        defaultMessage: 'Search',
-        description: 'SearchPage: SEO - Page title',
-        id: 'WDwNDl',
-      });
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: ROUTES.SEARCH,
-  });
-
-  const page = {
-    title: `${title} - ${CONFIG.name}`,
-    url: `${CONFIG.url}${asPath}`,
-  };
-  const pageDescription = query.s
-    ? intl.formatMessage(
-        {
-          defaultMessage:
-            'Discover search results for {query} on {websiteName}.',
-          description: 'SearchPage: SEO - Meta description',
-          id: 'pg26sn',
-        },
-        { query: query.s as string, websiteName: CONFIG.name }
-      )
-    : intl.formatMessage(
-        {
-          defaultMessage: 'Search for a post on {websiteName}.',
-          description: 'SearchPage: SEO - Meta description',
-          id: 'npisb3',
-        },
-        { websiteName: CONFIG.name }
-      );
-  const webpageSchema = getWebPageSchema({
-    description: pageDescription,
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-    title: page.title,
-  });
-  const blogSchema = getBlogSchema({
-    isSinglePage: false,
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-  });
-  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
-
+  const { asPath, query } = useRouter();
   const {
     articles,
     error,
@@ -129,68 +121,127 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
     hasNextPage,
     loadMore,
   } = useArticlesList({
-    fallback: [],
     perPage: CONFIG.postsPerPage,
-    searchQuery: query.s as string,
+    searchQuery: typeof query.s === 'string' ? query.s : undefined,
+  });
+  const { isLoading: areThematicsLoading, thematics } = useThematicsList({
+    fallback: data.thematics,
+    input: { first: data.thematics.pageInfo.total },
+  });
+  const { isLoading: areTopicsLoading, topics } = useTopicsList({
+    fallback: data.topics,
+    input: { first: data.topics.pageInfo.total },
   });
 
-  const totalArticles = useDataFromAPI<number>(async () =>
-    fetchPostsCount({ search: query.s as string })
-  );
-
-  const thematicsListTitle = intl.formatMessage({
-    defaultMessage: 'Thematics',
-    description: 'SearchPage: thematics list widget title',
-    id: 'Dq6+WH',
-  });
-
-  const topicsListTitle = intl.formatMessage({
-    defaultMessage: 'Topics',
-    description: 'SearchPage: topics list widget title',
-    id: 'N804XO',
-  });
-  const loadingResults = intl.formatMessage({
-    defaultMessage: 'Loading the search results...',
-    description: 'SearchPage: loading search results message',
-    id: 'EeCqAE',
-  });
-
-  const searchSubmitHandler: SearchFormSubmit = useCallback(
-    ({ query: searchQuery }) => {
-      if (!searchQuery)
-        return {
-          messages: {
-            error: intl.formatMessage({
-              defaultMessage: 'Query must be longer than one character.',
-              description: 'NoResults: invalid query message',
-              id: 'VkfO7t',
-            }),
-          },
-          validator: (value) => value.query.length > 1,
-        };
-
-      routerPush({ pathname: ROUTES.SEARCH, query: { s: searchQuery } });
-
-      return undefined;
+  const messages = {
+    loading: {
+      thematicsList: intl.formatMessage({
+        defaultMessage: 'Thematics are loading...',
+        description: 'SearchPage: loading thematics message',
+        id: 'qFqWQH',
+      }),
+      topicsList: intl.formatMessage({
+        defaultMessage: 'Topics are loading...',
+        description: 'SearchPage: loading topics message',
+        id: 'tLflgC',
+      }),
     },
-    [intl, routerPush]
-  );
+    pageTitle: query.s
+      ? intl.formatMessage(
+          {
+            defaultMessage: 'Search results for "{query}"',
+            description: 'SearchPage: SEO - Page title',
+            id: 'N+3eau',
+          },
+          { query: query.s as string }
+        )
+      : intl.formatMessage({
+          defaultMessage: 'Search',
+          description: 'SearchPage: SEO - Page title',
+          id: 'WDwNDl',
+        }),
+    seo: {
+      metaDesc: query.s
+        ? intl.formatMessage(
+            {
+              defaultMessage:
+                'Discover search results for {query} on {websiteName}.',
+              description: 'SearchPage: SEO - Meta description',
+              id: 'pg26sn',
+            },
+            { query: query.s as string, websiteName: CONFIG.name }
+          )
+        : intl.formatMessage(
+            {
+              defaultMessage: 'Search for a post on {websiteName}.',
+              description: 'SearchPage: SEO - Meta description',
+              id: 'npisb3',
+            },
+            { websiteName: CONFIG.name }
+          ),
+      title: query.s
+        ? intl.formatMessage(
+            {
+              defaultMessage: 'Search results for {query} - {websiteName}',
+              description: 'SearchPage: SEO - Page title',
+              id: 'QRDdye',
+            },
+            { query: query.s as string, websiteName: CONFIG.name }
+          )
+        : intl.formatMessage(
+            {
+              defaultMessage: 'Search - {websiteName}',
+              description: 'SearchPage: SEO - Page title',
+              id: 'NqVQYo',
+            },
+            { websiteName: CONFIG.name }
+          ),
+    },
+    widgets: {
+      thematicsListTitle: intl.formatMessage({
+        defaultMessage: 'Thematics',
+        description: 'SearchPage: thematics list widget title',
+        id: 'Dq6+WH',
+      }),
+      topicsListTitle: intl.formatMessage({
+        defaultMessage: 'Topics',
+        description: 'SearchPage: topics list widget title',
+        id: 'N804XO',
+      }),
+    },
+  };
 
-  const foundArticles = articles?.flatMap((p) =>
-    p.edges.map((edge) => edge.node)
-  );
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
+    title: messages.pageTitle,
+    url: ROUTES.SEARCH,
+  });
+
+  const webpageSchema = getWebPageSchema({
+    description: messages.seo.metaDesc,
+    locale: CONFIG.locales.defaultLocale,
+    slug: asPath,
+    title: messages.pageTitle,
+  });
+  const blogSchema = getBlogSchema({
+    isSinglePage: false,
+    locale: CONFIG.locales.defaultLocale,
+    slug: asPath,
+  });
+  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
+
+  const pageUrl = `${CONFIG.url}${asPath}`;
 
   return (
     <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
-        <title>{page.title}</title>
+        <title>{messages.seo.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
-        <meta name="description" content={pageDescription} />
-        <meta property="og:url" content={page.url} />
+        <meta name="description" content={messages.seo.metaDesc} />
+        <meta property="og:url" content={pageUrl} />
         {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content={messages.pageTitle} />
+        <meta property="og:description" content={messages.seo.title} />
       </Head>
       <Script
         // eslint-disable-next-line react/jsx-no-literals -- Id allowed
@@ -205,36 +256,32 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
         id="schema-breadcrumb"
         type="application/ld+json"
       />
-      <PageHeader heading={title} meta={{ total: totalArticles }} />
-      <PageBody className={styles.body}>
-        {foundArticles ? null : <Spinner>{loadingResults}</Spinner>}
-        {foundArticles?.length ? (
+      <PageHeader
+        heading={messages.pageTitle}
+        meta={{ total: articles ? articles[0].pageInfo.total : undefined }}
+      />
+      <PageBody>
+        {query.s &&
+        ((articles?.length && articles[0].edges.length) || isLoading) ? (
           <PostsList
-            className={styles.list}
+            className={styles['posts-list']}
             firstNewResult={firstNewResultIndex}
             isLoading={isLoading || isLoadingMore || isRefreshing}
             onLoadMore={hasNextPage ? loadMore : undefined}
-            posts={getPostsWithUrl(foundArticles)}
+            posts={
+              articles
+                ? getPostsWithUrl(
+                    articles.flatMap((page) =>
+                      page.edges.map((edge) => edge.node)
+                    )
+                  )
+                : []
+            }
             sortByYear
+            total={articles ? articles[0].pageInfo.total : undefined}
           />
         ) : (
-          <>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: 'No results found.',
-                description: 'SearchPage: no results',
-                id: 'YV//MH',
-              })}
-            </p>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: 'Would you like to try a new search?',
-                description: 'SearchPage: try a new search message',
-                id: 'vtDLzG',
-              })}
-            </p>
-            <SearchForm isLabelHidden onSubmit={searchSubmitHandler} />
-          </>
+          <NoResults />
         )}
         {error ? (
           <Notice
@@ -250,26 +297,34 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({
         ) : null}
       </PageBody>
       <PageSidebar>
-        <LinksWidget
-          heading={
-            <Heading isFake level={3}>
-              {thematicsListTitle}
-            </Heading>
-          }
-          items={getLinksItemData(
-            thematicsList.map(convertWPThematicPreviewToPageLink)
-          )}
-        />
-        <LinksWidget
-          heading={
-            <Heading isFake level={3}>
-              {topicsListTitle}
-            </Heading>
-          }
-          items={getLinksItemData(
-            topicsList.map(convertWPTopicPreviewToPageLink)
-          )}
-        />
+        {areThematicsLoading ? (
+          <Spinner>{messages.loading.thematicsList}</Spinner>
+        ) : (
+          <LinksWidget
+            heading={
+              <Heading level={2}>{messages.widgets.thematicsListTitle}</Heading>
+            }
+            items={getLinksItemData(
+              thematics.edges.map((edge) =>
+                convertWPThematicPreviewToPageLink(edge.node)
+              )
+            )}
+          />
+        )}
+        {areTopicsLoading ? (
+          <Spinner>{messages.loading.topicsList}</Spinner>
+        ) : (
+          <LinksWidget
+            heading={
+              <Heading level={2}>{messages.widgets.topicsListTitle}</Heading>
+            }
+            items={getLinksItemData(
+              topics.edges.map((edge) =>
+                convertWPTopicPreviewToPageLink(edge.node)
+              )
+            )}
+          />
+        )}
       </PageSidebar>
     </Page>
   );
@@ -288,8 +343,10 @@ export const getStaticProps: GetStaticProps<SearchPageProps> = async ({
 
   return {
     props: {
-      thematicsList: thematics.edges.map((edge) => edge.node),
-      topicsList: topics.edges.map((edge) => edge.node),
+      data: {
+        thematics,
+        topics,
+      },
       translation,
     },
   };

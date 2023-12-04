@@ -167,6 +167,10 @@
     "defaultMessage": "Désolé, il semble que la page demandée n’existe pas. Si vous pensez que le chemin devrait exister, n’hésitez pas à <link>me contacter</link> avec les informations nécessaires pour que je puisse corriger le problème.",
     "description": "Error404Page: page body"
   },
+  "A0TsHP": {
+    "defaultMessage": "Veuillez utiliser le formulaire ci-dessous pour commencer une recherche :",
+    "description": "SearchPage: search for message"
+  },
   "A8hGaK": {
     "defaultMessage": "Commentaire :",
     "description": "CommentForm: comment label"
@@ -219,9 +223,9 @@
     "defaultMessage": "Thématiques",
     "description": "SearchPage: thematics list widget title"
   },
-  "EeCqAE": {
-    "defaultMessage": "Chargement des résultats…",
-    "description": "SearchPage: loading search results message"
+  "E+ROR5": {
+    "defaultMessage": "Aucun résultat. Souhaitez-vous tenter une nouvelle rechercher ?",
+    "description": "SearchPage: no results"
   },
   "Es52wh": {
     "defaultMessage": "Blog",
@@ -307,6 +311,10 @@
     "defaultMessage": "CV",
     "description": "SiteNavbar: main nav - cv link"
   },
+  "N+3eau": {
+    "defaultMessage": "Résultats de la recherche pour « {query} »",
+    "description": "SearchPage: SEO - Page title"
+  },
   "N804XO": {
     "defaultMessage": "Sujets",
     "description": "SearchPage: topics list widget title"
@@ -318,6 +326,10 @@
   "NfAn9N": {
     "defaultMessage": "{commentsCount, plural, =0 {0 commentaire} one {# commentaire} other {# commentaires}}<a11y> à propos de {title}</a11y>",
     "description": "PostPreviewMeta: comments count"
+  },
+  "NqVQYo": {
+    "defaultMessage": "Recherche - {websiteName}",
+    "description": "SearchPage: SEO - Page title"
   },
   "Nx8Jo5": {
     "defaultMessage": "Profil Github",
@@ -371,6 +383,10 @@
     "defaultMessage": "Navigation principale",
     "description": "SiteNavbar: main nav accessible name"
   },
+  "QRDdye": {
+    "defaultMessage": "Résultats de la recherche pour {query} - {websiteName}",
+    "description": "SearchPage: SEO - Page title"
+  },
   "Qa9twM": {
     "defaultMessage": "Répondre",
     "description": "CommentsList: reply button"
@@ -411,10 +427,6 @@
     "defaultMessage": "Envoyer",
     "description": "ContactForm: send button"
   },
-  "VkfO7t": {
-    "defaultMessage": "Les mots-clés doivent être plus longs qu'un caractère.",
-    "description": "NoResults: invalid query message"
-  },
   "Vrw5/h": {
     "defaultMessage": "Logo d’{website}",
     "description": "SiteBranding: logo title"
@@ -447,10 +459,6 @@
     "defaultMessage": "Laisser un commentaire",
     "description": "PageComments: the section title of the comment form"
   },
-  "YV//MH": {
-    "defaultMessage": "Aucun résultat.",
-    "description": "SearchPage: no results"
-  },
   "Ygea7s": {
     "defaultMessage": "Thème clair",
     "description": "ThemeToggle: light theme label"
@@ -470,10 +478,6 @@
   "ZMES/E": {
     "defaultMessage": "Vous ne pouvez pas charger plus d’articles sans Javascript, veuillez utiliser la pagination.",
     "description": "BlogPage: pagination no script message"
-  },
-  "ZNBhDP": {
-    "defaultMessage": "Résultats de la recherche pour {query}",
-    "description": "SearchPage: SEO - Page title"
   },
   "ZcFroC": {
     "defaultMessage": "Merci, votre commentaire a été envoyé avec succès.",
@@ -522,6 +526,10 @@
   "dG3sT3": {
     "defaultMessage": "Blog: développement, libre et open-source - Page {number} - {websiteName}",
     "description": "BlogPage: SEO - Page title"
+  },
+  "e3ppRI": {
+    "defaultMessage": "Les mots-clés doivent être plus longs qu'un caractère.",
+    "description": "SearchPage: invalid query message"
   },
   "eys2uX": {
     "defaultMessage": "Table des matières",
@@ -647,6 +655,10 @@
     "defaultMessage": "Découvrez les résultats de recherche pour {query} sur {websiteName}.",
     "description": "SearchPage: SEO - Meta description"
   },
+  "qFqWQH": {
+    "defaultMessage": "Les thématiques sont en cours de chargement…",
+    "description": "SearchPage: loading thematics message"
+  },
   "rVoW4G": {
     "defaultMessage": "Les thématiques sont en cours de chargement…",
     "description": "ThematicPage: loading thematics message"
@@ -675,6 +687,10 @@
     "defaultMessage": "Partiel",
     "description": "AckeeToggle: partial option name"
   },
+  "tLflgC": {
+    "defaultMessage": "Les sujets sont en cours de chargement…",
+    "description": "SearchPage: loading topics message"
+  },
   "tsWh8x": {
     "defaultMessage": "Thème clair",
     "description": "PrismThemeToggle: light theme label"
@@ -698,10 +714,6 @@
   "va65iw": {
     "defaultMessage": "Marche",
     "description": "MotionToggle: activate reduce motion label"
-  },
-  "vtDLzG": {
-    "defaultMessage": "Souhaitez-vous essayer une nouvelle recherche ?",
-    "description": "SearchPage: try a new search message"
   },
   "w+BpPg": {
     "defaultMessage": "Aucun commentaire pour le moment. <link>Soyez le premier !</link>",

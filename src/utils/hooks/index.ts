@@ -4,7 +4,6 @@ export * from './use-articles-list';
 export * from './use-boolean';
 export * from './use-breadcrumb';
 export * from './use-comments';
-export * from './use-data-from-api';
 export * from './use-form';
 export * from './use-github-api';
 export * from './use-headings-tree';
