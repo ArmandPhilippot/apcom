@@ -252,6 +252,7 @@ export type Repos = {
 };
 
 export type ProjectMeta = Omit<PageMeta, 'wordsCount'> & {
+  contexts?: string[];
   license?: string;
   repos?: Repos;
   tagline?: string;
@@ -264,7 +265,7 @@ export type Project = Omit<Page, 'content'> & {
 };
 
 export type ProjectPreview = Omit<Project, 'meta'> & {
-  meta: Omit<ProjectMeta, 'license' | 'repos'>;
+  meta: Pick<ProjectMeta, 'contexts' | 'cover' | 'dates' | 'tagline'>;
 };
 
 export type ThematicMeta = Omit<PageMeta, 'wordsCount'> & {

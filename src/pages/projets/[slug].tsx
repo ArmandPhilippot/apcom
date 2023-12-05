@@ -255,8 +255,8 @@ export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
   };
 };
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const filenames = getProjectFilenames();
+export const getStaticPaths: GetStaticPaths = async () => {
+  const filenames = await getProjectFilenames();
   const paths = filenames.map((filename) => {
     return {
       params: {

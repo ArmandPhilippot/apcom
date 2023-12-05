@@ -23,6 +23,10 @@
     "defaultMessage": "Il est maintenant en attente de modération.",
     "description": "PageComments: comment awaiting moderation"
   },
+  "/STXAQ": {
+    "defaultMessage": "Consulter {title}",
+    "description": "ProjectsPage: card accessible name"
+  },
   "/TTRRX": {
     "defaultMessage": "Fil d’Ariane",
     "description": "Page: an accessible name for the breadcrumb nav."
@@ -174,10 +178,6 @@
   "A8hGaK": {
     "defaultMessage": "Commentaire :",
     "description": "CommentForm: comment label"
-  },
-  "ADQmDF": {
-    "defaultMessage": "Technologies :",
-    "description": "Meta: technologies label"
   },
   "AN9iy7": {
     "defaultMessage": "Contact",
@@ -578,6 +578,10 @@
   "jJm8wd": {
     "defaultMessage": "Temps de lecture :",
     "description": "PageHeader: reading time label"
+  },
+  "jPBeOI": {
+    "defaultMessage": "{contextsCount, plural, =0 {Contexte :} one {Contexte :} other {Contextes :}}",
+    "description": "ProjectsPage: context meta label"
   },
   "jrRBeb": {
     "defaultMessage": "Parcourir les articles de la thématique {thematicName}",

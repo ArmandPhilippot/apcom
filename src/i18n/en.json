@@ -23,6 +23,10 @@
     "defaultMessage": "It is now awaiting moderation.",
     "description": "PageComments: comment awaiting moderation"
   },
+  "/STXAQ": {
+    "defaultMessage": "Read more about {title}",
+    "description": "ProjectsPage: card accessible name"
+  },
   "/TTRRX": {
     "defaultMessage": "Breadcrumbs",
     "description": "Page: an accessible name for the breadcrumb nav."
@@ -174,10 +178,6 @@
   "A8hGaK": {
     "defaultMessage": "Comment:",
     "description": "CommentForm: comment label"
-  },
-  "ADQmDF": {
-    "defaultMessage": "Technologies:",
-    "description": "Meta: technologies label"
   },
   "AN9iy7": {
     "defaultMessage": "Contact",
@@ -578,6 +578,10 @@
   "jJm8wd": {
     "defaultMessage": "Reading time:",
     "description": "PageHeader: reading time label"
+  },
+  "jPBeOI": {
+    "defaultMessage": "{contextsCount, plural, =0 {Contexts:} one {Context:} other {Contexts:}}",
+    "description": "ProjectsPage: context meta label"
   },
   "jrRBeb": {
     "defaultMessage": "Browse posts in {thematicName} thematic",

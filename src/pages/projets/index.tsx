@@ -1,7 +1,6 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import {
@@ -13,11 +12,12 @@ import {
   CardTitle,
   getLayout,
   Grid,
-  MetaList,
   MetaItem,
   Page,
   PageHeader,
   PageBody,
+  CardMeta,
+  GridItem,
 } from '../../components';
 import { mdxComponents } from '../../components/mdx';
 import PageContent, { meta } from '../../content/pages/projects.mdx';
@@ -31,37 +31,33 @@ import {
   getWebPageSchema,
 } from '../../utils/helpers';
 import {
-  getProjectsCard,
+  getAllProjects,
   loadTranslation,
   type Messages,
 } from '../../utils/helpers/server';
 import { useBreadcrumb } from '../../utils/hooks';
 
 type ProjectsPageProps = {
-  projects: ProjectPreview[];
+  data: {
+    projects: ProjectPreview[];
+  };
   translation?: Messages;
 };
 
 /**
  * Projects page.
  */
-const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
+const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ data }) => {
   const { dates, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
     url: ROUTES.PROJECTS,
   });
   const intl = useIntl();
-  const metaLabel = intl.formatMessage({
-    defaultMessage: 'Technologies:',
-    description: 'Meta: technologies label',
-    id: 'ADQmDF',
-  });
-  const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug: ROUTES.PROJECTS,
     title: seo.title,
     updateDate: dates.update,
   });
@@ -71,13 +67,13 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
     id: 'projects',
     kind: 'page',
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug: ROUTES.PROJECTS,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
-    url: `${CONFIG.url}${asPath}`,
+    url: `${CONFIG.url}${ROUTES.PROJECTS}`,
   };
 
   return (
@@ -110,53 +106,84 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ projects }) => {
         intro={<PageContent components={mdxComponents} />}
       />
       <PageBody className={styles.body}>
-        <Grid className={styles.list} gap="sm" isCentered sizeMax="30ch">
-          {projects.map(
+        <Grid
+          className={styles.list}
+          // eslint-disable-next-line react/jsx-no-literals
+          gap="sm"
+          isCentered
+          // eslint-disable-next-line react/jsx-no-literals
+          sizeMax="30ch"
+        >
+          {data.projects.map(
             ({ id, meta: projectMeta, slug, title: projectTitle }) => {
-              const { cover, tagline, technologies } = projectMeta;
-              const figureLabel = intl.formatMessage(
-                {
-                  defaultMessage: '{title} cover',
-                  description: 'ProjectsPage: figure (cover) accessible name',
-                  id: 'FdF33B',
-                },
-                { title: projectTitle }
-              );
+              const { contexts, cover, tagline } = projectMeta;
+              const messages = {
+                card: intl.formatMessage(
+                  {
+                    defaultMessage: 'Read more about {title}',
+                    description: 'ProjectsPage: card accessible name',
+                    id: '/STXAQ',
+                  },
+                  { title: projectTitle }
+                ),
+                context: intl.formatMessage(
+                  {
+                    defaultMessage:
+                      '{contextsCount, plural, =0 {Contexts:} one {Context:} other {Contexts:}}',
+                    description: 'ProjectsPage: context meta label',
+                    id: 'jPBeOI',
+                  },
+                  {
+                    contextsCount: contexts?.length,
+                  }
+                ),
+                cover: intl.formatMessage(
+                  {
+                    defaultMessage: '{title} cover',
+                    description: 'ProjectsPage: figure (cover) accessible name',
+                    id: 'FdF33B',
+                  },
+                  { title: projectTitle }
+                ),
+              };
 
               return (
-                <Card
-                  cover={
-                    cover ? (
-                      <CardCover aria-label={figureLabel} hasBorders>
-                        <NextImage {...cover} />
-                      </CardCover>
-                    ) : undefined
-                  }
-                  key={id}
-                  meta={
-                    technologies ? (
-                      <MetaList isCentered>
-                        <MetaItem
-                          hasBorderedValues
-                          hasInlinedValues
-                          isCentered
-                          label={metaLabel}
-                          value={technologies.map((techno) => {
-                            return { id: techno, value: techno };
-                          })}
-                        />
-                      </MetaList>
-                    ) : undefined
-                  }
-                  isCentered
-                  linkTo={`${ROUTES.PROJECTS}/${slug}`}
-                >
-                  <CardHeader>
-                    <CardTitle>{projectTitle}</CardTitle>
-                  </CardHeader>
-                  <CardBody>{tagline}</CardBody>
-                  <CardFooter />
-                </Card>
+                <GridItem key={id}>
+                  <Card
+                    aria-label={messages.card}
+                    className={styles.card}
+                    cover={
+                      cover ? (
+                        <CardCover aria-label={messages.cover} hasBorders>
+                          <NextImage {...cover} />
+                        </CardCover>
+                      ) : undefined
+                    }
+                    meta={
+                      contexts?.length ? (
+                        <CardMeta isCentered>
+                          <MetaItem
+                            hasBorderedValues
+                            hasInlinedValues
+                            isCentered
+                            label={messages.context}
+                            value={contexts.map((context) => {
+                              return { id: context, value: context };
+                            })}
+                          />
+                        </CardMeta>
+                      ) : undefined
+                    }
+                    isCentered
+                    linkTo={slug}
+                  >
+                    <CardHeader>
+                      <CardTitle>{projectTitle}</CardTitle>
+                    </CardHeader>
+                    <CardBody>{tagline}</CardBody>
+                    <CardFooter />
+                  </Card>
+                </GridItem>
               );
             }
           )}
@@ -171,12 +198,14 @@ ProjectsPage.getLayout = (page) => getLayout(page);
 export const getStaticProps: GetStaticProps<ProjectsPageProps> = async ({
   locale,
 }) => {
-  const projects = await getProjectsCard();
+  const projects = await getAllProjects();
   const translation = await loadTranslation(locale);
 
   return {
     props: {
-      projects: JSON.parse(JSON.stringify(projects)),
+      data: {
+        projects: JSON.parse(JSON.stringify(projects)),
+      },
       translation,
     },
   };
