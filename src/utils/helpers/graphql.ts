@@ -20,6 +20,7 @@ type GraphQLResponse<T extends GraphQLData<unknown>> = {
 };
 
 export type FetchGraphQLConfig = {
+  headers?: HeadersInit;
   query: string;
   url: string;
   variables?: Record<string, unknown>;
@@ -35,6 +36,7 @@ export type FetchGraphQLConfig = {
 export const fetchGraphQL = async <
   T extends GraphQLData<unknown> = GraphQLData<unknown>,
 >({
+  headers,
   query,
   url,
   variables,
@@ -42,6 +44,7 @@ export const fetchGraphQL = async <
   const response = await fetch(url, {
     method: 'POST',
     headers: {
+      ...headers,
       'content-type': 'application/json;charset=UTF-8',
     },
     body: JSON.stringify({

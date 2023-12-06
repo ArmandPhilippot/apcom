@@ -1,10 +1,11 @@
 import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { HttpResponse } from 'msw';
 import type { ThematicsSlugsResponse } from '../../../../src/services/graphql';
 import { wpThematicsFixture } from '../../../fixtures';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const thematicsSlugsHandler = graphql.query<
+export const thematicsSlugsHandler = wordpressAPI.query<
   ThematicsSlugsResponse,
   Record<'first', number>
 >('ThematicsSlugs', async ({ query, variables }) => {

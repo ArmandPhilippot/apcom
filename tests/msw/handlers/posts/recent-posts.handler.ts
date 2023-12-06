@@ -1,14 +1,15 @@
-import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { type ExecutionResult, graphql } from 'graphql';
+import { HttpResponse } from 'msw';
 import type {
   FetchPostsListInput,
   RecentPostsResponse,
 } from '../../../../src/services/graphql';
 import { wpPostsFixture } from '../../../fixtures';
 import { getConnection } from '../../../utils/graphql';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const recentPostsHandler = graphql.query<
+export const recentPostsHandler = wordpressAPI.query<
   RecentPostsResponse,
   FetchPostsListInput
 >('RecentPosts', async ({ query, variables }) => {
@@ -17,7 +18,7 @@ export const recentPostsHandler = graphql.query<
 
   if (isError) return HttpResponse.json({ data: { posts: null } });
 
-  const { data, errors } = (await executeGraphql({
+  const { data, errors } = (await graphql({
     schema,
     source: query,
     variableValues: variables,

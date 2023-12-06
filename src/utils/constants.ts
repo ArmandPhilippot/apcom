@@ -1,3 +1,7 @@
+export const GITHUB_API = 'https://api.github.com/graphql';
+
+export const GITHUB_PSEUDO = 'ArmandPhilippot';
+
 export const PERSONAL_LINKS = {
   GITHUB: 'https://github.com/ArmandPhilippot',
   GITLAB: 'https://gitlab.com/ArmandPhilippot',

@@ -1,10 +1,11 @@
-import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { type ExecutionResult, graphql } from 'graphql';
+import { HttpResponse } from 'msw';
 import type { PostsSlugsResponse } from '../../../../src/services/graphql';
 import { wpPostsFixture } from '../../../fixtures';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const postsSlugsHandler = graphql.query<
+export const postsSlugsHandler = wordpressAPI.query<
   PostsSlugsResponse,
   Record<'first', number>
 >('PostsSlugs', async ({ query, variables }) => {
@@ -13,7 +14,7 @@ export const postsSlugsHandler = graphql.query<
 
   if (isError) return HttpResponse.json({ data: { posts: null } });
 
-  const { data, errors } = (await executeGraphql({
+  const { data, errors } = (await graphql({
     schema,
     source: query,
     variableValues: variables,

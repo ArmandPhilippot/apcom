@@ -16,6 +16,7 @@ hexcode
 Jamstack
 LINKEDIN
 maxage
+mkcert
 nextjs
 nosniff
 postbuild

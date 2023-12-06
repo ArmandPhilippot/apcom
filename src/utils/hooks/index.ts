@@ -5,7 +5,7 @@ export * from './use-boolean';
 export * from './use-breadcrumb';
 export * from './use-comments';
 export * from './use-form';
-export * from './use-github-api';
+export * from './use-github-repo-meta';
 export * from './use-headings-tree';
 export * from './use-local-storage';
 export * from './use-match-media';

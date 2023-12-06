@@ -36,3 +36,20 @@ export const schema = addResolversToSchema({
   schema: schemaFromTypes,
   resolvers,
 });
+
+export const githubSchema = buildSchema(`
+scalar DateTime
+
+type Repository {
+  createdAt: DateTime!
+  stargazerCount: Int!
+  updatedAt: DateTime!
+}
+
+type Query {
+  repository(
+    followRenames: Boolean = true
+    name: String!
+    owner: String!
+  ): Repository
+}`);

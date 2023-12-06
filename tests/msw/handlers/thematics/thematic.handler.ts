@@ -1,14 +1,15 @@
-import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { type ExecutionResult, graphql } from 'graphql';
+import { HttpResponse } from 'msw';
 import type { ThematicResponse } from '../../../../src/services/graphql';
 import { wpThematicsFixture } from '../../../fixtures';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const thematicHandler = graphql.query<
+export const thematicHandler = wordpressAPI.query<
   ThematicResponse,
   Record<'slug', string>
 >('Thematic', async ({ query, variables }) => {
-  const { data, errors } = (await executeGraphql({
+  const { data, errors } = (await graphql({
     schema,
     source: query,
     variableValues: variables,

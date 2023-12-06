@@ -1,12 +1,13 @@
-import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { type ExecutionResult, graphql } from 'graphql';
+import { HttpResponse } from 'msw';
 import type { TopicsCountResponse } from '../../../../src/services/graphql';
 import type { GraphQLPostWhere } from '../../../../src/types';
 import { wpTopicsFixture } from '../../../fixtures';
 import { getConnection } from '../../../utils/graphql';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const topicsCountHandler = graphql.query<
+export const topicsCountHandler = wordpressAPI.query<
   TopicsCountResponse,
   GraphQLPostWhere
 >('TopicsCount', async ({ query, variables }) => {
@@ -15,7 +16,7 @@ export const topicsCountHandler = graphql.query<
 
   if (isError) return HttpResponse.json({ data: { topics: null } });
 
-  const { data, errors } = (await executeGraphql({
+  const { data, errors } = (await graphql({
     schema,
     source: query,
     variableValues: variables,

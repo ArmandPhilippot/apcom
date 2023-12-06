@@ -1,12 +1,13 @@
 import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { HttpResponse } from 'msw';
 import type { ThematicsCountResponse } from '../../../../src/services/graphql';
 import type { GraphQLPostWhere } from '../../../../src/types';
 import { wpThematicsFixture } from '../../../fixtures';
 import { getConnection } from '../../../utils/graphql';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const thematicsCountHandler = graphql.query<
+export const thematicsCountHandler = wordpressAPI.query<
   ThematicsCountResponse,
   GraphQLPostWhere
 >('ThematicsCount', async ({ query, variables }) => {

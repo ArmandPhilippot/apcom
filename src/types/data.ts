@@ -254,7 +254,7 @@ export type Repos = {
 export type ProjectMeta = Omit<PageMeta, 'wordsCount'> & {
   contexts?: string[];
   license?: string;
-  repos?: Repos;
+  repos: Repos;
   tagline?: string;
   technologies?: string[];
 };
@@ -287,4 +287,10 @@ export type TopicMeta = Omit<PageMeta, 'wordsCount'> & {
 export type Topic = Page & {
   id: number;
   meta: TopicMeta;
+};
+
+export type GithubRepositoryMeta = {
+  createdAt: string;
+  stargazerCount: number;
+  updatedAt: string;
 };

@@ -1,14 +1,15 @@
 import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { HttpResponse } from 'msw';
 import type {
   FetchThematicsListInput,
   ThematicsListResponse,
 } from '../../../../src/services/graphql';
 import { wpThematicsFixture } from '../../../fixtures';
 import { getConnection } from '../../../utils/graphql';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const thematicsListHandler = graphql.query<
+export const thematicsListHandler = wordpressAPI.query<
   ThematicsListResponse,
   FetchThematicsListInput
 >('ThematicsList', async ({ query, variables }) => {

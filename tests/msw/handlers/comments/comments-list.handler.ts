@@ -1,13 +1,14 @@
-import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { type ExecutionResult, graphql } from 'graphql';
+import { HttpResponse } from 'msw';
 import type {
   FetchCommentsListInput,
   CommentsListResponse,
 } from '../../../../src/services/graphql';
 import { wpCommentsFixture } from '../../../fixtures';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const commentsListHandler = graphql.query<
+export const commentsListHandler = wordpressAPI.query<
   CommentsListResponse,
   FetchCommentsListInput
 >('CommentsList', async ({ query, variables }) => {
@@ -16,7 +17,7 @@ export const commentsListHandler = graphql.query<
 
   if (isError) return HttpResponse.json({ data: { comments: null } });
 
-  const { data, errors } = (await executeGraphql({
+  const { data, errors } = (await graphql({
     schema,
     source: query,
     variableValues: variables,

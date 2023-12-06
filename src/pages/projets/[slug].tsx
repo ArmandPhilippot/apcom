@@ -26,7 +26,7 @@ import { mdxComponents } from '../../components/mdx';
 import styles from '../../styles/pages/project.module.scss';
 import type { NextPageWithLayout, Project, Repos } from '../../types';
 import { CONFIG } from '../../utils/config';
-import { ROUTES } from '../../utils/constants';
+import { GITHUB_PSEUDO, ROUTES } from '../../utils/constants';
 import {
   getSchemaJson,
   getSinglePageSchema,
@@ -40,7 +40,7 @@ import {
 } from '../../utils/helpers/server';
 import {
   useBreadcrumb,
-  useGithubApi,
+  useGithubRepoMeta,
   useHeadingsTree,
 } from '../../utils/hooks';
 
@@ -115,31 +115,30 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
     id: 'RwI3B9',
   });
 
-  const { isError, isLoading, data } = useGithubApi(
-    /*
-     * Repo should be defined for each project so for now it is safe for my
-     * use-case. However, I should refactored it to handle cases where it is
-     * not defined. The logic should be extracted in another component I think.
-     *
-     * TODO: fix this hardly readable argument
-     */
-    meta.repos ? meta.repos.github ?? '' : ''
-  );
+  const {
+    isError,
+    isLoading,
+    meta: githubMeta,
+  } = useGithubRepoMeta({
+    name: repos.github?.substring(repos.github.lastIndexOf('/') + 1) ?? '',
+    owner: GITHUB_PSEUDO,
+  });
 
   if (isError) return 'Error';
-  if (isLoading || !data) return <Spinner aria-label={loadingRepoPopularity} />;
+  if (isLoading || !githubMeta)
+    return <Spinner aria-label={loadingRepoPopularity} />;
 
   const overviewMeta: Partial<ProjectMeta> = {
-    creationDate: data.created_at,
-    lastUpdateDate: data.updated_at,
+    creationDate: githubMeta.createdAt,
+    lastUpdateDate: githubMeta.updatedAt,
     license,
-    popularity: repos?.github
+    popularity: repos.github
       ? {
-          count: data.stargazers_count,
+          count: githubMeta.stargazerCount,
           url: `https://github.com/${repos.github}/stargazers`,
         }
       : undefined,
-    repositories: repos ? getRepos(repos) : undefined,
+    repositories: getRepos(repos),
     technologies,
   };
 

@@ -1,14 +1,15 @@
-import { type ExecutionResult, graphql as executeGraphql } from 'graphql';
-import { HttpResponse, graphql } from 'msw';
+import { type ExecutionResult, graphql } from 'graphql';
+import { HttpResponse } from 'msw';
 import type { TopicResponse } from '../../../../src/services/graphql';
 import { wpTopicsFixture } from '../../../fixtures';
+import { wordpressAPI } from '../../instances';
 import { schema } from '../../schema';
 
-export const topicHandler = graphql.query<
+export const topicHandler = wordpressAPI.query<
   TopicResponse,
   Record<'slug', string>
 >('Topic', async ({ query, variables }) => {
-  const { data, errors } = (await executeGraphql({
+  const { data, errors } = (await graphql({
     schema,
     source: query,
     variableValues: variables,
