@@ -23,8 +23,10 @@ export const slugify = (text: string): string =>
  * @param {string} text - A text to capitalize.
  * @returns {string} The capitalized text.
  */
-export const capitalize = (text: string): string =>
-  text.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase());
+export const capitalize = <T extends string>(text: T): Capitalize<T> =>
+  text.replace(/^\w/, (firstLetter) =>
+    firstLetter.toUpperCase()
+  ) as Capitalize<T>;
 
 /**
  * Convert a text from kebab case (foo-bar) to camel case (fooBar).

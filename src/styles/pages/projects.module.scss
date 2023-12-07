@@ -13,3 +13,17 @@
 .card {
   height: 100%;
 }
+
+.overview {
+  margin-block: var(--spacing-md);
+}
+
+.sharing-widget {
+  @include mix.media("screen") {
+    @include mix.dimensions("md") {
+      ul {
+        width: min-content;
+      }
+    }
+  }
+}

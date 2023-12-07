@@ -1,13 +1,12 @@
 import {
   type ForwardRefRenderFunction,
-  type ReactElement,
   type ReactNode,
   forwardRef,
 } from 'react';
 import { Description, Group, type GroupProps, Term } from '../../../atoms';
 import styles from './meta-item.module.scss';
 
-export type MetaValue = string | ReactElement;
+export type MetaValue = ReactNode;
 
 export type MetaValues = {
   id: string;

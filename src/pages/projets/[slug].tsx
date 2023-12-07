@@ -4,39 +4,49 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import { useRouter } from 'next/router';
 import Script from 'next/script';
-import type { ComponentType } from 'react';
+import { useMemo, type ComponentType, type FC } from 'react';
 import { useIntl } from 'react-intl';
 import {
-  getLayout,
-  SharingWidget,
-  Spinner,
   Heading,
-  ProjectOverview,
-  type ProjectMeta,
-  type Repository,
+  Link,
+  LoadingPage,
+  type MetaValues,
   Page,
+  PageBody,
   PageHeader,
   PageSidebar,
+  ProjectOverview,
+  SharingWidget,
+  SocialLink,
+  Spinner,
+  Time,
   TocWidget,
-  PageBody,
+  getLayout,
+  type ProjectOverviewProps,
 } from '../../components';
 import { mdxComponents } from '../../components/mdx';
-import styles from '../../styles/pages/project.module.scss';
-import type { NextPageWithLayout, Project, Repos } from '../../types';
+import { fetchGithubRepoMeta } from '../../services/github';
+import styles from '../../styles/pages/projects.module.scss';
+import type {
+  GithubRepositoryMeta,
+  Maybe,
+  NextPageWithLayout,
+  Project,
+  ProjectMeta,
+} from '../../types';
 import { CONFIG } from '../../utils/config';
-import { GITHUB_PSEUDO, ROUTES } from '../../utils/constants';
 import {
+  capitalize,
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
 } from '../../utils/helpers';
 import {
+  type Messages,
   getProjectData,
   getProjectFilenames,
   loadTranslation,
-  type Messages,
 } from '../../utils/helpers/server';
 import {
   useBreadcrumb,
@@ -44,139 +54,201 @@ import {
   useHeadingsTree,
 } from '../../utils/hooks';
 
+const getGithubRepoInputFrom = (namespace: string) => {
+  const parts = namespace.split('/');
+
+  if (parts.length !== 2)
+    throw new Error(
+      'Invalid repo. It should use the following format: owner/name.'
+    );
+
+  return { owner: parts[0], name: parts[1] };
+};
+
+const isValidRepo = (name: string): name is 'github' | 'gitlab' =>
+  ['github', 'gitlab'].includes(name);
+
+type GithubRepoOverviewProps = Omit<
+  ProjectOverviewProps,
+  'cover' | 'meta' | 'name'
+> &
+  Pick<ProjectMeta, 'cover' | 'license' | 'technologies'> & {
+    repos: {
+      github: string;
+      gitlab?: string;
+    };
+    title: string;
+  };
+
+const GithubRepoOverview: FC<GithubRepoOverviewProps> = ({
+  cover,
+  license,
+  repos,
+  technologies,
+  title,
+  ...props
+}) => {
+  const intl = useIntl();
+  const { isLoading, meta: repoMeta } = useGithubRepoMeta(
+    getGithubRepoInputFrom(repos.github)
+  );
+  const reposLabels = {
+    github: intl.formatMessage({
+      defaultMessage: 'Github',
+      description: 'ProjectPage: Github repo label',
+      id: 'l82UU5',
+    }),
+    gitlab: intl.formatMessage({
+      defaultMessage: 'Gitlab',
+      description: 'ProjectPage: Gitlab repo label',
+      id: '1msHuZ',
+    }),
+  };
+  const stars = intl.formatMessage(
+    {
+      defaultMessage:
+        '{starsCount, plural, =0 {No stars} one {# star} other {# stars}}',
+      description: 'ProjectPage: stars count',
+      id: '4M71hp',
+    },
+    { starsCount: repoMeta?.stargazerCount }
+  );
+  const popularityURL = `https://github.com/${repos.github}/stargazers`;
+
+  return isLoading ? (
+    <Spinner>
+      {intl.formatMessage({
+        defaultMessage: 'Loading the repository metadata...',
+        description: 'ProjectPage: loading repository metadata',
+        id: 'EET/tC',
+      })}
+    </Spinner>
+  ) : (
+    <ProjectOverview
+      {...props}
+      cover={cover ? <NextImage {...cover} /> : undefined}
+      meta={{
+        creationDate: repoMeta?.createdAt ? (
+          <Time date={repoMeta.createdAt} />
+        ) : undefined,
+        lastUpdateDate: repoMeta?.updatedAt ? (
+          <Time date={repoMeta.updatedAt} />
+        ) : undefined,
+        license,
+        popularity: (
+          <>
+            ⭐&nbsp;<Link href={popularityURL}>{stars}</Link>
+          </>
+        ),
+        repositories: Object.entries(repos)
+          .map(([key, value]): Maybe<MetaValues> => {
+            if (!isValidRepo(key)) return undefined;
+
+            return {
+              id: key,
+              value: (
+                <SocialLink
+                  icon={capitalize(key)}
+                  key={key}
+                  label={reposLabels[key]}
+                  url={value}
+                />
+              ),
+            };
+          })
+          .filter((entry): entry is MetaValues => !!entry),
+        technologies: technologies?.map((techno) => {
+          return {
+            id: techno,
+            value: techno,
+          };
+        }),
+      }}
+      name={title}
+    />
+  );
+};
+
 type ProjectPageProps = {
-  project: Project;
+  data: {
+    githubMeta: Maybe<GithubRepositoryMeta>;
+    project: Project;
+  };
   translation: Messages;
 };
 
 /**
  * Project page.
  */
-const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
-  const { id, intro, meta, title } = project;
-  const { cover, dates, license, repos, seo, technologies } = meta;
+const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
+  const { id, intro, meta, slug, title } = data.project;
   const intl = useIntl();
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
-    url: `${ROUTES.PROJECTS}/${id}`,
+    url: slug,
   });
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
+  const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
-  const ProjectContent: ComponentType<MDXComponents> = dynamic(
-    async () => import(`../../content/projects/${id}.mdx`),
-    {
-      loading: () => <Spinner />,
-    }
-  );
-
-  const { asPath } = useRouter();
   const page = {
-    title: `${seo.title} - ${CONFIG.name}`,
-    url: `${CONFIG.url}${asPath}`,
-  };
-
-  /**
-   * Retrieve the project repositories.
-   *
-   * @param {Repos} repositories - A repositories object.
-   * @returns {Repository[]} - An array of repositories.
-   */
-  const getRepos = (repositories: Repos): Repository[] => {
-    const definedRepos: Repository[] = [];
-
-    if (repositories.github)
-      definedRepos.push({
-        id: 'Github',
-        label: intl.formatMessage({
-          defaultMessage: 'Github profile',
-          description: 'ProjectsPage: Github profile link',
-          id: 'Nx8Jo5',
-        }),
-        url: repositories.github,
-      });
-
-    if (repositories.gitlab)
-      definedRepos.push({
-        id: 'Gitlab',
-        label: intl.formatMessage({
-          defaultMessage: 'Gitlab profile',
-          description: 'ProjectsPage: Gitlab profile link',
-          id: 'sECHDg',
-        }),
-        url: repositories.gitlab,
-      });
-
-    return definedRepos;
-  };
-
-  const loadingRepoPopularity = intl.formatMessage({
-    defaultMessage: 'Loading the repository popularity...',
-    description: 'ProjectsPage: loading repository popularity',
-    id: 'RwI3B9',
-  });
-
-  const {
-    isError,
-    isLoading,
-    meta: githubMeta,
-  } = useGithubRepoMeta({
-    name: repos.github?.substring(repos.github.lastIndexOf('/') + 1) ?? '',
-    owner: GITHUB_PSEUDO,
-  });
-
-  if (isError) return 'Error';
-  if (isLoading || !githubMeta)
-    return <Spinner aria-label={loadingRepoPopularity} />;
-
-  const overviewMeta: Partial<ProjectMeta> = {
-    creationDate: githubMeta.createdAt,
-    lastUpdateDate: githubMeta.updatedAt,
-    license,
-    popularity: repos.github
-      ? {
-          count: githubMeta.stargazerCount,
-          url: `https://github.com/${repos.github}/stargazers`,
-        }
-      : undefined,
-    repositories: getRepos(repos),
-    technologies,
+    title: `${meta.seo.title} - ${CONFIG.name}`,
+    url: `${CONFIG.url}${slug}`,
   };
 
   const webpageSchema = getWebPageSchema({
-    description: seo.description,
+    description: meta.seo.description,
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-    title: seo.title,
-    updateDate: dates.update,
+    slug,
+    title: meta.seo.title,
+    updateDate: meta.dates.update,
   });
   const articleSchema = getSinglePageSchema({
     cover: `/projects/${id}.jpg`,
-    dates,
+    dates: meta.dates,
     description: intro,
     id: 'project',
     kind: 'page',
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
-  const sharingWidgetTitle = intl.formatMessage({
-    defaultMessage: 'Share',
-    id: 'HKKkQk',
-    description: 'SharingWidget: widget title',
-  });
-  const tocTitle = intl.formatMessage({
-    defaultMessage: 'Table of Contents',
-    description: 'PageLayout: table of contents title',
-    id: 'eys2uX',
-  });
+
+  const messages = {
+    repos: {
+      gitlab: intl.formatMessage({
+        defaultMessage: 'Gitlab',
+        description: 'ProjectPage: Gitlab repo label',
+        id: '1msHuZ',
+      }),
+    },
+    widgets: {
+      sharingTitle: intl.formatMessage({
+        defaultMessage: 'Share',
+        id: 'JnalJp',
+        description: 'ProjectPage: sharing widget title',
+      }),
+      tocTitle: intl.formatMessage({
+        defaultMessage: 'Table of Contents',
+        description: 'PageLayout: table of contents title',
+        id: 'eys2uX',
+      }),
+    },
+  };
+
+  const ProjectContent: ComponentType<MDXComponents> = useMemo(
+    () =>
+      dynamic(async () => import(`../../content/projects/${id}.mdx`), {
+        loading: () => <LoadingPage />,
+      }),
+    [id]
+  );
 
   return (
     <Page breadcrumbs={breadcrumbItems} isBodyLastChild>
       <Head>
         <title>{page.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
-        <meta name="description" content={seo.description} />
+        <meta name="description" content={meta.seo.description} />
         <meta property="og:url" content={page.url} />
         {/*eslint-disable-next-line react/jsx-no-literals -- Content allowed */}
         <meta property="og:type" content="article" />
@@ -200,28 +272,57 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
         heading={title}
         intro={intro}
         meta={{
-          publicationDate: dates.publication,
-          updateDate: dates.update,
+          publicationDate: meta.dates.publication,
+          updateDate: meta.dates.update,
         }}
       />
       <PageSidebar>
         <TocWidget
-          heading={<Heading level={3}>{tocTitle}</Heading>}
+          heading={<Heading level={2}>{messages.widgets.tocTitle}</Heading>}
           tree={tree}
         />
       </PageSidebar>
       <PageBody ref={ref}>
-        <ProjectOverview
-          cover={cover ? <NextImage {...cover} /> : undefined}
-          meta={overviewMeta}
-          name={project.title}
-        />
+        {meta.repos.github ? (
+          <GithubRepoOverview
+            className={styles.overview}
+            cover={meta.cover}
+            license={meta.license}
+            repos={{ github: meta.repos.github, gitlab: meta.repos.gitlab }}
+            technologies={meta.technologies}
+            title={title}
+          />
+        ) : (
+          <ProjectOverview
+            className={styles.overview}
+            cover={meta.cover ? <NextImage {...meta.cover} /> : undefined}
+            meta={{
+              license: meta.license,
+              repositories: meta.repos.gitlab ? (
+                <SocialLink
+                  // eslint-disable-next-line react/jsx-no-literals
+                  icon="Gitlab"
+                  label={messages.repos.gitlab}
+                  url={meta.repos.gitlab}
+                />
+              ) : undefined,
+              technologies: meta.technologies?.map((techno) => {
+                return {
+                  id: techno,
+                  value: techno,
+                };
+              }),
+            }}
+            name={title}
+          />
+        )}
         <ProjectContent components={mdxComponents} />
       </PageBody>
       <PageSidebar>
         <SharingWidget
+          className={styles['sharing-widget']}
           data={{ excerpt: intro, title, url: page.url }}
-          heading={<Heading level={3}>{sharingWidgetTitle}</Heading>}
+          heading={<Heading level={2}>{messages.widgets.sharingTitle}</Heading>}
           media={[
             'diaspora',
             'email',
@@ -230,7 +331,6 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ project }) => {
             'linkedin',
             'twitter',
           ]}
-          className={styles.widget}
         />
       </PageSidebar>
     </Page>
@@ -245,10 +345,18 @@ export const getStaticProps: GetStaticProps<ProjectPageProps> = async ({
 }) => {
   const translation = await loadTranslation(locale);
   const project = await getProjectData(params ? (params.slug as string) : '');
+  const githubMeta = project.meta.repos.github
+    ? await fetchGithubRepoMeta(
+        getGithubRepoInputFrom(project.meta.repos.github)
+      )
+    : undefined;
 
   return {
     props: {
-      project,
+      data: {
+        githubMeta,
+        project,
+      },
       translation,
     },
   };

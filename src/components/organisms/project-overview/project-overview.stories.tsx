@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import NextImage from 'next/image';
-import { type ProjectMeta, ProjectOverview } from './project-overview';
+import { type OverviewMeta, ProjectOverview } from './project-overview';
 
 /**
  * ProjectOverview - Storybook Meta
@@ -49,7 +49,7 @@ const meta = {
   creationDate: '2015-09-02',
   lastUpdateDate: '2023-11-10',
   license: 'MIT',
-} satisfies Partial<ProjectMeta>;
+} satisfies Partial<OverviewMeta>;
 
 /**
  * ProjectOverview Stories - Meta

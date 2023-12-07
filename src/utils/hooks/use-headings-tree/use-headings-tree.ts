@@ -1,5 +1,7 @@
-import { useState, useCallback, type RefCallback } from 'react';
+import { useState, useCallback, type RefCallback, useEffect } from 'react';
 import type { HeadingLevel } from '../../../components';
+import type { Nullable } from '../../../types';
+import { useMutationObserver } from '../use-mutation-observer';
 
 export type HeadingsTreeNode = {
   /**
@@ -140,17 +142,43 @@ export const useHeadingsTree = <T extends HTMLElement = HTMLElement>(
       'Invalid options: `fromLevel` must be lower or equal to `toLevel`.'
     );
 
-  const [tree, setTree] = useState<HeadingsTreeNode[]>([]);
+  const [headings, setHeadings] = useState<NodeListOf<HTMLHeadingElement>>();
   const requestedHeadingTags = getHeadingTagsList(options);
   const query = requestedHeadingTags.join(', ');
-  const ref: RefCallback<T> = useCallback(
-    (el) => {
-      const headingNodes = el?.querySelectorAll<HTMLHeadingElement>(query);
 
-      if (headingNodes) setTree(buildHeadingsTreeFrom(headingNodes));
-    },
-    [query]
-  );
+  /*
+   * With a mutable ref, the headings are not always updated because of loading
+   * states. So we need to use a RefCallback to detect when the component is
+   * effectively rendered. However, to be able to compare the mutation records,
+   * we need to keep track of the current ref so we also need to use useState...
+   */
+  const [wrapper, setWrapper] = useState<Nullable<T>>();
+  const ref: RefCallback<T> = useCallback((el) => {
+    setWrapper(el);
+  }, []);
 
-  return { ref, tree };
+  const updateHeadings = useCallback(() => {
+    const headingNodes = wrapper?.querySelectorAll<HTMLHeadingElement>(query);
+
+    if (headingNodes) setHeadings(headingNodes);
+  }, [query, wrapper]);
+
+  useEffect(() => {
+    if (wrapper) updateHeadings();
+  }, [updateHeadings, wrapper]);
+
+  useMutationObserver({
+    callback: useCallback(
+      (records) => {
+        for (const record of records) {
+          if (record.target === wrapper) updateHeadings();
+        }
+      },
+      [updateHeadings, wrapper]
+    ),
+    options: { childList: true, subtree: true },
+    ref: { current: typeof window === 'undefined' ? null : document.body },
+  });
+
+  return { ref, tree: headings ? buildHeadingsTreeFrom(headings) : [] };
 };

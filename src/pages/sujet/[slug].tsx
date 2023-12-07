@@ -75,7 +75,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({ data }) => {
     title: topic.title,
     url: `${ROUTES.TOPICS}/${topic.slug}`,
   });
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
+  const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
   if (isFallback || isLoading) return <LoadingPage />;
 

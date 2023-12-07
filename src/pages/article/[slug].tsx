@@ -78,7 +78,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
     title: data.post.title,
     url: data.post.slug,
   });
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
+  const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
   const { attributes, className: prismClassName } = usePrism({
     attributes: {
       'data-toolbar-order': 'show-language,copy-to-clipboard,color-scheme',

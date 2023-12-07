@@ -6,35 +6,23 @@ import {
   type ReactElement,
 } from 'react';
 import { useIntl } from 'react-intl';
-import type { ValueOf } from '../../../types';
+import { Figure } from '../../atoms';
 import {
-  Time,
-  type SocialWebsite,
-  Link,
-  SocialLink,
-  Figure,
-} from '../../atoms';
-import { MetaItem, type MetaItemProps, MetaList } from '../../molecules';
+  MetaItem,
+  type MetaItemProps,
+  MetaList,
+  type MetaValue,
+  type MetaValues,
+} from '../../molecules';
 import styles from './project-overview.module.scss';
 
-export type Repository = {
-  id: Extract<SocialWebsite, 'Github' | 'Gitlab'>;
-  label: string;
-  url: string;
-};
-
-export type ProjectPopularity = {
-  count: number;
-  url?: string;
-};
-
-export type ProjectMeta = {
-  creationDate: string;
-  lastUpdateDate: string;
-  license: string;
-  popularity: ProjectPopularity;
-  repositories: Repository[];
-  technologies: string[];
+export type OverviewMeta = {
+  creationDate: MetaValue;
+  lastUpdateDate: MetaValue;
+  license: MetaValue;
+  popularity: MetaValue;
+  repositories: MetaValue | MetaValues[];
+  technologies: MetaValues[];
 };
 
 const validMeta = [
@@ -44,9 +32,9 @@ const validMeta = [
   'popularity',
   'repositories',
   'technologies',
-] satisfies (keyof ProjectMeta)[];
+] satisfies (keyof OverviewMeta)[];
 
-const isValidMetaKey = (key: string): key is keyof ProjectMeta =>
+const isValidMetaKey = (key: string): key is keyof OverviewMeta =>
   (validMeta as string[]).includes(key);
 
 export type ProjectOverviewProps = Omit<
@@ -60,7 +48,7 @@ export type ProjectOverviewProps = Omit<
   /**
    * The project meta.
    */
-  meta: Partial<ProjectMeta>;
+  meta: Partial<OverviewMeta>;
   /**
    * The project name.
    */
@@ -112,48 +100,7 @@ const ProjectOverviewWithRef: ForwardRefRenderFunction<
       description: 'ProjectOverview: technologies label',
       id: 'OWkqXt',
     }),
-  } satisfies Record<keyof ProjectMeta, string>;
-
-  const getMetaValue = useCallback(
-    (key: keyof ProjectMeta, value: ValueOf<ProjectMeta>) => {
-      if (typeof value === 'string') {
-        return key === 'license' ? value : <Time date={value} />;
-      }
-
-      if (
-        (value instanceof Object || typeof value === 'object') &&
-        !Array.isArray(value)
-      ) {
-        const stars = intl.formatMessage(
-          {
-            defaultMessage:
-              '{starsCount, plural, =0 {No stars} one {# star} other {# stars}}',
-            description: 'ProjectOverview: stars count',
-            id: 'PBdVsm',
-          },
-          { starsCount: value.count }
-        );
-
-        return value.url ? (
-          <>
-            ⭐&nbsp;<Link href={value.url}>{stars}</Link>
-          </>
-        ) : (
-          `⭐\u00A0${stars}`
-        );
-      }
-
-      return value.map((v) => {
-        if (typeof v === 'string') return { id: v, value: v };
-
-        return {
-          id: v.id,
-          value: <SocialLink icon={v.id} label={v.label} url={v.url} />,
-        };
-      });
-    },
-    [intl]
-  );
+  } satisfies Record<keyof OverviewMeta, string>;
 
   const getMetaItems = useCallback(() => {
     const keys = Object.keys(meta).filter(isValidMetaKey);
@@ -172,7 +119,7 @@ const ProjectOverviewWithRef: ForwardRefRenderFunction<
             }
             key={key}
             label={metaLabels[key]}
-            value={getMetaValue(key, value)}
+            value={value}
           />
         ) : undefined;
       })
@@ -180,7 +127,7 @@ const ProjectOverviewWithRef: ForwardRefRenderFunction<
         (item): item is ReactElement<MetaItemProps> =>
           typeof item !== 'undefined'
       );
-  }, [getMetaValue, meta, metaLabels]);
+  }, [meta, metaLabels]);
 
   return (
     <div {...props} className={wrapperClass} ref={ref}>

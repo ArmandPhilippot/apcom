@@ -37,7 +37,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
     url: ROUTES.LEGAL_NOTICE,
   });
 
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
+  const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
   const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,

@@ -75,6 +75,10 @@
     "defaultMessage": "Nom :",
     "description": "ContactForm: name label"
   },
+  "1msHuZ": {
+    "defaultMessage": "Gitlab",
+    "description": "ProjectPage: Gitlab repo label"
+  },
   "28GZdv": {
     "defaultMessage": "Projets",
     "description": "Breadcrumb: projects label"
@@ -110,6 +114,10 @@
   "48Ww//": {
     "defaultMessage": "Page non trouvée.",
     "description": "404Page: SEO - Meta description"
+  },
+  "4M71hp": {
+    "defaultMessage": "{starsCount, plural, =0 {0 étoile} one {# étoile} other {# étoiles}}",
+    "description": "ProjectPage: stars count"
   },
   "5C+1PP": {
     "defaultMessage": "Blog",
@@ -227,6 +235,10 @@
     "defaultMessage": "Aucun résultat. Souhaitez-vous tenter une nouvelle rechercher ?",
     "description": "SearchPage: no results"
   },
+  "EET/tC": {
+    "defaultMessage": "Chargement des métadonnées du dépôt…",
+    "description": "ProjectPage: loading repository metadata"
+  },
   "Es52wh": {
     "defaultMessage": "Blog",
     "description": "Breadcrumb: blog label"
@@ -246,10 +258,6 @@
   "H4pKJP": {
     "defaultMessage": "{commentsCount, plural, =0 {0 commentaire} one {# commentaire} other {# commentaires}}",
     "description": "PageComments: the section title of the comments list"
-  },
-  "HKKkQk": {
-    "defaultMessage": "Partager",
-    "description": "SharingWidget: widget title"
   },
   "Hclr0a": {
     "defaultMessage": "Partager sur le Journal du Hacker",
@@ -291,6 +299,10 @@
     "defaultMessage": "Profil Github",
     "description": "CVPage: Github profile link"
   },
+  "JnalJp": {
+    "defaultMessage": "Partager",
+    "description": "ProjectPage: sharing widget title"
+  },
   "JpC3JH": {
     "defaultMessage": "Autres sujets",
     "description": "TopicPage: other topics list widget title"
@@ -331,10 +343,6 @@
     "defaultMessage": "Recherche - {websiteName}",
     "description": "SearchPage: SEO - Page title"
   },
-  "Nx8Jo5": {
-    "defaultMessage": "Profil Github",
-    "description": "ProjectsPage: Github profile link"
-  },
   "NzeU3V": {
     "defaultMessage": "Publié le :",
     "description": "ApprovedComment: publication date label"
@@ -362,10 +370,6 @@
   "OsclKU": {
     "defaultMessage": "Les sujets sont en cours de chargement…",
     "description": "BlogPage: loading topics message"
-  },
-  "PBdVsm": {
-    "defaultMessage": "{starsCount, plural, =0 {0 étoile} one {# étoile} other {# étoiles}}",
-    "description": "ProjectOverview: stars count"
   },
   "PnrHgZ": {
     "defaultMessage": "Accueil",
@@ -402,10 +406,6 @@
   "QtdnFV": {
     "defaultMessage": "Licence :",
     "description": "ProjectOverview: license label"
-  },
-  "RwI3B9": {
-    "defaultMessage": "Chargement de la popularité du dépôt…",
-    "description": "ProjectsPage: loading repository popularity"
   },
   "Sm2wCk": {
     "defaultMessage": "Profil LinkedIn",
@@ -595,6 +595,10 @@
     "defaultMessage": "Ouvrir les réglages",
     "description": "SiteNavbar: settings button label in navbar"
   },
+  "l82UU5": {
+    "defaultMessage": "Github",
+    "description": "ProjectPage: Github repo label"
+  },
   "lKhTGM": {
     "defaultMessage": "Utilisez Ctrl+c pour copier",
     "description": "usePrism: copy button error text"
@@ -674,10 +678,6 @@
   "s8/tyz": {
     "defaultMessage": "Sujet :",
     "description": "ContactForm: object label"
-  },
-  "sECHDg": {
-    "defaultMessage": "Profil Gitlab",
-    "description": "ProjectsPage: Gitlab profile link"
   },
   "sR5hah": {
     "defaultMessage": "Mis à jour le :",

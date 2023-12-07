@@ -9,6 +9,7 @@ export * from './use-github-repo-meta';
 export * from './use-headings-tree';
 export * from './use-local-storage';
 export * from './use-match-media';
+export * from './use-mutation-observer';
 export * from './use-on-click-outside';
 export * from './use-on-route-change';
 export * from './use-pagination';

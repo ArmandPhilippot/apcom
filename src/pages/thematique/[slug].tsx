@@ -74,7 +74,7 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({ data }) => {
     title: data.currentThematic.title,
     url: `${ROUTES.THEMATICS}/${data.currentThematic.slug}`,
   });
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
+  const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
   if (isFallback || isLoading) return <LoadingPage />;
 

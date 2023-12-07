@@ -42,7 +42,7 @@ const DownloadLink = (chunks: ReactNode) => (
  */
 const CVPage: NextPageWithLayout = () => {
   const intl = useIntl();
-  const { ref, tree } = useHeadingsTree({ fromLevel: 2 });
+  const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
   const { dates, intro, seo, title } = meta;
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
     title,
