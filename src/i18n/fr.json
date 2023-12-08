@@ -99,10 +99,6 @@
     "defaultMessage": "Écrit par :",
     "description": "PostPreviewMeta: author label"
   },
-  "310o3F": {
-    "defaultMessage": "Erreur 404 : Page non trouvée - {websiteName}",
-    "description": "404Page: SEO - Page title"
-  },
   "3Pipok": {
     "defaultMessage": "Merci. Votre message a été envoyé avec succès. J’y répondrai dès que possible.",
     "description": "Contact: success message"
@@ -111,9 +107,9 @@
     "defaultMessage": "Dépôts :",
     "description": "ProjectOverview: repositories label"
   },
-  "48Ww//": {
-    "defaultMessage": "Page non trouvée.",
-    "description": "404Page: SEO - Meta description"
+  "3u29G5": {
+    "defaultMessage": "Query must be longer than one character.",
+    "description": "Error404Page: invalid query message"
   },
   "4M71hp": {
     "defaultMessage": "{starsCount, plural, =0 {0 étoile} one {# étoile} other {# étoiles}}",
@@ -134,6 +130,10 @@
   "6GySNl": {
     "defaultMessage": "Copier",
     "description": "usePrism: copy button text (not clicked)"
+  },
+  "6IAJYx": {
+    "defaultMessage": "Les thématiques sont en cours de chargement…",
+    "description": "Error404Page: loading thematics message"
   },
   "701ggm": {
     "defaultMessage": "Illustration de {projectName}",
@@ -223,10 +223,6 @@
     "defaultMessage": "Échec du chargement.",
     "description": "BlogPage: failed to load text"
   },
-  "C6oK7h": {
-    "defaultMessage": "Les mots-clés doivent être plus longs qu'un caractère.",
-    "description": "404Page: invalid query message"
-  },
   "Dq6+WH": {
     "defaultMessage": "Thématiques",
     "description": "SearchPage: thematics list widget title"
@@ -262,6 +258,10 @@
   "Hclr0a": {
     "defaultMessage": "Partager sur le Journal du Hacker",
     "description": "SharingWidget: Journal du Hacker sharing link"
+  },
+  "HnMf0i": {
+    "defaultMessage": "Les sujets sont en cours de chargement…",
+    "description": "Error404Page: loading topics message"
   },
   "HohQPh": {
     "defaultMessage": "Thématiques",
@@ -647,6 +647,10 @@
     "defaultMessage": "Aller à la page suivante, page {number}",
     "description": "BlogPage: next page label"
   },
+  "pNIIU1": {
+    "defaultMessage": "Erreur 404 : Page non trouvée - {websiteName}",
+    "description": "Error404Page: SEO - Page title"
+  },
   "pT5nHk": {
     "defaultMessage": "Publié le :",
     "description": "HomePage: publication date label"
@@ -738,6 +742,10 @@
   "y37FuH": {
     "defaultMessage": "Les thématiques sont en cours de chargement…",
     "description": "BlogPage: loading thematics message"
+  },
+  "yKoGqg": {
+    "defaultMessage": "Page non trouvée.",
+    "description": "Error404Page: SEO - Meta description"
   },
   "yN5P+m": {
     "defaultMessage": "Message :",

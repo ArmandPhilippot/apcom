@@ -78,9 +78,8 @@
   padding-bottom: var(--spacing-md);
 }
 
-.body > * + * {
-  margin-top: var(--spacing-sm);
-  margin-bottom: var(--spacing-sm);
+.body > * {
+  margin-block: var(--spacing-sm);
 }
 
 .footer {
@@ -141,6 +140,10 @@
       margin-block: var(--spacing-sm);
     }
   }
+}
+
+.body > *:first-child {
+  margin-block-start: var(--spacing-md);
 }
 
 :where(.footer) {
