@@ -1,7 +1,5 @@
-/* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import {
@@ -36,13 +34,12 @@ const LegalNoticePage: NextPageWithLayout = () => {
     title,
     url: ROUTES.LEGAL_NOTICE,
   });
-
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
-  const { asPath } = useRouter();
+
   const webpageSchema = getWebPageSchema({
     description: seo.description,
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug: ROUTES.LEGAL_NOTICE,
     title: seo.title,
     updateDate: dates.update,
   });
@@ -52,13 +49,14 @@ const LegalNoticePage: NextPageWithLayout = () => {
     id: 'legal-notice',
     kind: 'page',
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug: ROUTES.LEGAL_NOTICE,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
-    url: `${CONFIG.url}${asPath}`,
+    url: `${CONFIG.url}${ROUTES.LEGAL_NOTICE}`,
   };
   const tocTitle = intl.formatMessage({
     defaultMessage: 'Table of Contents',
@@ -100,7 +98,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
       />
       <PageSidebar>
         <TocWidget
-          heading={<Heading level={3}>{tocTitle}</Heading>}
+          heading={<Heading level={2}>{tocTitle}</Heading>}
           tree={tree}
         />
       </PageSidebar>
