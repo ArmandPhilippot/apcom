@@ -103,6 +103,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'secure.gravatar.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'cloudflare-ipfs.com',
+      },
     ],
   },
   output: 'standalone',
@@ -185,3 +189,5 @@ const withMDX = nextMDX({
 });
 
 export default withBundleAnalyzer(withMDX(nextConfig));
+
+// cSpell:ignore ipfs

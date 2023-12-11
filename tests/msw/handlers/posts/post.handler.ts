@@ -14,7 +14,9 @@ export const postHandler = wordpressAPI.query<
     source: query,
     variableValues: variables,
     rootValue: {
-      post: wpPostsFixture.find((wpPost) => wpPost.slug === variables.slug),
+      post: wpPostsFixture.find((wpPost) =>
+        wpPost.slug.includes(variables.slug)
+      ),
     },
   })) as ExecutionResult<PostResponse>;
 

@@ -1,6 +1,7 @@
 import { authorTypes } from './author.types';
 import { commentTypes } from './comment.types';
 import { commonTypes } from './common.types';
+import { createCommentTypes } from './create-comment.types';
 import { featuredImageTypes } from './featured-image.types';
 import { postTypes } from './post.types';
 import { sendEmailTypes } from './send-email.types';
@@ -54,6 +55,7 @@ const rootQueryType = `type Query {
 }`;
 
 const rootMutationType = `type Mutation {
+  createComment(input: CreateCommentInput!): CreateCommentPayload
   sendEmail(input: SendEmailInput!): SendEmailPayload
 }`;
 
@@ -61,6 +63,7 @@ export const types = [
   authorTypes,
   commentTypes,
   commonTypes,
+  createCommentTypes,
   featuredImageTypes,
   postTypes,
   sendEmailTypes,

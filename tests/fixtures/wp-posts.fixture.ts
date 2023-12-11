@@ -174,4 +174,35 @@ export const wpPostsFixture = [
     slug: '/post-4',
     title: 'Post 4',
   },
+  {
+    acfPosts: null,
+    author: {
+      node: {
+        name: 'Claudia78',
+      },
+    },
+    commentCount: 1,
+    contentParts: {
+      afterMore:
+        'Dolor quidem cumque animi consectetur consequuntur eos dolores porro reiciendis. Repellat tempore unde vel. Sed eos neque veritatis incidunt rerum totam molestiae consequatur. Voluptas laboriosam non atque. Ipsam nulla voluptate molestias ut. Doloremque reprehenderit id aut sequi totam sit assumenda et odit.',
+      beforeMore:
+        'In minus nihil ut. Et et exercitationem consequatur. Maiores neque voluptas mollitia ut. Doloremque reiciendis quam.',
+    },
+    databaseId: 36,
+    date: '2023-01-23',
+    featuredImage: null,
+    info: {
+      wordsCount: 450,
+    },
+    modified: '2023-01-23',
+    seo: {
+      metaDesc: 'Omnis quo commodi nam aut eum officiis veritatis eligendi.',
+      title: 'non vel ad',
+    },
+    /* I don't want to mock all the requests so I need an existing slug. The
+     * solution is only temporary since if I write another article, I would
+     * need to update the slug... */
+    slug: '/version-2022-bonjour-next-js',
+    title: 'porro adipisci adipisci',
+  },
 ] satisfies WPPost[];

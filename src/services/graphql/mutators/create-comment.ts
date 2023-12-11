@@ -1,43 +1,23 @@
-import type { Nullable } from '../../../types';
+import type { Nullable, WPComment } from '../../../types';
 import { fetchGraphQL, getGraphQLUrl } from '../../../utils/helpers';
 
-type CreatedComment = {
-  clientMutationId: string;
+export type CreateCommentPayload = {
+  clientMutationId: Nullable<string>;
   success: boolean;
-  comment: Nullable<{
-    approved: boolean;
-  }>;
+  comment: Nullable<Pick<WPComment, 'approved'>>;
 };
 
-type CreateCommentResponse = {
-  createComment: CreatedComment;
+export type CreateCommentResponse = {
+  createComment: CreateCommentPayload;
 };
 
-export const createCommentMutation = `mutation CreateComment(
-  $author: String!
-  $authorEmail: String!
-  $authorUrl: String!
-  $content: String!
-  $parent: ID = null
-  $commentOn: Int!
-  $clientMutationId: String!
-) {
-  createComment(
-    input: {
-      author: $author
-      authorEmail: $authorEmail
-      authorUrl: $authorUrl
-      content: $content
-      parent: $parent
-      commentOn: $commentOn
-      clientMutationId: $clientMutationId
-    }
-  ) {
+export const createCommentMutation = `mutation CreateComment($input: CreateCommentInput!) {
+  createComment(input: $input) {
     clientMutationId
-    success
     comment {
       approved
     }
+    success
   }
 }`;
 
@@ -55,15 +35,15 @@ export type CreateCommentInput = {
  * Create a new comment using GraphQL API.
  *
  * @param {CreateCommentInput} input - The comment data.
- * @returns {Promise<CreatedComment>} The created comment.
+ * @returns {Promise<CreateCommentPayload>} The created comment.
  */
 export const createComment = async (
   input: CreateCommentInput
-): Promise<CreatedComment> => {
+): Promise<CreateCommentPayload> => {
   const response = await fetchGraphQL<CreateCommentResponse>({
     query: createCommentMutation,
     url: getGraphQLUrl(),
-    variables: { ...input },
+    variables: { input },
   });
 
   return response.createComment;

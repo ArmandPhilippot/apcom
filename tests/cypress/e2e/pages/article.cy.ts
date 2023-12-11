@@ -46,4 +46,17 @@ describe('Article', () => {
       'exist'
     );
   });
+
+  it('can submit a new comment', () => {
+    const comment = {
+      author: 'Jerome37',
+      email: 'Etha19@example.net',
+      content: 'Commodi sed quia.',
+    };
+    cy.findByRole('textbox', { name: /Nom/ }).type(comment.author);
+    cy.findByRole('textbox', { name: /E-mail/ }).type(comment.email);
+    cy.findByRole('textbox', { name: /Commentaire/ }).type(comment.content);
+    cy.findByRole('button', { name: /Publier/ }).click();
+    cy.findByText(/Merci/i).should('be.visible');
+  });
 });
