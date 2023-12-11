@@ -1,7 +1,5 @@
-/* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
@@ -17,7 +15,7 @@ import {
   PageSidebar,
 } from '../components';
 import { meta } from '../content/pages/contact.mdx';
-import { sendMail } from '../services/graphql';
+import { sendEmail } from '../services/graphql';
 import type { NextPageWithLayout } from '../types';
 import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
@@ -37,22 +35,42 @@ const ContactPage: NextPageWithLayout = () => {
     url: ROUTES.CONTACT,
   });
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: 'Contact',
-    description: 'ContactPage: page title',
-    id: 'AN9iy7',
-  });
-  const socialMediaTitle = intl.formatMessage({
-    defaultMessage: 'Find me elsewhere',
-    description: 'ContactPage: social media widget title',
-    id: 'Qh2CwH',
-  });
+  const messages = {
+    form: intl.formatMessage({
+      defaultMessage: 'Contact form',
+      description: 'Contact: form accessible name',
+      id: 'bPv0VG',
+    }),
+    widgets: {
+      socialMedia: {
+        github: intl.formatMessage({
+          defaultMessage: 'Github profile',
+          description: 'ContactPage: Github profile link',
+          id: '75FYp7',
+        }),
+        gitlab: intl.formatMessage({
+          defaultMessage: 'Gitlab profile',
+          description: 'ContactPage: Gitlab profile link',
+          id: '1V3CJf',
+        }),
+        linkedIn: intl.formatMessage({
+          defaultMessage: 'LinkedIn profile',
+          description: 'ContactPage: LinkedIn profile link',
+          id: 'Q3oEQn',
+        }),
+        title: intl.formatMessage({
+          defaultMessage: 'Find me elsewhere',
+          description: 'ContactPage: social media widget title',
+          id: 'Qh2CwH',
+        }),
+      },
+    },
+  };
 
-  const { asPath } = useRouter();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug: ROUTES.CONTACT,
     title: seo.title,
     updateDate: dates.update,
   });
@@ -62,30 +80,10 @@ const ContactPage: NextPageWithLayout = () => {
     id: 'contact',
     kind: 'contact',
     locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
+    slug: ROUTES.CONTACT,
     title,
   });
   const schemaJsonLd = getSchemaJson([webpageSchema, contactSchema]);
-  const githubLabel = intl.formatMessage({
-    defaultMessage: 'Github profile',
-    description: 'ContactPage: Github profile link',
-    id: '75FYp7',
-  });
-  const gitlabLabel = intl.formatMessage({
-    defaultMessage: 'Gitlab profile',
-    description: 'ContactPage: Gitlab profile link',
-    id: '1V3CJf',
-  });
-  const linkedinLabel = intl.formatMessage({
-    defaultMessage: 'LinkedIn profile',
-    description: 'ContactPage: LinkedIn profile link',
-    id: 'Q3oEQn',
-  });
-  const formName = intl.formatMessage({
-    defaultMessage: 'Contact form',
-    description: 'Contact: form accessible name',
-    id: 'bPv0VG',
-  });
 
   const submitMail: ContactFormSubmit = useCallback(
     async ({ email, message, name, object }) => {
@@ -98,7 +96,7 @@ const ContactPage: NextPageWithLayout = () => {
         replyTo,
         subject: object,
       };
-      const { message: mutationMessage, sent } = await sendMail(mailData);
+      const { message: mutationMessage, sent } = await sendEmail(mailData);
 
       if (sent) {
         return {
@@ -129,7 +127,7 @@ const ContactPage: NextPageWithLayout = () => {
   );
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
-    url: `${CONFIG.url}${asPath}`,
+    url: `${CONFIG.url}${ROUTES.CONTACT}`,
   };
 
   return (
@@ -156,34 +154,32 @@ const ContactPage: NextPageWithLayout = () => {
         id="schema-breadcrumb"
         type="application/ld+json"
       />
-      <PageHeader heading={pageTitle} intro={intro} />
+      <PageHeader heading={title} intro={intro} />
       <PageBody>
-        <ContactForm aria-label={formName} onSubmit={submitMail} />
+        <ContactForm aria-label={messages.form} onSubmit={submitMail} />
       </PageBody>
       <PageSidebar>
         <SocialMediaWidget
           heading={
-            <Heading isFake level={3}>
-              {socialMediaTitle}
-            </Heading>
+            <Heading level={2}>{messages.widgets.socialMedia.title}</Heading>
           }
           media={[
             {
               icon: 'Github',
               id: 'github',
-              label: githubLabel,
+              label: messages.widgets.socialMedia.github,
               url: 'https://github.com/ArmandPhilippot',
             },
             {
               icon: 'Gitlab',
               id: 'gitlab',
-              label: gitlabLabel,
+              label: messages.widgets.socialMedia.gitlab,
               url: 'https://gitlab.com/ArmandPhilippot',
             },
             {
               icon: 'LinkedIn',
               id: 'linkedin',
-              label: linkedinLabel,
+              label: messages.widgets.socialMedia.linkedIn,
               url: 'https://www.linkedin.com/in/armandphilippot',
             },
           ]}

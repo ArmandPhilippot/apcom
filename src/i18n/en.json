@@ -187,10 +187,6 @@
     "defaultMessage": "Comment:",
     "description": "CommentForm: comment label"
   },
-  "AN9iy7": {
-    "defaultMessage": "Contact",
-    "description": "ContactPage: page title"
-  },
   "AXe1Iz": {
     "defaultMessage": "Pagination",
     "description": "BlogPage: pagination accessible name"

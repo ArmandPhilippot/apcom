@@ -3,6 +3,7 @@ import { commentTypes } from './comment.types';
 import { commonTypes } from './common.types';
 import { featuredImageTypes } from './featured-image.types';
 import { postTypes } from './post.types';
+import { sendEmailTypes } from './send-email.types';
 import { thematicTypes } from './thematic.types';
 import { topicTypes } from './topic.types';
 
@@ -52,13 +53,19 @@ const rootQueryType = `type Query {
   ): RootQueryToTopicConnection
 }`;
 
+const rootMutationType = `type Mutation {
+  sendEmail(input: SendEmailInput!): SendEmailPayload
+}`;
+
 export const types = [
   authorTypes,
   commentTypes,
   commonTypes,
   featuredImageTypes,
   postTypes,
+  sendEmailTypes,
   thematicTypes,
   topicTypes,
   rootQueryType,
+  rootMutationType,
 ];

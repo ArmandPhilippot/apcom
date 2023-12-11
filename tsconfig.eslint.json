@@ -6,7 +6,7 @@
     "./src/**/*",
     "./tests/**/*",
     "./commitlint.config.js",
-    "./cypress.config.js",
+    "./cypress.config.ts",
     "./jest.config.js",
     "./jest.setup.js",
     "./lint-staged.config.js",

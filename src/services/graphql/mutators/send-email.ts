@@ -1,21 +1,20 @@
-import { fetchGraphQL, getGraphQLUrl } from 'src/utils/helpers';
+import type { Nullable } from '../../../types';
+import { fetchGraphQL, getGraphQLUrl } from '../../../utils/helpers';
 
-type SentEmail = {
-  clientMutationId: string;
+export type SendEmail = {
+  clientMutationId: Nullable<string>;
   message: string;
   origin: string;
   replyTo: string;
   sent: boolean;
 };
 
-type SendEmailResponse = {
-  sendEmail: SentEmail;
+export type SendEmailResponse = {
+  sendEmail: SendEmail;
 };
 
-const sendMailMutation = `mutation SendEmail($body: String, $clientMutationId: String, $replyTo: String, $subject: String) {
-  sendEmail(
-    input: {body: $body, clientMutationId: $clientMutationId, replyTo: $replyTo, subject: $subject}
-  ) {
+const sendEmailMutation = `mutation SendEmail($input: SendEmailInput!) {
+  sendEmail(input: $input) {
     clientMutationId
     message
     origin
@@ -25,24 +24,24 @@ const sendMailMutation = `mutation SendEmail($body: String, $clientMutationId: S
   }
 }`;
 
-export type SendMailInput = {
+export type SendEmailInput = {
   body: string;
   clientMutationId: string;
   replyTo: string;
-  subject: string;
+  subject?: string;
 };
 
 /**
  * Send an email using GraphQL API.
  *
- * @param {SendMailInput} data - The mail data.
- * @returns {Promise<SentEmail>} The mutation response.
+ * @param {SendEmailInput} input - The mail input.
+ * @returns {Promise<SendEmail>} The mutation response.
  */
-export const sendMail = async (data: SendMailInput): Promise<SentEmail> => {
+export const sendEmail = async (input: SendEmailInput): Promise<SendEmail> => {
   const response = await fetchGraphQL<SendEmailResponse>({
-    query: sendMailMutation,
+    query: sendEmailMutation,
     url: getGraphQLUrl(),
-    variables: { ...data },
+    variables: { input },
   });
 
   return response.sendEmail;
