@@ -1,5 +1,5 @@
 import { describe, it } from '@jest/globals';
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import nextRouterMock from 'next-router-mock';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import { useRedirection } from './use-redirection';
@@ -12,7 +12,7 @@ describe('useRedirection', () => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     expect.assertions(2);
 
-    await nextRouterMock.push('/initial-path');
+    await act(async () => nextRouterMock.push('/initial-path'));
 
     expect(nextRouterMock.asPath).toBe(initialPath);
 
@@ -30,7 +30,7 @@ describe('useRedirection', () => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     expect.assertions(2);
 
-    await nextRouterMock.push('/initial-path');
+    await act(async () => nextRouterMock.push('/initial-path'));
 
     expect(nextRouterMock.asPath).toBe(initialPath);
 
@@ -54,7 +54,7 @@ describe('useRedirection', () => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     expect.assertions(3);
 
-    await nextRouterMock.push('/initial-path');
+    await act(async () => nextRouterMock.push('/initial-path'));
 
     expect(nextRouterMock.asPath).toBe(paths.initial);
 
@@ -71,7 +71,7 @@ describe('useRedirection', () => {
 
     expect(nextRouterMock.asPath).toBe(paths.initial);
 
-    await nextRouterMock.push(paths.matching);
+    await act(async () => nextRouterMock.push(paths.matching));
 
     rerender();
 
