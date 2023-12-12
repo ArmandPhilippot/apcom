@@ -19,6 +19,10 @@
     "defaultMessage": "Sujets connexes",
     "description": "ThematicPage: related topics list widget title"
   },
+  "/5tytV": {
+    "defaultMessage": "Page {number}",
+    "description": "UseBreadcrumbs: paginated route label"
+  },
   "/EfcyW": {
     "defaultMessage": "Il est maintenant en attente de modération.",
     "description": "PageComments: comment awaiting moderation"
@@ -78,10 +82,6 @@
   "1msHuZ": {
     "defaultMessage": "Gitlab",
     "description": "ProjectPage: Gitlab repo label"
-  },
-  "28GZdv": {
-    "defaultMessage": "Projets",
-    "description": "Breadcrumb: projects label"
   },
   "2By3AZ": {
     "defaultMessage": "Ouvrir le menu",
@@ -231,9 +231,9 @@
     "defaultMessage": "Chargement des métadonnées du dépôt…",
     "description": "ProjectPage: loading repository metadata"
   },
-  "Es52wh": {
-    "defaultMessage": "Blog",
-    "description": "Breadcrumb: blog label"
+  "EH+dam": {
+    "defaultMessage": "404: Non trouvé",
+    "description": "UseBreadcrumbs: page not found label"
   },
   "FCpPCm": {
     "defaultMessage": "Commentaires :",
@@ -306,6 +306,10 @@
   "K4rYdT": {
     "defaultMessage": "Aller au contenu",
     "description": "Layout: Skip to content link"
+  },
+  "K6aSZi": {
+    "defaultMessage": "Blog",
+    "description": "UseBreadcrumbs: blog label"
   },
   "KVSWGP": {
     "defaultMessage": "Autres thématiques",
@@ -491,6 +495,10 @@
     "defaultMessage": "{topicsCount, plural, =0 {Sujets :} one {Sujet :} other {Sujets :}}",
     "description": "PostPreviewMeta: topics label"
   },
+  "aZIuPO": {
+    "defaultMessage": "Accueil",
+    "description": "UseBreadcrumbs: home label"
+  },
   "bAXtMT": {
     "defaultMessage": "{postsCount, plural, =0 {Aucun article} one {# article} other {# articles}}",
     "description": "PageHeader: total meta value"
@@ -547,6 +555,10 @@
     "defaultMessage": "Blocs de code :",
     "description": "PrismThemeToggle: theme label"
   },
+  "gSevGm": {
+    "defaultMessage": "Résultats de la recherche pour « {query} »",
+    "description": "UseBreadcrumbs: search results label"
+  },
   "gYbxP4": {
     "defaultMessage": "Les commentaires sont en cours de chargement…",
     "description": "LoadingPageComments: loading message"
@@ -563,13 +575,13 @@
     "defaultMessage": "Illustration de {postTitle}",
     "description": "PostPreview: an accessible name for the figure wrapping the cover"
   },
+  "iHC3Qx": {
+    "defaultMessage": "Recherche",
+    "description": "UseBreadcrumbs: search label"
+  },
   "iTLvLX": {
     "defaultMessage": "CC BY SA",
     "description": "SiteFooter: the license name"
-  },
-  "j5k9Fe": {
-    "defaultMessage": "Accueil",
-    "description": "Breadcrumb: home label"
   },
   "jJm8wd": {
     "defaultMessage": "Temps de lecture :",
@@ -670,6 +682,10 @@
   "rVoW4G": {
     "defaultMessage": "Les thématiques sont en cours de chargement…",
     "description": "ThematicPage: loading thematics message"
+  },
+  "rkz8C6": {
+    "defaultMessage": "Projets",
+    "description": "UseBreadcrumbs: projects label"
   },
   "s57FTB": {
     "defaultMessage": "Partager",

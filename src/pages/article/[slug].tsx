@@ -46,7 +46,7 @@ import {
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
   useArticle,
-  useBreadcrumb,
+  useBreadcrumbs,
   useComments,
   useHeadingsTree,
   usePrism,
@@ -74,10 +74,9 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
       contentId: article.id,
     },
   });
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: data.post.title,
-    url: data.post.slug,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumbs(
+    article.title
+  );
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
   const { attributes, className: prismClassName } = usePrism({
     attributes: {
@@ -172,6 +171,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
     webpageSchema,
     blogSchema,
     blogPostSchema,
+    breadcrumbSchema,
     ...getCommentsSchema(comments),
   ]);
 
@@ -207,12 +207,6 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={title}

@@ -49,7 +49,7 @@ import {
   loadTranslation,
 } from '../../utils/helpers/server';
 import {
-  useBreadcrumb,
+  useBreadcrumbs,
   useGithubRepoMeta,
   useHeadingsTree,
 } from '../../utils/hooks';
@@ -183,10 +183,8 @@ type ProjectPageProps = {
 const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
   const { id, intro, meta, slug, title } = data.project;
   const intl = useIntl();
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: slug,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } =
+    useBreadcrumbs(title);
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
   const page = {
@@ -211,7 +209,11 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
     slug,
     title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    articleSchema,
+    breadcrumbSchema,
+  ]);
 
   const messages = {
     repos: {
@@ -261,12 +263,6 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={title}

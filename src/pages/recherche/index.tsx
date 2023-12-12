@@ -46,7 +46,7 @@ import {
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
   useArticlesList,
-  useBreadcrumb,
+  useBreadcrumbs,
   useThematicsList,
   useTopicsList,
 } from '../../utils/hooks';
@@ -211,10 +211,7 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ data }) => {
     },
   };
 
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: messages.pageTitle,
-    url: ROUTES.SEARCH,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumbs();
 
   const webpageSchema = getWebPageSchema({
     description: messages.seo.metaDesc,
@@ -227,7 +224,11 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ data }) => {
     locale: CONFIG.locales.defaultLocale,
     slug: asPath,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    blogSchema,
+    breadcrumbSchema,
+  ]);
 
   const pageUrl = `${CONFIG.url}${asPath}`;
 
@@ -249,12 +250,6 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ data }) => {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={messages.pageTitle}

@@ -29,7 +29,7 @@ import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
 import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
-import { useBreadcrumb } from '../utils/hooks';
+import { useBreadcrumbs } from '../utils/hooks';
 
 type RecentPostsProps = {
   posts: RecentArticle[];
@@ -129,10 +129,7 @@ type HomeProps = {
  * Home page.
  */
 const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
-  const { schema: breadcrumbSchema } = useBreadcrumb({
-    title: '',
-    url: ROUTES.HOME,
-  });
+  const { schema: breadcrumbSchema } = useBreadcrumbs();
 
   const webpageSchema = getWebPageSchema({
     description: meta.seo.description,
@@ -140,7 +137,7 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
     slug: ROUTES.HOME,
     title: meta.seo.title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema]);
+  const schemaJsonLd = getSchemaJson([webpageSchema, breadcrumbSchema]);
 
   return (
     <Page hasSections>
@@ -157,12 +154,6 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
         id="schema-homepage"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <HomePageContent components={getComponents(recentPosts)} />
     </Page>

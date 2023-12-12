@@ -37,7 +37,7 @@ import type {
   WPTopicPreview,
 } from '../../types';
 import { CONFIG } from '../../utils/config';
-import { ROUTES } from '../../utils/constants';
+import { PAGINATED_ROUTE_PREFIX, ROUTES } from '../../utils/constants';
 import {
   getBlogSchema,
   getLinksItemData,
@@ -48,13 +48,13 @@ import {
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
   useArticlesList,
-  useBreadcrumb,
+  useBreadcrumbs,
   useThematicsList,
   useTopicsList,
 } from '../../utils/hooks';
 
 const renderPaginationLink: RenderPaginationLink = (pageNum) =>
-  `${ROUTES.BLOG}/page/${pageNum}`;
+  `${ROUTES.BLOG}${PAGINATED_ROUTE_PREFIX}/${pageNum}`;
 
 type BlogPageProps = {
   data: {
@@ -156,10 +156,9 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
     },
   };
 
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: messages.pageTitle,
-    url: ROUTES.BLOG,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumbs(
+    messages.pageTitle
+  );
 
   const webpageSchema = getWebPageSchema({
     description: messages.seo.metaDesc,
@@ -172,7 +171,11 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
     locale: CONFIG.locales.defaultLocale,
     slug: ROUTES.BLOG,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, blogSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    blogSchema,
+    breadcrumbSchema,
+  ]);
 
   const renderPaginationLabel: RenderPaginationItemAriaLabel = useCallback(
     ({ kind, pageNumber: number, isCurrentPage }) => {
@@ -239,12 +242,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={messages.pageTitle}

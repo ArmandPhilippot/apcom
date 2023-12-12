@@ -19,6 +19,10 @@
     "defaultMessage": "Related topics",
     "description": "ThematicPage: related topics list widget title"
   },
+  "/5tytV": {
+    "defaultMessage": "Page {number}",
+    "description": "UseBreadcrumbs: paginated route label"
+  },
   "/EfcyW": {
     "defaultMessage": "It is now awaiting moderation.",
     "description": "PageComments: comment awaiting moderation"
@@ -78,10 +82,6 @@
   "1msHuZ": {
     "defaultMessage": "Gitlab",
     "description": "ProjectPage: Gitlab repo label"
-  },
-  "28GZdv": {
-    "defaultMessage": "Projects",
-    "description": "Breadcrumb: projects label"
   },
   "2By3AZ": {
     "defaultMessage": "Open menu",
@@ -231,9 +231,9 @@
     "defaultMessage": "Loading the repository metadata...",
     "description": "ProjectPage: loading repository metadata"
   },
-  "Es52wh": {
-    "defaultMessage": "Blog",
-    "description": "Breadcrumb: blog label"
+  "EH+dam": {
+    "defaultMessage": "404: Not found",
+    "description": "UseBreadcrumbs: page not found label"
   },
   "FCpPCm": {
     "defaultMessage": "Comments:",
@@ -306,6 +306,10 @@
   "K4rYdT": {
     "defaultMessage": "Skip to content",
     "description": "Layout: Skip to content link"
+  },
+  "K6aSZi": {
+    "defaultMessage": "Blog",
+    "description": "UseBreadcrumbs: blog label"
   },
   "KVSWGP": {
     "defaultMessage": "Other thematics",
@@ -491,6 +495,10 @@
     "defaultMessage": "{topicsCount, plural, =0 {Topics:} one {Topic:} other {Topics:}}",
     "description": "PostPreviewMeta: topics label"
   },
+  "aZIuPO": {
+    "defaultMessage": "Home",
+    "description": "UseBreadcrumbs: home label"
+  },
   "bAXtMT": {
     "defaultMessage": "{postsCount, plural, =0 {No posts} one {# post} other {# posts}}",
     "description": "PageHeader: total meta value"
@@ -547,6 +555,10 @@
     "defaultMessage": "Code blocks:",
     "description": "PrismThemeToggle: theme label"
   },
+  "gSevGm": {
+    "defaultMessage": "Search results for \"{query}\"",
+    "description": "UseBreadcrumbs: search results label"
+  },
   "gYbxP4": {
     "defaultMessage": "The comments are loading...",
     "description": "LoadingPageComments: loading message"
@@ -563,13 +575,13 @@
     "defaultMessage": "{postTitle} cover",
     "description": "PostPreview: an accessible name for the figure wrapping the cover"
   },
+  "iHC3Qx": {
+    "defaultMessage": "Search",
+    "description": "UseBreadcrumbs: search label"
+  },
   "iTLvLX": {
     "defaultMessage": "CC BY SA",
     "description": "SiteFooter: the license name"
-  },
-  "j5k9Fe": {
-    "defaultMessage": "Home",
-    "description": "Breadcrumb: home label"
   },
   "jJm8wd": {
     "defaultMessage": "Reading time:",
@@ -670,6 +682,10 @@
   "rVoW4G": {
     "defaultMessage": "Thematics are loading...",
     "description": "ThematicPage: loading thematics message"
+  },
+  "rkz8C6": {
+    "defaultMessage": "Projects",
+    "description": "UseBreadcrumbs: projects label"
   },
   "s57FTB": {
     "defaultMessage": "Share",

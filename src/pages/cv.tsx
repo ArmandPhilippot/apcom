@@ -22,14 +22,14 @@ import { mdxComponents } from '../components/mdx';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import type { NextPageWithLayout } from '../types';
 import { CONFIG } from '../utils/config';
-import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
+import { PERSONAL_LINKS } from '../utils/constants';
 import {
   getSchemaJson,
   getSinglePageSchema,
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
+import { useBreadcrumbs, useHeadingsTree } from '../utils/hooks';
 
 const DownloadLink = (chunks: ReactNode) => (
   <Link href={data.file} isDownload>
@@ -44,10 +44,8 @@ const CVPage: NextPageWithLayout = () => {
   const intl = useIntl();
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
   const { dates, intro, seo, title } = meta;
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: ROUTES.CV,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } =
+    useBreadcrumbs(title);
   const messages = {
     image: {
       caption: intl.formatMessage(
@@ -115,7 +113,11 @@ const CVPage: NextPageWithLayout = () => {
     slug: asPath,
     title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, cvSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    cvSchema,
+    breadcrumbSchema,
+  ]);
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
     url: `${CONFIG.url}${asPath}`,
@@ -140,12 +142,6 @@ const CVPage: NextPageWithLayout = () => {
         id="schema-cv"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={title}

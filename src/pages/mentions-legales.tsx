@@ -22,7 +22,7 @@ import {
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
+import { useBreadcrumbs, useHeadingsTree } from '../utils/hooks';
 
 /**
  * Legal Notice page.
@@ -30,10 +30,8 @@ import { useBreadcrumb, useHeadingsTree } from '../utils/hooks';
 const LegalNoticePage: NextPageWithLayout = () => {
   const intl = useIntl();
   const { dates, intro, seo, title } = meta;
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: ROUTES.LEGAL_NOTICE,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } =
+    useBreadcrumbs(title);
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
   const webpageSchema = getWebPageSchema({
@@ -52,7 +50,11 @@ const LegalNoticePage: NextPageWithLayout = () => {
     slug: ROUTES.LEGAL_NOTICE,
     title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    articleSchema,
+    breadcrumbSchema,
+  ]);
 
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
@@ -81,12 +83,6 @@ const LegalNoticePage: NextPageWithLayout = () => {
         id="schema-legal-notice"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={title}

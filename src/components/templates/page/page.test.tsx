@@ -24,8 +24,8 @@ describe('Page', () => {
     const body =
       'Consequatur deleniti eligendi quidem sint et nobis ut qui. Dolores modi eos. Cupiditate aliquid sunt consequatur voluptatem laudantium.';
     const breadcrumbs = [
-      { id: 'home', name: 'Home', url: '#home' },
-      { id: 'blog', name: 'Blog', url: '#blog' },
+      { id: 'home', label: 'Home', slug: '#home' },
+      { id: 'blog', label: 'Blog', slug: '#blog' },
     ] satisfies BreadcrumbsItem[];
 
     render(

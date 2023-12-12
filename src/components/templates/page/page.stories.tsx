@@ -173,8 +173,8 @@ HeaderBody.args = {
 export const BreadcrumbsHeaderBody = Template.bind({});
 BreadcrumbsHeaderBody.args = {
   breadcrumbs: [
-    { id: 'home', name: 'Home', url: '#home' },
-    { id: 'blog', name: 'Blog', url: '#blog' },
+    { id: 'home', label: 'Home', slug: '#home' },
+    { id: 'blog', label: 'Blog', slug: '#blog' },
   ],
   children: (
     <>

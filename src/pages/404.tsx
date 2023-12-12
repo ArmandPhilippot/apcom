@@ -36,7 +36,11 @@ import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
 import { getLinksItemData } from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
-import { useBreadcrumb, useThematicsList, useTopicsList } from '../utils/hooks';
+import {
+  useBreadcrumbs,
+  useThematicsList,
+  useTopicsList,
+} from '../utils/hooks';
 
 const link = (chunks: ReactNode) => <Link href={ROUTES.CONTACT}>{chunks}</Link>;
 
@@ -110,10 +114,9 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({ data }) => {
       }),
     },
   };
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: messages.page.title,
-    url: ROUTES.NOT_FOUND,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumbs(
+    messages.page.title
+  );
 
   const searchSubmitHandler: SearchFormSubmit = useCallback(
     async ({ query }) => {

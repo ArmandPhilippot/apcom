@@ -34,7 +34,6 @@ import type {
   WPTopicPreview,
 } from '../../types';
 import { CONFIG } from '../../utils/config';
-import { ROUTES } from '../../utils/constants';
 import {
   getLinksItemData,
   getPostsWithUrl,
@@ -45,7 +44,7 @@ import {
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
-  useBreadcrumb,
+  useBreadcrumbs,
   useHeadingsTree,
   useTopic,
   useTopicsList,
@@ -71,10 +70,9 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({ data }) => {
     fallback: data.otherTopics,
     input: { first: data.totalTopics, where: { notIn: [topic.id] } },
   });
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: topic.title,
-    url: `${ROUTES.TOPICS}/${topic.slug}`,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumbs(
+    topic.title
+  );
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
   if (isFallback || isLoading) return <LoadingPage />;
@@ -106,7 +104,11 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({ data }) => {
     slug,
     title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    articleSchema,
+    breadcrumbSchema,
+  ]);
 
   const messages = {
     widgets: {
@@ -162,12 +164,6 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({ data }) => {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={

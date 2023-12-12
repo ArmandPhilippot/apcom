@@ -2,7 +2,7 @@ export * from './use-ackee';
 export * from './use-article';
 export * from './use-articles-list';
 export * from './use-boolean';
-export * from './use-breadcrumb';
+export * from './use-breadcrumbs';
 export * from './use-comments';
 export * from './use-form';
 export * from './use-github-repo-meta';

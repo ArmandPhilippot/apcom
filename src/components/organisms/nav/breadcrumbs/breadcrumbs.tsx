@@ -9,13 +9,13 @@ export type BreadcrumbsItem = {
    */
   id: string;
   /**
-   * The item URL.
+   * The item label.
    */
-  url: string;
+  label: string;
   /**
-   * The item name.
+   * The item slug.
    */
-  name: string;
+  slug: string;
 };
 
 export type BreadcrumbsProps = Omit<NavProps, 'children'> & {
@@ -46,10 +46,10 @@ const BreadcrumbsWithRef: ForwardRefRenderFunction<
           return (
             <NavItem key={item.id}>
               {isLastItem ? (
-                <VisuallyHidden>{item.name}</VisuallyHidden>
+                <VisuallyHidden>{item.label}</VisuallyHidden>
               ) : (
                 <>
-                  <NavLink href={item.url} label={item.name} />
+                  <NavLink href={item.slug} label={item.label} />
                   <span aria-hidden className={styles.sep}>
                     {sep}
                   </span>

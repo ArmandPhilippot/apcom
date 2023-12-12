@@ -28,7 +28,7 @@ const Template: ComponentStory<typeof Breadcrumbs> = (args) => (
  */
 export const OneItem = Template.bind({});
 OneItem.args = {
-  items: [{ id: 'home', url: '#', name: 'Home' }],
+  items: [{ id: 'home', slug: '#', label: 'Home' }],
 };
 
 /**
@@ -37,8 +37,8 @@ OneItem.args = {
 export const TwoItems = Template.bind({});
 TwoItems.args = {
   items: [
-    { id: 'home', url: '#', name: 'Home' },
-    { id: 'blog', url: '#', name: 'Blog' },
+    { id: 'home', slug: '#', label: 'Home' },
+    { id: 'blog', slug: '#', label: 'Blog' },
   ],
 };
 
@@ -48,8 +48,8 @@ TwoItems.args = {
 export const ThreeItems = Template.bind({});
 ThreeItems.args = {
   items: [
-    { id: 'home', url: '#', name: 'Home' },
-    { id: 'blog', url: '#', name: 'Blog' },
-    { id: 'post1', url: '#', name: 'A Post' },
+    { id: 'home', slug: '#', label: 'Home' },
+    { id: 'blog', slug: '#', label: 'Blog' },
+    { id: 'post1', slug: '#', label: 'A Post' },
   ],
 };

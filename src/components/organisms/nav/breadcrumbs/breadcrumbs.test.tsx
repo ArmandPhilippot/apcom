@@ -3,9 +3,9 @@ import { render, screen as rtlScreen } from '@testing-library/react';
 import { Breadcrumbs, type BreadcrumbsItem } from './breadcrumbs';
 
 const items: BreadcrumbsItem[] = [
-  { id: 'home', url: '#', name: 'Home' },
-  { id: 'blog', url: '#', name: 'Blog' },
-  { id: 'post1', url: '#', name: 'A Post' },
+  { id: 'home', slug: '#', label: 'Home' },
+  { id: 'blog', slug: '#', label: 'Blog' },
+  { id: 'post1', slug: '#', label: 'A Post' },
 ];
 
 describe('Breadcrumbs', () => {

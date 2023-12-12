@@ -33,7 +33,6 @@ import type {
   WPThematicPreview,
 } from '../../types';
 import { CONFIG } from '../../utils/config';
-import { ROUTES } from '../../utils/constants';
 import {
   getLinksItemData,
   getPostsWithUrl,
@@ -44,7 +43,7 @@ import {
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
-  useBreadcrumb,
+  useBreadcrumbs,
   useHeadingsTree,
   useThematic,
   useThematicsList,
@@ -70,10 +69,9 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({ data }) => {
     fallback: data.otherThematics,
     input: { first: data.totalThematics, where: { notIn: [thematic.id] } },
   });
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title: data.currentThematic.title,
-    url: `${ROUTES.THEMATICS}/${data.currentThematic.slug}`,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumbs(
+    thematic.title
+  );
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
   if (isFallback || isLoading) return <LoadingPage />;
@@ -97,7 +95,11 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({ data }) => {
     slug,
     title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    articleSchema,
+    breadcrumbSchema,
+  ]);
 
   const messages = {
     widgets: {
@@ -153,12 +155,6 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({ data }) => {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={title}

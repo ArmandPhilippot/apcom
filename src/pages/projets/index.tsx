@@ -35,7 +35,7 @@ import {
   loadTranslation,
   type Messages,
 } from '../../utils/helpers/server';
-import { useBreadcrumb } from '../../utils/hooks';
+import { useBreadcrumbs } from '../../utils/hooks';
 
 type ProjectsPageProps = {
   data: {
@@ -49,10 +49,8 @@ type ProjectsPageProps = {
  */
 const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ data }) => {
   const { dates, seo, title } = meta;
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: ROUTES.PROJECTS,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } =
+    useBreadcrumbs(title);
   const intl = useIntl();
   const webpageSchema = getWebPageSchema({
     description: seo.description,
@@ -70,7 +68,11 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ data }) => {
     slug: ROUTES.PROJECTS,
     title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, articleSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    articleSchema,
+    breadcrumbSchema,
+  ]);
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
     url: `${CONFIG.url}${ROUTES.PROJECTS}`,
@@ -94,12 +96,6 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ data }) => {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger -- Necessary for schema
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader
         heading={title}

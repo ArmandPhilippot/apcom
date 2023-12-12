@@ -25,15 +25,13 @@ import {
   getWebPageSchema,
 } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
-import { useBreadcrumb } from '../utils/hooks';
+import { useBreadcrumbs } from '../utils/hooks';
 
 const ContactPage: NextPageWithLayout = () => {
   const { dates, intro, seo, title } = meta;
   const intl = useIntl();
-  const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumb({
-    title,
-    url: ROUTES.CONTACT,
-  });
+  const { items: breadcrumbItems, schema: breadcrumbSchema } =
+    useBreadcrumbs(title);
 
   const messages = {
     form: intl.formatMessage({
@@ -83,7 +81,11 @@ const ContactPage: NextPageWithLayout = () => {
     slug: ROUTES.CONTACT,
     title,
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, contactSchema]);
+  const schemaJsonLd = getSchemaJson([
+    webpageSchema,
+    contactSchema,
+    breadcrumbSchema,
+  ]);
 
   const submitMail: ContactFormSubmit = useCallback(
     async ({ email, message, name, object }) => {
@@ -147,12 +149,6 @@ const ContactPage: NextPageWithLayout = () => {
         id="schema-contact"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
       />
       <PageHeader heading={title} intro={intro} />
       <PageBody>

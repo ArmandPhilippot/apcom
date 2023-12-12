@@ -26,6 +26,8 @@ export const ROUTES = {
   TOPICS: '/sujet',
 } as const;
 
+export const PAGINATED_ROUTE_PREFIX = '/page';
+
 // cSpell:ignore legales thematique developpement
 
 export const STORAGE_KEY = {
