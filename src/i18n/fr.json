@@ -507,6 +507,10 @@
     "defaultMessage": "Formulaire de contact",
     "description": "Contact: form accessible name"
   },
+  "bW6Zda": {
+    "defaultMessage": "Découvrez les résultats de recherche pour {query} sur le site d’{websiteName}.",
+    "description": "SearchPage: SEO - Meta description"
+  },
   "c0Oecl": {
     "defaultMessage": "Créé le :",
     "description": "ProjectOverview: creation date label"
@@ -583,6 +587,10 @@
     "defaultMessage": "CC BY SA",
     "description": "SiteFooter: the license name"
   },
+  "j3+hB9": {
+    "defaultMessage": "Accueil",
+    "description": "HomePage: page title"
+  },
   "jJm8wd": {
     "defaultMessage": "Temps de lecture :",
     "description": "PageHeader: reading time label"
@@ -631,10 +639,6 @@
     "defaultMessage": "Répondre au commentaire {id}",
     "description": "ReplyCommentForm: an accessible name for the reply form"
   },
-  "npisb3": {
-    "defaultMessage": "Rechercher un article sur {websiteName}.",
-    "description": "SearchPage: SEO - Meta description"
-  },
   "nsw6Th": {
     "defaultMessage": "Copié !",
     "description": "usePrism: copy button text (clicked)"
@@ -671,13 +675,13 @@
     "defaultMessage": "Arrêt",
     "description": "MotionToggle: deactivate reduce motion label"
   },
-  "pg26sn": {
-    "defaultMessage": "Découvrez les résultats de recherche pour {query} sur {websiteName}.",
-    "description": "SearchPage: SEO - Meta description"
-  },
   "qFqWQH": {
     "defaultMessage": "Les thématiques sont en cours de chargement…",
     "description": "SearchPage: loading thematics message"
+  },
+  "rEp1mS": {
+    "defaultMessage": "Rechercher un article sur le site d’{websiteName}.",
+    "description": "SearchPage: SEO - Meta description"
   },
   "rVoW4G": {
     "defaultMessage": "Les thématiques sont en cours de chargement…",

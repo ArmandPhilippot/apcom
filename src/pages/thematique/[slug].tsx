@@ -3,7 +3,6 @@ import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -36,10 +35,10 @@ import { CONFIG } from '../../utils/config';
 import {
   getLinksItemData,
   getPostsWithUrl,
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
+  getSchemaFrom,
+  getWebPageGraph,
   slugify,
+  trimHTMLTags,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
@@ -79,26 +78,15 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({ data }) => {
   const { content, intro, meta, slug, title } = thematic;
   const { articles, dates, seo, relatedTopics } = meta;
 
-  const webpageSchema = getWebPageSchema({
-    description: seo.description,
-    locale: CONFIG.locales.defaultLocale,
-    slug,
-    title: seo.title,
-    updateDate: dates.update,
-  });
-  const articleSchema = getSinglePageSchema({
-    dates,
-    description: intro,
-    id: 'thematic',
-    kind: 'page',
-    locale: CONFIG.locales.defaultLocale,
-    slug,
-    title,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    articleSchema,
-    breadcrumbSchema,
+  const jsonLd = getSchemaFrom([
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(dates.publication).getFullYear(),
+      dates,
+      description: trimHTMLTags(intro),
+      slug,
+      title,
+    }),
   ]);
 
   const messages = {
@@ -148,14 +136,12 @@ const ThematicPage: NextPageWithLayout<ThematicPageProps> = ({ data }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-project"
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger -- Necessary for schema
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={title}
         intro={intro}

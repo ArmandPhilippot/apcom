@@ -1,6 +1,7 @@
 import NextImage from 'next/image';
 import { type ForwardRefRenderFunction, forwardRef, useCallback } from 'react';
 import { useIntl } from 'react-intl';
+import { COMMENT_ID_PREFIX } from '../../../../utils/constants';
 import { Button, Link, Time } from '../../../atoms';
 import {
   Card,
@@ -99,7 +100,7 @@ const ApprovedCommentWithRef: ForwardRefRenderFunction<
 ) => {
   const intl = useIntl();
   const commentClass = `${className}`;
-  const commentId = `comment-${id}`;
+  const commentId = `${COMMENT_ID_PREFIX}${id}`;
   const commentLink = `#${commentId}`;
   const publicationDateLabel = intl.formatMessage({
     defaultMessage: 'Published on:',

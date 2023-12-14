@@ -10,6 +10,7 @@ import {
   createComment,
   type CreateCommentInput,
 } from '../../../services/graphql';
+import { COMMENTS_SECTION_ID } from '../../../utils/constants';
 import { Heading, Link, Section } from '../../atoms';
 import { Card, CardBody } from '../../molecules';
 import {
@@ -27,7 +28,7 @@ const link = (chunks: ReactNode) => (
 
 export type PageCommentsProps = Omit<
   HTMLAttributes<HTMLDivElement>,
-  'children' | 'onSubmit'
+  'children' | 'id' | 'onSubmit'
 > &
   Pick<CommentsListProps, 'depth'> & {
     /**
@@ -139,7 +140,7 @@ const PageCommentsWithRef: ForwardRefRenderFunction<
   );
 
   return (
-    <div {...props} className={wrapperClass} ref={ref}>
+    <div {...props} className={wrapperClass} id={COMMENTS_SECTION_ID} ref={ref}>
       <Section className={styles.comments__body}>
         <Heading className={styles.heading} level={2}>
           {commentsListTitle}

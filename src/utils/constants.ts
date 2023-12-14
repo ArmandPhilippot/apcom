@@ -30,6 +30,11 @@ export const PAGINATED_ROUTE_PREFIX = '/page';
 
 // cSpell:ignore legales thematique developpement
 
+export const ARTICLE_ID = 'article';
+export const AUTHOR_ID = 'branding';
+export const COMMENT_ID_PREFIX = 'comment-';
+export const COMMENTS_SECTION_ID = 'comments';
+
 export const STORAGE_KEY = {
   ACKEE: 'ackee-tracking',
   MOTION: 'reduced-motion',

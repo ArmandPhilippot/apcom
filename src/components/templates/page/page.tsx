@@ -4,6 +4,7 @@ import {
   type HTMLAttributes,
 } from 'react';
 import { useIntl } from 'react-intl';
+import { ARTICLE_ID } from '../../../utils/constants';
 import { Article } from '../../atoms';
 import { Breadcrumbs, type BreadcrumbsItem } from '../../organisms/nav';
 import styles from './page.module.scss';
@@ -63,7 +64,9 @@ const PageWithRef: ForwardRefRenderFunction<HTMLDivElement, PageProps> = (
           items={breadcrumbs}
         />
       ) : null}
-      <Article className={pageClass}>{children}</Article>
+      <Article className={pageClass} id={ARTICLE_ID}>
+        {children}
+      </Article>
     </div>
   );
 };

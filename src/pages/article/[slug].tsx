@@ -3,7 +3,6 @@ import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -36,11 +35,12 @@ import type {
 } from '../../types';
 import { CONFIG } from '../../utils/config';
 import {
-  getBlogSchema,
-  getCommentsSchema,
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
+  getBlogPostingGraph,
+  getCommentGraph,
+  getReadingTimeFrom,
+  getSchemaFrom,
+  getWebPageGraph,
+  trimHTMLTags,
   updateWordPressCodeBlocks,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
@@ -129,9 +129,17 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
     [intl]
   );
 
+  const flattenComments = useCallback(
+    (allComments: SingleComment[]): SingleComment[] => [
+      ...allComments,
+      ...allComments.flatMap((comment) => flattenComments(comment.replies)),
+    ],
+    []
+  );
+
   if (isFallback || isLoading) return <LoadingPage />;
 
-  const { content, id, intro, meta, title } = article;
+  const { content, id, intro, meta, slug, title } = article;
   const {
     author,
     commentsCount,
@@ -143,36 +151,42 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
     wordsCount,
   } = meta;
 
-  const webpageSchema = getWebPageSchema({
-    description: intro,
-    locale: CONFIG.locales.defaultLocale,
-    slug: article.slug,
-    title,
-    updateDate: dates.update,
-  });
-  const blogSchema = getBlogSchema({
-    isSinglePage: true,
-    locale: CONFIG.locales.defaultLocale,
-    slug: article.slug,
-  });
-  const blogPostSchema = getSinglePageSchema({
-    commentsCount,
-    content,
-    cover: cover?.src,
-    dates,
-    description: intro,
-    id: 'article',
-    kind: 'post',
-    locale: CONFIG.locales.defaultLocale,
-    slug: article.slug,
-    title,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    blogSchema,
-    blogPostSchema,
-    breadcrumbSchema,
-    ...getCommentsSchema(comments),
+  const jsonLd = getSchemaFrom([
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(dates.publication).getFullYear(),
+      dates,
+      description: trimHTMLTags(intro),
+      slug,
+      title,
+    }),
+    getBlogPostingGraph({
+      body: trimHTMLTags(content),
+      comment: flattenComments(comments).map((comment) =>
+        getCommentGraph({
+          articleSlug: slug,
+          author: {
+            '@type': 'Person',
+            name: comment.meta.author.name,
+            url: comment.meta.author.website,
+          },
+          body: trimHTMLTags(comment.content),
+          id: `${comment.id}`,
+          parentId: comment.parentId ? `${comment.parentId}` : undefined,
+          publishedAt: comment.meta.date,
+        })
+      ),
+      commentCount: commentsCount,
+      copyrightYear: new Date(dates.publication).getFullYear(),
+      cover: cover?.src,
+      dates,
+      description: trimHTMLTags(intro),
+      keywords: topics?.map((topic) => topic.name).join(', '),
+      readingTime: `PT${getReadingTimeFrom(wordsCount).inMinutes()}M`,
+      slug,
+      title,
+      wordCount: meta.wordsCount,
+    }),
   ]);
 
   const pageUrl = `${CONFIG.url}${article.slug}`;
@@ -200,14 +214,12 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-article"
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger -- Necessary for schema
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={title}
         intro={intro}

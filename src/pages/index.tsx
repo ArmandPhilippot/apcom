@@ -2,7 +2,6 @@ import type { MDXComponents } from 'mdx/types';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import Script from 'next/script';
 import type { FC } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -27,7 +26,11 @@ import {
 import type { NextPageWithLayout, RecentArticle } from '../types';
 import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
-import { getSchemaJson, getWebPageSchema } from '../utils/helpers';
+import {
+  getSchemaFrom,
+  getWebPageGraph,
+  getWebSiteGraph,
+} from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import { useBreadcrumbs } from '../utils/hooks';
 
@@ -129,15 +132,29 @@ type HomeProps = {
  * Home page.
  */
 const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
+  const intl = useIntl();
   const { schema: breadcrumbSchema } = useBreadcrumbs();
 
-  const webpageSchema = getWebPageSchema({
-    description: meta.seo.description,
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.HOME,
-    title: meta.seo.title,
+  const pageTitle = intl.formatMessage({
+    defaultMessage: 'Home',
+    description: 'HomePage: page title',
+    id: 'j3+hB9',
   });
-  const schemaJsonLd = getSchemaJson([webpageSchema, breadcrumbSchema]);
+
+  const jsonLd = getSchemaFrom([
+    getWebSiteGraph({
+      description: CONFIG.baseline,
+      title: CONFIG.name,
+    }),
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(meta.dates.publication).getFullYear(),
+      dates: meta.dates,
+      description: meta.seo.description,
+      slug: ROUTES.HOME,
+      title: pageTitle,
+    }),
+  ]);
 
   return (
     <Page hasSections>
@@ -148,13 +165,12 @@ const HomePage: NextPageWithLayout<HomeProps> = ({ recentPosts }) => {
         <meta property="og:url" content={CONFIG.url} />
         <meta property="og:title" content={meta.seo.title} />
         <meta property="og:description" content={meta.seo.description} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-homepage"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <HomePageContent components={getComponents(recentPosts)} />
     </Page>
   );

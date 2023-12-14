@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { userEvent } from '@testing-library/user-event';
 import { render, screen as rtlScreen } from '../../../../../tests/utils';
+import { COMMENT_ID_PREFIX } from '../../../../utils/constants';
 import { ApprovedComment, type CommentAuthor } from './approved-comment';
 
 describe('ApprovedComment', () => {
@@ -30,7 +31,7 @@ describe('ApprovedComment', () => {
     ).toBeInTheDocument();
     expect(rtlScreen.getByRole('link')).toHaveAttribute(
       'href',
-      `#comment-${id}`
+      `#${COMMENT_ID_PREFIX}${id}`
     );
   });
 

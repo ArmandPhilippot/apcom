@@ -1,7 +1,6 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import {
   Card,
@@ -25,11 +24,7 @@ import styles from '../../styles/pages/projects.module.scss';
 import type { NextPageWithLayout, ProjectPreview } from '../../types';
 import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '../../utils/helpers';
+import { getSchemaFrom, getWebPageGraph } from '../../utils/helpers';
 import {
   getAllProjects,
   loadTranslation,
@@ -52,27 +47,18 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ data }) => {
   const { items: breadcrumbItems, schema: breadcrumbSchema } =
     useBreadcrumbs(title);
   const intl = useIntl();
-  const webpageSchema = getWebPageSchema({
-    description: seo.description,
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.PROJECTS,
-    title: seo.title,
-    updateDate: dates.update,
-  });
-  const articleSchema = getSinglePageSchema({
-    dates,
-    description: seo.description,
-    id: 'projects',
-    kind: 'page',
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.PROJECTS,
-    title,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    articleSchema,
-    breadcrumbSchema,
+
+  const jsonLd = getSchemaFrom([
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(dates.publication).getFullYear(),
+      dates,
+      description: seo.description,
+      slug: ROUTES.PROJECTS,
+      title,
+    }),
   ]);
+
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
     url: `${CONFIG.url}${ROUTES.PROJECTS}`,
@@ -89,14 +75,12 @@ const ProjectsPage: NextPageWithLayout<ProjectsPageProps> = ({ data }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={page.title} />
         <meta property="og:description" content={seo.description} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-projects"
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger -- Necessary for schema
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={title}
         intro={<PageContent components={mdxComponents} />}

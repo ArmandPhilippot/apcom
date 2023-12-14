@@ -60,3 +60,6 @@ export const trimTrailingChars = (str: string, char: string): string => {
 
   return str.replace(regExp, '');
 };
+
+export const trimHTMLTags = (str: string) =>
+  str.replace(/(?:<(?:[^>]+)>)/gi, '').replaceAll('\n\n\n\n', '\n\n');

@@ -1,6 +1,5 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Script from 'next/script';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -16,11 +15,7 @@ import LegalNoticeContent, { meta } from '../content/pages/legal-notice.mdx';
 import type { NextPageWithLayout } from '../types';
 import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '../utils/helpers';
+import { getSchemaFrom, getWebPageGraph } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumbs, useHeadingsTree } from '../utils/hooks';
 
@@ -34,26 +29,15 @@ const LegalNoticePage: NextPageWithLayout = () => {
     useBreadcrumbs(title);
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
 
-  const webpageSchema = getWebPageSchema({
-    description: seo.description,
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.LEGAL_NOTICE,
-    title: seo.title,
-    updateDate: dates.update,
-  });
-  const articleSchema = getSinglePageSchema({
-    dates,
-    description: intro,
-    id: 'legal-notice',
-    kind: 'page',
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.LEGAL_NOTICE,
-    title,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    articleSchema,
-    breadcrumbSchema,
+  const jsonLd = getSchemaFrom([
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(dates.publication).getFullYear(),
+      dates,
+      description: intro,
+      slug: ROUTES.LEGAL_NOTICE,
+      title,
+    }),
   ]);
 
   const page = {
@@ -77,13 +61,12 @@ const LegalNoticePage: NextPageWithLayout = () => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={page.title} />
         <meta property="og:description" content={intro} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-legal-notice"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={title}
         intro={intro}

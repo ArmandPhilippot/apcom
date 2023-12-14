@@ -1,7 +1,5 @@
-/* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Script from 'next/script';
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -37,13 +35,17 @@ import type {
   WPTopicPreview,
 } from '../../types';
 import { CONFIG } from '../../utils/config';
-import { PAGINATED_ROUTE_PREFIX, ROUTES } from '../../utils/constants';
 import {
-  getBlogSchema,
+  ARTICLE_ID,
+  PAGINATED_ROUTE_PREFIX,
+  ROUTES,
+} from '../../utils/constants';
+import {
+  getBlogGraph,
   getLinksItemData,
   getPostsWithUrl,
-  getSchemaJson,
-  getWebPageSchema,
+  getSchemaFrom,
+  getWebPageGraph,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
@@ -160,21 +162,23 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
     messages.pageTitle
   );
 
-  const webpageSchema = getWebPageSchema({
-    description: messages.seo.metaDesc,
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.BLOG,
-    title: messages.pageTitle,
-  });
-  const blogSchema = getBlogSchema({
-    isSinglePage: false,
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.BLOG,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    blogSchema,
-    breadcrumbSchema,
+  const jsonLd = getSchemaFrom([
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      description: messages.seo.metaDesc,
+      slug: ROUTES.BLOG,
+      title: messages.pageTitle,
+    }),
+    getBlogGraph({
+      description: '',
+      posts: articles?.flatMap((page) =>
+        page.edges.map(({ node }) => {
+          return { '@id': `${node.slug}#${ARTICLE_ID}` };
+        })
+      ),
+      slug: ROUTES.BLOG,
+      title: messages.pageTitle,
+    }),
   ]);
 
   const renderPaginationLabel: RenderPaginationItemAriaLabel = useCallback(
@@ -235,14 +239,12 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
         <meta property="og:type" content="website" />
         <meta property="og:title" content={messages.pageTitle} />
         <meta property="og:description" content={messages.seo.metaDesc} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-blog"
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger -- Necessary for schema
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={messages.pageTitle}
         meta={{ total: data.posts.pageInfo.total }}

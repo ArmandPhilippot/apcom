@@ -1,7 +1,7 @@
 import NextImage from 'next/image';
 import type { LinksWidgetItemData, PostData } from '../../components';
 import type { ArticlePreview, PageLink } from '../../types';
-import { ROUTES } from '../constants';
+import { COMMENTS_SECTION_ID, ROUTES } from '../constants';
 
 export const getUniquePageLinks = (pageLinks: PageLink[]): PageLink[] => {
   const pageLinksIds = pageLinks.map((pageLink) => pageLink.id);
@@ -64,7 +64,7 @@ export const getPostsWithUrl = (posts: ArticlePreview[]): PostData[] =>
         comments: {
           count: meta.commentsCount ?? 0,
           postHeading: title,
-          url: `${ROUTES.ARTICLE}/${slug}#comments`,
+          url: `${ROUTES.ARTICLE}/${slug}#${COMMENTS_SECTION_ID}`,
         },
       },
       url: `${ROUTES.ARTICLE}/${slug}`,

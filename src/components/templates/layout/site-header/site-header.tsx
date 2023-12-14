@@ -1,4 +1,5 @@
 import { type ForwardRefRenderFunction, forwardRef } from 'react';
+import { AUTHOR_ID } from '../../../../utils/constants';
 import { Header, type HeaderProps } from '../../../atoms';
 import { SiteBranding } from './site-branding';
 import styles from './site-header.module.scss';
@@ -16,7 +17,11 @@ const SiteHeaderWithRef: ForwardRefRenderFunction<
 
   return (
     <Header {...props} className={headerClass} ref={ref}>
-      <SiteBranding className={styles.branding} isHome={isHome} />
+      <SiteBranding
+        className={styles.branding}
+        id={AUTHOR_ID}
+        isHome={isHome}
+      />
       <SiteNavbar className={styles.navbar} />
     </Header>
   );

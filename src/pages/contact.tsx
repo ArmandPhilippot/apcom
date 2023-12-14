@@ -1,6 +1,5 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Script from 'next/script';
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -19,11 +18,7 @@ import { sendEmail } from '../services/graphql';
 import type { NextPageWithLayout } from '../types';
 import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '../utils/helpers';
+import { getContactPageGraph, getSchemaFrom } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumbs } from '../utils/hooks';
 
@@ -65,26 +60,15 @@ const ContactPage: NextPageWithLayout = () => {
     },
   };
 
-  const webpageSchema = getWebPageSchema({
-    description: seo.description,
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.CONTACT,
-    title: seo.title,
-    updateDate: dates.update,
-  });
-  const contactSchema = getSinglePageSchema({
-    dates,
-    description: intro,
-    id: 'contact',
-    kind: 'contact',
-    locale: CONFIG.locales.defaultLocale,
-    slug: ROUTES.CONTACT,
-    title,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    contactSchema,
-    breadcrumbSchema,
+  const jsonLd = getSchemaFrom([
+    getContactPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(dates.publication).getFullYear(),
+      dates,
+      description: intro,
+      slug: ROUTES.CONTACT,
+      title,
+    }),
   ]);
 
   const submitMail: ContactFormSubmit = useCallback(
@@ -143,13 +127,12 @@ const ContactPage: NextPageWithLayout = () => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-contact"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader heading={title} intro={intro} />
       <PageBody>
         <ContactForm aria-label={messages.form} onSubmit={submitMail} />

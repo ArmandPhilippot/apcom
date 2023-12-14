@@ -507,6 +507,10 @@
     "defaultMessage": "Contact form",
     "description": "Contact: form accessible name"
   },
+  "bW6Zda": {
+    "defaultMessage": "Discover search results for {query} on {websiteName} website.",
+    "description": "SearchPage: SEO - Meta description"
+  },
   "c0Oecl": {
     "defaultMessage": "Created on:",
     "description": "ProjectOverview: creation date label"
@@ -583,6 +587,10 @@
     "defaultMessage": "CC BY SA",
     "description": "SiteFooter: the license name"
   },
+  "j3+hB9": {
+    "defaultMessage": "Home",
+    "description": "HomePage: page title"
+  },
   "jJm8wd": {
     "defaultMessage": "Reading time:",
     "description": "PageHeader: reading time label"
@@ -631,10 +639,6 @@
     "defaultMessage": "Leave a reply to comment {id}",
     "description": "ReplyCommentForm: an accessible name for the reply form"
   },
-  "npisb3": {
-    "defaultMessage": "Search for a post on {websiteName}.",
-    "description": "SearchPage: SEO - Meta description"
-  },
   "nsw6Th": {
     "defaultMessage": "Copied!",
     "description": "usePrism: copy button text (clicked)"
@@ -671,13 +675,13 @@
     "defaultMessage": "Off",
     "description": "MotionToggle: deactivate reduce motion label"
   },
-  "pg26sn": {
-    "defaultMessage": "Discover search results for {query} on {websiteName}.",
-    "description": "SearchPage: SEO - Meta description"
-  },
   "qFqWQH": {
     "defaultMessage": "Thematics are loading...",
     "description": "SearchPage: loading thematics message"
+  },
+  "rEp1mS": {
+    "defaultMessage": "Search for a post on {websiteName} website.",
+    "description": "SearchPage: SEO - Meta description"
   },
   "rVoW4G": {
     "defaultMessage": "Thematics are loading...",

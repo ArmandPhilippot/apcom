@@ -1,9 +1,6 @@
-/* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import { useRouter } from 'next/router';
-import Script from 'next/script';
 import React, { type ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -22,12 +19,8 @@ import { mdxComponents } from '../components/mdx';
 import CVContent, { data, meta } from '../content/pages/cv.mdx';
 import type { NextPageWithLayout } from '../types';
 import { CONFIG } from '../utils/config';
-import { PERSONAL_LINKS } from '../utils/constants';
-import {
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
-} from '../utils/helpers';
+import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
+import { getAboutPageGraph, getSchemaFrom } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumbs, useHeadingsTree } from '../utils/hooks';
 
@@ -95,32 +88,21 @@ const CVPage: NextPageWithLayout = () => {
     },
   };
 
-  const { asPath } = useRouter();
-  const webpageSchema = getWebPageSchema({
-    description: seo.description,
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-    title: seo.title,
-    updateDate: dates.update,
-  });
-  const cvSchema = getSinglePageSchema({
-    cover: data.image.src,
-    dates,
-    description: intro,
-    id: 'cv',
-    kind: 'about',
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-    title,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    cvSchema,
-    breadcrumbSchema,
+  const jsonLd = getSchemaFrom([
+    getAboutPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(dates.publication).getFullYear(),
+      cover: data.image.src,
+      dates,
+      description: intro,
+      slug: ROUTES.CV,
+      title,
+    }),
   ]);
+
   const page = {
     title: `${seo.title} - ${CONFIG.name}`,
-    url: `${CONFIG.url}${asPath}`,
+    url: `${CONFIG.url}${ROUTES.CV}`,
   };
 
   return (
@@ -136,13 +118,12 @@ const CVPage: NextPageWithLayout = () => {
         <meta property="og:description" content={intro} />
         <meta property="og:image" content={data.image.src} />
         <meta property="og:image:alt" content={title} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-cv"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={title}
         intro={intro}

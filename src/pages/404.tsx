@@ -1,7 +1,6 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import { useCallback, type ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -34,7 +33,11 @@ import type {
 } from '../types';
 import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
-import { getLinksItemData } from '../utils/helpers';
+import {
+  getLinksItemData,
+  getSchemaFrom,
+  getWebPageGraph,
+} from '../utils/helpers';
 import { loadTranslation, type Messages } from '../utils/helpers/server';
 import {
   useBreadcrumbs,
@@ -118,6 +121,15 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({ data }) => {
     messages.page.title
   );
 
+  const jsonLd = getSchemaFrom([
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      description: messages.seo.metaDesc,
+      slug: ROUTES.NOT_FOUND,
+      title: messages.page.title,
+    }),
+  ]);
+
   const searchSubmitHandler: SearchFormSubmit = useCallback(
     async ({ query }) => {
       if (!query)
@@ -145,13 +157,12 @@ const Error404Page: NextPageWithLayout<Error404PageProps> = ({ data }) => {
         <title>{messages.seo.title}</title>
         {/*eslint-disable-next-line react/jsx-no-literals -- Name allowed */}
         <meta name="description" content={messages.seo.metaDesc} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-breadcrumb"
-        type="application/ld+json"
-      />
       <PageHeader heading={messages.page.title} />
       <PageBody className={styles['no-results']}>
         <p>

@@ -1,8 +1,6 @@
-/* eslint-disable max-statements */
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -37,11 +35,11 @@ import type {
 import { CONFIG } from '../../utils/config';
 import { ROUTES } from '../../utils/constants';
 import {
-  getBlogSchema,
   getLinksItemData,
   getPostsWithUrl,
-  getSchemaJson,
-  getWebPageSchema,
+  getSchemaFrom,
+  getSearchResultsPageGraph,
+  getWebPageGraph,
 } from '../../utils/helpers';
 import { loadTranslation, type Messages } from '../../utils/helpers/server';
 import {
@@ -165,17 +163,17 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ data }) => {
         ? intl.formatMessage(
             {
               defaultMessage:
-                'Discover search results for {query} on {websiteName}.',
+                'Discover search results for {query} on {websiteName} website.',
               description: 'SearchPage: SEO - Meta description',
-              id: 'pg26sn',
+              id: 'bW6Zda',
             },
             { query: query.s as string, websiteName: CONFIG.name }
           )
         : intl.formatMessage(
             {
-              defaultMessage: 'Search for a post on {websiteName}.',
+              defaultMessage: 'Search for a post on {websiteName} website.',
               description: 'SearchPage: SEO - Meta description',
-              id: 'npisb3',
+              id: 'rEp1mS',
             },
             { websiteName: CONFIG.name }
           ),
@@ -213,21 +211,20 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ data }) => {
 
   const { items: breadcrumbItems, schema: breadcrumbSchema } = useBreadcrumbs();
 
-  const webpageSchema = getWebPageSchema({
-    description: messages.seo.metaDesc,
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-    title: messages.pageTitle,
-  });
-  const blogSchema = getBlogSchema({
-    isSinglePage: false,
-    locale: CONFIG.locales.defaultLocale,
-    slug: asPath,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    blogSchema,
-    breadcrumbSchema,
+  const jsonLd = getSchemaFrom([
+    query.s
+      ? getSearchResultsPageGraph({
+          breadcrumb: breadcrumbSchema,
+          description: messages.seo.metaDesc,
+          slug: asPath,
+          title: messages.pageTitle,
+        })
+      : getWebPageGraph({
+          breadcrumb: breadcrumbSchema,
+          description: messages.seo.metaDesc,
+          slug: asPath,
+          title: messages.pageTitle,
+        }),
   ]);
 
   const pageUrl = `${CONFIG.url}${asPath}`;
@@ -243,14 +240,12 @@ const SearchPage: NextPageWithLayout<SearchPageProps> = ({ data }) => {
         <meta property="og:type" content="website" />
         <meta property="og:title" content={messages.pageTitle} />
         <meta property="og:description" content={messages.seo.title} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-blog"
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger -- Necessary for schema
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={messages.pageTitle}
         meta={{ total: articles ? articles[0].pageInfo.total : undefined }}

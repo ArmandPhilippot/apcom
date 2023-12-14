@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import type { BreadcrumbList } from 'schema-dts';
 import type { BreadcrumbsItem } from '../../../components';
 import { PAGINATED_ROUTE_PREFIX, ROUTES } from '../../constants';
-import { capitalize } from '../../helpers';
+import { capitalize, getBreadcrumbItemGraph } from '../../helpers';
 
 const is404 = (slug: string) => slug === ROUTES.NOT_FOUND;
 const isArticle = (slug: string) => slug === ROUTES.ARTICLE;
@@ -23,7 +23,9 @@ const getCrumbsSlug = (
   index: number
 ): string[] => [
   ...acc,
-  ...(isSearch(`/${current}`) ? [`/${current.split('?s=')[0]}`] : []),
+  ...(isSearch(`/${current}`) && current.includes('?s=')
+    ? [`/${current.split('?s=')[0]}`]
+    : []),
   `${acc[acc.length - 1]}${index === 0 ? '' : '/'}${current}`,
 ];
 
@@ -129,16 +131,13 @@ export const useBreadcrumbs = (
     schema: {
       '@type': 'BreadcrumbList',
       '@id': 'breadcrumbs',
-      itemListElement: items.map((item, index) => {
-        return {
-          '@type': 'ListItem',
-          item: {
-            '@id': item.slug,
-            name: item.label,
-          },
+      itemListElement: items.map((item, index) =>
+        getBreadcrumbItemGraph({
+          label: item.label,
           position: index + 1,
-        };
-      }),
+          slug: item.slug,
+        })
+      ),
     },
   };
 };

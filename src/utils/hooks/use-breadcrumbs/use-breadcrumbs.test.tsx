@@ -4,8 +4,9 @@ import nextRouterMock from 'next-router-mock';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import type { ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
+import { CONFIG } from '../../config';
 import { PAGINATED_ROUTE_PREFIX, ROUTES } from '../../constants';
-import { capitalize } from '../../helpers';
+import { capitalize, trimTrailingChars } from '../../helpers';
 import { useBreadcrumbs } from './use-breadcrumbs';
 
 const AllProviders = ({ children }: { children: ReactNode }) => (
@@ -48,7 +49,7 @@ describe('useBreadcrumbs', () => {
         {
           '@type': 'ListItem',
           item: {
-            '@id': ROUTES.HOME,
+            '@id': trimTrailingChars(CONFIG.url, '/'),
             name: 'Home',
           },
           position: 1,
@@ -56,7 +57,7 @@ describe('useBreadcrumbs', () => {
         {
           '@type': 'ListItem',
           item: {
-            '@id': currentSlug,
+            '@id': `${trimTrailingChars(CONFIG.url, '/')}${currentSlug}`,
             name: label,
           },
           position: 2,

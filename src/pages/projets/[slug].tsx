@@ -1,10 +1,8 @@
-/* eslint-disable max-statements */
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import Script from 'next/script';
 import { useMemo, type ComponentType, type FC } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -38,9 +36,8 @@ import type {
 import { CONFIG } from '../../utils/config';
 import {
   capitalize,
-  getSchemaJson,
-  getSinglePageSchema,
-  getWebPageSchema,
+  getSchemaFrom,
+  getWebPageGraph,
 } from '../../utils/helpers';
 import {
   type Messages,
@@ -192,27 +189,16 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
     url: `${CONFIG.url}${slug}`,
   };
 
-  const webpageSchema = getWebPageSchema({
-    description: meta.seo.description,
-    locale: CONFIG.locales.defaultLocale,
-    slug,
-    title: meta.seo.title,
-    updateDate: meta.dates.update,
-  });
-  const articleSchema = getSinglePageSchema({
-    cover: `/projects/${id}.jpg`,
-    dates: meta.dates,
-    description: intro,
-    id: 'project',
-    kind: 'page',
-    locale: CONFIG.locales.defaultLocale,
-    slug,
-    title,
-  });
-  const schemaJsonLd = getSchemaJson([
-    webpageSchema,
-    articleSchema,
-    breadcrumbSchema,
+  const jsonLd = getSchemaFrom([
+    getWebPageGraph({
+      breadcrumb: breadcrumbSchema,
+      copyrightYear: new Date(meta.dates.publication).getFullYear(),
+      cover: `/projects/${id}.jpg`,
+      dates: meta.dates,
+      description: intro,
+      slug,
+      title,
+    }),
   ]);
 
   const messages = {
@@ -256,14 +242,12 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={intro} />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
       </Head>
-      <Script
-        // eslint-disable-next-line react/jsx-no-literals -- Id allowed
-        id="schema-project"
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger -- Necessary for schema
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
       <PageHeader
         heading={title}
         intro={intro}
