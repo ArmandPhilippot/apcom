@@ -1,10 +1,6 @@
 import { CONFIG } from '../../../../src/utils/config';
 import { ROUTES } from '../../../../src/utils/constants';
-
-type ArticlesGroup = {
-  first: string;
-  total: string;
-};
+import { wpPostsFixture } from '../../../fixtures';
 
 describe('Blog Page', () => {
   beforeEach(() => {
@@ -19,43 +15,39 @@ describe('Blog Page', () => {
     cy.findByRole('navigation', { name: 'Fil d’Ariane' }).should('exist');
   });
 
-  it('loads the correct number of pages', () => {
+  it('loads the correct number of posts', () => {
     cy.findByText(
       /(?<first>\d+) articles chargés sur un total de (?<total>\d+)/i
-    )
-      .then(($div) => {
-        const firstLastNumbers = /(?<first>\d+).*[\D](?<total>\d+)/;
-        const result = RegExp(firstLastNumbers).exec($div.text());
+    ).should('exist');
+    cy.findAllByRole('link', { name: /En lire plus/ }).should(
+      'have.length.at.most',
+      CONFIG.postsPerPage
+    );
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        expect(result).to.not.be.null;
+    const loadMorePosts = () => {
+      cy.findByRole('button', { name: /Charger plus/ })
+        .should((_) => {
+          /* do nothing */
+        })
+        .then(($loadMoreBtn) => {
+          if (!$loadMoreBtn.length) {
+            cy.log('No more posts');
+            return;
+          }
 
-        const { first, total } = result
-          ? (result.groups as ArticlesGroup)
-          : { first: '0', total: '0' };
-        const totalArticles = parseInt(total, 10);
+          cy.log('Loading more posts');
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+          cy.wrap($loadMoreBtn).click().wait(500);
+          loadMorePosts();
+        });
+    };
 
-        expect(parseInt(first, 10)).to.be.within(1, CONFIG.postsPerPage);
-        expect(totalArticles).to.be.at.least(1);
+    loadMorePosts();
 
-        const totalPages = Math.ceil(totalArticles / CONFIG.postsPerPage);
-        const remainingPages = totalPages - 1;
-
-        return Array.from({ length: remainingPages }, (_, i) => i + 1);
-      })
-      .then((remainingPages) => {
-        if (remainingPages.length >= 1) {
-          cy.wrap(remainingPages).each(() => {
-            cy.findByRole('button', {
-              name: /Charger plus d’articles/i,
-            }).click();
-          });
-        }
-
-        cy.findByRole('button', { name: /Charger plus d’articles/i }).should(
-          'not.exist'
-        );
-      });
+    cy.findAllByRole('link', { name: /En lire plus/ }).should(
+      'have.length',
+      wpPostsFixture.length
+    );
   });
 
   it('contains a thematics list widget and a topics list widget', () => {

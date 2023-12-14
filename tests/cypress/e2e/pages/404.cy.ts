@@ -25,7 +25,10 @@ describe('404 Page', () => {
     const keywords = 'coldark';
 
     cy.findByRole('searchbox').type(keywords);
-    cy.findByRole('button', { name: /Rechercher/ }).click();
+    cy.findByRole('button', { name: /Rechercher/ })
+      .click()
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      .wait(500);
     cy.findByRole('heading', { level: 1 }).should('contain.text', keywords);
   });
 });

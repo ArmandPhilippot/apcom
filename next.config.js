@@ -107,6 +107,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cloudflare-ipfs.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
     ],
   },
   output: 'standalone',
@@ -190,4 +194,4 @@ const withMDX = nextMDX({
 
 export default withBundleAnalyzer(withMDX(nextConfig));
 
-// cSpell:ignore ipfs
+// cSpell:ignore ipfs picsum

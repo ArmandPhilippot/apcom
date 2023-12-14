@@ -17,7 +17,7 @@ export const wpTopicsFixture: WPTopic[] = [
       metaDesc: 'Et magnam id dicta iste molestiae illum officia provident.',
       title: 'est dolores tempore',
     },
-    slug: '/eveniet-ut-quis',
+    slug: 'eveniet-ut-quis',
     title: 'eveniet ut quis',
   },
   {
@@ -50,7 +50,7 @@ export const wpTopicsFixture: WPTopic[] = [
         'Consequuntur aut excepturi dicta et qui quasi enim voluptas cum.',
       title: 'aliquid consectetur corporis',
     },
-    slug: '/nisi-ut-facere',
+    slug: 'nisi-ut-facere',
     title: 'nisi ut facere',
   },
   {
@@ -72,7 +72,7 @@ export const wpTopicsFixture: WPTopic[] = [
       metaDesc: 'Sed impedit quisquam voluptate voluptatem consequuntur.',
       title: 'porro autem sunt',
     },
-    slug: '/iusto-non-consectetur',
+    slug: 'iusto-non-consectetur',
     title: 'iusto non consectetur',
   },
   {
@@ -93,7 +93,7 @@ export const wpTopicsFixture: WPTopic[] = [
             wordsCount: 468,
           },
           modified: '2021-09-15',
-          slug: '/possimus-temporibus-magni',
+          slug: 'possimus-temporibus-magni',
           title: 'possimus temporibus magni',
         },
       ],
@@ -112,7 +112,7 @@ export const wpTopicsFixture: WPTopic[] = [
       metaDesc: 'Quaerat non ex inventore officiis amet.',
       title: 'in alias ipsa',
     },
-    slug: '/non-repellendus-ipsam',
+    slug: 'non-repellendus-ipsam',
     title: 'non repellendus ipsam',
   },
 ];

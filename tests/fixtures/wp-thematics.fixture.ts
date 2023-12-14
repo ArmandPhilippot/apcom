@@ -17,7 +17,7 @@ export const wpThematicsFixture: WPThematic[] = [
       metaDesc: 'In temporibus quis nihil veniam cum excepturi aliquam.',
       title: 'aut veritatis molestias',
     },
-    slug: '/veritatis-autem-voluptas',
+    slug: 'veritatis-autem-voluptas',
     title: 'veritatis autem voluptas',
   },
   {
@@ -46,7 +46,7 @@ export const wpThematicsFixture: WPThematic[] = [
       metaDesc: 'Sed nulla nihil at dolores omnis repellendus qui sed.',
       title: 'assumenda omnis placeat',
     },
-    slug: '/aliquid-quia-eius',
+    slug: 'aliquid-quia-eius',
     title: 'aliquid quia eius',
   },
   {
@@ -68,7 +68,7 @@ export const wpThematicsFixture: WPThematic[] = [
         'Consequatur nisi dolorum fugiat mollitia aperiam ratione quibusdam.',
       title: 'vel et velit',
     },
-    slug: '/quasi-sint-nulla',
+    slug: 'quasi-sint-nulla',
     title: 'quasi sint nulla',
   },
   {
@@ -88,7 +88,7 @@ export const wpThematicsFixture: WPThematic[] = [
             wordsCount: 523,
           },
           modified: '2021-10-15',
-          slug: '/incidunt-cupiditate-in',
+          slug: 'incidunt-cupiditate-in',
           title: 'incidunt cupiditate in',
         },
       ],
@@ -108,7 +108,7 @@ export const wpThematicsFixture: WPThematic[] = [
         'Recusandae et laboriosam repudiandae sit dignissimos accusantium.',
       title: 'consectetur magni eum',
     },
-    slug: '/numquam-commodi-velit',
+    slug: 'numquam-commodi-velit',
     title: 'numquam commodi velit',
   },
 ];
