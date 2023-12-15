@@ -35,7 +35,6 @@ const Img = ({
   alt,
   src,
   height,
-  placeholder,
   width,
   ...props
 }: ImgHTMLAttributes<HTMLImageElement>) => {
