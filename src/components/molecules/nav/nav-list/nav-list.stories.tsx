@@ -1,19 +1,16 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { NavItem } from '../nav-item';
 import { NavLink } from '../nav-link';
 import { NavList } from './nav-list';
 
-/**
- * Nav - Storybook Meta
- */
-export default {
-  title: 'Molecules/Nav/NavList',
+const meta = {
   component: NavList,
-} as ComponentMeta<typeof NavList>;
+  title: 'Molecules/Nav/List',
+} satisfies Meta<typeof NavList>;
 
-const Template: ComponentStory<typeof NavList> = (args) => (
-  <NavList {...args} />
-);
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const NavItems = () => (
   <>
@@ -32,20 +29,16 @@ const NavItems = () => (
   </>
 );
 
-/**
- * NavList Stories - Default
- */
-export const Default = Template.bind({});
-Default.args = {
-  children: <NavItems />,
+export const Example: Story = {
+  args: {
+    children: <NavItems />,
+  },
 };
 
-/**
- * NavList Stories - Inlined
- */
-export const Inlined = Template.bind({});
-Inlined.args = {
-  children: <NavItems />,
-  isInline: true,
-  spacing: 'sm',
+export const Inlined: Story = {
+  args: {
+    children: <NavItems />,
+    isInline: true,
+    spacing: 'sm',
+  },
 };

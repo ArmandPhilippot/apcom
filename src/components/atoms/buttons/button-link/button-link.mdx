@@ -1,0 +1,71 @@
+import { ArgTypes, Canvas, Meta, Primary } from '@storybook/blocks';
+import * as ButtonLinkStories from './button-link.stories';
+
+<Meta of={ButtonLinkStories} />
+
+# Button
+
+<Primary />
+
+## Kind
+
+The button appearance can change depending on its kind.
+
+### Primary
+
+<Canvas of={ButtonLinkStories.Primary} />
+
+### Secondary (default)
+
+<Canvas of={ButtonLinkStories.Secondary} />
+
+### Tertiary
+
+<Canvas of={ButtonLinkStories.Tertiary} />
+
+## States
+
+It can be:
+* enabled,
+* disabled
+* external.
+
+### Enabled (default)
+
+<Canvas of={ButtonLinkStories.Enabled} />
+
+### Disabled
+
+<Canvas of={ButtonLinkStories.Disabled} />
+
+### External
+
+<Canvas of={ButtonLinkStories.ExternalLink} />
+
+## Shapes
+
+It can either:
+* be a circle,
+* be a rectangle
+* be a square,
+* or have an automatic shape.
+
+### Circle
+
+<Canvas of={ButtonLinkStories.Circle} />
+
+### Rectangle (default)
+
+<Canvas of={ButtonLinkStories.Rectangle} />
+
+### Square
+
+<Canvas of={ButtonLinkStories.Square} />
+
+### Auto
+
+<Canvas of={ButtonLinkStories.Auto} />
+
+## Props
+
+<ArgTypes of={ButtonLinkStories} />

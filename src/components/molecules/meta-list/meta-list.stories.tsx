@@ -1,29 +1,16 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Link } from '../../atoms';
 import { MetaItem } from './meta-item';
 import { MetaList } from './meta-list';
 
-/**
- * MetaList - Storybook Meta
- */
-export default {
-  title: 'Molecules/MetaList',
+const meta = {
   component: MetaList,
-  argTypes: {
-    items: {
-      description: 'The meta items.',
-      type: {
-        name: 'object',
-        required: true,
-        value: {},
-      },
-    },
-  },
-} as ComponentMeta<typeof MetaList>;
+  title: 'Molecules/MetaList',
+} satisfies Meta<typeof MetaList>;
 
-const Template: ComponentStory<typeof MetaList> = (args) => (
-  <MetaList {...args} />
-);
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const items = [
   { id: 'comments', label: 'Comments', value: 'No comments.' },
@@ -53,19 +40,15 @@ const items = [
   },
 ];
 
-/**
- * MetaList Stories - Default
- */
-export const Default = Template.bind({});
-Default.args = {
-  children: items.map(({ id, ...item }) => <MetaItem key={id} {...item} />),
+export const Example: Story = {
+  args: {
+    children: items.map(({ id, ...item }) => <MetaItem key={id} {...item} />),
+  },
 };
 
-/**
- * MetaList Stories - Inlined
- */
-export const Inlined = Template.bind({});
-Inlined.args = {
-  children: items.map(({ id, ...item }) => <MetaItem key={id} {...item} />),
-  isInline: true,
+export const Inlined: Story = {
+  args: {
+    children: items.map(({ id, ...item }) => <MetaItem key={id} {...item} />),
+    isInline: true,
+  },
 };

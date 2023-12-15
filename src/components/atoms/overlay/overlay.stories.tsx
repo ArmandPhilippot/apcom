@@ -1,63 +1,65 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useToggle } from '../../../utils/hooks';
+import type { Meta, StoryObj } from '@storybook/react';
+import { useCallback, useState } from 'react';
 import { Button } from '../buttons';
-import { Overlay } from './overlay';
+import { Overlay, type OverlayProps } from './overlay';
 
-/**
- * Overlay - Storybook Meta
- */
-export default {
-  title: 'Atoms/Overlay',
-  component: Overlay,
-  argTypes: {},
-} as ComponentMeta<typeof Overlay>;
+type OverlayTemplateProps = OverlayProps & {
+  isActive?: boolean;
+};
 
-const Template: ComponentStory<typeof Overlay> = ({ isVisible, ...props }) => {
-  const [isActive, toggle] = useToggle(isVisible);
+const OverlayTemplate = ({
+  isActive: active = false,
+  ...props
+}: OverlayTemplateProps) => {
+  const [isActive, setIsActive] = useState(active);
+
+  const handleClick = useCallback(() => {
+    setIsActive((prev) => !prev);
+  }, []);
 
   return (
     <div>
       <p>
-        Itaque reprehenderit sint rerum placeat et sapiente similique ut
-        distinctio. Libero illo reprehenderit qui quaerat dolorem. Officiis
-        asperiores sapiente eaque. Aut numquam porro quasi delectus excepturi
-        aut eaque et. Commodi et necessitatibus provident blanditiis rem qui
-        atque.
+        Ad eos id. In nihil fugit nisi dolorem numquam fuga aut quod voluptatem.
+        Dicta id nisi quia laboriosam sit ipsam deserunt ex. Omnis quia error
+        ipsum ea numquam quia veniam omnis voluptatem. Dolor corrupti mollitia
+        quod fugit est animi totam sed.
       </p>
       <p>
-        Aut architecto vitae dolor hic explicabo iure quia quae beatae.
-        Exercitationem nulla dignissimos doloribus sunt at nisi. A modi quasi
-        est sed quas repellendus vel sed dolores. Sed neque aperiam adipisci eos
-        autem. Libero omnis quis aut quas omnis magni harum et.
+        Eum et laudantium eaque cumque. Voluptatem voluptas fugit incidunt quos
+        voluptatibus velit et voluptatem laboriosam. Et voluptas ut quia
+        mollitia eum voluptatem. Similique cum ratione ea illo autem facilis
+        laudantium.
       </p>
-      <Button onClick={toggle}>Open overlay</Button>
-      <Overlay {...props} isVisible={isActive} onClick={toggle} />
+      <Button onClick={handleClick}>Open overlay</Button>
+      {isActive ? <Overlay {...props} onClick={handleClick} /> : null}
     </div>
   );
 };
 
-/**
- * Overlay Stories - Hidden
- */
-export const Hidden = Template.bind({});
-Hidden.args = {
-  children: (
-    <div style={{ background: '#FFF', margin: '1rem', padding: '1rem' }}>
-      Some modal contents.
-    </div>
-  ),
-  isVisible: false,
-};
+const meta = {
+  title: 'Atoms/Overlay',
+  component: Overlay,
+  render: OverlayTemplate,
+} satisfies Meta<typeof Overlay>;
 
-/**
- * Overlay Stories - Visible
- */
-export const Visible = Template.bind({});
-Visible.args = {
-  children: (
-    <div style={{ background: '#FFF', margin: '1rem', padding: '1rem' }}>
-      Some modal contents.
-    </div>
-  ),
-  isVisible: true,
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: (
+      <div
+        style={{
+          background: '#FFF',
+          padding: '1rem',
+          margin: '1rem',
+        }}
+      >
+        The modal contents.
+      </div>
+    ),
+    isActive: true,
+  },
 };

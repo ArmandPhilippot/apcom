@@ -1,27 +1,25 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Fieldset } from '../fieldset';
-import { Legend as LegendComponent } from './legend';
+import { Legend, type LegendProps } from './legend';
 
-/**
- * Legend - Storybook Meta
- */
-export default {
-  title: 'Atoms/Forms',
-  component: LegendComponent,
-  args: {},
-  argTypes: {},
-} as ComponentMeta<typeof LegendComponent>;
-
-const Template: ComponentStory<typeof LegendComponent> = (args) => (
+const FieldsetWithLegend = (args: LegendProps) => (
   <Fieldset>
-    <LegendComponent {...args} />
+    <Legend {...args} />
   </Fieldset>
 );
 
-/**
- * Legend Story
- */
-export const Legend = Template.bind({});
-Legend.args = {
-  children: 'A fieldset legend',
+const meta = {
+  component: Legend,
+  title: 'Atoms/Forms/Legend',
+  render: FieldsetWithLegend,
+} satisfies Meta<typeof Legend>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: 'A legend',
+  },
 };

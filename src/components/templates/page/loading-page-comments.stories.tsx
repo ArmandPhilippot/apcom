@@ -1,22 +1,29 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { LoadingPageComments } from './loading-page-comments';
+import type { Meta, StoryObj } from '@storybook/react';
+import {
+  LoadingPageComments,
+  type LoadingPageCommentsProps,
+} from './loading-page-comments';
+import { Page } from './page';
 
-/**
- * LoadingPageComments - Storybook Meta
- */
-export default {
-  title: 'Templates/LoadingPageComments',
+const WrappedLoadingPageComments = (props: LoadingPageCommentsProps) => (
+  <Page>
+    <LoadingPageComments {...props} />
+  </Page>
+);
+
+const meta = {
   component: LoadingPageComments,
+  title: 'Templates/Page/LoadingPageComments',
+  render: WrappedLoadingPageComments,
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof LoadingPageComments>;
+} satisfies Meta<typeof LoadingPageComments>;
 
-const Template: ComponentStory<typeof LoadingPageComments> = (args) => (
-  <LoadingPageComments {...args} />
-);
+export default meta;
 
-/**
- * LoadingPageComments Stories - Example
- */
-export const Example = Template.bind({});
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {},
+};

@@ -230,7 +230,7 @@ const PostsListWithRef: ForwardRefRenderFunction<
           max={total}
         />
       ) : null}
-      {onLoadMore ? (
+      {onLoadMore && (!total || (total && posts.length < total)) ? (
         <Button
           className={styles.btn}
           isLoading={isLoading}

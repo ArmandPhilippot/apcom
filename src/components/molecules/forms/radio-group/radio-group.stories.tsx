@@ -1,55 +1,9 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { type ChangeEventHandler, useCallback, useState } from 'react';
 import { Legend } from '../../../atoms';
-import { RadioGroup as RadioGroupComponent } from './radio-group';
-import { getOptions, initialChoice } from './radio-group.fixture';
+import { RadioGroup, type RadioGroupProps } from './radio-group';
 
-/**
- * RadioGroup - Storybook Meta
- */
-export default {
-  title: 'Molecules/Forms',
-  component: RadioGroupComponent,
-  args: {},
-  argTypes: {
-    onChange: {
-      control: {
-        type: null,
-      },
-      description: 'A callback function to handle selected option change.',
-      table: {
-        category: 'Events',
-      },
-      type: {
-        name: 'function',
-        required: false,
-      },
-    },
-    options: {
-      description: 'An array of radio option object.',
-      type: {
-        name: 'object',
-        required: true,
-        value: {},
-      },
-    },
-    value: {
-      control: {
-        type: 'text',
-      },
-      description: 'The default selected option id.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-  },
-} as ComponentMeta<typeof RadioGroupComponent>;
-
-const Template: ComponentStory<typeof RadioGroupComponent> = ({
-  value,
-  ...args
-}) => {
+const ControlledRadioGroup = ({ value, ...props }: RadioGroupProps) => {
   const [selection, setSelection] = useState(value);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -59,17 +13,83 @@ const Template: ComponentStory<typeof RadioGroupComponent> = ({
     []
   );
 
-  return (
-    <RadioGroupComponent {...args} onSwitch={handleChange} value={selection} />
-  );
+  return <RadioGroup {...props} onSwitch={handleChange} value={selection} />;
 };
 
-/**
- * Radio Group Story
- */
-export const RadioGroup = Template.bind({});
-RadioGroup.args = {
-  legend: <Legend>Options:</Legend>,
-  options: getOptions('group1'),
-  value: initialChoice,
+const meta = {
+  title: 'Molecules/Forms/Radio Group',
+  component: RadioGroup,
+  render: ControlledRadioGroup,
+} satisfies Meta<typeof RadioGroup>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Example: Story = {
+  args: {
+    legend: <Legend>Select your preferred option:</Legend>,
+    name: 'example',
+    options: [
+      { id: 'example-1', label: 'Option 1', value: 'example-1' },
+      { id: 'example-2', label: 'Option 2', value: 'example-2' },
+      { id: 'example-3', label: 'Option 3', value: 'example-3' },
+    ],
+  },
+};
+
+export const Inline: Story = {
+  args: {
+    ...Example.args,
+    isInline: true,
+    name: 'inline',
+    options: [
+      { id: 'inline-1', label: 'Option 1', value: 'inline-1' },
+      { id: 'inline-2', label: 'Option 2', value: 'inline-2' },
+      { id: 'inline-3', label: 'Option 3', value: 'inline-3' },
+    ],
+  },
+};
+
+export const DisabledGroup: Story = {
+  args: {
+    ...Example.args,
+    isDisabled: true,
+    name: 'disabled',
+    options: [
+      { id: 'disabled-1', label: 'Option 1', value: 'disabled-1' },
+      { id: 'disabled-2', label: 'Option 2', value: 'disabled-2' },
+      { id: 'disabled-3', label: 'Option 3', value: 'disabled-3' },
+    ],
+  },
+};
+
+export const DisabledOption: Story = {
+  args: {
+    ...Example.args,
+    name: 'disabled-option',
+    options: [
+      { id: 'option-1', label: 'Option 1', value: 'option-1' },
+      {
+        id: 'option-2',
+        isDisabled: true,
+        label: 'Option 2',
+        value: 'option-2',
+      },
+      { id: 'option-3', label: 'Option 3', value: 'option-3' },
+    ],
+  },
+};
+
+export const DefaultValue: Story = {
+  args: {
+    ...Example.args,
+    name: 'default-value',
+    options: [
+      { id: 'value-1', label: 'Option 1', value: 'value-1' },
+      { id: 'value-2', label: 'Option 2', value: 'value-2' },
+      { id: 'value-3', label: 'Option 3', value: 'value-3' },
+    ],
+    value: 'value-2',
+  },
 };

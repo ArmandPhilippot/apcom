@@ -1,25 +1,19 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Heading } from '../../../atoms';
 import { ReplyCommentForm } from './reply-comment-form';
 
-/**
- * ReplyCommentForm - Storybook Meta
- */
-export default {
-  title: 'Organisms/Comment/ReplyCommentForm',
+const meta = {
   component: ReplyCommentForm,
-  argTypes: {},
-} as ComponentMeta<typeof ReplyCommentForm>;
+  title: 'Organisms/Comment/Reply Form',
+} satisfies Meta<typeof ReplyCommentForm>;
 
-const Template: ComponentStory<typeof ReplyCommentForm> = (args) => (
-  <ReplyCommentForm {...args} />
-);
+export default meta;
 
-/**
- * ReplyCommentForm Stories - Default
- */
-export const Default = Template.bind({});
-Default.args = {
-  commentId: 5,
-  heading: <Heading level={2}>Reply to comment 5</Heading>,
+type Story = StoryObj<typeof meta>;
+
+export const Example: Story = {
+  args: {
+    commentId: 5,
+    heading: <Heading level={2}>Reply to comment 5</Heading>,
+  },
 };

@@ -1,41 +1,31 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Page } from './page';
-import { PageFooter } from './page-footer';
+import { PageFooter, type PageFooterProps } from './page-footer';
 
-/**
- * PageFooter - Storybook Meta
- */
-export default {
-  title: 'Templates/Page/Footer',
-  component: PageFooter,
-  argTypes: {
-    readMoreAbout: {
-      control: {
-        type: null,
-      },
-      description: 'An array of page links.',
-      type: {
-        name: 'object',
-        required: true,
-        value: {},
-      },
-    },
-  },
-} as ComponentMeta<typeof PageFooter>;
-
-const Template: ComponentStory<typeof PageFooter> = (args) => (
+const WrappedPageFooter = (props: PageFooterProps) => (
   <Page>
-    <PageFooter {...args} />
+    <PageFooter {...props} />
   </Page>
 );
 
-/**
- * PageFooter Stories - Footer
- */
-export const Footer = Template.bind({});
-Footer.args = {
-  readMoreAbout: [
-    { id: 1, name: 'Topic 1', url: '#topic1' },
-    { id: 2, name: 'Topic 2', url: '#topic2' },
-  ],
+const meta = {
+  component: PageFooter,
+  title: 'Templates/Page/PageFooter',
+  render: WrappedPageFooter,
+  parameters: {
+    layout: 'fullscreen',
+  },
+} satisfies Meta<typeof PageFooter>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Example: Story = {
+  args: {
+    readMoreAbout: [
+      { id: 1, name: 'Topic 1', url: '#topic1' },
+      { id: 2, name: 'Topic 2', url: '#topic2' },
+    ],
+  },
 };

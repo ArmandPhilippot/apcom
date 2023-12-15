@@ -1,76 +1,60 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Page } from './page';
-import { PageHeader } from './page-header';
+import { PageHeader, type PageHeaderProps } from './page-header';
 
-/**
- * PageHeader - Storybook Meta
- */
-export default {
-  title: 'Templates/Page/Header',
-  component: PageHeader,
-  argTypes: {
-    meta: {
-      control: {
-        type: null,
-      },
-      description: 'Define the page meta.',
-      type: {
-        name: 'object',
-        required: true,
-        value: {},
-      },
-    },
-  },
-} as ComponentMeta<typeof PageHeader>;
-
-const Template: ComponentStory<typeof PageHeader> = (args) => (
+const WrappedPageHeader = (props: PageHeaderProps) => (
   <Page>
-    <PageHeader {...args} />
+    <PageHeader {...props} />
   </Page>
 );
 
-/**
- * PageHeader Stories - TitleOnly
- */
-export const TitleOnly = Template.bind({});
-TitleOnly.args = {
-  heading: 'The page title',
-};
+const meta = {
+  component: PageHeader,
+  title: 'Templates/Page/PageHeader',
+  render: WrappedPageHeader,
+  parameters: {
+    layout: 'fullscreen',
+  },
+} satisfies Meta<typeof PageHeader>;
 
-/**
- * PageHeader Stories - TitleAndIntro
- */
-export const TitleAndIntro = Template.bind({});
-TitleAndIntro.args = {
-  heading: 'The page title',
-  intro:
-    'Eos similique impedit dolor illo. Rerum voluptates corporis quod et molestiae eum. Ut tenetur repellat hic eum. Doloremque et illum sequi aspernatur.',
-};
+export default meta;
 
-/**
- * PageHeader Stories - TitleAndMeta
- */
-export const TitleAndMeta = Template.bind({});
-TitleAndMeta.args = {
-  heading: 'The page title',
-  meta: {
-    author: 'Robin_Schroeder77',
-    publicationDate: '2023-11-15',
-    updateDate: '2023-11-16',
+type Story = StoryObj<typeof meta>;
+
+export const TitleOnly: Story = {
+  args: {
+    heading: 'The page title',
   },
 };
 
-/**
- * PageHeader Stories - All
- */
-export const All = Template.bind({});
-All.args = {
-  heading: 'The page title',
-  intro:
-    'Eos similique impedit dolor illo. Rerum voluptates corporis quod et molestiae eum. Ut tenetur repellat hic eum. Doloremque et illum sequi aspernatur.',
-  meta: {
-    author: 'Robin_Schroeder77',
-    publicationDate: '2023-11-15',
-    updateDate: '2023-11-16',
+export const TitleAndIntro: Story = {
+  args: {
+    heading: 'The page title',
+    intro:
+      'Eos similique impedit dolor illo. Rerum voluptates corporis quod et molestiae eum. Ut tenetur repellat hic eum. Doloremque et illum sequi aspernatur.',
+  },
+};
+
+export const TitleAndMeta: Story = {
+  args: {
+    heading: 'The page title',
+    meta: {
+      author: 'Robin_Schroeder77',
+      publicationDate: '2023-11-15',
+      updateDate: '2023-11-16',
+    },
+  },
+};
+
+export const TitleMetaAndIntro: Story = {
+  args: {
+    heading: 'The page title',
+    intro:
+      'Eos similique impedit dolor illo. Rerum voluptates corporis quod et molestiae eum. Ut tenetur repellat hic eum. Doloremque et illum sequi aspernatur.',
+    meta: {
+      author: 'Robin_Schroeder77',
+      publicationDate: '2023-11-15',
+      updateDate: '2023-11-16',
+    },
   },
 };

@@ -1,237 +1,231 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { type ChangeEvent, useCallback, useState } from 'react';
-import { Input } from './input';
+import { useArgs } from '@storybook/client-api';
+import type { Meta, StoryObj } from '@storybook/react';
+import { type ChangeEvent, useCallback } from 'react';
+import { Input, type InputProps } from './input';
 
-/**
- * Input - Storybook Meta
- */
-export default {
-  title: 'Atoms/Forms/Fields',
+const meta = {
   component: Input,
+  title: 'Atoms/Forms/Fields/Input',
+  excludeStories: /Controlled.*$/,
+} satisfies Meta<typeof Input>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const ControlledInput = ({ value, ...args }: InputProps) => {
+  const [_, updateArgs] = useArgs<InputProps>();
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      updateArgs({ ...args, value: e.target.value });
+    },
+    [args, updateArgs]
+  );
+
+  return <Input {...args} onChange={handleChange} value={value} />;
+};
+
+const InputTemplate: Story = {
   args: {
+    id: 'default',
     isDisabled: false,
+    isReadOnly: false,
     isRequired: false,
+    name: 'default',
+    type: 'text',
+    value: '',
   },
-  argTypes: {
-    'aria-labelledby': {
-      control: {
-        type: 'text',
-      },
-      description: 'One or more ids that refers to the field name.',
-      table: {
-        category: 'Accessibility',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Add classnames to the field.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    id: {
-      control: {
-        type: 'text',
-      },
-      description: 'Input id.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-    isDisabled: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Input state: either enabled or disabled.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: false },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
-    isRequired: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Determine if the field is required.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: false },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
-    max: {
-      control: {
-        type: 'number',
-      },
-      description: 'Maximum value.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'number',
-        required: false,
-      },
-    },
-    min: {
-      control: {
-        type: 'number',
-      },
-      description: 'Minimum value.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'number',
-        required: false,
-      },
-    },
-    name: {
-      control: {
-        type: 'text',
-      },
-      description: 'Input name.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-    placeholder: {
-      control: {
-        type: 'text',
-      },
-      description: 'A placeholder value.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    step: {
-      control: {
-        type: 'number',
-      },
-      description: 'Input incremental values that are valid.',
-      table: {
-        category: 'Options',
-      },
-      type: {
-        name: 'number',
-        required: false,
-      },
-    },
-    type: {
-      control: {
-        type: 'select',
-      },
-      description: 'Input type: input type or textarea.',
-      options: [
-        'datetime-local',
-        'email',
-        'number',
-        'search',
-        'tel',
-        'text',
-        'textarea',
-        'time',
-        'url',
-      ],
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-    value: {
-      control: {
-        type: null,
-      },
-      description: 'Input value.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
+  render: ControlledInput,
+};
+
+export const IsEditable: Story = {
+  ...InputTemplate,
+  name: 'State: Editable',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of an editable input field',
+    id: 'editable-input',
+    name: 'editable',
   },
-} as ComponentMeta<typeof Input>;
-
-const Template: ComponentStory<typeof Input> = ({
-  value: initialValue,
-  onChange: _onChange,
-  ...args
-}) => {
-  const [value, setValue] = useState(initialValue);
-  const updateValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  }, []);
-
-  return <Input value={value} onChange={updateValue} {...args} />;
 };
 
-/**
- * Input Story - DateTimeField
- */
-export const DateTimeField = Template.bind({});
-DateTimeField.args = {
-  id: 'field-storybook',
-  name: 'field-storybook',
-  type: 'datetime-local',
+export const IsDisabled: Story = {
+  ...InputTemplate,
+  name: 'State: Disabled',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a disabled input field',
+    id: 'disabled-input',
+    isDisabled: true,
+    name: 'disabled',
+  },
 };
 
-/**
- * Input Story - EmailField
- */
-export const EmailField = Template.bind({});
-EmailField.args = {
-  id: 'field-storybook',
-  name: 'field-storybook',
-  type: 'email',
+export const IsReadOnly: Story = {
+  ...InputTemplate,
+  name: 'State: Readonly',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a read-only input field',
+    id: 'readonly-input',
+    isReadOnly: true,
+    name: 'readonly',
+  },
 };
 
-/**
- * Input Story - NumericField
- */
-export const NumericField = Template.bind({});
-NumericField.args = {
-  id: 'field-storybook',
-  name: 'field-storybook',
-  type: 'number',
+export const IsRequired: Story = {
+  ...InputTemplate,
+  name: 'State: Required',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a required input field',
+    id: 'required-input',
+    isRequired: true,
+    name: 'required',
+  },
 };
 
-/**
- * Input Story - TextField
- */
-export const TextField = Template.bind({});
-TextField.args = {
-  id: 'field-storybook',
-  name: 'field-storybook',
-  type: 'text',
+export const DateInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Date',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a date field',
+    id: 'date',
+    name: 'date',
+    type: 'date',
+  },
 };
 
-/**
- * Input Story - TimeField
- */
-export const TimeField = Template.bind({});
-TimeField.args = {
-  id: 'field-storybook',
-  name: 'field-storybook',
-  type: 'time',
+export const DatetimeInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Datetime',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a datetime field',
+    id: 'datetime',
+    name: 'datetime',
+    type: 'datetime-local',
+  },
+};
+
+export const EmailInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Email',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of an email field',
+    id: 'email',
+    name: 'email',
+    type: 'email',
+  },
+};
+
+export const MonthInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Month',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a month field',
+    id: 'month',
+    name: 'month',
+    type: 'month',
+  },
+};
+
+export const NumberInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Number',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a number field',
+    id: 'number',
+    name: 'number',
+    type: 'number',
+  },
+};
+
+export const PasswordInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Password',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a password field',
+    id: 'password',
+    name: 'password',
+    type: 'password',
+  },
+};
+
+export const SearchInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Search',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a search field',
+    id: 'search',
+    name: 'search',
+    type: 'search',
+  },
+};
+
+export const TelInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Tel',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a tel field',
+    id: 'tel',
+    name: 'tel',
+    type: 'tel',
+  },
+};
+
+export const TextInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Text',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a text field',
+    id: 'text',
+    name: 'text',
+    type: 'text',
+  },
+};
+
+export const TimeInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Time',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a time field',
+    id: 'time',
+    name: 'time',
+    type: 'time',
+  },
+};
+
+export const UrlInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Url',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of an url field',
+    id: 'url',
+    name: 'url',
+    type: 'url',
+  },
+};
+
+export const WeekInput: Story = {
+  ...InputTemplate,
+  name: 'Type: Week',
+  args: {
+    ...InputTemplate.args,
+    'aria-label': 'Example of a week field',
+    id: 'week',
+    name: 'week',
+    type: 'week',
+  },
 };

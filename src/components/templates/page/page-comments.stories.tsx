@@ -1,44 +1,26 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { CommentData } from '../../organisms/comments-list';
+import type { Meta, StoryObj } from '@storybook/react';
+import type { CommentData } from '../../organisms';
 import { Page } from './page';
-import { PageComments } from './page-comments';
+import { PageComments, type PageCommentsProps } from './page-comments';
 
-/**
- * PageComments - Storybook Meta
- */
-export default {
-  title: 'Templates/Page/Comments Section',
-  component: PageComments,
-  argTypes: {
-    comments: {
-      control: {
-        type: null,
-      },
-      description: 'An array of comments.',
-      type: {
-        name: 'object',
-        required: true,
-        value: {},
-      },
-    },
-    pageId: {
-      control: {
-        type: 'number',
-      },
-      description: 'Define the page id in the database.',
-      type: {
-        name: 'number',
-        required: true,
-      },
-    },
-  },
-} as ComponentMeta<typeof PageComments>;
-
-const Template: ComponentStory<typeof PageComments> = (args) => (
+const WrappedPageComments = (props: PageCommentsProps) => (
   <Page>
-    <PageComments {...args} />
+    <PageComments {...props} />
   </Page>
 );
+
+const meta = {
+  component: PageComments,
+  title: 'Templates/Page/PageComments',
+  render: WrappedPageComments,
+  parameters: {
+    layout: 'fullscreen',
+  },
+} satisfies Meta<typeof PageComments>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const comments = [
   {
@@ -139,32 +121,26 @@ const comments = [
   },
 ] satisfies CommentData[];
 
-/**
- * PageComments Stories - Without comments
- */
-export const WithoutComments = Template.bind({});
-WithoutComments.args = {
-  comments: [],
-  pageId: 1,
+export const WithoutComments: Story = {
+  args: {
+    comments: [],
+    pageId: 1,
+  },
 };
 
-/**
- * PageComments Stories - With comments
- */
-export const WithComments = Template.bind({});
-WithComments.args = {
-  comments,
-  depth: 2,
-  pageId: 1,
+export const WithComments: Story = {
+  args: {
+    comments,
+    depth: 2,
+    pageId: 1,
+  },
 };
 
-/**
- * PageComments Stories - With comments closed
- */
-export const WithCommentsClosed = Template.bind({});
-WithCommentsClosed.args = {
-  areCommentsClosed: true,
-  comments,
-  depth: 2,
-  pageId: 1,
+export const WithCommentsClosed: Story = {
+  args: {
+    areCommentsClosed: true,
+    comments,
+    depth: 2,
+    pageId: 1,
+  },
 };

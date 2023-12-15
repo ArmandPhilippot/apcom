@@ -81,6 +81,7 @@
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
     "@storybook/blocks": "^7.5.3",
+    "@storybook/client-api": "^7.6.4",
     "@storybook/nextjs": "^7.5.3",
     "@storybook/react": "^7.5.3",
     "@storybook/testing-library": "^0.2.2",

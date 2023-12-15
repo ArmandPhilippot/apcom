@@ -1,22 +1,12 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useBoolean } from '../../../../utils/hooks';
-import { Tooltip } from './tooltip';
+import { Tooltip, type TooltipProps } from './tooltip';
 
-/**
- * Switch - Storybook Meta
- */
-export default {
-  title: 'Molecules/Modals/Tooltip',
-  component: Tooltip,
-  args: {},
-  argTypes: {},
-} as ComponentMeta<typeof Tooltip>;
-
-const Template: ComponentStory<typeof Tooltip> = ({
+const ControlledTooltip = ({
   isOpen,
   onToggle: _onToggle,
   ...args
-}) => {
+}: TooltipProps) => {
   const { deactivate, state: isOpened, toggle } = useBoolean(isOpen);
 
   return (
@@ -31,13 +21,21 @@ const Template: ComponentStory<typeof Tooltip> = ({
   );
 };
 
-/**
- * Tooltip Stories - Example
- */
-export const Example = Template.bind({});
-Example.args = {
-  children:
-    'Inventore natus dignissimos aut illum modi asperiores. Et voluptatibus delectus.',
-  heading: 'A title',
-  isOpen: false,
+const meta = {
+  component: Tooltip,
+  title: 'Molecules/Modals/Tooltip',
+  render: ControlledTooltip,
+} satisfies Meta<typeof Tooltip>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Example: Story = {
+  args: {
+    children:
+      'Inventore natus dignissimos aut illum modi asperiores. Et voluptatibus delectus.',
+    heading: 'A title',
+    isOpen: false,
+  },
 };

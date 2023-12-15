@@ -1,48 +1,30 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Link } from '../links';
+import type { Meta, StoryObj } from '@storybook/react';
 import { VisuallyHidden } from './visually-hidden';
 
-/**
- * Sidebar - Storybook Meta
- */
-export default {
-  title: 'Atoms/VisuallyHidden',
+const meta = {
   component: VisuallyHidden,
-  argTypes: {
-    children: {
-      control: {
-        type: 'text',
-      },
-      description: 'The contents to visually hide.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
+  title: 'Atoms/Visually Hidden',
+} satisfies Meta<typeof VisuallyHidden>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+const VisuallyHiddenTemplate: Story = {
+  args: {
+    children: 'Some content not focusable.',
   },
-} as ComponentMeta<typeof VisuallyHidden>;
-
-const Template: ComponentStory<typeof VisuallyHidden> = (args) => (
-  <VisuallyHidden {...args} />
-);
-
-/**
- * VisuallyHidden Stories - Not focusable
- */
-export const NotFocusable = Template.bind({});
-NotFocusable.args = {
-  children: 'Esse quia deserunt animi id sit voluptatem aperiam.',
 };
 
-/**
- * VisuallyHidden Stories - Focusable
- */
-export const Focusable = Template.bind({});
-Focusable.args = {
-  children: (
-    <>
-      {'Esse quia deserunt animi id sit voluptatem aperiam. '}
-      <Link href="#">Any link.</Link>
-    </>
-  ),
+export const NotFocusable: Story = {
+  args: {
+    ...VisuallyHiddenTemplate.args,
+  },
+};
+
+export const Focusable: Story = {
+  args: {
+    ...VisuallyHiddenTemplate.args,
+    children: <a href="#anchor">A skip to anchor link</a>,
+  },
 };

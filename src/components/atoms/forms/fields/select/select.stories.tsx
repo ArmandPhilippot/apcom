@@ -1,143 +1,91 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { type ChangeEvent, useCallback, useState } from 'react';
-import { Select as SelectComponent } from './select';
+import type { Meta, StoryObj } from '@storybook/react';
+import { type ChangeEvent, useState, useCallback } from 'react';
+import { Select, type SelectOptions, type SelectProps } from './select';
 
-const selectOptions = [
-  { id: 'option1', name: 'Option 1', value: 'option1' },
-  { id: 'option2', name: 'Option 2', value: 'option2' },
-  { id: 'option3', name: 'Option 3', value: 'option3' },
-];
+const meta = {
+  component: Select,
+  title: 'Atoms/Forms/Fields/Select',
+  excludeStories: /Controlled.*$/,
+} satisfies Meta<typeof Select>;
 
-/**
- * Select - Storybook Meta
- */
-export default {
-  title: 'Atoms/Forms/Fields',
-  component: SelectComponent,
-  args: {
-    isDisabled: false,
-    isRequired: false,
-  },
-  argTypes: {
-    'aria-labelledby': {
-      control: {
-        type: 'text',
-      },
-      description: 'One or more ids that refers to the select field name.',
-      table: {
-        category: 'Accessibility',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    className: {
-      control: {
-        type: 'text',
-      },
-      description: 'Add classnames to the select field.',
-      table: {
-        category: 'Styles',
-      },
-      type: {
-        name: 'string',
-        required: false,
-      },
-    },
-    id: {
-      control: {
-        type: 'text',
-      },
-      description: 'Field id.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-    isDisabled: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Field state: either enabled or disabled.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: false },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
-    isRequired: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'Determine if the field is required.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: false },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
-    name: {
-      control: {
-        type: 'text',
-      },
-      description: 'Field name.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-    options: {
-      description: 'Select options.',
-      type: {
-        name: 'array',
-        required: true,
-        value: {
-          name: 'string',
-        },
-      },
-    },
-    value: {
-      control: {
-        type: null,
-      },
-      description: 'Field value.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
-  },
-} as ComponentMeta<typeof SelectComponent>;
+export default meta;
 
-const Template: ComponentStory<typeof SelectComponent> = ({
-  onChange: _onChange,
-  value,
-  ...args
-}) => {
-  const [selected, setSelected] = useState(value);
-  const updateSelection = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
-  }, []);
+type Story = StoryObj<typeof meta>;
+
+export const ControlledSelect = ({ multiple, ...args }: SelectProps) => {
+  const [selected, setSelected] = useState(multiple === true ? [''] : '');
+  const handler = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      if (multiple)
+        setSelected(
+          Array.from(e.target.selectedOptions, (option) => option.value)
+        );
+      else setSelected(e.target.value);
+    },
+    [multiple]
+  );
 
   return (
-    <SelectComponent {...args} onChange={updateSelection} value={selected} />
+    <Select {...args} multiple={multiple} onChange={handler} value={selected} />
   );
 };
 
-/**
- * Select Story
- */
-export const Select = Template.bind({});
-Select.args = {
-  id: 'storybook-select',
-  name: 'storybook-select',
-  options: selectOptions,
-  value: 'option2',
+const options = [
+  { id: 'option-1', name: 'Option 1', value: 'option-1' },
+  { id: 'option-2', name: 'Option 2', value: 'option-2' },
+  { id: 'option-3', name: 'Option 3', value: 'option-3' },
+  { id: 'option-4', name: 'Option 4', value: 'option-4' },
+  { id: 'option-5', name: 'Option 5', value: 'option-5' },
+] satisfies SelectOptions[];
+
+const SelectTemplate: Story = {
+  args: {
+    isDisabled: false,
+    isRequired: false,
+    multiple: false,
+    options,
+    value: '',
+  },
+  render: ControlledSelect,
+};
+
+export const SingleChoice: Story = {
+  ...SelectTemplate,
+  args: {
+    ...SelectTemplate.args,
+    'aria-label': 'Example of a default select field',
+    options,
+  },
+};
+
+export const MultipleChoices: Story = {
+  ...SelectTemplate,
+  args: {
+    ...SelectTemplate.args,
+    'aria-label': 'Example of a select field with multiple choices',
+    multiple: true,
+    options,
+  },
+};
+
+export const IsDisabled: Story = {
+  ...SelectTemplate,
+  name: 'State: Disabled',
+  args: {
+    ...SelectTemplate.args,
+    'aria-label': 'Example of a disabled select field',
+    isDisabled: true,
+    options,
+  },
+};
+
+export const IsRequired: Story = {
+  ...SelectTemplate,
+  name: 'State: Required',
+  args: {
+    ...SelectTemplate.args,
+    'aria-label': 'Example of a required select field',
+    isRequired: true,
+    options,
+  },
 };

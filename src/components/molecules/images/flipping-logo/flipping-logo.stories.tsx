@@ -1,34 +1,27 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import NextImage from 'next/image';
 import { Logo } from '../../../atoms';
-import { FlippingLogo as FlippingLogoComponent } from './flipping-logo';
+import { FlippingLogo } from './flipping-logo';
 
-/**
- * FlippingLogo - Storybook Meta
- */
-export default {
+const meta = {
+  component: FlippingLogo,
   title: 'Molecules/Images/Flipping Logo',
-  component: FlippingLogoComponent,
-  args: {},
-  argTypes: {},
-} as ComponentMeta<typeof FlippingLogoComponent>;
+} satisfies Meta<typeof FlippingLogo>;
 
-const Template: ComponentStory<typeof FlippingLogoComponent> = (args) => (
-  <FlippingLogoComponent {...args} />
-);
+export default meta;
 
-/**
- * FlippingLogo Story
- */
-export const FlippingLogo = Template.bind({});
-FlippingLogo.args = {
-  back: <Logo heading="A logo example" />,
-  front: (
-    <NextImage
-      alt="A photo example"
-      height={200}
-      src="https://picsum.photos/200"
-      width={200}
-    />
-  ),
+type Story = StoryObj<typeof meta>;
+
+export const Example: Story = {
+  args: {
+    back: <Logo heading="A logo example" />,
+    front: (
+      <NextImage
+        alt="A photo example"
+        height={200}
+        src="https://picsum.photos/200"
+        width={200}
+      />
+    ),
+  },
 };

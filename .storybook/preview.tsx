@@ -1,6 +1,6 @@
 import type { Decorator, Preview } from '@storybook/react';
 import { useDarkMode } from 'storybook-dark-mode';
-import { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import {
   AckeeProvider,
@@ -9,10 +9,10 @@ import {
   ThemeProvider,
 } from '../src/utils/providers';
 import '../src/styles/globals.scss';
-import { DocsContainer } from './overrides/docs-container';
 import dark from './themes/dark';
 import light from './themes/light';
 import { useTheme } from '../src/utils/hooks';
+import { DocsContainer } from '@storybook/blocks';
 
 type ThemeWrapperProps = {
   children: ReactNode;
@@ -77,7 +77,13 @@ const preview: Preview = {
       stylePreview: true,
     },
     docs: {
-      container: DocsContainer,
+      container: ({ children, context }) => {
+        return (
+          <DocsContainer context={context} theme={useDarkMode() ? dark : light}>
+            {children}
+          </DocsContainer>
+        );
+      },
     },
   },
 };

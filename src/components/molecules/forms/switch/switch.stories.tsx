@@ -1,25 +1,14 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { type ChangeEventHandler, useCallback, useState } from 'react';
-import { Legend } from '../../../atoms';
-import { Switch as SwitchComponent, type SwitchOption } from './switch';
+import { Icon } from '../../../atoms';
+import { Switch, type SwitchProps } from './switch';
 
-/**
- * Switch - Storybook Meta
- */
-export default {
-  title: 'Molecules/Forms',
-  component: SwitchComponent,
-  args: {},
-  argTypes: {},
-} as ComponentMeta<typeof SwitchComponent>;
+type ControlledSwitchProps = Omit<SwitchProps, 'onSwitch' | 'selectedItem'>;
 
-const Template: ComponentStory<typeof SwitchComponent> = ({
-  value,
-  ...args
-}) => {
-  const [selection, setSelection] = useState(value);
+const ControlledSwitch = ({ items, ...props }: ControlledSwitchProps) => {
+  const [selection, setSelection] = useState(items[0].value);
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+  const handleSwitch: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       setSelection(e.target.value);
     },
@@ -27,22 +16,60 @@ const Template: ComponentStory<typeof SwitchComponent> = ({
   );
 
   return (
-    <SwitchComponent {...args} onSwitch={handleChange} value={selection} />
+    <Switch
+      {...props}
+      items={items}
+      onSwitch={handleSwitch}
+      value={selection}
+    />
   );
 };
 
-const items: [SwitchOption, SwitchOption] = [
-  { id: 'option-1', label: 'Choice 1', value: 'option-1' },
-  { id: 'option-2', label: 'Choice 2', value: 'option-2' },
-];
+const meta = {
+  title: 'Molecules/Forms/Switch',
+  component: Switch,
+  render: ControlledSwitch,
+} satisfies Meta<typeof Switch>;
 
-/**
- * Radio Group Story
- */
-export const Switch = Template.bind({});
-Switch.args = {
-  items,
-  legend: <Legend>Choose the best option:</Legend>,
-  name: 'example',
-  value: items[0].value,
+export default meta;
+
+type Story = StoryObj<typeof ControlledSwitch>;
+
+export const Example: Story = {
+  args: {
+    items: [
+      { id: 'item-1', label: 'Item 1', value: 'item-1' },
+      { id: 'item-2', label: 'Item 2', value: 'item-2' },
+    ],
+    name: 'example',
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    isDisabled: true,
+    items: [
+      { id: 'disabled-item-1', label: 'Item 1', value: 'item-1' },
+      { id: 'disabled-item-2', label: 'Item 2', value: 'item-2' },
+    ],
+    name: 'disabled',
+  },
+};
+
+export const Icons: Story = {
+  args: {
+    items: [
+      {
+        id: 'light-theme',
+        label: <Icon aria-label="Light theme" shape="sun" size="xs" />,
+        value: 'light-theme',
+      },
+      {
+        id: 'dark-theme',
+        label: <Icon aria-label="Dark theme" shape="moon" size="xs" />,
+        value: 'dark-theme',
+      },
+    ],
+    name: 'theme',
+  },
 };

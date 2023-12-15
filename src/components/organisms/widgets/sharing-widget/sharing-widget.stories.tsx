@@ -1,50 +1,25 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Heading } from '../../../atoms';
 import { SharingWidget } from './sharing-widget';
 
-/**
- * SharingWidget - Storybook Meta
- */
-export default {
-  title: 'Organisms/Widgets/Sharing',
+const meta = {
   component: SharingWidget,
-  argTypes: {
+  title: 'Organisms/Widgets/Sharing',
+} satisfies Meta<typeof SharingWidget>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Sharing: Story = {
+  args: {
     data: {
-      description: 'The page data.',
-      type: {
-        name: 'object',
-        required: true,
-        value: {},
-      },
+      excerpt:
+        'Alias similique eius ducimus laudantium aspernatur. Est rem ut eum temporibus sit reprehenderit aut non molestias. Vel dolorem expedita labore quo inventore aliquid nihil nam. Possimus nobis enim quas corporis eos.',
+      title: 'Accusantium totam nostrum',
+      url: 'https://www.example.test',
     },
-    media: {
-      control: {
-        type: null,
-      },
-      description: 'An array of active and ordered sharing medium.',
-      type: {
-        name: 'string',
-        required: true,
-      },
-    },
+    heading: <Heading level={3}>Share</Heading>,
+    media: ['diaspora', 'facebook', 'linkedin', 'twitter', 'email'],
   },
-} as ComponentMeta<typeof SharingWidget>;
-
-const Template: ComponentStory<typeof SharingWidget> = (args) => (
-  <SharingWidget {...args} />
-);
-
-/**
- * SharingWidget Stories - Sharing
- */
-export const Sharing = Template.bind({});
-Sharing.args = {
-  data: {
-    excerpt:
-      'Alias similique eius ducimus laudantium aspernatur. Est rem ut eum temporibus sit reprehenderit aut non molestias. Vel dolorem expedita labore quo inventore aliquid nihil nam. Possimus nobis enim quas corporis eos.',
-    title: 'Accusantium totam nostrum',
-    url: 'https://www.example.test',
-  },
-  heading: <Heading level={3}>Share</Heading>,
-  media: ['diaspora', 'facebook', 'linkedin', 'twitter', 'email'],
 };

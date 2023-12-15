@@ -1,0 +1,80 @@
+import { ArgTypes, Canvas, Meta, Primary } from '@storybook/blocks';
+import * as ButtonStories from './button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+<Primary />
+
+## Kind
+
+The button appearance can change depending on its kind.
+
+### Primary
+
+<Canvas of={ButtonStories.Primary} />
+
+### Secondary (default)
+
+<Canvas of={ButtonStories.Secondary} />
+
+### Tertiary
+
+<Canvas of={ButtonStories.Tertiary} />
+
+### Neutral
+
+<Canvas of={ButtonStories.Neutral} />
+
+## States
+
+It can either:
+* be enabled,
+* be disabled
+* indicate a loading state,
+* indicate a pressed state.
+
+### Enabled (default)
+
+<Canvas of={ButtonStories.Enabled} />
+
+### Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+### Loading
+
+<Canvas of={ButtonStories.Loading} />
+
+### Pressed
+
+<Canvas of={ButtonStories.Pressed} />
+
+## Shapes
+
+It can either:
+* be a circle,
+* be a rectangle
+* be a square,
+* or conserves its initial shape.
+
+### Circle
+
+<Canvas of={ButtonStories.Circle} />
+
+### Rectangle (default)
+
+<Canvas of={ButtonStories.Rectangle} />
+
+### Square
+
+<Canvas of={ButtonStories.Square} />
+
+### Initial
+
+<Canvas of={ButtonStories.Initial} />
+
+## Props
+
+<ArgTypes of={ButtonStories} />

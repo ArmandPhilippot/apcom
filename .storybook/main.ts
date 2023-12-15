@@ -3,7 +3,7 @@ import { RuleSetRule } from 'webpack';
 
 const config: StorybookConfig = {
   stories: [
-    '../src/**!(content)/*.mdx',
+    '../src/components/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [

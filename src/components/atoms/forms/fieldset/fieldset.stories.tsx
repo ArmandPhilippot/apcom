@@ -1,61 +1,47 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from '../fields';
-import { Legend } from '../legend';
-import { Fieldset as FieldsetComponent } from './fieldset';
+import { Fieldset, type FieldsetProps } from './fieldset';
 
-/**
- * Fieldset - Storybook Meta
- */
-export default {
-  title: 'Atoms/Forms',
-  component: FieldsetComponent,
-  args: {
-    isDisabled: false,
-  },
-  argTypes: {
-    isDisabled: {
-      control: {
-        type: 'boolean',
-      },
-      description:
-        'Define if the fields inside the fieldset should be disabled.',
-      table: {
-        category: 'Options',
-        defaultValue: { summary: false },
-      },
-      type: {
-        name: 'boolean',
-        required: false,
-      },
-    },
-  },
-} as ComponentMeta<typeof FieldsetComponent>;
+const meta = {
+  component: Fieldset,
+  title: 'Atoms/Forms/Fieldset',
+} satisfies Meta<typeof Fieldset>;
 
-const Template: ComponentStory<typeof FieldsetComponent> = (args) => (
-  <FieldsetComponent {...args}>
-    <div>
-      <Input
-        aria-label="A field example"
-        id="field1"
-        name="field1"
-        type="text"
-      />
-    </div>
-    <div>
-      <Input
-        aria-label="Another field example"
-        id="field2"
-        name="field2"
-        type="text"
-      />
-    </div>
-  </FieldsetComponent>
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {},
+};
+
+const FieldsetWithFields = ({
+  inputLabel,
+  ...props
+}: FieldsetProps & { inputLabel: string }) => (
+  <Fieldset {...props}>
+    <Input aria-label={inputLabel} id="field" name="field" type="text" />
+  </Fieldset>
 );
 
-/**
- * Fieldset Story
- */
-export const Fieldset = Template.bind({});
-Fieldset.args = {
-  legend: <Legend>The fieldset legend</Legend>,
+type WithFieldStory = StoryObj<FieldsetProps & { inputLabel: string }>;
+
+export const Enabled: WithFieldStory = {
+  name: 'State: Enabled',
+  args: {
+    ...Default.args,
+    inputLabel: 'Example of a field inside an enabled fieldset',
+    isDisabled: false,
+  },
+  render: FieldsetWithFields,
+};
+
+export const Disabled: WithFieldStory = {
+  name: 'State: Disabled',
+  args: {
+    ...Default.args,
+    inputLabel: 'Example of a field inside a disabled fieldset',
+    isDisabled: true,
+  },
+  render: FieldsetWithFields,
 };

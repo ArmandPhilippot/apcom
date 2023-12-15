@@ -1,31 +1,15 @@
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Heading } from '../../../atoms';
 import { LinksWidget, type LinksWidgetItemData } from './links-widget';
 
-/**
- * LinksWidget - Storybook Meta
- */
-export default {
-  title: 'Organisms/Widgets/Links',
+const meta = {
   component: LinksWidget,
-  args: {
-    isOrdered: false,
-  },
-  argTypes: {
-    items: {
-      description: 'The links data.',
-      type: {
-        name: 'object',
-        required: true,
-        value: {},
-      },
-    },
-  },
-} as ComponentMeta<typeof LinksWidget>;
+  title: 'Organisms/Widgets/Links',
+} satisfies Meta<typeof LinksWidget>;
 
-const Template: ComponentStory<typeof LinksWidget> = (args) => (
-  <LinksWidget {...args} />
-);
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const items = [
   { id: 'item11', label: 'Level 1: Item 1', url: '#' },
@@ -52,29 +36,25 @@ const items = [
   { id: 'item14', label: 'Level 1: Item 4', url: '#' },
 ] satisfies LinksWidgetItemData[];
 
-/**
- * Links List Widget Stories - Unordered
- */
-export const Unordered = Template.bind({});
-Unordered.args = {
-  heading: (
-    <Heading isFake level={3}>
-      Quo et totam
-    </Heading>
-  ),
-  items,
+export const Unordered: Story = {
+  args: {
+    heading: (
+      <Heading isFake level={3}>
+        Quo et totam
+      </Heading>
+    ),
+    items,
+  },
 };
 
-/**
- * Links List Widget Stories - Ordered
- */
-export const Ordered = Template.bind({});
-Ordered.args = {
-  heading: (
-    <Heading isFake level={3}>
-      Quo et totam
-    </Heading>
-  ),
-  isOrdered: true,
-  items,
+export const Ordered: Story = {
+  args: {
+    heading: (
+      <Heading isFake level={3}>
+        Quo et totam
+      </Heading>
+    ),
+    isOrdered: true,
+    items,
+  },
 };
