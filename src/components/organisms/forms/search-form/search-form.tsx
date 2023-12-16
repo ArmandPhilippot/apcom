@@ -124,7 +124,11 @@ const SearchFormWithRef: ForwardRefRenderFunction<
         </Button>
       </Form>
       {messages?.error && submitStatus === 'FAILED' ? (
-        <Notice className={styles.notice} kind="error">
+        <Notice
+          className={styles.notice}
+          // eslint-disable-next-line react/jsx-no-literals
+          kind="error"
+        >
           {messages.error}
         </Notice>
       ) : null}

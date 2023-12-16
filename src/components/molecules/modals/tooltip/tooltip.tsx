@@ -83,7 +83,9 @@ export const Tooltip: FC<TooltipProps> = ({
             {heading}
           </Heading>
         }
+        // eslint-disable-next-line react/jsx-no-literals
         icon={<Icon aria-hidden shape="help" size="sm" />}
+        // eslint-disable-next-line react/jsx-no-literals
         kind="secondary"
         ref={modalRef}
       >

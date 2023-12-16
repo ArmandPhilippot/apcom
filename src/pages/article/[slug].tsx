@@ -3,7 +3,7 @@ import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { type FC, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -60,12 +60,8 @@ type ArticlePageProps = {
   translation: Messages;
 };
 
-/**
- * Article page.
- */
-const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
+const Article: FC<Pick<ArticlePageProps, 'data'>> = ({ data }) => {
   const intl = useIntl();
-  const { isFallback } = useRouter();
   const { article, isLoading } = useArticle(data.post.slug, data.post);
   const { comments, isLoading: areCommentsLoading } = useComments({
     fallback: data.comments,
@@ -137,7 +133,7 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
     []
   );
 
-  if (isFallback || isLoading) return <LoadingPage />;
+  if (isLoading) return <LoadingPage />;
 
   const { content, id, intro, meta, slug, title } = article;
   const {
@@ -274,6 +270,15 @@ const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
       )}
     </Page>
   );
+};
+
+/**
+ * Article page.
+ */
+const ArticlePage: NextPageWithLayout<ArticlePageProps> = ({ data }) => {
+  const { isFallback } = useRouter();
+
+  return isFallback ? <LoadingPage /> : <Article data={data} />;
 };
 
 ArticlePage.getLayout = (page) => getLayout(page);

@@ -22,6 +22,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       domainId={CONFIG.ackee.siteId}
       server={CONFIG.ackee.url}
       storageKey={STORAGE_KEY.ACKEE}
+      // eslint-disable-next-line react/jsx-no-literals
       tracking="full"
     >
       <MotionProvider

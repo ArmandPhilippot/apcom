@@ -28,10 +28,19 @@ const MainNavWithRef: ForwardRefRenderFunction<HTMLElement, MainNavProps> = (
 
   return (
     <Nav {...props} className={wrapperClass} ref={ref}>
-      <NavList isInline spacing="2xs">
+      <NavList
+        isInline
+        // eslint-disable-next-line react/jsx-no-literals
+        spacing="2xs"
+      >
         {items.map(({ id, ...link }) => (
           <NavItem key={id}>
-            <NavLink {...link} isStack variant="main" />
+            <NavLink
+              {...link}
+              isStack
+              // eslint-disable-next-line react/jsx-no-literals
+              variant="main"
+            />
           </NavItem>
         ))}
       </NavList>

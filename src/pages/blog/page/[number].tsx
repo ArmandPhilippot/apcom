@@ -3,7 +3,7 @@ import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { type FC, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   getLayout,
@@ -78,23 +78,12 @@ type BlogPageProps = {
   translation: Messages;
 };
 
-/**
- * Blog index page.
- */
-const BlogPage: NextPageWithLayout<BlogPageProps> = ({
+const Blog: FC<Pick<BlogPageProps, 'data' | 'lastCursor' | 'pageNumber'>> = ({
   data,
   lastCursor,
   pageNumber,
 }) => {
-  useRedirection({
-    isReplacing: true,
-    to: ROUTES.BLOG,
-    whenPathMatches: (path) =>
-      path === `${ROUTES.BLOG}${PAGINATED_ROUTE_PREFIX}/1`,
-  });
-
   const intl = useIntl();
-  const { isFallback } = useRouter();
   const {
     articles,
     error,
@@ -256,8 +245,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
     [intl]
   );
 
-  if (isFallback) return <LoadingPage />;
-
   const pageUrl = `${CONFIG.url}${ROUTES.BLOG}`;
 
   return (
@@ -359,6 +346,30 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({
   );
 };
 
+/**
+ * Blog index page.
+ */
+const BlogPage: NextPageWithLayout<BlogPageProps> = ({
+  data,
+  lastCursor,
+  pageNumber,
+}) => {
+  useRedirection({
+    isReplacing: true,
+    to: ROUTES.BLOG,
+    whenPathMatches: (path) =>
+      path === `${ROUTES.BLOG}${PAGINATED_ROUTE_PREFIX}/1`,
+  });
+
+  const { isFallback } = useRouter();
+
+  return isFallback ? (
+    <LoadingPage />
+  ) : (
+    <Blog data={data} lastCursor={lastCursor} pageNumber={pageNumber} />
+  );
+};
+
 BlogPage.getLayout = (page) => getLayout(page);
 
 type BlogPageParams = {
@@ -414,7 +425,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     { length: totalPages },
     (_, index) => index + 1
   );
-  const paths = pagesArray.map((number) => {
+  // We remove /blog/page/1 since it is redirected to /blog
+  const paths = pagesArray.slice(1).map((number) => {
     return { params: { number: `${number}` } };
   });
 
