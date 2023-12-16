@@ -3,6 +3,8 @@ import {
   type CSSProperties,
   forwardRef,
   type ForwardRefRenderFunction,
+  useEffect,
+  useRef,
 } from 'react';
 import { useIntl } from 'react-intl';
 import { CONFIG } from '../../../../utils/config';
@@ -32,6 +34,7 @@ const SiteBrandingWithRef: ForwardRefRenderFunction<
   SiteBrandingProps
 > = ({ isHome = false, ...props }, ref) => {
   const intl = useIntl();
+  const isFirstRender = useRef(true);
   const photoAltText = intl.formatMessage(
     {
       defaultMessage: '{website} picture',
@@ -48,6 +51,10 @@ const SiteBrandingWithRef: ForwardRefRenderFunction<
     },
     { website: CONFIG.name }
   );
+
+  useEffect(() => {
+    isFirstRender.current = false;
+  }, []);
 
   return (
     <Branding
@@ -77,7 +84,9 @@ const SiteBrandingWithRef: ForwardRefRenderFunction<
           className={styles.title}
           isFake={!isHome}
           level={1}
-          style={brandingTitleStyles}
+          style={
+            isFirstRender.current ? brandingTitleStyles : { animation: 'none' }
+          }
         >
           {CONFIG.name}
         </Heading>
