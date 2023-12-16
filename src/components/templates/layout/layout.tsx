@@ -1,6 +1,13 @@
-import type { FC, ReactElement, ReactNode } from 'react';
+import {
+  useRef,
+  type FC,
+  type ReactElement,
+  type ReactNode,
+  useCallback,
+} from 'react';
 import { useIntl } from 'react-intl';
 import type { NextPageWithLayoutOptions } from '../../../types';
+import { useOnRouteChange } from '../../../utils/hooks';
 import { ButtonLink, Main } from '../../atoms';
 import styles from './layout.module.scss';
 import { SiteFooter } from './site-footer';
@@ -34,12 +41,19 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
     }),
   };
 
+  const topRef = useRef<HTMLSpanElement>(null);
   const topId = 'top';
   const mainId = 'main';
 
+  const giveFocusToTop = useCallback(() => {
+    if (topRef.current) topRef.current.focus();
+  }, []);
+
+  useOnRouteChange(giveFocusToTop);
+
   return (
     <>
-      <span id={topId} />
+      <span id={topId} ref={topRef} tabIndex={-1} />
       <noscript>
         <div className={styles['noscript-spacing']} />
       </noscript>
