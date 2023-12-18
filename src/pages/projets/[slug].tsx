@@ -1,9 +1,10 @@
+/* eslint-disable max-statements */
 import type { MDXComponents } from 'mdx/types';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import { useMemo, type ComponentType, type FC } from 'react';
+import { useMemo, type ComponentType, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Heading,
@@ -20,7 +21,7 @@ import {
   Spinner,
   Time,
   getLayout,
-  type ProjectOverviewProps,
+  type OverviewMeta,
 } from '../../components';
 import { mdxComponents } from '../../components/mdx';
 import { fetchGithubRepoMeta } from '../../services/github';
@@ -30,7 +31,6 @@ import type {
   Maybe,
   NextPageWithLayout,
   Project,
-  ProjectMeta,
 } from '../../types';
 import { CONFIG } from '../../utils/config';
 import {
@@ -71,107 +71,6 @@ const getGithubRepoInputFrom = (namespace: string) => {
 const isValidRepo = (name: string): name is 'github' | 'gitlab' =>
   ['github', 'gitlab'].includes(name);
 
-type GithubRepoOverviewProps = Omit<
-  ProjectOverviewProps,
-  'cover' | 'meta' | 'name'
-> &
-  Pick<ProjectMeta, 'cover' | 'license' | 'technologies'> & {
-    repos: {
-      github: string;
-      gitlab?: string;
-    };
-    title: string;
-  };
-
-const GithubRepoOverview: FC<GithubRepoOverviewProps> = ({
-  cover,
-  license,
-  repos,
-  technologies,
-  title,
-  ...props
-}) => {
-  const intl = useIntl();
-  const { isLoading, meta: repoMeta } = useGithubRepoMeta(
-    getGithubRepoInputFrom(repos.github)
-  );
-  const reposLabels = {
-    github: intl.formatMessage({
-      defaultMessage: 'Github',
-      description: 'ProjectPage: Github repo label',
-      id: 'l82UU5',
-    }),
-    gitlab: intl.formatMessage({
-      defaultMessage: 'Gitlab',
-      description: 'ProjectPage: Gitlab repo label',
-      id: '1msHuZ',
-    }),
-  };
-  const stars = intl.formatMessage(
-    {
-      defaultMessage:
-        '{starsCount, plural, =0 {No stars} one {# star} other {# stars}}',
-      description: 'ProjectPage: stars count',
-      id: '4M71hp',
-    },
-    { starsCount: repoMeta?.stargazerCount }
-  );
-  const popularityURL = `https://github.com/${repos.github}/stargazers`;
-
-  return isLoading ? (
-    <Spinner>
-      {intl.formatMessage({
-        defaultMessage: 'Loading the repository metadata...',
-        description: 'ProjectPage: loading repository metadata',
-        id: 'EET/tC',
-      })}
-    </Spinner>
-  ) : (
-    <ProjectOverview
-      {...props}
-      cover={cover ? <NextImage {...cover} /> : undefined}
-      meta={{
-        creationDate: repoMeta?.createdAt ? (
-          <Time date={repoMeta.createdAt} />
-        ) : undefined,
-        lastUpdateDate: repoMeta?.updatedAt ? (
-          <Time date={repoMeta.updatedAt} />
-        ) : undefined,
-        license,
-        popularity: (
-          <>
-            ⭐&nbsp;<Link href={popularityURL}>{stars}</Link>
-          </>
-        ),
-        repositories: Object.entries(repos)
-          .map(([key, value]): Maybe<MetaValues> => {
-            if (!isValidRepo(key)) return undefined;
-
-            return {
-              id: key,
-              value: (
-                <SocialLink
-                  icon={capitalize(key)}
-                  key={key}
-                  label={reposLabels[key]}
-                  url={value}
-                />
-              ),
-            };
-          })
-          .filter((entry): entry is MetaValues => !!entry),
-        technologies: technologies?.map((techno) => {
-          return {
-            id: techno,
-            value: techno,
-          };
-        }),
-      }}
-      name={title}
-    />
-  );
-};
-
 type ProjectPageProps = {
   data: {
     githubMeta: Maybe<GithubRepositoryMeta>;
@@ -189,6 +88,11 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
   const { items: breadcrumbItems, schema: breadcrumbSchema } =
     useBreadcrumbs(title);
   const { ref, tree } = useHeadingsTree<HTMLDivElement>({ fromLevel: 2 });
+  const { isLoading: isGithubMetaLoading, meta: githubMeta } =
+    useGithubRepoMeta(
+      meta.repos.github ? getGithubRepoInputFrom(meta.repos.github) : null,
+      data.githubMeta
+    );
 
   const page = {
     title: `${meta.seo.title} - ${CONFIG.name}`,
@@ -209,6 +113,11 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
 
   const messages = {
     repos: {
+      github: intl.formatMessage({
+        defaultMessage: 'Github',
+        description: 'ProjectPage: Github repo label',
+        id: 'l82UU5',
+      }),
       gitlab: intl.formatMessage({
         defaultMessage: 'Gitlab',
         description: 'ProjectPage: Gitlab repo label',
@@ -228,6 +137,65 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
       }),
     },
   };
+
+  const getAdditionalMeta = useCallback(
+    (
+      repo: string,
+      repoMeta: Maybe<GithubRepositoryMeta>
+    ): Partial<OverviewMeta> => {
+      const loading = {
+        creationDate: intl.formatMessage({
+          defaultMessage: 'Loading the repository creation date...',
+          description: 'ProjectPage: loading repository metadata',
+          id: 'OzVOKP',
+        }),
+        popularity: intl.formatMessage({
+          defaultMessage: 'Loading the repository popularity...',
+          description: 'ProjectPage: loading repository metadata',
+          id: 'RfXzNe',
+        }),
+        updateDate: intl.formatMessage({
+          defaultMessage: 'Loading the repository update date...',
+          description: 'ProjectPage: loading repository metadata',
+          id: 'VEHEEs',
+        }),
+      };
+      const stars = intl.formatMessage(
+        {
+          defaultMessage:
+            '{starsCount, plural, =0 {No stars} one {# star} other {# stars}}',
+          description: 'ProjectPage: stars count',
+          id: '4M71hp',
+        },
+        { starsCount: repoMeta?.stargazerCount }
+      );
+      const popularityURL = `https://github.com/${repo}/stargazers`;
+
+      return {
+        creationDate:
+          isGithubMetaLoading || !repoMeta ? (
+            <Spinner aria-label={loading.creationDate} />
+          ) : (
+            <Time date={repoMeta.createdAt} />
+          ),
+        lastUpdateDate:
+          isGithubMetaLoading || !repoMeta ? (
+            <Spinner aria-label={loading.updateDate} />
+          ) : (
+            <Time date={repoMeta.updatedAt} />
+          ),
+        popularity:
+          isGithubMetaLoading || !repoMeta ? (
+            <Spinner aria-label={loading.popularity} />
+          ) : (
+            <>
+              ⭐&nbsp;<Link href={popularityURL}>{stars}</Link>
+            </>
+          ),
+      };
+    },
+    [intl, isGithubMetaLoading]
+  );
 
   const ProjectContent: ComponentType<MDXComponents> = useMemo(
     () =>
@@ -269,39 +237,40 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
         />
       </PageSidebar>
       <PageBody ref={ref}>
-        {meta.repos.github ? (
-          <GithubRepoOverview
-            className={styles.overview}
-            cover={meta.cover}
-            license={meta.license}
-            repos={{ github: meta.repos.github, gitlab: meta.repos.gitlab }}
-            technologies={meta.technologies}
-            title={title}
-          />
-        ) : (
-          <ProjectOverview
-            className={styles.overview}
-            cover={meta.cover ? <NextImage {...meta.cover} /> : undefined}
-            meta={{
-              license: meta.license,
-              repositories: meta.repos.gitlab ? (
-                <SocialLink
-                  // eslint-disable-next-line react/jsx-no-literals
-                  icon="Gitlab"
-                  label={messages.repos.gitlab}
-                  url={meta.repos.gitlab}
-                />
-              ) : undefined,
-              technologies: meta.technologies?.map((techno) => {
+        <ProjectOverview
+          className={styles.overview}
+          cover={meta.cover ? <NextImage {...meta.cover} /> : undefined}
+          meta={{
+            ...(githubMeta === null || !meta.repos.github
+              ? {}
+              : getAdditionalMeta(meta.repos.github, githubMeta)),
+            license: meta.license,
+            repositories: Object.entries(meta.repos)
+              .map(([key, value]): Maybe<MetaValues> => {
+                if (!isValidRepo(key)) return undefined;
+
                 return {
-                  id: techno,
-                  value: techno,
+                  id: key,
+                  value: (
+                    <SocialLink
+                      icon={capitalize(key)}
+                      key={key}
+                      label={messages.repos[key]}
+                      url={value}
+                    />
+                  ),
                 };
-              }),
-            }}
-            name={title}
-          />
-        )}
+              })
+              .filter((entry): entry is MetaValues => !!entry),
+            technologies: meta.technologies?.map((techno) => {
+              return {
+                id: techno,
+                value: techno,
+              };
+            }),
+          }}
+          name={title}
+        />
         <ProjectContent components={mdxComponents} />
       </PageBody>
       <PageSidebar>
