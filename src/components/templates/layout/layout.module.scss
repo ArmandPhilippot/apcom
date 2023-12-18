@@ -14,7 +14,15 @@
   right: 0;
   z-index: 10;
   background: var(--color-bg);
-  border-bottom: fun.convert-px(3) solid var(--color-border);
+  border-image: radial-gradient(
+      ellipse at center,
+      var(--color-primary-lighter) 20%,
+      var(--color-primary) 100%
+    )
+    1;
+  border-top: max(0.3vw, fun.convert-px(4)) solid;
+  box-shadow: 0 fun.convert-px(1) fun.convert-px(1) fun.convert-px(1)
+    var(--color-shadow);
   color: var(--color-primary-darker);
   font-size: var(--font-size-sm);
   font-weight: 600;
