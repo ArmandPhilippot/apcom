@@ -10,8 +10,14 @@ const validPrismThemesStr = VALID_THEMES.map((t) => `"${t}"`);
 
 // eslint-disable-next-line @typescript-eslint/no-shadow -- Required by NextJs
 export default function Document() {
+  const defaultAttributes = {
+    [`data-${STORAGE_KEY.MOTION}`]: 'false',
+    [`data-${STORAGE_KEY.THEME}`]: 'light',
+    [PRISM_THEME_ATTRIBUTE]: 'light',
+  };
+
   return (
-    <Html>
+    <Html {...defaultAttributes}>
       <Head>
         <Script
           dangerouslySetInnerHTML={{
