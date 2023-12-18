@@ -1,4 +1,5 @@
 import type { GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useIntl } from 'react-intl';
 import {
@@ -6,7 +7,6 @@ import {
   Page,
   PageHeader,
   PageSidebar,
-  TocWidget,
   Heading,
   PageBody,
 } from '../components';
@@ -18,6 +18,13 @@ import { ROUTES } from '../utils/constants';
 import { getSchemaFrom, getWebPageGraph } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumbs, useHeadingsTree } from '../utils/hooks';
+
+const Toc = dynamic(
+  async () => import('../components').then((mod) => mod.TocWidget),
+  {
+    ssr: false,
+  }
+);
 
 /**
  * Legal Notice page.
@@ -76,10 +83,7 @@ const LegalNoticePage: NextPageWithLayout = () => {
         }}
       />
       <PageSidebar>
-        <TocWidget
-          heading={<Heading level={2}>{tocTitle}</Heading>}
-          tree={tree}
-        />
+        <Toc heading={<Heading level={2}>{tocTitle}</Heading>} tree={tree} />
       </PageSidebar>
       <PageBody ref={ref}>
         <LegalNoticeContent components={mdxComponents} />

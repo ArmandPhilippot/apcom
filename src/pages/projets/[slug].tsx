@@ -19,7 +19,6 @@ import {
   SocialLink,
   Spinner,
   Time,
-  TocWidget,
   getLayout,
   type ProjectOverviewProps,
 } from '../../components';
@@ -50,6 +49,13 @@ import {
   useGithubRepoMeta,
   useHeadingsTree,
 } from '../../utils/hooks';
+
+const Toc = dynamic(
+  async () => import('../../components').then((mod) => mod.TocWidget),
+  {
+    ssr: false,
+  }
+);
 
 const getGithubRepoInputFrom = (namespace: string) => {
   const parts = namespace.split('/');
@@ -257,7 +263,7 @@ const ProjectPage: NextPageWithLayout<ProjectPageProps> = ({ data }) => {
         }}
       />
       <PageSidebar>
-        <TocWidget
+        <Toc
           heading={<Heading level={2}>{messages.widgets.tocTitle}</Heading>}
           tree={tree}
         />

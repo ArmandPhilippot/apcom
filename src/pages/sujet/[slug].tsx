@@ -1,6 +1,7 @@
 /* eslint-disable max-statements */
 import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
@@ -15,7 +16,6 @@ import {
   PageSidebar,
   PageBody,
   LoadingPage,
-  TocWidget,
   Spinner,
 } from '../../components';
 import {
@@ -48,6 +48,13 @@ import {
   useTopic,
   useTopicsList,
 } from '../../utils/hooks';
+
+const Toc = dynamic(
+  async () => import('../../components').then((mod) => mod.TocWidget),
+  {
+    ssr: false,
+  }
+);
 
 export type TopicPageProps = {
   data: {
@@ -169,7 +176,7 @@ const TopicPage: NextPageWithLayout<TopicPageProps> = ({ data }) => {
         }}
       />
       <PageSidebar>
-        <TocWidget
+        <Toc
           heading={<Heading level={2}>{messages.widgets.tocTitle}</Heading>}
           tree={[
             ...tree,

@@ -1,6 +1,7 @@
 /* eslint-disable max-statements */
 import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { type FC, useCallback } from 'react';
@@ -16,7 +17,6 @@ import {
   PageFooter,
   PageComments,
   PageSidebar,
-  TocWidget,
   LoadingPage,
   LoadingPageComments,
 } from '../../components';
@@ -51,6 +51,13 @@ import {
   useHeadingsTree,
   usePrism,
 } from '../../utils/hooks';
+
+const Toc = dynamic(
+  async () => import('../../components').then((mod) => mod.TocWidget),
+  {
+    ssr: false,
+  }
+);
 
 type ArticlePageProps = {
   data: {
@@ -228,7 +235,7 @@ const Article: FC<Pick<ArticlePageProps, 'data'>> = ({ data }) => {
         }}
       />
       <PageSidebar>
-        <TocWidget
+        <Toc
           heading={<Heading level={2}>{messages.tocTitle}</Heading>}
           tree={tree}
         />
@@ -291,7 +298,8 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
   locale,
   params,
 }) => {
-  const post = await fetchPost((params as PostParams).slug);
+  const { slug } = params as PostParams;
+  const post = await fetchPost(slug);
   const comments = await fetchCommentsList({
     first: post.commentCount ?? 1,
     where: { contentId: post.databaseId },

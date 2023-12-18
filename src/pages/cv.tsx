@@ -1,4 +1,5 @@
 import type { GetStaticProps } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import NextImage from 'next/image';
 import React, { type ReactNode } from 'react';
@@ -12,7 +13,6 @@ import {
   Page,
   PageHeader,
   PageSidebar,
-  TocWidget,
   PageBody,
 } from '../components';
 import { mdxComponents } from '../components/mdx';
@@ -23,6 +23,13 @@ import { PERSONAL_LINKS, ROUTES } from '../utils/constants';
 import { getAboutPageGraph, getSchemaFrom } from '../utils/helpers';
 import { loadTranslation } from '../utils/helpers/server';
 import { useBreadcrumbs, useHeadingsTree } from '../utils/hooks';
+
+const Toc = dynamic(
+  async () => import('../components').then((mod) => mod.TocWidget),
+  {
+    ssr: false,
+  }
+);
 
 const DownloadLink = (chunks: ReactNode) => (
   <Link href={data.file} isDownload>
@@ -133,7 +140,7 @@ const CVPage: NextPageWithLayout = () => {
         }}
       />
       <PageSidebar>
-        <TocWidget
+        <Toc
           heading={<Heading level={3}>{messages.toc.title}</Heading>}
           tree={tree}
         />
