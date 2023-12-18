@@ -22,7 +22,7 @@ export const useArticle = <T extends Maybe<WPPost>>(
   return {
     article: data ? convertPostToArticle(data) : undefined,
     isError: !!error,
-    isLoading,
+    isLoading: isLoading && !data,
     isValidating,
   } as UseArticleReturn<T>;
 };

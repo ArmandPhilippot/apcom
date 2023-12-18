@@ -39,7 +39,7 @@ export const useTopicsList = <
 
   return {
     isError: !!error,
-    isLoading,
+    isLoading: isLoading && !data,
     isValidating,
     topics: data,
   } as UseTopicsListReturn<T>;

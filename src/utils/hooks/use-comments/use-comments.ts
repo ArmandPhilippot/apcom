@@ -36,7 +36,7 @@ export const useComments = <T extends Maybe<WPComment[]>>({
       ? buildCommentsTree(data.map(convertWPCommentToComment))
       : undefined,
     isError: !!error,
-    isLoading,
+    isLoading: isLoading && !data,
     isValidating,
   } as UseCommentsReturn<T>;
 };

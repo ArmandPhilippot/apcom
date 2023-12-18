@@ -24,7 +24,7 @@ export const useThematic = <T extends Maybe<WPThematic>>(
 
   return {
     isError: !!error,
-    isLoading,
+    isLoading: isLoading && !data,
     isValidating,
     thematic: data ? convertWPThematicToThematic(data) : undefined,
   } as UseThematicReturn<T>;

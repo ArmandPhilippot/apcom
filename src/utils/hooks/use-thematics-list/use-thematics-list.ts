@@ -43,7 +43,7 @@ export const useThematicsList = <
 
   return {
     isError: !!error,
-    isLoading,
+    isLoading: isLoading && !data,
     isValidating,
     thematics: data,
   } as UseThematicsListReturn<T>;

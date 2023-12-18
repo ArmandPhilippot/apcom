@@ -21,7 +21,7 @@ export const useTopic = <T extends Maybe<WPTopic>>(
 
   return {
     isError: !!error,
-    isLoading,
+    isLoading: isLoading && !data,
     isValidating,
     topic: data ? convertWPTopicToTopic(data) : undefined,
   } as UseTopicReturn<T>;

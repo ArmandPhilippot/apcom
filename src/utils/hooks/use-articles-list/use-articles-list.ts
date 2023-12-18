@@ -76,7 +76,7 @@ export const useArticlesList = (
     hasNextPage,
     isEmpty,
     isError,
-    isLoading,
+    isLoading: isLoading && !articles,
     isLoadingMore,
     isRefreshing,
     isValidating,
