@@ -222,7 +222,8 @@ const PostsListWithRef: ForwardRefRenderFunction<
       {total ? (
         <ProgressBar
           aria-label={progressInfo}
-          className={styles.progress}
+          // eslint-disable-next-line react/jsx-no-literals
+          className={`${styles.progress} js-only`}
           current={posts.length}
           isCentered
           isLoading={isLoading}
@@ -232,7 +233,8 @@ const PostsListWithRef: ForwardRefRenderFunction<
       ) : null}
       {onLoadMore && (!total || (total && posts.length < total)) ? (
         <Button
-          className={styles.btn}
+          // eslint-disable-next-line react/jsx-no-literals
+          className={`${styles.btn} js-only`}
           isLoading={isLoading}
           // eslint-disable-next-line react/jsx-no-literals
           kind="tertiary"

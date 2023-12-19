@@ -227,10 +227,6 @@
     "defaultMessage": "No results found. Would you like to try a new search?",
     "description": "SearchPage: no results"
   },
-  "EET/tC": {
-    "defaultMessage": "Loading the repository metadata...",
-    "description": "ProjectPage: loading repository metadata"
-  },
   "EH+dam": {
     "defaultMessage": "404: Not found",
     "description": "UseBreadcrumbs: page not found label"
@@ -371,6 +367,10 @@
     "defaultMessage": "Topics are loading...",
     "description": "BlogPage: loading topics message"
   },
+  "OzVOKP": {
+    "defaultMessage": "Loading the repository creation date...",
+    "description": "ProjectPage: loading repository metadata"
+  },
   "PnrHgZ": {
     "defaultMessage": "Home",
     "description": "SiteNavbar: main nav - home link"
@@ -407,6 +407,10 @@
     "defaultMessage": "License:",
     "description": "ProjectOverview: license label"
   },
+  "RfXzNe": {
+    "defaultMessage": "Loading the repository popularity...",
+    "description": "ProjectPage: loading repository metadata"
+  },
   "Sm2wCk": {
     "defaultMessage": "LinkedIn profile",
     "description": "CVPage: LinkedIn profile link"
@@ -418,6 +422,10 @@
   "UgJwSU": {
     "defaultMessage": "It has been approved.",
     "description": "PageComments: comment approved."
+  },
+  "VEHEEs": {
+    "defaultMessage": "Loading the repository update date...",
+    "description": "ProjectPage: loading repository metadata"
   },
   "VTJE8h": {
     "defaultMessage": "{author}'s avatar",
@@ -474,10 +482,6 @@
   "ZIrTee": {
     "defaultMessage": "Name:",
     "description": "CommentForm: name label"
-  },
-  "ZMES/E": {
-    "defaultMessage": "You can't load more articles without Javascript, please use the pagination instead.",
-    "description": "BlogPage: pagination no script message"
   },
   "ZcFroC": {
     "defaultMessage": "Thanks, your comment was successfully sent.",

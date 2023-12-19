@@ -64,14 +64,18 @@ import {
   useTopicsList,
 } from '../../../utils/hooks';
 
-const renderPaginationLink: RenderPaginationLink = (pageNum) =>
-  `${ROUTES.BLOG}${PAGINATED_ROUTE_PREFIX}/${pageNum}`;
+const renderPaginationLink: RenderPaginationLink = (pageNum) => {
+  if (pageNum === 1) return ROUTES.BLOG;
+
+  return `${ROUTES.BLOG}${PAGINATED_ROUTE_PREFIX}/${pageNum}`;
+};
 
 type BlogPageProps = {
   data: {
     posts: GraphQLConnection<WPPostPreview>;
     thematics: GraphQLConnection<WPThematicPreview>;
     topics: GraphQLConnection<WPTopicPreview>;
+    totalPosts: number;
   };
   lastCursor: Maybe<Nullable<string>>;
   pageNumber: number;
@@ -131,12 +135,6 @@ const Blog: FC<Pick<BlogPageProps, 'data' | 'lastCursor' | 'pageNumber'>> = ({
       }
     ),
     pagination: {
-      noJS: intl.formatMessage({
-        defaultMessage:
-          "You can't load more articles without Javascript, please use the pagination instead.",
-        description: 'BlogPage: pagination no script message',
-        id: 'ZMES/E',
-      }),
       title: intl.formatMessage({
         defaultMessage: 'Pagination',
         description: 'BlogPage: pagination accessible name',
@@ -266,7 +264,7 @@ const Blog: FC<Pick<BlogPageProps, 'data' | 'lastCursor' | 'pageNumber'>> = ({
       </Head>
       <PageHeader
         heading={messages.pageTitle}
-        meta={{ total: data.posts.pageInfo.total }}
+        meta={{ total: data.totalPosts }}
       />
       <PageBody>
         {articles ? (
@@ -295,12 +293,6 @@ const Blog: FC<Pick<BlogPageProps, 'data' | 'lastCursor' | 'pageNumber'>> = ({
           </Notice>
         ) : null}
         <noscript>
-          <Notice
-            // eslint-disable-next-line react/jsx-no-literals
-            kind="info"
-          >
-            {messages.pagination.noJS}
-          </Notice>
           <Pagination
             aria-label={messages.pagination.title}
             className={styles.pagination}
@@ -308,7 +300,7 @@ const Blog: FC<Pick<BlogPageProps, 'data' | 'lastCursor' | 'pageNumber'>> = ({
             isCentered
             renderItemAriaLabel={renderPaginationLabel}
             renderLink={renderPaginationLink}
-            total={data.posts.pageInfo.total}
+            total={Math.ceil(data.totalPosts / CONFIG.postsPerPage)}
           />
         </noscript>
       </PageBody>
@@ -390,10 +382,10 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
       },
     };
 
-  const lastCursor =
-    pageNumber > 1
-      ? await fetchLastPostCursor(CONFIG.postsPerPage * (pageNumber - 1))
-      : null;
+  const lastCursor = await fetchLastPostCursor(
+    CONFIG.postsPerPage * (pageNumber - 1)
+  );
+  const totalPosts = await fetchPostsCount();
   const posts = await fetchPostsList({
     first: CONFIG.postsPerPage,
     after: lastCursor,
@@ -410,6 +402,7 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async ({
         posts: JSON.parse(JSON.stringify(posts)),
         thematics,
         topics,
+        totalPosts,
       },
       lastCursor,
       pageNumber,

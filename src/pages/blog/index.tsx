@@ -55,8 +55,11 @@ import {
   useTopicsList,
 } from '../../utils/hooks';
 
-const renderPaginationLink: RenderPaginationLink = (pageNum) =>
-  `${ROUTES.BLOG}${PAGINATED_ROUTE_PREFIX}/${pageNum}`;
+const renderPaginationLink: RenderPaginationLink = (pageNum) => {
+  if (pageNum === 1) return ROUTES.BLOG;
+
+  return `${ROUTES.BLOG}${PAGINATED_ROUTE_PREFIX}/${pageNum}`;
+};
 
 type BlogPageProps = {
   data: {
@@ -113,12 +116,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
       id: '7TbbIk',
     }),
     pagination: {
-      noJS: intl.formatMessage({
-        defaultMessage:
-          "You can't load more articles without Javascript, please use the pagination instead.",
-        description: 'BlogPage: pagination no script message',
-        id: 'ZMES/E',
-      }),
       title: intl.formatMessage({
         defaultMessage: 'Pagination',
         description: 'BlogPage: pagination accessible name',
@@ -276,12 +273,6 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
           </Notice>
         ) : null}
         <noscript>
-          <Notice
-            // eslint-disable-next-line react/jsx-no-literals
-            kind="info"
-          >
-            {messages.pagination.noJS}
-          </Notice>
           <Pagination
             aria-label={messages.pagination.title}
             className={styles.pagination}
@@ -289,7 +280,7 @@ const BlogPage: NextPageWithLayout<BlogPageProps> = ({ data }) => {
             isCentered
             renderItemAriaLabel={renderPaginationLabel}
             renderLink={renderPaginationLink}
-            total={data.posts.pageInfo.total}
+            total={Math.ceil(data.posts.pageInfo.total / CONFIG.postsPerPage)}
           />
         </noscript>
       </PageBody>

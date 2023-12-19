@@ -227,10 +227,6 @@
     "defaultMessage": "Aucun résultat. Souhaitez-vous tenter une nouvelle rechercher ?",
     "description": "SearchPage: no results"
   },
-  "EET/tC": {
-    "defaultMessage": "Chargement des métadonnées du dépôt…",
-    "description": "ProjectPage: loading repository metadata"
-  },
   "EH+dam": {
     "defaultMessage": "404: Non trouvé",
     "description": "UseBreadcrumbs: page not found label"
@@ -371,6 +367,10 @@
     "defaultMessage": "Les sujets sont en cours de chargement…",
     "description": "BlogPage: loading topics message"
   },
+  "OzVOKP": {
+    "defaultMessage": "La date de création du dépôt est en cours de chargement…",
+    "description": "ProjectPage: loading repository metadata"
+  },
   "PnrHgZ": {
     "defaultMessage": "Accueil",
     "description": "SiteNavbar: main nav - home link"
@@ -407,6 +407,10 @@
     "defaultMessage": "Licence :",
     "description": "ProjectOverview: license label"
   },
+  "RfXzNe": {
+    "defaultMessage": "La popularité du dépôt est en cours de chargement…",
+    "description": "ProjectPage: loading repository metadata"
+  },
   "Sm2wCk": {
     "defaultMessage": "Profil LinkedIn",
     "description": "CVPage: LinkedIn profile link"
@@ -418,6 +422,10 @@
   "UgJwSU": {
     "defaultMessage": "Il a été approuvé.",
     "description": "PageComments: comment approved."
+  },
+  "VEHEEs": {
+    "defaultMessage": "La date de mise à jour du dépôt est en cours de chargement…",
+    "description": "ProjectPage: loading repository metadata"
   },
   "VTJE8h": {
     "defaultMessage": "Avatar de {author}",
@@ -474,10 +482,6 @@
   "ZIrTee": {
     "defaultMessage": "Nom :",
     "description": "CommentForm: name label"
-  },
-  "ZMES/E": {
-    "defaultMessage": "Vous ne pouvez pas charger plus d’articles sans Javascript, veuillez utiliser la pagination.",
-    "description": "BlogPage: pagination no script message"
   },
   "ZcFroC": {
     "defaultMessage": "Merci, votre commentaire a été envoyé avec succès.",

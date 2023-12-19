@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import {
   useRef,
   type FC,
@@ -53,6 +54,16 @@ export const Layout: FC<LayoutProps> = ({ children, isHome }) => {
 
   return (
     <>
+      <Head>
+        <noscript>
+          <style>
+            {/* eslint-disable-next-line react/jsx-no-literals */}
+            {`.js-only {
+                display: none !important;
+              }`}
+          </style>
+        </noscript>
+      </Head>
       <span id={topId} ref={topRef} tabIndex={-1} />
       <noscript>
         <div className={styles['noscript-spacing']} />
