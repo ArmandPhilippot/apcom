@@ -1,6 +1,7 @@
 @use "../../../../styles/abstracts/functions" as fun;
 
 .input {
+  flex: 1;
   border-right: none;
 }
 
@@ -39,6 +40,7 @@
 
 .form {
   display: flex;
+  flex-flow: row nowrap;
 
   &--no-label {
     .btn {
@@ -55,6 +57,8 @@
 }
 
 .field {
+  min-width: 0;
+
   &:focus-within ~ .btn {
     background: var(--color-bg);
     border-color: var(--color-primary);
