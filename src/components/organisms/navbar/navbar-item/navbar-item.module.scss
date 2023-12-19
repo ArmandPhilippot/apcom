@@ -74,27 +74,34 @@
     }
   }
 
-  &:checked + .label {
-    --draw-border-color1: var(--color-primary-dark);
-    --draw-border-color2: var(--color-primary-light);
+  &:checked {
+    + .label {
+      --draw-border-color1: var(--color-primary-dark);
+      --draw-border-color2: var(--color-primary-light);
 
-    .icon--hamburger {
-      > span {
-        background: transparent;
-        border: transparent;
+      .icon--hamburger {
+        > span {
+          background: transparent;
+          border: transparent;
 
-        &::before {
-          top: 40%;
-          transform-origin: 50% 50%;
-          transform: rotate(-45deg);
-        }
+          &::before {
+            top: 40%;
+            transform-origin: 50% 50%;
+            transform: rotate(-45deg);
+          }
 
-        &::after {
-          bottom: 40%;
-          transform-origin: 50% 50%;
-          transform: rotate(45deg);
+          &::after {
+            bottom: 40%;
+            transform-origin: 50% 50%;
+            transform: rotate(45deg);
+          }
         }
       }
+    }
+
+    ~ .overlay {
+      opacity: 1;
+      visibility: visible;
     }
   }
 
@@ -105,6 +112,10 @@
     }
 
     ~ .overlay {
+      opacity: 0;
+      overflow: hidden;
+      visibility: hidden;
+
       @include mix.media("screen") {
         @include mix.dimensions("sm") {
           overflow: visible;

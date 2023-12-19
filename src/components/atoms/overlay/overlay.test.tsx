@@ -8,14 +8,6 @@ describe('overlay', () => {
 
     render(<Overlay>{body}</Overlay>);
 
-    expect(screenTL.getByText(body)).toHaveClass('overlay--visible');
-  });
-
-  it('can be hidden', () => {
-    const body = 'vel aspernatur mollitia';
-
-    render(<Overlay isVisible={false}>{body}</Overlay>);
-
-    expect(screenTL.getByText(body)).toHaveClass('overlay--hidden');
+    expect(screenTL.getByText(body)).toBeInTheDocument();
   });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import {
   type ReactNode,
   useCallback,
@@ -11,6 +12,7 @@ import {
   useOnRouteChange,
   type useOnClickOutsideHandler,
   useTimeout,
+  useScrollLock,
 } from '../../../../utils/hooks';
 import {
   Checkbox,
@@ -115,6 +117,7 @@ const NavbarItemWithRef: ForwardRefRenderFunction<
   const modalRef = useOnClickOutside<HTMLDivElement>(deactivateItem);
 
   useOnRouteChange(deactivate, 'end');
+  useScrollLock(isActive);
 
   const handleActivation = useCallback(() => {
     if (onActivation) onActivation(isActive);
@@ -165,7 +168,7 @@ const NavbarItemWithRef: ForwardRefRenderFunction<
           </Flip>
         )}
       </Label>
-      <Overlay className={styles.overlay} isVisible={isActive}>
+      <Overlay className={styles.overlay}>
         <Modal
           className={styles.modal}
           heading={
