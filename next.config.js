@@ -174,6 +174,7 @@ const nextConfig = {
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
+  openAnalyzer: false,
 });
 
 const overrideHTMLTags = () => (tree) => {

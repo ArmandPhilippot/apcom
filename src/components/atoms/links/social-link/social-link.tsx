@@ -1,9 +1,27 @@
-import type { AnchorHTMLAttributes, FC } from 'react';
-import GithubIcon from '../../../../assets/images/social-media/github.svg';
-import GitlabIcon from '../../../../assets/images/social-media/gitlab.svg';
-import LinkedInIcon from '../../../../assets/images/social-media/linkedin.svg';
-import TwitterIcon from '../../../../assets/images/social-media/twitter.svg';
+import dynamic from 'next/dynamic';
+import type {
+  AnchorHTMLAttributes,
+  ComponentType,
+  FC,
+  SVGAttributes,
+} from 'react';
 import styles from './social-link.module.scss';
+
+const GithubIcon: ComponentType<SVGAttributes<SVGElement>> = dynamic(
+  async () => import('../../../../assets/images/social-media/github.svg')
+);
+
+const GitlabIcon: ComponentType<SVGAttributes<SVGElement>> = dynamic(
+  async () => import('../../../../assets/images/social-media/gitlab.svg')
+);
+
+const LinkedInIcon: ComponentType<SVGAttributes<SVGElement>> = dynamic(
+  async () => import('../../../../assets/images/social-media/linkedin.svg')
+);
+
+const TwitterIcon: ComponentType<SVGAttributes<SVGElement>> = dynamic(
+  async () => import('../../../../assets/images/social-media/twitter.svg')
+);
 
 export type SocialWebsite = 'Github' | 'Gitlab' | 'LinkedIn' | 'Twitter';
 

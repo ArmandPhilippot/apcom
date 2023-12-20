@@ -1,21 +1,62 @@
-import type { FC } from 'react';
-import {
-  ArrowIconPaths,
-  type ArrowOrientation,
-  CCBySAIconPaths,
-  CareerIconPaths,
-  CogIconPaths,
-  ComputerIconPaths,
-  EnvelopIconPaths,
-  FeedIconPaths,
-  HomeIconPaths,
-  MagnifyingGlassIconPaths,
-  MoonIconPaths,
-  PostsStackIconPaths,
-  SunIconPaths,
-  CrossIconPaths,
-  HelpIconPaths,
-} from './icons-paths';
+import dynamic from 'next/dynamic';
+import type { ComponentType, FC } from 'react';
+import type { ArrowOrientation, ArrowProps } from './icons-paths';
+
+const ArrowIconPaths: ComponentType<ArrowProps> = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.ArrowIconPaths)
+);
+
+const CCBySAIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.CCBySAIconPaths)
+);
+
+const CareerIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.CareerIconPaths)
+);
+
+const CogIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.CogIconPaths)
+);
+
+const ComputerIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.ComputerIconPaths)
+);
+
+const CrossIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.CrossIconPaths)
+);
+
+const EnvelopIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.EnvelopIconPaths)
+);
+
+const FeedIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.FeedIconPaths)
+);
+
+const HelpIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.HelpIconPaths)
+);
+
+const HomeIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.HomeIconPaths)
+);
+
+const MagnifyingGlassIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.MagnifyingGlassIconPaths)
+);
+
+const MoonIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.MoonIconPaths)
+);
+
+const PostsStackIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.PostsStackIconPaths)
+);
+
+const SunIconPaths = dynamic(async () =>
+  import('./icons-paths').then((mod) => mod.SunIconPaths)
+);
 
 export type SVGIconOrientation = ArrowOrientation;
 
