@@ -204,6 +204,13 @@
   &__body {
     grid-column: 2;
   }
+
+  /* Without nesting, Nextjs does not override margin: the CSS is bundle in the
+   * wrong order. */
+  .heading {
+    width: fit-content;
+    margin: var(--spacing-md) auto;
+  }
 }
 
 .spinner {
@@ -211,11 +218,6 @@
 }
 
 :where(.comments) {
-  .heading {
-    width: fit-content;
-    margin: var(--spacing-md) auto;
-  }
-
   .form {
     max-width: 40ch;
     margin-inline: auto;

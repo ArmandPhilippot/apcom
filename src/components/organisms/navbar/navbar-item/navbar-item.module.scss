@@ -2,23 +2,6 @@
 @use "../../../../styles/abstracts/mixins" as mix;
 @use "../../../../styles/abstracts/placeholders";
 
-.overlay {
-  @include mix.media("screen") {
-    @include mix.dimensions(null, "sm") {
-      bottom: var(--modal-pos, var(--btn-size, --default-btn-size));
-      display: flex;
-      flex-flow: row wrap;
-      place-content: flex-end;
-    }
-
-    @include mix.dimensions("sm") {
-      position: absolute;
-      inset: calc(100% + var(--spacing-2xs)) auto;
-      background: transparent;
-    }
-  }
-}
-
 .modal {
   transition:
     all 0.8s ease-in-out 0s,
@@ -58,88 +41,6 @@
   }
 }
 
-.checkbox {
-  position: absolute;
-
-  /* 6px = checkbox approximate size */
-  inset: calc(50% - 6px) calc(50% - 6px);
-  opacity: 0;
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    &,
-    + .label {
-      @extend %draw-borders;
-    }
-  }
-
-  &:checked {
-    + .label {
-      --draw-border-color1: var(--color-primary-dark);
-      --draw-border-color2: var(--color-primary-light);
-
-      .icon--hamburger {
-        > span {
-          background: transparent;
-          border: transparent;
-
-          &::before {
-            top: 40%;
-            transform-origin: 50% 50%;
-            transform: rotate(-45deg);
-          }
-
-          &::after {
-            bottom: 40%;
-            transform-origin: 50% 50%;
-            transform: rotate(45deg);
-          }
-        }
-      }
-    }
-
-    ~ .overlay {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-
-  &:not(:checked) {
-    + .label {
-      --draw-border-color1: var(--color-primary-light);
-      --draw-border-color2: var(--color-primary-lighter);
-    }
-
-    ~ .overlay {
-      opacity: 0;
-      overflow: hidden;
-      visibility: hidden;
-
-      @include mix.media("screen") {
-        @include mix.dimensions("sm") {
-          overflow: visible;
-          transition: all 0.3s ease-in-out 0.8s;
-        }
-      }
-
-      > .modal {
-        @include mix.media("screen") {
-          @include mix.dimensions(null, "sm") {
-            transform: translateX(-100vw);
-          }
-
-          @include mix.dimensions("sm") {
-            transform: scale(0) perspective(#{fun.convert-px(250)})
-              translate3d(0, 0, #{fun.convert-px(-250)});
-            transform-origin: var(--transform-origin, 15% -15%);
-          }
-        }
-      }
-    }
-  }
-}
-
 @mixin modal-visible {
   > .checkbox,
   > .label {
@@ -165,6 +66,107 @@
   --default-btn-size: #{fun.convert-px(70)};
 
   position: relative;
+
+  /* It needs to be nested because of wrong CSS ordering on production build. */
+  .overlay {
+    @include mix.media("screen") {
+      @include mix.dimensions(null, "sm") {
+        bottom: var(--modal-pos, var(--btn-size, --default-btn-size));
+        display: flex;
+        flex-flow: row wrap;
+        place-content: flex-end;
+      }
+
+      @include mix.dimensions("sm") {
+        position: absolute;
+        inset: calc(100% + var(--spacing-2xs)) auto;
+        background: transparent;
+      }
+    }
+  }
+
+  /* It needs to be nested because of wrong CSS ordering on production build. */
+  .checkbox {
+    position: absolute;
+
+    /* 6px = checkbox approximate size */
+    inset: calc(50% - 6px) calc(50% - 6px);
+    opacity: 0;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      &,
+      + .label {
+        @extend %draw-borders;
+      }
+    }
+
+    &:checked {
+      + .label {
+        --draw-border-color1: var(--color-primary-dark);
+        --draw-border-color2: var(--color-primary-light);
+
+        .icon--hamburger {
+          > span {
+            background: transparent;
+            border: transparent;
+
+            &::before {
+              top: 40%;
+              transform-origin: 50% 50%;
+              transform: rotate(-45deg);
+            }
+
+            &::after {
+              bottom: 40%;
+              transform-origin: 50% 50%;
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+
+      ~ .overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    &:not(:checked) {
+      + .label {
+        --draw-border-color1: var(--color-primary-light);
+        --draw-border-color2: var(--color-primary-lighter);
+      }
+
+      ~ .overlay {
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+
+        @include mix.media("screen") {
+          @include mix.dimensions("sm") {
+            overflow: visible;
+            transition: all 0.3s ease-in-out 0.8s;
+          }
+        }
+
+        > .modal {
+          @include mix.media("screen") {
+            @include mix.dimensions(null, "sm") {
+              transform: translateX(-100vw);
+            }
+
+            @include mix.dimensions("sm") {
+              transform: scale(0) perspective(#{fun.convert-px(250)})
+                translate3d(0, 0, #{fun.convert-px(-250)});
+              transform-origin: var(--transform-origin, 15% -15%);
+            }
+          }
+        }
+      }
+    }
+  }
 
   &--hidden-controller-sm {
     @include mix.media("screen") {

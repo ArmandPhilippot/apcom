@@ -141,7 +141,7 @@ const CVPage: NextPageWithLayout = () => {
       />
       <PageSidebar>
         <Toc
-          heading={<Heading level={3}>{messages.toc.title}</Heading>}
+          heading={<Heading level={2}>{messages.toc.title}</Heading>}
           tree={tree}
         />
       </PageSidebar>
@@ -151,19 +151,11 @@ const CVPage: NextPageWithLayout = () => {
       <PageSidebar>
         <ImageWidget
           description={messages.image.caption}
-          heading={
-            <Heading isFake level={3}>
-              {messages.image.title}
-            </Heading>
-          }
+          heading={<Heading level={2}>{messages.image.title}</Heading>}
           img={<NextImage {...data.image} />}
         />
         <SocialMediaWidget
-          heading={
-            <Heading isFake level={3}>
-              {messages.socialMedia.title}
-            </Heading>
-          }
+          heading={<Heading level={2}>{messages.socialMedia.title}</Heading>}
           media={[
             {
               icon: 'Github',

@@ -28,12 +28,11 @@ export type BreadcrumbsProps = Omit<NavProps, 'children'> & {
 const BreadcrumbsWithRef: ForwardRefRenderFunction<
   HTMLElement,
   BreadcrumbsProps
-> = ({ className = '', items, ...props }, ref) => {
-  const wrapperClass = `${styles.wrapper} ${className}`;
+> = ({ items, ...props }, ref) => {
   const sep = '>';
 
   return (
-    <Nav {...props} className={wrapperClass} ref={ref}>
+    <Nav {...props} ref={ref}>
       <NavList
         isInline
         isOrdered

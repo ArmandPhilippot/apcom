@@ -16,6 +16,7 @@ import {
   Time,
   MetaItem,
   Page,
+  GridItem,
 } from '../components';
 import { mdxComponents } from '../components/mdx';
 import HomePageContent, { meta } from '../content/pages/homepage.mdx';
@@ -23,6 +24,7 @@ import {
   convertRecentPostToRecentArticle,
   fetchRecentPosts,
 } from '../services/graphql';
+import styles from '../styles/pages/home.module.scss';
 import type { NextPageWithLayout, RecentArticle } from '../types';
 import { CONFIG } from '../utils/config';
 import { ROUTES } from '../utils/constants';
@@ -82,34 +84,42 @@ const RecentPosts: FC<RecentPostsProps> = ({ posts }): JSX.Element => {
         );
 
         return (
-          <Card
-            aria-label={cardLabel}
-            cover={
-              post.cover ? (
-                <CardCover aria-label={coverLabel} hasBorders>
-                  <NextImage {...post.cover} />
-                </CardCover>
-              ) : undefined
-            }
-            key={post.id}
-            meta={
-              <CardMeta isCentered>
-                <MetaItem
-                  hasBorderedValues
-                  isCentered
-                  label={publicationDate}
-                  value={<Time date={post.publicationDate} />}
-                />
-              </CardMeta>
-            }
-            isCentered
-            linkTo={postUrl}
-          >
-            <CardHeader>
-              <CardTitle level={3}>{post.title}</CardTitle>
-            </CardHeader>
-            <CardFooter />
-          </Card>
+          <GridItem key={post.id}>
+            <Card
+              aria-label={cardLabel}
+              className={styles.card}
+              cover={
+                post.cover ? (
+                  <CardCover aria-label={coverLabel} hasBorders>
+                    <NextImage
+                      {...post.cover}
+                      // eslint-disable-next-line react/jsx-no-literals
+                      alt=""
+                      // eslint-disable-next-line react/jsx-no-literals
+                      title=""
+                    />
+                  </CardCover>
+                ) : undefined
+              }
+              meta={
+                <CardMeta isCentered>
+                  <MetaItem
+                    hasBorderedValues
+                    isCentered
+                    label={publicationDate}
+                    value={<Time date={post.publicationDate} />}
+                  />
+                </CardMeta>
+              }
+              isCentered
+              linkTo={postUrl}
+            >
+              <CardHeader>
+                <CardTitle level={3}>{post.title}</CardTitle>
+              </CardHeader>
+              <CardFooter />
+            </Card>
+          </GridItem>
         );
       })}
     </Grid>
