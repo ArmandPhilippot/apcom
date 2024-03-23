@@ -10,7 +10,7 @@
     @include mix.dimensions("md") {
       display: grid;
       grid-template-columns: var(--col1, auto) minmax(0, 1fr);
-      align-items: first baseline;
+      align-items: start;
       gap: var(--gap, var(--spacing-lg));
     }
   }
