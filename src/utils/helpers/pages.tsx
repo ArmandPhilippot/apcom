@@ -52,7 +52,12 @@ export const getPostsWithUrl = (posts: ArticlePreview[]): PostData[] =>
   posts.map(({ id, intro, meta, slug, title, ...post }) => {
     return {
       ...post,
-      cover: meta.cover ? <NextImage {...meta.cover} /> : undefined,
+      cover: meta.cover ? (
+        <NextImage
+          {...meta.cover}
+          unoptimized={meta.cover.src.endsWith('.gif')}
+        />
+      ) : undefined,
       excerpt: intro,
       heading: title,
       id,

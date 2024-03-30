@@ -46,6 +46,7 @@ const Img = ({
         height={typeof height === 'string' ? Number(height) : height}
         src={src}
         width={typeof width === 'string' ? Number(width) : width}
+        unoptimized={src.endsWith('.gif')}
       />
     );
 
