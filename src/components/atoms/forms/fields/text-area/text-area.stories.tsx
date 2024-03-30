@@ -1,4 +1,4 @@
-import { useArgs } from '@storybook/client-api';
+import { useArgs } from '@storybook/manager-api';
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ChangeEvent, useCallback } from 'react';
 import { TextArea, type TextAreaProps } from './text-area';
@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const ControlledTextArea = ({ value, ...args }: TextAreaProps) => {
-  const [_, updateArgs] = useArgs<TextAreaProps>();
+  const [_, updateArgs] = useArgs();
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {

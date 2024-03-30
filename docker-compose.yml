@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   apcom:
     image: ${APP_DOCKER_REGISTRY_DOMAIN}/apcom

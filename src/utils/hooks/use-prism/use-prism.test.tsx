@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
-import type { PropsWithChildren, ReactElement } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { type IntlConfig, IntlProvider } from 'react-intl';
 import {
   type PrismLanguage,
@@ -11,7 +11,7 @@ import {
 } from './use-prism';
 
 type WrapperProps = {
-  children: ReactElement<unknown>;
+  children: ReactNode;
 };
 
 const createWrapper = (

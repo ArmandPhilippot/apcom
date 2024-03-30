@@ -12,9 +12,11 @@
  * @see https://mswjs.io/docs/migrations/1.x-to-2.x#requestresponsetextencoder-is-not-defined-jest
  */
 
+const { ReadableStream } = require('node:stream/web');
 const { TextDecoder, TextEncoder } = require('node:util');
 
 Object.defineProperties(globalThis, {
+  ReadableStream: { value: ReadableStream },
   TextDecoder: { value: TextDecoder },
   TextEncoder: { value: TextEncoder },
 });

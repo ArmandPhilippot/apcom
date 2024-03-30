@@ -1,6 +1,6 @@
 import { describe, it, jest } from '@jest/globals';
 import { render } from '@testing-library/react';
-import { forwardRef, useImperativeHandle } from 'react';
+import { type RefCallback, forwardRef, useImperativeHandle } from 'react';
 import { mergeRefs } from './refs';
 
 const refValue = 'minus architecto qui';
@@ -12,7 +12,7 @@ TestComponentWithForwardedRef.displayName = 'TestComponentWithForwardedRef';
 
 describe('merge-refs', () => {
   it('can merge a ref function with a ref object', () => {
-    const refFn = jest.fn();
+    const refFn = jest.fn<RefCallback<{ current: 'foo' }>>();
     const refObj = { current: null };
 
     const TestComponent = () => (
