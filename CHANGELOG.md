@@ -1,6 +1,50 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [2.1.0](https://github.com/ArmandPhilippot/apcom/compare/v2.0.0...v2.1.0) (2024-03-31)
+
+
+### Features
+
+* **components:** add a Colophon component ([98044be](https://github.com/ArmandPhilippot/apcom/commit/98044be08600daf6bd7c7e1a4adada319dbcbbaf))
+* **components:** add a generic Flip component ([d75b9a1](https://github.com/ArmandPhilippot/apcom/commit/d75b9a1e150ab211c1052fb49bede9bd16320aca))
+* **components:** add a generic Grid component ([94448fa](https://github.com/ArmandPhilippot/apcom/commit/94448fa278ab352a741ff13f22d6104869571144))
+* **components:** add a Help icon shape ([9eeb491](https://github.com/ArmandPhilippot/apcom/commit/9eeb49155e2e74df4d5cb2833da20669b85fafe5))
+* **components:** add a Time component ([00f147a](https://github.com/ArmandPhilippot/apcom/commit/00f147a7a687d5772bcc538bc606cfff972178cd))
+* **components:** add a VisuallyHidden component ([a724b4b](https://github.com/ArmandPhilippot/apcom/commit/a724b4b38bacc631410627395b0d1190a0e8de0d))
+* **components:** add an option to CommentsList to forbid replies ([4bdbca8](https://github.com/ArmandPhilippot/apcom/commit/4bdbca861293357bb7928c6c7a5990be9f37380b))
+* **components:** add an Overlay component ([2844a2b](https://github.com/ArmandPhilippot/apcom/commit/2844a2bd71dcf1eb17a53992c10129b7496332e0))
+* **components:** add Article, Aside, Footer, Header, Main & Nav ([d17d894](https://github.com/ArmandPhilippot/apcom/commit/d17d894f398650209c0ddd29502308de8c07bd93))
+* **components:** replace icons with a generic Icon component ([837e0e9](https://github.com/ArmandPhilippot/apcom/commit/837e0e904c40f7b87561c34ca3f49edd5d8d1c52))
+* **hooks:** add an useForm hook ([ddd45e2](https://github.com/ArmandPhilippot/apcom/commit/ddd45e29745b73e7fe1684e197dcff598b375644))
+* **hooks:** add an useTimeout hook ([e2daf7f](https://github.com/ArmandPhilippot/apcom/commit/e2daf7f81789c54b23ade72bd164492e7304d375))
+* **hooks:** add useBoolean and useToggle hooks ([84a679b](https://github.com/ArmandPhilippot/apcom/commit/84a679b0e48ed76eee2fa44d3caac83591aa3c8c))
+* replace next-themes with a custom ThemeProvider ([05f1dfc](https://github.com/ArmandPhilippot/apcom/commit/05f1dfc6896d3affa7c494a1b955f230d836a4b7))
+
+
+### Bug Fixes
+
+* **branding:** do not reanimate branding on route change ([b0ebd69](https://github.com/ArmandPhilippot/apcom/commit/b0ebd69d5b5f6dfed4e82528dff1b913a4240dc8))
+* **build:** handle Next.js errors and warnings during build ([bb2f79e](https://github.com/ArmandPhilippot/apcom/commit/bb2f79e09dd4776d611e4751ede1cbb43340fba0))
+* **components:** align correctly years and posts list ([8e771a6](https://github.com/ArmandPhilippot/apcom/commit/8e771a6a5c237cd2ea94131dbad084bcda3deccc))
+* **components:** do not optimize animated images ([10a4c1b](https://github.com/ArmandPhilippot/apcom/commit/10a4c1ba646479b16ada754ed58ba21d6d8c5c6f))
+* **components:** make navbar usable with javascript disabled ([fc77c0a](https://github.com/ArmandPhilippot/apcom/commit/fc77c0a7e9c81f5bc1a69dee945ce71b9511b3cc))
+* **components:** prevent search form overflow on small devices ([5e5cb43](https://github.com/ArmandPhilippot/apcom/commit/5e5cb43a5fdd0c37f7acd5b5f4ba5f6675fb6b22))
+* generate an id for each headings in the page main contents ([6ab9635](https://github.com/ArmandPhilippot/apcom/commit/6ab9635a22d69186c8a24181ad5df7736e288577)), closes [#be4d907](https://github.com/ArmandPhilippot/apcom/issues/be4d907)
+* **layout:** refine pagination when JS is disabled ([67ac79f](https://github.com/ArmandPhilippot/apcom/commit/67ac79f8ba2ea900ec0ac67e56387889ee887a48))
+* **layout:** reset focus on route change ([9dfbd6e](https://github.com/ArmandPhilippot/apcom/commit/9dfbd6e7e8749543b318fc7937501d102129bd1b))
+* **pages,services:** make thematics & topics pages usable again ([dfa894b](https://github.com/ArmandPhilippot/apcom/commit/dfa894b76ee3584bf169710c78c57330c5d6ee67)), closes [#f111685](https://github.com/ArmandPhilippot/apcom/issues/f111685) [#70b4f63](https://github.com/ArmandPhilippot/apcom/issues/70b4f63)
+* **pages:** add default settings to html tag ([d61a572](https://github.com/ArmandPhilippot/apcom/commit/d61a572f08321419ac3273d0d0e0191ff2b193e9))
+* **pages:** do not show spinner when data are available ([d7f9284](https://github.com/ArmandPhilippot/apcom/commit/d7f92841232c257279106c8eef226ce8ea74ecd0))
+* **pages:** redirect /feed to /feed.xml ([9c6265b](https://github.com/ArmandPhilippot/apcom/commit/9c6265b33a7bb31936e3c9d6dcf415e11a6db752))
+* **pages:** use dynamic imports for the table of contents ([d592085](https://github.com/ArmandPhilippot/apcom/commit/d592085dc0fec023dd9f3437d4c756d402ed8c8f))
+* **projects:** load content dynamically and refresh table of contents ([a5e6692](https://github.com/ArmandPhilippot/apcom/commit/a5e6692f6dcab2157dc92b509f61418c06b2ebd7))
+* remove rehype-sanitize to avoid broken layouts ([9a481f0](https://github.com/ArmandPhilippot/apcom/commit/9a481f066e1427d53a06cf7aeec525a745abf03f))
+* **services,types:** make coherent Thematic type and query ([f564d18](https://github.com/ArmandPhilippot/apcom/commit/f564d181bc428e25a02bf1d98c4449a6b3eb8e9e))
+* **services,types:** make queries and types coherent for Topic ([29a1dec](https://github.com/ArmandPhilippot/apcom/commit/29a1dec4de0aa7ba64ef068a83b1b8589fbc3ad0))
+* **styles:** increase CSS specifity for some selectors ([eef0dd0](https://github.com/ArmandPhilippot/apcom/commit/eef0dd0fafa5dbbbd29f2162967bc668eebf6074))
+* **types:** add custom types to pageProps with translation ([08c7b3d](https://github.com/ArmandPhilippot/apcom/commit/08c7b3d0eb2ced622cdd3c4d14a3958ac8161cb8))
 
 ## [2.0.0](https://github.com/ArmandPhilippot/apcom/compare/v1.1.0...v2.0.0) (2022-08-21)
 
