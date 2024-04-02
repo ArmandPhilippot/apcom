@@ -14,7 +14,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY .yarn .yarnrc.yml package.json yarn.lock ./
-RUN yarn install --frozen-lockfile && yarn cache clean
+RUN yarn install --immutable
 
 # Rebuild the source code only when needed
 FROM base AS builder
