@@ -134,7 +134,7 @@
     "stylelint-config-standard": "^36.0.0",
     "stylelint-config-standard-scss": "^13.0.0",
     "typescript": "^5.4.3",
-    "undici": "^6.10.2",
+    "undici": "^6.11.1",
     "webpack": "^5.91.0"
   },
   "msw": {
