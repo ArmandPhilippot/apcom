@@ -23,7 +23,42 @@ const TwitterIcon: ComponentType<SVGAttributes<SVGElement>> = dynamic(
   async () => import('../../../../assets/images/social-media/twitter.svg')
 );
 
+/**
+ * Retrieve a social link icon by id.
+ * @param {string} id - The social website id.
+ */
+const getIcon = (id: string) => {
+  switch (id) {
+    case 'Github':
+      return <GithubIcon aria-hidden className={styles.icon} />;
+    case 'Gitlab':
+      return <GitlabIcon aria-hidden className={styles.icon} />;
+    case 'LinkedIn':
+      return <LinkedInIcon aria-hidden className={styles.icon} />;
+    case 'Twitter':
+    default:
+      return <TwitterIcon aria-hidden className={styles.icon} />;
+  }
+};
+
 export type SocialWebsite = 'Github' | 'Gitlab' | 'LinkedIn' | 'Twitter';
+
+const resolveUrl = (id: string, url: string) => {
+  if (url.startsWith('http')) return url;
+
+  switch (id) {
+    case 'Github':
+      return `https://github.com/${url}`;
+    case 'Gitlab':
+      return `https://gitlab.com/${url}`;
+    case 'LinkedIn':
+      return `https://www.linkedin.com/${url}`;
+    case 'Twitter':
+      return `https://www.twitter.com/${url}`;
+    default:
+      return url;
+  }
+};
 
 export type SocialLinkProps = Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -57,26 +92,13 @@ export const SocialLink: FC<SocialLinkProps> = ({
 }) => {
   const linkClass = `${styles.link} ${className}`;
 
-  /**
-   * Retrieve a social link icon by id.
-   * @param {string} id - The social website id.
-   */
-  const getIcon = (id: string) => {
-    switch (id) {
-      case 'Github':
-        return <GithubIcon aria-hidden className={styles.icon} />;
-      case 'Gitlab':
-        return <GitlabIcon aria-hidden className={styles.icon} />;
-      case 'LinkedIn':
-        return <LinkedInIcon aria-hidden className={styles.icon} />;
-      case 'Twitter':
-      default:
-        return <TwitterIcon aria-hidden className={styles.icon} />;
-    }
-  };
-
   return (
-    <a {...props} aria-label={label} className={linkClass} href={url}>
+    <a
+      {...props}
+      aria-label={label}
+      className={linkClass}
+      href={resolveUrl(icon, url)}
+    >
       {getIcon(icon)}
     </a>
   );
