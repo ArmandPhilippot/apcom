@@ -1,6 +1,11 @@
 # APcom
 
-The source code of [my personal website](https://www.armandphilippot.com/).
+The source code of my old website.
+
+> [!WARNING]
+> This repository is no longer maintained!
+> 
+> For my new website, you should take a look at: https://github.com/ArmandPhilippot/apeu
 
 ## Introduction
 
